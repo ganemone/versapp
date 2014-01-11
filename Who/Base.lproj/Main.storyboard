@@ -8,8 +8,8 @@
         <scene sceneID="Vex-rW-GRa">
             <objects>
                 <tabBarController id="8YX-ce-x5E" sceneMemberID="viewController">
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="JQR-rB-NYL">
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" id="JQR-rB-NYL">
                         <rect key="frame" x="0.0" y="431" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -25,10 +25,10 @@
             </objects>
             <point key="canvasLocation" x="132" y="180"/>
         </scene>
-        <!--Table View Controller - Invite-->
+        <!--Contacts View Controller - Invite-->
         <scene sceneID="ODG-ub-ds4">
             <objects>
-                <tableViewController title="Invite" id="Dt2-OX-Nj9" sceneMemberID="viewController">
+                <tableViewController title="Invite" id="Dt2-OX-Nj9" customClass="ContactsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="TQU-0j-q2w">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -54,7 +54,7 @@
         <scene sceneID="ZTl-OL-gOB">
             <objects>
                 <navigationController title="Invite" definesPresentationContext="YES" id="lUD-tm-9dk" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="5bH-eI-Dfm"/>
+                    <tabBarItem key="tabBarItem" title="Invite" id="5bH-eI-Dfm"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="327-5K-dbf">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -66,10 +66,10 @@
             </objects>
             <point key="canvasLocation" x="669" y="1587"/>
         </scene>
-        <!--Table View Controller - Notifications-->
+        <!--Requests View Controller - Notifications-->
         <scene sceneID="9oN-nR-eot">
             <objects>
-                <tableViewController title="Notifications" id="ekD-rM-6X5" sceneMemberID="viewController">
+                <tableViewController title="Notifications" id="ekD-rM-6X5" customClass="RequestsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hIB-Dl-HFh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -91,10 +91,10 @@
             </objects>
             <point key="canvasLocation" x="1205" y="-535"/>
         </scene>
-        <!--Table View Controller - Messages-->
+        <!--Dashboard View Controller - Messages-->
         <scene sceneID="rKg-I5-SQE">
             <objects>
-                <tableViewController title="Messages" id="WU8-uI-F4b" sceneMemberID="viewController">
+                <tableViewController title="Messages" id="WU8-uI-F4b" customClass="DashboardViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="gmU-dc-D57">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -116,10 +116,10 @@
             </objects>
             <point key="canvasLocation" x="1205" y="180"/>
         </scene>
-        <!--Table View Controller - Friends-->
+        <!--Friends View Controller - Friends-->
         <scene sceneID="G75-27-pJ7">
             <objects>
-                <tableViewController title="Friends" id="3aX-9q-IPd" sceneMemberID="viewController">
+                <tableViewController title="Friends" id="3aX-9q-IPd" customClass="FriendsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="tTc-Nr-doF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -145,7 +145,7 @@
         <scene sceneID="Cvx-aK-e4l">
             <objects>
                 <navigationController title="Friends" definesPresentationContext="YES" id="c10-xT-pOh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Hf7-In-jGn"/>
+                    <tabBarItem key="tabBarItem" systemItem="contacts" id="Hf7-In-jGn"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YDa-Yd-i6W">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -161,7 +161,7 @@
         <scene sceneID="0H2-vL-YPp">
             <objects>
                 <navigationController title="Messages" definesPresentationContext="YES" id="6hB-wd-WqN" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="pBu-hS-oZF"/>
+                    <tabBarItem key="tabBarItem" title="Messages" id="pBu-hS-oZF"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MIn-cp-Umf">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -177,7 +177,7 @@
         <scene sceneID="22y-RF-Gaz">
             <objects>
                 <navigationController title="Notifications" definesPresentationContext="YES" id="RGF-3O-Icv" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="IxQ-q0-3lI"/>
+                    <tabBarItem key="tabBarItem" title="Notifications" image="first" id="IxQ-q0-3lI"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YPT-eo-Lwi">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -190,6 +190,9 @@
             <point key="canvasLocation" x="671" y="-536"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="first" width="30" height="30"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

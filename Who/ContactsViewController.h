@@ -1,5 +1,5 @@
 //
-//  FirstViewController.h
+//  ContactsViewController.h
 //  Who
 //
 //  Created by Giancarlo Anemone on 1/11/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FirstViewController : UIViewController
+@interface ContactsViewController : UITableViewController
 
 @end
