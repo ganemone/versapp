@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "XMPPStream.h"
 
-@interface ConnectionProvider : NSObject
+@interface ConnectionProvider : NSObject <XMPPStreamDelegate>
+
+-(void) connect:(NSString*)username;
 
 @end

@@ -7,7 +7,20 @@
 //
 
 #import "RequestsViewController.h"
+#import "ConnectionProvider.h"
+
+@interface RequestsViewController ()
+
+@property(nonatomic, strong) ConnectionProvider *connectionProvider;
+
+@end
 
 @implementation RequestsViewController
+
+- (IBAction)testConnection:(id)sender {
+    self.connectionProvider = [[ConnectionProvider alloc]init];
+    [self.connectionProvider connect:@"12695998050"];
+}
+
 
 @end
