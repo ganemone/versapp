@@ -47,7 +47,7 @@ static ConnectionProvider *selfInstance;
     [self.xmppStream setHostName:self.SERVER_IP_ADDRESS];
     self.username = username;
     self.password = password;
-    [self.xmppStream setMyJID:[XMPPJID jidWithString:[NSString stringWithFormat:@"%@%@", self.username, self.SERVER_IP_ADDRESS]]];
+    self.xmppStream.myJID = [XMPPJID jidWithString:[NSString stringWithFormat:@"%@@%@", self.username, self.SERVER_IP_ADDRESS]];
     NSError *error = nil;
     if(![self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error]) {
         NSLog(@"Failed to connection due to some error %@", error);
@@ -87,8 +87,15 @@ static ConnectionProvider *selfInstance;
     //[sender sendElement:presence];
 }
 
--(void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error {
+-(void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error
+{
     NSLog(@"XMPPStream Disconnected.  Error: %@", error);
+}
+
+// May want to set the self instance to nil and remove self as delegate
+-(void)disconnect
+{
+    [self.xmppStream disconnect];
 }
 
 @end

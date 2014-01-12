@@ -22,6 +22,8 @@
 // passed as parameters.
 - (void) connect:(NSString*)username password:(NSString*)password;
 
+- (void) disconnect;
+
 - (XMPPStream*) getConnection;
 
 @end
