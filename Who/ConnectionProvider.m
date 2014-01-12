@@ -43,11 +43,12 @@ static ConnectionProvider *selfInstance;
 - (void) connect: (NSString*)username password:(NSString*) password
 {
     NSLog(@"Server IP Address %@", self.SERVER_IP_ADDRESS);
+    self.SERVER_IP_ADDRESS = @"199.175.55.10";
     [self addStreamDelegate];
     [self.xmppStream setHostName:self.SERVER_IP_ADDRESS];
     self.username = username;
     self.password = password;
-    [self.xmppStream setMyJID:[XMPPJID jidWithString:[NSString stringWithFormat:@"%@%@", self.username, self.SERVER_IP_ADDRESS]]];
+    self.xmppStream.myJID = [XMPPJID jidWithString:[NSString stringWithFormat:@"%@%@", self.username, self.SERVER_IP_ADDRESS]]];
     NSError *error = nil;
     if(![self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error]) {
         NSLog(@"Failed to connection due to some error %@", error);
