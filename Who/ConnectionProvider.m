@@ -12,9 +12,10 @@
 
 @interface ConnectionProvider ()
 
-@property XMPPStream* xmppStream;
-@property NSString* username;
-@property NSString* password;
+@property(nonatomic, strong) XMPPStream* xmppStream;
+@property(nonatomic, strong) NSString* username;
+@property(nonatomic, strong) NSString* password;
+@property(nonatomic, strong) NSString* SERVER_IP_ADDRESS;
 
 @end
 
@@ -24,49 +25,50 @@ static ConnectionProvider *selfInstance;
 
 // Class method (+) for getting instance of Connection Provider
 + (id)getInstance {
-    static ConnectionProvider *myInstance = nil;
     @synchronized(self) {
-        if(myInstance == nil) {
-            myInstance = [[self alloc] init];
+        if(selfInstance == nil) {
+            selfInstance = [[self alloc] init];
+            selfInstance.SERVER_IP_ADDRESS = @"199.175.55.10";
         }
     }
-    return myInstance;
+    return selfInstance;
+}
+
+// Returns connection stream object
+- (XMPPStream *)getConnection
+{
+    return self.xmppStream;
 }
 
 - (void) connect: (NSString*)username password:(NSString*) password
 {
-    [self setUpStream];
-    [self addConnectInfo:"a"];
-    
+    NSLog(@"Server IP Address %@", self.SERVER_IP_ADDRESS);
+    [self addStreamDelegate];
+    [self.xmppStream setHostName:self.SERVER_IP_ADDRESS];
+    self.username = username;
+    self.password = password;
+    [self.xmppStream setMyJID:[XMPPJID jidWithString:[NSString stringWithFormat:@"%@%@", self.username, self.SERVER_IP_ADDRESS]]];
     NSError *error = nil;
-    if(![_xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error]) {
+    if(![self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error]) {
         NSLog(@"Failed to connection due to some error %@", error);
     } else {
-        NSLog(@"Connection Successfully");
+        NSLog(@"Connected Successfully");
     }
 }
 
-- (void) setUpStream
+- (void) addStreamDelegate
 {
-    if(_xmppStream == nil) {
-        _xmppStream = [[XMPPStream alloc] init];
+    if(self.xmppStream == nil) {
+        self.xmppStream = [[XMPPStream alloc] init];
     }
-    
-    [_xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
-}
-
-- (void) addConnectInfo: (char*)username
-{
-    NSString *formattedUsername = [NSString stringWithFormat:@"%c@199.175.55.10", *username];
-    _xmppStream.myJID = [XMPPJID jidWithString:formattedUsername];
-    _xmppStream.hostName = @"199.175.55.10";
+    [self.xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
 }
 
 - (void)xmppStreamDidConnect:(XMPPStream *)sender
 {
     NSError *error;
-    NSString *password = @"a";
-    if ([[self xmppStream] authenticateWithPassword:password error:&error])
+    NSLog(@"XMPP Stream Did Connect");
+    if ([[self xmppStream] authenticateWithPassword:self.password error:&error])
     {
         NSLog(@"Authentificated to XMPP.");
     }
@@ -78,16 +80,15 @@ static ConnectionProvider *selfInstance;
 
 - (void)xmppStreamDidAuthenticate:(XMPPStream *)sender
 {
-    NSLog(@"Successfully Authenticated");
+    NSLog(@"XMPP Stream Did Authenticate");
     NSLog(@"%s", __FUNCTION__);
-    
-    [_xmppStream disconnect];
+    [self.xmppStream disconnect];
     //XMPPPresence *presence = [XMPPPresence presenceWithType:@"available"];
     //[sender sendElement:presence];
 }
 
-
-
-
+-(void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error {
+    NSLog(@"XMPPStream Disconnected.  Error: %@", error);
+}
 
 @end

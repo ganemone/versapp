@@ -18,8 +18,8 @@
 @implementation RequestsViewController
 
 - (IBAction)testConnection:(id)sender {
-    self.connectionProvider = [[ConnectionProvider alloc]init];
-    [self.connectionProvider connect:@"12695998050"];
+    self.connectionProvider = [ConnectionProvider getInstance];
+    [self.connectionProvider connect:@"12695998050" password:@"a"];
 }
 
 
