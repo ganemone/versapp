@@ -11,6 +11,8 @@
 
 @interface ConnectionProvider : NSObject <XMPPStreamDelegate>
 
--(void) connect:(NSString*)username;
+-(void) connect:(NSString*)username password:(NSString*)password;
+
++ (id) getInstance;
 
 @end

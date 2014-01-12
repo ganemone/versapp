@@ -13,12 +13,27 @@
 @interface ConnectionProvider ()
 
 @property XMPPStream* xmppStream;
+@property NSString* username;
+@property NSString* password;
 
 @end
 
+static ConnectionProvider *selfInstance;
+
 @implementation ConnectionProvider
 
-- (void) connect: (NSString*)username
+// Class method (+) for getting instance of Connection Provider
++ (id)getInstance {
+    static ConnectionProvider *myInstance = nil;
+    @synchronized(self) {
+        if(myInstance == nil) {
+            myInstance = [[self alloc] init];
+        }
+    }
+    return myInstance;
+}
+
+- (void) connect: (NSString*)username password:(NSString*) password
 {
     [self setUpStream];
     [self addConnectInfo:"a"];
