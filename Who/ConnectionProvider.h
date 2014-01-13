@@ -15,6 +15,8 @@
 // allow for helpful callback methods.
 @interface ConnectionProvider : NSObject <XMPPStreamDelegate>
 
+@property(strong, nonatomic) UIViewController *controller;
+
 // Singleton pattern - returns shared instance of connectionProvider.
 + (id) getInstance;
 
@@ -25,5 +27,7 @@
 - (void) disconnect;
 
 - (XMPPStream*) getConnection;
+
+- (void) addStreamDelegate: (id)streamDelegate;
 
 @end

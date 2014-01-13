@@ -9,13 +9,15 @@
 #import "ConnectionProvider.h"
 #import "XMPPJID.h"
 #import "XMPPPresence.h"
+#import "MainTabBarController.h"
+#import "RequestsViewController.h"
 
 @interface ConnectionProvider ()
 
-@property(nonatomic, strong) XMPPStream* xmppStream;
-@property(nonatomic, strong) NSString* username;
-@property(nonatomic, strong) NSString* password;
-@property(nonatomic, strong) NSString* SERVER_IP_ADDRESS;
+@property(strong, nonatomic) XMPPStream* xmppStream;
+@property(strong, nonatomic) NSString* username;
+@property(strong, nonatomic) NSString* password;
+@property(strong, nonatomic) NSString* SERVER_IP_ADDRESS;
 
 @end
 
@@ -44,7 +46,7 @@ static ConnectionProvider *selfInstance;
 {
     NSLog(@"Server IP Address %@", self.SERVER_IP_ADDRESS);
     self.SERVER_IP_ADDRESS = @"199.175.55.10";
-    [self addStreamDelegate];
+    [self addSelfStreamDelegate];
     [self.xmppStream setHostName:self.SERVER_IP_ADDRESS];
     self.username = username;
     self.password = password;
@@ -57,12 +59,17 @@ static ConnectionProvider *selfInstance;
     }
 }
 
-- (void) addStreamDelegate
+- (void) addSelfStreamDelegate
 {
     if(self.xmppStream == nil) {
         self.xmppStream = [[XMPPStream alloc] init];
     }
     [self.xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
+}
+
+- (void) addStreamDelegate: (id)streamDelegate
+{
+    [self.xmppStream addDelegate:streamDelegate delegateQueue:dispatch_get_main_queue()];
 }
 
 - (void)xmppStreamDidConnect:(XMPPStream *)sender
@@ -83,9 +90,10 @@ static ConnectionProvider *selfInstance;
 {
     NSLog(@"XMPP Stream Did Authenticate");
     NSLog(@"%s", __FUNCTION__);
-    [self.xmppStream disconnect];
-    //XMPPPresence *presence = [XMPPPresence presenceWithType:@"available"];
-    //[sender sendElement:presence];
+    //MainTabBarController *main = [[MainTabBarController alloc] init];
+    RequestsViewController *main = [[RequestsViewController alloc] init];
+    NSLog(@"Initialized Main Tab Bar Controller");
+    [self.controller presentViewController:main animated:YES completion:NULL];
 }
 
 -(void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error
