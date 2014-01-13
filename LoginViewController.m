@@ -21,16 +21,4 @@
 
 @implementation LoginViewController
 
-- (IBAction)login:(id)sender
-{
-    self.connectionProviderInstance = [ConnectionProvider getInstance];
-    [self.connectionProviderInstance setController:self];
-    [self.connectionProviderInstance connect:self.username.text password:self.password.text];
-}
-
-- (IBAction)test:(id)sender {
-    MainTabBarController *main = [[MainTabBarController alloc] initWithNibName:@"MainTabBarController" bundle:nil];
-    [self presentViewController:main animated:YES completion:NULL];
-}
-
 @end

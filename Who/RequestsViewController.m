@@ -17,11 +17,4 @@
 
 @implementation RequestsViewController
 
-- (IBAction)testConnection:(id)sender {
-    //self.connectionProvider = [ConnectionProvider getInstance];
-    self.connectionProvider = [[ConnectionProvider alloc] init];
-    [self.connectionProvider connect:@"123456789" password:@"a"];
-}
-
-
 @end
