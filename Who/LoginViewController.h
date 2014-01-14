@@ -2,12 +2,13 @@
 //  LoginViewController.h
 //  Who
 //
-//  Created by Giancarlo Anemone on 1/13/14.
+//  Created by Giancarlo Anemone on 1/12/14.
 //  Copyright (c) 2014 Giancarlo Anemone. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import "XMPPStream.h"
 
-@interface LoginViewController : UIViewController
+@interface LoginViewController : UIViewController <XMPPStreamDelegate>
 
 @end
