@@ -11,4 +11,6 @@
 
 @interface LoginViewController : UIViewController <XMPPStreamDelegate>
 
+-(void)authenticated;
+
 @end

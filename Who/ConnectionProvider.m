@@ -11,6 +11,7 @@
 #import "XMPPPresence.h"
 #import "MainTabBarController.h"
 #import "RequestsViewController.h"
+#import "LoginViewController.h"
 
 @interface ConnectionProvider ()
 
@@ -18,12 +19,15 @@
 @property(strong, nonatomic) NSString* username;
 @property(strong, nonatomic) NSString* password;
 @property(strong, nonatomic) NSString* SERVER_IP_ADDRESS;
+@property(strong, nonatomic) LoginViewController *loginView;
 
 @end
 
 static ConnectionProvider *selfInstance;
 
+
 @implementation ConnectionProvider
+
 
 // Class method (+) for getting instance of Connection Provider
 + (id)getInstance {
@@ -42,8 +46,10 @@ static ConnectionProvider *selfInstance;
     return self.xmppStream;
 }
 
-- (void) connect: (NSString*)username password:(NSString*) password
-{
+- (void) connect: (NSString*)username password:(NSString*) password {
+    self.authenticated = false;
+    self.didConnect = false;
+    
     NSLog(@"Server IP Address %@", self.SERVER_IP_ADDRESS);
     self.SERVER_IP_ADDRESS = @"199.175.55.10";
     [self addSelfStreamDelegate];
@@ -57,6 +63,8 @@ static ConnectionProvider *selfInstance;
     } else {
         NSLog(@"Connected Successfully");
     }
+    
+    
 }
 
 - (void) addSelfStreamDelegate
@@ -72,6 +80,8 @@ static ConnectionProvider *selfInstance;
     [self.xmppStream addDelegate:streamDelegate delegateQueue:dispatch_get_main_queue()];
 }
 
+
+
 - (void)xmppStreamDidConnect:(XMPPStream *)sender
 {
     NSError *error;
@@ -84,16 +94,18 @@ static ConnectionProvider *selfInstance;
     {
         NSLog(@"Error authentificating to XMPP: %@", [error localizedDescription]);
     }
+    
+    self.didConnect = true;
+    
 }
 
 - (void)xmppStreamDidAuthenticate:(XMPPStream *)sender
 {
     NSLog(@"XMPP Stream Did Authenticate");
     NSLog(@"%s", __FUNCTION__);
-    //MainTabBarController *main = [[MainTabBarController alloc] init];
-    RequestsViewController *main = [[RequestsViewController alloc] init];
-    NSLog(@"Initialized Main Tab Bar Controller");
-    [self.controller presentViewController:main animated:YES completion:NULL];
+   
+    self.authenticated = true;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
 }
 
 -(void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error
