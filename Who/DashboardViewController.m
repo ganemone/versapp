@@ -64,13 +64,17 @@
 -(void)handleGetServerTimePacketReceived:(NSNotification*)notification {
     NSDictionary *userInfo = notification.userInfo;
     NSString *serverTime = [userInfo objectForKey:PACKET_ID_GET_SERVER_TIME];
-    int secondsSinceInteger = [self.timeLastActive intValue];
+    int secondsSinceInteger = [self.timeLastActive intValue] / 60;
+    NSLog(@"Seconds Since Integer %d", secondsSinceInteger);
     
     NSDateFormatter *utc = [[NSDateFormatter alloc] init];
+    [utc setFormatterBehavior:NSDateFormatterBehavior10_4];
     [utc setDateFormat:@"yyyyMMdd'T'HH:mm:ss"];
+    
     NSDate *serverTimeDate = [utc dateFromString:serverTime];
     NSDate *historySince = [serverTimeDate dateByAddingTimeInterval:-1*secondsSinceInteger];
     [utc setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+    
     NSLog(@"History Since: %@", [utc stringFromDate:historySince]);
     self.timeLastActive = [utc stringFromDate:historySince];
     
