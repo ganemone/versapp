@@ -1,0 +1,22 @@
+//
+//  Message.m
+//  Who
+//
+//  Created by Giancarlo Anemone on 1/15/14.
+//  Copyright (c) 2014 Giancarlo Anemone. All rights reserved.
+//
+
+#import "Message.h"
+
+@implementation Message
+
++(Message *)create:(NSString *)body sender:(NSString *)sender chatID:(NSString *)chatID timestamp:(NSString *)timestamp {
+    Message *instance = [[Message alloc] init];
+    instance.body = body;
+    instance.sender = sender;
+    instance.chatID = chatID;
+    instance.timestamp = timestamp;
+    return instance;
+}
+
+@end

@@ -7,7 +7,79 @@
 //
 
 #import "DashboardViewController.h"
+#import "GroupChatManager.h"
+#import "Constants.h"
+#import "ConnectionProvider.h"
+#import "IQPacketManager.h"
+
+@interface DashboardViewController()
+
+@property (strong, nonatomic) ConnectionProvider* cp;
+@property (strong, nonatomic) NSString *timeLastActive;
+
+@end
 
 @implementation DashboardViewController
+
+-(void)viewDidLoad {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleGetLastPacketReceived:) name:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_UPDATE_DASHBOARD_LISTVIEW object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleGetServerTimePacketReceived:) name:PACKET_ID_GET_SERVER_TIME object:nil];
+
+    self.cp = [ConnectionProvider getInstance];
+    [[self.cp getConnection] sendElement:[IQPacketManager createGetJoinedChatsPacket]];
+    [[self.cp getConnection] sendElement:[IQPacketManager createGetLastTimeActivePacket]];
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"ChatCellIdentifier";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    GroupChatManager *gcm = [GroupChatManager getInstance];
+    GroupChat *muc = [gcm getChatByIndex:indexPath.row];
+    cell.textLabel.text = muc.name;
+    cell.detailTextLabel.text = muc.history.getLastMessage;
+    return cell;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    GroupChatManager *gcm = [GroupChatManager getInstance];
+    return [gcm getNumberOfChats];
+}
+
+-(void)handleGetLastPacketReceived:(NSNotification*)notification {
+    NSDictionary *data = notification.userInfo;
+    self.timeLastActive = [data objectForKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
+    [[self.cp getConnection] sendElement:[IQPacketManager createGetServerTimePacket]];
+}
+
+-(void)handleRefreshListView:(NSNotification*)notification {
+    NSLog(@"Refreshing List View");
+    [self.tableView reloadData];
+}
+
+-(void)handleGetServerTimePacketReceived:(NSNotification*)notification {
+    NSDictionary *userInfo = notification.userInfo;
+    NSString *serverTime = [userInfo objectForKey:PACKET_ID_GET_SERVER_TIME];
+    int secondsSinceInteger = [self.timeLastActive intValue];
+    
+    NSDateFormatter *utc = [[NSDateFormatter alloc] init];
+    [utc setDateFormat:@"yyyyMMdd'T'HH:mm:ss"];
+    NSDate *serverTimeDate = [utc dateFromString:serverTime];
+    NSDate *historySince = [serverTimeDate dateByAddingTimeInterval:-1*secondsSinceInteger];
+    [utc setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+    NSLog(@"History Since: %@", [utc stringFromDate:historySince]);
+    self.timeLastActive = [utc stringFromDate:historySince];
+    
+    GroupChatManager *gcm = [GroupChatManager getInstance];
+    for (int i = 0; i < [gcm getNumberOfChats]; i++) {
+        GroupChat *gc = [gcm getChatByIndex:i];
+        [[self.cp getConnection] sendElement:[IQPacketManager createJoinMUCPacket:gc.chatID lastTimeActive:self.timeLastActive]];
+    }
+    [self.tableView reloadData];
+}
 
 @end

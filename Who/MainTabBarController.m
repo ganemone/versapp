@@ -7,7 +7,20 @@
 //
 
 #import "MainTabBarController.h"
+#import "ConnectionProvider.h"
+#import "IQPacketManager.h"
+
+@interface MainTabBarController()
+
+@property (strong, nonatomic) ConnectionProvider *cp;
+@property (strong, nonatomic) XMPPStream *conn;
+
+@end
 
 @implementation MainTabBarController
+
+-(void)viewDidLoad {
+
+}
 
 @end
