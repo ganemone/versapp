@@ -65,22 +65,17 @@
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(.*?)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
     NSTextCheckingResult *match = [regex firstMatchInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
     NSString *timestamp = [iq.XMLString substringWithRange:[match rangeAtIndex:1]];
-    NSLog(@"Match: %@", timestamp);
     
     if([timestamp compare:@""] == 0) {
         NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"1970-01-01T00:00:00Z" forKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
         [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil userInfo:userInfo];
     } else {
-        
-        NSLog(@"MilliSeconds: %@", timestamp);
         NSTimeInterval interval= [timestamp doubleValue] + 5*60*60;
         NSDate *gregDate = [NSDate dateWithTimeIntervalSince1970: interval];
         NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
         //[formatter setLocale:[NSLocale currentLocale]];
         [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
         NSString *utcStringDate =[formatter stringFromDate:gregDate];
-        
-        NSLog(@"UTC Date: %@", utcStringDate);
         
         NSDictionary *userInfo = [NSDictionary dictionaryWithObject:utcStringDate forKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
         [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil userInfo:userInfo];
@@ -98,19 +93,14 @@
 }
 
 -(void)handleGroupChatMessage:(XMPPMessage *)message {
-    NSLog(@"Message From: %@", message.fromStr);
-    NSLog(@"Message To: %@", message.toStr);
-    NSLog(@"Message Type: %@", message.type);
     
     NSError *error = NULL;
     NSRegularExpression *groupIDRegex = [NSRegularExpression regularExpressionWithPattern:@"(.*?)@" options:NSRegularExpressionCaseInsensitive error:&error];
     NSTextCheckingResult *groupIDMatch = [groupIDRegex firstMatchInString:message.fromStr options:0 range:NSMakeRange(0, message.fromStr.length)];
     NSString *groupID = [message.fromStr substringWithRange:[groupIDMatch rangeAtIndex:1]];
-    NSLog(@"Group ID: %@", groupID);
     
-    NSTextCheckingResult *toMatch = [groupIDRegex firstMatchInString:message.toStr options:0 range:NSMakeRange(0, message.toStr.length)];
-    NSString *toID = [message.toStr substringWithRange:[toMatch rangeAtIndex:1]];
-    NSLog(@"To ID: %@", toID);
+    //NSTextCheckingResult *toMatch = [groupIDRegex firstMatchInString:message.toStr options:0 range:NSMakeRange(0, message.toStr.length)];
+    //NSString *toID = [message.toStr substringWithRange:[toMatch rangeAtIndex:1]];
     
     error = NULL;
     NSRegularExpression *propertyRegex = [NSRegularExpression regularExpressionWithPattern:@"<property><name>(.*?)<\\/name><value type=\"(.*?)\">(.*?)<\\/value>" options:NSRegularExpressionCaseInsensitive error:&error];
@@ -124,14 +114,6 @@
             senderID = [message.XMLString substringWithRange:[match rangeAtIndex:3]];
         } else if([name compare:MESSAGE_PROPERTY_TIMESTAMP] == 0) {
             timestamp = [message.XMLString substringWithRange:[match rangeAtIndex:3]];
-            NSLog(@"Message Timestamp: %@", timestamp);
-            NSTimeInterval interval= [timestamp doubleValue] / 1000;
-            NSDate *gregDate = [NSDate dateWithTimeIntervalSince1970: interval];
-            NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
-            //[formatter setLocale:[NSLocale currentLocale]];
-            [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
-            NSString *utcStringDate =[formatter stringFromDate:gregDate];
-            NSLog(@"UTC Date: %@", utcStringDate);
         }
     }
     GroupChatManager *gcm = [GroupChatManager getInstance];
