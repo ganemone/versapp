@@ -37,6 +37,7 @@ static GroupChatManager * selfInstance;
 
 -(void)removeChat:(NSString *)chatId {
     [self.mucs removeObjectForKey:chatId];
+    [self.mucIDValues removeObject:chatId];
 }
 
 -(GroupChat *)getChat:(NSString *)chatId {

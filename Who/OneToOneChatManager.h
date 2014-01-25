@@ -7,9 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "OneToOneChat.h"
 
 @interface OneToOneChatManager : NSObject
 
++(OneToOneChatManager*)getInstance;
 
+-(void)addChat:(OneToOneChat*)chat;
+
+-(void)removeChat:(NSString*)chatId;
+
+-(OneToOneChat*)getChat:(NSString*)chatId;
+
+-(OneToOneChat*)getChatByIndex:(NSInteger)index;
+
+-(int)getNumberOfChats;
 
 @end
