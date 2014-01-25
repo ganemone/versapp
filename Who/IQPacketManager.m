@@ -203,16 +203,15 @@
 
 +(DDXMLElement *)createGetLastTimeActivePacket {
     DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[NSString stringWithFormat:@"%@@%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]]]];
     [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_GET_LAST_TIME_ACTIVE]];
     [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
     [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"get"]];
     
     DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
-    [query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"jabber:iq:last"]];
+    [query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:last"]];
     
     [iq addChild:query];
-    
+    NSLog(@"Get last time active: %@", iq.XMLString);
     return iq;
 }
 

@@ -38,4 +38,6 @@ extern NSString *const MESSAGE_PROPERTY_SENDER_ID;
 extern NSString *const MESSAGE_PROPERTY_TIMESTAMP;
 
 extern NSString *const NOTIFICATION_UPDATE_DASHBOARD_LISTVIEW;
+
+extern NSString *const APPLICATION_RESOURCE;
 @end

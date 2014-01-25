@@ -24,7 +24,6 @@
 -(void)viewDidLoad {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleGetLastPacketReceived:) name:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_UPDATE_DASHBOARD_LISTVIEW object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleGetServerTimePacketReceived:) name:PACKET_ID_GET_SERVER_TIME object:nil];
 
     self.cp = [ConnectionProvider getInstance];
     [[self.cp getConnection] sendElement:[IQPacketManager createGetJoinedChatsPacket]];
@@ -52,37 +51,17 @@
 
 -(void)handleGetLastPacketReceived:(NSNotification*)notification {
     NSDictionary *data = notification.userInfo;
-    self.timeLastActive = [data objectForKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
-    [[self.cp getConnection] sendElement:[IQPacketManager createGetServerTimePacket]];
+    NSString *utcTime = [data objectForKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
+    GroupChatManager *gcm = [GroupChatManager getInstance];
+    GroupChat *gc = nil;
+    for (int i = 0; i < [gcm getNumberOfChats]; i++) {
+        gc = [gcm getChatByIndex:i];
+        [[self.cp getConnection] sendElement:[IQPacketManager createJoinMUCPacket:gc.chatID lastTimeActive:utcTime]];
+    }
 }
 
 -(void)handleRefreshListView:(NSNotification*)notification {
     NSLog(@"Refreshing List View");
-    [self.tableView reloadData];
-}
-
--(void)handleGetServerTimePacketReceived:(NSNotification*)notification {
-    NSDictionary *userInfo = notification.userInfo;
-    NSString *serverTime = [userInfo objectForKey:PACKET_ID_GET_SERVER_TIME];
-    int secondsSinceInteger = [self.timeLastActive intValue] / 60;
-    NSLog(@"Seconds Since Integer %d", secondsSinceInteger);
-    
-    NSDateFormatter *utc = [[NSDateFormatter alloc] init];
-    [utc setFormatterBehavior:NSDateFormatterBehavior10_4];
-    [utc setDateFormat:@"yyyyMMdd'T'HH:mm:ss"];
-    
-    NSDate *serverTimeDate = [utc dateFromString:serverTime];
-    NSDate *historySince = [serverTimeDate dateByAddingTimeInterval:-1*secondsSinceInteger];
-    [utc setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
-    
-    NSLog(@"History Since: %@", [utc stringFromDate:historySince]);
-    self.timeLastActive = [utc stringFromDate:historySince];
-    
-    GroupChatManager *gcm = [GroupChatManager getInstance];
-    for (int i = 0; i < [gcm getNumberOfChats]; i++) {
-        GroupChat *gc = [gcm getChatByIndex:i];
-        [[self.cp getConnection] sendElement:[IQPacketManager createJoinMUCPacket:gc.chatID lastTimeActive:self.timeLastActive]];
-    }
     [self.tableView reloadData];
 }
 

@@ -62,14 +62,30 @@
 
 -(void)handleGetLastTimeActivePacket:(XMPPIQ *)iq {
     NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"seconds=\"(.*?)\"" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
     NSTextCheckingResult *match = [regex firstMatchInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
-    NSString *seconds = [iq.XMLString substringWithRange:[match rangeAtIndex:1]];
+    NSString *timestamp = [iq.XMLString substringWithRange:[match rangeAtIndex:1]];
     
-    NSLog(@"Seconds: %@", seconds);
+    if([timestamp compare:@""]) {
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"1970-01-01T00:00:00Z" forKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
+        [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil userInfo:userInfo];
+    } else {
+        
+        NSLog(@"MilliSeconds: %@", timestamp);
+        NSTimeInterval interval= [timestamp doubleValue];
+        NSDate *gregDate = [NSDate dateWithTimeIntervalSince1970: interval];
+        NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+        [formatter setLocale:[NSLocale currentLocale]];
+        [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+        NSString *utcStringDate =[formatter stringFromDate:gregDate];
+        
+        NSLog(@"UTC Date: %@", utcStringDate);
+        
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:utcStringDate forKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
+        [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil userInfo:userInfo];
+        
+    }
     
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:seconds forKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
-    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil userInfo:userInfo];
 }
 
 -(void)handleMessagePacket:(XMPPMessage *)message {

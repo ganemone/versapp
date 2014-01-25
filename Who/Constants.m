@@ -41,4 +41,6 @@ NSString *const MESSAGE_PROPERTY_TIMESTAMP = @"time";
 
 NSString *const NOTIFICATION_UPDATE_DASHBOARD_LISTVIEW = @"notification_update_dashboard_listview";
 
+NSString *const APPLICATION_RESOURCE = @"who";
+
 @end
