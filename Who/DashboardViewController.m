@@ -26,10 +26,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_UPDATE_DASHBOARD_LISTVIEW object:nil];
 
     self.cp = [ConnectionProvider getInstance];
-    [[self.cp getConnection] sendElement:[IQPacketManager createGetJoinedChatsPacket]];
-    [[self.cp getConnection] sendElement:[IQPacketManager createGetLastTimeActivePacket]];
-    
-    [IQPacketManager createSendOneToOneMessagePacket:[Message create:@"body" sender:@"sender" chatID:@"chatID" timestamp:@"timestamp" messageTo:@"messageTo"]];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -60,6 +56,7 @@
         gc = [gcm getChatByIndex:i];
         [[self.cp getConnection] sendElement:[IQPacketManager createJoinMUCPacket:gc.chatID lastTimeActive:utcTime]];
     }
+    [self.tableView reloadData];
 }
 
 -(void)handleRefreshListView:(NSNotification*)notification {
