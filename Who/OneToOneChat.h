@@ -10,6 +10,9 @@
 
 @interface OneToOneChat : Chat
 
+@property (strong, nonatomic) NSString *inviterID;
+@property (strong, nonatomic) NSString *invitedID;
+
 +(OneToOneChat *)create:(NSString*)threadID inviterID:(NSString*)inviterID invitedID:(NSString*)invitedID createdTimestamp:(NSString*)createdTimestamp;
 
 @end
