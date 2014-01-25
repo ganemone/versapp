@@ -62,20 +62,21 @@
 
 -(void)handleGetLastTimeActivePacket:(XMPPIQ *)iq {
     NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(.*?)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
     NSTextCheckingResult *match = [regex firstMatchInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
     NSString *timestamp = [iq.XMLString substringWithRange:[match rangeAtIndex:1]];
+    NSLog(@"Match: %@", timestamp);
     
-    if([timestamp compare:@""]) {
+    if([timestamp compare:@""] == 0) {
         NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"1970-01-01T00:00:00Z" forKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
         [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil userInfo:userInfo];
     } else {
         
         NSLog(@"MilliSeconds: %@", timestamp);
-        NSTimeInterval interval= [timestamp doubleValue];
+        NSTimeInterval interval= [timestamp doubleValue] + 5*60*60;
         NSDate *gregDate = [NSDate dateWithTimeIntervalSince1970: interval];
         NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
-        [formatter setLocale:[NSLocale currentLocale]];
+        //[formatter setLocale:[NSLocale currentLocale]];
         [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
         NSString *utcStringDate =[formatter stringFromDate:gregDate];
         
@@ -119,10 +120,18 @@
     for(NSTextCheckingResult *match in matches) {
         NSString *name = [message.XMLString substringWithRange:[match rangeAtIndex:1]];
         //NSString *type = [message.XMLString substringWithRange:[match rangeAtIndex:2]];
-        if ([name compare:MESSAGE_PROPERTY_SENDER_ID]) {
+        if ([name compare:MESSAGE_PROPERTY_SENDER_ID] == 0) {
             senderID = [message.XMLString substringWithRange:[match rangeAtIndex:3]];
-        } else if([name compare:MESSAGE_PROPERTY_TIMESTAMP]) {
+        } else if([name compare:MESSAGE_PROPERTY_TIMESTAMP] == 0) {
             timestamp = [message.XMLString substringWithRange:[match rangeAtIndex:3]];
+            NSLog(@"Message Timestamp: %@", timestamp);
+            NSTimeInterval interval= [timestamp doubleValue] / 1000;
+            NSDate *gregDate = [NSDate dateWithTimeIntervalSince1970: interval];
+            NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+            //[formatter setLocale:[NSLocale currentLocale]];
+            [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+            NSString *utcStringDate =[formatter stringFromDate:gregDate];
+            NSLog(@"UTC Date: %@", utcStringDate);
         }
     }
     GroupChatManager *gcm = [GroupChatManager getInstance];
