@@ -38,6 +38,8 @@
 
 +(DDXMLElement*)createCreateVCardPacket:(NSString*)firstName lastname:(NSString*)lastName phone:(NSString*)phone email:(NSString*)email;
 
++(DDXMLElement *)createUpdateVCardPacket:(NSString *)firstName lastname:(NSString *)lastName phone:(NSString *)phone email:(NSString *)email;
+
 +(DDXMLElement*)createGetLastTimeActivePacket;
 
 +(DDXMLElement*)createGetServerTimePacket;

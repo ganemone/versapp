@@ -163,7 +163,10 @@
 	[iq addChild:query];
     
     return iq;
-    
+}
+
++(DDXMLElement *)createUpdateVCardPacket:(NSString *)firstName lastname:(NSString *)lastName phone:(NSString *)phone email:(NSString *)email {
+    return [self createCreateVCardPacket:firstName lastname:lastName phone:phone email:email];
 }
 
 +(DDXMLElement *)createCreateMUCPacket:(NSString*)roomName {
