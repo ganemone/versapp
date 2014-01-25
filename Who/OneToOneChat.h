@@ -10,4 +10,6 @@
 
 @interface OneToOneChat : Chat
 
++(OneToOneChat *)create:(NSString*)threadID inviterID:(NSString*)inviterID invitedID:(NSString*)invitedID createdTimestamp:(NSString*)createdTimestamp;
+
 @end

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DDXMLElement.h"
+#import "Message.h"
 
 @interface IQPacketManager : NSObject
 
@@ -40,5 +41,9 @@
 +(DDXMLElement*)createGetLastTimeActivePacket;
 
 +(DDXMLElement*)createGetServerTimePacket;
+
++(DDXMLElement*)createSendMUCMessagePacket:(Message*)message;
+
++(DDXMLElement*)createSendOneToOneMessagePacket:(Message*)message;
 
 @end

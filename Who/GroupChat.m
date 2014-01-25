@@ -11,14 +11,6 @@
 
 @implementation GroupChat
 
--(void)join {
-    
-}
-
--(void)leave {
-    
-}
-
 +(GroupChat*)create:(NSString *)chatID groupName:(NSString *)groupName owner:(NSString *)owner createdTime:(NSString *)createdTime {
     GroupChat *instance = [[GroupChat alloc] init];
     NSLog(@"Creating MUC with Values: %@, %@, %@, %@", chatID, groupName, owner, createdTime);
@@ -27,7 +19,6 @@
     instance.owner = owner;
     instance.createdTime = createdTime;
     instance.history = [History create:[[NSMutableArray alloc] init]];
-    [instance join];
     NSLog(@"Instance Name: %@", instance.name);
     return instance;
 }

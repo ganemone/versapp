@@ -28,6 +28,8 @@
     self.cp = [ConnectionProvider getInstance];
     [[self.cp getConnection] sendElement:[IQPacketManager createGetJoinedChatsPacket]];
     [[self.cp getConnection] sendElement:[IQPacketManager createGetLastTimeActivePacket]];
+    
+    [IQPacketManager createSendOneToOneMessagePacket:[Message create:@"body" sender:@"sender" chatID:@"chatID" timestamp:@"timestamp" messageTo:@"messageTo"]];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

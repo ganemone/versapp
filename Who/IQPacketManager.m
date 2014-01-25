@@ -228,4 +228,97 @@
     
     return iq;
 }
+
++(DDXMLElement *)createSendMUCMessagePacket:(Message *)message {
+    XMPPMessage *messagePacket = [XMPPMessage messageWithType:CHAT_TYPE_GROUP to:[XMPPJID jidWithString:[NSString stringWithFormat:@"%@@%@", message.chatID, [ConnectionProvider getConferenceIPAddress]]]];
+    
+    DDXMLElement *properties = [self createMessagePropertiesElement:message];
+    
+    DDXMLElement *groupChatProperty = [DDXMLElement elementWithName:@"property"];
+    DDXMLElement *groupChatPropertyName = [DDXMLElement elementWithName:@"name" stringValue:MESSAGE_PROPERTY_GROUP_TYPE];
+    DDXMLElement *groupChatPropertyValue = [DDXMLElement elementWithName:@"value" stringValue:@"true"];
+    [groupChatPropertyValue addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"string"]];
+    [groupChatProperty addChild:groupChatPropertyName];
+    [groupChatProperty addChild:groupChatPropertyValue];
+
+    DDXMLElement *groupIDProperty = [DDXMLElement elementWithName:@"property"];
+    DDXMLElement *groupIDPropertyName = [DDXMLElement elementWithName:@"name" stringValue:MESSAGE_PROPERTY_GROUP_ID];
+    DDXMLElement *groupIDPropertyValue = [DDXMLElement elementWithName:@"value" stringValue:message.chatID];
+    [groupIDPropertyValue addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"string"]];
+    [groupIDProperty addChild:groupIDPropertyName];
+    [groupIDProperty addChild:groupIDPropertyValue];
+    
+    DDXMLElement *receiverIDProperty = [DDXMLElement elementWithName:@"property"];
+    DDXMLElement *receiverIDPropertyName = [DDXMLElement elementWithName:@"name" stringValue:MESSAGE_PROPERTY_RECEIVER_ID];
+    DDXMLElement *receiverIDPropertyValue = [DDXMLElement elementWithName:@"value" stringValue:[NSString stringWithFormat:@"%@@%@", message.chatID, [ConnectionProvider getConferenceIPAddress]]];
+    [receiverIDPropertyValue addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"string"]];
+    [receiverIDProperty addChild:receiverIDPropertyName];
+    [receiverIDProperty addChild:receiverIDPropertyValue];
+    
+    [properties addChild:groupChatProperty];
+    [properties addChild:groupIDProperty];
+    [properties addChild:receiverIDProperty];
+
+    [messagePacket addBody:message.body];
+    [messagePacket addChild:properties];
+
+    
+    NSLog(@"Message XML: %@", messagePacket.XMLString);
+    return messagePacket;
+}
+
++(DDXMLElement *)createSendOneToOneMessagePacket:(Message *)message {
+    XMPPMessage *messagePacket = [XMPPMessage messageWithType:CHAT_TYPE_ONE_TO_ONE to:[XMPPJID jidWithString:[NSString stringWithFormat:@"%@@%@", message.messageTo, [ConnectionProvider getServerIPAddress]]]];
+    
+    DDXMLElement *properties = [self createMessagePropertiesElement:message];
+    
+    DDXMLElement *receiverIDProperty = [DDXMLElement elementWithName:@"property"];
+    DDXMLElement *receiverIDPropertyName = [DDXMLElement elementWithName:@"name" stringValue:MESSAGE_PROPERTY_RECEIVER_ID];
+    DDXMLElement *receiverIDPropertyValue = [DDXMLElement elementWithName:@"value" stringValue:message.messageTo];
+    [receiverIDPropertyValue addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"string"]];
+    [receiverIDProperty addChild:receiverIDPropertyName];
+    [receiverIDProperty addChild:receiverIDPropertyValue];
+    
+    DDXMLElement *oneToOneChatProperty = [DDXMLElement elementWithName:@"property"];
+    DDXMLElement *oneToOneChatPropertyName = [DDXMLElement elementWithName:@"name" stringValue:MESSAGE_PROPERTY_ONE_TO_ONE_TYPE];
+    DDXMLElement *oneToOneChatPropertyValue = [DDXMLElement elementWithName:@"value" stringValue:@"true"];
+    [oneToOneChatPropertyValue addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"string"]];
+    [oneToOneChatProperty addChild:oneToOneChatPropertyName];
+    [oneToOneChatProperty addChild:oneToOneChatPropertyValue];
+    
+    [properties addChild:receiverIDProperty];
+    [properties addChild:oneToOneChatProperty];
+    
+    [messagePacket addBody: message.body];
+    [messagePacket addThread:message.chatID];
+    [messagePacket addChild:properties];
+    
+    NSLog(@"Message: %@", messagePacket.XMLString);
+    return messagePacket;
+}
+
++(DDXMLElement *)createMessagePropertiesElement:(Message *)message {
+    DDXMLElement *properties = [DDXMLElement elementWithName:@"properties"];
+    [properties addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"http://www.jivesoftware.com/xmlns/xmpp/properties"]];
+    
+    DDXMLElement *timeProperty = [DDXMLElement elementWithName:@"property"];
+    DDXMLElement *timeName = [DDXMLElement elementWithName:@"name" stringValue:MESSAGE_PROPERTY_TIMESTAMP];
+    DDXMLElement *timeValue = [DDXMLElement elementWithName:@"value" stringValue:message.timestamp];
+    [timeValue addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"string"]];
+    [timeProperty addChild:timeName];
+    [timeProperty addChild:timeValue];
+    
+    DDXMLElement *senderProperty = [DDXMLElement elementWithName:@"property"];
+    DDXMLElement *senderName = [DDXMLElement elementWithName:@"name" stringValue:MESSAGE_PROPERTY_SENDER_ID];
+    DDXMLElement *senderValue = [DDXMLElement elementWithName:@"value" stringValue:message.sender];
+    [senderValue addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"string"]];
+    [senderProperty addChild:senderName];
+    [senderProperty addChild:senderValue];
+    
+    [properties addChild:timeProperty];
+    [properties addChild:senderProperty];
+    
+    return properties;
+}
+
 @end

@@ -19,4 +19,14 @@
     return instance;
 }
 
++(Message *)create:(NSString *)body sender:(NSString *)sender chatID:(NSString *)chatID timestamp:(NSString *)timestamp messageTo:(NSString *)messageTo {
+    Message *instance = [[Message alloc] init];
+    instance.body = body;
+    instance.sender = sender;
+    instance.chatID = chatID;
+    instance.timestamp = timestamp;
+    instance.messageTo = messageTo;
+    return instance;
+}
+
 @end
