@@ -14,7 +14,7 @@
 
 @implementation ConversationViewController
 
-
+@synthesize gc;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -24,8 +24,6 @@
     }
     return self;
 }
-
-
 
 - (void)viewDidLoad
 {
@@ -61,7 +59,7 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    
+    cell.textLabel.text = [self.gc.history getMessageByIndex:indexPath.row];
     
     return cell;
 }

@@ -27,14 +27,18 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     GroupChatManager *gcm = [GroupChatManager getInstance];
     ConversationViewController *dest = segue.destinationViewController;
+    NSLog(@"Got Destination Controller");
     dest.gc = [gcm getChatByIndex:indexPath.row];
+    NSLog(@"Set Destination Controller Value");
 }
 
 -(void)viewDidLoad {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleGetLastPacketReceived:) name:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_UPDATE_DASHBOARD_LISTVIEW object:nil];
-
+    
     self.cp = [ConnectionProvider getInstance];
+    [[self.cp getConnection] sendElement:[IQPacketManager createGetJoinedChatsPacket]];
+    [[self.cp getConnection] sendElement:[IQPacketManager createGetLastTimeActivePacket]];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

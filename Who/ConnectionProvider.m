@@ -108,8 +108,6 @@ static ConnectionProvider *selfInstance;
     NSLog(@"%s", __FUNCTION__);
     self.authenticated = true;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
-    [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
-    [self.xmppStream sendElement:[IQPacketManager createGetLastTimeActivePacket]];
 }
 
 -(void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error
@@ -131,6 +129,7 @@ static ConnectionProvider *selfInstance;
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
+    NSLog(@"Received Message");
     [self handleMessagePacket:message];
 }
 

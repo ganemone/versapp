@@ -194,7 +194,7 @@
     [x addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"http://jabber.org/protocol/muc"]];
     
     DDXMLElement *history = [DDXMLElement elementWithName:@"history"];
-    [history addAttribute:[DDXMLNode attributeWithName:@"since" stringValue:lastTimeActive]];
+    [history addAttribute:[DDXMLNode attributeWithName:@"since" stringValue:@"1970-01-01T00:00:00Z"]];
     
     [x addChild:history];
     [presence addChild:x];
