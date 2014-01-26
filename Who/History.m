@@ -31,4 +31,8 @@
     return self.messages.count;
 }
 
+-(NSString *)getMessageByIndex:(int)index {
+    return [self.messages objectAtIndex:index];
+}
+
 @end

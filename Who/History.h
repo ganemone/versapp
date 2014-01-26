@@ -21,4 +21,6 @@
 
 -(int)getNumberOfMessages;
 
+-(NSString*)getMessageByIndex:(int)index;
+
 @end
