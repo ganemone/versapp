@@ -7,6 +7,7 @@
 //
 
 #import "DashboardViewController.h"
+#import "ConversationViewController.h"
 #import "GroupChatManager.h"
 #import "Constants.h"
 #import "ConnectionProvider.h"
@@ -16,7 +17,6 @@
 
 @property (strong, nonatomic) ConnectionProvider* cp;
 @property (strong, nonatomic) NSString *timeLastActive;
-@property (strong, nonatomic) GroupChat *chatClicked;
 
 @end
 
@@ -26,7 +26,8 @@
     UITableViewCell *cell = (UITableViewCell*)sender;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     GroupChatManager *gcm = [GroupChatManager getInstance];
-    self.chatClicked = [gcm getChatByIndex:indexPath.row];
+    ConversationViewController *dest = segue.destinationViewController;
+    dest.gc = [gcm getChatByIndex:indexPath.row];
 }
 
 -(void)viewDidLoad {

@@ -14,4 +14,5 @@
 
 +(NSString*)createGroupID;
 
+-(int)getNumberOfMessages;
 @end

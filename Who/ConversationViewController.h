@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GroupChat.h"
 
 @interface ConversationViewController : UITableViewController
+
+@property (strong, nonatomic) GroupChat *gc;
 
 @end

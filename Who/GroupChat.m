@@ -26,6 +26,9 @@
     return [NSString stringWithFormat:@"%@%f", [ConnectionProvider getServerIPAddress], timeStamp];
 }
 
+-(int)getNumberOfMessages {
+    return [self.history getNumberOfMessages];
+}
 
 
 @end

@@ -27,4 +27,8 @@
     [self.messages addObject:message];
 }
 
+-(int)getNumberOfMessages {
+    return self.messages.count;
+}
+
 @end

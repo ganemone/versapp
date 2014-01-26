@@ -19,4 +19,6 @@
 
 -(void)addMessage:(Message*)message;
 
+-(int)getNumberOfMessages;
+
 @end
