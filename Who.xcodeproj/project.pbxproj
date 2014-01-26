@@ -33,6 +33,7 @@
 		3A6C3BBB1884AD61003B162B /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6C3BBA1884AD61003B162B /* LoginViewController.m */; };
 		3A81F49A188D905A0006DD5D /* GroupChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A81F499188D90590006DD5D /* GroupChatManager.m */; };
 		3AAE9B1718945710003B4560 /* OneToOneChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAE9B1618945710003B4560 /* OneToOneChatManager.m */; };
+		3AAE9B1A1894A049003B4560 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAE9B191894A049003B4560 /* ConversationViewController.m */; };
 		3ACA788218833EDB00B384BF /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACA788118833EDB00B384BF /* MainTabBarController.m */; };
 		3AF19A451881EF1600F3E4D3 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF19A3C1881EF1600F3E4D3 /* DDAbstractDatabaseLogger.m */; };
 		3AF19A461881EF1600F3E4D3 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF19A3E1881EF1600F3E4D3 /* DDASLLogger.m */; };
@@ -135,6 +136,8 @@
 		3A81F499188D90590006DD5D /* GroupChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupChatManager.m; sourceTree = "<group>"; };
 		3AAE9B1518945710003B4560 /* OneToOneChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneToOneChatManager.h; sourceTree = "<group>"; };
 		3AAE9B1618945710003B4560 /* OneToOneChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneToOneChatManager.m; sourceTree = "<group>"; };
+		3AAE9B181894A049003B4560 /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
+		3AAE9B191894A049003B4560 /* ConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
 		3ACA788018833EDB00B384BF /* MainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabBarController.h; sourceTree = "<group>"; };
 		3ACA788118833EDB00B384BF /* MainTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabBarController.m; sourceTree = "<group>"; };
 		3AF19A3B1881EF1600F3E4D3 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
@@ -301,6 +304,8 @@
 				3A25B66F1881E7F100166623 /* RequestsViewController.m */,
 				3A25B6711881E83500166623 /* DashboardViewController.h */,
 				3A25B6721881E83500166623 /* DashboardViewController.m */,
+				3AAE9B181894A049003B4560 /* ConversationViewController.h */,
+				3AAE9B191894A049003B4560 /* ConversationViewController.m */,
 				3A25B6741881E84800166623 /* FriendsViewController.h */,
 				3A25B6751881E84800166623 /* FriendsViewController.m */,
 				3A25B6771881E85B00166623 /* ContactsViewController.h */,
@@ -377,8 +382,8 @@
 			children = (
 				3AF19ACF1882075D00F3E4D3 /* ConnectionProvider.h */,
 				3AF19AD01882075D00F3E4D3 /* ConnectionProvider.m */,
-				3AF511391885B1EC002383D3 /* IQPacketManager.m */,
 				3AF511381885B1EC002383D3 /* IQPacketManager.h */,
+				3AF511391885B1EC002383D3 /* IQPacketManager.m */,
 				3A5699A61886CE8300746CC8 /* IQPacketReceiver.h */,
 				3A5699A71886CE8300746CC8 /* IQPacketReceiver.m */,
 			);
@@ -731,6 +736,7 @@
 				3AF19A9B1881F7E800F3E4D3 /* NSNumber+XMPP.m in Sources */,
 				3AF19A8D1881F75100F3E4D3 /* XMPPDigestMD5Authentication.m in Sources */,
 				3AF19A9D1881F7E800F3E4D3 /* NSXMLElement+XMPP.m in Sources */,
+				3AAE9B1A1894A049003B4560 /* ConversationViewController.m in Sources */,
 				3AF19AC01881F81900F3E4D3 /* XMPPIQ.m in Sources */,
 				3ACA788218833EDB00B384BF /* MainTabBarController.m in Sources */,
 				3AF19AC41881F81900F3E4D3 /* XMPPParser.m in Sources */,

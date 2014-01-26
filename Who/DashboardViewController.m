@@ -16,10 +16,18 @@
 
 @property (strong, nonatomic) ConnectionProvider* cp;
 @property (strong, nonatomic) NSString *timeLastActive;
+@property (strong, nonatomic) GroupChat *chatClicked;
 
 @end
 
 @implementation DashboardViewController
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    UITableViewCell *cell = (UITableViewCell*)sender;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    GroupChatManager *gcm = [GroupChatManager getInstance];
+    self.chatClicked = [gcm getChatByIndex:indexPath.row];
+}
 
 -(void)viewDidLoad {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleGetLastPacketReceived:) name:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil];
