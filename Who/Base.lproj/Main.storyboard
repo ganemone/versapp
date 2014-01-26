@@ -185,10 +185,10 @@
             </objects>
             <point key="canvasLocation" x="1205" y="-535"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Conversation View Controller-->
         <scene sceneID="9tH-JZ-aS0">
             <objects>
-                <tableViewController id="QKA-Pt-dyT" sceneMemberID="viewController">
+                <tableViewController id="QKA-Pt-dyT" customClass="ConversationViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="PeP-nd-J8K">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
