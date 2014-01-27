@@ -13,6 +13,10 @@
 
 @end
 
+#define FONT_SIZE 14.0f
+#define CELL_CONTENT_WIDTH 320.0f
+#define CELL_CONTENT_MARGIN 10.0f
+
 @implementation ConversationViewController
 
 @synthesize gc;
@@ -32,8 +36,8 @@
     NSLog(@"Convesation View Did Load");
     NSLog(@"Group Name: %@", self.gc.name);
     NSLog(@"Group History Size: %d", [self.gc getNumberOfMessages]);
-    NSLog(@"Group History Element: %@", [self.gc.history getMessageByIndex:0]);
-    NSLog(@"Group History Element: %@", [self.gc.history getMessageByIndex:1]);
+    NSLog(@"Group History Element: %@", [self.gc.history getMessageTextByIndex:0]);
+    NSLog(@"Group History Element: %@", [self.gc.history getMessageTextByIndex:1]);
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -62,12 +66,21 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_CONVERSATION_PROTOTYPE forIndexPath:indexPath];
-    if(self.gc.history.getNumberOfMessages > 0) {
-        cell.textLabel.text = [self.gc.history getMessageByIndex:indexPath.row];
-    } else {
-        cell.textLabel.text = @"No messages to display";
-    }
+    NSString *text = [self.gc.history getMessageTextByIndex:indexPath.row];
+    cell.textLabel.text = text;
+    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    cell.textLabel.numberOfLines = 0;
+    
     return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *cellText = [self.gc.history getMessageTextByIndex:indexPath.row];
+    UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:14.0];
+    CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
+    CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
+    
+    return labelSize.height + 20;
 }
 
 /*
