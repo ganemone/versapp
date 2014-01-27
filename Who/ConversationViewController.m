@@ -70,7 +70,6 @@
     cell.textLabel.text = text;
     cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     cell.textLabel.numberOfLines = 0;
-    
     return cell;
 }
 

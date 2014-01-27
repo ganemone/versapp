@@ -7,6 +7,7 @@
 //
 
 #import "Message.h"
+#import "ConnectionProvider.h"
 
 @implementation Message
 
@@ -28,5 +29,9 @@
     instance.messageTo = messageTo;
     return instance;
 }
+
+/*-(NSTextAlignment)getMessageTextAlignment {
+    return ([self.sender compare:[ConnectionProvider getUser]] == 0) ? NSTextAlignmentLeft : NSTextAlignmentRight;
+}*/
 
 @end
