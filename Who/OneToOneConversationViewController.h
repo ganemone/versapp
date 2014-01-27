@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OneToOneChat.h"
 
 @interface OneToOneConversationViewController : UITableViewController
+
+@property (strong, nonatomic) OneToOneChat *chat;
 
 @end
