@@ -10,6 +10,7 @@
 #import "Constants.h"
 #import "GroupChat.h"
 #import "GroupChatManager.h"
+#import "OneToOneChatManager.h"
 
 @implementation IQPacketReceiver
 
@@ -47,7 +48,7 @@
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
     NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
     GroupChatManager *gcm = [GroupChatManager getInstance];
-    // CREATE ONE TO ONE MANAGER HERE
+    OneToOneChatManager *cm = [OneToOneChatManager getInstance];
     
     for (NSTextCheckingResult *match in matches) {
         NSString *participantString = [packetXML substringWithRange:[match rangeAtIndex:1]];
@@ -63,7 +64,7 @@
         if([type isEqualToString:CHAT_TYPE_GROUP]) {
             [gcm addChat:[GroupChat create:chatId participants:participants groupName:name owner:owner createdTime:createdTime]];
         } else if([type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
-            // ADD ONE TO ONE CHAT HERE
+            [cm addChat:[OneToOneChat create:chatId inviterID:owner invitedID:participantString createdTimestamp:createdTime]];
         }
     }
 }
