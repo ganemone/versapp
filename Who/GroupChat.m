@@ -9,11 +9,18 @@
 #import "GroupChat.h"
 #import "ConnectionProvider.h"
 
+@interface GroupChat()
+
+@property (strong, nonatomic) NSArray *participants;
+
+@end
+
 @implementation GroupChat
 
-+(GroupChat*)create:(NSString *)chatID groupName:(NSString *)groupName owner:(NSString *)owner createdTime:(NSString *)createdTime {
++(GroupChat*)create:(NSString *)chatID participants:(NSArray*)participants groupName:(NSString *)groupName owner:(NSString *)owner createdTime:(NSString *)createdTime {
     GroupChat *instance = [[GroupChat alloc] init];
     instance.chatID = chatID;
+    instance.participants = participants;
     instance.name = groupName;
     instance.owner = owner;
     instance.createdTime = createdTime;

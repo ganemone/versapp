@@ -40,20 +40,28 @@
 }
 
 -(void)handleGetJoinedChatsPacket:(XMPPIQ *)iq {
+    NSLog(@"Packet: %@", iq.XMLString);
     NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(.*?)\",\"(.*?)\",\"(.*?)\",\"(.*?)\",\"(.*?)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
-    NSArray *matches = [regex matchesInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
+    
+    NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
     GroupChatManager *gcm = [GroupChatManager getInstance];
     // CREATE ONE TO ONE MANAGER HERE
     
     for (NSTextCheckingResult *match in matches) {
-        NSString* chatId = [iq.XMLString substringWithRange:[match rangeAtIndex:1]];
-        NSString* type = [iq.XMLString substringWithRange:[match rangeAtIndex:2]];
-        NSString* owner = [iq.XMLString substringWithRange:[match rangeAtIndex:3]];
-        NSString* name = [iq.XMLString substringWithRange:[match rangeAtIndex:4]];
-        NSString* createdTime = [iq.XMLString substringWithRange:[match rangeAtIndex:5]];
+        NSString *participantString = [packetXML substringWithRange:[match rangeAtIndex:1]];
+        NSArray *participants = [participantString componentsSeparatedByString:@", "];
+        NSLog(@"Participant String: %@", participantString);
+        NSLog(@"Participant Array: %@", participants.description);
+        NSLog(@"Participant Array Size: %d", participants.count);
+        NSString* chatId = [packetXML substringWithRange:[match rangeAtIndex:2]];
+        NSString* type = [packetXML substringWithRange:[match rangeAtIndex:3]];
+        NSString* owner = [packetXML substringWithRange:[match rangeAtIndex:4]];
+        NSString* name = [packetXML substringWithRange:[match rangeAtIndex:5]];
+        NSString* createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
         if([type isEqualToString:CHAT_TYPE_GROUP]) {
-            [gcm addChat:[GroupChat create:chatId groupName:name owner:owner createdTime:createdTime]];
+            [gcm addChat:[GroupChat create:chatId participants:participants groupName:name owner:owner createdTime:createdTime]];
         } else if([type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
             // ADD ONE TO ONE CHAT HERE
         }
@@ -135,6 +143,12 @@
     NSLog(@"Received Server Time: %@", utcTime);
     NSDictionary *userInfo = [NSDictionary dictionaryWithObject:utcTime forKey:PACKET_ID_GET_SERVER_TIME];
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_SERVER_TIME object:nil userInfo:userInfo];
+}
+
+-(NSString*)getPacketXMLWithoutNewLines:(XMPPIQ *)iq {
+    NSString *packetXML = [iq.XMLString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    packetXML = [packetXML stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+    return packetXML;
 }
 
 @end
