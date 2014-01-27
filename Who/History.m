@@ -7,6 +7,7 @@
 //
 
 #import "History.h"
+#import "Message.h"
 
 @implementation History
 
@@ -32,7 +33,7 @@
 }
 
 -(NSString *)getMessageByIndex:(int)index {
-    return [self.messages objectAtIndex:index];
+    return [(Message *)[self.messages objectAtIndex:index] body];
 }
 
 @end

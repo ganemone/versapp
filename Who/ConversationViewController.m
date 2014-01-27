@@ -7,6 +7,7 @@
 //
 
 #import "ConversationViewController.h"
+#import "Constants.h"
 
 @interface ConversationViewController ()
 
@@ -28,7 +29,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    NSLog(@"Convesation View Did Load");
+    NSLog(@"Group Name: %@", self.gc.name);
+    NSLog(@"Group History Size: %d", [self.gc getNumberOfMessages]);
+    NSLog(@"Group History Element: %@", [self.gc.history getMessageByIndex:0]);
+    NSLog(@"Group History Element: %@", [self.gc.history getMessageByIndex:1]);
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -56,8 +61,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_CONVERSATION_PROTOTYPE forIndexPath:indexPath];
     if(self.gc.history.getNumberOfMessages > 0) {
         cell.textLabel.text = [self.gc.history getMessageByIndex:indexPath.row];
     } else {

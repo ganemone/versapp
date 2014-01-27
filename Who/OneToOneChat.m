@@ -23,6 +23,8 @@
     instance.invitedID = invitedID;
     instance.inviterID = inviterID;
     instance.history = [History create:[[NSMutableArray alloc] init]];
+    [instance.history addMessage:[Message create:@"Hey man, what is going on?" sender:inviterID chatID:threadID timestamp:createdTimestamp]];
+    [instance.history addMessage:[Message create:@"Not much dude.  This is a test message that goes for a bit longer than the other message" sender:inviterID chatID:threadID timestamp:createdTimestamp]];
     
     return instance;
 }

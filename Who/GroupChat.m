@@ -25,6 +25,8 @@
     instance.owner = owner;
     instance.createdTime = createdTime;
     instance.history = [History create:[[NSMutableArray alloc] init]];
+    [instance.history addMessage:[Message create:@"Hey man, what is going on?" sender:[participants objectAtIndex:0] chatID:chatID timestamp:createdTime]];
+    [instance.history addMessage:[Message create:@"Here is another longer message in the group chat UI.  Multiple sentences will hopefully put this onto multiple lines." sender:[participants objectAtIndex:0] chatID:chatID timestamp:createdTime]];
     return instance;
 }
 

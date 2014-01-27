@@ -8,6 +8,7 @@
 
 #import "DashboardViewController.h"
 #import "ConversationViewController.h"
+#import "OneToOneConversationViewController.h"
 #import "GroupChatManager.h"
 #import "OneToOneChatManager.h"
 #import "Constants.h"
@@ -24,14 +25,18 @@
 @implementation DashboardViewController
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if(segue.identifier == SEGUE_ID_GROUP_CONVERSATION) {
-        UITableViewCell *cell = (UITableViewCell*)sender;
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    UITableViewCell *cell = (UITableViewCell*)sender;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    if([segue.identifier compare:SEGUE_ID_GROUP_CONVERSATION] == 0) {
         GroupChatManager *gcm = [GroupChatManager getInstance];
         ConversationViewController *dest = segue.destinationViewController;
         NSLog(@"Got Destination Controller");
         dest.gc = [gcm getChatByIndex:indexPath.row];
+        NSLog(@"Group Chat Info: %@ %d", dest.gc.name, [dest.gc getNumberOfMessages]);
         NSLog(@"Set Destination Controller Value");
+    } else if([segue.identifier compare:SEGUE_ID_ONE_TO_ONE_CONVERSATION] == 0) {
+        //OneToOneChatManager *cm = [OneToOneChatManager getInstance];
+        //OneToOneConversationViewController *dest = segue.destinationViewController;
     }
 }
 

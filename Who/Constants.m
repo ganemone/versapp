@@ -52,4 +52,6 @@ NSString *const APPLICATION_RESOURCE = @"who";
 NSString *const SEGUE_ID_GROUP_CONVERSATION = @"SegueGroupConversation";
 NSString *const SEGUE_ID_ONE_TO_ONE_CONVERSATION = @"SegueOneToOneConversation";
 
+NSString *const CELL_ID_CONVERSATION_PROTOTYPE = @"ConversationCellPrototype";
+
 @end
