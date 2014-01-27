@@ -9,6 +9,7 @@
 #import "DashboardViewController.h"
 #import "ConversationViewController.h"
 #import "GroupChatManager.h"
+#import "OneToOneChatManager.h"
 #import "Constants.h"
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
@@ -23,13 +24,15 @@
 @implementation DashboardViewController
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    UITableViewCell *cell = (UITableViewCell*)sender;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    GroupChatManager *gcm = [GroupChatManager getInstance];
-    ConversationViewController *dest = segue.destinationViewController;
-    NSLog(@"Got Destination Controller");
-    dest.gc = [gcm getChatByIndex:indexPath.row];
-    NSLog(@"Set Destination Controller Value");
+    if(segue.identifier == SEGUE_ID_GROUP_CONVERSATION) {
+        UITableViewCell *cell = (UITableViewCell*)sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        GroupChatManager *gcm = [GroupChatManager getInstance];
+        ConversationViewController *dest = segue.destinationViewController;
+        NSLog(@"Got Destination Controller");
+        dest.gc = [gcm getChatByIndex:indexPath.row];
+        NSLog(@"Set Destination Controller Value");
+    }
 }
 
 -(void)viewDidLoad {
@@ -42,22 +45,47 @@
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return (section == 0) ? @"Groups" : @"One To One";
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"ChatCellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    GroupChatManager *gcm = [GroupChatManager getInstance];
-    GroupChat *muc = [gcm getChatByIndex:indexPath.row];
-    cell.textLabel.text = muc.name;
-    cell.detailTextLabel.text = muc.history.getLastMessage;
+    if(indexPath.section == 0) {
+        GroupChatManager *gcm = [GroupChatManager getInstance];
+        GroupChat *muc = [gcm getChatByIndex:indexPath.row];
+        cell.textLabel.text = muc.name;
+        cell.detailTextLabel.text = muc.history.getLastMessage;
+    } else {
+        OneToOneChatManager *cm = [OneToOneChatManager getInstance];
+        OneToOneChat *chat = [cm getChatByIndex:indexPath.row];
+        cell.textLabel.text = chat.name;
+        cell.detailTextLabel.text = chat.history.getLastMessage;
+    }
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"Section %d", indexPath.section);
+    if (indexPath.section == 0) {
+        [self performSegueWithIdentifier:SEGUE_ID_GROUP_CONVERSATION sender:self];
+    } else {
+        
+    }
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    GroupChatManager *gcm = [GroupChatManager getInstance];
-    return [gcm getNumberOfChats];
+    if(section == 0) {
+        GroupChatManager *gcm = [GroupChatManager getInstance];
+        return [gcm getNumberOfChats];
+    } else {
+        OneToOneChatManager *cm = [OneToOneChatManager getInstance];
+        return [cm getNumberOfChats];
+    }
 }
 
 -(void)handleGetLastPacketReceived:(NSNotification*)notification {

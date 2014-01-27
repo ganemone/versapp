@@ -45,4 +45,8 @@ extern NSString *const MESSAGE_PROPERTY_ONE_TO_ONE_TYPE;
 extern NSString *const NOTIFICATION_UPDATE_DASHBOARD_LISTVIEW;
 
 extern NSString *const APPLICATION_RESOURCE;
+
+extern NSString *const SEGUE_ID_GROUP_CONVERSATION;
+extern NSString *const SEGUE_ID_ONE_TO_ONE_CONVERSATION;
+
 @end

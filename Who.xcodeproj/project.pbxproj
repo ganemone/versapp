@@ -31,6 +31,7 @@
 		3A5699B51886D64100746CC8 /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5699B41886D64100746CC8 /* History.m */; };
 		3A5699B81886D80C00746CC8 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5699B71886D80C00746CC8 /* Message.m */; };
 		3A6C3BBB1884AD61003B162B /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6C3BBA1884AD61003B162B /* LoginViewController.m */; };
+		3A7D69F31896F12100E18B45 /* OneToOneConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A7D69F21896F12100E18B45 /* OneToOneConversationViewController.m */; };
 		3A81F49A188D905A0006DD5D /* GroupChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A81F499188D90590006DD5D /* GroupChatManager.m */; };
 		3AAE9B1718945710003B4560 /* OneToOneChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAE9B1618945710003B4560 /* OneToOneChatManager.m */; };
 		3AAE9B1A1894A049003B4560 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAE9B191894A049003B4560 /* ConversationViewController.m */; };
@@ -132,6 +133,8 @@
 		3A5699B71886D80C00746CC8 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		3A6C3BB91884AD61003B162B /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		3A6C3BBA1884AD61003B162B /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		3A7D69F11896F12100E18B45 /* OneToOneConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneToOneConversationViewController.h; sourceTree = "<group>"; };
+		3A7D69F21896F12100E18B45 /* OneToOneConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneToOneConversationViewController.m; sourceTree = "<group>"; };
 		3A81F498188D90590006DD5D /* GroupChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupChatManager.h; sourceTree = "<group>"; };
 		3A81F499188D90590006DD5D /* GroupChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupChatManager.m; sourceTree = "<group>"; };
 		3AAE9B1518945710003B4560 /* OneToOneChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneToOneChatManager.h; sourceTree = "<group>"; };
@@ -306,10 +309,14 @@
 				3A25B6721881E83500166623 /* DashboardViewController.m */,
 				3AAE9B181894A049003B4560 /* ConversationViewController.h */,
 				3AAE9B191894A049003B4560 /* ConversationViewController.m */,
+				3A7D69F11896F12100E18B45 /* OneToOneConversationViewController.h */,
+				3A7D69F21896F12100E18B45 /* OneToOneConversationViewController.m */,
 				3A25B6741881E84800166623 /* FriendsViewController.h */,
 				3A25B6751881E84800166623 /* FriendsViewController.m */,
 				3A25B6771881E85B00166623 /* ContactsViewController.h */,
 				3A25B6781881E85B00166623 /* ContactsViewController.m */,
+				3A6C3BB91884AD61003B162B /* LoginViewController.h */,
+				3A6C3BBA1884AD61003B162B /* LoginViewController.m */,
 				3A25B6451881E03700166623 /* AppDelegate.h */,
 				3A25B6461881E03700166623 /* AppDelegate.m */,
 				3A25B6481881E03700166623 /* Main.storyboard */,
@@ -319,8 +326,6 @@
 				3A81F49B188DB2190006DD5D /* Connection */,
 				3A25B6511881E03700166623 /* Images.xcassets */,
 				3A25B63D1881E03700166623 /* Supporting Files */,
-				3A6C3BB91884AD61003B162B /* LoginViewController.h */,
-				3A6C3BBA1884AD61003B162B /* LoginViewController.m */,
 				3AF5113B1885D79E002383D3 /* Constants.h */,
 				3AF5113C1885D79E002383D3 /* Constants.m */,
 			);
@@ -736,6 +741,7 @@
 				3AF19A9B1881F7E800F3E4D3 /* NSNumber+XMPP.m in Sources */,
 				3AF19A8D1881F75100F3E4D3 /* XMPPDigestMD5Authentication.m in Sources */,
 				3AF19A9D1881F7E800F3E4D3 /* NSXMLElement+XMPP.m in Sources */,
+				3A7D69F31896F12100E18B45 /* OneToOneConversationViewController.m in Sources */,
 				3AAE9B1A1894A049003B4560 /* ConversationViewController.m in Sources */,
 				3AF19AC01881F81900F3E4D3 /* XMPPIQ.m in Sources */,
 				3ACA788218833EDB00B384BF /* MainTabBarController.m in Sources */,
