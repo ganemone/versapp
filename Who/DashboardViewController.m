@@ -32,8 +32,9 @@
         ConversationViewController *dest = segue.destinationViewController;
         dest.gc = [gcm getChatByIndex:indexPath.row];
     } else if([segue.identifier compare:SEGUE_ID_ONE_TO_ONE_CONVERSATION] == 0) {
-        //OneToOneChatManager *cm = [OneToOneChatManager getInstance];
-        //OneToOneConversationViewController *dest = segue.destinationViewController;
+        OneToOneChatManager *cm = [OneToOneChatManager getInstance];
+        OneToOneConversationViewController *dest = segue.destinationViewController;
+        dest.chat = [cm getChatByIndex:indexPath.row];
     }
 }
 
@@ -76,7 +77,7 @@
     if (indexPath.section == 0) {
         [self performSegueWithIdentifier:SEGUE_ID_GROUP_CONVERSATION sender:self];
     } else {
-        
+        [self performSegueWithIdentifier:SEGUE_ID_ONE_TO_ONE_CONVERSATION sender:self];
     }
 }
 

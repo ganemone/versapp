@@ -12,6 +12,7 @@
 @interface OneToOneConversationViewController ()
 
 @property CGPoint originalCenter;
+@property (strong, nonatomic) IBOutlet UIButton *pictureButton;
 
 @end
 
@@ -21,6 +22,7 @@
 @synthesize originalCenter;
 @synthesize conversationTableView;
 @synthesize messageTextField;
+@synthesize pictureButton;
 
 - (void)viewDidLoad
 {

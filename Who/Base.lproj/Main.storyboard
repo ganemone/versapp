@@ -223,6 +223,7 @@
                     <navigationItem key="navigationItem" title="Dashboard" id="Uhz-nE-tSF"/>
                     <connections>
                         <segue destination="LSk-rM-HTJ" kind="push" identifier="SegueGroupConversation" id="pEG-HD-mlj"/>
+                        <segue destination="iDZ-uG-Ep6" kind="push" identifier="SegueOneToOneConversation" id="nm9-Jz-pS1"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Psl-uB-bCx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -463,9 +464,9 @@
                         <barButtonItem key="backBarButtonItem" title="Dashboard" id="5Re-bn-JwE"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="cameraButton" destination="bbM-4t-zqN" id="0kU-zG-MHR"/>
                         <outlet property="conversationTableView" destination="kge-TB-N2j" id="KuG-6d-cxl"/>
                         <outlet property="messageTextField" destination="mgX-bM-8F3" id="O7B-9A-E9S"/>
+                        <outlet property="pictureButton" destination="bbM-4t-zqN" id="Xb2-bo-sCZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g7A-1E-cma" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -500,6 +501,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="nm9-Jz-pS1"/>
         <segue reference="pEG-HD-mlj"/>
     </inferredMetricsTieBreakers>
 </document>
