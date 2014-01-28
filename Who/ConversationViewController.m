@@ -124,7 +124,7 @@
 }
 
 -(void)sendMUCMessage {
-    
+    [self.gc sendMessage:self.messageTextField.text];
 }
 
 

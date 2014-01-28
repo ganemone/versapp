@@ -11,21 +11,19 @@
 
 @implementation Message
 
-+(Message *)create:(NSString *)body sender:(NSString *)sender chatID:(NSString *)chatID timestamp:(NSString *)timestamp {
++(Message *)create:(NSString *)body sender:(NSString *)sender chatID:(NSString *)chatID {
     Message *instance = [[Message alloc] init];
     instance.body = body;
     instance.sender = sender;
     instance.chatID = chatID;
-    instance.timestamp = timestamp;
     return instance;
 }
 
-+(Message *)create:(NSString *)body sender:(NSString *)sender chatID:(NSString *)chatID timestamp:(NSString *)timestamp messageTo:(NSString *)messageTo {
++(Message *)create:(NSString *)body sender:(NSString *)sender chatID:(NSString *)chatID messageTo:(NSString *)messageTo {
     Message *instance = [[Message alloc] init];
     instance.body = body;
     instance.sender = sender;
     instance.chatID = chatID;
-    instance.timestamp = timestamp;
     instance.messageTo = messageTo;
     return instance;
 }

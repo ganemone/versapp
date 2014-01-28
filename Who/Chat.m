@@ -21,7 +21,8 @@
 }
 
 -(void)sendMessage:(NSString *)messageText {
-    Message *message = [Message create:messageText sender:[ConnectionProvider getUser] chatID:self.chatID timestamp:<#(NSString *)#>]
+    Message *message = [Message create:messageText sender:[ConnectionProvider getUser] chatID:self.chatID];
+    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSendMUCMessagePacket:message]];
 }
 
 -(void)sendMessage:(NSString *)messageText image:(UIImage *)image {
