@@ -255,15 +255,13 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="LSk-rM-HTJ" kind="push" identifier="SegueGroupConversation" id="6Vn-oV-GbY"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                     </tableView>
                     <navigationItem key="navigationItem" title="Dashboard" id="Uhz-nE-tSF"/>
                     <connections>
-                        <segue destination="41j-x5-OYr" kind="custom" identifier="SegueOneToOneConversation" id="I46-ax-FWb"/>
+                        <segue destination="LSk-rM-HTJ" kind="push" identifier="SegueGroupConversation" id="pEG-HD-mlj"/>
+                        <segue destination="41j-x5-OYr" kind="push" identifier="SegueOneToOneConversation" id="1Cd-wv-03D"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Psl-uB-bCx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -361,7 +359,7 @@
             </objects>
             <point key="canvasLocation" x="397" y="180"/>
         </scene>
-        <!--Conversation View Controller-->
+        <!--Conversation View Controller - Group-->
         <scene sceneID="uV8-Gr-S7N">
             <objects>
                 <viewController hidesBottomBarWhenPushed="YES" id="LSk-rM-HTJ" customClass="ConversationViewController" sceneMemberID="viewController">
@@ -374,11 +372,11 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fsa-06-nqb">
-                                <rect key="frame" x="0.0" y="65" width="320" height="433"/>
+                                <rect key="frame" x="0.0" y="65" width="320" height="445"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f8M-9d-3Bq">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a message..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f8M-9d-3Bq">
                                 <rect key="frame" x="20" y="518" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -387,7 +385,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="qz8-H8-B20"/>
+                    <navigationItem key="navigationItem" title="Group" id="qz8-H8-B20">
+                        <barButtonItem key="backBarButtonItem" title="Dashboard" id="mgi-GM-OSh"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="conversationTableView" destination="fsa-06-nqb" id="hUb-CG-LIC"/>
                         <outlet property="messageTextField" destination="f8M-9d-3Bq" id="qC3-Gz-nzo"/>
@@ -443,7 +443,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="v72-9M-1Zf"/>
-        <segue reference="gNi-3Y-tSq"/>
+        <segue reference="pEG-HD-mlj"/>
+        <segue reference="1Cd-wv-03D"/>
     </inferredMetricsTieBreakers>
 </document>
