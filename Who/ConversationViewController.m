@@ -28,10 +28,10 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
     self.navigationItem.title = self.gc.name;
+    self.originalCenter = self.view.center;
+
     [self.conversationTableView setDelegate:self];
     [self.conversationTableView setDataSource:self];
-    self.originalCenter = self.view.center;
-    
     [self.messageTextField setDelegate:self];
     [self.messageTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     
@@ -77,11 +77,6 @@
     CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
     
     return labelSize.height + 20;
-}
-
--(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    UITextField *textField = [[UITextField alloc] init];
-    return textField;
 }
 
 -(void)keyboardDidShow:(NSNotification*)notification {
