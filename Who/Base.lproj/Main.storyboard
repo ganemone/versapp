@@ -111,7 +111,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNP-y4-bzi" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1556" y="180"/>
+            <point key="canvasLocation" x="1612" y="224"/>
         </scene>
         <!--Contacts View Controller - Invite-->
         <scene sceneID="ODG-ub-ds4">
