@@ -7,6 +7,7 @@
 //
 
 #import "History.h"
+#import "Message.h"
 
 @implementation History
 
@@ -25,6 +26,18 @@
 
 -(void)addMessage:(Message *)message {
     [self.messages addObject:message];
+}
+
+-(int)getNumberOfMessages {
+    return self.messages.count;
+}
+
+-(NSString *)getMessageTextByIndex:(int)index {
+    return [(Message *)[self.messages objectAtIndex:index] body];
+}
+
+-(Message *)getMessageByIndex:(int)index {
+    return [self.messages objectAtIndex:index];
 }
 
 @end

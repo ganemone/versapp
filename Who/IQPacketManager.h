@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DDXMLElement.h"
+#import "Message.h"
 
 @interface IQPacketManager : NSObject
 
@@ -37,8 +38,14 @@
 
 +(DDXMLElement*)createCreateVCardPacket:(NSString*)firstName lastname:(NSString*)lastName phone:(NSString*)phone email:(NSString*)email;
 
++(DDXMLElement *)createUpdateVCardPacket:(NSString *)firstName lastname:(NSString *)lastName phone:(NSString *)phone email:(NSString *)email;
+
 +(DDXMLElement*)createGetLastTimeActivePacket;
 
 +(DDXMLElement*)createGetServerTimePacket;
+
++(DDXMLElement*)createSendMUCMessagePacket:(Message*)message;
+
++(DDXMLElement*)createSendOneToOneMessagePacket:(Message*)message;
 
 @end

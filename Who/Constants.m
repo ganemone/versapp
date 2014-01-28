@@ -38,7 +38,20 @@ NSString *const CHAT_TYPE_ONE_TO_ONE = @"chat";
 
 NSString *const MESSAGE_PROPERTY_SENDER_ID = @"sender_id";
 NSString *const MESSAGE_PROPERTY_TIMESTAMP = @"time";
+NSString *const MESSAGE_PROPERTY_GROUP_ID = @"group_id";
+NSString *const MESSAGE_PROPERTY_THREAD_ID = @"thread";
+NSString *const MESSAGE_PROPERTY_GROUP_TYPE = @"group_chat_message_property";
+NSString *const MESSAGE_PROPERTY_ONE_TO_ONE_TYPE = @"one_to_one_message";
+NSString *const MESSAGE_PROPERTY_RECEIVER_ID = @"receiver_id";
+
 
 NSString *const NOTIFICATION_UPDATE_DASHBOARD_LISTVIEW = @"notification_update_dashboard_listview";
+
+NSString *const APPLICATION_RESOURCE = @"who";
+
+NSString *const SEGUE_ID_GROUP_CONVERSATION = @"SegueGroupConversation";
+NSString *const SEGUE_ID_ONE_TO_ONE_CONVERSATION = @"SegueOneToOneConversation";
+
+NSString *const CELL_ID_CONVERSATION_PROTOTYPE = @"ConversationCellPrototype";
 
 @end

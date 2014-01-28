@@ -36,6 +36,19 @@ extern NSString *const CHAT_TYPE_ONE_TO_ONE;
 
 extern NSString *const MESSAGE_PROPERTY_SENDER_ID;
 extern NSString *const MESSAGE_PROPERTY_TIMESTAMP;
+extern NSString *const MESSAGE_PROPERTY_GROUP_ID;
+extern NSString *const MESSAGE_PROPERTY_THREAD;
+extern NSString *const MESSAGE_PROPERTY_GROUP_TYPE;
+extern NSString *const MESSAGE_PROPERTY_RECEIVER_ID;
+extern NSString *const MESSAGE_PROPERTY_ONE_TO_ONE_TYPE;
 
 extern NSString *const NOTIFICATION_UPDATE_DASHBOARD_LISTVIEW;
+
+extern NSString *const APPLICATION_RESOURCE;
+
+extern NSString *const SEGUE_ID_GROUP_CONVERSATION;
+extern NSString *const SEGUE_ID_ONE_TO_ONE_CONVERSATION;
+
+extern NSString *const CELL_ID_CONVERSATION_PROTOTYPE;
+
 @end

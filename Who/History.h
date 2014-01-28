@@ -19,4 +19,10 @@
 
 -(void)addMessage:(Message*)message;
 
+-(int)getNumberOfMessages;
+
+-(NSString*)getMessageTextByIndex:(int)index;
+
+-(Message*)getMessageByIndex:(int)index;
+
 @end

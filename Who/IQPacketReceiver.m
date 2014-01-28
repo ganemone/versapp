@@ -10,6 +10,7 @@
 #import "Constants.h"
 #import "GroupChat.h"
 #import "GroupChatManager.h"
+#import "OneToOneChatManager.h"
 
 @implementation IQPacketReceiver
 
@@ -40,36 +41,56 @@
 }
 
 -(void)handleGetJoinedChatsPacket:(XMPPIQ *)iq {
+    NSLog(@"Packet: %@", iq.XMLString);
     NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(.*?)\",\"(.*?)\",\"(.*?)\",\"(.*?)\",\"(.*?)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
-    NSArray *matches = [regex matchesInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
+    
+    NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
     GroupChatManager *gcm = [GroupChatManager getInstance];
-    // CREATE ONE TO ONE MANAGER HERE
+    OneToOneChatManager *cm = [OneToOneChatManager getInstance];
     
     for (NSTextCheckingResult *match in matches) {
-        NSString* chatId = [iq.XMLString substringWithRange:[match rangeAtIndex:1]];
-        NSString* type = [iq.XMLString substringWithRange:[match rangeAtIndex:2]];
-        NSString* owner = [iq.XMLString substringWithRange:[match rangeAtIndex:3]];
-        NSString* name = [iq.XMLString substringWithRange:[match rangeAtIndex:4]];
-        NSString* createdTime = [iq.XMLString substringWithRange:[match rangeAtIndex:5]];
+        NSString *participantString = [packetXML substringWithRange:[match rangeAtIndex:1]];
+        NSArray *participants = [participantString componentsSeparatedByString:@", "];
+        NSLog(@"Participant String: %@", participantString);
+        NSLog(@"Participant Array: %@", participants.description);
+        NSLog(@"Participant Array Size: %d", participants.count);
+        NSString* chatId = [packetXML substringWithRange:[match rangeAtIndex:2]];
+        NSString* type = [packetXML substringWithRange:[match rangeAtIndex:3]];
+        NSString* owner = [packetXML substringWithRange:[match rangeAtIndex:4]];
+        NSString* name = [packetXML substringWithRange:[match rangeAtIndex:5]];
+        NSString* createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
         if([type isEqualToString:CHAT_TYPE_GROUP]) {
-            [gcm addChat:[GroupChat create:chatId groupName:name owner:owner createdTime:createdTime]];
+            [gcm addChat:[GroupChat create:chatId participants:participants groupName:name owner:owner createdTime:createdTime]];
         } else if([type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
-            // ADD ONE TO ONE CHAT HERE
+            [cm addChat:[OneToOneChat create:chatId inviterID:owner invitedID:participantString createdTimestamp:createdTime]];
         }
     }
 }
 
 -(void)handleGetLastTimeActivePacket:(XMPPIQ *)iq {
     NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"seconds=\"(.*?)\"" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(.*?)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
     NSTextCheckingResult *match = [regex firstMatchInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
-    NSString *seconds = [iq.XMLString substringWithRange:[match rangeAtIndex:1]];
+    NSString *timestamp = [iq.XMLString substringWithRange:[match rangeAtIndex:1]];
     
-    NSLog(@"Seconds: %@", seconds);
+    if([timestamp compare:@""] == 0) {
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"1970-01-01T00:00:00Z" forKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
+        [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil userInfo:userInfo];
+    } else {
+        NSTimeInterval interval= [timestamp doubleValue] + 5*60*60;
+        NSDate *gregDate = [NSDate dateWithTimeIntervalSince1970: interval];
+        NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+        //[formatter setLocale:[NSLocale currentLocale]];
+        [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+        NSString *utcStringDate =[formatter stringFromDate:gregDate];
+        
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:utcStringDate forKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
+        [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil userInfo:userInfo];
+        
+    }
     
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:seconds forKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
-    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil userInfo:userInfo];
 }
 
 -(void)handleMessagePacket:(XMPPMessage *)message {
@@ -81,19 +102,14 @@
 }
 
 -(void)handleGroupChatMessage:(XMPPMessage *)message {
-    NSLog(@"Message From: %@", message.fromStr);
-    NSLog(@"Message To: %@", message.toStr);
-    NSLog(@"Message Type: %@", message.type);
     
     NSError *error = NULL;
     NSRegularExpression *groupIDRegex = [NSRegularExpression regularExpressionWithPattern:@"(.*?)@" options:NSRegularExpressionCaseInsensitive error:&error];
     NSTextCheckingResult *groupIDMatch = [groupIDRegex firstMatchInString:message.fromStr options:0 range:NSMakeRange(0, message.fromStr.length)];
     NSString *groupID = [message.fromStr substringWithRange:[groupIDMatch rangeAtIndex:1]];
-    NSLog(@"Group ID: %@", groupID);
     
-    NSTextCheckingResult *toMatch = [groupIDRegex firstMatchInString:message.toStr options:0 range:NSMakeRange(0, message.toStr.length)];
-    NSString *toID = [message.toStr substringWithRange:[toMatch rangeAtIndex:1]];
-    NSLog(@"To ID: %@", toID);
+    //NSTextCheckingResult *toMatch = [groupIDRegex firstMatchInString:message.toStr options:0 range:NSMakeRange(0, message.toStr.length)];
+    //NSString *toID = [message.toStr substringWithRange:[toMatch rangeAtIndex:1]];
     
     error = NULL;
     NSRegularExpression *propertyRegex = [NSRegularExpression regularExpressionWithPattern:@"<property><name>(.*?)<\\/name><value type=\"(.*?)\">(.*?)<\\/value>" options:NSRegularExpressionCaseInsensitive error:&error];
@@ -103,15 +119,15 @@
     for(NSTextCheckingResult *match in matches) {
         NSString *name = [message.XMLString substringWithRange:[match rangeAtIndex:1]];
         //NSString *type = [message.XMLString substringWithRange:[match rangeAtIndex:2]];
-        if ([name compare:MESSAGE_PROPERTY_SENDER_ID]) {
+        if ([name compare:MESSAGE_PROPERTY_SENDER_ID] == 0) {
             senderID = [message.XMLString substringWithRange:[match rangeAtIndex:3]];
-        } else if([name compare:MESSAGE_PROPERTY_TIMESTAMP]) {
+        } else if([name compare:MESSAGE_PROPERTY_TIMESTAMP] == 0) {
             timestamp = [message.XMLString substringWithRange:[match rangeAtIndex:3]];
         }
     }
     GroupChatManager *gcm = [GroupChatManager getInstance];
     GroupChat *gc = [gcm getChat:groupID];
-    [gc.history addMessage:[Message create:message.body sender:senderID chatID:groupID timestamp:timestamp]];
+    [gc.history addMessage:[Message createForMUC:message.body sender:senderID chatID:groupID timestamp:timestamp]];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_DASHBOARD_LISTVIEW object:nil];
 }
 
@@ -128,6 +144,12 @@
     NSLog(@"Received Server Time: %@", utcTime);
     NSDictionary *userInfo = [NSDictionary dictionaryWithObject:utcTime forKey:PACKET_ID_GET_SERVER_TIME];
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_SERVER_TIME object:nil userInfo:userInfo];
+}
+
+-(NSString*)getPacketXMLWithoutNewLines:(XMPPIQ *)iq {
+    NSString *packetXML = [iq.XMLString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    packetXML = [packetXML stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+    return packetXML;
 }
 
 @end

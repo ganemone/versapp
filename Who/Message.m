@@ -7,10 +7,19 @@
 //
 
 #import "Message.h"
+#import "ConnectionProvider.h"
 
 @implementation Message
 
-+(Message *)create:(NSString *)body sender:(NSString *)sender chatID:(NSString *)chatID timestamp:(NSString *)timestamp {
++(Message *)createForMUC:(NSString *)body sender:(NSString *)sender chatID:(NSString *)chatID {
+    Message *instance = [[Message alloc] init];
+    instance.body = body;
+    instance.sender = sender;
+    instance.chatID = chatID;
+    return instance;
+}
+
++(Message *)createForMUC:(NSString *)body sender:(NSString *)sender chatID:(NSString *)chatID timestamp:(NSString *)timestamp {
     Message *instance = [[Message alloc] init];
     instance.body = body;
     instance.sender = sender;
@@ -18,5 +27,28 @@
     instance.timestamp = timestamp;
     return instance;
 }
+
++(Message *)createForOneToOne:(NSString *)body sender:(NSString *)sender chatID:(NSString *)chatID messageTo:(NSString *)messageTo {
+    Message *instance = [[Message alloc] init];
+    instance.body = body;
+    instance.sender = sender;
+    instance.chatID = chatID;
+    instance.messageTo = messageTo;
+    return instance;
+}
+
++(Message *)createForOneToOne:(NSString *)body sender:(NSString *)sender chatID:(NSString *)chatID messageTo:(NSString *)messageTo timestamp:(NSString *)timestamp {
+    Message *instance = [[Message alloc] init];
+    instance.body = body;
+    instance.sender = sender;
+    instance.chatID = chatID;
+    instance.messageTo = messageTo;
+    instance.timestamp = timestamp;
+    return instance;
+}
+
+/*-(NSTextAlignment)getMessageTextAlignment {
+    return ([self.sender compare:[ConnectionProvider getUser]] == 0) ? NSTextAlignmentLeft : NSTextAlignmentRight;
+}*/
 
 @end

@@ -10,12 +10,9 @@
 
 @interface GroupChat : Chat
 
--(void)join;
-
--(void)leave;
-
-+(GroupChat*)create:(NSString*)chatID groupName: (NSString*)groupName owner: (NSString*) owner createdTime: (NSString*) createdTime;
++(GroupChat*)create:(NSString*)chatID participants:(NSArray *)participants groupName: (NSString*)groupName owner: (NSString*) owner createdTime: (NSString*) createdTime;
 
 +(NSString*)createGroupID;
 
+-(int)getNumberOfMessages;
 @end

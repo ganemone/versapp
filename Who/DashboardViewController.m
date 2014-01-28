@@ -7,7 +7,10 @@
 //
 
 #import "DashboardViewController.h"
+#import "ConversationViewController.h"
+#import "OneToOneConversationViewController.h"
 #import "GroupChatManager.h"
+#import "OneToOneChatManager.h"
 #import "Constants.h"
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
@@ -21,64 +24,87 @@
 
 @implementation DashboardViewController
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    UITableViewCell *cell = (UITableViewCell*)sender;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    if([segue.identifier compare:SEGUE_ID_GROUP_CONVERSATION] == 0) {
+        GroupChatManager *gcm = [GroupChatManager getInstance];
+        ConversationViewController *dest = segue.destinationViewController;
+        dest.gc = [gcm getChatByIndex:indexPath.row];
+    } else if([segue.identifier compare:SEGUE_ID_ONE_TO_ONE_CONVERSATION] == 0) {
+        OneToOneChatManager *cm = [OneToOneChatManager getInstance];
+        OneToOneConversationViewController *dest = segue.destinationViewController;
+        dest.chat = [cm getChatByIndex:indexPath.row];
+    }
+}
+
 -(void)viewDidLoad {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleGetLastPacketReceived:) name:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_UPDATE_DASHBOARD_LISTVIEW object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleGetServerTimePacketReceived:) name:PACKET_ID_GET_SERVER_TIME object:nil];
-
+    
     self.cp = [ConnectionProvider getInstance];
     [[self.cp getConnection] sendElement:[IQPacketManager createGetJoinedChatsPacket]];
     [[self.cp getConnection] sendElement:[IQPacketManager createGetLastTimeActivePacket]];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return (section == 0) ? @"Groups" : @"One To One";
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"ChatCellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    GroupChatManager *gcm = [GroupChatManager getInstance];
-    GroupChat *muc = [gcm getChatByIndex:indexPath.row];
-    cell.textLabel.text = muc.name;
-    cell.detailTextLabel.text = muc.history.getLastMessage;
+    if(indexPath.section == 0) {
+        GroupChatManager *gcm = [GroupChatManager getInstance];
+        GroupChat *muc = [gcm getChatByIndex:indexPath.row];
+        cell.textLabel.text = muc.name;
+        cell.detailTextLabel.text = muc.history.getLastMessage;
+    } else {
+        OneToOneChatManager *cm = [OneToOneChatManager getInstance];
+        OneToOneChat *chat = [cm getChatByIndex:indexPath.row];
+        cell.textLabel.text = chat.name;
+        cell.detailTextLabel.text = chat.history.getLastMessage;
+    }
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"Section %d", indexPath.section);
+    if (indexPath.section == 0) {
+        [self performSegueWithIdentifier:SEGUE_ID_GROUP_CONVERSATION sender:self];
+    } else {
+        [self performSegueWithIdentifier:SEGUE_ID_ONE_TO_ONE_CONVERSATION sender:self];
+    }
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    GroupChatManager *gcm = [GroupChatManager getInstance];
-    return [gcm getNumberOfChats];
+    if(section == 0) {
+        GroupChatManager *gcm = [GroupChatManager getInstance];
+        return [gcm getNumberOfChats];
+    } else {
+        OneToOneChatManager *cm = [OneToOneChatManager getInstance];
+        return [cm getNumberOfChats];
+    }
 }
 
 -(void)handleGetLastPacketReceived:(NSNotification*)notification {
     NSDictionary *data = notification.userInfo;
-    self.timeLastActive = [data objectForKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
-    [[self.cp getConnection] sendElement:[IQPacketManager createGetServerTimePacket]];
+    NSString *utcTime = [data objectForKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
+    GroupChatManager *gcm = [GroupChatManager getInstance];
+    GroupChat *gc = nil;
+    for (int i = 0; i < [gcm getNumberOfChats]; i++) {
+        gc = [gcm getChatByIndex:i];
+        [[self.cp getConnection] sendElement:[IQPacketManager createJoinMUCPacket:gc.chatID lastTimeActive:utcTime]];
+    }
+    [self.tableView reloadData];
 }
 
 -(void)handleRefreshListView:(NSNotification*)notification {
     NSLog(@"Refreshing List View");
-    [self.tableView reloadData];
-}
-
--(void)handleGetServerTimePacketReceived:(NSNotification*)notification {
-    NSDictionary *userInfo = notification.userInfo;
-    NSString *serverTime = [userInfo objectForKey:PACKET_ID_GET_SERVER_TIME];
-    int secondsSinceInteger = [self.timeLastActive intValue];
-    
-    NSDateFormatter *utc = [[NSDateFormatter alloc] init];
-    [utc setDateFormat:@"yyyyMMdd'T'HH:mm:ss"];
-    NSDate *serverTimeDate = [utc dateFromString:serverTime];
-    NSDate *historySince = [serverTimeDate dateByAddingTimeInterval:-1*secondsSinceInteger];
-    [utc setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
-    NSLog(@"History Since: %@", [utc stringFromDate:historySince]);
-    self.timeLastActive = [utc stringFromDate:historySince];
-    
-    GroupChatManager *gcm = [GroupChatManager getInstance];
-    for (int i = 0; i < [gcm getNumberOfChats]; i++) {
-        GroupChat *gc = [gcm getChatByIndex:i];
-        [[self.cp getConnection] sendElement:[IQPacketManager createJoinMUCPacket:gc.chatID lastTimeActive:self.timeLastActive]];
-    }
     [self.tableView reloadData];
 }
 
