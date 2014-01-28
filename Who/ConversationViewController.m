@@ -16,15 +16,8 @@
 @implementation ConversationViewController
 
 @synthesize gc;
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+@synthesize tableView;
+@synthesize messageTextField;
 
 - (void)viewDidLoad
 {

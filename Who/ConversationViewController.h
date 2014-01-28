@@ -9,8 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "GroupChat.h"
 
-@interface ConversationViewController : UITableViewController
+@interface ConversationViewController : UIViewController <UITableViewDelegate, UITableViewDelegate> {
+    IBOutlet UITableView *tableView;
+    IBOutlet UITextField *messageTextField;
+}
 
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UITextField *messageTextField;
 @property (strong, nonatomic) GroupChat *gc;
 
 @end
