@@ -359,7 +359,7 @@
             </objects>
             <point key="canvasLocation" x="397" y="180"/>
         </scene>
-        <!--Conversation View Controller - Group-->
+        <!--Conversation View Controller-->
         <scene sceneID="uV8-Gr-S7N">
             <objects>
                 <viewController hidesBottomBarWhenPushed="YES" id="LSk-rM-HTJ" customClass="ConversationViewController" sceneMemberID="viewController">
@@ -385,12 +385,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Group" id="qz8-H8-B20">
+                    <navigationItem key="navigationItem" id="qz8-H8-B20">
                         <barButtonItem key="backBarButtonItem" title="Dashboard" id="mgi-GM-OSh"/>
                     </navigationItem>
                     <connections>
                         <outlet property="conversationTableView" destination="fsa-06-nqb" id="hUb-CG-LIC"/>
                         <outlet property="messageTextField" destination="f8M-9d-3Bq" id="qC3-Gz-nzo"/>
+                        <outlet property="navigationBar" destination="qz8-H8-B20" id="TQj-rJ-1Xe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yd9-J6-Wir" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -443,7 +444,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="pEG-HD-mlj"/>
         <segue reference="1Cd-wv-03D"/>
+        <segue reference="v72-9M-1Zf"/>
     </inferredMetricsTieBreakers>
 </document>

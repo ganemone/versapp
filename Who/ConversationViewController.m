@@ -27,6 +27,7 @@
     NSLog(@"Group History Size: %d", [self.gc getNumberOfMessages]);
     NSLog(@"Group History Element: %@", [self.gc.history getMessageTextByIndex:0]);
     NSLog(@"Group History Element: %@", [self.gc.history getMessageTextByIndex:1]);
+    self.navigationItem.title = self.gc.name;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
