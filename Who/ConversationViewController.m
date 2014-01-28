@@ -16,7 +16,7 @@
 @implementation ConversationViewController
 
 @synthesize gc;
-@synthesize tableView;
+@synthesize conversationTableView;
 @synthesize messageTextField;
 
 - (void)viewDidLoad

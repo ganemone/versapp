@@ -389,9 +389,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="qz8-H8-B20"/>
                     <connections>
-                        <outlet property="EmbeddedTableView" destination="fsa-06-nqb" id="dge-Pb-jN2"/>
-                        <outlet property="messageTextField" destination="f8M-9d-3Bq" id="27N-Df-u8G"/>
-                        <outlet property="tableView" destination="fsa-06-nqb" id="5ZE-nW-FPb"/>
+                        <outlet property="conversationTableView" destination="fsa-06-nqb" id="hUb-CG-LIC"/>
+                        <outlet property="messageTextField" destination="f8M-9d-3Bq" id="qC3-Gz-nzo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yd9-J6-Wir" userLabel="First Responder" sceneMemberID="firstResponder"/>
