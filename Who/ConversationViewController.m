@@ -13,10 +13,6 @@
 
 @end
 
-#define FONT_SIZE 14.0f
-#define CELL_CONTENT_WIDTH 320.0f
-#define CELL_CONTENT_MARGIN 10.0f
-
 @implementation ConversationViewController
 
 @synthesize gc;
