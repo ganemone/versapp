@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GroupChat.h"
 
-@interface ConversationViewController : UIViewController <UITableViewDelegate, UITableViewDelegate> {
+@interface ConversationViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
     IBOutlet UITableView *conversationTableView;
     IBOutlet UITextField *messageTextField;
 }

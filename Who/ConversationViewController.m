@@ -11,6 +11,10 @@
 
 @interface ConversationViewController ()
 
+@property (strong, nonatomic) IBOutlet UIButton *cameraButton;
+@property (strong, nonatomic) IBOutlet UIButton *sendButton;
+@property CGPoint originalCenter;
+
 @end
 
 @implementation ConversationViewController
@@ -18,16 +22,19 @@
 @synthesize gc;
 @synthesize conversationTableView;
 @synthesize messageTextField;
+@synthesize cameraButton;
+@synthesize sendButton;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"Convesation View Did Load");
-    NSLog(@"Group Name: %@", self.gc.name);
-    NSLog(@"Group History Size: %d", [self.gc getNumberOfMessages]);
-    NSLog(@"Group History Element: %@", [self.gc.history getMessageTextByIndex:0]);
-    NSLog(@"Group History Element: %@", [self.gc.history getMessageTextByIndex:1]);
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
     self.navigationItem.title = self.gc.name;
+    [self.conversationTableView setDelegate:self];
+    [self.conversationTableView setDataSource:self];
+    self.originalCenter = self.view.center;
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -75,6 +82,22 @@
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UITextField *textField = [[UITextField alloc] init];
     return textField;
+}
+
+-(void)keyboardDidShow:(NSNotification*)notification {
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.25];
+    NSDictionary *info = notification.userInfo;
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    [self.view setCenter:CGPointMake(self.view.center.x, self.view.center.y - kbSize.height)];
+    [UIView commitAnimations];
+}
+
+-(void)keyboardDidHide:(NSNotification*)notification {
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.25];
+    [self.view setCenter:self.originalCenter];
+    [UIView commitAnimations];
 }
 
 /*
