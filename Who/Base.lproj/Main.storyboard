@@ -396,25 +396,16 @@
                                 </prototypes>
                             </tableView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a message..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f8M-9d-3Bq">
-                                <rect key="frame" x="20" y="438" width="208" height="30"/>
+                                <rect key="frame" x="20" y="438" width="259" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="alphabet" returnKeyType="send"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="quo-Pc-AQO">
-                                <rect key="frame" x="226" y="437" width="46" height="30"/>
+                                <rect key="frame" x="281" y="438" width="39" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Pic">
-                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="URq-2I-pEA">
-                                <rect key="frame" x="264" y="437" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="Send">
                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -429,7 +420,6 @@
                         <outlet property="cameraButton" destination="quo-Pc-AQO" id="TgO-IU-BRE"/>
                         <outlet property="conversationTableView" destination="fsa-06-nqb" id="hUb-CG-LIC"/>
                         <outlet property="messageTextField" destination="f8M-9d-3Bq" id="qC3-Gz-nzo"/>
-                        <outlet property="sendButton" destination="URq-2I-pEA" id="YSj-Ly-jGd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yd9-J6-Wir" userLabel="First Responder" sceneMemberID="firstResponder"/>

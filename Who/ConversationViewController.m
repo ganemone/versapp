@@ -12,7 +12,6 @@
 @interface ConversationViewController ()
 
 @property (strong, nonatomic) IBOutlet UIButton *cameraButton;
-@property (strong, nonatomic) IBOutlet UIButton *sendButton;
 @property CGPoint originalCenter;
 
 @end
@@ -23,17 +22,18 @@
 @synthesize conversationTableView;
 @synthesize messageTextField;
 @synthesize cameraButton;
-@synthesize sendButton;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
     self.navigationItem.title = self.gc.name;
     [self.conversationTableView setDelegate:self];
     [self.conversationTableView setDataSource:self];
     self.originalCenter = self.view.center;
+    
+    [self.messageTextField setDelegate:self];
+    [self.messageTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -93,12 +93,40 @@
     [UIView commitAnimations];
 }
 
--(void)keyboardDidHide:(NSNotification*)notification {
+-(void)textFieldDidBeginEditing:(UITextField *)textField {
+    if (textField.text.length > 0) {
+        self.messageTextField.returnKeyType = UIReturnKeySend;
+    } else {
+        self.messageTextField.returnKeyType = UIReturnKeyDone;
+    }
+    [self.messageTextField reloadInputViews];
+}
+
+-(void)textFieldDidChange:(UITextField *)textField {
+    if (textField.text.length > 0) {
+        self.messageTextField.returnKeyType = UIReturnKeySend;
+    } else {
+        self.messageTextField.returnKeyType = UIReturnKeyDone;
+    }
+    [self.messageTextField reloadInputViews];
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if(self.messageTextField.returnKeyType == UIReturnKeySend) {
+        [self sendMUCMessage];
+    }
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.25];
     [self.view setCenter:self.originalCenter];
     [UIView commitAnimations];
+    [textField resignFirstResponder];
+    return YES;
 }
+
+-(void)sendMUCMessage {
+    
+}
+
 
 /*
  // Override to support conditional editing of the table view.

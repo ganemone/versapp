@@ -304,13 +304,6 @@
     DDXMLElement *properties = [DDXMLElement elementWithName:@"properties"];
     [properties addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"http://www.jivesoftware.com/xmlns/xmpp/properties"]];
     
-    DDXMLElement *timeProperty = [DDXMLElement elementWithName:@"property"];
-    DDXMLElement *timeName = [DDXMLElement elementWithName:@"name" stringValue:MESSAGE_PROPERTY_TIMESTAMP];
-    DDXMLElement *timeValue = [DDXMLElement elementWithName:@"value" stringValue:message.timestamp];
-    [timeValue addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"string"]];
-    [timeProperty addChild:timeName];
-    [timeProperty addChild:timeValue];
-    
     DDXMLElement *senderProperty = [DDXMLElement elementWithName:@"property"];
     DDXMLElement *senderName = [DDXMLElement elementWithName:@"name" stringValue:MESSAGE_PROPERTY_SENDER_ID];
     DDXMLElement *senderValue = [DDXMLElement elementWithName:@"value" stringValue:message.sender];
@@ -318,7 +311,6 @@
     [senderProperty addChild:senderName];
     [senderProperty addChild:senderValue];
     
-    [properties addChild:timeProperty];
     [properties addChild:senderProperty];
     
     return properties;

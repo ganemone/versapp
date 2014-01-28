@@ -13,12 +13,10 @@
 @property (strong, nonatomic) NSString *body;
 @property (strong, nonatomic) NSString *sender;
 @property (strong, nonatomic) NSString *chatID;
-@property (strong, nonatomic) NSString *timestamp;
 @property (strong, nonatomic) NSString *messageTo;
 
-+(Message*)create:(NSString*)body sender:(NSString*)sender chatID:(NSString*)chatID timestamp:(NSString*)timestamp;
++(Message*)create:(NSString*)body sender:(NSString*)sender chatID:(NSString*)chatID;
 
-+(Message*)create:(NSString*)body sender:(NSString*)sender chatID:(NSString*)chatID timestamp:(NSString*)timestamp messageTo:(NSString*)messageTo;
-
++(Message*)create:(NSString*)body sender:(NSString*)sender chatID:(NSString*)chatID messageTo:(NSString*)messageTo;
 
 @end

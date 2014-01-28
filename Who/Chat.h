@@ -25,7 +25,9 @@
 
 -(void)setHistory:(History*)history;
 
--(void)sendMessage:(Message*)message image:(UIImage*)image;
+-(void)sendMessage:(NSString*)messageText;
+
+-(void)sendMessage:(NSString*)messageText image:(UIImage*)image;
 
 -(NSString*)getChatAddress;
 

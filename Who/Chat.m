@@ -8,6 +8,7 @@
 
 #import "Chat.h"
 #import "ConnectionProvider.h"
+#import "IQPacketManager.h"
 
 @implementation Chat
 
@@ -15,14 +16,16 @@
     return self.history;
 }
 
--(void)sendMessage:(Message *)message image:(UIImage *)image {
-    
-}
-
 -(NSString *)getChatAddress {
     return [NSString stringWithFormat:@"%@@%@", self.chatID, [ConnectionProvider getConferenceIPAddress]];
 }
 
+-(void)sendMessage:(NSString *)messageText {
+    Message *message = [Message create:messageText sender:[ConnectionProvider getUser] chatID:self.chatID timestamp:<#(NSString *)#>]
+}
 
+-(void)sendMessage:(NSString *)messageText image:(UIImage *)image {
+    
+}
 
 @end
