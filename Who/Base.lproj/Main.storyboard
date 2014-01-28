@@ -111,7 +111,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNP-y4-bzi" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1556" y="180"/>
+            <point key="canvasLocation" x="1552" y="180"/>
         </scene>
         <!--Contacts View Controller - Invite-->
         <scene sceneID="ODG-ub-ds4">
@@ -188,14 +188,14 @@
         <!--Conversation View Controller-->
         <scene sceneID="9tH-JZ-aS0">
             <objects>
-                <tableViewController id="QKA-Pt-dyT" customClass="ConversationViewController" sceneMemberID="viewController">
+                <tableViewController hidesBottomBarWhenPushed="YES" id="QKA-Pt-dyT" customClass="ConversationViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="PeP-nd-J8K">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ConversationCellPrototype" textLabel="4m2-Xf-pei" style="IBUITableViewCellStyleDefault" id="69J-mB-y2g">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="69J-mB-y2g" id="cao-l1-WVE">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -217,7 +217,9 @@
                             <outlet property="delegate" destination="QKA-Pt-dyT" id="YMp-Au-eh7"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="ejw-MB-bX7"/>
+                    <navigationItem key="navigationItem" id="3Sp-v8-YzE">
+                        <barButtonItem key="leftBarButtonItem" id="Yic-EW-mUd"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OZi-Rc-A1Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -226,14 +228,14 @@
         <!--One To One Conversation View Controller-->
         <scene sceneID="C3g-5R-jYJ">
             <objects>
-                <tableViewController id="41j-x5-OYr" customClass="OneToOneConversationViewController" sceneMemberID="viewController">
+                <tableViewController hidesBottomBarWhenPushed="YES" id="41j-x5-OYr" customClass="OneToOneConversationViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="8QC-BM-CuJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ConversationCellPrototype" textLabel="JUi-iP-w7G" style="IBUITableViewCellStyleDefault" id="fZn-s2-PR6">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fZn-s2-PR6" id="VII-dA-kCW">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -298,7 +300,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Dashboard" id="Uhz-nE-tSF"/>
                     <connections>
-                        <segue destination="QKA-Pt-dyT" kind="custom" identifier="SegueGroupConversation" id="ap0-Pe-M6I"/>
+                        <segue destination="QKA-Pt-dyT" kind="push" identifier="SegueGroupConversation" id="ap0-Pe-M6I"/>
                         <segue destination="41j-x5-OYr" kind="custom" identifier="SegueOneToOneConversation" id="I46-ax-FWb"/>
                     </connections>
                 </tableViewController>
@@ -400,13 +402,17 @@
         <!--Navigation Controller-->
         <scene sceneID="Iuw-H1-thB">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sGE-tH-ROp" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="flipHorizontal" hidesBottomBarWhenPushed="YES" id="sGE-tH-ROp" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="RJF-J6-BH2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="1df-Xz-Sir">
+                        <rect key="frame" x="0.0" y="416" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="QKA-Pt-dyT" kind="relationship" relationship="rootViewController" id="EGS-Vp-jur"/>
                     </connections>
@@ -443,7 +449,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="I46-ax-FWb"/>
         <segue reference="ap0-Pe-M6I"/>
+        <segue reference="gNi-3Y-tSq"/>
     </inferredMetricsTieBreakers>
 </document>

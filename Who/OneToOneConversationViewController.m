@@ -59,7 +59,7 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    cell.textLabel.text = [self.chat.history getMessageByIndex:indexPath.row];
+    cell.textLabel.text = [self.chat.history getMessageTextByIndex:indexPath.row];
     return cell;
 }
 
