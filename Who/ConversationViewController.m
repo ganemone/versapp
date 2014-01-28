@@ -119,7 +119,7 @@
 }
 
 -(void)sendMUCMessage {
-    [self.gc sendMessage:self.messageTextField.text];
+    [self.gc sendMUCMessage:self.messageTextField.text];
 }
 
 
