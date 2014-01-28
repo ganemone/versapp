@@ -21,12 +21,12 @@
 }
 
 -(void)sendMUCMessage:(NSString *)messageText {
-    Message *message = [Message create:messageText sender:[ConnectionProvider getUser] chatID:self.chatID];
+    Message *message = [Message createForMUC:messageText sender:[ConnectionProvider getUser] chatID:self.chatID];
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSendMUCMessagePacket:message]];
 }
 
 -(void)sendOneToOneMessage:(NSString *)messageText {
-    Message *message = [Message create:messageText sender:[ConnectionProvider getUser] chatID:self.chatID];
+    Message *message = [Message createForMUC:messageText sender:[ConnectionProvider getUser] chatID:self.chatID];
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSendOneToOneMessagePacket:message]];
 }
 

@@ -25,8 +25,8 @@
     instance.owner = owner;
     instance.createdTime = createdTime;
     instance.history = [History create:[[NSMutableArray alloc] init]];
-    [instance.history addMessage:[Message create:@"Hey man, what is going on?" sender:[participants objectAtIndex:0] chatID:chatID timestamp:createdTime]];
-    [instance.history addMessage:[Message create:@"Here is another longer message in the group chat UI.  Multiple sentences will hopefully put this onto multiple lines." sender:[participants objectAtIndex:0] chatID:chatID timestamp:createdTime]];
+    [instance.history addMessage:[Message createForMUC:@"Test message" sender:[ConnectionProvider getUser] chatID:chatID timestamp:createdTime]];
+    [instance.history addMessage:[Message createForMUC:@"This is a longer message. The purpose of this message is to ensure that the text wraps onto the next line. Wow! Would you look at that. It worked :)" sender:[ConnectionProvider getUser] chatID:chatID timestamp:createdTime]];
     return instance;
 }
 

@@ -127,7 +127,7 @@
     }
     GroupChatManager *gcm = [GroupChatManager getInstance];
     GroupChat *gc = [gcm getChat:groupID];
-    [gc.history addMessage:[Message create:message.body sender:senderID chatID:groupID timestamp:timestamp]];
+    [gc.history addMessage:[Message createForMUC:message.body sender:senderID chatID:groupID timestamp:timestamp]];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_DASHBOARD_LISTVIEW object:nil];
 }
 
