@@ -115,16 +115,19 @@
     NSRegularExpression *propertyRegex = [NSRegularExpression regularExpressionWithPattern:@"<property><name>(.*?)<\\/name><value type=\"(.*?)\">(.*?)<\\/value>" options:NSRegularExpressionCaseInsensitive error:&error];
     NSArray *matches = [propertyRegex matchesInString:message.XMLString options:0 range:NSMakeRange(0, message.XMLString.length)];
     NSString *senderID = nil;
+    NSString *timestamp = nil;
     for(NSTextCheckingResult *match in matches) {
         NSString *name = [message.XMLString substringWithRange:[match rangeAtIndex:1]];
         //NSString *type = [message.XMLString substringWithRange:[match rangeAtIndex:2]];
         if ([name compare:MESSAGE_PROPERTY_SENDER_ID] == 0) {
             senderID = [message.XMLString substringWithRange:[match rangeAtIndex:3]];
+        } else if([name compare:MESSAGE_PROPERTY_TIMESTAMP] == 0) {
+            timestamp = [message.XMLString substringWithRange:[match rangeAtIndex:3]];
         }
     }
     GroupChatManager *gcm = [GroupChatManager getInstance];
     GroupChat *gc = [gcm getChat:groupID];
-    [gc.history addMessage:[Message create:message.body sender:senderID chatID:groupID]];
+    [gc.history addMessage:[Message create:message.body sender:senderID chatID:groupID timestamp:timestamp]];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_DASHBOARD_LISTVIEW object:nil];
 }
 
