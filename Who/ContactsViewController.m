@@ -32,24 +32,34 @@
                         NSString *firstName = (__bridge_transfer NSString*)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonFirstNameProperty);
                         NSString *lastName = (__bridge_transfer NSString*)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonLastNameProperty);
                         
-                        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+                        NSMutableArray *phoneBufferArray = [[NSMutableArray alloc] init],
+                        *emailBufferArray = [[NSMutableArray alloc] init];
                         
                         // Get all phone numbers of a contact
-                        ABMultiValueRef phoneNumbers = ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonPhoneProperty);
+                        ABMultiValueRef phoneNumbers = ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonPhoneProperty),
+                        emailList = ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonEmailProperty);
                         
-                        // If the contact has multiple phone numbers, iterate on each of them
+                        NSInteger emailCount = ABMultiValueGetCount(emailList);
+                        for (int i = 0; i < emailCount; i++) {
+                            [emailBufferArray addObject:(__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(emailList, i)];
+                        }
+                        
                         NSInteger phoneNumberCount = ABMultiValueGetCount(phoneNumbers);
+                        NSError *regerr = NULL;
+                        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^0-9]" options:NSRegularExpressionCaseInsensitive error:&regerr];
+                        NSString *phone;
                         for (int i = 0; i < phoneNumberCount; i++) {
-                            NSError *regerr = NULL;
-                            NSString *phone = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phoneNumbers, i);
-                            NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^0-9]" options:NSRegularExpressionCaseInsensitive error:&regerr];
+                            phone = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phoneNumbers, i);
                             phone = [regex stringByReplacingMatchesInString:phone options:0 range:NSMakeRange(0, [phone length]) withTemplate:@""];
-                            [tempArray addObject:phone];
+                            [phoneBufferArray addObject:phone];
                         }
                         NSLog(@"First Name: %@", firstName);
                         NSLog(@"Last Name: %@", lastName);
-                        for (int i = 0; i < tempArray.count; i++) {
-                            NSLog(@"Phone Number: %@", tempArray[i]);
+                        for (int i = 0; i < phoneBufferArray.count; i++) {
+                            NSLog(@"Phone Number: %@", phoneBufferArray[i]);
+                        }
+                        for (int i = 0; i < emailBufferArray.count; i++) {
+                            NSLog(@"Email: %@", emailBufferArray[i]);
                         }
                     }
                 }
