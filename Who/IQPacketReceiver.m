@@ -26,7 +26,7 @@
     } else if([self isPacketWithID:PACKET_ID_GET_JOINED_CHATS packet:iq]) {
         [self handleGetJoinedChatsPacket:iq];
     } else if([self isPacketWithID:PACKET_ID_GET_PENDING_CHATS packet:iq]) {
-        
+        [self handleGetPendingChatsPacket:iq];
     } else if([self isPacketWithID:PACKET_ID_GET_ROSTER packet:iq]) {
         
     } else if([self isPacketWithID:PACKET_ID_JOIN_MUC packet:iq]) {
@@ -144,6 +144,35 @@
     NSLog(@"Received Server Time: %@", utcTime);
     NSDictionary *userInfo = [NSDictionary dictionaryWithObject:utcTime forKey:PACKET_ID_GET_SERVER_TIME];
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_SERVER_TIME object:nil userInfo:userInfo];
+}
+
+-(void)handleGetPendingChatsPacket:(XMPPIQ *)packet {
+    
+    NSLog(@"Pending Chats Packet Received: %@", packet.XMLString);
+    
+    NSError *error = NULL;
+    NSString *packetXML = [self getPacketXMLWithoutNewLines:packet];
+    NSLog(@"PacketXML: %@", packetXML);
+    
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
+    
+    NSLog(@"Matches: %@", matches);
+    
+    NSArray *keys = [NSArray arrayWithObjects:@"chatId", @"chatType", @"chatOwnerId", @"chatName", @"created", nil];
+    NSMutableArray *values = [[NSMutableArray alloc] init];
+    for(NSTextCheckingResult *match in matches) {
+        for (int i=1; i<=5; i++)
+            [values addObject:[packetXML substringWithRange:[match rangeAtIndex:i]]];
+        /*chatId = [packetXML substringWithRange:[match rangeAtIndex:1]];
+        chatType = [packetXML substringWithRange:[match rangeAtIndex:2]];
+        chatOwnerId = [packetXML substringWithRange:[match rangeAtIndex:3]];
+        chatName = [packetXML substringWithRange:[match rangeAtIndex:4]];
+        created = [packetXML substringWithRange:[match rangeAtIndex:5]];*/
+        
+        NSDictionary *pendingChats = [NSDictionary dictionaryWithObjects:values forKeys:keys];
+        [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_PENDING_CHATS object:nil userInfo:pendingChats];
+    }
 }
 
 -(NSString*)getPacketXMLWithoutNewLines:(XMPPIQ *)iq {
