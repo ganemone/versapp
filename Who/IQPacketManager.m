@@ -151,17 +151,23 @@
     DDXMLElement *query = [DDXMLElement elementWithName:@"vCard"];
 	[query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"vcard-temp"]];
     
-    [query addChild:[DDXMLElement elementWithName:VCARD_TAG_FN stringValue:firstName]];
-    [query addChild:[DDXMLElement elementWithName:VCARD_TAG_LN stringValue:lastName]];
+    [query addChild:[DDXMLElement elementWithName:VCARD_TAG_FULL_NAME stringValue:[NSString stringWithFormat:@"%@ %@", firstName, lastName]]];
+    
+    DDXMLElement *nTag = [DDXMLElement elementWithName:@"N"];
+    [nTag addChild:[DDXMLElement elementWithName:VCARD_TAG_FIRST_NAME stringValue:firstName]];
+    [nTag addChild:[DDXMLElement elementWithName:VCARD_TAG_LAST_NAME stringValue:lastName]];
+    
+    [query addChild:nTag];
     [query addChild:[DDXMLElement elementWithName:VCARD_TAG_USERNAME stringValue:phone]];
     [query addChild:[DDXMLElement elementWithName:VCARD_TAG_EMAIL stringValue:email]];
+    [query addChild:[DDXMLElement elementWithName:VCARD_TAG_USERNAME stringValue:firstName]];
     
 	DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
     [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_CREATE_VCARD]];
 	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"set"]];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
 	[iq addChild:query];
     
+    NSLog(@"VCard Packet: %@", iq.XMLString);
     return iq;
 }
 

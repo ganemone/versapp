@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "XMPPStream.h"
 
-@interface LoginViewController : UIViewController <XMPPStreamDelegate>
+@interface LoginViewController : UIViewController <XMPPStreamDelegate, UITextFieldDelegate>
 
 -(void)authenticated;
 
