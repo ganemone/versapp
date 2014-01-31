@@ -303,25 +303,12 @@
 			isa = PBXGroup;
 			children = (
 				3AF19ACE1881F86000F3E4D3 /* Dependencies */,
-				3A25B66E1881E7F100166623 /* RequestsViewController.h */,
-				3A25B66F1881E7F100166623 /* RequestsViewController.m */,
-				3A25B6711881E83500166623 /* DashboardViewController.h */,
-				3A25B6721881E83500166623 /* DashboardViewController.m */,
-				3AAE9B181894A049003B4560 /* ConversationViewController.h */,
-				3AAE9B191894A049003B4560 /* ConversationViewController.m */,
-				3A7D69F11896F12100E18B45 /* OneToOneConversationViewController.h */,
-				3A7D69F21896F12100E18B45 /* OneToOneConversationViewController.m */,
-				3A25B6741881E84800166623 /* FriendsViewController.h */,
-				3A25B6751881E84800166623 /* FriendsViewController.m */,
-				3A25B6771881E85B00166623 /* ContactsViewController.h */,
-				3A25B6781881E85B00166623 /* ContactsViewController.m */,
+				3A939630189B3543004B01CE /* Main */,
 				3A6C3BB91884AD61003B162B /* LoginViewController.h */,
 				3A6C3BBA1884AD61003B162B /* LoginViewController.m */,
 				3A25B6451881E03700166623 /* AppDelegate.h */,
 				3A25B6461881E03700166623 /* AppDelegate.m */,
 				3A25B6481881E03700166623 /* Main.storyboard */,
-				3ACA788018833EDB00B384BF /* MainTabBarController.h */,
-				3ACA788118833EDB00B384BF /* MainTabBarController.m */,
 				3A5699B21886D50300746CC8 /* Chat */,
 				3A81F49B188DB2190006DD5D /* Connection */,
 				3A25B6511881E03700166623 /* Images.xcassets */,
@@ -393,6 +380,27 @@
 				3A5699A71886CE8300746CC8 /* IQPacketReceiver.m */,
 			);
 			name = Connection;
+			sourceTree = "<group>";
+		};
+		3A939630189B3543004B01CE /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				3ACA788018833EDB00B384BF /* MainTabBarController.h */,
+				3ACA788118833EDB00B384BF /* MainTabBarController.m */,
+				3A25B66E1881E7F100166623 /* RequestsViewController.h */,
+				3A25B66F1881E7F100166623 /* RequestsViewController.m */,
+				3A25B6711881E83500166623 /* DashboardViewController.h */,
+				3A25B6721881E83500166623 /* DashboardViewController.m */,
+				3AAE9B181894A049003B4560 /* ConversationViewController.h */,
+				3AAE9B191894A049003B4560 /* ConversationViewController.m */,
+				3A7D69F11896F12100E18B45 /* OneToOneConversationViewController.h */,
+				3A7D69F21896F12100E18B45 /* OneToOneConversationViewController.m */,
+				3A25B6741881E84800166623 /* FriendsViewController.h */,
+				3A25B6751881E84800166623 /* FriendsViewController.m */,
+				3A25B6771881E85B00166623 /* ContactsViewController.h */,
+				3A25B6781881E85B00166623 /* ContactsViewController.m */,
+			);
+			name = Main;
 			sourceTree = "<group>";
 		};
 		3AF19A4A1881EF5C00F3E4D3 /* CocoaLumberjack */ = {
