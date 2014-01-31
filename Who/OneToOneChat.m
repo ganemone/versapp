@@ -29,4 +29,8 @@
     return instance;
 }
 
+-(NSString *)getMessageTo {
+    return ([self.invitedID compare:[ConnectionProvider getUser]] == 0) ? self.inviterID : self.invitedID;
+}
+
 @end

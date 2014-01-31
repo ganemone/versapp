@@ -153,6 +153,10 @@ static ConnectionProvider *selfInstance;
     [self handleMessagePacket:message];
 }
 
+-(void)xmppStream:(XMPPStream *)sender didSendMessage:(XMPPMessage *)message {
+    NSLog(@"Sent Message! %@", message.XMLString);
+}
+
 -(void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
     NSLog(@"Received Presence: %@", presence.XMLString);
 }

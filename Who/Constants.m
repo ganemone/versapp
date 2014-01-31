@@ -50,6 +50,7 @@ NSString *const NOTIFICATION_MUC_MESSAGE_RECEIVED = @"notification_muc_message_r
 NSString *const NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED = @"notification_one_to_one_message_received";
 NSString *const NOTIFICATION_ADMIN_AUTHENTICATED = @"notification_admin_authenticated";
 NSString *const NOTIFICATION_STREAM_DID_DISCONNECT = @"notification_stream_did_disconnect";
+NSString *const NOTIFICATION_UPDATE_CHAT_LIST = @"notification_update_chat_list";
 
 NSString *const APPLICATION_RESOURCE = @"who";
 

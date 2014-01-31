@@ -31,6 +31,7 @@ static OneToOneChatManager *selfInstance;
 }
 
 -(void)addChat:(OneToOneChat *)chat {
+    NSLog(@"Adding One to One Chat inside");
     [self.chats setObject:chat forKey:chat.chatID];
     [self.chatIDValues addObject:chat.chatID];
 }
@@ -45,6 +46,7 @@ static OneToOneChatManager *selfInstance;
 }
 
 -(int)getNumberOfChats {
+    NSLog(@"Number: %d", [self.chats count]);
     return [self.chats count];
 }
 

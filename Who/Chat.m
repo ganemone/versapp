@@ -25,14 +25,14 @@
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSendMUCMessagePacket:message]];
 }
 
--(void)sendOneToOneMessage:(NSString *)messageText {
-    Message *message = [Message createForMUC:messageText sender:[ConnectionProvider getUser] chatID:self.chatID];
+-(void)sendOneToOneMessage:(NSString *)messageText messageTo:(NSString *)messageTo {
+    Message *message = [Message createForOneToOne:messageText sender:[ConnectionProvider getUser] chatID:self.chatID messageTo:messageTo];
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSendOneToOneMessagePacket:message]];
 }
 
 -(void)sendMUCMessage:(NSString *)messageText image:(UIImage *)image {
 }
 
--(void)sendOneToOneMessage:(NSString *)messageText image:(UIImage *)image {
+-(void)sendOneToOneMessage:(NSString *)messageText messageTo:(NSString*)messageTo image:(UIImage *)image {
 }
 @end

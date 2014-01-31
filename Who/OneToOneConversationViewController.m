@@ -119,7 +119,7 @@
 }
 
 -(void)sendChatMessage {
-    [self.chat sendOneToOneMessage:self.messageTextField.text];
+    [self.chat sendOneToOneMessage:self.messageTextField.text messageTo:[self.chat getMessageTo]];
 }
 
 /*

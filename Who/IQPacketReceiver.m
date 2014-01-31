@@ -64,11 +64,14 @@
         NSString* name = [packetXML substringWithRange:[match rangeAtIndex:5]];
         NSString* createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
         if([type isEqualToString:CHAT_TYPE_GROUP]) {
+            NSLog(@"Adding Group Chat");
             [gcm addChat:[GroupChat create:chatId participants:participants groupName:name owner:owner createdTime:createdTime]];
         } else if([type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
+            NSLog(@"Adding One To One Chat");
             [cm addChat:[OneToOneChat create:chatId inviterID:owner invitedID:participantString createdTimestamp:createdTime]];
         }
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
 }
 
 -(void)handleGetLastTimeActivePacket:(XMPPIQ *)iq {

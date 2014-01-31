@@ -29,9 +29,9 @@
 
 -(void)sendMUCMessage:(NSString*)messageText image:(UIImage*)image;
 
--(void)sendOneToOneMessage:(NSString*)messageText;
+-(void)sendOneToOneMessage:(NSString*)messageText messageTo:(NSString*)messageTo;
 
--(void)sendOneToOneMessage:(NSString*)messageText image:(UIImage*)image;
+-(void)sendOneToOneMessage:(NSString*)messageText messageTo:(NSString*)messageTo image:(UIImage*)image;
 
 
 -(NSString*)getChatAddress;
