@@ -21,13 +21,14 @@
 @property BOOL authenticated;
 @property BOOL didConnect;
 
-
 // Singleton pattern - returns shared instance of connectionProvider.
 + (id) getInstance;
 
 // Attempts to connect to the xmpp server with the credentials username/password
 // passed as parameters.
 - (void) connect:(NSString*)username password:(NSString*)password;
+
+- (void) connectAdmin;
 
 - (void) disconnect;
 

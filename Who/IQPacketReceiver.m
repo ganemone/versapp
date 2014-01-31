@@ -22,7 +22,8 @@
     if([self isPacketWithID:PACKET_ID_CREATE_MUC packet:iq]) {
         
     } else if([self isPacketWithID:PACKET_ID_CREATE_VCARD packet:iq]) {
-        
+        NSLog(@"Sending create vcard notification");
+        [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_CREATE_VCARD object:nil];
     } else if([self isPacketWithID:PACKET_ID_GET_JOINED_CHATS packet:iq]) {
         [self handleGetJoinedChatsPacket:iq];
     } else if([self isPacketWithID:PACKET_ID_GET_PENDING_CHATS packet:iq]) {
@@ -32,7 +33,8 @@
     } else if([self isPacketWithID:PACKET_ID_JOIN_MUC packet:iq]) {
         
     } else if([self isPacketWithID:PACKET_ID_REGISTER_USER packet:iq]) {
-        
+        NSLog(@"Sending register user notification");
+        [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_REGISTER_USER object:nil];
     } else if([self isPacketWithID:PACKET_ID_GET_LAST_TIME_ACTIVE packet:iq]) {
         [self handleGetLastTimeActivePacket:iq];
     } else if([self isPacketWithID:PACKET_ID_GET_SERVER_TIME packet:iq]) {
@@ -128,7 +130,7 @@
     GroupChatManager *gcm = [GroupChatManager getInstance];
     GroupChat *gc = [gcm getChat:groupID];
     [gc.history addMessage:[Message createForMUC:message.body sender:senderID chatID:groupID timestamp:timestamp]];
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_DASHBOARD_LISTVIEW object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
 }
 
 -(void)handleOneToOneMessage:(XMPPMessage *)message {

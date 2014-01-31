@@ -28,9 +28,11 @@ NSString *const PACKET_ID_INVITE_USER_TO_CHAT = @"packet_id_invite_user_to_chat"
 NSString *const PACKET_ID_ACCEPT_CHAT_INVITE = @"packet_id_accept_chat_invite";
 NSString *const PACKET_ID_DENY_CHAT_INVITE = @"packet_id_deny_chat_invite";
 
-NSString *const VCARD_TAG_FN = @"FN";
-NSString *const VCARD_TAG_LN = @"LN";
+NSString *const VCARD_TAG_FULL_NAME = @"FN";
+NSString *const VCARD_TAG_FIRST_NAME = @"GIVEN";
+NSString *const VCARD_TAG_LAST_NAME = @"FAMILY";
 NSString *const VCARD_TAG_USERNAME = @"USERNAME";
+NSString *const VCARD_TAG_NICKNAME = @"NICKNAME";
 NSString *const VCARD_TAG_EMAIL = @"EMAIL";
 
 NSString *const CHAT_TYPE_GROUP = @"groupchat";
@@ -44,8 +46,10 @@ NSString *const MESSAGE_PROPERTY_GROUP_TYPE = @"group_chat_message_property";
 NSString *const MESSAGE_PROPERTY_ONE_TO_ONE_TYPE = @"one_to_one_message";
 NSString *const MESSAGE_PROPERTY_RECEIVER_ID = @"receiver_id";
 
-
-NSString *const NOTIFICATION_UPDATE_DASHBOARD_LISTVIEW = @"notification_update_dashboard_listview";
+NSString *const NOTIFICATION_MUC_MESSAGE_RECEIVED = @"notification_muc_message_received";
+NSString *const NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED = @"notification_one_to_one_message_received";
+NSString *const NOTIFICATION_ADMIN_AUTHENTICATED = @"notification_admin_authenticated";
+NSString *const NOTIFICATION_STREAM_DID_DISCONNECT = @"notification_stream_did_disconnect";
 
 NSString *const APPLICATION_RESOURCE = @"who";
 
