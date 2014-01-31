@@ -39,6 +39,7 @@ static ConnectionProvider *selfInstance;
             selfInstance = [[self alloc] init];
             selfInstance.SERVER_IP_ADDRESS = @"199.175.55.10";
             selfInstance.CONFERENCE_IP_ADDRESS = @"conference.199.175.55.10";
+            [selfInstance addSelfStreamDelegate];
         }
     }
     return selfInstance;
@@ -55,7 +56,6 @@ static ConnectionProvider *selfInstance;
     self.didConnect = NO;
     
     NSLog(@"Server IP Address %@", self.SERVER_IP_ADDRESS);
-    [self addSelfStreamDelegate];
     [self.xmppStream setHostName:self.SERVER_IP_ADDRESS];
     self.username = username;
     self.password = password;
@@ -74,7 +74,7 @@ static ConnectionProvider *selfInstance;
     self.didConnect = NO;
     
     NSLog(@"Server IP Address %@", self.SERVER_IP_ADDRESS);
-    [self addSelfStreamDelegate];
+    
     [self.xmppStream setHostName:self.SERVER_IP_ADDRESS];
     self.username = @"admin";
     self.password = @"kalamazoo123";

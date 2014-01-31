@@ -64,7 +64,7 @@
         NSLog(@"Sending Create VCard Packet");
         [[self.cp getConnection] sendElement:[IQPacketManager createCreateVCardPacket:self.firstNameText lastname:self.lastNameText phone:self.usernameText email:self.emailText]];
     } else {
-        //[self performSegueWithIdentifier:@"Authenticated" sender:self];
+        [self performSegueWithIdentifier:@"Authenticated" sender:self];
     }
 }
 
@@ -73,7 +73,7 @@
 }
 
 - (void)createdVCard:(NSNotification *)notification {
-    //[self performSegueWithIdentifier:@"Authenticated" sender:self];
+    [self performSegueWithIdentifier:@"Authenticated" sender:self];
 }
 
 - (void)registeredUser:(NSNotification *)notification {
