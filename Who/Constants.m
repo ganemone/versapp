@@ -58,4 +58,7 @@ NSString *const SEGUE_ID_ONE_TO_ONE_CONVERSATION = @"SegueOneToOneConversation";
 
 NSString *const CELL_ID_CONVERSATION_PROTOTYPE = @"ConversationCellPrototype";
 
+NSString *const INVITATION_ACCEPT = @"accept";
+NSString *const INVITATION_DECLINE = @"decline";
+
 @end

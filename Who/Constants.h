@@ -56,4 +56,7 @@ extern NSString *const SEGUE_ID_ONE_TO_ONE_CONVERSATION;
 
 extern NSString *const CELL_ID_CONVERSATION_PROTOTYPE;
 
+extern NSString *const INVITATION_ACCEPT;
+extern NSString *const INVITATION_DECLINE;
+
 @end

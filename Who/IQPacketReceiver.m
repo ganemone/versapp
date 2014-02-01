@@ -161,20 +161,23 @@
     
     NSLog(@"Matches: %@", matches);
     
+    NSMutableDictionary *allNotifications = [[NSMutableDictionary alloc] init];
     NSArray *keys = [NSArray arrayWithObjects:@"chatId", @"chatType", @"chatOwnerId", @"chatName", @"created", nil];
-    NSMutableArray *values = [[NSMutableArray alloc] init];
+    int count = 0;
+    
     for(NSTextCheckingResult *match in matches) {
+        NSMutableArray *values = [[NSMutableArray alloc] init];
+        
         for (int i=1; i<=5; i++)
             [values addObject:[packetXML substringWithRange:[match rangeAtIndex:i]]];
-        /*chatId = [packetXML substringWithRange:[match rangeAtIndex:1]];
-        chatType = [packetXML substringWithRange:[match rangeAtIndex:2]];
-        chatOwnerId = [packetXML substringWithRange:[match rangeAtIndex:3]];
-        chatName = [packetXML substringWithRange:[match rangeAtIndex:4]];
-        created = [packetXML substringWithRange:[match rangeAtIndex:5]];*/
         
         NSDictionary *pendingChats = [NSDictionary dictionaryWithObjects:values forKeys:keys];
-        [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_PENDING_CHATS object:nil userInfo:pendingChats];
+        count++;
+        NSString *keyName = (@"notification%i", [NSString stringWithFormat:@"%i", count]);
+        [allNotifications setObject:pendingChats forKey:keyName];
+        NSLog(@"Notifications: %@", allNotifications);
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_PENDING_CHATS object:nil userInfo:allNotifications];
 }
 
 -(NSString*)getPacketXMLWithoutNewLines:(XMPPIQ *)iq {
