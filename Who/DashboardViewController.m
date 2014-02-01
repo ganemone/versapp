@@ -19,22 +19,21 @@
 
 @property (strong, nonatomic) ConnectionProvider* cp;
 @property (strong, nonatomic) NSString *timeLastActive;
+@property (strong, nonatomic) NSIndexPath *clickedCellIndexPath;
 
 @end
 
 @implementation DashboardViewController
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    UITableViewCell *cell = (UITableViewCell*)sender;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     if([segue.identifier compare:SEGUE_ID_GROUP_CONVERSATION] == 0) {
         GroupChatManager *gcm = [GroupChatManager getInstance];
         ConversationViewController *dest = segue.destinationViewController;
-        dest.gc = [gcm getChatByIndex:indexPath.row];
+        dest.gc = [gcm getChatByIndex:self.clickedCellIndexPath.row];
     } else if([segue.identifier compare:SEGUE_ID_ONE_TO_ONE_CONVERSATION] == 0) {
         OneToOneChatManager *cm = [OneToOneChatManager getInstance];
         OneToOneConversationViewController *dest = segue.destinationViewController;
-        dest.chat = [cm getChatByIndex:indexPath.row];
+        dest.chat = [cm getChatByIndex:self.clickedCellIndexPath.row];
     }
 }
 
@@ -75,6 +74,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"Section %d", indexPath.section);
+    self.clickedCellIndexPath = indexPath;
     if (indexPath.section == 0) {
         [self performSegueWithIdentifier:SEGUE_ID_GROUP_CONVERSATION sender:self];
     } else {

@@ -48,4 +48,6 @@
 
 +(DDXMLElement*)createSendOneToOneMessagePacket:(Message*)message;
 
++(DDXMLElement*)createAvailabilityPresencePacket;
+
 @end

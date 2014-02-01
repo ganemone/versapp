@@ -125,6 +125,7 @@ static ConnectionProvider *selfInstance;
     if([self.username compare:@"admin"] == 0) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ADMIN_AUTHENTICATED object:nil];
     } else {
+        [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
     }
 }
@@ -149,12 +150,16 @@ static ConnectionProvider *selfInstance;
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
-    NSLog(@"Received Message");
+    NSLog(@"Received Message: %@", message);
     [self handleMessagePacket:message];
 }
 
 -(void)xmppStream:(XMPPStream *)sender didSendMessage:(XMPPMessage *)message {
     NSLog(@"Sent Message! %@", message.XMLString);
+}
+
+-(void)xmppStream:(XMPPStream *)sender didSendPresence:(XMPPPresence *)presence {
+    NSLog(@"Send Presence: %@", presence.XMLString);
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
