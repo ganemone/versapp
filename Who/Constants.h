@@ -25,6 +25,7 @@ extern NSString *const PACKET_ID_DESTROY_CHAT;
 extern NSString *const PACKET_ID_INVITE_USER_TO_CHAT;
 extern NSString *const PACKET_ID_ACCEPT_CHAT_INVITE;
 extern NSString *const PACKET_ID_DENY_CHAT_INVITE;
+extern NSString *const PACKET_ID_GET_VCARD;
 
 extern NSString *const VCARD_TAG_FULL_NAME;
 extern NSString *const VCARD_TAG_FIRST_NAME;

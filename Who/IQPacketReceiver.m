@@ -39,6 +39,8 @@
         [self handleGetLastTimeActivePacket:iq];
     } else if([self isPacketWithID:PACKET_ID_GET_SERVER_TIME packet:iq]) {
         [self handleGetServerTimePacket:iq];
+    } else if([self isPacketWithID:PACKET_ID_GET_VCARD packet:iq]) {
+        [self handleGetVCardPacket:iq];
     }
 }
 
@@ -149,6 +151,43 @@
     NSLog(@"Received Server Time: %@", utcTime);
     NSDictionary *userInfo = [NSDictionary dictionaryWithObject:utcTime forKey:PACKET_ID_GET_SERVER_TIME];
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_SERVER_TIME object:nil userInfo:userInfo];
+}
+
+-(void)handleGetVCardPacket:(XMPPIQ *)packet {
+    NSLog(@"VCard: %@", packet.XMLString);
+    NSString *firstName, *lastName, *username, *email, *itemName, *nickname;
+    NSArray *children = [packet children];
+    for (int i = 0; i < children.count; i++) {
+        NSArray *grand = [[children objectAtIndex:i] children];
+        NSLog(@"Child: %@", [[children objectAtIndex:i] XMLString]);
+        for (int j = 0; j < grand.count; j++) {
+            itemName = [[grand objectAtIndex:j] name];
+            if([itemName compare:VCARD_TAG_NICKNAME] == 0) {
+                nickname = [[grand objectAtIndex:j] stringValue];
+            } else if([itemName compare:VCARD_TAG_EMAIL] == 0) {
+                email = [[grand objectAtIndex:j] stringValue];
+            } else if([itemName compare:VCARD_TAG_USERNAME] == 0) {
+                username = [[grand objectAtIndex:j] stringValue];
+            } else if([itemName compare:@"N"] == 0) {
+                NSArray *nameItems = [[grand objectAtIndex:j] children];
+                for(int k = 0; k < nameItems.count; k++) {
+                    itemName = [[nameItems objectAtIndex:k] name];
+                    if ([itemName compare:VCARD_TAG_FIRST_NAME] == 0) {
+                        firstName = [[nameItems objectAtIndex:k] stringValue];
+                    } else if([itemName compare:VCARD_TAG_LAST_NAME] == 0) {
+                        lastName = [[nameItems objectAtIndex:k] stringValue];
+                    }
+                }
+            }
+        }
+    }
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                              firstName, VCARD_TAG_FIRST_NAME,
+                              lastName, VCARD_TAG_LAST_NAME,
+                              username, VCARD_TAG_USERNAME,
+                              email, VCARD_TAG_EMAIL,
+                              nickname, VCARD_TAG_NICKNAME, nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_VCARD object:nil userInfo:userInfo];
 }
 
 -(NSString*)getPacketXMLWithoutNewLines:(XMPPIQ *)iq {

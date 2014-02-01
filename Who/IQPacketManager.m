@@ -332,4 +332,17 @@
     return presence;
 }
 
++(DDXMLElement *)createGetVCardPacket {
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[NSString stringWithFormat:@"%@@%@/%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress], APPLICATION_RESOURCE]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_GET_VCARD]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"get"]];
+    
+    DDXMLElement *query = [DDXMLElement elementWithName:@"vCard"];
+    [query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"vcard-temp"]];
+    
+    [iq addChild:query];
+    return iq;
+}
+
 @end

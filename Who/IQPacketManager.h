@@ -50,4 +50,6 @@
 
 +(DDXMLElement*)createAvailabilityPresencePacket;
 
++(DDXMLElement*)createGetVCardPacket;
+
 @end
