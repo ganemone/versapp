@@ -11,6 +11,9 @@
 #import "GroupChat.h"
 #import "GroupChatManager.h"
 #import "OneToOneChatManager.h"
+#import "ChatParticipantVCardBuffer.h"
+#import "ConnectionProvider.h"
+#import "IQPacketManager.h"
 
 @implementation IQPacketReceiver
 
@@ -53,24 +56,36 @@
     NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
     GroupChatManager *gcm = [GroupChatManager getInstance];
     OneToOneChatManager *cm = [OneToOneChatManager getInstance];
-    
+    ChatParticipantVCardBuffer *buff = [ChatParticipantVCardBuffer getInstance];
+    XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
     for (NSTextCheckingResult *match in matches) {
         NSString *participantString = [packetXML substringWithRange:[match rangeAtIndex:1]];
         NSArray *participants = [participantString componentsSeparatedByString:@", "];
-        NSLog(@"Participant String: %@", participantString);
-        NSLog(@"Participant Array: %@", participants.description);
-        NSLog(@"Participant Array Size: %d", participants.count);
         NSString* chatId = [packetXML substringWithRange:[match rangeAtIndex:2]];
         NSString* type = [packetXML substringWithRange:[match rangeAtIndex:3]];
         NSString* owner = [packetXML substringWithRange:[match rangeAtIndex:4]];
         NSString* name = [packetXML substringWithRange:[match rangeAtIndex:5]];
         NSString* createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
+        if([owner compare:participantString] == 0) {
+            participantString = [ConnectionProvider getUser];
+        }
         if([type isEqualToString:CHAT_TYPE_GROUP]) {
             NSLog(@"Adding Group Chat");
             [gcm addChat:[GroupChat create:chatId participants:participants groupName:name owner:owner createdTime:createdTime]];
+            for (int i = 0; i < participants.count; i++) {
+                if([buff hasVCard:[participants objectAtIndex:i]] == NO) {
+                    DDXMLElement *packet = [IQPacketManager createGetVCardPacket:[participants objectAtIndex:i]];
+                    [conn sendElement:packet];
+                }
+            }
         } else if([type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
             NSLog(@"Adding One To One Chat");
             [cm addChat:[OneToOneChat create:chatId inviterID:owner invitedID:participantString createdTimestamp:createdTime]];
+            if([participantString compare:[ConnectionProvider getServerIPAddress]] != 0) {
+                if([buff hasVCard:participantString] == NO) {
+                    [conn sendElement:[IQPacketManager createGetVCardPacket:participantString]];
+                }
+            }
         }
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
@@ -187,7 +202,10 @@
                               username, VCARD_TAG_USERNAME,
                               email, VCARD_TAG_EMAIL,
                               nickname, VCARD_TAG_NICKNAME, nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_VCARD object:nil userInfo:userInfo];
+    ChatParticipantVCardBuffer *buff = [ChatParticipantVCardBuffer getInstance];
+    [buff addVCard:userInfo];
+    
+    //[[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_VCARD object:nil userInfo:userInfo];
 }
 
 -(NSString*)getPacketXMLWithoutNewLines:(XMPPIQ *)iq {

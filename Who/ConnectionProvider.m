@@ -126,6 +126,7 @@ static ConnectionProvider *selfInstance;
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ADMIN_AUTHENTICATED object:nil];
     } else {
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
+        [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
     }
 }

@@ -14,4 +14,6 @@
 
 -(NSDictionary*)getVCard:(NSString*)username;
 
+-(BOOL)hasVCard:(NSString*)username;
+
 @end

@@ -50,6 +50,8 @@
 
 +(DDXMLElement*)createAvailabilityPresencePacket;
 
-+(DDXMLElement*)createGetVCardPacket;
++(DDXMLElement*)createGetVCardPacket:(NSString*)username;
+
++(DDXMLElement *)createGetConnectedUserVCardPacket;
 
 @end
