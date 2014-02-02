@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface FriendsViewController : UITableViewController
-
+@property (nonatomic,strong)NSArray* fetchedFriendsArray;
 @end
