@@ -16,5 +16,6 @@
 @property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator ;
 
 -(NSArray*)getFriends;
+- (void)insertMessage: (NSString*)group_id image_link:(NSString*)image_link message_body:(NSString*)message_body message_id:(NSInteger*) message_id reciever_id:(NSInteger*)reciever_id sender_id: (NSInteger*) sender_id time: (NSString*) time;
 
 @end
