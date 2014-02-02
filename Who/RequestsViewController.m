@@ -53,13 +53,13 @@
     accept.frame = CGRectMake(175.0f, 5.0f, 50.0f, 30.0f);
     [accept setTitle:INVITATION_ACCEPT forState:UIControlStateNormal];
     [cell.contentView addSubview:accept];
-    [accept addTarget:self action:@selector(acceptInvitation::) forControlEvents:UIControlEventTouchUpInside];
+    [accept addTarget:self action:@selector(acceptInvitation:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *decline = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     decline.frame = CGRectMake(250.0f, 5.0f, 50.0f, 30.0f);
     [decline setTitle:INVITATION_DECLINE forState:UIControlStateNormal];
     [cell.contentView addSubview:decline];
-    [decline addTarget:self action:@selector(declineInvitation::) forControlEvents:UIControlEventTouchUpInside];
+    [decline addTarget:self action:@selector(declineInvitation:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
 }
@@ -68,24 +68,26 @@
     CGPoint click = [sender convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:click];
     
-    NSLog(@"Accepted: %ld", (long)indexPath.row);
-    
     NSDictionary *notification = [self.notifications objectAtIndex:indexPath.row];
     [[self.connectionProvider getConnection] sendElement:[IQPacketManager createAcceptChatInvitePacket:[notification objectForKey:@"chatId"]]];
     
-    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+    NSLog(@"Accepted: %@", [notification objectForKey:@"chatId"]);
+    
+    [self.notifications removeObjectAtIndex:indexPath.row];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (IBAction)declineInvitation:(id)sender {
     CGPoint click = [sender convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:click];
     
-    NSLog(@"Declined: %ld", (long)indexPath.row);
-    
     NSDictionary *notification = [self.notifications objectAtIndex:indexPath.row];
     [[self.connectionProvider getConnection] sendElement:[IQPacketManager createDenyChatInvitePacket:[notification objectForKey:@"chatId"]]];
     
-    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+    NSLog(@"Declined: %@", [notification objectForKey:@"chatId"]);
+    
+    [self.notifications removeObjectAtIndex:indexPath.row];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 -(void)handleGetPendingChatsPacket:(NSNotification *)notification {
