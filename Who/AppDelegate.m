@@ -106,6 +106,44 @@
     return fetchedRecords;
 }
 
+- (void)insertMessage: (NSString*)group_id image_link:(NSString*)image_link message_body:(NSString*)message_body message_id:(NSInteger*) message_id reciever_id:(NSInteger*)reciever_id sender_id: (NSInteger*) sender_id time: (NSString*) time
+{
+        NSManagedObject *newMessage;
+        newMessage = [NSEntityDescription
+                      insertNewObjectForEntityForName:@"Messages"
+                      inManagedObjectContext:self.managedObjectContext];
+        [newMessage setValue: group_id forKey:@"group_id"];
+        [newMessage setValue: image_link forKey:@"image_link"];
+        [newMessage setValue: message_body forKey:@"message_body"];
+    
+        NSError *error;
+        [self.managedObjectContext save:&error];
+       // _status.text = @"Contact saved";
+
+    
+}
+
+-(NSArray*)getMessages
+{
+    // initializing NSFetchRequest
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    //Setting Entity to be Queried
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Messages"
+                                              inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    
+    NSError* error;
+    
+    // Query on managedObjectContext With Generated fetchRequest
+    NSArray *fetchedMessages = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    // Returning Fetched Records
+    return fetchedMessages;
+}
+
+
 
 
 
