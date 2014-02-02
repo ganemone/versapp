@@ -17,7 +17,6 @@
 {
     [super viewDidLoad];
     AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-    
     // Fetching Records and saving it in "fetchedRecordsArray" object
     self.fetchedFriendsArray = [appDelegate getFriends];
     [self.tableView reloadData];
@@ -41,9 +40,9 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     Friends * friend = [self.fetchedFriendsArray objectAtIndex:indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"%@ %@, %@ ",friend.username, friend.name, friend.username];
-                           
-                           //  F.firstName,record.lastName,record.city];
-                           return cell;
-                           }
+    
+    //  F.firstName,record.lastName,record.city];
+    return cell;
+}
 
 @end

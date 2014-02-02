@@ -855,7 +855,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/laurenalysa18/Documents/iosApp/who_ios/Who,
+					/Users/giancarloanemone/Desktop/ios/Who/Who,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -873,7 +873,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/laurenalysa18/Documents/iosApp/who_ios/Who,
+					/Users/giancarloanemone/Desktop/ios/Who/Who,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

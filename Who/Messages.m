@@ -8,7 +8,6 @@
 
 #import "Messages.h"
 
-
 @implementation Messages
 
 @dynamic time;
@@ -18,5 +17,7 @@
 @dynamic reciever_id;
 @dynamic message_body;
 @dynamic group_id;
+
+
 
 @end
