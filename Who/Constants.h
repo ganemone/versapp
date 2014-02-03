@@ -37,6 +37,7 @@ extern NSString *const VCARD_TAG_EMAIL;
 extern NSString *const CHAT_TYPE_GROUP;
 extern NSString *const CHAT_TYPE_ONE_TO_ONE;
 
+extern NSString *const MESSAGE_PROPERTY_BODY;
 extern NSString *const MESSAGE_PROPERTY_SENDER_ID;
 extern NSString *const MESSAGE_PROPERTY_TIMESTAMP;
 extern NSString *const MESSAGE_PROPERTY_GROUP_ID;
@@ -44,6 +45,7 @@ extern NSString *const MESSAGE_PROPERTY_THREAD;
 extern NSString *const MESSAGE_PROPERTY_GROUP_TYPE;
 extern NSString *const MESSAGE_PROPERTY_RECEIVER_ID;
 extern NSString *const MESSAGE_PROPERTY_ONE_TO_ONE_TYPE;
+extern NSString *const MESSAGE_PROPERTY_IMAGE_LINK;
 
 extern NSString *const NOTIFICATION_MUC_MESSAGE_RECEIVED;
 extern NSString *const NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED;
@@ -57,5 +59,19 @@ extern NSString *const SEGUE_ID_GROUP_CONVERSATION;
 extern NSString *const SEGUE_ID_ONE_TO_ONE_CONVERSATION;
 
 extern NSString *const CELL_ID_CONVERSATION_PROTOTYPE;
+
+extern NSString *const CORE_DATA_TABLE_MESSAGES;
+extern NSString *const CORE_DATA_TABLE_FRIENDS;
+
+extern NSString *const FRIENDS_TABLE_COLUMN_NAME_USERNAME;
+extern NSString *const FRIENDS_TABLE_COLUMN_NAME_NAME;
+extern NSString *const FRIENDS_TABLE_COLUMN_NAME_STATUS;
+
+extern int const STATUS_FRIENDS;
+extern int const STATUS_REGISTERED;
+extern int const STATUS_PENDING;
+extern int const STATUS_REJECTED;
+extern int const STATUS_UNREGISTERED;
+
 
 @end

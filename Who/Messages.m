@@ -12,13 +12,10 @@
 @implementation Messages
 
 @dynamic time;
-@dynamic message_id;
 @dynamic sender_id;
 @dynamic image_link;
 @dynamic reciever_id;
 @dynamic message_body;
 @dynamic group_id;
-
-
 
 @end

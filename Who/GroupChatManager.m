@@ -45,7 +45,7 @@ static GroupChatManager * selfInstance;
 }
 
 -(int)getNumberOfChats {
-    return [self.mucs count];
+    return (int)[self.mucs count];
 }
 
 -(GroupChat *)getChatByIndex:(NSInteger)index {

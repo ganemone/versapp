@@ -73,7 +73,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Section %d", indexPath.section);
+    NSLog(@"Section %ld", (long)indexPath.section);
     self.clickedCellIndexPath = indexPath;
     if (indexPath.section == 0) {
         [self performSegueWithIdentifier:SEGUE_ID_GROUP_CONVERSATION sender:self];

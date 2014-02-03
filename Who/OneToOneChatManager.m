@@ -46,8 +46,8 @@ static OneToOneChatManager *selfInstance;
 }
 
 -(int)getNumberOfChats {
-    NSLog(@"Number: %d", [self.chats count]);
-    return [self.chats count];
+    NSLog(@"Number: %lu", (unsigned long)[self.chats count]);
+    return (int)[self.chats count];
 }
 
 -(OneToOneChat *)getChatByIndex:(NSInteger)index {

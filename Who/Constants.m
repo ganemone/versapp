@@ -39,6 +39,7 @@ NSString *const VCARD_TAG_EMAIL = @"EMAIL";
 NSString *const CHAT_TYPE_GROUP = @"groupchat";
 NSString *const CHAT_TYPE_ONE_TO_ONE = @"chat";
 
+NSString *const MESSAGE_PROPERTY_BODY = @"message_body";
 NSString *const MESSAGE_PROPERTY_SENDER_ID = @"sender_id";
 NSString *const MESSAGE_PROPERTY_TIMESTAMP = @"time";
 NSString *const MESSAGE_PROPERTY_GROUP_ID = @"group_id";
@@ -46,6 +47,7 @@ NSString *const MESSAGE_PROPERTY_THREAD_ID = @"thread";
 NSString *const MESSAGE_PROPERTY_GROUP_TYPE = @"group_chat_message_property";
 NSString *const MESSAGE_PROPERTY_ONE_TO_ONE_TYPE = @"one_to_one_message";
 NSString *const MESSAGE_PROPERTY_RECEIVER_ID = @"receiver_id";
+NSString *const MESSAGE_PROPERTY_IMAGE_LINK = @"image_link";
 
 NSString *const NOTIFICATION_MUC_MESSAGE_RECEIVED = @"notification_muc_message_received";
 NSString *const NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED = @"notification_one_to_one_message_received";
@@ -59,5 +61,18 @@ NSString *const SEGUE_ID_GROUP_CONVERSATION = @"SegueGroupConversation";
 NSString *const SEGUE_ID_ONE_TO_ONE_CONVERSATION = @"SegueOneToOneConversation";
 
 NSString *const CELL_ID_CONVERSATION_PROTOTYPE = @"ConversationCellPrototype";
+
+NSString *const CORE_DATA_TABLE_MESSAGES = @"Messages";
+NSString *const CORE_DATA_TABLE_FRIENDS = @"Friends";
+
+NSString *const FRIENDS_TABLE_COLUMN_NAME_USERNAME = @"username";
+NSString *const FRIENDS_TABLE_COLUMN_NAME_NAME = @"name";
+NSString *const FRIENDS_TABLE_COLUMN_NAME_STATUS = @"status";
+
+int const STATUS_FRIENDS = 0;
+int const STATUS_REGISTERED = 1;
+int const STATUS_PENDING = 2;
+int const STATUS_REJECTED = 3;
+int const STATUS_UNREGISTERED = 4;
 
 @end

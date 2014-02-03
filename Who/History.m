@@ -29,7 +29,7 @@
 }
 
 -(int)getNumberOfMessages {
-    return self.messages.count;
+    return (int)self.messages.count;
 }
 
 -(NSString *)getMessageTextByIndex:(int)index {
