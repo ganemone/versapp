@@ -192,6 +192,7 @@
 }
 
 +(DDXMLElement *)createJoinMUCPacket:(NSString *)chatID lastTimeActive:(NSString *)lastTimeActive {
+    NSLog(@"Requesting History Since: %@", lastTimeActive);
     DDXMLElement *presence = [DDXMLElement elementWithName:@"presence"];
     [presence addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_JOIN_MUC]];
     [presence addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[NSString stringWithFormat:@"%@@%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]]]];
@@ -201,7 +202,7 @@
     [x addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"http://jabber.org/protocol/muc"]];
     
     DDXMLElement *history = [DDXMLElement elementWithName:@"history"];
-    [history addAttribute:[DDXMLNode attributeWithName:@"since" stringValue:@"1970-01-01T00:00:00Z"]];
+    [history addAttribute:[DDXMLNode attributeWithName:@"since" stringValue:lastTimeActive]];
     
     [x addChild:history];
     [presence addChild:x];
