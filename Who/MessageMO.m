@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 Giancarlo Anemone. All rights reserved.
 //
 
-#import "Messages.h"
+#import "MessageMO.h"
 
 
-@implementation Messages
+@implementation MessageMO
 
 @dynamic time;
 @dynamic sender_id;

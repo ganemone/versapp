@@ -22,7 +22,7 @@
     [message setValue:time forKey:MESSAGE_PROPERTY_TIMESTAMP];
     [message setValue:senderID forKey:MESSAGE_PROPERTY_SENDER_ID];
     [message setValue:receiverID forKey:MESSAGE_PROPERTY_RECEIVER_ID];
-    
+    NSLog(@"Inserting Message: %@", [message description]);
     NSError *error = NULL;
     [[delegate managedObjectContext] save:&error];
     if(error != NULL) {
@@ -33,6 +33,7 @@
 +(void)insert:(NSString *)messageBody groupID:(NSString *)groupID time:(NSString *)time senderID:(NSString *)senderID receiverID:(NSString *)receiverID imageLink:(NSString *)imageLink {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObject *message = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_MESSAGES inManagedObjectContext:[delegate managedObjectContext]];
+    
     [message setValue:messageBody forKey:MESSAGE_PROPERTY_BODY];
     [message setValue:groupID forKey:MESSAGE_PROPERTY_GROUP_ID];
     [message setValue:time forKey:MESSAGE_PROPERTY_TIMESTAMP];
@@ -45,6 +46,7 @@
     if(error != NULL) {
         NSLog(@"Error Saving Data: %@", error);
     }
+    NSLog(@"Error Saving Data: %@", error);
 }
 
 +(NSArray *)getMessagesByChat:(NSString *)chatID {

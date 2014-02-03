@@ -14,6 +14,7 @@
 #import "Constants.h"
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
+#import "MessagesDBManager.h"
 
 @interface DashboardViewController()
 
@@ -38,6 +39,14 @@
 }
 
 -(void)viewDidLoad {
+    [MessagesDBManager insert:@"Message Body" groupID:@"12345" time:@"time" senderID:@"sender" receiverID:@"receiver"];
+    [MessagesDBManager insert:@"Message Body" groupID:@"12345" time:@"time" senderID:@"sender" receiverID:@"receiver"];
+    [MessagesDBManager insert:@"Message Body" groupID:@"12345" time:@"time" senderID:@"sender" receiverID:@"receiver"];
+    
+    NSArray *messages = [MessagesDBManager getMessagesByChat:@"12345"];
+    for (int i = 0; i < messages.count; i++) {
+        NSLog(@"Message: %@", [[messages objectAtIndex:i] description]);
+    }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleGetLastPacketReceived:) name:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
