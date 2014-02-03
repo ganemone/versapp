@@ -75,4 +75,7 @@ int const STATUS_PENDING = 2;
 int const STATUS_REJECTED = 3;
 int const STATUS_UNREGISTERED = 4;
 
+NSString *const INVITATION_ACCEPT = @"accept";
+NSString *const INVITATION_DECLINE = @"decline";
+
 @end

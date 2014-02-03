@@ -73,5 +73,7 @@ extern int const STATUS_PENDING;
 extern int const STATUS_REJECTED;
 extern int const STATUS_UNREGISTERED;
 
+extern NSString *const INVITATION_ACCEPT;
+extern NSString *const INVITATION_DECLINE;
 
 @end
