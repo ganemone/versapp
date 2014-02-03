@@ -157,7 +157,37 @@
 }
 
 -(void)handleOneToOneMessage:(XMPPMessage *)message {
+    NSError *error = NULL;
+    NSRegularExpression *groupIDRegex = [NSRegularExpression regularExpressionWithPattern:@"(.*?)@" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSTextCheckingResult *groupIDMatch = [groupIDRegex firstMatchInString:message.fromStr options:0 range:NSMakeRange(0, message.fromStr.length)];
+    NSString *groupID = [message.fromStr substringWithRange:[groupIDMatch rangeAtIndex:1]];
     
+    //NSTextCheckingResult *toMatch = [groupIDRegex firstMatchInString:message.toStr options:0 range:NSMakeRange(0, message.toStr.length)];
+    //NSString *toID = [message.toStr substringWithRange:[toMatch rangeAtIndex:1]];
+    
+    error = NULL;
+    NSRegularExpression *propertyRegex = [NSRegularExpression regularExpressionWithPattern:@"<property><name>(.*?)<\\/name><value type=\"(.*?)\">(.*?)<\\/value>" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSArray *matches = [propertyRegex matchesInString:message.XMLString options:0 range:NSMakeRange(0, message.XMLString.length)];
+    NSString *senderID = nil;
+    NSString *timestamp = nil;
+    for(NSTextCheckingResult *match in matches) {
+        NSString *name = [message.XMLString substringWithRange:[match rangeAtIndex:1]];
+        //NSString *type = [message.XMLString substringWithRange:[match rangeAtIndex:2]];
+        if ([name compare:MESSAGE_PROPERTY_SENDER_ID] == 0) {
+            senderID = [message.XMLString substringWithRange:[match rangeAtIndex:3]];
+        } else if([name compare:MESSAGE_PROPERTY_TIMESTAMP] == 0) {
+            timestamp = [message.XMLString substringWithRange:[match rangeAtIndex:3]];
+        }
+    }
+    NSLog(@"Group ID: %@", groupID);
+    NSLog(@"Timestamp: %@", timestamp);
+    NSLog(@"Sender ID: %@", senderID);
+    NSLog(@"Message Body: %@", message.body);
+    /*OneToOneChatManager *cm = [OneToOneChatManager getInstance];
+    OneToOneChat *chat = [cm getChat:groupID];
+    [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:groupID];
+    [gc addMessage:[Message createForMUC:message.body sender:senderID chatID:groupID timestamp:timestamp]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];*/
 }
 
 -(void)handleGetServerTimePacket:(XMPPIQ *)packet {
@@ -253,9 +283,9 @@
     NSLog(@"IQRoster: %@", iq.XMLString);
     NSError *error = NULL;
     /*
-    // Deprecated code to parse the entire XML string, might be useful when the structure of the XMLString changes.
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<item (subscription=\"(.*?)\")|(jid=\"([^@]+){1,}@.*?\"[^\\/]{1,}) (subscription=\"(.*?)\")|(jid=\"([^@]+){1,}@.*?\"[^\\/]{1,})\\/>" options:(NSRegularExpressionCaseInsensitive) error:&error];
-    NSArray *match = [regex matchesInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
+     // Deprecated code to parse the entire XML string, might be useful when the structure of the XMLString changes.
+     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<item (subscription=\"(.*?)\")|(jid=\"([^@]+){1,}@.*?\"[^\\/]{1,}) (subscription=\"(.*?)\")|(jid=\"([^@]+){1,}@.*?\"[^\\/]{1,})\\/>" options:(NSRegularExpressionCaseInsensitive) error:&error];
+     NSArray *match = [regex matchesInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
      */
     
     DDXMLElement *query = [[iq children] firstObject];
@@ -270,12 +300,12 @@
         item = items[i];
         
         /*
-        // Parse subscription
-        NSString *subscription = [[item attributeForName:@"subscription"] XMLString];
-        NSRegularExpression *regexSubs = [NSRegularExpression regularExpressionWithPattern:@"subscription=\"(.*)\"" options: 0 error:&error];
-        NSTextCheckingResult *matchSubs = [regexSubs firstMatchInString:subscription options:0 range:NSMakeRange(0,subscription.length)];
-        NSString *resultSubs = [subscription substringWithRange:[matchSubs rangeAtIndex:1]];
-        */
+         // Parse subscription
+         NSString *subscription = [[item attributeForName:@"subscription"] XMLString];
+         NSRegularExpression *regexSubs = [NSRegularExpression regularExpressionWithPattern:@"subscription=\"(.*)\"" options: 0 error:&error];
+         NSTextCheckingResult *matchSubs = [regexSubs firstMatchInString:subscription options:0 range:NSMakeRange(0,subscription.length)];
+         NSString *resultSubs = [subscription substringWithRange:[matchSubs rangeAtIndex:1]];
+         */
         
         NSString *subscription = [[item attributeForName:@"subscription"] XMLString];
         //Parse jid

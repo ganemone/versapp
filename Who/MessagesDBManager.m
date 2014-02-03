@@ -47,7 +47,7 @@
     }
 }
 
-+(NSMutableArray *)getMessagesByChat:(NSString *)chatID {
++(NSArray *)getMessagesByChat:(NSString *)chatID {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -59,7 +59,7 @@
     
     NSError* error;
     NSArray *fetchedRecords = [[delegate managedObjectContext] executeFetchRequest:fetchRequest error:&error];
-    
+    NSLog(@"Fetched Record Length: %lu", (unsigned long)fetchedRecords.count);
     return fetchedRecords;
 }
 
