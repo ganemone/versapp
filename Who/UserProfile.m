@@ -4,7 +4,7 @@
 //
 //  Created by Fayang Pan on 1/31/14.
 //  Copyright (c) 2014 Giancarlo Anemone. All rights reserved.
-//
+//  User Profile
 
 #import "UserProfile.h"
 
