@@ -47,7 +47,7 @@
     }
 }
 
-+(NSArray *)getMessagesByChat:(NSString *)chatID {
++(NSMutableArray *)getMessagesByChat:(NSString *)chatID {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -63,7 +63,7 @@
     return fetchedRecords;
 }
 
-+(NSArray *)getMessageObjectsForMUC:(NSString *)chatID {
++(NSMutableArray *)getMessageObjectsForMUC:(NSString *)chatID {
     NSArray *fetchedRecords = [self getMessagesByChat:chatID];
     NSMutableArray *messages = [[NSMutableArray alloc] initWithCapacity:fetchedRecords.count];
     Messages *dbmessage;
@@ -74,7 +74,7 @@
     return messages;
 }
 
-+(NSArray *)getMessageObjectsForOneToOneChat:(NSString *)chatID {
++(NSMutableArray *)getMessageObjectsForOneToOneChat:(NSString *)chatID {
     NSArray *fetchedRecords = [self getMessagesByChat:chatID];
     NSMutableArray *messages = [[NSMutableArray alloc] initWithCapacity:fetchedRecords.count];
     Messages *dbmessage;

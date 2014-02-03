@@ -8,6 +8,7 @@
 
 #import "GroupChat.h"
 #import "ConnectionProvider.h"
+#import "MessagesDBManager.h"
 
 @interface GroupChat()
 
@@ -24,6 +25,7 @@
     instance.name = groupName;
     instance.owner = owner;
     instance.createdTime = createdTime;
+    instance.history = [MessagesDBManager getMessageObjectsForMUC:instance.chatID];
     return instance;
 }
 
