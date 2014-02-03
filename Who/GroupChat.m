@@ -24,9 +24,6 @@
     instance.name = groupName;
     instance.owner = owner;
     instance.createdTime = createdTime;
-    instance.history = [History create:[[NSMutableArray alloc] init]];
-    [instance.history addMessage:[Message createForMUC:@"Test message" sender:[ConnectionProvider getUser] chatID:chatID timestamp:createdTime]];
-    [instance.history addMessage:[Message createForMUC:@"This is a longer message. The purpose of this message is to ensure that the text wraps onto the next line. Wow! Would you look at that. It worked :)" sender:[ConnectionProvider getUser] chatID:chatID timestamp:createdTime]];
     return instance;
 }
 
@@ -34,10 +31,5 @@
     NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
     return [NSString stringWithFormat:@"%@%f", [ConnectionProvider getServerIPAddress], timeStamp];
 }
-
--(int)getNumberOfMessages {
-    return [self.history getNumberOfMessages];
-}
-
 
 @end

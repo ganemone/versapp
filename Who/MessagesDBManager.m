@@ -8,6 +8,9 @@
 #import "AppDelegate.h"
 #import "MessagesDBManager.h"
 #import "Constants.h"
+#import "Message.h"
+#import "Messages.h"
+#import "ConnectionProvider.h"
 
 @implementation MessagesDBManager
 
@@ -58,6 +61,28 @@
     NSArray *fetchedRecords = [[delegate managedObjectContext] executeFetchRequest:fetchRequest error:&error];
     
     return fetchedRecords;
+}
+
++(NSArray *)getMessageObjectsForMUC:(NSString *)chatID {
+    NSArray *fetchedRecords = [self getMessagesByChat:chatID];
+    NSMutableArray *messages = [[NSMutableArray alloc] initWithCapacity:fetchedRecords.count];
+    Messages *dbmessage;
+    for (int i = 0; i < fetchedRecords.count; i++) {
+        dbmessage = [fetchedRecords objectAtIndex:i];
+        [messages addObject:[Message createForMUC:dbmessage.message_body sender:dbmessage.sender_id chatID:dbmessage.group_id timestamp:dbmessage.time]];
+    }
+    return messages;
+}
+
++(NSArray *)getMessageObjectsForOneToOneChat:(NSString *)chatID {
+    NSArray *fetchedRecords = [self getMessagesByChat:chatID];
+    NSMutableArray *messages = [[NSMutableArray alloc] initWithCapacity:fetchedRecords.count];
+    Messages *dbmessage;
+    for (int i = 0; i < fetchedRecords.count; i++) {
+        dbmessage = [fetchedRecords objectAtIndex:i];
+        [messages addObject:[Message createForOneToOne:dbmessage.message_body sender:dbmessage.sender_id chatID:dbmessage.group_id messageTo:dbmessage.receiver_id timestamp:dbmessage.time]];
+    }
+    return messages;
 }
 
 @end

@@ -34,7 +34,6 @@
 		3A5699AB1886D4B900746CC8 /* Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5699AA1886D4B900746CC8 /* Chat.m */; };
 		3A5699AE1886D4D900746CC8 /* GroupChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5699AD1886D4D900746CC8 /* GroupChat.m */; };
 		3A5699B11886D4F900746CC8 /* OneToOneChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5699B01886D4F900746CC8 /* OneToOneChat.m */; };
-		3A5699B51886D64100746CC8 /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5699B41886D64100746CC8 /* History.m */; };
 		3A5699B81886D80C00746CC8 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5699B71886D80C00746CC8 /* Message.m */; };
 		3A6C3BBB1884AD61003B162B /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6C3BBA1884AD61003B162B /* LoginViewController.m */; };
 		3A7D69F31896F12100E18B45 /* OneToOneConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A7D69F21896F12100E18B45 /* OneToOneConversationViewController.m */; };
@@ -145,8 +144,6 @@
 		3A5699AD1886D4D900746CC8 /* GroupChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupChat.m; sourceTree = "<group>"; };
 		3A5699AF1886D4F900746CC8 /* OneToOneChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneToOneChat.h; sourceTree = "<group>"; };
 		3A5699B01886D4F900746CC8 /* OneToOneChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneToOneChat.m; sourceTree = "<group>"; };
-		3A5699B31886D64100746CC8 /* History.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = History.h; sourceTree = "<group>"; };
-		3A5699B41886D64100746CC8 /* History.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = History.m; sourceTree = "<group>"; };
 		3A5699B61886D80C00746CC8 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
 		3A5699B71886D80C00746CC8 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		3A6C3BB91884AD61003B162B /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -396,8 +393,6 @@
 				3A5699AA1886D4B900746CC8 /* Chat.m */,
 				3A5699B61886D80C00746CC8 /* Message.h */,
 				3A5699B71886D80C00746CC8 /* Message.m */,
-				3A5699B31886D64100746CC8 /* History.h */,
-				3A5699B41886D64100746CC8 /* History.m */,
 				3A5699AC1886D4D900746CC8 /* GroupChat.h */,
 				3A5699AD1886D4D900746CC8 /* GroupChat.m */,
 				3A5699AF1886D4F900746CC8 /* OneToOneChat.h */,
@@ -830,7 +825,6 @@
 				3AF19A6B1881F34A00F3E4D3 /* DDXMLNode.m in Sources */,
 				3AF19AC21881F81900F3E4D3 /* XMPPMessage.m in Sources */,
 				3AF19A6A1881F34A00F3E4D3 /* DDXMLElement.m in Sources */,
-				3A5699B51886D64100746CC8 /* History.m in Sources */,
 				3A5699B81886D80C00746CC8 /* Message.m in Sources */,
 				3AF19AC31881F81900F3E4D3 /* XMPPModule.m in Sources */,
 				3AF19A471881EF1600F3E4D3 /* DDFileLogger.m in Sources */,

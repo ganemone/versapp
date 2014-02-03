@@ -62,12 +62,12 @@
         GroupChatManager *gcm = [GroupChatManager getInstance];
         GroupChat *muc = [gcm getChatByIndex:indexPath.row];
         cell.textLabel.text = muc.name;
-        cell.detailTextLabel.text = muc.history.getLastMessage;
+        cell.detailTextLabel.text = [muc getLastMessageText];
     } else {
         OneToOneChatManager *cm = [OneToOneChatManager getInstance];
         OneToOneChat *chat = [cm getChatByIndex:indexPath.row];
         cell.textLabel.text = chat.name;
-        cell.detailTextLabel.text = chat.history.getLastMessage;
+        cell.detailTextLabel.text = [chat getLastMessageText];
     }
     return cell;
 }

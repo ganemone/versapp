@@ -17,4 +17,8 @@
 
 +(NSArray*)getMessagesByChat:(NSString*)chatID;
 
++(NSArray *)getMessageObjectsForMUC:(NSString *)chatID;
+
++(NSArray *)getMessageObjectsForOneToOneChat:(NSString *)chatID;
+
 @end
