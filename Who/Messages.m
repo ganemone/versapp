@@ -19,4 +19,6 @@
 @dynamic message_body;
 @dynamic group_id;
 
+
+
 @end

@@ -20,4 +20,6 @@
 @property (nonatomic, retain) NSString * message_body;
 @property (nonatomic, retain) NSString * group_id;
 
+
+
 @end
