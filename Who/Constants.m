@@ -61,6 +61,18 @@ NSString *const SEGUE_ID_GROUP_CONVERSATION = @"SegueGroupConversation";
 NSString *const SEGUE_ID_ONE_TO_ONE_CONVERSATION = @"SegueOneToOneConversation";
 
 NSString *const CELL_ID_CONVERSATION_PROTOTYPE = @"ConversationCellPrototype";
+NSString *const CELL_ID_FRIENDS_PROTOTYPE = @"FriendsCellPrototype";
+
+NSString *const USER_STATUS_PENDING = @"user_status_pending";
+NSString *const USER_STATUS_FRIENDS = @"user_status_friends";
+NSString *const USER_STATUS_REGISTERED = @"user_status_registered";
+NSString *const USER_STATUS_REJECTED = @"user_status_rejected";
+NSString *const USER_STATUS_UNREGISTERED = @"user_status_unregistered";
+
+
+
+
+
 
 NSString *const CORE_DATA_TABLE_MESSAGES = @"Messages";
 NSString *const CORE_DATA_TABLE_FRIENDS = @"Friends";

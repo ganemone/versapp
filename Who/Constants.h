@@ -59,6 +59,15 @@ extern NSString *const SEGUE_ID_GROUP_CONVERSATION;
 extern NSString *const SEGUE_ID_ONE_TO_ONE_CONVERSATION;
 
 extern NSString *const CELL_ID_CONVERSATION_PROTOTYPE;
+extern NSString *const CELL_ID_FRIENDS_PROTOTYPE;
+
+extern NSString *const USER_STATUS_PENDING;
+extern NSString *const USER_STATUS_FRIENDS;
+extern NSString *const USER_STATUS_REGISTERED;
+extern NSString *const USER_STATUS_REJECTED;
+extern NSString *const USER_STATUS_UNREGISTERED;
+extern NSString *const PACKET_ID_ROSTER;
+
 
 extern NSString *const CORE_DATA_TABLE_MESSAGES;
 extern NSString *const CORE_DATA_TABLE_FRIENDS;

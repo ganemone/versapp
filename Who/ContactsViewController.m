@@ -8,9 +8,16 @@
 
 #import "ContactsViewController.h"
 #import "AddressBook/AddressBook.h"
+#import "ConnectionProvider.h"
+#import "IQPacketManager.h"
+#import "Constants.h"
+#import "ConnectionProvider.h"
+#import "IQPacketManager.h"
+#import "UserProfile.h"
 
-@implementation ContactsViewController
-
+@interface ContactsViewController()
+@property (strong, nonatomic) ConnectionProvider* cp;
+@end
 -(void)viewDidLoad {
     [super viewDidLoad];
     [self accessContacts];
