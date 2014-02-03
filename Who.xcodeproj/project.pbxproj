@@ -81,6 +81,7 @@
 		3AF19AD11882075D00F3E4D3 /* ConnectionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF19AD01882075D00F3E4D3 /* ConnectionProvider.m */; };
 		3AF5113A1885B1EC002383D3 /* IQPacketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF511391885B1EC002383D3 /* IQPacketManager.m */; };
 		3AF5113D1885D79E002383D3 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF5113C1885D79E002383D3 /* Constants.m */; };
+		E7AE5897189BEA7A0033279A /* UserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = E7AE5896189BEA7A0033279A /* UserProfile.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -236,6 +237,8 @@
 		3AF511391885B1EC002383D3 /* IQPacketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQPacketManager.m; sourceTree = "<group>"; };
 		3AF5113B1885D79E002383D3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		3AF5113C1885D79E002383D3 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		E7AE5895189BEA7A0033279A /* UserProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfile.h; sourceTree = "<group>"; };
+		E7AE5896189BEA7A0033279A /* UserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfile.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -378,6 +381,8 @@
 				3A81F499188D90590006DD5D /* GroupChatManager.m */,
 				3AAE9B1518945710003B4560 /* OneToOneChatManager.h */,
 				3AAE9B1618945710003B4560 /* OneToOneChatManager.m */,
+				E7AE5895189BEA7A0033279A /* UserProfile.h */,
+				E7AE5896189BEA7A0033279A /* UserProfile.m */,
 			);
 			name = Chat;
 			sourceTree = "<group>";
@@ -746,6 +751,7 @@
 				3AF19AC01881F81900F3E4D3 /* XMPPIQ.m in Sources */,
 				3ACA788218833EDB00B384BF /* MainTabBarController.m in Sources */,
 				3AF19AC41881F81900F3E4D3 /* XMPPParser.m in Sources */,
+				E7AE5897189BEA7A0033279A /* UserProfile.m in Sources */,
 				3AF19A481881EF1600F3E4D3 /* DDLog.m in Sources */,
 				3AF19A461881EF1600F3E4D3 /* DDASLLogger.m in Sources */,
 				3A81F49A188D905A0006DD5D /* GroupChatManager.m in Sources */,
