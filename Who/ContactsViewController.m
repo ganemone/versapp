@@ -18,6 +18,9 @@
 @interface ContactsViewController()
 @property (strong, nonatomic) ConnectionProvider* cp;
 @end
+
+@implementation ContactsViewController
+
 -(void)viewDidLoad {
     [super viewDidLoad];
     [self accessContacts];
