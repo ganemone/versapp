@@ -69,11 +69,6 @@ NSString *const USER_STATUS_REGISTERED = @"user_status_registered";
 NSString *const USER_STATUS_REJECTED = @"user_status_rejected";
 NSString *const USER_STATUS_UNREGISTERED = @"user_status_unregistered";
 
-
-
-
-
-
 NSString *const CORE_DATA_TABLE_MESSAGES = @"Messages";
 NSString *const CORE_DATA_TABLE_FRIENDS = @"Friends";
 
