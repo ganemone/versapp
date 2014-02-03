@@ -8,6 +8,7 @@
 
 #import "History.h"
 #import "Message.h"
+#import "MessagesDBManager.h"
 
 @implementation History
 

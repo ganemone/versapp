@@ -14,6 +14,8 @@
 #import "ChatParticipantVCardBuffer.h"
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
+#import "FriendsDBManager.h"
+#import "MessagesDBManager.h"
 
 @implementation IQPacketReceiver
 
@@ -149,6 +151,7 @@
     }
     GroupChatManager *gcm = [GroupChatManager getInstance];
     GroupChat *gc = [gcm getChat:groupID];
+    [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:groupID];
     [gc.history addMessage:[Message createForMUC:message.body sender:senderID chatID:groupID timestamp:timestamp]];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
 }

@@ -12,11 +12,11 @@
 
 @interface Messages : NSManagedObject
 
-@property (nonatomic, retain) NSString * time;
-@property (nonatomic, retain) NSString * sender_id;
-@property (nonatomic, retain) NSString * image_link;
-@property (nonatomic, retain) NSString * reciever_id;
-@property (nonatomic, retain) NSString * message_body;
-@property (nonatomic, retain) NSString * group_id;
+@property (strong, nonatomic) NSString * time;
+@property (strong, nonatomic) NSString * sender_id;
+@property (strong, nonatomic) NSString * image_link;
+@property (strong, nonatomic) NSString * receiver_id;
+@property (strong, nonatomic) NSString * message_body;
+@property (strong, nonatomic) NSString * group_id;
 
 @end

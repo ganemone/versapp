@@ -8,6 +8,7 @@
 
 #import "ConversationViewController.h"
 #import "Constants.h"
+#import "MessagesDBManager.h"
 
 @interface ConversationViewController ()
 
@@ -27,6 +28,7 @@
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceived:) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
     self.navigationItem.title = self.gc.name;
     self.originalCenter = self.view.center;
 
@@ -77,6 +79,15 @@
     CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
     
     return labelSize.height + 20;
+}
+
+-(void)messageReceived:(NSNotification*)notificiation {
+    NSLog(@"Received Message Received Notification");
+    NSArray *messages = [MessagesDBManager getMessagesByChat:self.gc.chatID];
+    for(int i = 0; i < messages.count; i++) {
+        NSLog(@"%@", [[messages objectAtIndex:i] description]);
+    }
+    [self.conversationTableView reloadData];
 }
 
 -(void)keyboardDidShow:(NSNotification*)notification {

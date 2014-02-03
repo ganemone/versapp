@@ -9,12 +9,12 @@
         <attribute name="group_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="image_link" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="message_body" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="reciever_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="receiver_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sender_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Friends" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Messages" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Friends" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="Messages" positionX="0" positionY="-171" width="128" height="133"/>
     </elements>
 </model>

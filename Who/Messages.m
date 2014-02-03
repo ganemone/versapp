@@ -14,7 +14,7 @@
 @dynamic time;
 @dynamic sender_id;
 @dynamic image_link;
-@dynamic reciever_id;
+@dynamic receiver_id;
 @dynamic message_body;
 @dynamic group_id;
 
