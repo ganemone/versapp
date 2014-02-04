@@ -181,17 +181,42 @@
 
 +(DDXMLElement *)createCreateMUCPacket:(NSString*)roomName {
     
-    DDXMLElement *presence = [DDXMLElement elementWithName:@"presence"];
-	//[iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[ConnectionProvider getServerIPAddress]]];
-    [presence addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[NSString stringWithFormat:@"%@@%@", roomName, [ConnectionProvider getConferenceIPAddress]]]];
-    [presence addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_CREATE_MUC]];
-    DDXMLElement *element = [DDXMLElement elementWithName:@"x"];
-    [element addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"http://jabber.org/protocol/muc"]];
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[NSString stringWithFormat:@"%@@%@/%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress], APPLICATION_RESOURCE]]];
+    //[iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[NSString stringWithFormat:@"%@@%@/%@", roomName, [ConnectionProvider getConferenceIPAddress], [ConnectionProvider getUser]]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[NSString stringWithFormat:@"%@@%@", roomName, [ConnectionProvider getConferenceIPAddress]]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_CREATE_MUC]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"set"]];
     
-    [presence addChild:element];
+    DDXMLElement *element = [DDXMLElement elementWithName:@"query"];
+    [element addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"http://jabber.org/protocol/muc#owner"]];
     
-    NSLog(@"Packet: %@", presence.XMLString);
-    return presence;
+    DDXMLElement *x = [DDXMLElement elementWithName:@"x"];
+    [x addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"jabber:x:data"]];
+    [x addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"submit"]];
+    
+    [element addChild:x];
+    [iq addChild:element];
+    
+    NSLog(@"Packet: %@", iq.XMLString);
+    
+    return iq;
+}
+
++(DDXMLElement *)createMUCConfigurationFormRequestPacket:(NSString*)roomName {
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[NSString stringWithFormat:@"%@@%@/%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress], APPLICATION_RESOURCE]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[NSString stringWithFormat:@"%@@%@/%@", roomName, [ConnectionProvider getConferenceIPAddress], [ConnectionProvider getUser]]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_GET_CONFIGURATION_FORM]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"get"]];
+    
+    DDXMLElement *element = [DDXMLElement elementWithName:@"query"];
+    [element addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"http://jabber.org/protocol/muc#owner"]];
+    
+    [iq addChild:element];
+    
+    NSLog(@"Packet: %@", iq.XMLString);
+    return iq;
 }
 
 +(DDXMLElement *)createJoinMUCPacket:(NSString *)chatID lastTimeActive:(NSString *)lastTimeActive {

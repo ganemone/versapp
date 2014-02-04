@@ -18,6 +18,7 @@ NSString *const PACKET_ID_GET_PENDING_CHATS = @"packet_id_get_pending_chats";
 NSString *const PACKET_ID_REGISTER_USER = @"packet_id_register_user";
 NSString *const PACKET_ID_CREATE_VCARD = @"packet_id_create_vcard";
 NSString *const PACKET_ID_CREATE_MUC = @"packet_id_create_muc";
+NSString *const PACKET_ID_GET_CONFIGURATION_FORM = @"packet_id_get_configuration_form";
 NSString *const PACKET_ID_JOIN_MUC = @"packet_id_join_muc";
 NSString *const PACKET_ID_GET_LAST_TIME_ACTIVE = @"packet_id_get_last_time_active";
 NSString *const PACKET_ID_GET_SERVER_TIME = @"packet_id_get_server_time";

@@ -26,9 +26,10 @@
 
 -(void)handleIQPacket:(XMPPIQ *)iq {
     if([self isPacketWithID:PACKET_ID_CREATE_MUC packet:iq]) {
-        
+        NSLog(@"-----------------\n");
+        NSLog(@"Response: %@", iq.XMLString);
+        NSLog(@"-----------------\n");
     } else if([self isPacketWithID:PACKET_ID_CREATE_VCARD packet:iq]) {
-        NSLog(@"Sending create vcard notification");
         [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_CREATE_VCARD object:nil];
     } else if([self isPacketWithID:PACKET_ID_GET_JOINED_CHATS packet:iq]) {
         [self handleGetJoinedChatsPacket:iq];
@@ -40,7 +41,6 @@
     } else if([self isPacketWithID:PACKET_ID_JOIN_MUC packet:iq]) {
         
     } else if([self isPacketWithID:PACKET_ID_REGISTER_USER packet:iq]) {
-        NSLog(@"Sending register user notification");
         [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_REGISTER_USER object:nil];
     } else if([self isPacketWithID:PACKET_ID_GET_LAST_TIME_ACTIVE packet:iq]) {
         [self handleGetLastTimeActivePacket:iq];
@@ -105,13 +105,13 @@
         NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"1970-01-01T00:00:00Z" forKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
         [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil userInfo:userInfo];
     } else {
-        NSTimeInterval interval= [timestamp doubleValue] + 5*60*60;
+        NSTimeInterval interval= [timestamp doubleValue];
         NSDate *gregDate = [NSDate dateWithTimeIntervalSince1970: interval];
         NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
-        //[formatter setLocale:[NSLocale currentLocale]];
+        [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
         [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
         NSString *utcStringDate =[formatter stringFromDate:gregDate];
-        
+        NSLog(@"UTC: %@", utcStringDate);
         NSDictionary *userInfo = [NSDictionary dictionaryWithObject:utcStringDate forKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
         [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil userInfo:userInfo];
     }

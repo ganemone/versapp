@@ -24,8 +24,6 @@
     [message setValue:senderID forKey:MESSAGE_PROPERTY_SENDER_ID];
     [message setValue:receiverID forKey:MESSAGE_PROPERTY_RECEIVER_ID];
     
-    NSLog(@"Inserting Message: %@", [message description]);
-    
     [delegate saveContext];
 }
 
@@ -45,7 +43,6 @@
 }
 
 +(NSArray *)getMessagesByChat:(NSString *)chatID {
-    NSLog(@"Fetching items for chat: %@", chatID);
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -54,22 +51,13 @@
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%@ = \"%@\"", MESSAGE_PROPERTY_GROUP_ID, chatID]];
     [fetchRequest setPredicate:predicate];
-    NSLog(@"Predicate Used: %@", [predicate description]);
     
     NSError* error;
     NSArray *fetchedItems = [moc executeFetchRequest:fetchRequest error:&error];
-    for (int i = 0; i < fetchedItems.count; i++) {
-        NSLog(@"Fetched Item: %@", [[fetchedItems objectAtIndex:i] group_id]);
-        NSLog(@"Fetched Item: %@", [[fetchedItems objectAtIndex:i] sender_id]);
-        NSLog(@"Fetched Item: %@", [[fetchedItems objectAtIndex:i] receiver_id]);
-        NSLog(@"Fetched Item: %@", [[fetchedItems objectAtIndex:i] message_body]);
-        NSLog(@"Fetched Item: %@", [[fetchedItems objectAtIndex:i] image_link]);
-    }
     return fetchedItems;
 }
 
 +(NSMutableArray *)getMessageObjectsForMUC:(NSString *)chatID {
-    NSLog(@"Getting Messages For Muc");
     NSArray *fetchedRecords = [self getMessagesByChat:chatID];
     NSMutableArray *messages = [[NSMutableArray alloc] initWithCapacity:fetchedRecords.count];
     MessageMO *dbmessage;
@@ -81,9 +69,7 @@
 }
 
 +(NSMutableArray *)getMessageObjectsForOneToOneChat:(NSString *)chatID {
-    NSLog(@"Getting Messages for One To One Chat: %@", chatID);
     NSArray *fetchedRecords = [self getMessagesByChat:chatID];
-    NSLog(@"Found %lu Messages", fetchedRecords.count);
     NSMutableArray *messages = [[NSMutableArray alloc] initWithCapacity:fetchedRecords.count];
     MessageMO *dbmessage;
     for (int i = 0; i < fetchedRecords.count; i++) {

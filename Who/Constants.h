@@ -17,6 +17,7 @@ extern NSString *const PACKET_ID_REGISTER_USER;
 extern NSString *const PACKET_ID_CREATE_VCARD;
 extern NSString *const PACKET_ID_CREATE_MUC;
 extern NSString *const PACKET_ID_JOIN_MUC;
+extern NSString *const PACKET_ID_GET_CONFIGURATION_FORM;
 extern NSString *const PACKET_ID_GET_LAST_TIME_ACTIVE;
 extern NSString *const PACKET_ID_GET_SERVER_TIME;
 extern NSString *const PACKET_ID_GET_CHAT_PARTICIPANTS;

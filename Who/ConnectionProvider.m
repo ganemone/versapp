@@ -127,6 +127,7 @@ static ConnectionProvider *selfInstance;
     } else {
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];
+        //[self.xmppStream sendElement:[IQPacketManager createCreateMUCPacket:@"asdfasdfasdf"]];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
     }
 }
