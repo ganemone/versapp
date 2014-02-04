@@ -43,6 +43,12 @@
         [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(beginSelectingFriendsForGroup:)] animated:YES];
         self.navigationItem.leftBarButtonItem = nil;
         self.isSelecting = NO;
+        if (self.selectedIndexPaths.count > 0) {
+            UIAlertView *groupNamePrompt = [[UIAlertView alloc] initWithTitle:@"Group Name" message:@"Enter a name for the group" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Create", nil];
+            groupNamePrompt.alertViewStyle = UIAlertViewStylePlainTextInput;
+            [groupNamePrompt show];
+        }
+        
     } else {
         NSLog(@"Changing Navigation Item....");
         [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(beginSelectingFriendsForGroup:)] animated:YES];
@@ -140,6 +146,21 @@
     [self filterContentForSearchText:searchString scope:[[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
     
     return YES;
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    UITableViewCell *cell;
+    NSMutableArray *selectedItems = [[NSMutableArray alloc] initWithCapacity:self.selectedIndexPaths.count];
+    NSString *groupName = [alertView textFieldAtIndex:0].text;
+    for (int i = 0; i < self.selectedIndexPaths.count; i++) {
+        NSIndexPath *indexPath = [self.selectedIndexPaths objectAtIndex:i];
+        cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        [selectedItems addObject:[self.accepted objectAtIndex:indexPath.row]];
+    }
+    if (buttonIndex == 1 && groupName.length > 0) {
+        //Create Group HERE
+    }
 }
 
 
