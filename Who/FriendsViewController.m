@@ -16,10 +16,14 @@
 #import "ChatParticipantVCardBuffer.h"
 
 @interface FriendsViewController()
+
 @property (strong, nonatomic) ConnectionProvider* cp;
 @property (strong, nonatomic) NSArray *accepted;
 @property (strong, nonatomic) NSArray *pending;
 @property (strong, nonatomic) NSArray *searchResults;
+@property (strong, nonatomic) NSMutableArray *selectedItems;
+@property BOOL isSelecting;
+
 @end
 
 @implementation FriendsViewController
@@ -27,8 +31,31 @@
 -(void)viewDidLoad{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleGetRosterPacketReceived:) name:PACKET_ID_GET_ROSTER object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData:) name:PACKET_ID_GET_VCARD object:nil];
+    self.isSelecting = NO;
+    self.selectedItems = [[NSMutableArray alloc] initWithCapacity:10];
     self.cp = [ConnectionProvider getInstance];
     [[self.cp getConnection] sendElement:[IQPacketManager createGetRosterPacket]];
+}
+
+- (IBAction)beginSelectingFriendsForGroup:(id)sender {
+    if(self.navigationItem.leftBarButtonItem != nil) {
+        NSLog(@"Creating Group...");
+        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(beginSelectingFriendsForGroup:)] animated:YES];
+        self.navigationItem.leftBarButtonItem = nil;
+        self.isSelecting = NO;
+    } else {
+        NSLog(@"Changing Navigation Item....");
+        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(beginSelectingFriendsForGroup:)] animated:YES];
+        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(cancelSelectingFriendsForGroup:)] animated:YES];
+        self.isSelecting = YES;
+    }
+}
+
+- (IBAction)cancelSelectingFriendsForGroup:(id)sender {
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(beginSelectingFriendsForGroup:)] animated:YES];
+    self.navigationItem.leftBarButtonItem = nil;
+    self.isSelecting = NO;
+    [self.selectedItems removeAllObjects];
 }
 
 -(void)handleGetRosterPacketReceived: (NSNotification*) notification{

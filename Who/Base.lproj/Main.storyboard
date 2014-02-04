@@ -225,7 +225,6 @@
         <!--Friends View Controller - Friends-->
         <scene sceneID="G75-27-pJ7">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WIm-40-XwS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController title="Friends" id="3aX-9q-IPd" customClass="FriendsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="tTc-Nr-doF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -259,11 +258,18 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="wcp-Qe-eie"/>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="wcp-Qe-eie">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Dpr-wO-MM7">
+                            <connections>
+                                <action selector="beginSelectingFriendsForGroup:" destination="3aX-9q-IPd" id="QXm-sH-QZe"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="searchDisplayController" destination="PvP-HL-NPX" id="W81-Ba-CY3"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WIm-40-XwS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <searchDisplayController id="PvP-HL-NPX">
                     <connections>
                         <outlet property="delegate" destination="3aX-9q-IPd" id="YeA-L0-dtN"/>
@@ -279,7 +285,6 @@
         <!--Navigation Controller - Friends-->
         <scene sceneID="Cvx-aK-e4l">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aHN-cp-zq9" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController title="Friends" definesPresentationContext="YES" id="c10-xT-pOh" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="contacts" id="Hf7-In-jGn"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YDa-Yd-i6W">
@@ -289,6 +294,7 @@
                         <segue destination="3aX-9q-IPd" kind="relationship" relationship="rootViewController" id="vOY-e5-FCA"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aHN-cp-zq9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="671" y="900"/>
         </scene>
