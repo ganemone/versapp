@@ -282,12 +282,6 @@
 -(void)handleGetRosterPacket: (XMPPIQ *)iq{
     NSLog(@"IQRoster: %@", iq.XMLString);
     NSError *error = NULL;
-    /*
-     // Deprecated code to parse the entire XML string, might be useful when the structure of the XMLString changes.
-     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<item (subscription=\"(.*?)\")|(jid=\"([^@]+){1,}@.*?\"[^\\/]{1,}) (subscription=\"(.*?)\")|(jid=\"([^@]+){1,}@.*?\"[^\\/]{1,})\\/>" options:(NSRegularExpressionCaseInsensitive) error:&error];
-     NSArray *match = [regex matchesInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
-     */
-    
     DDXMLElement *query = [[iq children] firstObject];
     NSArray *items = [query children];
     DDXMLElement *item;
@@ -298,15 +292,6 @@
     
     for (int i = 0; i < items.count; i++) {
         item = items[i];
-        
-        /*
-         // Parse subscription
-         NSString *subscription = [[item attributeForName:@"subscription"] XMLString];
-         NSRegularExpression *regexSubs = [NSRegularExpression regularExpressionWithPattern:@"subscription=\"(.*)\"" options: 0 error:&error];
-         NSTextCheckingResult *matchSubs = [regexSubs firstMatchInString:subscription options:0 range:NSMakeRange(0,subscription.length)];
-         NSString *resultSubs = [subscription substringWithRange:[matchSubs rangeAtIndex:1]];
-         */
-        
         NSString *subscription = [[item attributeForName:@"subscription"] XMLString];
         //Parse jid
         NSString *jid = [[item attributeForName:@"jid"] XMLString] ;
@@ -320,10 +305,7 @@
         else{
             [pendingFriends addObject:[UserProfile create:resultJid subscription_status: USER_STATUS_PENDING]];
         }
-        
     }
-    
-    
     NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:acceptedFriends, USER_STATUS_FRIENDS, pendingFriends, USER_STATUS_PENDING, nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_ROSTER object:nil userInfo:userInfo];
     NSLog(@"I am trying to send");
