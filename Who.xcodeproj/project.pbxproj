@@ -26,7 +26,6 @@
 		3A25B6791881E85B00166623 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A25B6781881E85B00166623 /* ContactsViewController.m */; };
 		3A39475B189FF12E005730D2 /* UserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A39475A189FF12E005730D2 /* UserProfile.m */; };
 		3A39475D18A06483005730D2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A39475C18A06483005730D2 /* CoreData.framework */; };
-		3A47C83E189F199B003020D7 /* db.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3A47C838189F199B003020D7 /* db.xcdatamodeld */; };
 		3A47C844189F1A52003020D7 /* FriendsDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A47C843189F1A52003020D7 /* FriendsDBManager.m */; };
 		3A47C847189F1F02003020D7 /* MessagesDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A47C846189F1F02003020D7 /* MessagesDBManager.m */; };
 		3A5699A81886CE8300746CC8 /* IQPacketReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5699A71886CE8300746CC8 /* IQPacketReceiver.m */; };
@@ -86,6 +85,9 @@
 		3AF19AD11882075D00F3E4D3 /* ConnectionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF19AD01882075D00F3E4D3 /* ConnectionProvider.m */; };
 		3AF5113A1885B1EC002383D3 /* IQPacketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF511391885B1EC002383D3 /* IQPacketManager.m */; };
 		3AF5113D1885D79E002383D3 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF5113C1885D79E002383D3 /* Constants.m */; };
+		3AFFC93D18A06AE3009D7F13 /* db.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC93B18A06AE3009D7F13 /* db.xcdatamodeld */; };
+		3AFFC94018A06B95009D7F13 /* MessageMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC93F18A06B95009D7F13 /* MessageMO.m */; };
+		3AFFC94318A06BA9009D7F13 /* FriendMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC94218A06BA9009D7F13 /* FriendMO.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,7 +129,6 @@
 		3A394759189FF12E005730D2 /* UserProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfile.h; sourceTree = "<group>"; };
 		3A39475A189FF12E005730D2 /* UserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfile.m; sourceTree = "<group>"; };
 		3A39475C18A06483005730D2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		3A47C839189F199B003020D7 /* db.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = db.xcdatamodel; sourceTree = "<group>"; };
 		3A47C842189F1A52003020D7 /* FriendsDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsDBManager.h; sourceTree = "<group>"; };
 		3A47C843189F1A52003020D7 /* FriendsDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsDBManager.m; sourceTree = "<group>"; };
 		3A47C845189F1F02003020D7 /* MessagesDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesDBManager.h; sourceTree = "<group>"; };
@@ -249,6 +250,11 @@
 		3AF511391885B1EC002383D3 /* IQPacketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQPacketManager.m; sourceTree = "<group>"; };
 		3AF5113B1885D79E002383D3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		3AF5113C1885D79E002383D3 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		3AFFC93C18A06AE3009D7F13 /* db.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = db.xcdatamodel; sourceTree = "<group>"; };
+		3AFFC93E18A06B95009D7F13 /* MessageMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageMO.h; sourceTree = "<group>"; };
+		3AFFC93F18A06B95009D7F13 /* MessageMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageMO.m; sourceTree = "<group>"; };
+		3AFFC94118A06BA9009D7F13 /* FriendMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendMO.h; sourceTree = "<group>"; };
+		3AFFC94218A06BA9009D7F13 /* FriendMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendMO.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -369,7 +375,11 @@
 		3A47C841189F1A30003020D7 /* DB */ = {
 			isa = PBXGroup;
 			children = (
-				3A47C838189F199B003020D7 /* db.xcdatamodeld */,
+				3AFFC93B18A06AE3009D7F13 /* db.xcdatamodeld */,
+				3AFFC94118A06BA9009D7F13 /* FriendMO.h */,
+				3AFFC94218A06BA9009D7F13 /* FriendMO.m */,
+				3AFFC93E18A06B95009D7F13 /* MessageMO.h */,
+				3AFFC93F18A06B95009D7F13 /* MessageMO.m */,
 				3A47C842189F1A52003020D7 /* FriendsDBManager.h */,
 				3A47C843189F1A52003020D7 /* FriendsDBManager.m */,
 				3A47C845189F1F02003020D7 /* MessagesDBManager.h */,
@@ -782,6 +792,7 @@
 				3A7D69F31896F12100E18B45 /* OneToOneConversationViewController.m in Sources */,
 				3AAE9B1A1894A049003B4560 /* ConversationViewController.m in Sources */,
 				3AF19AC01881F81900F3E4D3 /* XMPPIQ.m in Sources */,
+				3AFFC93D18A06AE3009D7F13 /* db.xcdatamodeld in Sources */,
 				3ACA788218833EDB00B384BF /* MainTabBarController.m in Sources */,
 				3AF19AC41881F81900F3E4D3 /* XMPPParser.m in Sources */,
 				3AF19A481881EF1600F3E4D3 /* DDLog.m in Sources */,
@@ -791,17 +802,18 @@
 				3AF19AC51881F81900F3E4D3 /* XMPPPresence.m in Sources */,
 				3A25B6761881E84800166623 /* FriendsViewController.m in Sources */,
 				3A47C844189F1A52003020D7 /* FriendsDBManager.m in Sources */,
+				3AFFC94318A06BA9009D7F13 /* FriendMO.m in Sources */,
 				3AF19A8C1881F75100F3E4D3 /* XMPPDeprecatedPlainAuthentication.m in Sources */,
 				3AF19ACB1881F81900F3E4D3 /* XMPPSRVResolver.m in Sources */,
 				3A25B6791881E85B00166623 /* ContactsViewController.m in Sources */,
 				3AF19A671881F34A00F3E4D3 /* NSString+DDXML.m in Sources */,
 				3AF19A8B1881F75100F3E4D3 /* XMPPDeprecatedDigestAuthentication.m in Sources */,
 				3AF19A491881EF1600F3E4D3 /* DDTTYLogger.m in Sources */,
-				3A47C83E189F199B003020D7 /* db.xcdatamodeld in Sources */,
 				3A25B6701881E7F100166623 /* RequestsViewController.m in Sources */,
 				3AF19A9A1881F7E800F3E4D3 /* NSData+XMPP.m in Sources */,
 				3A39475B189FF12E005730D2 /* UserProfile.m in Sources */,
 				3A6C3BBB1884AD61003B162B /* LoginViewController.m in Sources */,
+				3AFFC94018A06B95009D7F13 /* MessageMO.m in Sources */,
 				3A25B6471881E03700166623 /* AppDelegate.m in Sources */,
 				3AF19A6D1881F34A00F3E4D3 /* DispatchQueueLogFormatter.m in Sources */,
 				3AF19AC91881F81900F3E4D3 /* RFImageToDataTransformer.m in Sources */,
@@ -1065,12 +1077,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		3A47C838189F199B003020D7 /* db.xcdatamodeld */ = {
+		3AFFC93B18A06AE3009D7F13 /* db.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				3A47C839189F199B003020D7 /* db.xcdatamodel */,
+				3AFFC93C18A06AE3009D7F13 /* db.xcdatamodel */,
 			);
-			currentVersion = 3A47C839189F199B003020D7 /* db.xcdatamodel */;
+			currentVersion = 3AFFC93C18A06AE3009D7F13 /* db.xcdatamodel */;
 			path = db.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
