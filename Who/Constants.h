@@ -75,6 +75,7 @@ extern NSString *const CORE_DATA_TABLE_FRIENDS;
 extern NSString *const FRIENDS_TABLE_COLUMN_NAME_USERNAME;
 extern NSString *const FRIENDS_TABLE_COLUMN_NAME_NAME;
 extern NSString *const FRIENDS_TABLE_COLUMN_NAME_STATUS;
+extern NSString *const FRIENDS_TABLE_COLUMN_NAME_EMAIL;
 
 extern int const STATUS_FRIENDS;
 extern int const STATUS_REGISTERED;

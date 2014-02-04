@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="FriendMO" representedClassName="FriendMO" syncable="YES">
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
@@ -14,7 +15,7 @@
         <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="MessageMO" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="FriendMO" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MessageMO" positionX="160" positionY="192" width="128" height="135"/>
+        <element name="FriendMO" positionX="25" positionY="192" width="128" height="90"/>
     </elements>
 </model>

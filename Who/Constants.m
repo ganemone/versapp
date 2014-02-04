@@ -75,6 +75,7 @@ NSString *const CORE_DATA_TABLE_FRIENDS = @"FriendMO";
 NSString *const FRIENDS_TABLE_COLUMN_NAME_USERNAME = @"username";
 NSString *const FRIENDS_TABLE_COLUMN_NAME_NAME = @"name";
 NSString *const FRIENDS_TABLE_COLUMN_NAME_STATUS = @"status";
+NSString *const FRIENDS_TABLE_COLUMN_NAME_EMAIL = @"email";
 
 int const STATUS_FRIENDS = 0;
 int const STATUS_REGISTERED = 1;

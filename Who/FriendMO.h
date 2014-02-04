@@ -12,8 +12,9 @@
 
 @interface FriendMO : NSManagedObject
 
-@property (nonatomic, retain) NSString * username;
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSNumber * status;
+@property (nonatomic, retain) NSString *username;
+@property (nonatomic, retain) NSString *name;
+@property (nonatomic, retain) NSNumber *status;
+@property (nonatomic, retain) NSString *email;
 
 @end

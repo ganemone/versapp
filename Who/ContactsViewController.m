@@ -37,7 +37,6 @@
                     //failure((__bridge NSError *)error);
                 } else {
                     NSArray *people = (__bridge NSArray *)(ABAddressBookCopyArrayOfAllPeople(addressBook));
-                    NSMutableArray *contacts = [[NSMutableArray alloc] init];
                     for (id person in people) {
                         NSString *firstName = (__bridge_transfer NSString*)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonFirstNameProperty);
                         NSString *lastName = (__bridge_transfer NSString*)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonLastNameProperty);

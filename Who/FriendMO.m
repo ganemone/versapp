@@ -14,5 +14,6 @@
 @dynamic username;
 @dynamic name;
 @dynamic status;
+@dynamic email;
 
 @end
