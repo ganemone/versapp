@@ -97,6 +97,8 @@
     return YES;
 }
 
+
+
 +(NSArray*)makeFetchRequest:(NSString*)predicateString {
     
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
@@ -113,6 +115,37 @@
     NSArray *fetchedRecords = [moc executeFetchRequest:fetchRequest error:&error];
     
     return fetchedRecords;
+}
+
++(BOOL)updateUserStatus:(NSString*) username status:(NSNumber*)status {
+    FriendMO *entry = [self getUserWithJID:username];
+    if (entry == nil) {
+        return NO;
+    }
+    [entry setValue:status forKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [delegate saveContext];
+    return YES;
+}
+
++(BOOL)updateUserSetStatusFriends:(NSString *)username {
+    return [self updateUserStatus:username status:[NSNumber numberWithInt:STATUS_FRIENDS]];
+}
+
++(BOOL)updateUserSetStatusPending:(NSString *)username {
+    return [self updateUserStatus:username status:[NSNumber numberWithInt:STATUS_PENDING]];
+}
+
++(BOOL)updateUserSetStatusRegistered:(NSString *)username {
+    return [self updateUserStatus:username status:[NSNumber numberWithInt:STATUS_REGISTERED]];
+}
+
++(BOOL)updateUserSetStatusRejected:(NSString *)username {
+    return [self updateUserStatus:username status:[NSNumber numberWithInt:STATUS_REJECTED]];
+}
+
++(BOOL)updateUserSetStatusUnregistered:(NSString *)username {
+    return [self updateUserStatus:username status:[NSNumber numberWithInt:STATUS_UNREGISTERED]];
 }
 
 @end

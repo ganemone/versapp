@@ -28,4 +28,14 @@
 
 +(BOOL)updateEntry:(NSString*)username name:(NSString*)name email:(NSString*)email status:(NSNumber *)status;
 
++(BOOL)updateUserSetStatusRegistered:(NSString*)username;
+
++(BOOL)updateUserSetStatusFriends:(NSString*)username;
+
++(BOOL)updateUserSetStatusPending:(NSString*)username;
+
++(BOOL)updateUserSetStatusRejected:(NSString*)username;
+
++(BOOL)updateUserSetStatusUnregistered:(NSString*)username;
+
 @end
