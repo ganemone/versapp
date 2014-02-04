@@ -288,7 +288,8 @@
     
     NSMutableArray *pendingFriends = [[NSMutableArray alloc] init],
     *acceptedFriends = [[NSMutableArray alloc] init];
-    
+    XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
+    ChatParticipantVCardBuffer *buff = [ChatParticipantVCardBuffer getInstance];
     
     for (int i = 0; i < items.count; i++) {
         item = items[i];
@@ -298,11 +299,13 @@
         NSRegularExpression *regexJid = [NSRegularExpression regularExpressionWithPattern:@"jid=\"(.*)@" options: 0 error:&error];
         NSTextCheckingResult *matchJid = [regexJid firstMatchInString:jid options:0 range:NSMakeRange(0,jid.length)];
         NSString *resultJid = [jid substringWithRange:[matchJid rangeAtIndex:1]];
-        
+        if ([buff hasVCard:jid] == NO) {
+            [conn sendElement:[IQPacketManager createGetVCardPacket:resultJid]];
+        }
         if ([subscription rangeOfString:@"none"].location == NSNotFound){
             [acceptedFriends addObject:[UserProfile create:resultJid subscription_status: USER_STATUS_FRIENDS]];
         }
-        else{
+        else {
             [pendingFriends addObject:[UserProfile create:resultJid subscription_status: USER_STATUS_PENDING]];
         }
     }
