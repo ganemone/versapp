@@ -48,9 +48,9 @@
 -(void)messageReceived:(NSNotification*)notification {
     NSDictionary *userInfo = notification.userInfo;
     if ([(NSString*)[userInfo objectForKey:MESSAGE_PROPERTY_GROUP_ID] compare:self.chat.chatID] == 0) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.chat.getNumberOfMessages inSection:0];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.chat.getNumberOfMessages - 1 inSection:0];
         NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
-        [self.conversationTableView reloadRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationBottom];
+        [self.conversationTableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationBottom];
     }
 }
 
