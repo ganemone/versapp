@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@interface Message : NSManagedObject
+@interface MessageMO : NSManagedObject
 
 @property (strong, nonatomic) NSString * time;
 @property (strong, nonatomic) NSString * sender_id;

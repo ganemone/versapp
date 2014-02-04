@@ -9,7 +9,7 @@
 #import "MessagesDBManager.h"
 #import "Constants.h"
 #import "Message.h"
-#import "Messages.h"
+#import "MessageMO.h"
 #import "ConnectionProvider.h"
 
 @implementation MessagesDBManager
@@ -24,8 +24,7 @@
     [message setValue:receiverID forKey:MESSAGE_PROPERTY_RECEIVER_ID];
     NSLog(@"Inserting Message: %@", [message description]);
     NSError *error = NULL;
-    [[delegate managedObjectContext] save:&error];
-    if(error != NULL) {
+    if(![[delegate managedObjectContext] save:&error]) {
         NSLog(@"Error Saving Data: %@", error);
     }
 }
@@ -42,11 +41,9 @@
     [message setValue:imageLink forKey:MESSAGE_PROPERTY_IMAGE_LINK];
     
     NSError *error = NULL;
-    [[delegate managedObjectContext] save:&error];
-    if(error != NULL) {
+    if(![[delegate managedObjectContext] save:&error]) {
         NSLog(@"Error Saving Data: %@", error);
     }
-    NSLog(@"Error Saving Data: %@", error);
 }
 
 +(NSArray *)getMessagesByChat:(NSString *)chatID {
@@ -68,7 +65,7 @@
 +(NSMutableArray *)getMessageObjectsForMUC:(NSString *)chatID {
     NSArray *fetchedRecords = [self getMessagesByChat:chatID];
     NSMutableArray *messages = [[NSMutableArray alloc] initWithCapacity:fetchedRecords.count];
-    Messages *dbmessage;
+    MessageMO *dbmessage;
     for (int i = 0; i < fetchedRecords.count; i++) {
         dbmessage = [fetchedRecords objectAtIndex:i];
         [messages addObject:[Message createForMUC:dbmessage.message_body sender:dbmessage.sender_id chatID:dbmessage.group_id timestamp:dbmessage.time]];
@@ -79,7 +76,7 @@
 +(NSMutableArray *)getMessageObjectsForOneToOneChat:(NSString *)chatID {
     NSArray *fetchedRecords = [self getMessagesByChat:chatID];
     NSMutableArray *messages = [[NSMutableArray alloc] initWithCapacity:fetchedRecords.count];
-    Messages *dbmessage;
+    MessageMO *dbmessage;
     for (int i = 0; i < fetchedRecords.count; i++) {
         dbmessage = [fetchedRecords objectAtIndex:i];
         [messages addObject:[Message createForOneToOne:dbmessage.message_body sender:dbmessage.sender_id chatID:dbmessage.group_id messageTo:dbmessage.receiver_id timestamp:dbmessage.time]];
