@@ -29,6 +29,7 @@
 -(void)viewDidLoad {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleGetLastPacketReceived:) name:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
     
     self.cp = [ConnectionProvider getInstance];
@@ -57,6 +58,7 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"Getting Cell at Row: %lu", indexPath.row);
     static NSString *CellIdentifier = @"ChatCellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if(indexPath.section == 0) {
@@ -65,10 +67,12 @@
         cell.textLabel.text = muc.name;
         cell.detailTextLabel.text = [muc getLastMessageText];
     } else {
+        NSLog(@"In One to one Section");
         OneToOneChatManager *cm = [OneToOneChatManager getInstance];
         OneToOneChat *chat = [cm getChatByIndex:indexPath.row];
         cell.textLabel.text = chat.name;
         cell.detailTextLabel.text = [chat getLastMessageText];
+        NSLog(@"Chat last message text: %@", [chat getLastMessageText]);
     }
     return cell;
 }
@@ -106,7 +110,6 @@
 }
 
 -(void)handleRefreshListView:(NSNotification*)notification {
-    NSLog(@"Refreshing List View");
     [self.tableView reloadData];
 }
 

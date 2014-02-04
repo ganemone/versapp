@@ -62,6 +62,4 @@ static ChatParticipantVCardBuffer *selfInstance;
     return ([self.vcards objectForKey:username] != NULL) ? YES : NO;
 }
 
-
-
 @end

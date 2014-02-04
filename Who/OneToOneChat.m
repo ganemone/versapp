@@ -10,6 +10,7 @@
 #import "ConnectionProvider.h"
 #import "ChatParticipantVCardBuffer.h"
 #import "Constants.h"
+#import "MessagesDBManager.h"
 
 @implementation OneToOneChat
 
@@ -31,6 +32,7 @@
     }
     instance.invitedID = invitedID;
     instance.inviterID = inviterID;
+    instance.history = [MessagesDBManager getMessageObjectsForOneToOneChat:instance.chatID];
     return instance;
 }
 

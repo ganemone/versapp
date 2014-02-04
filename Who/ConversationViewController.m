@@ -81,13 +81,13 @@
     return labelSize.height + 20;
 }
 
--(void)messageReceived:(NSNotification*)notificiation {
-    NSLog(@"Received Message Received Notification");
-    NSArray *messages = [MessagesDBManager getMessagesByChat:self.gc.chatID];
-    for(int i = 0; i < messages.count; i++) {
-        NSLog(@"%@", [[messages objectAtIndex:i] description]);
+-(void)messageReceived:(NSNotification*)notification {
+    NSDictionary *userInfo = notification.userInfo;
+    if ([(NSString*)[userInfo objectForKey:MESSAGE_PROPERTY_GROUP_ID] compare:self.gc.chatID] == 0) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.gc.getNumberOfMessages inSection:0];
+        NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
+        [self.conversationTableView reloadRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationBottom];
     }
-    [self.conversationTableView reloadData];
 }
 
 -(void)keyboardDidShow:(NSNotification*)notification {

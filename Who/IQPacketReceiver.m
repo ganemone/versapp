@@ -179,15 +179,11 @@
             timestamp = [message.XMLString substringWithRange:[match rangeAtIndex:3]];
         }
     }
-    NSLog(@"Group ID: %@", groupID);
-    NSLog(@"Timestamp: %@", timestamp);
-    NSLog(@"Sender ID: %@", senderID);
-    NSLog(@"Message Body: %@", message.body);
-    /*OneToOneChatManager *cm = [OneToOneChatManager getInstance];
-     OneToOneChat *chat = [cm getChat:groupID];
-     [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:groupID];
-     [gc addMessage:[Message createForMUC:message.body sender:senderID chatID:groupID timestamp:timestamp]];
-     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];*/
+    OneToOneChatManager *cm = [OneToOneChatManager getInstance];
+    OneToOneChat *chat = [cm getChat:message.thread];
+    [MessagesDBManager insert:message.body groupID:message.thread time:timestamp senderID:senderID receiverID:[ConnectionProvider getUser]];
+    [chat addMessage:[Message createForOneToOne:message.body sender:senderID chatID:groupID messageTo:[ConnectionProvider getUser] timestamp:timestamp]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
 }
 
 -(void)handleGetServerTimePacket:(XMPPIQ *)packet {

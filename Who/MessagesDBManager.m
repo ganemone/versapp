@@ -45,6 +45,7 @@
 }
 
 +(NSArray *)getMessagesByChat:(NSString *)chatID {
+    NSLog(@"Fetching items for chat: %@", chatID);
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -53,6 +54,7 @@
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%@ = \"%@\"", MESSAGE_PROPERTY_GROUP_ID, chatID]];
     [fetchRequest setPredicate:predicate];
+    NSLog(@"Predicate Used: %@", [predicate description]);
     
     NSError* error;
     NSArray *fetchedItems = [moc executeFetchRequest:fetchRequest error:&error];
@@ -79,7 +81,9 @@
 }
 
 +(NSMutableArray *)getMessageObjectsForOneToOneChat:(NSString *)chatID {
+    NSLog(@"Getting Messages for One To One Chat: %@", chatID);
     NSArray *fetchedRecords = [self getMessagesByChat:chatID];
+    NSLog(@"Found %lu Messages", fetchedRecords.count);
     NSMutableArray *messages = [[NSMutableArray alloc] initWithCapacity:fetchedRecords.count];
     MessageMO *dbmessage;
     for (int i = 0; i < fetchedRecords.count; i++) {

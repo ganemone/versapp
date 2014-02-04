@@ -332,7 +332,6 @@
 +(DDXMLElement *)createAvailabilityPresencePacket {
     XMPPPresence *presence = [XMPPPresence presence];
     [presence addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[NSString stringWithFormat:@"%@@%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]]]];
-    //[presence addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
     return presence;
 }
 
