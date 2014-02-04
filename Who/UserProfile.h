@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) NSString *subscription_status;
 @property (strong, nonatomic) NSString *jid;
+@property (strong, nonatomic) NSString *name;
 
 +(UserProfile *) create:(NSString *)jid subscription_status:(NSString *)subscription_status;
 

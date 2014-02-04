@@ -19,6 +19,7 @@
 @property (strong, nonatomic) ConnectionProvider* cp;
 @property (strong, nonatomic) NSArray *accepted;
 @property (strong, nonatomic) NSArray *pending;
+@property (strong, nonatomic) NSArray *searchResults;
 @end
 
 @implementation FriendsViewController
@@ -43,10 +44,23 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_FRIENDS_PROTOTYPE];
-    UserProfile *currentItem = [self.accepted objectAtIndex:indexPath.row];
+    
+    // Configure the cell...
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID_FRIENDS_PROTOTYPE];
+    }
+    
+    UserProfile *currentItem;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        currentItem = [self.searchResults objectAtIndex:indexPath.row];
+    } else {
+        currentItem = [self.accepted objectAtIndex:indexPath.row];
+    }
+    
     ChatParticipantVCardBuffer *buff = [ChatParticipantVCardBuffer getInstance];
     if ([buff hasVCard:currentItem.jid] == YES) {
-        cell.textLabel.text = [buff getName:currentItem.jid];
+        currentItem.name = [buff getName:currentItem.jid];
+        cell.textLabel.text = currentItem.name;
     } else {
         cell.textLabel.text = @"Loading...";
     }
@@ -58,12 +72,30 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.accepted count];
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return [self.searchResults count];
+    } else {
+        return [self.accepted count];
+    }
 }
 
 -(void)reloadData:(NSNotification*)notification {
     NSLog(@"Reloading Data...");
     [self.tableView reloadData];
 }
+
+- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
+{
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"name contains[c] %@", searchText];
+    self.searchResults = [self.accepted filteredArrayUsingPredicate:resultPredicate];
+}
+
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    [self filterContentForSearchText:searchString scope:[[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    
+    return YES;
+}
+
 
 @end
