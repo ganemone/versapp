@@ -54,8 +54,12 @@ static ChatParticipantVCardBuffer *selfInstance;
     return [self.vcards objectForKey:username];
 }
 
+-(NSString *)getName:(NSString *)username {
+    return [[self getVCard:username] objectForKey:VCARD_TAG_NICKNAME];
+}
+
 -(BOOL)hasVCard:(NSString *)username {
-    return !([self.vcards objectForKey:username] == NULL);
+    return ([self.vcards objectForKey:username] != NULL) ? YES : NO;
 }
 
 

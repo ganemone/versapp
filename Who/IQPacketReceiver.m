@@ -237,8 +237,7 @@
                               nickname, VCARD_TAG_NICKNAME, nil];
     ChatParticipantVCardBuffer *buff = [ChatParticipantVCardBuffer getInstance];
     [buff addVCard:userInfo];
-    
-    //[[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_VCARD object:nil userInfo:userInfo];
+    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_VCARD object:nil userInfo:userInfo];
 }
 
 -(void)handleGetPendingChatsPacket:(XMPPIQ *)packet {

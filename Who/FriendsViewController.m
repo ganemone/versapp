@@ -13,6 +13,7 @@
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
 #import "UserProfile.h"
+#import "ChatParticipantVCardBuffer.h"
 
 @interface FriendsViewController()
 @property (strong, nonatomic) ConnectionProvider* cp;
@@ -24,6 +25,7 @@
 
 -(void)viewDidLoad{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleGetRosterPacketReceived:) name:PACKET_ID_GET_ROSTER object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData:) name:PACKET_ID_GET_VCARD object:nil];
     self.cp = [ConnectionProvider getInstance];
     [[self.cp getConnection] sendElement:[IQPacketManager createGetRosterPacket]];
 }
@@ -42,7 +44,12 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_FRIENDS_PROTOTYPE];
     UserProfile *currentItem = [self.accepted objectAtIndex:indexPath.row];
-    cell.textLabel.text = currentItem.jid;
+    ChatParticipantVCardBuffer *buff = [ChatParticipantVCardBuffer getInstance];
+    if ([buff hasVCard:currentItem.jid] == YES) {
+        cell.textLabel.text = [buff getName:currentItem.jid];
+    } else {
+        cell.textLabel.text = @"Loading...";
+    }
     return cell;
 }
 
@@ -52,6 +59,11 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.accepted count];
+}
+
+-(void)reloadData:(NSNotification*)notification {
+    NSLog(@"Reloading Data...");
+    [self.tableView reloadData];
 }
 
 @end
