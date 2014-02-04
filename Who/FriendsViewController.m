@@ -21,7 +21,7 @@
 @property (strong, nonatomic) NSArray *accepted;
 @property (strong, nonatomic) NSArray *pending;
 @property (strong, nonatomic) NSArray *searchResults;
-@property (strong, nonatomic) NSMutableArray *selectedItems;
+@property (strong, nonatomic) NSMutableArray *selectedIndexPaths;
 @property BOOL isSelecting;
 
 @end
@@ -32,7 +32,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleGetRosterPacketReceived:) name:PACKET_ID_GET_ROSTER object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData:) name:PACKET_ID_GET_VCARD object:nil];
     self.isSelecting = NO;
-    self.selectedItems = [[NSMutableArray alloc] initWithCapacity:10];
+    self.selectedIndexPaths = [[NSMutableArray alloc] initWithCapacity:10];
     self.cp = [ConnectionProvider getInstance];
     [[self.cp getConnection] sendElement:[IQPacketManager createGetRosterPacket]];
 }
@@ -55,7 +55,10 @@
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(beginSelectingFriendsForGroup:)] animated:YES];
     self.navigationItem.leftBarButtonItem = nil;
     self.isSelecting = NO;
-    [self.selectedItems removeAllObjects];
+    for (int i = 0; i < self.selectedIndexPaths.count; i++) {
+        [[self.tableView cellForRowAtIndexPath:[self.selectedIndexPaths objectAtIndex:i]] setAccessoryType:UITableViewCellAccessoryNone];
+    }
+    [self.selectedIndexPaths removeAllObjects];
 }
 
 -(void)handleGetRosterPacketReceived: (NSNotification*) notification{
@@ -91,7 +94,22 @@
     } else {
         cell.textLabel.text = @"Loading...";
     }
+    
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.isSelecting) {
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        if(cell.accessoryType == UITableViewCellAccessoryCheckmark){
+            [self.selectedIndexPaths removeObject:indexPath];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        } else {
+            [self.selectedIndexPaths addObject:indexPath];
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
+        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    }
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
