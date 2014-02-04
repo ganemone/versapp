@@ -148,4 +148,24 @@
     return [self updateUserStatus:username status:[NSNumber numberWithInt:STATUS_UNREGISTERED]];
 }
 
++(NSArray*)getAllWithStatusFriends {
+    return [self getAllWithStatus:[NSNumber numberWithInt:STATUS_FRIENDS]];
+}
+
++(NSArray*)getAllWithStatusPending {
+    return [self getAllWithStatus:[NSNumber numberWithInt:STATUS_PENDING]];
+}
+
++(NSArray*)getAllWithStatusRegistered {
+    return [self getAllWithStatus:[NSNumber numberWithInt:STATUS_REGISTERED]];
+}
+
++(NSArray*)getAllWithStatusRejected {
+    return [self getAllWithStatus:[NSNumber numberWithInt:STATUS_REJECTED]];
+}
+
++(NSArray*)getAllWithStatusUnregistered {
+    return [self getAllWithStatus:[NSNumber numberWithInt:STATUS_UNREGISTERED]];
+}
+
 @end
