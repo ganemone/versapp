@@ -52,7 +52,9 @@
 }
 
 +(DDXMLElement *)createAcceptChatInvitePacket:(NSString *)chatId {
-    return [self createWhoIQPacket:@"set" action:@"participant_join" packetID:PACKET_ID_ACCEPT_CHAT_INVITE chatID:chatId];
+    DDXMLElement *element = [self createWhoIQPacket:@"set" action:@"participant_join" packetID:PACKET_ID_ACCEPT_CHAT_INVITE chatID:chatId];
+    NSLog(@"Accept Packet: %@",element.XMLString);
+    return element;
 }
 
 +(DDXMLElement *)createDenyChatInvitePacket:(NSString *)chatId {
@@ -90,7 +92,7 @@
 	
 	DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
     [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:packetID]];
-	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"get"]];
+	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:type]];
     [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
 	[iq addChild:query];
     
@@ -112,7 +114,7 @@
 	
 	DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
     [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:packetID]];
-	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"get"]];
+	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:type]];
     [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
 	[iq addChild:query];
     
