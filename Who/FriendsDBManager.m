@@ -81,6 +81,22 @@
     return ([self getUserWithJID:jid] != nil);
 }
 
++(BOOL)updateEntry:(NSString *)username name:(NSString *)name email:(NSString *)email status:(NSNumber *)status {
+    FriendMO *friend = [self getUserWithJID:username];
+    if (friend == nil) {
+        return NO;
+    }
+
+    [friend setValue:name forKey:FRIENDS_TABLE_COLUMN_NAME_NAME];
+    [friend setValue:email forKey:FRIENDS_TABLE_COLUMN_NAME_EMAIL];
+    [friend setValue:status forKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];
+    
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [delegate saveContext];
+    
+    return YES;
+}
+
 +(NSArray*)makeFetchRequest:(NSString*)predicateString {
     
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
@@ -98,4 +114,5 @@
     
     return fetchedRecords;
 }
+
 @end

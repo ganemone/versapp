@@ -26,4 +26,6 @@
 
 +(BOOL)hasUserWithEmail:(NSString*)email;
 
++(BOOL)updateEntry:(NSString*)username name:(NSString*)name email:(NSString*)email status:(NSNumber *)status;
+
 @end
