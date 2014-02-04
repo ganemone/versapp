@@ -26,6 +26,16 @@
 
 @implementation DashboardViewController
 
+-(void)viewDidLoad {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleGetLastPacketReceived:) name:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
+    
+    self.cp = [ConnectionProvider getInstance];
+    [[self.cp getConnection] sendElement:[IQPacketManager createGetJoinedChatsPacket]];
+    [[self.cp getConnection] sendElement:[IQPacketManager createGetLastTimeActivePacket]];
+}
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier compare:SEGUE_ID_GROUP_CONVERSATION] == 0) {
         GroupChatManager *gcm = [GroupChatManager getInstance];
@@ -36,24 +46,6 @@
         OneToOneConversationViewController *dest = segue.destinationViewController;
         dest.chat = [cm getChatByIndex:self.clickedCellIndexPath.row];
     }
-}
-
--(void)viewDidLoad {
-    [MessagesDBManager insert:@"Message Body" groupID:@"12345" time:@"time" senderID:@"sender" receiverID:@"receiver"];
-    [MessagesDBManager insert:@"Message Body" groupID:@"12345" time:@"time" senderID:@"sender" receiverID:@"receiver"];
-    [MessagesDBManager insert:@"Message Body" groupID:@"12345" time:@"time" senderID:@"sender" receiverID:@"receiver"];
-    
-    NSArray *messages = [MessagesDBManager getMessagesByChat:@"12345"];
-    for (int i = 0; i < messages.count; i++) {
-        NSLog(@"Message: %@", [[messages objectAtIndex:i] description]);
-    }
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleGetLastPacketReceived:) name:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
-    
-    self.cp = [ConnectionProvider getInstance];
-    [[self.cp getConnection] sendElement:[IQPacketManager createGetJoinedChatsPacket]];
-    [[self.cp getConnection] sendElement:[IQPacketManager createGetLastTimeActivePacket]];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

@@ -184,10 +184,10 @@
     NSLog(@"Sender ID: %@", senderID);
     NSLog(@"Message Body: %@", message.body);
     /*OneToOneChatManager *cm = [OneToOneChatManager getInstance];
-    OneToOneChat *chat = [cm getChat:groupID];
-    [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:groupID];
-    [gc addMessage:[Message createForMUC:message.body sender:senderID chatID:groupID timestamp:timestamp]];
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];*/
+     OneToOneChat *chat = [cm getChat:groupID];
+     [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:groupID];
+     [gc addMessage:[Message createForMUC:message.body sender:senderID chatID:groupID timestamp:timestamp]];
+     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];*/
 }
 
 -(void)handleGetServerTimePacket:(XMPPIQ *)packet {

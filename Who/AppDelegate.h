@@ -19,5 +19,6 @@
 - (NSManagedObjectContext *) managedObjectContext;
 - (NSManagedObjectModel *)managedObjectModel;
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator;
+- (void)saveContext;
 
 @end
