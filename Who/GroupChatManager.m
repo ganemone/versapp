@@ -53,4 +53,12 @@ static GroupChatManager * selfInstance;
     GroupChat *muc = [self.mucs objectForKey:[self.mucIDValues objectAtIndex:unsignedInteger]];
     return muc;
 }
+
+-(void)invitePendingParticipants {
+    GroupChat * chat;
+    for (int i = 0; i < self.mucIDValues.count; i++) {
+        chat = [self.mucs objectForKey:[self.mucIDValues objectAtIndex:i]];
+        [chat invitePendingParticpants];
+    }
+}
 @end

@@ -17,19 +17,25 @@
 @implementation MUCCreationManager
 
 +(GroupChat*)createMUC:(NSString *)roomName participants:(NSArray*)participants {
+    
+    // Send who:iq packet to activate create chat module
+    ConnectionProvider *cp = [ConnectionProvider getInstance];
+    XMPPStream *conn = [cp getConnection];
+    NSString *groupId = [GroupChat createGroupID];
+    [conn sendElement:[IQPacketManager createCreateMUCPacket:groupId roomName:roomName]];
+    
+    // initialize, configure, and join room
     XMPPRoomMemoryStorage *storage = [[XMPPRoomMemoryStorage alloc] init];
-    XMPPJID *jid = [XMPPJID jidWithString:[NSString stringWithFormat:@"%@@%@", roomName, [ConnectionProvider getConferenceIPAddress]]];
+    XMPPJID *jid = [XMPPJID jidWithString:[NSString stringWithFormat:@"%@@%@", groupId, [ConnectionProvider getConferenceIPAddress]]];
     NSLog(@"jid: %@", [jid description]);
     XMPPRoom *room = [[XMPPRoom alloc] initWithRoomStorage:storage jid:jid];
-    ConnectionProvider *cp = [ConnectionProvider getInstance];
-    XMPPStream *stream = [cp getConnection];
+
     [room addDelegate:self delegateQueue:dispatch_get_main_queue()];
-    [room activate:stream];
+    [room activate:conn];
     [room joinRoomUsingNickname:[ConnectionProvider getUser] history:nil];
     [room fetchConfigurationForm];
     [room configureRoomUsingOptions:[IQPacketManager createRoomConfigurationForm:roomName]];
     GroupChatManager *gcm = [GroupChatManager getInstance];
-    NSString *groupId = [GroupChat createGroupID];
     GroupChat *gc = [GroupChat create:groupId participants:participants groupName:roomName owner:[ConnectionProvider getUser] createdTime:0];
     [gc addPendingParticipants:participants];
     [gcm addChat: gc];

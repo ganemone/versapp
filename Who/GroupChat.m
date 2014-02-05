@@ -35,7 +35,7 @@
 
 +(NSString *)createGroupID {
     NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
-    return [NSString stringWithFormat:@"%@%f", [ConnectionProvider getServerIPAddress], timeStamp];
+    return [NSString stringWithFormat:@"%@%f", [ConnectionProvider getUser], timeStamp];
 }
 
 -(void)addPendingParticipants:(NSArray *)participants {
@@ -44,9 +44,12 @@
 }
 
 -(void)invitePendingParticpants {
-    XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
-    for (int i = 0; i < self.participants.count; i++) {
-        [conn sendElement:[IQPacketManager createInviteToChatPacket:self.chatID invitedUsername:[self.participants objectAtIndex:i]]];
+    if (self.uninvitedParticpants == YES) {
+        XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
+        for (int i = 0; i < self.participants.count; i++) {
+            [conn sendElement:[IQPacketManager createInviteToChatPacket:self.chatID invitedUsername:[self.participants objectAtIndex:i]]];
+        }
+        self.uninvitedParticpants = NO;
     }
 }
 
