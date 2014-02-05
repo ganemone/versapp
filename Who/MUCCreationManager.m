@@ -34,7 +34,6 @@
     GroupChat *gc = [GroupChat create:groupId participants:participants groupName:roomName owner:[ConnectionProvider getUser] createdTime:0];
     [gcm addChat: gc];
     
-    [stream sendElement:[IQPa
     for (int i = 0; i < participants.count; i++) {
         [stream sendElement:[IQPacketManager createInviteToChatPacket:groupId invitedUsername:[participants objectAtIndex:i]]];
     }
