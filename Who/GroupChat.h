@@ -14,4 +14,8 @@
 
 +(NSString*)createGroupID;
 
+-(void)addPendingParticipants:(NSArray*)participants;
+
+-(void)invitePendingParticpants;
+
 @end

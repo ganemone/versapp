@@ -393,6 +393,11 @@
     [persistentRoom addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"boolean"]];
     [allowInvites addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"boolean"]];
     
+    [roomNameField addAttribute:[DDXMLNode attributeWithName:@"var" stringValue:@"muc#roomconfig_roomname"]];
+    [roomDescField addAttribute:[DDXMLNode attributeWithName:@"var" stringValue:@"muc#roomconfig_roomdesc"]];
+    [persistentRoom addAttribute:[DDXMLNode attributeWithName:@"var" stringValue:@"muc#roomconfig_persistentroom"]];
+    [allowInvites addAttribute:[DDXMLNode attributeWithName:@"var" stringValue:@"muc#roomconfig_allowinvites"]];
+    
     [roomNameField addChild:[DDXMLNode elementWithName:@"value" stringValue:groupName]];
     [roomDescField addChild:[DDXMLNode elementWithName:@"value" stringValue:groupName]];
     [persistentRoom addChild:[DDXMLNode elementWithName:@"value" stringValue:@"1"]];

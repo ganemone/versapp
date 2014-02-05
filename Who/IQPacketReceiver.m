@@ -20,16 +20,12 @@
 
 @implementation IQPacketReceiver
 
--(bool)isPacketWithID:(NSString *)packetID packet:(XMPPIQ *)packet {
++(bool)isPacketWithID:(NSString *)packetID packet:(XMPPIQ *)packet {
     return ([packet.elementID compare:packetID] == 0);
 }
 
--(void)handleIQPacket:(XMPPIQ *)iq {
-    if([self isPacketWithID:PACKET_ID_CREATE_MUC packet:iq]) {
-        NSLog(@"-----------------\n");
-        NSLog(@"Response: %@", iq.XMLString);
-        NSLog(@"-----------------\n");
-    } else if([self isPacketWithID:PACKET_ID_CREATE_VCARD packet:iq]) {
++(void)handleIQPacket:(XMPPIQ *)iq {
+    if([self isPacketWithID:PACKET_ID_CREATE_VCARD packet:iq]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_CREATE_VCARD object:nil];
     } else if([self isPacketWithID:PACKET_ID_GET_JOINED_CHATS packet:iq]) {
         [self handleGetJoinedChatsPacket:iq];
@@ -51,7 +47,7 @@
     }
 }
 
--(void)handleGetJoinedChatsPacket:(XMPPIQ *)iq {
++(void)handleGetJoinedChatsPacket:(XMPPIQ *)iq {
     NSLog(@"Packet: %@", iq.XMLString);
     NSError *error = NULL;
     
@@ -95,7 +91,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
 }
 
--(void)handleGetLastTimeActivePacket:(XMPPIQ *)iq {
++(void)handleGetLastTimeActivePacket:(XMPPIQ *)iq {
     NSError *error = NULL;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(.*?)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
     NSTextCheckingResult *match = [regex firstMatchInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
@@ -117,76 +113,7 @@
     }
 }
 
--(void)handleMessagePacket:(XMPPMessage *)message {
-    if([message.type compare:CHAT_TYPE_GROUP] == 0) {
-        [self handleGroupChatMessage:message];
-    } else {
-        [self handleOneToOneMessage:message];
-    }
-}
-
--(void)handleGroupChatMessage:(XMPPMessage *)message {
-    
-    NSError *error = NULL;
-    NSRegularExpression *groupIDRegex = [NSRegularExpression regularExpressionWithPattern:@"(.*?)@" options:NSRegularExpressionCaseInsensitive error:&error];
-    NSTextCheckingResult *groupIDMatch = [groupIDRegex firstMatchInString:message.fromStr options:0 range:NSMakeRange(0, message.fromStr.length)];
-    NSString *groupID = [message.fromStr substringWithRange:[groupIDMatch rangeAtIndex:1]];
-    
-    //NSTextCheckingResult *toMatch = [groupIDRegex firstMatchInString:message.toStr options:0 range:NSMakeRange(0, message.toStr.length)];
-    //NSString *toID = [message.toStr substringWithRange:[toMatch rangeAtIndex:1]];
-    
-    error = NULL;
-    NSRegularExpression *propertyRegex = [NSRegularExpression regularExpressionWithPattern:@"<property><name>(.*?)<\\/name><value type=\"(.*?)\">(.*?)<\\/value>" options:NSRegularExpressionCaseInsensitive error:&error];
-    NSArray *matches = [propertyRegex matchesInString:message.XMLString options:0 range:NSMakeRange(0, message.XMLString.length)];
-    NSString *senderID = nil;
-    NSString *timestamp = nil;
-    for(NSTextCheckingResult *match in matches) {
-        NSString *name = [message.XMLString substringWithRange:[match rangeAtIndex:1]];
-        //NSString *type = [message.XMLString substringWithRange:[match rangeAtIndex:2]];
-        if ([name compare:MESSAGE_PROPERTY_SENDER_ID] == 0) {
-            senderID = [message.XMLString substringWithRange:[match rangeAtIndex:3]];
-        } else if([name compare:MESSAGE_PROPERTY_TIMESTAMP] == 0) {
-            timestamp = [message.XMLString substringWithRange:[match rangeAtIndex:3]];
-        }
-    }
-    GroupChatManager *gcm = [GroupChatManager getInstance];
-    GroupChat *gc = [gcm getChat:groupID];
-    [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:groupID];
-    [gc addMessage:[Message createForMUC:message.body sender:senderID chatID:groupID timestamp:timestamp]];
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
-}
-
--(void)handleOneToOneMessage:(XMPPMessage *)message {
-    NSError *error = NULL;
-    NSRegularExpression *groupIDRegex = [NSRegularExpression regularExpressionWithPattern:@"(.*?)@" options:NSRegularExpressionCaseInsensitive error:&error];
-    NSTextCheckingResult *groupIDMatch = [groupIDRegex firstMatchInString:message.fromStr options:0 range:NSMakeRange(0, message.fromStr.length)];
-    NSString *groupID = [message.fromStr substringWithRange:[groupIDMatch rangeAtIndex:1]];
-    
-    //NSTextCheckingResult *toMatch = [groupIDRegex firstMatchInString:message.toStr options:0 range:NSMakeRange(0, message.toStr.length)];
-    //NSString *toID = [message.toStr substringWithRange:[toMatch rangeAtIndex:1]];
-    
-    error = NULL;
-    NSRegularExpression *propertyRegex = [NSRegularExpression regularExpressionWithPattern:@"<property><name>(.*?)<\\/name><value type=\"(.*?)\">(.*?)<\\/value>" options:NSRegularExpressionCaseInsensitive error:&error];
-    NSArray *matches = [propertyRegex matchesInString:message.XMLString options:0 range:NSMakeRange(0, message.XMLString.length)];
-    NSString *senderID = nil;
-    NSString *timestamp = nil;
-    for(NSTextCheckingResult *match in matches) {
-        NSString *name = [message.XMLString substringWithRange:[match rangeAtIndex:1]];
-        //NSString *type = [message.XMLString substringWithRange:[match rangeAtIndex:2]];
-        if ([name compare:MESSAGE_PROPERTY_SENDER_ID] == 0) {
-            senderID = [message.XMLString substringWithRange:[match rangeAtIndex:3]];
-        } else if([name compare:MESSAGE_PROPERTY_TIMESTAMP] == 0) {
-            timestamp = [message.XMLString substringWithRange:[match rangeAtIndex:3]];
-        }
-    }
-    OneToOneChatManager *cm = [OneToOneChatManager getInstance];
-    OneToOneChat *chat = [cm getChat:message.thread];
-    [MessagesDBManager insert:message.body groupID:message.thread time:timestamp senderID:senderID receiverID:[ConnectionProvider getUser]];
-    [chat addMessage:[Message createForOneToOne:message.body sender:senderID chatID:groupID messageTo:[ConnectionProvider getUser] timestamp:timestamp]];
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
-}
-
--(void)handleGetServerTimePacket:(XMPPIQ *)packet {
++(void)handleGetServerTimePacket:(XMPPIQ *)packet {
     NSError *error = NULL;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<utc>(.*?)<\\/utc>" options:NSRegularExpressionCaseInsensitive error:&error];
     NSTextCheckingResult *match = [regex firstMatchInString:packet.XMLString options:0 range:NSMakeRange(0, packet.XMLString.length)];
@@ -197,7 +124,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_SERVER_TIME object:nil userInfo:userInfo];
 }
 
--(void)handleGetVCardPacket:(XMPPIQ *)packet {
++(void)handleGetVCardPacket:(XMPPIQ *)packet {
     NSLog(@"VCard: %@", packet.XMLString);
     NSString *firstName, *lastName, *username, *email, *itemName, *nickname;
     NSArray *children = [packet children];
@@ -236,7 +163,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_VCARD object:nil userInfo:userInfo];
 }
 
--(void)handleGetPendingChatsPacket:(XMPPIQ *)packet {
++(void)handleGetPendingChatsPacket:(XMPPIQ *)packet {
     
     NSLog(@"Pending Chats Packet Received: %@", packet.XMLString);
     
@@ -268,13 +195,13 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_PENDING_CHATS object:nil userInfo:allNotifications];
 }
 
--(NSString*)getPacketXMLWithoutNewLines:(XMPPIQ *)iq {
++(NSString*)getPacketXMLWithoutNewLines:(XMPPIQ *)iq {
     NSString *packetXML = [iq.XMLString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     packetXML = [packetXML stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     return packetXML;
 }
 
--(void)handleGetRosterPacket: (XMPPIQ *)iq{
++(void)handleGetRosterPacket: (XMPPIQ *)iq{
     NSLog(@"IQRoster: %@", iq.XMLString);
     NSError *error = NULL;
     DDXMLElement *query = [[iq children] firstObject];

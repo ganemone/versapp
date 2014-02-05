@@ -17,9 +17,8 @@
 @implementation MUCCreationManager
 
 +(GroupChat*)createMUC:(NSString *)roomName participants:(NSArray*)participants {
-    NSLog(@"Going to try and create a muc");
     XMPPRoomMemoryStorage *storage = [[XMPPRoomMemoryStorage alloc] init];
-    XMPPJID *jid = [XMPPJID jidWithString:roomName];
+    XMPPJID *jid = [XMPPJID jidWithString:[NSString stringWithFormat:@"%@@%@", roomName, [ConnectionProvider getConferenceIPAddress]]];
     NSLog(@"jid: %@", [jid description]);
     XMPPRoom *room = [[XMPPRoom alloc] initWithRoomStorage:storage jid:jid];
     ConnectionProvider *cp = [ConnectionProvider getInstance];
@@ -32,11 +31,9 @@
     GroupChatManager *gcm = [GroupChatManager getInstance];
     NSString *groupId = [GroupChat createGroupID];
     GroupChat *gc = [GroupChat create:groupId participants:participants groupName:roomName owner:[ConnectionProvider getUser] createdTime:0];
+    [gc addPendingParticipants:participants];
     [gcm addChat: gc];
     
-    for (int i = 0; i < participants.count; i++) {
-        [stream sendElement:[IQPacketManager createInviteToChatPacket:groupId invitedUsername:[participants objectAtIndex:i]]];
-    }
     return gc;
 }
 

@@ -12,8 +12,6 @@
 
 @interface IQPacketReceiver : NSObject
 
--(void)handleIQPacket:(XMPPIQ*)iq;
-
--(void)handleMessagePacket:(XMPPMessage*)message;
++(void)handleIQPacket:(XMPPIQ*)iq;
 
 @end

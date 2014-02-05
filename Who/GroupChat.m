@@ -9,10 +9,13 @@
 #import "GroupChat.h"
 #import "ConnectionProvider.h"
 #import "MessagesDBManager.h"
+#import "ConnectionProvider.h"
+#import "IQPacketManager.h"
 
 @interface GroupChat()
 
 @property (strong, nonatomic) NSArray *participants;
+@property BOOL uninvitedParticpants;
 
 @end
 
@@ -26,12 +29,25 @@
     instance.owner = owner;
     instance.createdTime = createdTime;
     instance.history = [MessagesDBManager getMessageObjectsForMUC:instance.chatID];
+    instance.uninvitedParticpants = NO;
     return instance;
 }
 
 +(NSString *)createGroupID {
     NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
     return [NSString stringWithFormat:@"%@%f", [ConnectionProvider getServerIPAddress], timeStamp];
+}
+
+-(void)addPendingParticipants:(NSArray *)participants {
+    self.participants = participants;
+    self.uninvitedParticpants = YES;
+}
+
+-(void)invitePendingParticpants {
+    XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
+    for (int i = 0; i < self.participants.count; i++) {
+        [conn sendElement:[IQPacketManager createInviteToChatPacket:self.chatID invitedUsername:[self.participants objectAtIndex:i]]];
+    }
 }
 
 @end

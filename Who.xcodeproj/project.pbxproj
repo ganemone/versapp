@@ -122,6 +122,8 @@
 		3A720CAF18A1C06700423959 /* XMPPMessage+XEP_0308.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A720C5618A1C06700423959 /* XMPPMessage+XEP_0308.m */; };
 		3A720CB018A1C06700423959 /* NSXMLElement+XEP_0335.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A720C5918A1C06700423959 /* NSXMLElement+XEP_0335.m */; };
 		3A720CB418A1C2E200423959 /* MUCCreationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A720CB318A1C2E200423959 /* MUCCreationManager.m */; };
+		3A720CB718A28DAD00423959 /* PresencePacketReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A720CB618A28DAD00423959 /* PresencePacketReceiver.m */; };
+		3A720CBA18A28ECB00423959 /* MessagePacketReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A720CB918A28ECB00423959 /* MessagePacketReceiver.m */; };
 		3A7D69F31896F12100E18B45 /* OneToOneConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A7D69F21896F12100E18B45 /* OneToOneConversationViewController.m */; };
 		3A81F49A188D905A0006DD5D /* GroupChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A81F499188D90590006DD5D /* GroupChatManager.m */; };
 		3A939633189C876A004B01CE /* ChatParticipantVCardBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A939632189C876A004B01CE /* ChatParticipantVCardBuffer.m */; };
@@ -413,6 +415,10 @@
 		3A720CB118A1C1D400423959 /* XMPPFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPFramework.h; path = Who/XMPPFramework.h; sourceTree = "<group>"; };
 		3A720CB218A1C2E200423959 /* MUCCreationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCCreationManager.h; sourceTree = "<group>"; };
 		3A720CB318A1C2E200423959 /* MUCCreationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCCreationManager.m; sourceTree = "<group>"; };
+		3A720CB518A28DAD00423959 /* PresencePacketReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresencePacketReceiver.h; sourceTree = "<group>"; };
+		3A720CB618A28DAD00423959 /* PresencePacketReceiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresencePacketReceiver.m; sourceTree = "<group>"; };
+		3A720CB818A28ECB00423959 /* MessagePacketReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagePacketReceiver.h; sourceTree = "<group>"; };
+		3A720CB918A28ECB00423959 /* MessagePacketReceiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagePacketReceiver.m; sourceTree = "<group>"; };
 		3A7D69F11896F12100E18B45 /* OneToOneConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneToOneConversationViewController.h; sourceTree = "<group>"; };
 		3A7D69F21896F12100E18B45 /* OneToOneConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneToOneConversationViewController.m; sourceTree = "<group>"; };
 		3A81F498188D90590006DD5D /* GroupChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupChatManager.h; sourceTree = "<group>"; };
@@ -1198,6 +1204,19 @@
 			path = "XEP-0335";
 			sourceTree = "<group>";
 		};
+		3A720CBB18A28EDF00423959 /* Packet Receivers */ = {
+			isa = PBXGroup;
+			children = (
+				3A5699A61886CE8300746CC8 /* IQPacketReceiver.h */,
+				3A5699A71886CE8300746CC8 /* IQPacketReceiver.m */,
+				3A720CB818A28ECB00423959 /* MessagePacketReceiver.h */,
+				3A720CB918A28ECB00423959 /* MessagePacketReceiver.m */,
+				3A720CB518A28DAD00423959 /* PresencePacketReceiver.h */,
+				3A720CB618A28DAD00423959 /* PresencePacketReceiver.m */,
+			);
+			name = "Packet Receivers";
+			sourceTree = "<group>";
+		};
 		3A81F49B188DB2190006DD5D /* Connection */ = {
 			isa = PBXGroup;
 			children = (
@@ -1205,8 +1224,7 @@
 				3AF19AD01882075D00F3E4D3 /* ConnectionProvider.m */,
 				3AF511381885B1EC002383D3 /* IQPacketManager.h */,
 				3AF511391885B1EC002383D3 /* IQPacketManager.m */,
-				3A5699A61886CE8300746CC8 /* IQPacketReceiver.h */,
-				3A5699A71886CE8300746CC8 /* IQPacketReceiver.m */,
+				3A720CBB18A28EDF00423959 /* Packet Receivers */,
 				3A720CB218A1C2E200423959 /* MUCCreationManager.h */,
 				3A720CB318A1C2E200423959 /* MUCCreationManager.m */,
 			);
@@ -1607,6 +1625,7 @@
 				3A720C8118A1C06700423959 /* XMPPvCardTempCoreDataStorageObject.m in Sources */,
 				3A720C9818A1C06700423959 /* XMPPCapabilitiesCoreDataStorage.m in Sources */,
 				3ACA788218833EDB00B384BF /* MainTabBarController.m in Sources */,
+				3A720CB718A28DAD00423959 /* PresencePacketReceiver.m in Sources */,
 				3A720C6D18A1C06700423959 /* XMPPLastActivity.m in Sources */,
 				3A720C8F18A1C06700423959 /* XMPPIQ+XEP_0066.m in Sources */,
 				3A720C9C18A1C06700423959 /* XMPPMessageArchiving.xcdatamodeld in Sources */,
@@ -1636,6 +1655,7 @@
 				3A47C844189F1A52003020D7 /* FriendsDBManager.m in Sources */,
 				3A720C9918A1C06700423959 /* XMPPCapsCoreDataStorageObject.m in Sources */,
 				3A720C6C18A1C06700423959 /* XMPPIQ+LastActivity.m in Sources */,
+				3A720CBA18A28ECB00423959 /* MessagePacketReceiver.m in Sources */,
 				3A720C7018A1C06700423959 /* XMPPRoomCoreDataStorage.m in Sources */,
 				3A720CA718A1C06700423959 /* XMPPPing.m in Sources */,
 				3AFFC94318A06BA9009D7F13 /* FriendMO.m in Sources */,
