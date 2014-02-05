@@ -379,4 +379,32 @@
     return iq;
 }
 
++(DDXMLElement *)createRoomConfigurationForm:(NSString*)groupName {
+    DDXMLElement *configurationElement = [DDXMLElement elementWithName:@"x"];
+    [configurationElement addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"jabber:x:data"]];
+    
+    DDXMLElement *roomNameField = [DDXMLElement elementWithName:@"field"];
+    DDXMLElement *roomDescField = [DDXMLElement elementWithName:@"field"];
+    DDXMLElement *persistentRoom = [DDXMLElement elementWithName:@"field"];
+    DDXMLElement *allowInvites = [DDXMLElement elementWithName:@"field"];
+    
+    [roomNameField addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"text-single"]];
+    [roomDescField addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"text-single"]];
+    [persistentRoom addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"boolean"]];
+    [allowInvites addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"boolean"]];
+    
+    [roomNameField addChild:[DDXMLNode elementWithName:@"value" stringValue:groupName]];
+    [roomDescField addChild:[DDXMLNode elementWithName:@"value" stringValue:groupName]];
+    [persistentRoom addChild:[DDXMLNode elementWithName:@"value" stringValue:@"1"]];
+    [allowInvites addChild:[DDXMLNode elementWithName:@"value" stringValue:@"1"]];
+    
+    [configurationElement addChild:roomNameField];
+    [configurationElement addChild:roomDescField];
+    [configurationElement addChild:persistentRoom];
+    [configurationElement addChild:allowInvites];
+    
+    return configurationElement;
+    
+}
+
 @end

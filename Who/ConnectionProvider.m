@@ -15,7 +15,7 @@
 #import "RequestsViewController.h"
 #import "IQPacketManager.h"
 #import "Constants.h"
-#import "LoginViewController.h"
+#import "MUCCreationManager.h"
 
 @interface ConnectionProvider ()
 
@@ -24,7 +24,6 @@
 @property(strong, nonatomic) NSString* password;
 @property(strong, nonatomic) NSString* SERVER_IP_ADDRESS;
 @property(strong, nonatomic) NSString* CONFERENCE_IP_ADDRESS;
-@property(strong, nonatomic) LoginViewController *loginView;
 
 @end
 
@@ -127,7 +126,6 @@ static ConnectionProvider *selfInstance;
     } else {
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];
-        //[self.xmppStream sendElement:[IQPacketManager createCreateMUCPacket:@"asdfasdfasdf"]];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
     }
 }

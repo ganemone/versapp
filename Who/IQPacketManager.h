@@ -54,4 +54,6 @@
 
 +(DDXMLElement *)createGetConnectedUserVCardPacket;
 
++(DDXMLElement *)createRoomConfigurationForm:(NSString*)groupName;
+
 @end

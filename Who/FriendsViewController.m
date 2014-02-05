@@ -14,6 +14,8 @@
 #import "IQPacketManager.h"
 #import "UserProfile.h"
 #import "ChatParticipantVCardBuffer.h"
+#import "MUCCreationManager.h"
+#import "GroupChat.h"
 
 @interface FriendsViewController()
 
@@ -22,6 +24,7 @@
 @property (strong, nonatomic) NSArray *pending;
 @property (strong, nonatomic) NSArray *searchResults;
 @property (strong, nonatomic) NSMutableArray *selectedIndexPaths;
+@property (strong, nonatomic) GroupChat *createdChat;
 @property BOOL isSelecting;
 
 @end
@@ -156,10 +159,10 @@
         NSIndexPath *indexPath = [self.selectedIndexPaths objectAtIndex:i];
         cell = [self.tableView cellForRowAtIndexPath:indexPath];
         cell.accessoryType = UITableViewCellAccessoryNone;
-        [selectedItems addObject:[self.accepted objectAtIndex:indexPath.row]];
+        [selectedItems addObject:((UserProfile *)[self.accepted objectAtIndex:indexPath.row]).jid];
     }
     if (buttonIndex == 1 && groupName.length > 0) {
-        //Create Group HERE
+        self.createdChat = [MUCCreationManager createMUC:groupName participants:selectedItems];
     }
 }
 
