@@ -10,4 +10,10 @@
 
 @interface LoadingDialogManager : NSObject
 
++(LoadingDialogManager *)create:(UIView*)view;
+
+-(void)showLoadingDialogWithoutProgress;
+
+-(void)hideLoadingDialogWithoutProgress;
+
 @end

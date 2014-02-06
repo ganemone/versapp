@@ -129,6 +129,7 @@
 		3A939633189C876A004B01CE /* ChatParticipantVCardBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A939632189C876A004B01CE /* ChatParticipantVCardBuffer.m */; };
 		3AAE9B1718945710003B4560 /* OneToOneChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAE9B1618945710003B4560 /* OneToOneChatManager.m */; };
 		3AAE9B1A1894A049003B4560 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAE9B191894A049003B4560 /* ConversationViewController.m */; };
+		3AB9E67E18A45573001EFDB8 /* LoadingDialogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB9E67D18A45573001EFDB8 /* LoadingDialogManager.m */; };
 		3ACA788218833EDB00B384BF /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACA788118833EDB00B384BF /* MainTabBarController.m */; };
 		3AF19A451881EF1600F3E4D3 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF19A3C1881EF1600F3E4D3 /* DDAbstractDatabaseLogger.m */; };
 		3AF19A461881EF1600F3E4D3 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF19A3E1881EF1600F3E4D3 /* DDASLLogger.m */; };
@@ -429,6 +430,8 @@
 		3AAE9B1618945710003B4560 /* OneToOneChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneToOneChatManager.m; sourceTree = "<group>"; };
 		3AAE9B181894A049003B4560 /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
 		3AAE9B191894A049003B4560 /* ConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
+		3AB9E67C18A45573001EFDB8 /* LoadingDialogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingDialogManager.h; sourceTree = "<group>"; };
+		3AB9E67D18A45573001EFDB8 /* LoadingDialogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingDialogManager.m; sourceTree = "<group>"; };
 		3ACA788018833EDB00B384BF /* MainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabBarController.h; sourceTree = "<group>"; };
 		3ACA788118833EDB00B384BF /* MainTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabBarController.m; sourceTree = "<group>"; };
 		3AF19A3B1881EF1600F3E4D3 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
@@ -598,6 +601,8 @@
 		3A25B63C1881E03700166623 /* Who */ = {
 			isa = PBXGroup;
 			children = (
+				3AB9E67C18A45573001EFDB8 /* LoadingDialogManager.h */,
+				3AB9E67D18A45573001EFDB8 /* LoadingDialogManager.m */,
 				3A47C841189F1A30003020D7 /* DB */,
 				3AF19ACE1881F86000F3E4D3 /* Dependencies */,
 				3A939630189B3543004B01CE /* Main */,
@@ -1617,6 +1622,7 @@
 				3A720CA818A1C06700423959 /* XMPPAutoTime.m in Sources */,
 				3A720C8C18A1C06700423959 /* XMPPIQ+XEP_0060.m in Sources */,
 				3AAE9B1A1894A049003B4560 /* ConversationViewController.m in Sources */,
+				3AB9E67E18A45573001EFDB8 /* LoadingDialogManager.m in Sources */,
 				3A720CA218A1C06700423959 /* XMPPMessage+XEP_0172.m in Sources */,
 				3A720CAB18A1C06700423959 /* XEP_0223.m in Sources */,
 				3AF19AC01881F81900F3E4D3 /* XMPPIQ.m in Sources */,

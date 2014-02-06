@@ -33,7 +33,7 @@
     [room addDelegate:self delegateQueue:dispatch_get_main_queue()];
     [room activate:conn];
     [room joinRoomUsingNickname:[ConnectionProvider getUser] history:nil];
-    [room fetchConfigurationForm];
+    //[room fetchConfigurationForm];
     [room configureRoomUsingOptions:[IQPacketManager createRoomConfigurationForm:roomName]];
     GroupChatManager *gcm = [GroupChatManager getInstance];
     GroupChat *gc = [GroupChat create:groupId participants:participants groupName:roomName owner:[ConnectionProvider getUser] createdTime:0];

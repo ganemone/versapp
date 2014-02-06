@@ -39,14 +39,18 @@
 }
 
 -(void)addPendingParticipants:(NSArray *)participants {
+    NSLog(@"Adding participants: %@", [participants description]);
     self.participants = participants;
     self.uninvitedParticpants = YES;
 }
 
 -(void)invitePendingParticpants {
+    NSLog(@"Trying to invite Pending participants");
     if (self.uninvitedParticpants == YES) {
+        NSLog(@"Does have uninvited participants...");
         XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
         for (int i = 0; i < self.participants.count; i++) {
+            NSLog(@"Inviting User: %@", [self.participants objectAtIndex:i]);
             [conn sendElement:[IQPacketManager createInviteToChatPacket:self.chatID invitedUsername:[self.participants objectAtIndex:i]]];
         }
         self.uninvitedParticpants = NO;
