@@ -59,6 +59,7 @@ NSString *const NOTIFICATION_STREAM_DID_DISCONNECT = @"notification_stream_did_d
 NSString *const NOTIFICATION_UPDATE_CHAT_LIST = @"notification_update_chat_list";
 NSString *const NOTIFICATION_CREATED_MUC = @"notification_created_muc";
 NSString *const NOTIFICATION_FINISHED_INVITING_MUC_USERS = @"notification_finished_inviting_muc_users";
+NSString *const NOTIFICATION_FINISHED_INVITING_ONE_TO_ONE_USERS = @"notification_finished_inviting_one_to_one_users";
 
 NSString *const APPLICATION_RESOURCE = @"who";
 

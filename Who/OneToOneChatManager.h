@@ -23,4 +23,8 @@
 
 -(int)getNumberOfChats;
 
+-(void)incrementNumUninvitedUsers;
+
+-(void)decrementNumUninvitedUsers;
+
 @end

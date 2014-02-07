@@ -54,7 +54,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData:) name:PACKET_ID_GET_VCARD object:nil];
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCreatedMUC:) name:NOTIFICATION_CREATED_MUC object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedInvitingUsersToMUC:) name:NOTIFICATION_FINISHED_INVITING_MUC_USERS object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedCreatingOneToOneChat:) name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCreatedOneToOneChat:) name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT object:nil];
     self.isSelecting = NO;
     self.isCreatingGroup = NO;
     self.selectedIndexPaths = [[NSMutableArray alloc] initWithCapacity:10];
@@ -217,7 +217,10 @@
     [self performSegueWithIdentifier:SEGUE_ID_CREATED_MUC sender:self];
 }
 
--(void)handleFinishedCreatingOneToOneChat:(NSNotification*)notification {
+-(void)handleCreatedOneToOneChat:(NSNotification*)notification {
+    XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
+    [conn sendElement:[IQPacketManager createInviteToChatPacket:self.createdOneToOneChat.chatID invitedUsername:self.createdOneToOneChat.inviterID]];
+    [conn sendElement:[IQPacketManager createInviteToChatPacket:self.createdOneToOneChat.chatID invitedUsername:self.createdOneToOneChat.invitedID]];
     [self.ldm hideLoadingDialogWithoutProgress];
     [self performSegueWithIdentifier:SEGUE_ID_CREATED_CHAT sender:self];
 }

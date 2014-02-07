@@ -80,18 +80,20 @@
     NSLog(@"Received Message: %@", message.XMLString);
     NSLog(@"Inserting Message into db \n\n %@ \n %@ \n %@ \n %@ \n %@", message.body, groupID, timestamp, senderID, receiverID);
     [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:receiverID];
-    NSDictionary *messageDictionary = [NSDictionary dictionaryWithObject:groupID forKey:MESSAGE_PROPERTY_GROUP_ID];
+    
     if ([message.type compare:CHAT_TYPE_GROUP] == 0) {
-        NSLog(@"Message is of type group");
+        NSDictionary *messageDictionary = [NSDictionary dictionaryWithObject:groupID forKey:MESSAGE_PROPERTY_GROUP_ID];
         GroupChatManager *gcm = [GroupChatManager getInstance];
         GroupChat *gc = [gcm getChat:groupID];
         [gc addMessage: [Message createForMUC:message.body sender:senderID chatID:groupID timestamp:timestamp]];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
     } else {
+        NSDictionary *messageDictionary = [NSDictionary dictionaryWithObject:message.thread forKey:MESSAGE_PROPERTY_GROUP_ID];
         NSLog(@"Message is of type chat");
         OneToOneChatManager *cm = [OneToOneChatManager getInstance];
         OneToOneChat *chat = [cm getChat:groupID];
-        [chat addMessage:[Message createForOneToOne:message.body sender:senderID chatID:groupID messageTo:receiverID timestamp:timestamp]];
+        NSLog(@"Message Thread: %@", message.thread);
+        [chat addMessage:[Message createForOneToOne:message.body sender:senderID chatID:message.thread messageTo:receiverID timestamp:timestamp]];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
     }
 }

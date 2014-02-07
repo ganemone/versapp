@@ -7,12 +7,14 @@
 //
 
 #import "OneToOneChatManager.h"
+#import "Constants.h"
 
 @interface OneToOneChatManager()
 
 @property(strong, nonatomic) NSMutableDictionary *chats;
 @property(strong, nonatomic) NSMutableArray *chatIDValues;
 
+@property NSInteger numUninvitedUsers;
 @end
 
 @implementation OneToOneChatManager
@@ -54,6 +56,19 @@ static OneToOneChatManager *selfInstance;
     NSUInteger unsignedInteger = (NSUInteger)index;
     OneToOneChat *chat = [self.chats objectForKey:[self.chatIDValues objectAtIndex:unsignedInteger]];
     return chat;
+}
+
+-(void)incrementNumUninvitedUsers {
+    self.numUninvitedUsers++;
+    NSLog(@"Incrementing Number of Users to: %ld", (long)self.numUninvitedUsers);
+}
+
+-(void)decrementNumUninvitedUsers {
+    self.numUninvitedUsers--;
+    NSLog(@"Decrementing number of users to: %ld", (long)self.numUninvitedUsers);
+    if (self.numUninvitedUsers == 0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FINISHED_INVITING_ONE_TO_ONE_USERS object:nil];
+    }
 }
 
 @end
