@@ -115,7 +115,7 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="LbP-v6-e3p"/>
+                    <navigationItem key="navigationItem" title="Connect" id="LbP-v6-e3p"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fk4-yc-32Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -165,7 +165,7 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="F0O-lg-JQN">
+                    <navigationItem key="navigationItem" title="Notifications" id="F0O-lg-JQN">
                         <barButtonItem key="rightBarButtonItem" title="Item" id="8rh-DV-cm9">
                             <connections>
                                 <action selector="testConnection:" destination="ekD-rM-6X5" id="iU7-jO-GK5"/>
@@ -258,7 +258,7 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="wcp-Qe-eie">
+                    <navigationItem key="navigationItem" title="Friends" id="wcp-Qe-eie">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Dpr-wO-MM7">
                             <connections>
                                 <action selector="beginSelectingFriendsForGroup:" destination="3aX-9q-IPd" id="QXm-sH-QZe"/>
