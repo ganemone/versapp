@@ -23,7 +23,8 @@
 
 -(void)sendMUCMessage:(NSString *)messageText {
     Message *message = [Message createForMUC:messageText sender:[ConnectionProvider getUser] chatID:self.chatID];
-    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSendMUCMessagePacket:message]];
+    DDXMLElement *packet = [IQPacketManager createSendMUCMessagePacket:message];
+    [[[ConnectionProvider getInstance] getConnection] sendElement:packet];
 }
 
 -(void)sendOneToOneMessage:(NSString *)messageText messageTo:(NSString *)messageTo {

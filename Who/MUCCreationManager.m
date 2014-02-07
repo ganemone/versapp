@@ -40,6 +40,7 @@
     [gc addPendingParticipants:participants];
     [gcm addChat: gc];
     
+    NSLog(@"Returning Group Chat: %@", [gc description]);
     return gc;
 }
 

@@ -45,6 +45,7 @@
 
 -(void)hideLoadingDialogWithoutProgress {
     [self.loadingDialogWithoutProgress stopAnimating];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
 }
 
 @end

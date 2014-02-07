@@ -6,16 +6,29 @@
 //  Copyright (c) 2014 Giancarlo Anemone. All rights reserved.
 //
 
+// View Controllers
 #import "FriendsViewController.h"
+#import "ConversationViewController.h"
+#import "OneToOneConversationViewController.h"
+
+// Connection Related
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
+#import "IQPacketManager.h"
+
+// Chat Related
+#import "GroupChat.h"
+#import "OneToOneChat.h"
+
+// Constants
 #import "Constants.h"
-#import "ConnectionProvider.h"
-#import "IQPacketManager.h"
+
+// Objects
 #import "UserProfile.h"
 #import "ChatParticipantVCardBuffer.h"
 #import "MUCCreationManager.h"
-#import "GroupChat.h"
+#import "LoadingDialogManager.h"
+
 
 @interface FriendsViewController()
 
@@ -25,6 +38,8 @@
 @property (strong, nonatomic) NSArray *searchResults;
 @property (strong, nonatomic) NSMutableArray *selectedIndexPaths;
 @property (strong, nonatomic) GroupChat *createdChat;
+@property (strong, nonatomic) LoadingDialogManager *ldm;
+
 @property BOOL isSelecting;
 
 @end
@@ -39,6 +54,7 @@
     self.isSelecting = NO;
     self.selectedIndexPaths = [[NSMutableArray alloc] initWithCapacity:10];
     self.cp = [ConnectionProvider getInstance];
+    self.ldm = [LoadingDialogManager create:self.view];
     [[self.cp getConnection] sendElement:[IQPacketManager createGetRosterPacket]];
 }
 
@@ -164,12 +180,25 @@
         [selectedItems addObject:((UserProfile *)[self.accepted objectAtIndex:indexPath.row]).jid];
     }
     if (buttonIndex == 1 && groupName.length > 0) {
+        [self.ldm showLoadingDialogWithoutProgress];
         self.createdChat = [MUCCreationManager createMUC:groupName participants:selectedItems];
     }
 }
 
 -(void)handleFinishedInvitingUsersToMUC:(NSNotification*)notification {
     NSLog(@"Should Perform Segue Here... Finished first part of inviting users to muc");
+    [self.ldm hideLoadingDialogWithoutProgress];
+    [self performSegueWithIdentifier:SEGUE_ID_CREATED_MUC sender:self];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if([segue.identifier compare:SEGUE_ID_CREATED_MUC] == 0) {
+        ConversationViewController *dest = segue.destinationViewController;
+        dest.gc = self.createdChat;
+    } else if([segue.identifier compare:SEGUE_ID_CREATED_CHAT] == 0) {
+        //OneToOneConversationViewController *dest = segue.destinationViewController;
+        //dest.chat = (OneToOneChat*)self.createdChat;
+    }
 }
 
 @end

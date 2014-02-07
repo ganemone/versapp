@@ -74,4 +74,8 @@
     }
 }
 
+-(NSString *)description {
+    return [NSString stringWithFormat:@"Group Name: %@ \n Group ID: %@ \n Owner: %@ \n CreatedTime: %@ \n participants: %@", self.name, self.chatID, self.owner, self.createdTime, [self.participants componentsJoinedByString:@"\n"]];
+}
+
 @end
