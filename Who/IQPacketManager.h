@@ -58,4 +58,6 @@
 
 +(DDXMLElement *)createInviteToMUCMessage:(NSString*)chatID username:(NSString*)username;
 
++(DDXMLElement *)createCreateOneToOneChatPacket:(NSString*)chatID roomName:(NSString*)roomName;
+
 @end

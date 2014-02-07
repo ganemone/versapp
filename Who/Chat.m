@@ -75,4 +75,9 @@
     return self.history.count;
 }
 
++(NSString *)createGroupID {
+    NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
+    return [NSString stringWithFormat:@"%@%d", [ConnectionProvider getUser], (int)timeStamp];
+}
+
 @end

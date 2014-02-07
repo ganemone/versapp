@@ -12,8 +12,6 @@
 
 +(GroupChat*)create:(NSString*)chatID participants:(NSArray *)participants groupName: (NSString*)groupName owner: (NSString*) owner createdTime: (NSString*) createdTime;
 
-+(NSString*)createGroupID;
-
 -(void)addPendingParticipants:(NSArray*)participants;
 
 -(void)invitePendingParticpants;

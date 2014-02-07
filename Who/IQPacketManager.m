@@ -187,6 +187,13 @@
     return iq;
 }
 
++(DDXMLElement *)createCreateOneToOneChatPacket:(NSString*)chatID roomName:(NSString*)roomName {
+    NSDictionary *properties = [NSDictionary dictionaryWithObjectsAndKeys:roomName, @"name", [ConnectionProvider getUser], @"owner_id", CHAT_TYPE_ONE_TO_ONE, @"type", nil];
+    DDXMLElement *iq = [IQPacketManager createWhoIQPacket:@"set" action:@"create" packetID:PACKET_ID_CREATE_ONE_TO_ONE_CHAT chatID:chatID properties:properties];
+    NSLog(@"PACKET: %@", iq.XMLString);
+    return iq;
+}
+
 +(DDXMLElement *)createMUCConfigurationFormRequestPacket:(NSString*)roomName {
     DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
     [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[NSString stringWithFormat:@"%@@%@/%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress], APPLICATION_RESOURCE]]];

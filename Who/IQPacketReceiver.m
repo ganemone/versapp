@@ -46,6 +46,8 @@
         [self handleGetVCardPacket:iq];
     } else if([self isPacketWithID:PACKET_ID_INVITE_USER_TO_CHAT packet:iq]) {
         [self handleInviteUserToChatPacket:iq];
+    } else if([self isPacketWithID:PACKET_ID_CREATE_ONE_TO_ONE_CHAT packet:iq]) {
+        [self handleCreateOneToOneChatPacket:iq];
     }
 }
 
@@ -242,6 +244,10 @@
 +(void)handleInviteUserToChatPacket:(XMPPIQ*)iq {
     GroupChatManager *gcm = [GroupChatManager getInstance];
     [gcm decrementNumUninvitedUsers];
+}
+
++(void)handleCreateOneToOneChatPacket:(XMPPIQ*)iq {
+    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_CREATE_ONE_TO_ONE_CHAT object:nil];
 }
 
 @end

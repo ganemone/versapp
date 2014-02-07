@@ -34,11 +34,6 @@
     return instance;
 }
 
-+(NSString *)createGroupID {
-    NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
-    return [NSString stringWithFormat:@"%@%d", [ConnectionProvider getUser], (int)timeStamp];
-}
-
 -(void)addPendingParticipants:(NSArray *)participants {
     NSLog(@"Adding participants: %@", [participants description]);
     self.participants = participants;
