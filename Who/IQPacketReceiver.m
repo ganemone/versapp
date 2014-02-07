@@ -44,6 +44,8 @@
         [self handleGetServerTimePacket:iq];
     } else if([self isPacketWithID:PACKET_ID_GET_VCARD packet:iq]) {
         [self handleGetVCardPacket:iq];
+    } else if([self isPacketWithID:PACKET_ID_INVITE_USER_TO_CHAT packet:iq]) {
+        [self handleInviteUserToChatPacket:iq];
     }
 }
 
@@ -235,6 +237,11 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_ROSTER object:nil userInfo:userInfo];
     NSLog(@"I am trying to send");
     
+}
+
++(void)handleInviteUserToChatPacket:(XMPPIQ*)iq {
+    GroupChatManager *gcm = [GroupChatManager getInstance];
+    [gcm decrementNumUninvitedUsers];
 }
 
 @end

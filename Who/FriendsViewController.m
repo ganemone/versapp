@@ -34,7 +34,8 @@
 -(void)viewDidLoad{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleGetRosterPacketReceived:) name:PACKET_ID_GET_ROSTER object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData:) name:PACKET_ID_GET_VCARD object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCreatedMUC:) name:NOTIFICATION_CREATED_MUC object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCreatedMUC:) name:NOTIFICATION_CREATED_MUC object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedInvitingUsersToMUC:) name:NOTIFICATION_FINISHED_INVITING_MUC_USERS object:nil];
     self.isSelecting = NO;
     self.selectedIndexPaths = [[NSMutableArray alloc] initWithCapacity:10];
     self.cp = [ConnectionProvider getInstance];
@@ -167,9 +168,8 @@
     }
 }
 
--(void)handleCreatedMUC:(NSNotification*)notification {
-    NSLog(@"Received created muc notification... call perform segue with identifier here...");
+-(void)handleFinishedInvitingUsersToMUC:(NSNotification*)notification {
+    NSLog(@"Should Perform Segue Here... Finished first part of inviting users to muc");
 }
-
 
 @end

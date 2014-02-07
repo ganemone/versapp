@@ -49,6 +49,7 @@ NSString *const MESSAGE_PROPERTY_GROUP_TYPE = @"group_chat_message_property";
 NSString *const MESSAGE_PROPERTY_ONE_TO_ONE_TYPE = @"one_to_one_message";
 NSString *const MESSAGE_PROPERTY_RECEIVER_ID = @"receiver_id";
 NSString *const MESSAGE_PROPERTY_IMAGE_LINK = @"image_link";
+NSString *const MESSAGE_PROPERTY_INVITATION_MESSAGE = @"CHAT_ID";
 
 NSString *const NOTIFICATION_MUC_MESSAGE_RECEIVED = @"notification_muc_message_received";
 NSString *const NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED = @"notification_one_to_one_message_received";
@@ -56,6 +57,7 @@ NSString *const NOTIFICATION_ADMIN_AUTHENTICATED = @"notification_admin_authenti
 NSString *const NOTIFICATION_STREAM_DID_DISCONNECT = @"notification_stream_did_disconnect";
 NSString *const NOTIFICATION_UPDATE_CHAT_LIST = @"notification_update_chat_list";
 NSString *const NOTIFICATION_CREATED_MUC = @"notification_created_muc";
+NSString *const NOTIFICATION_FINISHED_INVITING_MUC_USERS = @"notification_finished_inviting_muc_users";
 
 NSString *const APPLICATION_RESOURCE = @"who";
 

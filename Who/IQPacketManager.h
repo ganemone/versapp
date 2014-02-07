@@ -56,4 +56,6 @@
 
 +(DDXMLElement *)createRoomConfigurationForm:(NSString*)groupName;
 
++(DDXMLElement *)createInviteToMUCMessage:(NSString*)chatID username:(NSString*)username;
+
 @end

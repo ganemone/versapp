@@ -18,4 +18,6 @@
 
 -(void)invitePendingParticpants;
 
+-(void)sendInviteMessageToParticipants;
+
 @end
