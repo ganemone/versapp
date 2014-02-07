@@ -28,6 +28,7 @@
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceived:) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
     
     self.navigationItem.title = self.chat.name;
     self.originalCenter = self.view.center;
@@ -44,6 +45,15 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+-(void)messageReceived:(NSNotification*)notification {
+    NSDictionary *userInfo = notification.userInfo;
+    if ([(NSString*)[userInfo objectForKey:MESSAGE_PROPERTY_GROUP_ID] compare:self.chat.chatID] == 0) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.chat.getNumberOfMessages - 1 inSection:0];
+        NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
+        [self.conversationTableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationBottom];
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -57,13 +67,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.chat.history getNumberOfMessages];
+    return [self.chat getNumberOfMessages];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_CONVERSATION_PROTOTYPE forIndexPath:indexPath];
-    NSString *text = [self.chat.history getMessageTextByIndex:indexPath.row];
+    NSString *text = [self.chat getMessageTextByIndex:(int)indexPath.row];
     cell.textLabel.text = text;
     cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     cell.textLabel.numberOfLines = 0;
@@ -71,7 +81,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *cellText = [self.chat.history getMessageTextByIndex:indexPath.row];
+    NSString *cellText = [self.chat getMessageTextByIndex:(int)indexPath.row];
     UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:14.0];
     CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
     CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
@@ -119,7 +129,7 @@
 }
 
 -(void)sendChatMessage {
-    [self.chat sendOneToOneMessage:self.messageTextField.text];
+    [self.chat sendOneToOneMessage:self.messageTextField.text messageTo:[self.chat getMessageTo]];
 }
 
 /*

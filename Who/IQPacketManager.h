@@ -48,4 +48,12 @@
 
 +(DDXMLElement*)createSendOneToOneMessagePacket:(Message*)message;
 
++(DDXMLElement*)createAvailabilityPresencePacket;
+
++(DDXMLElement*)createGetVCardPacket:(NSString*)username;
+
++(DDXMLElement *)createGetConnectedUserVCardPacket;
+
++(DDXMLElement *)createRoomConfigurationForm:(NSString*)groupName;
+
 @end

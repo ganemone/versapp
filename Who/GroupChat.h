@@ -14,5 +14,8 @@
 
 +(NSString*)createGroupID;
 
--(int)getNumberOfMessages;
+-(void)addPendingParticipants:(NSArray*)participants;
+
+-(void)invitePendingParticpants;
+
 @end

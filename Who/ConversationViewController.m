@@ -8,6 +8,7 @@
 
 #import "ConversationViewController.h"
 #import "Constants.h"
+#import "MessagesDBManager.h"
 
 @interface ConversationViewController ()
 
@@ -27,6 +28,7 @@
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceived:) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
     self.navigationItem.title = self.gc.name;
     self.originalCenter = self.view.center;
 
@@ -63,7 +65,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_CONVERSATION_PROTOTYPE forIndexPath:indexPath];
-    NSString *text = [self.gc.history getMessageTextByIndex:indexPath.row];
+    NSString *text = [self.gc getMessageTextByIndex:indexPath.row];
     cell.textLabel.text = text;
     cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     cell.textLabel.numberOfLines = 0;
@@ -71,7 +73,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *cellText = [self.gc.history getMessageTextByIndex:indexPath.row];
+    NSString *cellText = [self.gc getMessageTextByIndex:indexPath.row];
     UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:14.0];
     CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
     CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
@@ -79,6 +81,14 @@
     return labelSize.height + 20;
 }
 
+-(void)messageReceived:(NSNotification*)notification {
+    NSDictionary *userInfo = notification.userInfo;
+    if ([(NSString*)[userInfo objectForKey:MESSAGE_PROPERTY_GROUP_ID] compare:self.gc.chatID] == 0) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.gc.getNumberOfMessages - 1 inSection:0];
+        NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
+        [self.conversationTableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationLeft];
+    }
+}
 -(void)keyboardDidShow:(NSNotification*)notification {
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.25];

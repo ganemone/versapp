@@ -15,7 +15,7 @@
 // singleton pattern to allow connection functionality across the application.
 // Extends from NSObject and implements the <XMPPStreamDelegate> interface to
 // allow for helpful callback methods.
-@interface ConnectionProvider : IQPacketReceiver  <XMPPStreamDelegate>
+@interface ConnectionProvider : NSObject  <XMPPStreamDelegate>
 
 @property(strong, nonatomic) UIViewController *controller;
 @property BOOL authenticated;

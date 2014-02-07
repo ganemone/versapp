@@ -15,4 +15,6 @@
 
 +(OneToOneChat *)create:(NSString*)threadID inviterID:(NSString*)inviterID invitedID:(NSString*)invitedID createdTimestamp:(NSString*)createdTimestamp;
 
+-(NSString*)getMessageTo;
+
 @end

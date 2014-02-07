@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AddressBookUI/AddressBookUI.h>
 
-@interface ContactsViewController : UITableViewController
+@interface ContactsViewController : UITableViewController 
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "History.h"
 #import "Message.h"
 
 
@@ -17,23 +16,34 @@
 @property(strong, nonatomic) NSString* name;
 @property(strong, nonatomic) NSString* createdTime;
 @property(strong, nonatomic) NSString* owner;
-@property (strong, nonatomic) History* history;
+@property(strong, nonatomic) NSMutableArray* history;
 
 // Must update the equivalent of android preferences for the name - Link name with id
 
--(History*)getHistory;
+-(NSArray*)getHistory;
 
--(void)setHistory:(History*)history;
+-(void)loadHistory;
 
 -(void)sendMUCMessage:(NSString*)messageText;
 
 -(void)sendMUCMessage:(NSString*)messageText image:(UIImage*)image;
 
--(void)sendOneToOneMessage:(NSString*)messageText;
+-(void)sendOneToOneMessage:(NSString*)messageText messageTo:(NSString*)messageTo;
 
--(void)sendOneToOneMessage:(NSString*)messageText image:(UIImage*)image;
+-(void)sendOneToOneMessage:(NSString*)messageText messageTo:(NSString*)messageTo image:(UIImage*)image;
 
+-(void)addMessage:(Message*)message;
 
 -(NSString*)getChatAddress;
+
+-(Message*)getMessageByIndex:(NSInteger)index;
+
+-(NSString *)getMessageTextByIndex:(NSInteger)index;
+
+-(Message*)getLastMessage;
+
+-(NSString*)getLastMessageText;
+
+-(NSInteger)getNumberOfMessages;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "IQPacketManager.h"
 #import "XMPPIQ.h"
+#import "XMPPPresence.h"
 #import "ConnectionProvider.h"
 #import "Constants.h"
 
@@ -51,7 +52,9 @@
 }
 
 +(DDXMLElement *)createAcceptChatInvitePacket:(NSString *)chatId {
-    return [self createWhoIQPacket:@"set" action:@"participant_join" packetID:PACKET_ID_ACCEPT_CHAT_INVITE chatID:chatId];
+    DDXMLElement *element = [self createWhoIQPacket:@"set" action:@"participant_join" packetID:PACKET_ID_ACCEPT_CHAT_INVITE chatID:chatId];
+    NSLog(@"Accept Packet: %@",element.XMLString);
+    return element;
 }
 
 +(DDXMLElement *)createDenyChatInvitePacket:(NSString *)chatId {
@@ -89,7 +92,7 @@
 	
 	DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
     [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:packetID]];
-	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"get"]];
+	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:type]];
     [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
 	[iq addChild:query];
     
@@ -111,7 +114,7 @@
 	
 	DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
     [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:packetID]];
-	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"get"]];
+	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:type]];
     [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
 	[iq addChild:query];
     
@@ -125,7 +128,8 @@
 	DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
     [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_GET_ROSTER]];
 	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"get"]];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[NSString stringWithFormat:@"%@@%@/%@",[ConnectionProvider getUser], [ConnectionProvider getServerIPAddress], APPLICATION_RESOURCE]]];
+    //[iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
 	[iq addChild:query];
     
     return iq;
@@ -177,20 +181,46 @@
 
 +(DDXMLElement *)createCreateMUCPacket:(NSString*)roomName {
     
-    DDXMLElement *presence = [DDXMLElement elementWithName:@"presence"];
-	//[iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[ConnectionProvider getServerIPAddress]]];
-    [presence addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[NSString stringWithFormat:@"%@@%@", roomName, [ConnectionProvider getConferenceIPAddress]]]];
-    [presence addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_CREATE_MUC]];
-    DDXMLElement *element = [DDXMLElement elementWithName:@"x"];
-    [element addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"http://jabber.org/protocol/muc"]];
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[NSString stringWithFormat:@"%@@%@/%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress], APPLICATION_RESOURCE]]];
+    //[iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[NSString stringWithFormat:@"%@@%@/%@", roomName, [ConnectionProvider getConferenceIPAddress], [ConnectionProvider getUser]]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[NSString stringWithFormat:@"%@@%@", roomName, [ConnectionProvider getConferenceIPAddress]]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_CREATE_MUC]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"set"]];
     
-    [presence addChild:element];
+    DDXMLElement *element = [DDXMLElement elementWithName:@"query"];
+    [element addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"http://jabber.org/protocol/muc#owner"]];
     
-    NSLog(@"Packet: %@", presence.XMLString);
-    return presence;
+    DDXMLElement *x = [DDXMLElement elementWithName:@"x"];
+    [x addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"jabber:x:data"]];
+    [x addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"submit"]];
+    
+    [element addChild:x];
+    [iq addChild:element];
+    
+    NSLog(@"Packet: %@", iq.XMLString);
+    
+    return iq;
+}
+
++(DDXMLElement *)createMUCConfigurationFormRequestPacket:(NSString*)roomName {
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[NSString stringWithFormat:@"%@@%@/%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress], APPLICATION_RESOURCE]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[NSString stringWithFormat:@"%@@%@/%@", roomName, [ConnectionProvider getConferenceIPAddress], [ConnectionProvider getUser]]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_GET_CONFIGURATION_FORM]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"get"]];
+    
+    DDXMLElement *element = [DDXMLElement elementWithName:@"query"];
+    [element addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"http://jabber.org/protocol/muc#owner"]];
+    
+    [iq addChild:element];
+    
+    NSLog(@"Packet: %@", iq.XMLString);
+    return iq;
 }
 
 +(DDXMLElement *)createJoinMUCPacket:(NSString *)chatID lastTimeActive:(NSString *)lastTimeActive {
+    NSLog(@"Requesting History Since: %@", lastTimeActive);
     DDXMLElement *presence = [DDXMLElement elementWithName:@"presence"];
     [presence addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_JOIN_MUC]];
     [presence addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[NSString stringWithFormat:@"%@@%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]]]];
@@ -200,7 +230,7 @@
     [x addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"http://jabber.org/protocol/muc"]];
     
     DDXMLElement *history = [DDXMLElement elementWithName:@"history"];
-    [history addAttribute:[DDXMLNode attributeWithName:@"since" stringValue:@"1970-01-01T00:00:00Z"]];
+    [history addAttribute:[DDXMLNode attributeWithName:@"since" stringValue:lastTimeActive]];
     
     [x addChild:history];
     [presence addChild:x];
@@ -240,7 +270,8 @@
 
 +(DDXMLElement *)createSendMUCMessagePacket:(Message *)message {
     XMPPMessage *messagePacket = [XMPPMessage messageWithType:CHAT_TYPE_GROUP to:[XMPPJID jidWithString:[NSString stringWithFormat:@"%@@%@", message.chatID, [ConnectionProvider getConferenceIPAddress]]]];
-    
+    [messagePacket addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:@"null"]];
+
     DDXMLElement *properties = [self createMessagePropertiesElement:message];
     
     DDXMLElement *groupChatProperty = [DDXMLElement elementWithName:@"property"];
@@ -250,13 +281,6 @@
     [groupChatProperty addChild:groupChatPropertyName];
     [groupChatProperty addChild:groupChatPropertyValue];
 
-    DDXMLElement *groupIDProperty = [DDXMLElement elementWithName:@"property"];
-    DDXMLElement *groupIDPropertyName = [DDXMLElement elementWithName:@"name" stringValue:MESSAGE_PROPERTY_GROUP_ID];
-    DDXMLElement *groupIDPropertyValue = [DDXMLElement elementWithName:@"value" stringValue:message.chatID];
-    [groupIDPropertyValue addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"string"]];
-    [groupIDProperty addChild:groupIDPropertyName];
-    [groupIDProperty addChild:groupIDPropertyValue];
-    
     DDXMLElement *receiverIDProperty = [DDXMLElement elementWithName:@"property"];
     DDXMLElement *receiverIDPropertyName = [DDXMLElement elementWithName:@"name" stringValue:MESSAGE_PROPERTY_RECEIVER_ID];
     DDXMLElement *receiverIDPropertyValue = [DDXMLElement elementWithName:@"value" stringValue:[NSString stringWithFormat:@"%@@%@", message.chatID, [ConnectionProvider getConferenceIPAddress]]];
@@ -265,10 +289,10 @@
     [receiverIDProperty addChild:receiverIDPropertyValue];
     
     [properties addChild:groupChatProperty];
-    [properties addChild:groupIDProperty];
     [properties addChild:receiverIDProperty];
 
     [messagePacket addBody:message.body];
+    [messagePacket addThread:message.chatID];
     [messagePacket addChild:properties];
 
     
@@ -278,7 +302,7 @@
 
 +(DDXMLElement *)createSendOneToOneMessagePacket:(Message *)message {
     XMPPMessage *messagePacket = [XMPPMessage messageWithType:CHAT_TYPE_ONE_TO_ONE to:[XMPPJID jidWithString:[NSString stringWithFormat:@"%@@%@", message.messageTo, [ConnectionProvider getServerIPAddress]]]];
-    
+    [messagePacket addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:@"null"]];
     DDXMLElement *properties = [self createMessagePropertiesElement:message];
     
     DDXMLElement *receiverIDProperty = [DDXMLElement elementWithName:@"property"];
@@ -317,9 +341,75 @@
     [senderProperty addChild:senderName];
     [senderProperty addChild:senderValue];
     
+    DDXMLElement *groupIDProperty = [DDXMLElement elementWithName:@"property"];
+    DDXMLElement *groupIDPropertyName = [DDXMLElement elementWithName:@"name" stringValue:MESSAGE_PROPERTY_GROUP_ID];
+    DDXMLElement *groupIDPropertyValue = [DDXMLElement elementWithName:@"value" stringValue:message.chatID];
+    [groupIDPropertyValue addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"string"]];
+    [groupIDProperty addChild:groupIDPropertyName];
+    [groupIDProperty addChild:groupIDPropertyValue];
+    
     [properties addChild:senderProperty];
+    [properties addChild:groupIDProperty];
     
     return properties;
+}
+
++(DDXMLElement *)createAvailabilityPresencePacket {
+    XMPPPresence *presence = [XMPPPresence presence];
+    [presence addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[NSString stringWithFormat:@"%@@%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]]]];
+    return presence;
+}
+
++(DDXMLElement *)createGetVCardPacket:(NSString*)username {
+    DDXMLElement *vcard = [self createGetConnectedUserVCardPacket];
+    [vcard addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[NSString stringWithFormat:@"%@@%@", username, [ConnectionProvider getServerIPAddress]]]];
+    return vcard;
+}
+
++(DDXMLElement *)createGetConnectedUserVCardPacket {
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[NSString stringWithFormat:@"%@@%@/%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress], APPLICATION_RESOURCE]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_GET_VCARD]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"get"]];
+    
+    DDXMLElement *query = [DDXMLElement elementWithName:@"vCard"];
+    [query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"vcard-temp"]];
+    
+    [iq addChild:query];
+    return iq;
+}
+
++(DDXMLElement *)createRoomConfigurationForm:(NSString*)groupName {
+    DDXMLElement *configurationElement = [DDXMLElement elementWithName:@"x"];
+    [configurationElement addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"jabber:x:data"]];
+    
+    DDXMLElement *roomNameField = [DDXMLElement elementWithName:@"field"];
+    DDXMLElement *roomDescField = [DDXMLElement elementWithName:@"field"];
+    DDXMLElement *persistentRoom = [DDXMLElement elementWithName:@"field"];
+    DDXMLElement *allowInvites = [DDXMLElement elementWithName:@"field"];
+    
+    [roomNameField addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"text-single"]];
+    [roomDescField addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"text-single"]];
+    [persistentRoom addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"boolean"]];
+    [allowInvites addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"boolean"]];
+    
+    [roomNameField addAttribute:[DDXMLNode attributeWithName:@"var" stringValue:@"muc#roomconfig_roomname"]];
+    [roomDescField addAttribute:[DDXMLNode attributeWithName:@"var" stringValue:@"muc#roomconfig_roomdesc"]];
+    [persistentRoom addAttribute:[DDXMLNode attributeWithName:@"var" stringValue:@"muc#roomconfig_persistentroom"]];
+    [allowInvites addAttribute:[DDXMLNode attributeWithName:@"var" stringValue:@"muc#roomconfig_allowinvites"]];
+    
+    [roomNameField addChild:[DDXMLNode elementWithName:@"value" stringValue:groupName]];
+    [roomDescField addChild:[DDXMLNode elementWithName:@"value" stringValue:groupName]];
+    [persistentRoom addChild:[DDXMLNode elementWithName:@"value" stringValue:@"1"]];
+    [allowInvites addChild:[DDXMLNode elementWithName:@"value" stringValue:@"1"]];
+    
+    [configurationElement addChild:roomNameField];
+    [configurationElement addChild:roomDescField];
+    [configurationElement addChild:persistentRoom];
+    [configurationElement addChild:allowInvites];
+    
+    return configurationElement;
+    
 }
 
 @end

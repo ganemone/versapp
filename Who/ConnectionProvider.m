@@ -7,15 +7,20 @@
 //
 
 #import "ConnectionProvider.h"
+// XMPP Helper Classes
 #import "XMPPJID.h"
 #import "XMPPIQ.h"
 #import "XMPPPresence.h"
 #import "XMPPMessage.h"
-#import "MainTabBarController.h"
-#import "RequestsViewController.h"
-#import "IQPacketManager.h"
+// Packet Receivers
+#import "IQPacketReceiver.h"
+#import "PresencePacketReceiver.h"
+#import "MessagePacketReceiver.h"
+// Packet Related Helper Classes
 #import "Constants.h"
-#import "LoginViewController.h"
+#import "IQPacketManager.h"
+#import "MUCCreationManager.h"
+
 
 @interface ConnectionProvider ()
 
@@ -24,7 +29,6 @@
 @property(strong, nonatomic) NSString* password;
 @property(strong, nonatomic) NSString* SERVER_IP_ADDRESS;
 @property(strong, nonatomic) NSString* CONFERENCE_IP_ADDRESS;
-@property(strong, nonatomic) LoginViewController *loginView;
 
 @end
 
@@ -125,6 +129,8 @@ static ConnectionProvider *selfInstance;
     if([self.username compare:@"admin"] == 0) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ADMIN_AUTHENTICATED object:nil];
     } else {
+        [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
+        [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
     }
 }
@@ -149,8 +155,16 @@ static ConnectionProvider *selfInstance;
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
-    NSLog(@"Received Message");
-    [self handleMessagePacket:message];
+    NSLog(@"Received Message: %@", message);
+    [MessagePacketReceiver handleMessagePacket:message];
+}
+
+-(void)xmppStream:(XMPPStream *)sender didSendMessage:(XMPPMessage *)message {
+    NSLog(@"Sent Message! %@", message.XMLString);
+}
+
+-(void)xmppStream:(XMPPStream *)sender didSendPresence:(XMPPPresence *)presence {
+    NSLog(@"Send Presence: %@", presence.XMLString);
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
@@ -163,7 +177,7 @@ static ConnectionProvider *selfInstance;
 
 -(BOOL)xmppStream:(XMPPStream *)sender didReceiveIQ:(XMPPIQ *)iq {
     NSLog(@"didReceiveIQ %@", [iq XMLString]);
-    [self handleIQPacket:iq];
+    [IQPacketReceiver handleIQPacket:iq];
     return YES;
 }
 
