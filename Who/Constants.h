@@ -59,6 +59,8 @@ extern NSString *const APPLICATION_RESOURCE;
 
 extern NSString *const SEGUE_ID_GROUP_CONVERSATION;
 extern NSString *const SEGUE_ID_ONE_TO_ONE_CONVERSATION;
+extern NSString *const SEGUE_ID_CREATED_MUC;
+extern NSString *const SEGUE_ID_CREATED_CHAT;
 
 extern NSString *const CELL_ID_CONVERSATION_PROTOTYPE;
 extern NSString *const CELL_ID_FRIENDS_PROTOTYPE;
