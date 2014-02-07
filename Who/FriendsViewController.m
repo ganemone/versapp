@@ -210,6 +210,7 @@
         [conn sendElement:[IQPacketManager createCreateOneToOneChatPacket:chatID roomName:chatID]];
         self.createdOneToOneChat = [OneToOneChat create:chatID inviterID:[ConnectionProvider getUser] invitedID:self.invitedUser createdTimestamp:0];
     }
+    [self.selectedIndexPaths removeAllObjects];
 }
 
 -(void)handleFinishedInvitingUsersToMUC:(NSNotification*)notification {
