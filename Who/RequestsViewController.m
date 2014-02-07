@@ -84,6 +84,7 @@
     NSDictionary *notification = [self.notifications objectAtIndex:indexPath.row];
     [[self.connectionProvider getConnection] sendElement:[IQPacketManager createDenyChatInvitePacket:[notification objectForKey:@"chatId"]]];
     
+    
     NSLog(@"Declined: %@", [notification objectForKey:@"chatId"]);
     
     [self.notifications removeObjectAtIndex:indexPath.row];

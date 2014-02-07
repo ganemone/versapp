@@ -686,6 +686,13 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Giancarlo Anemone";
 				TargetAttributes = {
+					3A25B6321881E03700166623 = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
 					3A25B6561881E03700166623 = {
 						TestTargetID = 3A25B6321881E03700166623;
 					};
