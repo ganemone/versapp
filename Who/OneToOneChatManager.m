@@ -58,17 +58,4 @@ static OneToOneChatManager *selfInstance;
     return chat;
 }
 
--(void)incrementNumUninvitedUsers {
-    self.numUninvitedUsers++;
-    NSLog(@"Incrementing Number of Users to: %ld", (long)self.numUninvitedUsers);
-}
-
--(void)decrementNumUninvitedUsers {
-    self.numUninvitedUsers--;
-    NSLog(@"Decrementing number of users to: %ld", (long)self.numUninvitedUsers);
-    if (self.numUninvitedUsers == 0) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FINISHED_INVITING_ONE_TO_ONE_USERS object:nil];
-    }
-}
-
 @end
