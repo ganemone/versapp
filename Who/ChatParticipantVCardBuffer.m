@@ -66,7 +66,15 @@ static ChatParticipantVCardBuffer *selfInstance;
     if (userItem == nil) {
         return NO;
     }
-    return ([self.vcards objectForKey:FRIENDS_TABLE_COLUMN_NAME_STATUS] == 0);
+    return ((int)[self.vcards objectForKey:FRIENDS_TABLE_COLUMN_NAME_STATUS] == STATUS_FRIENDS);
+}
+
+-(BOOL)isPendingFriendWithUser:(NSString*)username {
+    NSDictionary *userItem = [self.vcards objectForKey:username];
+    if (userItem == nil) {
+        return NO;
+    }
+    return ((int)[self.vcards objectForKey:FRIENDS_TABLE_COLUMN_NAME_STATUS] == STATUS_PENDING);
 }
 
 @end
