@@ -131,7 +131,8 @@ static ConnectionProvider *selfInstance;
     } else {
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];
-        [IQPacketManager createCreateMUCPacket:@"chatID" roomName:@"roomName"];
+        [self.xmppStream sendElement:[IQPacketManager createGetLastTimeActivePacket]];
+        [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
     }
 }

@@ -27,4 +27,6 @@
 
 -(void)decrementNumUninvitedUsers;
 
+-(void)setTimeForHistory:(NSString*)time;
+
 @end

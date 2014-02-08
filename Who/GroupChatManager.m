@@ -8,11 +8,14 @@
 
 #import "GroupChatManager.h"
 #import "Constants.h"
+#import "ConnectionProvider.h"
+#import "IQPacketManager.h"
 
 @interface GroupChatManager()
 
 @property(strong, nonatomic) NSMutableDictionary *mucs;
 @property(strong, nonatomic) NSMutableArray *mucIDValues;
+@property (strong, nonatomic) NSString *timeLastActive;
 @property NSInteger numUninvitedUsers;
 
 @end
@@ -34,6 +37,13 @@ static GroupChatManager * selfInstance;
 }
 
 -(void)addChat:(GroupChat *)chat {
+    if (self.timeLastActive == nil) {
+        chat.joined = NO;
+    } else {
+        chat.joined = YES;
+        XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
+        [conn sendElement:[IQPacketManager createJoinMUCPacket:chat.chatID lastTimeActive:self.timeLastActive]];
+    }
     [self.mucs setObject:chat forKey:chat.chatID];
     [self.mucIDValues addObject:chat.chatID];
 }
@@ -80,6 +90,18 @@ static GroupChatManager * selfInstance;
             [chat sendInviteMessageToParticipants];
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FINISHED_INVITING_MUC_USERS object:nil];
+    }
+}
+
+-(void)setTimeForHistory:(NSString *)time {
+    self.timeLastActive = time;
+    NSEnumerator *enumerator = [self.mucs objectEnumerator];
+    XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
+    GroupChat *gc;
+    while ((gc = enumerator.nextObject) != nil) {
+        if (gc.joined == NO) {
+            [conn sendElement:[IQPacketManager createJoinMUCPacket:gc.chatID lastTimeActive:self.timeLastActive]];
+        }
     }
 }
 

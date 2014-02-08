@@ -22,6 +22,8 @@
 
 @implementation GroupChat
 
+@synthesize joined;
+
 +(GroupChat*)create:(NSString *)chatID participants:(NSArray*)participants groupName:(NSString *)groupName owner:(NSString *)owner createdTime:(NSString *)createdTime {
     GroupChat *instance = [[GroupChat alloc] init];
     instance.chatID = chatID;

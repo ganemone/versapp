@@ -100,9 +100,9 @@
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(.*?)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
     NSTextCheckingResult *match = [regex firstMatchInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
     NSString *timestamp = [iq.XMLString substringWithRange:[match rangeAtIndex:1]];
-    
+    NSDictionary *userInfo;
     if([timestamp compare:@""] == 0) {
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"1970-01-01T00:00:00Z" forKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
+        userInfo = [NSDictionary dictionaryWithObject:@"1970-01-01T00:00:00Z" forKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
         [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil userInfo:userInfo];
     } else {
         NSTimeInterval interval= [timestamp doubleValue];
@@ -112,9 +112,11 @@
         [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
         NSString *utcStringDate =[formatter stringFromDate:gregDate];
         NSLog(@"UTC: %@", utcStringDate);
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:utcStringDate forKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
-        [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil userInfo:userInfo];
+        userInfo = [NSDictionary dictionaryWithObject:utcStringDate forKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
     }
+    GroupChatManager *gcm = [GroupChatManager getInstance];
+    [gcm setTimeForHistory:[userInfo objectForKey:PACKET_ID_GET_LAST_TIME_ACTIVE]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil userInfo:userInfo];
 }
 
 +(void)handleGetServerTimePacket:(XMPPIQ *)packet {

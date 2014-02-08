@@ -33,8 +33,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
     
     self.cp = [ConnectionProvider getInstance];
-    [[self.cp getConnection] sendElement:[IQPacketManager createGetJoinedChatsPacket]];
-    [[self.cp getConnection] sendElement:[IQPacketManager createGetLastTimeActivePacket]];
+    
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -98,14 +97,6 @@
 }
 
 -(void)handleGetLastPacketReceived:(NSNotification*)notification {
-    NSDictionary *data = notification.userInfo;
-    NSString *utcTime = [data objectForKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
-    GroupChatManager *gcm = [GroupChatManager getInstance];
-    GroupChat *gc = nil;
-    for (int i = 0; i < [gcm getNumberOfChats]; i++) {
-        gc = [gcm getChatByIndex:i];
-        [[self.cp getConnection] sendElement:[IQPacketManager createJoinMUCPacket:gc.chatID lastTimeActive:utcTime]];
-    }
     [self.tableView reloadData];
 }
 
