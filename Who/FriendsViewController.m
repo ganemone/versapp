@@ -36,7 +36,7 @@
 @property (strong, nonatomic) NSArray *accepted;
 @property (strong, nonatomic) NSArray *pending;
 @property (strong, nonatomic) NSArray *searchResults;
-@property (strong, nonatomic) NSMutableArray *selectedIndexPaths;
+@property (strong, nonatomic) NSMutableArray *selectedJIDs;
 @property (strong, nonatomic) GroupChat *createdGroupChat;
 @property (strong, nonatomic) OneToOneChat *createdOneToOneChat;
 @property (strong, nonatomic) LoadingDialogManager *ldm;
@@ -57,7 +57,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCreatedOneToOneChat:) name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT object:nil];
     self.isSelecting = NO;
     self.isCreatingGroup = NO;
-    self.selectedIndexPaths = [[NSMutableArray alloc] initWithCapacity:10];
+    self.selectedJIDs = [[NSMutableArray alloc] initWithCapacity:10];
     self.cp = [ConnectionProvider getInstance];
     self.ldm = [LoadingDialogManager create:self.view];
     [[self.cp getConnection] sendElement:[IQPacketManager createGetRosterPacket]];
@@ -68,7 +68,7 @@
         [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(beginSelectingFriendsForGroup:)] animated:YES];
         self.navigationItem.leftBarButtonItem = nil;
         self.isSelecting = NO;
-        if (self.selectedIndexPaths.count > 0) {
+        if (self.selectedJIDs.count > 0) {
             self.isCreatingGroup = YES;
             UIAlertView *groupNamePrompt = [[UIAlertView alloc] initWithTitle:@"Group Name" message:@"Enter a name for the group" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Create", nil];
             groupNamePrompt.alertViewStyle = UIAlertViewStylePlainTextInput;
@@ -85,10 +85,11 @@
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(beginSelectingFriendsForGroup:)] animated:YES];
     self.navigationItem.leftBarButtonItem = nil;
     self.isSelecting = NO;
-    for (int i = 0; i < self.selectedIndexPaths.count; i++) {
-        [[self.tableView cellForRowAtIndexPath:[self.selectedIndexPaths objectAtIndex:i]] setAccessoryType:UITableViewCellAccessoryNone];
+    for (int i = 0; i < self.accepted.count; i++) {
+        NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
+        [[self.tableView cellForRowAtIndexPath:path] setAccessoryType:UITableViewCellAccessoryNone];
     }
-    [self.selectedIndexPaths removeAllObjects];
+    [self.selectedJIDs removeAllObjects];
 }
 
 -(void)handleGetRosterPacketReceived: (NSNotification*) notification{
@@ -124,6 +125,12 @@
     } else {
         cell.textLabel.text = @"Loading...";
     }
+
+    if ([self.selectedJIDs containsObject:currentItem.jid]) {
+        [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+    } else {
+        [cell setAccessoryType:UITableViewCellAccessoryNone];
+    }
     
     return cell;
 }
@@ -131,21 +138,24 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if ([cell.textLabel.text compare:@"Loading..."] != 0) {
+        NSString *jid;
+        if ([self.searchResults count] > 0) {
+            jid = ((UserProfile*)[self.searchResults objectAtIndex:indexPath.row]).jid;
+        } else {
+            jid = ((UserProfile*)[self.accepted objectAtIndex:indexPath.row]).jid;
+        }
+        NSLog(@"JID: %@", jid);
         if (self.isSelecting) {
             if(cell.accessoryType == UITableViewCellAccessoryCheckmark){
-                [self.selectedIndexPaths removeObject:indexPath];
+                [self.selectedJIDs removeObject:jid];
                 cell.accessoryType = UITableViewCellAccessoryNone;
             } else {
-                [self.selectedIndexPaths addObject:indexPath];
+                [self.selectedJIDs addObject:jid];
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
             }
             [tableView deselectRowAtIndexPath:indexPath animated:NO];
         } else {
-            if ([self.searchResults count] > 0) {
-                self.invitedUser = ((UserProfile*)[self.searchResults objectAtIndex:indexPath.row]).jid;
-            } else {
-                self.invitedUser = ((UserProfile*)[self.accepted objectAtIndex:indexPath.row]).jid;
-            }
+            self.invitedUser = jid;
             UIAlertView *groupNamePrompt = [[UIAlertView alloc] initWithTitle:@"Confirmation" message:[NSString stringWithFormat:@"Would you like to start an anonymous chat with %@", cell.textLabel.text] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Create", nil];
             groupNamePrompt.alertViewStyle = UIAlertViewStyleDefault;
             [groupNamePrompt show];
@@ -186,22 +196,10 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (self.isCreatingGroup == YES) {
-        UITableViewCell *cell;
-        NSMutableArray *selectedItems = [[NSMutableArray alloc] initWithCapacity:self.selectedIndexPaths.count];
         NSString *groupName = [alertView textFieldAtIndex:0].text;
-        for (int i = 0; i < self.selectedIndexPaths.count; i++) {
-            NSIndexPath *indexPath = [self.selectedIndexPaths objectAtIndex:i];
-            cell = [self.tableView cellForRowAtIndexPath:indexPath];
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            if ([self.searchResults count] > 0) {
-                [selectedItems addObject:((UserProfile *)[self.searchResults objectAtIndex:indexPath.row]).jid];
-            } else {
-                [selectedItems addObject:((UserProfile *)[self.accepted objectAtIndex:indexPath.row]).jid];
-            }
-        }
         if (buttonIndex == 1 && groupName.length > 0) {
             [self.ldm showLoadingDialogWithoutProgress];
-            self.createdGroupChat = [MUCCreationManager createMUC:groupName participants:selectedItems];
+            self.createdGroupChat = [MUCCreationManager createMUC:groupName participants:self.selectedJIDs];
         }
         self.isCreatingGroup = NO;
     } else if (buttonIndex == 1) {
@@ -210,7 +208,8 @@
         [conn sendElement:[IQPacketManager createCreateOneToOneChatPacket:chatID roomName:chatID]];
         self.createdOneToOneChat = [OneToOneChat create:chatID inviterID:[ConnectionProvider getUser] invitedID:self.invitedUser createdTimestamp:0];
     }
-    [self.selectedIndexPaths removeAllObjects];
+    [self.tableView reloadData];
+    [self.selectedJIDs removeAllObjects];
 }
 
 -(void)handleFinishedInvitingUsersToMUC:(NSNotification*)notification {
@@ -235,5 +234,25 @@
         dest.chat = self.createdOneToOneChat;
     }
 }
+
+-(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    NSIndexPath *path;
+    UITableViewCell *cell;
+    NSString *jid;
+    for (int i = 0; i < self.accepted.count; i++) {
+        path = [NSIndexPath indexPathForRow:i inSection:0];
+        cell = [self.tableView cellForRowAtIndexPath:path];
+        jid = ((UserProfile*)[self.accepted objectAtIndex:i]).jid;
+        if ([self.selectedJIDs containsObject:jid]) {
+            NSLog(@"Found Item!");
+            [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+        } else {
+            NSLog(@"Did not find item");
+            [cell setAccessoryType:UITableViewCellAccessoryNone];
+        }
+    }
+}
+
+
 
 @end
