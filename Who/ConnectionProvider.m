@@ -7,15 +7,20 @@
 //
 
 #import "ConnectionProvider.h"
+// XMPP Helper Classes
 #import "XMPPJID.h"
 #import "XMPPIQ.h"
 #import "XMPPPresence.h"
 #import "XMPPMessage.h"
-#import "MainTabBarController.h"
-#import "RequestsViewController.h"
-#import "IQPacketManager.h"
+// Packet Receivers
+#import "IQPacketReceiver.h"
+#import "PresencePacketReceiver.h"
+#import "MessagePacketReceiver.h"
+// Packet Related Helper Classes
 #import "Constants.h"
+#import "IQPacketManager.h"
 #import "MUCCreationManager.h"
+
 
 @interface ConnectionProvider ()
 
@@ -126,6 +131,7 @@ static ConnectionProvider *selfInstance;
     } else {
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];
+        [IQPacketManager createCreateMUCPacket:@"chatID" roomName:@"roomName"];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
     }
 }
@@ -151,7 +157,7 @@ static ConnectionProvider *selfInstance;
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
     NSLog(@"Received Message: %@", message);
-    [self handleMessagePacket:message];
+    [MessagePacketReceiver handleMessagePacket:message];
 }
 
 -(void)xmppStream:(XMPPStream *)sender didSendMessage:(XMPPMessage *)message {
@@ -163,7 +169,7 @@ static ConnectionProvider *selfInstance;
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
-    NSLog(@"Received Presence: %@", presence.XMLString);
+    [PresencePacketReceiver handlePresencePacket:presence];
 }
 
 -(void)xmppStream:(XMPPStream *)sender didFailToSendIQ:(XMPPIQ *)iq error:(NSError *)error {
@@ -172,7 +178,7 @@ static ConnectionProvider *selfInstance;
 
 -(BOOL)xmppStream:(XMPPStream *)sender didReceiveIQ:(XMPPIQ *)iq {
     NSLog(@"didReceiveIQ %@", [iq XMLString]);
-    [self handleIQPacket:iq];
+    [IQPacketReceiver handleIQPacket:iq];
     return YES;
 }
 

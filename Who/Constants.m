@@ -18,6 +18,7 @@ NSString *const PACKET_ID_GET_PENDING_CHATS = @"packet_id_get_pending_chats";
 NSString *const PACKET_ID_REGISTER_USER = @"packet_id_register_user";
 NSString *const PACKET_ID_CREATE_VCARD = @"packet_id_create_vcard";
 NSString *const PACKET_ID_CREATE_MUC = @"packet_id_create_muc";
+NSString *const PACKET_ID_CREATE_ONE_TO_ONE_CHAT = @"packet_id_create_one_to_one_chat";
 NSString *const PACKET_ID_GET_CONFIGURATION_FORM = @"packet_id_get_configuration_form";
 NSString *const PACKET_ID_JOIN_MUC = @"packet_id_join_muc";
 NSString *const PACKET_ID_GET_LAST_TIME_ACTIVE = @"packet_id_get_last_time_active";
@@ -49,17 +50,23 @@ NSString *const MESSAGE_PROPERTY_GROUP_TYPE = @"group_chat_message_property";
 NSString *const MESSAGE_PROPERTY_ONE_TO_ONE_TYPE = @"one_to_one_message";
 NSString *const MESSAGE_PROPERTY_RECEIVER_ID = @"receiver_id";
 NSString *const MESSAGE_PROPERTY_IMAGE_LINK = @"image_link";
+NSString *const MESSAGE_PROPERTY_INVITATION_MESSAGE = @"CHAT_ID";
 
 NSString *const NOTIFICATION_MUC_MESSAGE_RECEIVED = @"notification_muc_message_received";
 NSString *const NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED = @"notification_one_to_one_message_received";
 NSString *const NOTIFICATION_ADMIN_AUTHENTICATED = @"notification_admin_authenticated";
 NSString *const NOTIFICATION_STREAM_DID_DISCONNECT = @"notification_stream_did_disconnect";
 NSString *const NOTIFICATION_UPDATE_CHAT_LIST = @"notification_update_chat_list";
+NSString *const NOTIFICATION_CREATED_MUC = @"notification_created_muc";
+NSString *const NOTIFICATION_FINISHED_INVITING_MUC_USERS = @"notification_finished_inviting_muc_users";
+NSString *const NOTIFICATION_FINISHED_INVITING_ONE_TO_ONE_USERS = @"notification_finished_inviting_one_to_one_users";
 
 NSString *const APPLICATION_RESOURCE = @"who";
 
 NSString *const SEGUE_ID_GROUP_CONVERSATION = @"SegueGroupConversation";
 NSString *const SEGUE_ID_ONE_TO_ONE_CONVERSATION = @"SegueOneToOneConversation";
+NSString *const SEGUE_ID_CREATED_MUC = @"SegueIdentifierCreatedMUC";
+NSString *const SEGUE_ID_CREATED_CHAT = @"SegueIdentifierCreatedChat";
 
 NSString *const CELL_ID_CONVERSATION_PROTOTYPE = @"ConversationCellPrototype";
 NSString *const CELL_ID_FRIENDS_PROTOTYPE = @"FriendsCellPrototype";

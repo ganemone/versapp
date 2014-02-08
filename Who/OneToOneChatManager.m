@@ -7,12 +7,14 @@
 //
 
 #import "OneToOneChatManager.h"
+#import "Constants.h"
 
 @interface OneToOneChatManager()
 
 @property(strong, nonatomic) NSMutableDictionary *chats;
 @property(strong, nonatomic) NSMutableArray *chatIDValues;
 
+@property NSInteger numUninvitedUsers;
 @end
 
 @implementation OneToOneChatManager

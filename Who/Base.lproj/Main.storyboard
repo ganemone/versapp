@@ -99,7 +99,7 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="LbP-v6-e3p"/>
+                    <navigationItem key="navigationItem" title="Connect" id="LbP-v6-e3p"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fk4-yc-32Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -149,7 +149,7 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="F0O-lg-JQN">
+                    <navigationItem key="navigationItem" title="Notifications" id="F0O-lg-JQN">
                         <barButtonItem key="rightBarButtonItem" title="Item" id="8rh-DV-cm9">
                             <connections>
                                 <action selector="testConnection:" destination="ekD-rM-6X5" id="iU7-jO-GK5"/>
@@ -242,7 +242,7 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="wcp-Qe-eie">
+                    <navigationItem key="navigationItem" title="Friends" id="wcp-Qe-eie">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Dpr-wO-MM7">
                             <connections>
                                 <action selector="beginSelectingFriendsForGroup:" destination="3aX-9q-IPd" id="QXm-sH-QZe"/>
@@ -251,6 +251,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="searchDisplayController" destination="PvP-HL-NPX" id="W81-Ba-CY3"/>
+                        <segue destination="LSk-rM-HTJ" kind="custom" identifier="SegueIdentifierCreatedMUC" id="bNy-5C-fMA"/>
+                        <segue destination="iDZ-uG-Ep6" kind="custom" identifier="SegueIdentifierCreatedChat" id="jgA-TV-olw"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WIm-40-XwS" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -417,7 +419,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ConversationCellPrototype" textLabel="SSn-Fq-Qew" style="IBUITableViewCellStyleDefault" id="Ajn-QQ-aDF">
-                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ajn-QQ-aDF" id="NTG-sG-WeV">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -494,7 +496,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="nm9-Jz-pS1"/>
-        <segue reference="pEG-HD-mlj"/>
+        <segue reference="bNy-5C-fMA"/>
+        <segue reference="jgA-TV-olw"/>
     </inferredMetricsTieBreakers>
 </document>
