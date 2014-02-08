@@ -93,13 +93,11 @@
 }
 
 -(void)handleGetRosterPacketReceived: (NSNotification*) notification{
-    NSLog(@"Received Notification");
     NSDictionary *data = notification.userInfo;
     NSMutableArray *pending = [data objectForKey:USER_STATUS_PENDING];
     NSMutableArray *accepted =[data objectForKey:USER_STATUS_FRIENDS];
     self.accepted = accepted;
     self.pending = pending;
-    NSLog(@"I got handleGet");
     [self.tableView reloadData];
 }
 
@@ -144,7 +142,6 @@
         } else {
             jid = ((UserProfile*)[self.accepted objectAtIndex:indexPath.row]).jid;
         }
-        NSLog(@"JID: %@", jid);
         if (self.isSelecting) {
             if(cell.accessoryType == UITableViewCellAccessoryCheckmark){
                 [self.selectedJIDs removeObject:jid];
@@ -177,7 +174,6 @@
 }
 
 -(void)reloadData:(NSNotification*)notification {
-    NSLog(@"Reloading Data...");
     [self.tableView reloadData];
 }
 
@@ -244,10 +240,8 @@
         cell = [self.tableView cellForRowAtIndexPath:path];
         jid = ((UserProfile*)[self.accepted objectAtIndex:i]).jid;
         if ([self.selectedJIDs containsObject:jid]) {
-            NSLog(@"Found Item!");
             [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
         } else {
-            NSLog(@"Did not find item");
             [cell setAccessoryType:UITableViewCellAccessoryNone];
         }
     }
