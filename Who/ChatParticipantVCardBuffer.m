@@ -18,7 +18,6 @@
 
 @end
 
-
 static ChatParticipantVCardBuffer *selfInstance;
 
 @implementation ChatParticipantVCardBuffer
@@ -60,6 +59,14 @@ static ChatParticipantVCardBuffer *selfInstance;
 
 -(BOOL)hasVCard:(NSString *)username {
     return ([self.vcards objectForKey:username] != NULL) ? YES : NO;
+}
+
+-(BOOL)isFriendsWithUser:(NSString *)username {
+    NSDictionary *userItem = [self.vcards objectForKey:username];
+    if (userItem == nil) {
+        return NO;
+    }
+    return ([self.vcards objectForKey:FRIENDS_TABLE_COLUMN_NAME_STATUS] == 0);
 }
 
 @end

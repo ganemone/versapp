@@ -131,7 +131,6 @@
 		3AAE9B1A1894A049003B4560 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAE9B191894A049003B4560 /* ConversationViewController.m */; };
 		3AB9E67E18A45573001EFDB8 /* LoadingDialogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB9E67D18A45573001EFDB8 /* LoadingDialogManager.m */; };
 		3ACA788218833EDB00B384BF /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACA788118833EDB00B384BF /* MainTabBarController.m */; };
-		3AEA01E818A5A2D100BFEA40 /* RosterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEA01E718A5A2D100BFEA40 /* RosterManager.m */; };
 		3AF19A451881EF1600F3E4D3 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF19A3C1881EF1600F3E4D3 /* DDAbstractDatabaseLogger.m */; };
 		3AF19A461881EF1600F3E4D3 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF19A3E1881EF1600F3E4D3 /* DDASLLogger.m */; };
 		3AF19A471881EF1600F3E4D3 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF19A401881EF1600F3E4D3 /* DDFileLogger.m */; };
@@ -435,8 +434,6 @@
 		3AB9E67D18A45573001EFDB8 /* LoadingDialogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingDialogManager.m; sourceTree = "<group>"; };
 		3ACA788018833EDB00B384BF /* MainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabBarController.h; sourceTree = "<group>"; };
 		3ACA788118833EDB00B384BF /* MainTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabBarController.m; sourceTree = "<group>"; };
-		3AEA01E618A5A2D000BFEA40 /* RosterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RosterManager.h; sourceTree = "<group>"; };
-		3AEA01E718A5A2D100BFEA40 /* RosterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RosterManager.m; sourceTree = "<group>"; };
 		3AF19A3B1881EF1600F3E4D3 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
 		3AF19A3C1881EF1600F3E4D3 /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
 		3AF19A3D1881EF1600F3E4D3 /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
@@ -613,8 +610,6 @@
 				3A6C3BBA1884AD61003B162B /* LoginViewController.m */,
 				3A25B6451881E03700166623 /* AppDelegate.h */,
 				3A25B6461881E03700166623 /* AppDelegate.m */,
-				3AEA01E618A5A2D000BFEA40 /* RosterManager.h */,
-				3AEA01E718A5A2D100BFEA40 /* RosterManager.m */,
 				3A939631189C876A004B01CE /* ChatParticipantVCardBuffer.h */,
 				3A939632189C876A004B01CE /* ChatParticipantVCardBuffer.m */,
 				3A25B6481881E03700166623 /* Main.storyboard */,
@@ -1741,7 +1736,6 @@
 				3A720CA318A1C06700423959 /* XMPPPresence+XEP_0172.m in Sources */,
 				3A720C7F18A1C06700423959 /* XMPPvCardCoreDataStorage.m in Sources */,
 				3A720CB418A1C2E200423959 /* MUCCreationManager.m in Sources */,
-				3AEA01E818A5A2D100BFEA40 /* RosterManager.m in Sources */,
 				3A5699B11886D4F900746CC8 /* OneToOneChat.m in Sources */,
 				3AF19A681881F34A00F3E4D3 /* NSString+DDXML.m in Sources */,
 				3AF19A6C1881F34A00F3E4D3 /* ContextFilterLogFormatter.m in Sources */,

@@ -11,6 +11,8 @@
 
 @interface RosterManager : NSObject
 
++(RosterManager *)getInstance;
+
 -(UserProfile*)getRosterItem:(NSString*)jid;
 
 -(void)addRosterItem:(UserProfile*)user;
