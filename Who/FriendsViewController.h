@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FriendsViewController : UITableViewController <UIAlertViewDelegate>
+@interface FriendsViewController : UITableViewController <UIAlertViewDelegate, UISearchBarDelegate>
 
 @end

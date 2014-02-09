@@ -11,6 +11,7 @@
 #import "MessagesDBManager.h"
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
+#import "GroupChatManager.h"
 
 @interface GroupChat()
 
@@ -21,6 +22,8 @@
 
 @implementation GroupChat
 
+@synthesize joined;
+
 +(GroupChat*)create:(NSString *)chatID participants:(NSArray*)participants groupName:(NSString *)groupName owner:(NSString *)owner createdTime:(NSString *)createdTime {
     GroupChat *instance = [[GroupChat alloc] init];
     instance.chatID = chatID;
@@ -30,24 +33,50 @@
     instance.createdTime = createdTime;
     instance.history = [MessagesDBManager getMessageObjectsForMUC:instance.chatID];
     instance.uninvitedParticpants = NO;
+    
+    NSLog(@"Creating GC: %@", [instance description]);
     return instance;
 }
 
-+(NSString *)createGroupID {
-    NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
-    return [NSString stringWithFormat:@"%@%f", [ConnectionProvider getServerIPAddress], timeStamp];
-}
-
--(void)addPendingParticipants:(NSArray *)participants {
-    self.participants = participants;
+-(void)setParticipantsPending {
     self.uninvitedParticpants = YES;
 }
 
+-(void)setParticipantsNotPending {
+    self.uninvitedParticpants = NO;
+}
+
 -(void)invitePendingParticpants {
-    XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
-    for (int i = 0; i < self.participants.count; i++) {
-        [conn sendElement:[IQPacketManager createInviteToChatPacket:self.chatID invitedUsername:[self.participants objectAtIndex:i]]];
+    NSLog(@"Inviting Pending Participants: %@", [self description]);
+    GroupChatManager *gcm = [GroupChatManager getInstance];
+    if (self.uninvitedParticpants == YES) {
+        NSLog(@"Does have uninvited participants...");
+        NSLog(@"Participants: %@", [self.participants componentsJoinedByString:@"\n"]);
+        XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
+        for (int i = 0; i < self.participants.count; i++) {
+            NSLog(@"Inviting User: %@", [self.participants objectAtIndex:i]);
+            [gcm incrementNumUninvitedUsers];
+            [conn sendElement:[IQPacketManager createInviteToChatPacket:self.chatID invitedUsername:[self.participants objectAtIndex:i]]];
+        }
+        [gcm incrementNumUninvitedUsers];
+        [conn sendElement:[IQPacketManager createInviteToChatPacket:self.chatID invitedUsername:[ConnectionProvider getUser]]];
     }
+}
+
+-(void)sendInviteMessageToParticipants {
+    NSLog(@"Sending Message Invite: %@", [self description]);
+    if (self.uninvitedParticpants == YES) {
+        XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
+        for (int i = 0; i < self.participants.count; i++) {
+            [conn sendElement:[IQPacketManager createInviteToMUCMessage:self.chatID username:[self.participants objectAtIndex:i]]];
+        }
+        [conn sendElement:[IQPacketManager createAcceptChatInvitePacket:self.chatID]];
+        self.uninvitedParticpants = NO;
+    }
+}
+
+-(NSString *)description {
+    return [NSString stringWithFormat:@"Group Name: %@ \n Group ID: %@ \n Owner: %@ \n CreatedTime: %@ \n participants: %@", self.name, self.chatID, self.owner, self.createdTime, [self.participants componentsJoinedByString:@"\n"]];
 }
 
 @end

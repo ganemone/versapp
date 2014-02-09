@@ -131,6 +131,8 @@ static ConnectionProvider *selfInstance;
     } else {
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];
+        [self.xmppStream sendElement:[IQPacketManager createGetLastTimeActivePacket]];
+        [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
     }
 }
@@ -175,7 +177,7 @@ static ConnectionProvider *selfInstance;
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
-    NSLog(@"Received Presence: %@", presence.XMLString);
+    [PresencePacketReceiver handlePresencePacket:presence];
 }
 
 -(void)xmppStream:(XMPPStream *)sender didFailToSendIQ:(XMPPIQ *)iq error:(NSError *)error {
@@ -189,7 +191,7 @@ static ConnectionProvider *selfInstance;
 }
 
 -(void)xmppStream:(XMPPStream *)sender didSendIQ:(XMPPIQ *)iq {
-    NSLog(@"didSendIQ");
+    NSLog(@"didSendIQ: %@", iq.XMLString);
 }
 
 +(NSString *)getServerIPAddress {

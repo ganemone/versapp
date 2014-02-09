@@ -10,12 +10,16 @@
 
 @interface GroupChat : Chat
 
+@property BOOL joined;
+
 +(GroupChat*)create:(NSString*)chatID participants:(NSArray *)participants groupName: (NSString*)groupName owner: (NSString*) owner createdTime: (NSString*) createdTime;
 
-+(NSString*)createGroupID;
+-(void)setParticipantsPending;
 
--(void)addPendingParticipants:(NSArray*)participants;
+-(void)setParticipantsNotPending;
 
 -(void)invitePendingParticpants;
+
+-(void)sendInviteMessageToParticipants;
 
 @end

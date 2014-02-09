@@ -23,4 +23,10 @@
 
 -(int)getNumberOfChats;
 
+-(void)incrementNumUninvitedUsers;
+
+-(void)decrementNumUninvitedUsers;
+
+-(void)setTimeForHistory:(NSString*)time;
+
 @end

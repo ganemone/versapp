@@ -11,6 +11,7 @@
 #import "XMPPPresence.h"
 #import "ConnectionProvider.h"
 #import "Constants.h"
+#import "OneToOneChatManager.h"
 
 @implementation IQPacketManager
 
@@ -27,6 +28,7 @@
 }
 
 +(DDXMLElement *)createGetJoinedChatsPacket {
+    NSLog(@"Getting Joined Chats: %@", [self createWhoIQPacket:@"get" action:@"joined" packetID:PACKET_ID_GET_JOINED_CHATS].XMLString);
     return [self createWhoIQPacket:@"get" action:@"joined" packetID:PACKET_ID_GET_JOINED_CHATS];
 }
 
@@ -179,27 +181,18 @@
     return [self createCreateVCardPacket:firstName lastname:lastName phone:phone email:email];
 }
 
-+(DDXMLElement *)createCreateMUCPacket:(NSString*)roomName {
++(DDXMLElement *)createCreateMUCPacket:(NSString*)chatID roomName:(NSString*)roomName {
     
-    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[NSString stringWithFormat:@"%@@%@/%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress], APPLICATION_RESOURCE]]];
-    //[iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[NSString stringWithFormat:@"%@@%@/%@", roomName, [ConnectionProvider getConferenceIPAddress], [ConnectionProvider getUser]]]];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[NSString stringWithFormat:@"%@@%@", roomName, [ConnectionProvider getConferenceIPAddress]]]];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_CREATE_MUC]];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"set"]];
-    
-    DDXMLElement *element = [DDXMLElement elementWithName:@"query"];
-    [element addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"http://jabber.org/protocol/muc#owner"]];
-    
-    DDXMLElement *x = [DDXMLElement elementWithName:@"x"];
-    [x addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"jabber:x:data"]];
-    [x addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"submit"]];
-    
-    [element addChild:x];
-    [iq addChild:element];
-    
-    NSLog(@"Packet: %@", iq.XMLString);
-    
+    NSDictionary *properties = [NSDictionary dictionaryWithObjectsAndKeys:roomName, @"name", [ConnectionProvider getUser], @"owner_id", CHAT_TYPE_GROUP, @"type", nil];
+    DDXMLElement *iq = [IQPacketManager createWhoIQPacket:@"set" action:@"create" packetID:PACKET_ID_CREATE_MUC chatID:chatID properties:properties];
+    NSLog(@"PACKET: %@", iq.XMLString);
+    return iq;
+}
+
++(DDXMLElement *)createCreateOneToOneChatPacket:(NSString*)chatID roomName:(NSString*)roomName {
+    NSDictionary *properties = [NSDictionary dictionaryWithObjectsAndKeys:roomName, @"name", [ConnectionProvider getUser], @"owner_id", CHAT_TYPE_ONE_TO_ONE, @"type", nil];
+    DDXMLElement *iq = [IQPacketManager createWhoIQPacket:@"set" action:@"create" packetID:PACKET_ID_CREATE_ONE_TO_ONE_CHAT chatID:chatID properties:properties];
+    NSLog(@"PACKET: %@", iq.XMLString);
     return iq;
 }
 
@@ -327,6 +320,29 @@
     [messagePacket addChild:properties];
     
     NSLog(@"Message: %@", messagePacket.XMLString);
+    return messagePacket;
+}
+
++(DDXMLElement *)createInviteToMUCMessage:(NSString*)chatID username:(NSString*)username {
+    XMPPMessage *messagePacket = [XMPPMessage messageWithType:CHAT_TYPE_ONE_TO_ONE to:[XMPPJID jidWithString:[NSString stringWithFormat:@"%@@%@", username, [ConnectionProvider getServerIPAddress]]]];
+    [messagePacket addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:@"null"]];
+    [messagePacket addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[NSString stringWithFormat:@"%@@%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]]]];
+    [messagePacket addBody:@"empty"];
+    [messagePacket addThread:@"must_be_here"];
+    
+    DDXMLElement *properties = [DDXMLElement elementWithName:@"properties"];
+    [properties addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"http://www.jivesoftware.com/xmlns/xmpp/properties"]];
+    
+    DDXMLElement *chatIDProperty = [DDXMLElement elementWithName:@"property"];
+    DDXMLElement *chatIDPropertyName = [DDXMLElement elementWithName:@"name" stringValue:MESSAGE_PROPERTY_INVITATION_MESSAGE];
+    DDXMLElement *chatIDPropertyValue = [DDXMLElement elementWithName:@"value" stringValue:chatID];
+    [chatIDPropertyValue addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"string"]];
+    [chatIDProperty addChild:chatIDPropertyName];
+    [chatIDProperty addChild:chatIDPropertyValue];
+    
+    [properties addChild:chatIDProperty];
+    [messagePacket addChild:properties];
+    
     return messagePacket;
 }
 

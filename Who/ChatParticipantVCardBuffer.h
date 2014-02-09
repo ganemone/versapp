@@ -18,4 +18,8 @@
 
 -(BOOL)hasVCard:(NSString*)username;
 
+-(BOOL)isFriendsWithUser:(NSString *)username;
+
+-(BOOL)isPendingFriendWithUser:(NSString*)username;
+
 @end

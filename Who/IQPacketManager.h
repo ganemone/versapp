@@ -32,7 +32,7 @@
 
 +(DDXMLElement*)createJoinMUCPacket:(NSString*)chatID lastTimeActive: (NSString*)lastTimeActive;
 
-+(DDXMLElement*)createCreateMUCPacket:(NSString*)roomName;
++(DDXMLElement*)createCreateMUCPacket:(NSString*)chatID roomName:(NSString*)roomName;
 
 +(DDXMLElement*)createRegisterUserPacket:(NSString*)username password:(NSString*)password;
 
@@ -55,5 +55,9 @@
 +(DDXMLElement *)createGetConnectedUserVCardPacket;
 
 +(DDXMLElement *)createRoomConfigurationForm:(NSString*)groupName;
+
++(DDXMLElement *)createInviteToMUCMessage:(NSString*)chatID username:(NSString*)username;
+
++(DDXMLElement *)createCreateOneToOneChatPacket:(NSString*)chatID roomName:(NSString*)roomName;
 
 @end

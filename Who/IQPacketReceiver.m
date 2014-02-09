@@ -44,11 +44,15 @@
         [self handleGetServerTimePacket:iq];
     } else if([self isPacketWithID:PACKET_ID_GET_VCARD packet:iq]) {
         [self handleGetVCardPacket:iq];
+    } else if([self isPacketWithID:PACKET_ID_INVITE_USER_TO_CHAT packet:iq]) {
+        [self handleInviteUserToChatPacket:iq];
+    } else if([self isPacketWithID:PACKET_ID_CREATE_ONE_TO_ONE_CHAT packet:iq]) {
+        [self handleCreateOneToOneChatPacket:iq];
     }
 }
 
 +(void)handleGetJoinedChatsPacket:(XMPPIQ *)iq {
-    NSLog(@"Packet: %@", iq.XMLString);
+    NSLog(@"Joined Chats Packet: %@", iq.XMLString);
     NSError *error = NULL;
     
     NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
@@ -70,7 +74,6 @@
             participantString = [ConnectionProvider getUser];
         }
         if([type isEqualToString:CHAT_TYPE_GROUP]) {
-            NSLog(@"Adding Group Chat");
             [gcm addChat:[GroupChat create:chatId participants:participants groupName:name owner:owner createdTime:createdTime]];
             for (int i = 0; i < participants.count; i++) {
                 if([buff hasVCard:[participants objectAtIndex:i]] == NO) {
@@ -79,7 +82,6 @@
                 }
             }
         } else if([type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
-            NSLog(@"Adding One To One Chat");
             [cm addChat:[OneToOneChat create:chatId inviterID:owner invitedID:participantString createdTimestamp:createdTime]];
             if([participantString compare:[ConnectionProvider getServerIPAddress]] != 0) {
                 if([buff hasVCard:participantString] == NO) {
@@ -96,9 +98,9 @@
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(.*?)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
     NSTextCheckingResult *match = [regex firstMatchInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
     NSString *timestamp = [iq.XMLString substringWithRange:[match rangeAtIndex:1]];
-    
+    NSDictionary *userInfo;
     if([timestamp compare:@""] == 0) {
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"1970-01-01T00:00:00Z" forKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
+        userInfo = [NSDictionary dictionaryWithObject:@"1970-01-01T00:00:00Z" forKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
         [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil userInfo:userInfo];
     } else {
         NSTimeInterval interval= [timestamp doubleValue];
@@ -108,9 +110,11 @@
         [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
         NSString *utcStringDate =[formatter stringFromDate:gregDate];
         NSLog(@"UTC: %@", utcStringDate);
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:utcStringDate forKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
-        [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil userInfo:userInfo];
+        userInfo = [NSDictionary dictionaryWithObject:utcStringDate forKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
     }
+    GroupChatManager *gcm = [GroupChatManager getInstance];
+    [gcm setTimeForHistory:[userInfo objectForKey:PACKET_ID_GET_LAST_TIME_ACTIVE]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil userInfo:userInfo];
 }
 
 +(void)handleGetServerTimePacket:(XMPPIQ *)packet {
@@ -119,13 +123,11 @@
     NSTextCheckingResult *match = [regex firstMatchInString:packet.XMLString options:0 range:NSMakeRange(0, packet.XMLString.length)];
     NSString *utcTime = [packet.XMLString substringWithRange:[match rangeAtIndex:1]];
     
-    NSLog(@"Received Server Time: %@", utcTime);
     NSDictionary *userInfo = [NSDictionary dictionaryWithObject:utcTime forKey:PACKET_ID_GET_SERVER_TIME];
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_SERVER_TIME object:nil userInfo:userInfo];
 }
 
 +(void)handleGetVCardPacket:(XMPPIQ *)packet {
-    NSLog(@"VCard: %@", packet.XMLString);
     NSString *firstName, *lastName, *username, *email, *itemName, *nickname;
     NSArray *children = [packet children];
     for (int i = 0; i < children.count; i++) {
@@ -165,16 +167,11 @@
 
 +(void)handleGetPendingChatsPacket:(XMPPIQ *)packet {
     
-    NSLog(@"Pending Chats Packet Received: %@", packet.XMLString);
-    
     NSError *error = NULL;
     NSString *packetXML = [self getPacketXMLWithoutNewLines:packet];
-    NSLog(@"PacketXML: %@", packetXML);
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
     NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
-    
-    NSLog(@"Matches: %@", matches);
     
     NSMutableDictionary *allNotifications = [[NSMutableDictionary alloc] init];
     NSArray *keys = [NSArray arrayWithObjects:@"chatId", @"chatType", @"chatOwnerId", @"chatName", @"created", nil];
@@ -190,7 +187,6 @@
         count++;
         NSString *keyName = (@"notification%i", [NSString stringWithFormat:@"%i", count]);
         [allNotifications setObject:pendingChats forKey:keyName];
-        NSLog(@"Notifications: %@", allNotifications);
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_PENDING_CHATS object:nil userInfo:allNotifications];
 }
@@ -202,7 +198,6 @@
 }
 
 +(void)handleGetRosterPacket: (XMPPIQ *)iq{
-    NSLog(@"IQRoster: %@", iq.XMLString);
     NSError *error = NULL;
     DDXMLElement *query = [[iq children] firstObject];
     NSArray *items = [query children];
@@ -233,8 +228,15 @@
     }
     NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:acceptedFriends, USER_STATUS_FRIENDS, pendingFriends, USER_STATUS_PENDING, nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_ROSTER object:nil userInfo:userInfo];
-    NSLog(@"I am trying to send");
-    
+}
+
++(void)handleInviteUserToChatPacket:(XMPPIQ*)iq {
+    GroupChatManager *gcm = [GroupChatManager getInstance];
+    [gcm decrementNumUninvitedUsers];
+}
+
++(void)handleCreateOneToOneChatPacket:(XMPPIQ*)iq {
+    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_CREATE_ONE_TO_ONE_CHAT object:nil];
 }
 
 @end

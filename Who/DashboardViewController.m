@@ -33,8 +33,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
     
     self.cp = [ConnectionProvider getInstance];
-    [[self.cp getConnection] sendElement:[IQPacketManager createGetJoinedChatsPacket]];
-    [[self.cp getConnection] sendElement:[IQPacketManager createGetLastTimeActivePacket]];
+    
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -58,7 +57,6 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Getting Cell at Row: %lu", indexPath.row);
     static NSString *CellIdentifier = @"ChatCellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if(indexPath.section == 0) {
@@ -67,18 +65,15 @@
         cell.textLabel.text = muc.name;
         cell.detailTextLabel.text = [muc getLastMessageText];
     } else {
-        NSLog(@"In One to one Section");
         OneToOneChatManager *cm = [OneToOneChatManager getInstance];
         OneToOneChat *chat = [cm getChatByIndex:indexPath.row];
         cell.textLabel.text = chat.name;
         cell.detailTextLabel.text = [chat getLastMessageText];
-        NSLog(@"Chat last message text: %@", [chat getLastMessageText]);
     }
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Section %ld", (long)indexPath.section);
     self.clickedCellIndexPath = indexPath;
     if (indexPath.section == 0) {
         [self performSegueWithIdentifier:SEGUE_ID_GROUP_CONVERSATION sender:self];
@@ -98,14 +93,6 @@
 }
 
 -(void)handleGetLastPacketReceived:(NSNotification*)notification {
-    NSDictionary *data = notification.userInfo;
-    NSString *utcTime = [data objectForKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
-    GroupChatManager *gcm = [GroupChatManager getInstance];
-    GroupChat *gc = nil;
-    for (int i = 0; i < [gcm getNumberOfChats]; i++) {
-        gc = [gcm getChatByIndex:i];
-        [[self.cp getConnection] sendElement:[IQPacketManager createJoinMUCPacket:gc.chatID lastTimeActive:utcTime]];
-    }
     [self.tableView reloadData];
 }
 
