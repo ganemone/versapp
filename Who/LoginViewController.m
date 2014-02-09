@@ -45,10 +45,12 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticated) name:@"authenticated" object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(adminAuthenticated:) name:NOTIFICATION_ADMIN_AUTHENTICATED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createdVCard:) name:PACKET_ID_CREATE_VCARD object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registeredUser:) name:PACKET_ID_REGISTER_USER object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(streamDidDisconnect:) name:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didNotAuthenticate:) name:@"didNotAuthenticate" object:nil];
     
     self.createVCardWhenAuthenticated = NO;
     self.originalCenter = self.view.center;
@@ -65,7 +67,7 @@
         [[self.cp getConnection] sendElement:[IQPacketManager createCreateVCardPacket:self.firstNameText lastname:self.lastNameText phone:self.usernameText email:self.emailText]];
     } else {
         [self performSegueWithIdentifier:@"Authenticated" sender:self];
-    }
+    } 
 }
 
 - (IBAction)loginClick:(id)sender {
@@ -73,6 +75,7 @@
 }
 
 - (void)createdVCard:(NSNotification *)notification {
+    NSLog(@"createdVCard");
     [self performSegueWithIdentifier:@"Authenticated" sender:self];
 }
 
@@ -89,6 +92,15 @@
 
 - (void)adminAuthenticated:(NSNotification *)notification {
     [[self.cp getConnection] sendElement:[IQPacketManager createRegisterUserPacket:self.usernameText password:self.passwordText]];
+
+}
+
+- (void)didNotAuthenticate:(NSNotification *) notification{
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your username and password could not be authenticated." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+     self.passwordText = @"";
+    
 }
 
 - (IBAction)register:(id)sender {

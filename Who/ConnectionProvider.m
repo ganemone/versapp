@@ -134,6 +134,13 @@ static ConnectionProvider *selfInstance;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
     }
 }
+- (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error
+{
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"didNotAuthenticate" object:nil];
+    [self.xmppStream disconnect];
+
+}
 
 -(void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error
 {
