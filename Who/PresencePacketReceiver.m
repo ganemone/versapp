@@ -14,10 +14,6 @@
 @implementation PresencePacketReceiver
 
 +(void)handlePresencePacket:(XMPPPresence *)presence {
-    NSLog(@"Received Presence Packet: \n\n %@ \n\n", presence.XMLString);
-    NSLog(@"Presence From STR: %@", [presence fromStr]);
-    NSLog(@"Presence To: %@", [presence toStr]);
-    NSLog(@"Presence Name: %@", [presence name]);
     NSArray *namespaces = [presence namespaces];
     for (int i = 0; i < namespaces.count; i++) {
         NSLog(@"Name Space: %@", [[namespaces objectAtIndex:i] description]);
@@ -32,7 +28,6 @@
         NSString *xmlns = [presence.XMLString substringWithRange:[match rangeAtIndex:3]];
         //NSString *jid = [presence.XMLString substringWithRange:[match rangeAtIndex:4]];
         if ([xmlns compare:@"http://jabber.org/protocol/muc#user"] == 0) {
-            NSLog(@"Handling Creating Group Presence");
             GroupChatManager *gcm = [GroupChatManager getInstance];
             GroupChat *gc = [gcm getChat:from];
             [gc invitePendingParticpants];

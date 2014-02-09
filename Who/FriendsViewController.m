@@ -204,8 +204,8 @@
         [conn sendElement:[IQPacketManager createCreateOneToOneChatPacket:chatID roomName:chatID]];
         self.createdOneToOneChat = [OneToOneChat create:chatID inviterID:[ConnectionProvider getUser] invitedID:self.invitedUser createdTimestamp:0];
     }
+    self.selectedJIDs = [[NSMutableArray alloc] init];
     [self.tableView reloadData];
-    [self.selectedJIDs removeAllObjects];
 }
 
 -(void)handleFinishedInvitingUsersToMUC:(NSNotification*)notification {

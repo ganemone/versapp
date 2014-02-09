@@ -37,6 +37,7 @@ static GroupChatManager * selfInstance;
 }
 
 -(void)addChat:(GroupChat *)chat {
+    NSLog(@"Adding Chat to GCM: %@", [chat description]);
     if (self.timeLastActive == nil) {
         chat.joined = NO;
     } else {

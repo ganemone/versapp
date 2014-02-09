@@ -37,9 +37,8 @@
     [room configureRoomUsingOptions:[IQPacketManager createRoomConfigurationForm:roomName]];
     GroupChatManager *gcm = [GroupChatManager getInstance];
     GroupChat *gc = [GroupChat create:groupId participants:participants groupName:roomName owner:[ConnectionProvider getUser] createdTime:0];
-    [gc addPendingParticipants:participants];
+    [gc setParticipantsPending];
     [gcm addChat: gc];
-    
     NSLog(@"Returning Group Chat: %@", [gc description]);
     return gc;
 }

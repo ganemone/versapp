@@ -32,7 +32,6 @@
     NSRegularExpression *chatInvitationRegex = [NSRegularExpression regularExpressionWithPattern:[NSString stringWithFormat:@"<property><name>%@<\\/name><value>(.*?)<\\/value><\\/property>", MESSAGE_PROPERTY_INVITATION_MESSAGE] options:NSRegularExpressionCaseInsensitive error:&error];
     NSTextCheckingResult *invitationResult = [chatInvitationRegex firstMatchInString:message.XMLString options:0 range:NSMakeRange(0, message.XMLString.length)];
     if ([invitationResult numberOfRanges] > 0) {
-        NSLog(@"Chat Invite Messaage: %@", message.XMLString);
         [self handleMessageInvitationReceived:[message.XMLString substringWithRange:[invitationResult rangeAtIndex:1]]];
     } else {
         [self handleChatMessageReceived:message];
@@ -66,7 +65,6 @@
         name = [message.XMLString substringWithRange:[match rangeAtIndex:1]];
         //NSString *type = [message.XMLString substringWithRange:[match rangeAtIndex:2]];
         value = [message.XMLString substringWithRange:[match rangeAtIndex:3]];
-        NSLog(@"Name: %@ \n Value: %@ \n", name, value);
         if ([name compare:MESSAGE_PROPERTY_SENDER_ID] == 0) {
             senderID = value;
         } else if([name compare:MESSAGE_PROPERTY_TIMESTAMP] == 0) {
@@ -77,8 +75,6 @@
             receiverID = value;
         }
     }
-    NSLog(@"Received Message: %@", message.XMLString);
-    NSLog(@"Inserting Message into db \n\n %@ \n %@ \n %@ \n %@ \n %@", message.body, groupID, timestamp, senderID, receiverID);
     [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:receiverID];
     
     if ([message.type compare:CHAT_TYPE_GROUP] == 0) {
@@ -89,10 +85,8 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
     } else {
         NSDictionary *messageDictionary = [NSDictionary dictionaryWithObject:message.thread forKey:MESSAGE_PROPERTY_GROUP_ID];
-        NSLog(@"Message is of type chat");
         OneToOneChatManager *cm = [OneToOneChatManager getInstance];
         OneToOneChat *chat = [cm getChat:groupID];
-        NSLog(@"Message Thread: %@", message.thread);
         [chat addMessage:[Message createForOneToOne:message.body sender:senderID chatID:message.thread messageTo:receiverID timestamp:timestamp]];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
     }

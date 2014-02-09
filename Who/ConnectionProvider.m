@@ -184,7 +184,7 @@ static ConnectionProvider *selfInstance;
 }
 
 -(void)xmppStream:(XMPPStream *)sender didSendIQ:(XMPPIQ *)iq {
-    NSLog(@"didSendIQ");
+    NSLog(@"didSendIQ: %@", iq.XMLString);
 }
 
 +(NSString *)getServerIPAddress {

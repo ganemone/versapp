@@ -33,21 +33,25 @@
     instance.createdTime = createdTime;
     instance.history = [MessagesDBManager getMessageObjectsForMUC:instance.chatID];
     instance.uninvitedParticpants = NO;
+    
+    NSLog(@"Creating GC: %@", [instance description]);
     return instance;
 }
 
--(void)addPendingParticipants:(NSArray *)participants {
-    NSLog(@"Adding participants: %@", [participants description]);
-    self.participants = participants;
+-(void)setParticipantsPending {
     self.uninvitedParticpants = YES;
 }
 
+-(void)setParticipantsNotPending {
+    self.uninvitedParticpants = NO;
+}
+
 -(void)invitePendingParticpants {
-    NSLog(@"Trying to invite Pending participants");
+    NSLog(@"Inviting Pending Participants: %@", [self description]);
     GroupChatManager *gcm = [GroupChatManager getInstance];
     if (self.uninvitedParticpants == YES) {
         NSLog(@"Does have uninvited participants...");
-        
+        NSLog(@"Participants: %@", [self.participants componentsJoinedByString:@"\n"]);
         XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
         for (int i = 0; i < self.participants.count; i++) {
             NSLog(@"Inviting User: %@", [self.participants objectAtIndex:i]);
@@ -60,7 +64,7 @@
 }
 
 -(void)sendInviteMessageToParticipants {
-    NSLog(@"Sending Invite Message to pending participants");
+    NSLog(@"Sending Message Invite: %@", [self description]);
     if (self.uninvitedParticpants == YES) {
         XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
         for (int i = 0; i < self.participants.count; i++) {
