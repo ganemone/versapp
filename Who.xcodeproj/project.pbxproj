@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A0FE1BF18A99B87003692EB /* ConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0FE1BE18A99B87003692EB /* ConversationTableViewCell.m */; };
+		3A0FE1C118A99EB2003692EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C018A99EB2003692EB /* QuartzCore.framework */; };
+		3A0FE1C318A9A448003692EB /* Pixate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C218A9A448003692EB /* Pixate.framework */; };
+		3A0FE1C518A9A4C7003692EB /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C418A9A4C7003692EB /* CoreText.framework */; };
+		3A0FE1C918A9A90B003692EB /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = 3A0FE1C818A9A90B003692EB /* default.css */; };
 		3A25B6371881E03700166623 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A25B6361881E03700166623 /* Foundation.framework */; };
 		3A25B6391881E03700166623 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A25B6381881E03700166623 /* CoreGraphics.framework */; };
 		3A25B63B1881E03700166623 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A25B63A1881E03700166623 /* UIKit.framework */; };
@@ -192,6 +197,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A0FE1BD18A99B87003692EB /* ConversationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationTableViewCell.h; sourceTree = "<group>"; };
+		3A0FE1BE18A99B87003692EB /* ConversationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationTableViewCell.m; sourceTree = "<group>"; };
+		3A0FE1C018A99EB2003692EB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		3A0FE1C218A9A448003692EB /* Pixate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Pixate.framework; sourceTree = "<group>"; };
+		3A0FE1C418A9A4C7003692EB /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		3A0FE1C818A9A90B003692EB /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = default.css; sourceTree = "<group>"; };
 		3A25B6331881E03700166623 /* Who.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Who.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A25B6361881E03700166623 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3A25B6381881E03700166623 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -539,6 +550,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A0FE1C518A9A4C7003692EB /* CoreText.framework in Frameworks */,
+				3A0FE1C118A99EB2003692EB /* QuartzCore.framework in Frameworks */,
+				3A0FE1C318A9A448003692EB /* Pixate.framework in Frameworks */,
 				3A39475D18A06483005730D2 /* CoreData.framework in Frameworks */,
 				3AF19A761881F6C300F3E4D3 /* libresolv.dylib in Frameworks */,
 				3AF19A4E1881F11800F3E4D3 /* Security.framework in Frameworks */,
@@ -566,6 +580,7 @@
 		3A25B62A1881E03700166623 = {
 			isa = PBXGroup;
 			children = (
+				3A0FE1C818A9A90B003692EB /* default.css */,
 				3A720CB118A1C1D400423959 /* XMPPFramework.h */,
 				3A25B63C1881E03700166623 /* Who */,
 				3A25B65E1881E03700166623 /* WhoTests */,
@@ -586,6 +601,9 @@
 		3A25B6351881E03700166623 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3A0FE1C418A9A4C7003692EB /* CoreText.framework */,
+				3A0FE1C218A9A448003692EB /* Pixate.framework */,
+				3A0FE1C018A99EB2003692EB /* QuartzCore.framework */,
 				3A39475C18A06483005730D2 /* CoreData.framework */,
 				3AF19A751881F6C300F3E4D3 /* libresolv.dylib */,
 				3AF19A4D1881F11800F3E4D3 /* Security.framework */,
@@ -1247,6 +1265,8 @@
 				3A25B6721881E83500166623 /* DashboardViewController.m */,
 				3AAE9B181894A049003B4560 /* ConversationViewController.h */,
 				3AAE9B191894A049003B4560 /* ConversationViewController.m */,
+				3A0FE1BD18A99B87003692EB /* ConversationTableViewCell.h */,
+				3A0FE1BE18A99B87003692EB /* ConversationTableViewCell.m */,
 				3A7D69F11896F12100E18B45 /* OneToOneConversationViewController.h */,
 				3A7D69F21896F12100E18B45 /* OneToOneConversationViewController.m */,
 				3A25B6741881E84800166623 /* FriendsViewController.h */,
@@ -1574,6 +1594,7 @@
 				3A25B6411881E03700166623 /* InfoPlist.strings in Resources */,
 				3AF19A6E1881F34A00F3E4D3 /* README.txt in Resources */,
 				3A25B64A1881E03700166623 /* Main.storyboard in Resources */,
+				3A0FE1C918A9A90B003692EB /* default.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1592,6 +1613,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A0FE1BF18A99B87003692EB /* ConversationTableViewCell.m in Sources */,
 				3AF19AC61881F81900F3E4D3 /* XMPPStream.m in Sources */,
 				3A720C5D18A1C06700423959 /* XMPPProcessOne.m in Sources */,
 				3A720C6918A1C06700423959 /* XMPPIQ+JabberRPC.m in Sources */,
@@ -1832,7 +1854,10 @@
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-lxml2";
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+				);
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1866,7 +1891,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				OTHER_LDFLAGS = "-lxml2";
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+				);
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1877,6 +1905,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/giancarloanemone/Desktop/ios/Who,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Who-Prefix.pch";
 				INFOPLIST_FILE = "Who/Who-Info.plist";
@@ -1895,6 +1927,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/giancarloanemone/Desktop/ios/Who,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Who-Prefix.pch";
 				INFOPLIST_FILE = "Who/Who-Info.plist";

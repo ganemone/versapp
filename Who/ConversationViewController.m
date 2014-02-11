@@ -9,6 +9,7 @@
 #import "ConversationViewController.h"
 #import "Constants.h"
 #import "MessagesDBManager.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface ConversationViewController ()
 
@@ -37,7 +38,7 @@
     [self.conversationTableView setDataSource:self];
     [self.messageTextField setDelegate:self];
     [self.messageTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-    
+    [self.conversationTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -66,10 +67,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_CONVERSATION_PROTOTYPE forIndexPath:indexPath];
-    NSString *text = [self.gc getMessageTextByIndex:indexPath.row];
-    cell.textLabel.text = text;
     cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     cell.textLabel.numberOfLines = 0;
+    NSString *text = [self.gc getMessageTextByIndex:indexPath.row];
+    cell.textLabel.text = text;
     return cell;
 }
 
@@ -79,7 +80,7 @@
     CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
     CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
     
-    return labelSize.height + 20;
+    return labelSize.height + 10;
 }
 
 -(void)messageReceived:(NSNotification*)notification {
