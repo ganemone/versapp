@@ -38,7 +38,7 @@
     [self.conversationTableView setDataSource:self];
     [self.messageTextField setDelegate:self];
     [self.messageTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-    [self.conversationTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    //[self.conversationTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
