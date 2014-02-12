@@ -11,9 +11,7 @@
 #import "JSMessagesViewController.h"
 
 @interface ConversationViewController : JSMessagesViewController <JSMessagesViewDelegate, JSMessagesViewDataSource> {
-    IBOutlet UITableView *conversationTableView;
 }
-@property (strong, nonatomic) IBOutlet UITableView *conversationTableView;
 @property (strong, nonatomic) GroupChat *gc;
 
 @end

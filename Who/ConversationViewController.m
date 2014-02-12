@@ -21,7 +21,6 @@
 @implementation ConversationViewController
 
 @synthesize gc;
-@synthesize conversationTableView;
 @synthesize cameraButton;
 
 - (void)viewDidLoad
@@ -32,9 +31,6 @@
     self.navigationItem.title = self.gc.name;
     self.delegate = self;
     self.dataSource = self;
-    [self.conversationTableView setDelegate:self];
-    [self.conversationTableView setDataSource:self];
-    
     //[self.conversationTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -59,32 +55,14 @@
 {
     return [self.gc getNumberOfMessages];
 }
-/*
- - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
- {
- UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_CONVERSATION_PROTOTYPE forIndexPath:indexPath];
- cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
- cell.textLabel.numberOfLines = 0;
- NSString *text = [self.gc getMessageTextByIndex:indexPath.row];
- cell.textLabel.text = text;
- return cell;
- }
- 
- -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
- NSString *cellText = [self.gc getMessageTextByIndex:indexPath.row];
- UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:14.0];
- CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
- CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
- 
- return labelSize.height + 10;
- }
- */
+
 -(void)messageReceived:(NSNotification*)notification {
     NSDictionary *userInfo = notification.userInfo;
     if ([(NSString*)[userInfo objectForKey:MESSAGE_PROPERTY_GROUP_ID] compare:self.gc.chatID] == 0) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.gc.getNumberOfMessages - 1 inSection:0];
         NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
-        [self.conversationTableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationLeft];
+        [self.tableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationFade];
+        [self scrollToBottomAnimated:YES];
     }
 }
 
@@ -101,7 +79,7 @@
 -(id<JSMessageData>)messageForRowAtIndexPath:(NSIndexPath *)indexPath {
     Message * message = [self.gc getMessageByIndex:indexPath.row];
     NSDate *date = [NSDate dateWithTimeIntervalSince1970: [message.timestamp doubleValue]];
-    JSMessage *jmessage = [[JSMessage alloc] initWithText:message.body sender:@"Sender..." date:date];
+    JSMessage *jmessage = [[JSMessage alloc] initWithText:message.body sender:@"" date:date];
     return jmessage;
 }
 
@@ -144,14 +122,23 @@
 }
 
 -(UIImageView *)avatarImageViewForRowAtIndexPath:(NSIndexPath *)indexPath sender:(NSString *)sender {
-    UIImageView *image = [[UIImageView alloc] init];
-    return image;
+    return nil;
 }
 
 -(void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
     [self.gc sendMUCMessage:text];
     [self finishSend];
-    [self scrollToBottomAnimated:YES];
+    //[self scrollToBottomAnimated:YES];
+}
+
+- (BOOL)shouldPreventScrollToBottomWhileUserScrolling
+{
+    return YES;
+}
+
+- (BOOL)allowsPanToDismissKeyboard
+{
+    return YES;
 }
 
 @end
