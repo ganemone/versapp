@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "GroupChat.h"
+#import "JSMessagesViewController.h"
 
-@interface ConversationViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
+@interface ConversationViewController : JSMessagesViewController <JSMessagesViewDelegate, JSMessagesViewDataSource, UITextFieldDelegate> {
     IBOutlet UITableView *conversationTableView;
     IBOutlet UITextField *messageTextField;
 }

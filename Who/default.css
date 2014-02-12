@@ -27,11 +27,11 @@
  * --------------------------------
  */
 /* Global app backgrounbd */
-table-view,
+/*table-view,
 table-view-cell,
 scroll-view,
 text-view {
-  background-color: white; }
+  background-color: white; }*/
 
 /* Containers */
 .container {
@@ -1366,6 +1366,7 @@ pixate-config {
  * Tables
  * --------------------------------
  */
+
 .table-cell text-label {
   color: #53555a;
   font-family: "Avenir";
@@ -1378,22 +1379,6 @@ pixate-config {
 .table-cell:nth-child(odd) {
   background-color: #f7f7f7; }
 
-.conversation-table-view {
-  separator-style:none;
-}
-
-.conversation-table-cell text-label {
-  color: #53555a;
-  font-family: "Avenir";
-  font-size: 14pt;
-  font-weight: light;
-}
-
-.conversation-table-cell {
-  background-color: white;
-  border: 1px solid #000000;
-  border-radius: 3px;
-}
 
 /* Note: would prefer to use classes here, but since we're not using a custom section view, there's no easy way to set one */
 table-view-headerfooter-view {
