@@ -15,7 +15,6 @@
 @interface ConversationViewController ()
 
 @property (strong, nonatomic) IBOutlet UIButton *cameraButton;
-@property CGPoint originalCenter;
 
 @end
 
@@ -23,23 +22,18 @@
 
 @synthesize gc;
 @synthesize conversationTableView;
-@synthesize messageTextField;
 @synthesize cameraButton;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     NSLog(@"Current GC: %@", [self.gc description]);
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceived:) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
     self.navigationItem.title = self.gc.name;
-    self.originalCenter = self.view.center;
     self.delegate = self;
     self.dataSource = self;
     [self.conversationTableView setDelegate:self];
     [self.conversationTableView setDataSource:self];
-    [self.messageTextField setDelegate:self];
-    [self.messageTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     
     //[self.conversationTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     // Uncomment the following line to preserve selection between presentations.
@@ -66,25 +60,25 @@
     return [self.gc getNumberOfMessages];
 }
 /*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_CONVERSATION_PROTOTYPE forIndexPath:indexPath];
-    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    cell.textLabel.numberOfLines = 0;
-    NSString *text = [self.gc getMessageTextByIndex:indexPath.row];
-    cell.textLabel.text = text;
-    return cell;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *cellText = [self.gc getMessageTextByIndex:indexPath.row];
-    UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:14.0];
-    CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
-    CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
-    
-    return labelSize.height + 10;
-}
-*/
+ - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_CONVERSATION_PROTOTYPE forIndexPath:indexPath];
+ cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+ cell.textLabel.numberOfLines = 0;
+ NSString *text = [self.gc getMessageTextByIndex:indexPath.row];
+ cell.textLabel.text = text;
+ return cell;
+ }
+ 
+ -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+ NSString *cellText = [self.gc getMessageTextByIndex:indexPath.row];
+ UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:14.0];
+ CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
+ CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
+ 
+ return labelSize.height + 10;
+ }
+ */
 -(void)messageReceived:(NSNotification*)notification {
     NSDictionary *userInfo = notification.userInfo;
     if ([(NSString*)[userInfo objectForKey:MESSAGE_PROPERTY_GROUP_ID] compare:self.gc.chatID] == 0) {
@@ -93,51 +87,11 @@
         [self.conversationTableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationLeft];
     }
 }
--(void)keyboardDidShow:(NSNotification*)notification {
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.25];
-    NSDictionary *info = notification.userInfo;
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    [self.view setCenter:CGPointMake(self.view.center.x, self.view.center.y - kbSize.height)];
-    [UIView commitAnimations];
-}
-
--(void)textFieldDidBeginEditing:(UITextField *)textField {
-    if (textField.text.length > 0) {
-        self.messageTextField.returnKeyType = UIReturnKeySend;
-    } else {
-        self.messageTextField.returnKeyType = UIReturnKeyDone;
-    }
-    [self.messageTextField reloadInputViews];
-}
-
--(void)textFieldDidChange:(UITextField *)textField {
-    if (textField.text.length > 0) {
-        self.messageTextField.returnKeyType = UIReturnKeySend;
-    } else {
-        self.messageTextField.returnKeyType = UIReturnKeyDone;
-    }
-    [self.messageTextField reloadInputViews];
-}
-
--(BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if(self.messageTextField.returnKeyType == UIReturnKeySend) {
-        [self sendMUCMessage];
-    }
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.25];
-    [self.view setCenter:self.originalCenter];
-    [UIView commitAnimations];
-    [textField resignFirstResponder];
-    return YES;
-}
-
--(void)sendMUCMessage {
-    [self.gc sendMUCMessage:self.messageTextField.text];
-}
 
 -(JSBubbleMessageType)messageTypeForRowAtIndexPath:(NSIndexPath *)indexPath {
     Message * message = [self.gc getMessageByIndex:indexPath.row];
+    NSLog(@"Message Sender: %@", message.sender);
+    NSLog(@"User: %@", [ConnectionProvider getUser]);
     if ([message.sender compare:[ConnectionProvider getUser]] == 0) {
         return JSBubbleMessageTypeOutgoing;
     }
@@ -152,7 +106,7 @@
 }
 
 -(void)configureCell:(JSBubbleMessageCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-   if ([cell messageType] == JSBubbleMessageTypeOutgoing) {
+    if ([cell messageType] == JSBubbleMessageTypeOutgoing) {
         cell.bubbleView.textView.textColor = [UIColor whiteColor];
         
         if ([cell.bubbleView.textView respondsToSelector:@selector(linkTextAttributes)]) {
@@ -175,13 +129,14 @@
 - (UIImageView *)bubbleImageViewWithType:(JSBubbleMessageType)type
                        forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row % 2) {
+    if (type == JSBubbleMessageTypeIncoming) {
         return [JSBubbleImageViewFactory bubbleImageViewForType:type
                                                           color:[UIColor js_bubbleLightGrayColor]];
     }
-    
-    return [JSBubbleImageViewFactory bubbleImageViewForType:type
-                                                      color:[UIColor js_bubbleBlueColor]];
+    else {
+        return [JSBubbleImageViewFactory bubbleImageViewForType:type
+                                                          color:[UIColor js_bubbleBlueColor]];
+    }
 }
 
 -(JSMessageInputViewStyle)inputViewStyle {
@@ -194,9 +149,9 @@
 }
 
 -(void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
-    NSLog(@"Did send text...");
+    [self.gc sendMUCMessage:text];
+    [self finishSend];
+    [self scrollToBottomAnimated:YES];
 }
-
-
 
 @end

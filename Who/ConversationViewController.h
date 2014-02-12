@@ -10,13 +10,10 @@
 #import "GroupChat.h"
 #import "JSMessagesViewController.h"
 
-@interface ConversationViewController : JSMessagesViewController <JSMessagesViewDelegate, JSMessagesViewDataSource, UITextFieldDelegate> {
+@interface ConversationViewController : JSMessagesViewController <JSMessagesViewDelegate, JSMessagesViewDataSource> {
     IBOutlet UITableView *conversationTableView;
-    IBOutlet UITextField *messageTextField;
 }
 @property (strong, nonatomic) IBOutlet UITableView *conversationTableView;
-@property (strong, nonatomic) IBOutlet UITextField *messageTextField;
-
 @property (strong, nonatomic) GroupChat *gc;
 
 @end

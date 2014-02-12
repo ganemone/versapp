@@ -365,21 +365,6 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="styleClass" value="conversation-table-view"/>
                                 </userDefinedRuntimeAttributes>
                             </tableView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a message..." minimumFontSize="17" id="f8M-9d-3Bq">
-                                <rect key="frame" x="20" y="390" width="259" height="30"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="alphabet" returnKeyType="send"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="quo-Pc-AQO">
-                                <rect key="frame" x="281" y="390" width="39" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="Pic">
-                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -387,9 +372,7 @@
                         <barButtonItem key="backBarButtonItem" title="Dashboard" id="mgi-GM-OSh"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="cameraButton" destination="quo-Pc-AQO" id="TgO-IU-BRE"/>
                         <outlet property="conversationTableView" destination="fsa-06-nqb" id="hUb-CG-LIC"/>
-                        <outlet property="messageTextField" destination="f8M-9d-3Bq" id="qC3-Gz-nzo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yd9-J6-Wir" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -505,7 +488,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="pEG-HD-mlj"/>
         <segue reference="nm9-Jz-pS1"/>
+        <segue reference="v72-9M-1Zf"/>
     </inferredMetricsTieBreakers>
 </document>
