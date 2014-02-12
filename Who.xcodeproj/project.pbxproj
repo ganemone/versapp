@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3A0FE1BF18A99B87003692EB /* ConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0FE1BE18A99B87003692EB /* ConversationTableViewCell.m */; };
 		3A0FE1C118A99EB2003692EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C018A99EB2003692EB /* QuartzCore.framework */; };
 		3A0FE1C318A9A448003692EB /* Pixate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C218A9A448003692EB /* Pixate.framework */; };
 		3A0FE1C518A9A4C7003692EB /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C418A9A4C7003692EB /* CoreText.framework */; };
@@ -257,8 +256,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3A0FE1BD18A99B87003692EB /* ConversationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationTableViewCell.h; sourceTree = "<group>"; };
-		3A0FE1BE18A99B87003692EB /* ConversationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationTableViewCell.m; sourceTree = "<group>"; };
 		3A0FE1C018A99EB2003692EB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3A0FE1C218A9A448003692EB /* Pixate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Pixate.framework; sourceTree = "<group>"; };
 		3A0FE1C418A9A4C7003692EB /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -1604,8 +1601,6 @@
 				3A25B6721881E83500166623 /* DashboardViewController.m */,
 				3AAE9B181894A049003B4560 /* ConversationViewController.h */,
 				3AAE9B191894A049003B4560 /* ConversationViewController.m */,
-				3A0FE1BD18A99B87003692EB /* ConversationTableViewCell.h */,
-				3A0FE1BE18A99B87003692EB /* ConversationTableViewCell.m */,
 				3A7D69F11896F12100E18B45 /* OneToOneConversationViewController.h */,
 				3A7D69F21896F12100E18B45 /* OneToOneConversationViewController.m */,
 				3A25B6741881E84800166623 /* FriendsViewController.h */,
@@ -1999,7 +1994,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A3A0ADC18AB1126006FBAE4 /* UIImage+JSMessagesView.m in Sources */,
-				3A0FE1BF18A99B87003692EB /* ConversationTableViewCell.m in Sources */,
 				3AF19AC61881F81900F3E4D3 /* XMPPStream.m in Sources */,
 				3A720C5D18A1C06700423959 /* XMPPProcessOne.m in Sources */,
 				3A720C6918A1C06700423959 /* XMPPIQ+JabberRPC.m in Sources */,
