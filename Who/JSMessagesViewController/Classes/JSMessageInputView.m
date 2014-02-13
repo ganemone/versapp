@@ -71,7 +71,7 @@
      [self addSubview:inputFieldBack];
      }
      else {*/
-    _textView.frame = CGRectMake(4.0f, 4.5f, width, height);
+    _textView.frame = CGRectMake(4.0f + 40.0f, 4.5f, width, height);
     _textView.backgroundColor = [UIColor clearColor];
     _textView.layer.borderColor = [UIColor colorWithWhite:0.8f alpha:1.0f].CGColor;
     _textView.layer.borderWidth = 0.65f;
@@ -92,14 +92,12 @@
     [cameraButton setTitleColor:[UIColor js_bubbleLightGrayColor] forState:UIControlStateDisabled];
     
     cameraButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0f];
-    //}
-    
     NSString *title = NSLocalizedString(@"Pic", nil);
     [cameraButton setTitle:title forState:UIControlStateNormal];
     [cameraButton setTitle:title forState:UIControlStateHighlighted];
     [cameraButton setTitle:title forState:UIControlStateDisabled];
     
-    cameraButton.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin);
+    cameraButton.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin);
     
     [self setCameraButton:cameraButton];
 }
@@ -212,7 +210,7 @@
         [_cameraButton removeFromSuperview];
     
     CGFloat padding = 8.0f;
-    btn.frame = CGRectMake(self.textView.frame.origin.x + self.textView.frame.size.width + 60.0f,
+    btn.frame = CGRectMake(4.0f,
                            padding,
                            40.0f,
                            self.textView.frame.size.height - padding);
