@@ -14,14 +14,11 @@
 #import "ConnectionProvider.h"
 @interface ConversationViewController ()
 
-@property (strong, nonatomic) IBOutlet UIButton *cameraButton;
-
 @end
 
 @implementation ConversationViewController
 
 @synthesize gc;
-@synthesize cameraButton;
 
 - (void)viewDidLoad
 {

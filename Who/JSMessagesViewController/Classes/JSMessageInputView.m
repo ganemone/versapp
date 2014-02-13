@@ -24,6 +24,7 @@
 - (void)setup;
 - (void)configureInputBarWithStyle:(JSMessageInputViewStyle)style;
 - (void)configureSendButtonWithStyle:(JSMessageInputViewStyle)style;
+- (void)configureCameraButton;
 
 @end
 
@@ -45,7 +46,8 @@
 {
     //CGFloat sendButtonWidth = (style == JSMessageInputViewStyleClassic) ? 78.0f : 64.0f;
     CGFloat sendButtonWidth = 64.0f;
-    CGFloat width = self.frame.size.width - sendButtonWidth;
+    CGFloat cameraButttonWidth = 40.0f;
+    CGFloat width = self.frame.size.width - sendButtonWidth - cameraButttonWidth;
     CGFloat height = [JSMessageInputView textViewLineHeight];
     
     JSMessageTextView *textView = [[JSMessageTextView  alloc] initWithFrame:CGRectZero];
@@ -80,10 +82,31 @@
     //}
 }
 
+- (void)configureCameraButton {
+    UIButton *cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    cameraButton.backgroundColor = [UIColor clearColor];
+    
+    [cameraButton setTitleColor:[UIColor js_bubbleBlueColor] forState:UIControlStateNormal];
+    [cameraButton setTitleColor:[UIColor js_bubbleBlueColor] forState:UIControlStateHighlighted];
+    [cameraButton setTitleColor:[UIColor js_bubbleLightGrayColor] forState:UIControlStateDisabled];
+    
+    cameraButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0f];
+    //}
+    
+    NSString *title = NSLocalizedString(@"Pic", nil);
+    [cameraButton setTitle:title forState:UIControlStateNormal];
+    [cameraButton setTitle:title forState:UIControlStateHighlighted];
+    [cameraButton setTitle:title forState:UIControlStateDisabled];
+    
+    cameraButton.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin);
+    
+    [self setCameraButton:cameraButton];
+}
+
 - (void)configureSendButtonWithStyle:(JSMessageInputViewStyle)style
 {
     UIButton *sendButton;
-    
     /*if (style == JSMessageInputViewStyleClassic) {
      NSLog(@"Configuring Classic...");
      sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -139,6 +162,7 @@
         [self setup];
         [self configureInputBarWithStyle:style];
         [self configureSendButtonWithStyle:style];
+        [self configureCameraButton];
         
         _textView.delegate = delegate;
         _textView.keyboardDelegate = delegate;
@@ -179,6 +203,19 @@
                            self.textView.frame.size.height - padding);
     //}
     
+    [self addSubview:btn];
+    _sendButton = btn;
+}
+
+-(void)setCameraButton:(UIButton *)btn {
+    if (_cameraButton)
+        [_cameraButton removeFromSuperview];
+    
+    CGFloat padding = 8.0f;
+    btn.frame = CGRectMake(self.textView.frame.origin.x + self.textView.frame.size.width + 60.0f,
+                           padding,
+                           40.0f,
+                           self.textView.frame.size.height - padding);
     [self addSubview:btn];
     _sendButton = btn;
 }

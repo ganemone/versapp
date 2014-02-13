@@ -51,6 +51,8 @@ typedef NS_ENUM(NSUInteger, JSMessageInputViewStyle) {
  *  @see JSMessageInputViewStyle.
  */
 @property (weak, nonatomic) UIButton *sendButton;
+// Button for camera added by G
+@property (weak, nonatomic) UIButton *cameraButton;
 
 #pragma mark - Initialization
 
