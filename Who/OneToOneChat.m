@@ -23,9 +23,11 @@
         instance.name = @"Anonymous Friend";
     } else {
         ChatParticipantVCardBuffer *buffer = [ChatParticipantVCardBuffer getInstance];
-        NSDictionary *vcard = [buffer getVCard:invitedID];
+        UserProfile *vcard = [buffer getVCard:invitedID];
         if (vcard != NULL) {
-            instance.name = [vcard objectForKey:VCARD_TAG_NICKNAME];
+            if (vcard.nickname != NULL) {
+                instance.name = vcard.nickname;
+            }
         } else {
             instance.name = @"Loading...";
         }

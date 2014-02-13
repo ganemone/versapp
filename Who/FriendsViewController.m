@@ -33,9 +33,8 @@
 @interface FriendsViewController()
 
 @property (strong, nonatomic) ConnectionProvider* cp;
-@property (strong, nonatomic) NSArray *accepted;
-@property (strong, nonatomic) NSArray *pending;
 @property (strong, nonatomic) NSArray *searchResults;
+@property (strong, nonatomic) ChatParticipantVCardBuffer *buff;
 @property (strong, nonatomic) NSMutableArray *selectedJIDs;
 @property (strong, nonatomic) GroupChat *createdGroupChat;
 @property (strong, nonatomic) OneToOneChat *createdOneToOneChat;
@@ -50,9 +49,7 @@
 @implementation FriendsViewController
 
 -(void)viewDidLoad{
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleGetRosterPacketReceived:) name:PACKET_ID_GET_ROSTER object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData:) name:PACKET_ID_GET_VCARD object:nil];
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCreatedMUC:) name:NOTIFICATION_CREATED_MUC object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedInvitingUsersToMUC:) name:NOTIFICATION_FINISHED_INVITING_MUC_USERS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCreatedOneToOneChat:) name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT object:nil];
     self.isSelecting = NO;
@@ -60,7 +57,11 @@
     self.selectedJIDs = [[NSMutableArray alloc] initWithCapacity:10];
     self.cp = [ConnectionProvider getInstance];
     self.ldm = [LoadingDialogManager create:self.view];
-    [[self.cp getConnection] sendElement:[IQPacketManager createGetRosterPacket]];
+    self.buff = [ChatParticipantVCardBuffer getInstance];
+    NSArray *userProfiles = [self.buff getAcceptedUserProfiles];
+    for (int i = 0; i < [userProfiles count]; i++) {
+        NSLog(@"User Profile: %@", [[userProfiles objectAtIndex:i] description]);
+    }
 }
 
 - (IBAction)beginSelectingFriendsForGroup:(id)sender {
@@ -85,20 +86,11 @@
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(beginSelectingFriendsForGroup:)] animated:YES];
     self.navigationItem.leftBarButtonItem = nil;
     self.isSelecting = NO;
-    for (int i = 0; i < self.accepted.count; i++) {
+    for (int i = 0; i < self.buff.accepted.count; i++) {
         NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
         [[self.tableView cellForRowAtIndexPath:path] setAccessoryType:UITableViewCellAccessoryNone];
     }
     [self.selectedJIDs removeAllObjects];
-}
-
--(void)handleGetRosterPacketReceived: (NSNotification*) notification{
-    NSDictionary *data = notification.userInfo;
-    NSMutableArray *pending = [data objectForKey:USER_STATUS_PENDING];
-    NSMutableArray *accepted =[data objectForKey:USER_STATUS_FRIENDS];
-    self.accepted = accepted;
-    self.pending = pending;
-    [self.tableView reloadData];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -113,13 +105,13 @@
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         currentItem = [self.searchResults objectAtIndex:indexPath.row];
     } else {
-        currentItem = [self.accepted objectAtIndex:indexPath.row];
+        currentItem = [self.buff getVCard:[self.buff.accepted objectAtIndex:indexPath.row]];
     }
     
     ChatParticipantVCardBuffer *buff = [ChatParticipantVCardBuffer getInstance];
     if ([buff hasVCard:currentItem.jid] == YES) {
-        currentItem.name = [buff getName:currentItem.jid];
-        cell.textLabel.text = currentItem.name;
+        currentItem.nickname = [buff getName:currentItem.jid];
+        cell.textLabel.text = currentItem.nickname;
     } else {
         cell.textLabel.text = @"Loading...";
     }
@@ -140,7 +132,7 @@
         if ([self.searchResults count] > 0) {
             jid = ((UserProfile*)[self.searchResults objectAtIndex:indexPath.row]).jid;
         } else {
-            jid = ((UserProfile*)[self.accepted objectAtIndex:indexPath.row]).jid;
+            jid = ((UserProfile*)[self.buff getVCard:[self.buff.accepted objectAtIndex:indexPath.row]]).jid;
         }
         if (self.isSelecting) {
             if(cell.accessoryType == UITableViewCellAccessoryCheckmark){
@@ -169,7 +161,7 @@
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         return [self.searchResults count];
     } else {
-        return [self.accepted count];
+        return [self.buff.accepted count];
     }
 }
 
@@ -179,8 +171,8 @@
 
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
 {
-    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"name contains[c] %@", searchText];
-    self.searchResults = [self.accepted filteredArrayUsingPredicate:resultPredicate];
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"nickname contains[c] %@", searchText];
+    self.searchResults = [[self.buff getAcceptedUserProfiles] filteredArrayUsingPredicate:resultPredicate];
 }
 
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
@@ -235,10 +227,10 @@
     NSIndexPath *path;
     UITableViewCell *cell;
     NSString *jid;
-    for (int i = 0; i < self.accepted.count; i++) {
+    for (int i = 0; i < self.buff.accepted.count; i++) {
         path = [NSIndexPath indexPathForRow:i inSection:0];
         cell = [self.tableView cellForRowAtIndexPath:path];
-        jid = ((UserProfile*)[self.accepted objectAtIndex:i]).jid;
+        jid = ((UserProfile*)[self.buff getVCard:[self.buff.accepted objectAtIndex:path.row]]).jid;
         if ([self.selectedJIDs containsObject:jid]) {
             [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
         } else {

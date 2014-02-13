@@ -75,19 +75,19 @@
         }
         if([type isEqualToString:CHAT_TYPE_GROUP]) {
             [gcm addChat:[GroupChat create:chatId participants:participants groupName:name owner:owner createdTime:createdTime]];
-            for (int i = 0; i < participants.count; i++) {
+            /*for (int i = 0; i < participants.count; i++) {
                 if([buff hasVCard:[participants objectAtIndex:i]] == NO) {
                     DDXMLElement *packet = [IQPacketManager createGetVCardPacket:[participants objectAtIndex:i]];
                     [conn sendElement:packet];
                 }
-            }
+            }*/
         } else if([type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
             [cm addChat:[OneToOneChat create:chatId inviterID:owner invitedID:participantString createdTimestamp:createdTime]];
-            if([participantString compare:[ConnectionProvider getServerIPAddress]] != 0) {
+            /*if([participantString compare:[ConnectionProvider getServerIPAddress]] != 0) {
                 if([buff hasVCard:participantString] == NO) {
                     [conn sendElement:[IQPacketManager createGetVCardPacket:participantString]];
                 }
-            }
+            }*/
         }
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
@@ -128,6 +128,7 @@
 }
 
 +(void)handleGetVCardPacket:(XMPPIQ *)packet {
+    NSLog(@"\n\n Handling VCard Packet \n\n");
     NSString *firstName, *lastName, *username, *email, *itemName, *nickname;
     NSArray *children = [packet children];
     for (int i = 0; i < children.count; i++) {
@@ -154,15 +155,10 @@
             }
         }
     }
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                              firstName, VCARD_TAG_FIRST_NAME,
-                              lastName, VCARD_TAG_LAST_NAME,
-                              username, VCARD_TAG_USERNAME,
-                              email, VCARD_TAG_EMAIL,
-                              nickname, VCARD_TAG_NICKNAME, nil];
+
     ChatParticipantVCardBuffer *buff = [ChatParticipantVCardBuffer getInstance];
-    [buff addVCard:userInfo];
-    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_VCARD object:nil userInfo:userInfo];
+    [buff updateUserProfile:username firstName:firstName lastName:lastName nickname:nickname email:email];
+    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_VCARD object:nil];
 }
 
 +(void)handleGetPendingChatsPacket:(XMPPIQ *)packet {
@@ -198,6 +194,8 @@
 }
 
 +(void)handleGetRosterPacket: (XMPPIQ *)iq{
+    NSLog(@"\n\n Handling Roster Packet \n\n");
+    
     NSError *error = NULL;
     DDXMLElement *query = [[iq children] firstObject];
     NSArray *items = [query children];
@@ -216,18 +214,18 @@
         NSRegularExpression *regexJid = [NSRegularExpression regularExpressionWithPattern:@"jid=\"(.*)@" options: 0 error:&error];
         NSTextCheckingResult *matchJid = [regexJid firstMatchInString:jid options:0 range:NSMakeRange(0,jid.length)];
         NSString *resultJid = [jid substringWithRange:[matchJid rangeAtIndex:1]];
-        if ([buff hasVCard:jid] == NO) {
-            [conn sendElement:[IQPacketManager createGetVCardPacket:resultJid]];
-        }
+        [conn sendElement:[IQPacketManager createGetVCardPacket:resultJid]];
         if ([subscription rangeOfString:@"none"].location == NSNotFound){
-            [acceptedFriends addObject:[UserProfile create:resultJid subscription_status: USER_STATUS_FRIENDS]];
+            [acceptedFriends addObject:resultJid];
+            [buff addVCard:[UserProfile create:resultJid subscriptionStatus:STATUS_FRIENDS]];
         }
         else {
-            [pendingFriends addObject:[UserProfile create:resultJid subscription_status: USER_STATUS_PENDING]];
+            [pendingFriends addObject:resultJid];
+            [buff addVCard:[UserProfile create:resultJid subscriptionStatus:STATUS_PENDING]];
         }
     }
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:acceptedFriends, USER_STATUS_FRIENDS, pendingFriends, USER_STATUS_PENDING, nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_ROSTER object:nil userInfo:userInfo];
+    [buff setPending:pendingFriends];
+    [buff setAccepted:acceptedFriends];
 }
 
 +(void)handleInviteUserToChatPacket:(XMPPIQ*)iq {

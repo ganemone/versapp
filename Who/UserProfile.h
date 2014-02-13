@@ -10,10 +10,13 @@
 
 @interface UserProfile : NSObject
 
-@property (strong, nonatomic) NSString *subscription_status;
 @property (strong, nonatomic) NSString *jid;
-@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *nickname;
+@property (strong, nonatomic) NSString *email;
+@property (strong, nonatomic) NSString *firstName;
+@property (strong, nonatomic) NSString *lastName;
+@property int subscriptionStatus;
 
-+(UserProfile *) create:(NSString *)jid subscription_status:(NSString *)subscription_status;
++(UserProfile *) create:(NSString *)jid subscriptionStatus:(int)subscriptionStatus;
 
 @end

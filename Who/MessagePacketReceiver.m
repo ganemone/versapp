@@ -33,6 +33,7 @@
     NSTextCheckingResult *invitationResult = [chatInvitationRegex firstMatchInString:message.XMLString options:0 range:NSMakeRange(0, message.XMLString.length)];
     if ([invitationResult numberOfRanges] > 0) {
         [self handleMessageInvitationReceived:[message.XMLString substringWithRange:[invitationResult rangeAtIndex:1]]];
+    } else if([message.type compare:MESSAGE_TYPE_HEADLINE] == 0) {
     } else {
         [self handleChatMessageReceived:message];
     }

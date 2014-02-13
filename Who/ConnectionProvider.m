@@ -133,6 +133,7 @@ static ConnectionProvider *selfInstance;
         [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetLastTimeActivePacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
+        [self.xmppStream sendElement:[IQPacketManager createGetRosterPacket]];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
     }
 }

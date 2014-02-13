@@ -40,6 +40,7 @@ NSString *const VCARD_TAG_EMAIL = @"EMAIL";
 
 NSString *const CHAT_TYPE_GROUP = @"groupchat";
 NSString *const CHAT_TYPE_ONE_TO_ONE = @"chat";
+NSString *const MESSAGE_TYPE_HEADLINE = @"headline";
 
 NSString *const MESSAGE_PROPERTY_BODY = @"message_body";
 NSString *const MESSAGE_PROPERTY_SENDER_ID = @"sender_id";

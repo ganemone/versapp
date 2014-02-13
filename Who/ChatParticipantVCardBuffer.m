@@ -11,98 +11,109 @@
 #import "OneToOneChatManager.h"
 #import "OneToOneChat.h"
 #import "ConnectionProvider.h"
-
-@interface ChatParticipantVCardBuffer()
-
-@property (strong, nonatomic) NSMutableDictionary *vcards;
-@property int numFriends;
-@property int numPending;
-
-@end
+#import "UserProfile.h"
 
 static ChatParticipantVCardBuffer *selfInstance;
 
 @implementation ChatParticipantVCardBuffer
 
-@synthesize numFriends;
-@synthesize numPending;
+@synthesize users;
+@synthesize pending;
+@synthesize accepted;
 
 // Class method (+) for getting instance of Connection Provider
 + (id)getInstance {
     @synchronized(self) {
         if(selfInstance == nil) {
             selfInstance = [[self alloc] init];
-            selfInstance.vcards = [[NSMutableDictionary alloc] init];
-            selfInstance.numFriends = 0;
-            selfInstance.numPending = 0;
+            selfInstance.users = [[NSMutableDictionary alloc] init];
         }
     }
     return selfInstance;
 }
 
--(void)addVCard:(NSDictionary*)vcard {
-    NSString *username = [vcard objectForKey:VCARD_TAG_USERNAME];
-    [self.vcards setValue:vcard forKey:username];
+-(void)addVCard:(UserProfile*)vcard {
+    if ([self.accepted containsObject:vcard.jid]) {
+        [vcard setSubscriptionStatus:STATUS_FRIENDS];
+    } else {
+        [vcard setSubscriptionStatus:STATUS_PENDING];
+    }
+    [self.users setValue:vcard forKey:vcard.jid];
+    [self updateOneToOneChatNames:vcard];
+}
+
+-(UserProfile*)getVCard:(NSString*)username {
+    return [self.users objectForKey:username];
+}
+
+-(NSString *)getName:(NSString *)username {
+    return [[self getVCard:username] nickname];
+}
+
+-(BOOL)hasVCard:(NSString *)username {
+    return ([self.users objectForKey:username] != NULL) ? YES : NO;
+}
+
+-(BOOL)isFriendsWithUser:(NSString *)username {
+    UserProfile *userItem = [self.users objectForKey:username];
+    if (userItem == nil) {
+        return NO;
+    }
+    return (userItem.subscriptionStatus == STATUS_FRIENDS);
+}
+
+-(BOOL)isPendingFriendWithUser:(NSString*)username {
+    UserProfile *userItem = [self.users objectForKey:username];
+    if (userItem == nil) {
+        return NO;
+    }
+    return (userItem.subscriptionStatus == STATUS_PENDING);
+}
+
+-(void)setUserStatusFriends:(NSString*)username {
+    [[self.users objectForKey:username] setSubscriptionStatus:STATUS_FRIENDS];
+}
+
+-(void)setUserStatusPending:(NSString*)username {
+    [[self.users objectForKey:username] setSubscriptionStatus:STATUS_PENDING];
+}
+
+-(void)updateUserProfile:(NSString *)jid firstName:(NSString *)firstName lastName:(NSString *)lastName nickname:(NSString *)nickname email:(NSString *)email {
+    UserProfile *user = [self getVCard:jid];
+    if (jid == nil) {
+        user = [UserProfile create:jid subscriptionStatus:STATUS_REGISTERED];
+        [self.users setObject:user forKey:jid];
+    }
+    [user setFirstName:firstName];
+    [user setLastName:lastName];
+    [user setNickname:nickname];
+    [user setEmail:email];
+    
+    [self updateOneToOneChatNames:user];
+}
+
+-(NSArray*)getAcceptedUserProfiles {
+    for (int i = 0; i < self.accepted.count; i++) {
+        NSLog(@"Accepted JID: %@", [self.accepted objectAtIndex:i]);
+    }
+    NSEnumerator *keyEnumerator = [self.users keyEnumerator];
+    NSString *next;
+    while ((next = keyEnumerator.nextObject) != NULL) {
+        NSLog(@"Key Value: %@", next);
+    }
+    return [self.users objectsForKeys:self.accepted notFoundMarker:[NSNull null]];
+}
+
+-(void)updateOneToOneChatNames:(UserProfile*)vcard {
     OneToOneChatManager *cm = [OneToOneChatManager getInstance];
     OneToOneChat *chat;
     for (int i = 0; i < [cm getNumberOfChats]; i++) {
         chat = [cm getChatByIndex:i];
-        NSLog(@"Invited ID: %@", chat.invitedID);
-        NSLog(@"Inviter ID: %@", chat.inviterID);
-        if([chat.invitedID compare:username] == 0 && [username compare:[ConnectionProvider getUser]] != 0) {
-            chat.name = [vcard objectForKey:VCARD_TAG_NICKNAME];
+        if([chat.invitedID compare:vcard.jid] == 0 && [vcard.jid compare:[ConnectionProvider getUser]] != 0) {
+            chat.name = vcard.nickname;
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
         }
     }
-    if ((int)[vcard objectForKey:FRIENDS_TABLE_COLUMN_NAME_STATUS] == STATUS_FRIENDS) {
-        self.numFriends++;
-    } else if((int)[vcard objectForKey:FRIENDS_TABLE_COLUMN_NAME_STATUS] == STATUS_PENDING) {
-        self.numPending++;
-    }
-}
-
--(NSDictionary*)getVCard:(NSString*)username {
-    return [self.vcards objectForKey:username];
-}
-
--(NSString *)getName:(NSString *)username {
-    return [[self getVCard:username] objectForKey:VCARD_TAG_NICKNAME];
-}
-
--(BOOL)hasVCard:(NSString *)username {
-    return ([self.vcards objectForKey:username] != NULL) ? YES : NO;
-}
-
--(BOOL)isFriendsWithUser:(NSString *)username {
-    NSDictionary *userItem = [self.vcards objectForKey:username];
-    if (userItem == nil) {
-        return NO;
-    }
-    return ((int)[self.vcards objectForKey:FRIENDS_TABLE_COLUMN_NAME_STATUS] == STATUS_FRIENDS);
-}
-
--(BOOL)isPendingFriendWithUser:(NSString*)username {
-    NSDictionary *userItem = [self.vcards objectForKey:username];
-    if (userItem == nil) {
-        return NO;
-    }
-    return ((int)[self.vcards objectForKey:FRIENDS_TABLE_COLUMN_NAME_STATUS] == STATUS_PENDING);
-}
-
--(void)setUserStatusFriends:(NSString*)username {
-    if ((int)[[self.vcards objectForKey:username] objectForKey:FRIENDS_TABLE_COLUMN_NAME_STATUS] == STATUS_PENDING) {
-        self.numPending--;
-    }
-    [[self.vcards objectForKey:username] setObject:[NSNumber numberWithInt:STATUS_FRIENDS] forKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];
-    self.numFriends++;
-}
-
--(void)setUserStatusPending:(NSString*)username {
-    if ((int)[[self.vcards objectForKey:username] objectForKey:FRIENDS_TABLE_COLUMN_NAME_STATUS] == STATUS_FRIENDS) {
-        self.numFriends--;
-    }
-    [[self.vcards objectForKey:username] setObject:[NSNumber numberWithInt:STATUS_PENDING] forKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];
-    self.numPending++;
 }
 
 @end

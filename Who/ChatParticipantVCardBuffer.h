@@ -6,13 +6,19 @@
 //  Copyright (c) 2014 Giancarlo Anemone. All rights reserved.
 //
 
+#import "UserProfile.h"
+
 @interface ChatParticipantVCardBuffer : NSObject
+
+@property (strong, nonatomic) NSMutableDictionary *users;
+@property (strong, nonatomic) NSMutableArray *pending;
+@property (strong, nonatomic) NSMutableArray *accepted;
 
 +(id)getInstance;
 
--(void)addVCard:(NSDictionary*)vcard;
+-(void)addVCard:(UserProfile*)vcard;
 
--(NSDictionary*)getVCard:(NSString*)username;
+-(UserProfile*)getVCard:(NSString*)username;
 
 -(NSString*)getName:(NSString*)username;
 
@@ -21,5 +27,9 @@
 -(BOOL)isFriendsWithUser:(NSString *)username;
 
 -(BOOL)isPendingFriendWithUser:(NSString*)username;
+
+-(void)updateUserProfile:(NSString*)jid firstName:(NSString*)firstName lastName:(NSString*)lastName nickname:(NSString*)nickname email:(NSString*)email;
+
+-(NSArray*)getAcceptedUserProfiles;
 
 @end
