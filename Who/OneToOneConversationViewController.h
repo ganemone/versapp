@@ -8,14 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "OneToOneChat.h"
+#import "JSMessagesViewController.h"
 
-@interface OneToOneConversationViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
-    IBOutlet UITableView *conversationTableView;
-    IBOutlet UITextField *messageTextField;
-}
+@interface OneToOneConversationViewController : JSMessagesViewController <JSMessagesViewDelegate, JSMessagesViewDataSource>
 
-@property (strong, nonatomic) IBOutlet UITableView *conversationTableView;
-@property (strong, nonatomic) IBOutlet UITextField *messageTextField;
 @property (strong, nonatomic) OneToOneChat *chat;
 
 @end

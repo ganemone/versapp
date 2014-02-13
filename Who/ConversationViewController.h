@@ -10,8 +10,8 @@
 #import "GroupChat.h"
 #import "JSMessagesViewController.h"
 
-@interface ConversationViewController : JSMessagesViewController <JSMessagesViewDelegate, JSMessagesViewDataSource> {
-}
+@interface ConversationViewController : JSMessagesViewController <JSMessagesViewDelegate, JSMessagesViewDataSource>
+
 @property (strong, nonatomic) GroupChat *gc;
 
 @end
