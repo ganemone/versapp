@@ -38,6 +38,8 @@
  */
 - (void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date;
 
+- (void)didSelectImage:(UIImage*)image;
+
 /**
  *  Asks the delegate for the message type for the row at the specified index path.
  *
@@ -150,7 +152,7 @@
 /**
  *  An instance of `JSMessagesViewController` is a subclass of `UIViewController` specialized to display a messaging interface.
  */
-@interface JSMessagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate>
+@interface JSMessagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIAlertViewDelegate>
 
 /**
  *  The object that acts as the delegate of the receiving messages view.
@@ -176,6 +178,8 @@
  *  The name of the user sending messages. The default value is `nil`.
  */
 @property (copy, nonatomic) NSString *sender;
+
+@property (strong, nonatomic) UIImage *messageImage;
 
 #pragma mark - Messages view controller
 

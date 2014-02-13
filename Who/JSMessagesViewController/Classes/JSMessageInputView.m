@@ -98,37 +98,13 @@
     [cameraButton setTitle:title forState:UIControlStateDisabled];
     
     cameraButton.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin);
-    
+    [cameraButton setEnabled:YES];
     [self setCameraButton:cameraButton];
 }
 
 - (void)configureSendButtonWithStyle:(JSMessageInputViewStyle)style
 {
     UIButton *sendButton;
-    /*if (style == JSMessageInputViewStyleClassic) {
-     NSLog(@"Configuring Classic...");
-     sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
-     
-     UIEdgeInsets insets = UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f);
-     UIImage *sendBack = [[UIImage imageNamed:@"send-button"] resizableImageWithCapInsets:insets];
-     UIImage *sendBackHighLighted = [[UIImage imageNamed:@"send-button-pressed"] resizableImageWithCapInsets:insets];
-     [sendButton setBackgroundImage:sendBack forState:UIControlStateNormal];
-     [sendButton setBackgroundImage:sendBack forState:UIControlStateDisabled];
-     [sendButton setBackgroundImage:sendBackHighLighted forState:UIControlStateHighlighted];
-     
-     UIColor *titleShadow = [UIColor colorWithRed:0.325f green:0.463f blue:0.675f alpha:1.0f];
-     [sendButton setTitleShadowColor:titleShadow forState:UIControlStateNormal];
-     [sendButton setTitleShadowColor:titleShadow forState:UIControlStateHighlighted];
-     sendButton.titleLabel.shadowOffset = CGSizeMake(0.0f, -1.0f);
-     
-     [sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-     [sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-     [sendButton setTitleColor:[UIColor colorWithWhite:1.0f alpha:0.5f] forState:UIControlStateDisabled];
-     
-     sendButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
-     }
-     else {*/
-    NSLog(@"Configuring Flat...");
     sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
     sendButton.backgroundColor = [UIColor clearColor];
     
@@ -173,6 +149,7 @@
 {
     _textView = nil;
     _sendButton = nil;
+    _cameraButton = nil;
 }
 
 #pragma mark - UIView
@@ -215,7 +192,7 @@
                            40.0f,
                            self.textView.frame.size.height - padding);
     [self addSubview:btn];
-    _sendButton = btn;
+    _cameraButton = btn;
 }
 
 #pragma mark - Message input view

@@ -128,14 +128,8 @@
     //[self scrollToBottomAnimated:YES];
 }
 
-- (BOOL)shouldPreventScrollToBottomWhileUserScrolling
-{
-    return YES;
-}
-
-- (BOOL)allowsPanToDismissKeyboard
-{
-    return YES;
+-(void)didSelectImage:(UIImage *)image {
+    NSLog(@"Did select image: %@", [image description]);
 }
 
 @end

@@ -103,6 +103,11 @@
                              action:@selector(sendPressed:)
                    forControlEvents:UIControlEventTouchUpInside];
     
+    inputView.cameraButton.enabled = YES;
+    [inputView.cameraButton addTarget:self
+                               action:@selector(cameraPressed:)
+                     forControlEvents:UIControlEventTouchUpInside];
+    
     [self.view addSubview:inputView];
     _messageInputView = inputView;
     
@@ -199,6 +204,15 @@
                         onDate:[NSDate date]];
 }
 
+- (void)cameraPressed:(UIButton *)sender {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Add a Picture"
+                                                    message:@""
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Take New", @"Select Existing", nil];
+    [alert show];
+}
+
 - (void)handleTapGestureRecognizer:(UITapGestureRecognizer *)tap
 {
     [self.messageInputView.textView resignFirstResponder];
@@ -236,7 +250,7 @@
     if ([self.delegate respondsToSelector:@selector(customCellIdentifierForRowAtIndexPath:)]) {
         CellIdentifier = [self.delegate customCellIdentifierForRowAtIndexPath:indexPath];
     }
-
+    
     if (!CellIdentifier) {
         CellIdentifier = [NSString stringWithFormat:@"JSMessageCell_%d_%d_%d_%d", (int)type, displayTimestamp, avatar != nil, [message sender] != nil];
     }
@@ -256,11 +270,11 @@
     [cell setAvatarImageView:avatar];
     [cell setBackgroundColor:tableView.backgroundColor];
     
-	#if TARGET_IPHONE_SIMULATOR
-        cell.bubbleView.textView.dataDetectorTypes = UIDataDetectorTypeNone;
-	#else
-		cell.bubbleView.textView.dataDetectorTypes = UIDataDetectorTypeAll;
-	#endif
+#if TARGET_IPHONE_SIMULATOR
+    cell.bubbleView.textView.dataDetectorTypes = UIDataDetectorTypeNone;
+#else
+    cell.bubbleView.textView.dataDetectorTypes = UIDataDetectorTypeAll;
+#endif
 	
     if ([self.delegate respondsToSelector:@selector(configureCell:atIndexPath:)]) {
         [self.delegate configureCell:cell atIndexPath:indexPath];
@@ -326,7 +340,7 @@
 {
     if (self.isUserScrolling) {
         if ([self.delegate respondsToSelector:@selector(shouldPreventScrollToBottomWhileUserScrolling)]
-           && [self.delegate shouldPreventScrollToBottomWhileUserScrolling]) {
+            && [self.delegate shouldPreventScrollToBottomWhileUserScrolling]) {
             return NO;
         }
     }
@@ -361,6 +375,7 @@
 - (void)textViewDidChange:(UITextView *)textView
 {
     self.messageInputView.sendButton.enabled = ([[textView.text js_stringByTrimingWhitespace] length] > 0);
+    
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView
@@ -495,10 +510,10 @@
 																  inputViewFrameY,
 																  inputViewFrame.size.width,
 																  inputViewFrame.size.height);
-
+                         
                          [self setTableViewInsetsWithBottomValue:self.view.frame.size.height
-                                                                - self.messageInputView.frame.origin.y
-                                                                - inputViewFrame.size.height];
+                          - self.messageInputView.frame.origin.y
+                          - inputViewFrame.size.height];
                      }
                      completion:nil];
 }
@@ -551,6 +566,33 @@
             
         default:
             return kNilOptions;
+    }
+}
+
+#pragma mark - Camera
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *image = info[UIImagePickerControllerEditedImage];
+    self.messageImage = image;
+    [self.delegate didSelectImage:image];
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex > 0) {
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        picker.allowsEditing = YES;
+        if (buttonIndex == 1) {
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        } else {
+            picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        }
+        [self presentViewController:picker animated:YES completion:NULL];
     }
 }
 
