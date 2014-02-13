@@ -60,8 +60,6 @@
     NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
     GroupChatManager *gcm = [GroupChatManager getInstance];
     OneToOneChatManager *cm = [OneToOneChatManager getInstance];
-    ChatParticipantVCardBuffer *buff = [ChatParticipantVCardBuffer getInstance];
-    XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
     for (NSTextCheckingResult *match in matches) {
         NSString *participantString = [packetXML substringWithRange:[match rangeAtIndex:1]];
         NSArray *participants = [participantString componentsSeparatedByString:@", "];
