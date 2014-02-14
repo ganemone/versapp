@@ -428,4 +428,18 @@
     
 }
 
++(DDXMLElement *)createGetSessionIDPacket {
+    DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
+	[query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:session"]];
+    
+	DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_GET_SESSION_ID]];
+	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"get"]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[NSString stringWithFormat:@"%@@%@",[ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]]]];
+	[iq addChild:query];
+    
+    return iq;
+}
+
 @end

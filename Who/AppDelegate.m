@@ -10,9 +10,10 @@
 
 @implementation AppDelegate
 
-@synthesize managedObjectContext = _managedObjectContext;
+/*@synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
+@synthesize sessionID = _sessionID;*/
 
 - (NSManagedObjectContext *) managedObjectContext {
     @synchronized(self) {

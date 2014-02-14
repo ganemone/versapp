@@ -30,6 +30,7 @@ NSString *const PACKET_ID_INVITE_USER_TO_CHAT = @"packet_id_invite_user_to_chat"
 NSString *const PACKET_ID_ACCEPT_CHAT_INVITE = @"packet_id_accept_chat_invite";
 NSString *const PACKET_ID_DENY_CHAT_INVITE = @"packet_id_deny_chat_invite";
 NSString *const PACKET_ID_GET_VCARD = @"packet_id_get_vcard";
+NSString *const PACKET_ID_GET_SESSION_ID = @"packet_id_get_session_id";
 
 NSString *const VCARD_TAG_FULL_NAME = @"FN";
 NSString *const VCARD_TAG_FIRST_NAME = @"GIVEN";
