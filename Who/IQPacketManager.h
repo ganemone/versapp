@@ -60,4 +60,6 @@
 
 +(DDXMLElement *)createCreateOneToOneChatPacket:(NSString*)chatID roomName:(NSString*)roomName;
 
++(DDXMLElement *)createGetSessionIDPacket;
+
 @end

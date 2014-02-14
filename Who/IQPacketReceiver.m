@@ -17,6 +17,7 @@
 #import "FriendsDBManager.h"
 #import "MessagesDBManager.h"
 #import "UserProfile.h"
+#import "AppDelegate.h"
 
 @implementation IQPacketReceiver
 
@@ -48,6 +49,8 @@
         [self handleInviteUserToChatPacket:iq];
     } else if([self isPacketWithID:PACKET_ID_CREATE_ONE_TO_ONE_CHAT packet:iq]) {
         [self handleCreateOneToOneChatPacket:iq];
+    } else if([self isPacketWithID:PACKET_ID_GET_SESSION_ID packet:iq]) {
+        [self handleGetSessionIDPacket:iq];
     }
 }
 
@@ -233,6 +236,16 @@
 
 +(void)handleCreateOneToOneChatPacket:(XMPPIQ*)iq {
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_CREATE_ONE_TO_ONE_CHAT object:nil];
+}
+
++(void)handleGetSessionIDPacket:(XMPPIQ*)iq {
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(.*?)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
+    
+    NSTextCheckingResult *match = [regex firstMatchInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [delegate setSessionID:[iq.XMLString substringWithRange:[match rangeAtIndex:1]]];
+    NSLog(@"Session ID: %@", [delegate sessionID]);
 }
 
 @end
