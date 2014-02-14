@@ -20,6 +20,7 @@
 
 @property (assign, nonatomic) CGFloat previousTextViewContentHeight;
 @property (assign, nonatomic) BOOL isUserScrolling;
+@property (strong, nonatomic) NSMutableDictionary *cellCache;
 
 - (void)setup;
 
@@ -49,6 +50,8 @@
 
 - (void)setup
 {
+    self.cellCache = [[NSMutableDictionary alloc] init];
+    
     if ([self.view isKindOfClass:[UIScrollView class]]) {
         // FIXME: hack-ish fix for ipad modal form presentations
         ((UIScrollView *)self.view).scrollEnabled = NO;
@@ -232,6 +235,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    JSBubbleMessageCell *cell;
+    if ((cell = [self.cellCache objectForKey:[NSNumber numberWithInt:indexPath.row]]) != nil) {
+        return cell;
+    }
+    
     JSBubbleMessageType type = [self.delegate messageTypeForRowAtIndexPath:indexPath];
     
     UIImageView *bubbleImageView = [self.delegate bubbleImageViewWithType:type
@@ -255,7 +263,7 @@
         CellIdentifier = [NSString stringWithFormat:@"JSMessageCell_%d_%d_%d_%d", (int)type, displayTimestamp, avatar != nil, [message sender] != nil];
     }
     
-    JSBubbleMessageCell *cell = (JSBubbleMessageCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    cell = (JSBubbleMessageCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (!cell) {
         cell = [[JSBubbleMessageCell alloc] initWithBubbleType:type
@@ -277,8 +285,10 @@
 #endif
 	
     if ([self.delegate respondsToSelector:@selector(configureCell:atIndexPath:)]) {
-        [self.delegate configureCell:cell atIndexPath:indexPath];
+        [self.delegate configureCell:cell atIndexPath:indexPath];                       
     }
+    
+    [self.cellCache setObject:cell forKey:[NSNumber numberWithInt:indexPath.row]];
     
     return cell;
 }
