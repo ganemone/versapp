@@ -194,6 +194,8 @@
 		3AAE9B1718945710003B4560 /* OneToOneChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAE9B1618945710003B4560 /* OneToOneChatManager.m */; };
 		3AAE9B1A1894A049003B4560 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAE9B191894A049003B4560 /* ConversationViewController.m */; };
 		3AB9E67E18A45573001EFDB8 /* LoadingDialogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB9E67D18A45573001EFDB8 /* LoadingDialogManager.m */; };
+		3ABA80D518AE59F9002012C7 /* MessageBubble-Fill.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ABA80D418AE59F9002012C7 /* MessageBubble-Fill.png */; };
+		3ABA80D718AE5BF0002012C7 /* MessageBubble-Fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ABA80D618AE5BF0002012C7 /* MessageBubble-Fill@2x.png */; };
 		3ACA788218833EDB00B384BF /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACA788118833EDB00B384BF /* MainTabBarController.m */; };
 		3AF19A451881EF1600F3E4D3 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF19A3C1881EF1600F3E4D3 /* DDAbstractDatabaseLogger.m */; };
 		3AF19A461881EF1600F3E4D3 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF19A3E1881EF1600F3E4D3 /* DDASLLogger.m */; };
@@ -576,6 +578,8 @@
 		3AAE9B191894A049003B4560 /* ConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
 		3AB9E67C18A45573001EFDB8 /* LoadingDialogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingDialogManager.h; sourceTree = "<group>"; };
 		3AB9E67D18A45573001EFDB8 /* LoadingDialogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingDialogManager.m; sourceTree = "<group>"; };
+		3ABA80D418AE59F9002012C7 /* MessageBubble-Fill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MessageBubble-Fill.png"; sourceTree = "<group>"; };
+		3ABA80D618AE5BF0002012C7 /* MessageBubble-Fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MessageBubble-Fill@2x.png"; sourceTree = "<group>"; };
 		3ACA788018833EDB00B384BF /* MainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabBarController.h; sourceTree = "<group>"; };
 		3ACA788118833EDB00B384BF /* MainTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabBarController.m; sourceTree = "<group>"; };
 		3AF19A3B1881EF1600F3E4D3 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
@@ -908,6 +912,8 @@
 		3A3A0AA618AB1126006FBAE4 /* bubble-classic */ = {
 			isa = PBXGroup;
 			children = (
+				3ABA80D618AE5BF0002012C7 /* MessageBubble-Fill@2x.png */,
+				3ABA80D418AE59F9002012C7 /* MessageBubble-Fill.png */,
 				3A3A0AA718AB1126006FBAE4 /* bubble-classic-blue.png */,
 				3A3A0AA818AB1126006FBAE4 /* bubble-classic-blue@2x.png */,
 				3A3A0AA918AB1126006FBAE4 /* bubble-classic-gray.png */,
@@ -1963,10 +1969,12 @@
 				3A3A0AEC18AB1126006FBAE4 /* bubble-classic-gray.png in Resources */,
 				3A3A0AF118AB1126006FBAE4 /* bubble-classic-selected@2x.png in Resources */,
 				3A3A0AEF18AB1126006FBAE4 /* bubble-classic-green@2x.png in Resources */,
+				3ABA80D718AE5BF0002012C7 /* MessageBubble-Fill@2x.png in Resources */,
 				3A3A0B0518AB1126006FBAE4 /* bubble@2x.png in Resources */,
 				3A3A0AF818AB1126006FBAE4 /* bubble-classic-square-selected.png in Resources */,
 				3A3A0B0318AB1126006FBAE4 /* bubble-tailless@2x.png in Resources */,
 				3A3A0AF918AB1126006FBAE4 /* bubble-classic-square-selected@2x.png in Resources */,
+				3ABA80D518AE59F9002012C7 /* MessageBubble-Fill.png in Resources */,
 				3A25B64A1881E03700166623 /* Main.storyboard in Resources */,
 				3A0FE1CB18A9A9B8003692EB /* default.css in Resources */,
 				3A3A0AF218AB1126006FBAE4 /* bubble-classic-typing.png in Resources */,

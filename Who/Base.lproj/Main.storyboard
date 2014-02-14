@@ -59,7 +59,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ys-sZ-kKc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="838" y="170"/>
+            <point key="canvasLocation" x="838" y="180"/>
         </scene>
         <!--Main Tab Bar Controller-->
         <scene sceneID="Vex-rW-GRa">
@@ -421,6 +421,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="rOT-zb-Yrt"/>
-        <segue reference="v72-9M-1Zf"/>
+        <segue reference="pEG-HD-mlj"/>
     </inferredMetricsTieBreakers>
 </document>
