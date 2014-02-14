@@ -196,6 +196,7 @@
 		3AB9E67E18A45573001EFDB8 /* LoadingDialogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB9E67D18A45573001EFDB8 /* LoadingDialogManager.m */; };
 		3ABA80D518AE59F9002012C7 /* MessageBubble-Fill.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ABA80D418AE59F9002012C7 /* MessageBubble-Fill.png */; };
 		3ABA80D718AE5BF0002012C7 /* MessageBubble-Fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ABA80D618AE5BF0002012C7 /* MessageBubble-Fill@2x.png */; };
+		3ABA80DA18AE5F87002012C7 /* ImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABA80D918AE5F87002012C7 /* ImageManager.m */; };
 		3ACA788218833EDB00B384BF /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACA788118833EDB00B384BF /* MainTabBarController.m */; };
 		3AF19A451881EF1600F3E4D3 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF19A3C1881EF1600F3E4D3 /* DDAbstractDatabaseLogger.m */; };
 		3AF19A461881EF1600F3E4D3 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF19A3E1881EF1600F3E4D3 /* DDASLLogger.m */; };
@@ -580,6 +581,8 @@
 		3AB9E67D18A45573001EFDB8 /* LoadingDialogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingDialogManager.m; sourceTree = "<group>"; };
 		3ABA80D418AE59F9002012C7 /* MessageBubble-Fill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MessageBubble-Fill.png"; sourceTree = "<group>"; };
 		3ABA80D618AE5BF0002012C7 /* MessageBubble-Fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MessageBubble-Fill@2x.png"; sourceTree = "<group>"; };
+		3ABA80D818AE5F87002012C7 /* ImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageManager.h; sourceTree = "<group>"; };
+		3ABA80D918AE5F87002012C7 /* ImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageManager.m; sourceTree = "<group>"; };
 		3ACA788018833EDB00B384BF /* MainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabBarController.h; sourceTree = "<group>"; };
 		3ACA788118833EDB00B384BF /* MainTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabBarController.m; sourceTree = "<group>"; };
 		3AF19A3B1881EF1600F3E4D3 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
@@ -1613,6 +1616,8 @@
 				3A25B6751881E84800166623 /* FriendsViewController.m */,
 				3A25B6771881E85B00166623 /* ContactsViewController.h */,
 				3A25B6781881E85B00166623 /* ContactsViewController.m */,
+				3ABA80D818AE5F87002012C7 /* ImageManager.h */,
+				3ABA80D918AE5F87002012C7 /* ImageManager.m */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -2088,6 +2093,7 @@
 				3A720C5B18A1C06700423959 /* XMPPCoreDataStorage.m in Sources */,
 				3AF19A8C1881F75100F3E4D3 /* XMPPDeprecatedPlainAuthentication.m in Sources */,
 				3A720C6218A1C06700423959 /* XMPPRosterCoreDataStorage.m in Sources */,
+				3ABA80DA18AE5F87002012C7 /* ImageManager.m in Sources */,
 				3A3A0ADB18AB1126006FBAE4 /* UIColor+JSMessagesView.m in Sources */,
 				3A720C8718A1C06700423959 /* XMPPvCardTempLabel.m in Sources */,
 				3AF19ACB1881F81900F3E4D3 /* XMPPSRVResolver.m in Sources */,
