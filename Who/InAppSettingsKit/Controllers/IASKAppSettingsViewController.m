@@ -478,7 +478,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	if(nil == cell) {
       cell = [self newCellForIdentifier:specifier.type];
 	}
-	
+        
 	if ([specifier.type isEqualToString:kIASKPSToggleSwitchSpecifier]) {
 		cell.textLabel.text = specifier.title;
 		
@@ -565,6 +565,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 	} else if ([specifier.type isEqualToString:kIASKButtonSpecifier]) {
 		NSString *value = [self.settingsStore objectForKey:specifier.key];
 		cell.textLabel.text = [value isKindOfClass:[NSString class]] ? [self.settingsReader titleForStringId:value] : specifier.title;
+        if ([[specifier key] isEqualToString:SETTING_CHANGE_PASSWORD] || [[specifier key] isEqualToString:SETTING_SUPPORT] || [[specifier key] isEqualToString:SETTING_PRIVACY] || [[specifier key] isEqualToString:SETTING_TERMS]) {
+            [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        }
 	} else {
 		cell.textLabel.text = specifier.title;
 	}
@@ -658,7 +661,6 @@ CGRect IASKCGRectSwap(CGRect rect);
     } else if ([[specifier type] isEqualToString:kIASKButtonSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         if ([self.delegate respondsToSelector:@selector(settingsViewController:buttonTappedForSpecifier:)]) {
-            NSLog(@"button tapped");
             [self.delegate settingsViewController:self buttonTappedForSpecifier:specifier];
         } else if ([self.delegate respondsToSelector:@selector(settingsViewController:buttonTappedForKey:)]) {
             // deprecated, provided for backward compatibility
@@ -746,16 +748,22 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 #pragma mark buttons
-/*- (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier {
-    if ([[specifier key] isEqualToString:SETTING_LEAVE_GROUPS]) {
+- (void)settingsViewController:(IASKAppSettingsViewController *)sender buttonTappedForSpecifier:(IASKSpecifier *)specifier {
+    if ([[specifier key] isEqualToString:SETTING_CHANGE_PASSWORD]) {
+        [self performSegueWithIdentifier:SETTING_CHANGE_PASSWORD sender:self];
+    } else if ([[specifier key] isEqualToString:SETTING_LEAVE_GROUPS]) {
+        //To be implemented
         NSLog(@"Leave Groups Pressed");
     } else if ([[specifier key] isEqualToString:SETTING_LOGOUT]) {
+        //To be implemented
         NSLog(@"Logout Pressed");
+    } else if ([[specifier key] isEqualToString:SETTING_SUPPORT]) {
+        [self performSegueWithIdentifier:SETTING_SUPPORT sender:self];
+    } else if ([[specifier key] isEqualToString:SETTING_PRIVACY]) {
+        [self performSegueWithIdentifier:SETTING_PRIVACY sender:self];
+    } else if ([[specifier key] isEqualToString:SETTING_TERMS]) {
+        [self performSegueWithIdentifier:SETTING_TERMS sender:self];
     }
-}*/
-
-- (void)settingsViewController:(IASKAppSettingsViewController *)sender buttonTappedForSpecifier:(IASKSpecifier *)specifier {
-    NSLog(@"Button Tapped");
 }
 
 #pragma mark -

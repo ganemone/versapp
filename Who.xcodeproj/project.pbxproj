@@ -193,6 +193,10 @@
 		F751016918ABE101001F1E7F /* IASKSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = F751015A18ABE101001F1E7F /* IASKSwitch.m */; };
 		F751016A18ABE101001F1E7F /* IASKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = F751015C18ABE101001F1E7F /* IASKTextField.m */; };
 		F751016C18ABE8A2001F1E7F /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F751016B18ABE8A2001F1E7F /* Settings.bundle */; };
+		F751018718AE856C001F1E7F /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751018618AE856C001F1E7F /* ChangePasswordViewController.m */; };
+		F751018A18AE8D3A001F1E7F /* SupportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751018918AE8D3A001F1E7F /* SupportViewController.m */; };
+		F751018D18AE8D5E001F1E7F /* PrivacyPolicyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751018C18AE8D5E001F1E7F /* PrivacyPolicyViewController.m */; };
+		F751019018AE8D6F001F1E7F /* TermsOfUseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751018F18AE8D6F001F1E7F /* TermsOfUseViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -574,6 +578,14 @@
 		F751015B18ABE101001F1E7F /* IASKTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKTextField.h; sourceTree = "<group>"; };
 		F751015C18ABE101001F1E7F /* IASKTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKTextField.m; sourceTree = "<group>"; };
 		F751016B18ABE8A2001F1E7F /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		F751018518AE856C001F1E7F /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
+		F751018618AE856C001F1E7F /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
+		F751018818AE8D3A001F1E7F /* SupportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupportViewController.h; sourceTree = "<group>"; };
+		F751018918AE8D3A001F1E7F /* SupportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupportViewController.m; sourceTree = "<group>"; };
+		F751018B18AE8D5E001F1E7F /* PrivacyPolicyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivacyPolicyViewController.h; sourceTree = "<group>"; };
+		F751018C18AE8D5E001F1E7F /* PrivacyPolicyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivacyPolicyViewController.m; sourceTree = "<group>"; };
+		F751018E18AE8D6F001F1E7F /* TermsOfUseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsOfUseViewController.h; sourceTree = "<group>"; };
+		F751018F18AE8D6F001F1E7F /* TermsOfUseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsOfUseViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1539,6 +1551,7 @@
 		F751013C18ABE100001F1E7F /* InAppSettingsKit */ = {
 			isa = PBXGroup;
 			children = (
+				F751019418AEA266001F1E7F /* ChildPages */,
 				F751013D18ABE100001F1E7F /* Controllers */,
 				F751014518ABE100001F1E7F /* Models */,
 				F751015018ABE100001F1E7F /* Views */,
@@ -1594,6 +1607,22 @@
 				F751015C18ABE101001F1E7F /* IASKTextField.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		F751019418AEA266001F1E7F /* ChildPages */ = {
+			isa = PBXGroup;
+			children = (
+				F751018518AE856C001F1E7F /* ChangePasswordViewController.h */,
+				F751018618AE856C001F1E7F /* ChangePasswordViewController.m */,
+				F751018818AE8D3A001F1E7F /* SupportViewController.h */,
+				F751018918AE8D3A001F1E7F /* SupportViewController.m */,
+				F751018B18AE8D5E001F1E7F /* PrivacyPolicyViewController.h */,
+				F751018C18AE8D5E001F1E7F /* PrivacyPolicyViewController.m */,
+				F751018E18AE8D6F001F1E7F /* TermsOfUseViewController.h */,
+				F751018F18AE8D6F001F1E7F /* TermsOfUseViewController.m */,
+			);
+			name = ChildPages;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1739,6 +1768,7 @@
 				3A720CAA18A1C06700423959 /* NSXMLElement+XEP_0203.m in Sources */,
 				3AFFC93D18A06AE3009D7F13 /* db.xcdatamodeld in Sources */,
 				3A720C8118A1C06700423959 /* XMPPvCardTempCoreDataStorageObject.m in Sources */,
+				F751018718AE856C001F1E7F /* ChangePasswordViewController.m in Sources */,
 				3A720C9818A1C06700423959 /* XMPPCapabilitiesCoreDataStorage.m in Sources */,
 				3ACA788218833EDB00B384BF /* MainTabBarController.m in Sources */,
 				3A720CB718A28DAD00423959 /* PresencePacketReceiver.m in Sources */,
@@ -1752,6 +1782,7 @@
 				F751016018ABE101001F1E7F /* IASKSettingsReader.m in Sources */,
 				F751016518ABE101001F1E7F /* IASKPSSliderSpecifierViewCell.m in Sources */,
 				3A720C8618A1C06700423959 /* XMPPvCardTempEmail.m in Sources */,
+				F751018D18AE8D5E001F1E7F /* PrivacyPolicyViewController.m in Sources */,
 				3A720C7818A1C06700423959 /* XMPPRoomMessageMemoryStorageObject.m in Sources */,
 				3A720C7E18A1C06700423959 /* XMPPvCardAvatarCoreDataStorageObject.m in Sources */,
 				3A939633189C876A004B01CE /* ChatParticipantVCardBuffer.m in Sources */,
@@ -1801,12 +1832,14 @@
 				3A720CAF18A1C06700423959 /* XMPPMessage+XEP_0308.m in Sources */,
 				3A720C8A18A1C06700423959 /* NSXMLElement+XEP_0059.m in Sources */,
 				3AF19A9A1881F7E800F3E4D3 /* NSData+XMPP.m in Sources */,
+				F751019018AE8D6F001F1E7F /* TermsOfUseViewController.m in Sources */,
 				3A39475B189FF12E005730D2 /* UserProfile.m in Sources */,
 				3A720C8E18A1C06700423959 /* TURNSocket.m in Sources */,
 				3A6C3BBB1884AD61003B162B /* LoginViewController.m in Sources */,
 				3A720C7718A1C06700423959 /* XMPPRoomMemoryStorage.m in Sources */,
 				3A720CA418A1C06700423959 /* XMPPMessage+XEP_0184.m in Sources */,
 				3A720C8318A1C06700423959 /* XMPPvCardTempAdr.m in Sources */,
+				F751018A18AE8D3A001F1E7F /* SupportViewController.m in Sources */,
 				3AFFC94018A06B95009D7F13 /* MessageMO.m in Sources */,
 				3A720CB018A1C06700423959 /* NSXMLElement+XEP_0335.m in Sources */,
 				3A25B6471881E03700166623 /* AppDelegate.m in Sources */,

@@ -87,7 +87,11 @@ extern int const STATUS_UNREGISTERED;
 extern NSString *const INVITATION_ACCEPT;
 extern NSString *const INVITATION_DECLINE;
 
+extern NSString *const SETTING_CHANGE_PASSWORD;
 extern NSString *const SETTING_LEAVE_GROUPS;
 extern NSString *const SETTING_LOGOUT;
+extern NSString *const SETTING_SUPPORT;
+extern NSString *const SETTING_PRIVACY;
+extern NSString *const SETTING_TERMS;
 
 @end

@@ -67,11 +67,11 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
+			<string>IASKButtonSpecifier</string>
 			<key>Title</key>
-			<string>Password</string>
+			<string>Change Password</string>
 			<key>Key</key>
-			<string>Password.plist</string>
+			<string>change_password</string>
 		</dict>
 		<dict>
 			<key>Title</key>
@@ -156,6 +156,36 @@
 			<string>Logout</string>
 			<key>Key</key>
 			<string>logout</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>More Information</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+			<key>Title</key>
+			<string>Support</string>
+			<key>Key</key>
+			<string>info_support</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+			<key>Title</key>
+			<string>Privacy Policy</string>
+			<key>Key</key>
+			<string>info_privacy</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+			<key>Title</key>
+			<string>Leave all groups</string>
+			<key>Key</key>
+			<string>info_terms</string>
 		</dict>
 	</array>
 	<key>StringsTable</key>
