@@ -14,7 +14,7 @@
 
 -(void)didFinishDownloadingImage:(UIImage*)image fromURL:(NSString*)url;
 
--(void)didUploadingImage:(UIImage*)image toURL:(NSString*)url;
+-(void)didFinishUploadingImage:(UIImage*)image toURL:(NSString*)url;
 
 @end
 

@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "GroupChat.h"
 #import "JSMessagesViewController.h"
+#import "ImageManager.h"
 
-@interface ConversationViewController : JSMessagesViewController <JSMessagesViewDelegate, JSMessagesViewDataSource>
+@interface ConversationViewController : JSMessagesViewController <JSMessagesViewDelegate, JSMessagesViewDataSource, ImageManagerDelegate>
 
 @property (strong, nonatomic) GroupChat *gc;
 

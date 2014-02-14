@@ -12,6 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "JSMessage.h"
 #import "ConnectionProvider.h"
+#import "ImageManager.h"
 @interface ConversationViewController ()
 
 @end
@@ -130,6 +131,17 @@
 
 -(void)didSelectImage:(UIImage *)image {
     NSLog(@"Did select image: %@", [image description]);
+    ImageManager *im = [[ImageManager alloc] init];
+    [im setDelegate:self];
+    [im uploadImage:image url:[NSString stringWithFormat:@"http://%@", [ConnectionProvider getServerIPAddress]]];
+}
+
+-(void)didFinishDownloadingImage:(UIImage *)image fromURL:(NSString *)url {
+    
+}
+
+-(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {
+    
 }
 
 @end
