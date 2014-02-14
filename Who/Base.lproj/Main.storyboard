@@ -137,6 +137,46 @@
             </objects>
             <point key="canvasLocation" x="669" y="1587"/>
         </scene>
+        <!--App Settings View Controller - Root View Controller-->
+        <scene sceneID="llI-35-0uB">
+            <objects>
+                <tableViewController id="bp7-7c-bhQ" customClass="IASKAppSettingsViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="VDR-92-KKz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="duo-JP-92a">
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="duo-JP-92a" id="sFt-49-1Z6">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="aaB-87-vGT"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bVc-RM-2zP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1210" y="-1273"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="EWh-Ib-RYN">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="SAf-Hp-Gjr" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VL9-c0-hVT">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="bp7-7c-bhQ" kind="relationship" relationship="rootViewController" id="d1i-kr-H6N"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vl5-E9-hjP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="676" y="-1273"/>
+        </scene>
         <!--Requests View Controller - Notifications-->
         <scene sceneID="9oN-nR-eot">
             <objects>
@@ -166,6 +206,11 @@
                         </prototypes>
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="F0O-lg-JQN">
+                        <barButtonItem key="leftBarButtonItem" title="Settings" id="AIC-dG-wJK">
+                            <connections>
+                                <segue destination="SAf-Hp-Gjr" kind="modal" id="wC4-N0-HFf"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" id="8rh-DV-cm9">
                             <connections>
                                 <action selector="testConnection:" destination="ekD-rM-6X5" id="iU7-jO-GK5"/>
