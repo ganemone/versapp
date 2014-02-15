@@ -15,6 +15,12 @@ NSString *const DICTIONARY_KEY_DOWNLOADED_IMAGE = @"dictionary_key_downloaded_im
 NSString *const DICTIONARY_KEY_UPLOADED_IMAGE = @"dictionary_key_uploaded_image";
 NSString *const DICTIONARY_KEY_IMAGE_URL = @"dictionary_key_downloaded_url";
 
+@interface ImageManager()
+
+@property(strong, nonatomic) UIImage *uploadingImage;
+
+@end
+
 @implementation ImageManager
 
 -(void)downloadImageFromURL:(NSString *)url {
@@ -35,9 +41,8 @@ NSString *const DICTIONARY_KEY_IMAGE_URL = @"dictionary_key_downloaded_url";
 }
 
 -(void)performUploadRequest:(NSDictionary*)uploadInfo {
-    NSLog(@"Performing Upload Request...");
-    UIImage *imageToUpload = [uploadInfo objectForKey:DICTIONARY_KEY_UPLOADED_IMAGE];
-    NSData *imageData = UIImageJPEGRepresentation(imageToUpload, 1.0f);
+    self.uploadingImage = [uploadInfo objectForKey:DICTIONARY_KEY_UPLOADED_IMAGE];
+    NSData *imageData = UIImageJPEGRepresentation(self.uploadingImage, 0.5f);
     NSString *encodedImageString = [Base64 encode:imageData];
     
     NSURL *destURL = [NSURL URLWithString:[uploadInfo objectForKey:DICTIONARY_KEY_IMAGE_URL]];
@@ -54,16 +59,13 @@ NSString *const DICTIONARY_KEY_IMAGE_URL = @"dictionary_key_downloaded_url";
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSString *postString = [NSString stringWithFormat:@"username=%@&session=%@&method=%@&image=%@", [ConnectionProvider getUser], delegate.sessionID, @"message", encodedImageString];
     postString = [postString stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
-    //NSLog(@"Image: %@", encodedImageString);
     NSData *postData = [NSData dataWithBytes:[postString UTF8String] length:[postString length]];
     [uploadRequest setValue:[NSString stringWithFormat:@"%lu", (unsigned long)postString.length] forHTTPHeaderField:@"Content-Length"];
     [uploadRequest setHTTPBody:postData];
 
     // create connection and set delegate if needed
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:uploadRequest delegate:self];
-    NSLog(@"Created URL Connection...");
     [conn start];
-    NSLog(@"Started URL Connection...");
 }
 
 -(void)handleDownloadRequestFinished:(NSDictionary*)downloadInfo {
@@ -78,23 +80,20 @@ NSString *const DICTIONARY_KEY_IMAGE_URL = @"dictionary_key_downloaded_url";
 
 
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    NSLog(@"Did Receive Data: %@ \n\n", [data base64Encoding]);
+    NSString *imageURL = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+    [self.delegate didFinishUploadingImage:self.uploadingImage toURL:imageURL];
 }
 
 -(void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
-    NSLog(@"Did Send Body Data");
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    NSLog(@"Did finish loading...");
 }
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    NSLog(@"Failed with error: %@", error);
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    NSLog(@"Did receive NSURL Response: %@", response);
 }
 
 @end
