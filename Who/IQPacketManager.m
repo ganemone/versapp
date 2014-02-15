@@ -364,6 +364,16 @@
     [groupIDProperty addChild:groupIDPropertyName];
     [groupIDProperty addChild:groupIDPropertyValue];
     
+    if (message.imageLink != nil) {
+        DDXMLElement *imageLinkProperty = [DDXMLElement elementWithName:@"property"];
+        DDXMLElement *imageLinkPropertyName = [DDXMLElement elementWithName:@"name" stringValue:MESSAGE_PROPERTY_IMAGE_LINK];
+        DDXMLElement *imageLinkPropertyValue = [DDXMLElement elementWithName:@"value" stringValue:message.imageLink];
+        [imageLinkPropertyValue addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"string"]];
+        [imageLinkProperty addChild:imageLinkPropertyName];
+        [imageLinkProperty addChild:imageLinkPropertyValue];
+        [properties addChild:imageLinkProperty];
+    }
+    
     [properties addChild:senderProperty];
     [properties addChild:groupIDProperty];
     

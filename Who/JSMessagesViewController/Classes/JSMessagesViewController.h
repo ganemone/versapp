@@ -181,6 +181,7 @@
 
 @property (strong, nonatomic) UIImage *messageImage;
 @property (strong, nonatomic) NSString *messageImageLink;
+@property BOOL isUploadingImage;
 
 #pragma mark - Messages view controller
 

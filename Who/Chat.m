@@ -33,7 +33,8 @@
 }
 
 -(void)sendMUCMessage:(NSString *)messageText imageLink:(NSString *)imageLink {
-
+    Message *message = [Message createForMUCWithImage:messageText sender:[ConnectionProvider getUser] chatID:self.chatID imageLink:imageLink];
+    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSendMUCMessagePacket:message]];
 }
 
 -(void)sendOneToOneMessage:(NSString *)messageText messageTo:(NSString *)messageTo imageLink:(NSString *)imageLink {

@@ -124,13 +124,19 @@
 }
 
 -(void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
-    [self.gc sendMUCMessage:text];
+    while (self.isUploadingImage == YES);
+    if (self.messageImageLink != nil) {
+        [self.gc sendMUCMessage:text imageLink:self.messageImageLink];
+        self.messageImage = nil;
+        self.messageImageLink = nil;
+    } else {
+        [self.gc sendMUCMessage:text];
+    }
     [self finishSend];
-    //[self scrollToBottomAnimated:YES];
 }
 
 -(void)didSelectImage:(UIImage *)image {
-    NSLog(@"Did select image: %@", [image description]);
+    self.isUploadingImage = YES;
     ImageManager *im = [[ImageManager alloc] init];
     [im setDelegate:self];
     [im uploadImage:image url:[NSString stringWithFormat:@"http://%@", [ConnectionProvider getServerIPAddress]]];
@@ -141,6 +147,7 @@
 }
 
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {
+    self.isUploadingImage = NO;
     self.messageImage = image;
     self.messageImageLink = url;
 }
