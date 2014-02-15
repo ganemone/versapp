@@ -236,9 +236,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     JSBubbleMessageCell *cell;
-    if ((cell = [self.cellCache objectForKey:[NSNumber numberWithInt:indexPath.row]]) != nil) {
+    /*if ((cell = [self.cellCache objectForKey:[NSNumber numberWithInt:indexPath.row]]) != nil) {
         return cell;
-    }
+    }*/
     
     JSBubbleMessageType type = [self.delegate messageTypeForRowAtIndexPath:indexPath];
     
