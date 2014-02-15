@@ -28,6 +28,7 @@
 		3A25B6731881E83500166623 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A25B6721881E83500166623 /* DashboardViewController.m */; };
 		3A25B6761881E84800166623 /* FriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A25B6751881E84800166623 /* FriendsViewController.m */; };
 		3A25B6791881E85B00166623 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A25B6781881E85B00166623 /* ContactsViewController.m */; };
+		3A2A357E18AFC79F006402E5 /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2A357D18AFC79F006402E5 /* ImageCache.m */; };
 		3A39475B189FF12E005730D2 /* UserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A39475A189FF12E005730D2 /* UserProfile.m */; };
 		3A39475D18A06483005730D2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A39475C18A06483005730D2 /* CoreData.framework */; };
 		3A3A0ADA18AB1126006FBAE4 /* NSString+JSMessagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3A0A8418AB1126006FBAE4 /* NSString+JSMessagesView.m */; };
@@ -289,6 +290,8 @@
 		3A25B6751881E84800166623 /* FriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsViewController.m; sourceTree = "<group>"; };
 		3A25B6771881E85B00166623 /* ContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsViewController.h; sourceTree = "<group>"; };
 		3A25B6781881E85B00166623 /* ContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsViewController.m; sourceTree = "<group>"; };
+		3A2A357C18AFC79F006402E5 /* ImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCache.h; sourceTree = "<group>"; };
+		3A2A357D18AFC79F006402E5 /* ImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCache.m; sourceTree = "<group>"; };
 		3A394759189FF12E005730D2 /* UserProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfile.h; sourceTree = "<group>"; };
 		3A39475A189FF12E005730D2 /* UserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfile.m; sourceTree = "<group>"; };
 		3A39475C18A06483005730D2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -776,10 +779,11 @@
 				3A47C841189F1A30003020D7 /* DB */,
 				3AF19ACE1881F86000F3E4D3 /* Dependencies */,
 				3A939630189B3543004B01CE /* Main */,
+				3A2A357F18AFC7AD006402E5 /* Image Handling */,
 				3A6C3BB91884AD61003B162B /* LoginViewController.h */,
 				3A6C3BBA1884AD61003B162B /* LoginViewController.m */,
-				3A25B6451881E03700166623 /* AppDelegate.h */,
 				3A25B6461881E03700166623 /* AppDelegate.m */,
+				3A25B6451881E03700166623 /* AppDelegate.h */,
 				3A939631189C876A004B01CE /* ChatParticipantVCardBuffer.h */,
 				3A939632189C876A004B01CE /* ChatParticipantVCardBuffer.m */,
 				3A25B6481881E03700166623 /* Main.storyboard */,
@@ -821,6 +825,17 @@
 				3A25B6611881E03700166623 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3A2A357F18AFC7AD006402E5 /* Image Handling */ = {
+			isa = PBXGroup;
+			children = (
+				3A2A357C18AFC79F006402E5 /* ImageCache.h */,
+				3A2A357D18AFC79F006402E5 /* ImageCache.m */,
+				3ABA80D818AE5F87002012C7 /* ImageManager.h */,
+				3ABA80D918AE5F87002012C7 /* ImageManager.m */,
+			);
+			name = "Image Handling";
 			sourceTree = "<group>";
 		};
 		3A3A0A8018AB1126006FBAE4 /* JSMessagesViewController */ = {
@@ -1619,8 +1634,6 @@
 				3A25B6751881E84800166623 /* FriendsViewController.m */,
 				3A25B6771881E85B00166623 /* ContactsViewController.h */,
 				3A25B6781881E85B00166623 /* ContactsViewController.m */,
-				3ABA80D818AE5F87002012C7 /* ImageManager.h */,
-				3ABA80D918AE5F87002012C7 /* ImageManager.m */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -2120,6 +2133,7 @@
 				3AF19A671881F34A00F3E4D3 /* NSString+DDXML.m in Sources */,
 				3AF19A8B1881F75100F3E4D3 /* XMPPDeprecatedDigestAuthentication.m in Sources */,
 				3A720C5F18A1C06700423959 /* XMPPGroupCoreDataStorageObject.m in Sources */,
+				3A2A357E18AFC79F006402E5 /* ImageCache.m in Sources */,
 				3AF19A491881EF1600F3E4D3 /* DDTTYLogger.m in Sources */,
 				3A720CA518A1C06700423959 /* XMPPMessageDeliveryReceipts.m in Sources */,
 				3A3A0B1418AB1126006FBAE4 /* JSQSystemSoundPlayer.m in Sources */,
