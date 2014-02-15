@@ -32,10 +32,12 @@
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSendOneToOneMessagePacket:message]];
 }
 
--(void)sendMUCMessage:(NSString *)messageText image:(UIImage *)image {
+-(void)sendMUCMessage:(NSString *)messageText imageLink:(NSString *)imageLink {
+
 }
 
--(void)sendOneToOneMessage:(NSString *)messageText messageTo:(NSString*)messageTo image:(UIImage *)image {
+-(void)sendOneToOneMessage:(NSString *)messageText messageTo:(NSString *)messageTo imageLink:(NSString *)imageLink {
+    
 }
 
 -(void)addMessage:(Message *)message {

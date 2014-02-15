@@ -180,6 +180,7 @@
 @property (copy, nonatomic) NSString *sender;
 
 @property (strong, nonatomic) UIImage *messageImage;
+@property (strong, nonatomic) NSString *messageImageLink;
 
 #pragma mark - Messages view controller
 

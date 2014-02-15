@@ -141,7 +141,8 @@
 }
 
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {
-    
+    self.messageImage = image;
+    self.messageImageLink = url;
 }
 
 @end

@@ -28,6 +28,25 @@
     return instance;
 }
 
++(Message *)createForMUCWithImage:(NSString *)body sender:(NSString *)sender chatID:(NSString *)chatID imageLink:(NSString *)imageLink {
+    Message *instance = [[Message alloc] init];
+    instance.body = body;
+    instance.sender = sender;
+    instance.chatID = chatID;
+    instance.imageLink = imageLink;
+    return instance;
+}
+
++(Message *)createForMUCWithImage:(NSString *)body sender:(NSString *)sender chatID:(NSString *)chatID imageLink:(NSString *)imageLink timestamp:(NSString *)timestamp {
+    Message *instance = [[Message alloc] init];
+    instance.body = body;
+    instance.sender = sender;
+    instance.chatID = chatID;
+    instance.imageLink = imageLink;
+    instance.timestamp = timestamp;
+    return instance;
+}
+
 +(Message *)createForOneToOne:(NSString *)body sender:(NSString *)sender chatID:(NSString *)chatID messageTo:(NSString *)messageTo {
     Message *instance = [[Message alloc] init];
     instance.body = body;
@@ -43,6 +62,27 @@
     instance.sender = sender;
     instance.chatID = chatID;
     instance.messageTo = messageTo;
+    instance.timestamp = timestamp;
+    return instance;
+}
+
++(Message *)createForOneToOneWithImage:(NSString *)body sender:(NSString *)sender chatID:(NSString *)chatID messageTo:(NSString *)messageTo imageLink:(NSString *)imageLink {
+    Message *instance = [[Message alloc] init];
+    instance.body = body;
+    instance.sender = sender;
+    instance.chatID = chatID;
+    instance.messageTo = messageTo;
+    instance.imageLink = imageLink;
+    return instance;
+}
+
++(Message *)createForOneToOneWithImage:(NSString *)body sender:(NSString *)sender chatID:(NSString *)chatID messageTo:(NSString *)messageTo imageLink:(NSString *)imageLink timestamp:(NSString *)timestamp {
+    Message *instance = [[Message alloc] init];
+    instance.body = body;
+    instance.sender = sender;
+    instance.chatID = chatID;
+    instance.messageTo = messageTo;
+    instance.imageLink = imageLink;
     instance.timestamp = timestamp;
     return instance;
 }
