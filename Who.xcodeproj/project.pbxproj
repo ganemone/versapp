@@ -197,6 +197,7 @@
 		3ABA80D518AE59F9002012C7 /* MessageBubble-Fill.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ABA80D418AE59F9002012C7 /* MessageBubble-Fill.png */; };
 		3ABA80D718AE5BF0002012C7 /* MessageBubble-Fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ABA80D618AE5BF0002012C7 /* MessageBubble-Fill@2x.png */; };
 		3ABA80DA18AE5F87002012C7 /* ImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABA80D918AE5F87002012C7 /* ImageManager.m */; };
+		3AC0BA2F18AEEFBA0061A565 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC0BA2E18AEEFBA0061A565 /* Base64.m */; };
 		3ACA788218833EDB00B384BF /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACA788118833EDB00B384BF /* MainTabBarController.m */; };
 		3AF19A451881EF1600F3E4D3 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF19A3C1881EF1600F3E4D3 /* DDAbstractDatabaseLogger.m */; };
 		3AF19A461881EF1600F3E4D3 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF19A3E1881EF1600F3E4D3 /* DDASLLogger.m */; };
@@ -583,6 +584,8 @@
 		3ABA80D618AE5BF0002012C7 /* MessageBubble-Fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MessageBubble-Fill@2x.png"; sourceTree = "<group>"; };
 		3ABA80D818AE5F87002012C7 /* ImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageManager.h; sourceTree = "<group>"; };
 		3ABA80D918AE5F87002012C7 /* ImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageManager.m; sourceTree = "<group>"; };
+		3AC0BA2D18AEEFBA0061A565 /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
+		3AC0BA2E18AEEFBA0061A565 /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
 		3ACA788018833EDB00B384BF /* MainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabBarController.h; sourceTree = "<group>"; };
 		3ACA788118833EDB00B384BF /* MainTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabBarController.m; sourceTree = "<group>"; };
 		3AF19A3B1881EF1600F3E4D3 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
@@ -1622,6 +1625,16 @@
 			name = Main;
 			sourceTree = "<group>";
 		};
+		3AC0BA2C18AEEFBA0061A565 /* base64 */ = {
+			isa = PBXGroup;
+			children = (
+				3AC0BA2D18AEEFBA0061A565 /* Base64.h */,
+				3AC0BA2E18AEEFBA0061A565 /* Base64.m */,
+			);
+			name = base64;
+			path = ../base64;
+			sourceTree = "<group>";
+		};
 		3AF19A4A1881EF5C00F3E4D3 /* CocoaLumberjack */ = {
 			isa = PBXGroup;
 			children = (
@@ -1850,6 +1863,7 @@
 		3AF19ACE1881F86000F3E4D3 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				3AC0BA2C18AEEFBA0061A565 /* base64 */,
 				3A3A0A8018AB1126006FBAE4 /* JSMessagesViewController */,
 				3A3A0AD618AB1126006FBAE4 /* JSQSystemSoundPlayer */,
 				3AF19ACD1881F82C00F3E4D3 /* XMPPFramework */,
@@ -2125,6 +2139,7 @@
 				3A25B6471881E03700166623 /* AppDelegate.m in Sources */,
 				3A720C6318A1C06700423959 /* XMPPUserCoreDataStorageObject.m in Sources */,
 				3A3A0AE018AB1126006FBAE4 /* JSBubbleView.m in Sources */,
+				3AC0BA2F18AEEFBA0061A565 /* Base64.m in Sources */,
 				3AF19A6D1881F34A00F3E4D3 /* DispatchQueueLogFormatter.m in Sources */,
 				3AF19AC91881F81900F3E4D3 /* RFImageToDataTransformer.m in Sources */,
 				3A720C6118A1C06700423959 /* XMPPRoster.xcdatamodel in Sources */,
