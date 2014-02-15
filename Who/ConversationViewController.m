@@ -142,7 +142,7 @@
     [im uploadImage:image url:[NSString stringWithFormat:@"http://%@", [ConnectionProvider getServerIPAddress]]];
 }
 
--(void)didFinishDownloadingImage:(UIImage *)image fromURL:(NSString *)url {
+-(void)didFinishDownloadingImage:(UIImage *)image fromURL:(NSString *)url forMessage:(Message *)message {
     
 }
 

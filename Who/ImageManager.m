@@ -14,6 +14,7 @@
 NSString *const DICTIONARY_KEY_DOWNLOADED_IMAGE = @"dictionary_key_downloaded_image";
 NSString *const DICTIONARY_KEY_UPLOADED_IMAGE = @"dictionary_key_uploaded_image";
 NSString *const DICTIONARY_KEY_IMAGE_URL = @"dictionary_key_downloaded_url";
+NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
 
 @interface ImageManager()
 
@@ -23,8 +24,8 @@ NSString *const DICTIONARY_KEY_IMAGE_URL = @"dictionary_key_downloaded_url";
 
 @implementation ImageManager
 
--(void)downloadImageFromURL:(NSString *)url {
-    [self performSelectorInBackground:@selector(performDownloadRequest:) withObject:url];
+-(void)downloadImageForMessage:(Message *)message {
+    [self performSelectorInBackground:@selector(performDownloadRequest:) withObject:message];
 }
 
 -(void)uploadImage:(UIImage *)image url:(NSString *)url {
@@ -33,10 +34,11 @@ NSString *const DICTIONARY_KEY_IMAGE_URL = @"dictionary_key_downloaded_url";
     [self performUploadRequest:uploadInfo];
 }
 
--(void)performDownloadRequest:(NSString *)url {
+-(void)performDownloadRequest:(Message *)message {
+    NSString *url = message.imageLink;
     NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
     UIImage *image = [UIImage imageWithData:data];
-    NSDictionary *downloadInfo = [NSDictionary dictionaryWithObjectsAndKeys:image, DICTIONARY_KEY_DOWNLOADED_IMAGE, url, DICTIONARY_KEY_IMAGE_URL, nil];
+    NSDictionary *downloadInfo = [NSDictionary dictionaryWithObjectsAndKeys:image, DICTIONARY_KEY_DOWNLOADED_IMAGE, url, DICTIONARY_KEY_IMAGE_URL, message, DICTIONARY_KEY_MESSAGE, nil];
     [self performSelectorOnMainThread:@selector(handleDownloadRequestFinished:) withObject:downloadInfo waitUntilDone:NO];
 }
 
@@ -71,7 +73,8 @@ NSString *const DICTIONARY_KEY_IMAGE_URL = @"dictionary_key_downloaded_url";
 -(void)handleDownloadRequestFinished:(NSDictionary*)downloadInfo {
     UIImage *image = [downloadInfo objectForKey:DICTIONARY_KEY_DOWNLOADED_IMAGE];
     NSString *url = [downloadInfo objectForKey:DICTIONARY_KEY_IMAGE_URL];
-    [self.delegate didFinishDownloadingImage:image fromURL:url];
+    Message *message = [downloadInfo objectForKey:DICTIONARY_KEY_MESSAGE];
+    [self.delegate didFinishDownloadingImage:image fromURL:url forMessage:message];
 }
 
 -(void)handleUploadRequestFinished:(NSDictionary*)uploadInfo {

@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Message.h"
 
 @protocol ImageManagerDelegate <NSObject>
 
 @required
 
--(void)didFinishDownloadingImage:(UIImage*)image fromURL:(NSString*)url;
+-(void)didFinishDownloadingImage:(UIImage*)image fromURL:(NSString*)url forMessage:(Message*)message;
 
 -(void)didFinishUploadingImage:(UIImage*)image toURL:(NSString*)url;
 
@@ -22,7 +23,7 @@
 
 @property (weak, nonatomic) id <ImageManagerDelegate> delegate;
 
-- (void)downloadImageFromURL:(NSString*)url;
+- (void)downloadImageForMessage:(Message*)message;
 
 - (void)uploadImage:(UIImage *)image url:(NSString*)url;
 
