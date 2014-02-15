@@ -10,4 +10,10 @@
 
 @interface ImageCache : NSObject
 
+-(UIImage*)getImageByMessageSender:(NSString*)sender timestamp:(NSString*)timestamp;
+
+-(BOOL)hasImageWithMessageSender:(NSString*)sender timestamp:(NSString*)timestamp;
+
+-(void)setImage:(UIImage*)image sender:(NSString*)sender timestamp:(NSString*)timestamp;
+
 @end
