@@ -749,7 +749,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 #pragma mark buttons
 - (void)settingsViewController:(IASKAppSettingsViewController *)sender buttonTappedForSpecifier:(IASKSpecifier *)specifier {
-    if ([[specifier key] isEqualToString:SETTING_CHANGE_PASSWORD]) {
+    if ([[specifier key] isEqualToString:SETTING_CHANGE_EMAIL]) {
+        [self performSegueWithIdentifier:SETTING_CHANGE_EMAIL sender:self];
+    } else if ([[specifier key] isEqualToString:SETTING_CHANGE_PASSWORD]) {
         [self performSegueWithIdentifier:SETTING_CHANGE_PASSWORD sender:self];
     } else if ([[specifier key] isEqualToString:SETTING_LEAVE_GROUPS]) {
         //To be implemented

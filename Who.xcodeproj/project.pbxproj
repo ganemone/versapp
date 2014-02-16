@@ -197,6 +197,7 @@
 		F751018A18AE8D3A001F1E7F /* SupportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751018918AE8D3A001F1E7F /* SupportViewController.m */; };
 		F751018D18AE8D5E001F1E7F /* PrivacyPolicyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751018C18AE8D5E001F1E7F /* PrivacyPolicyViewController.m */; };
 		F751019018AE8D6F001F1E7F /* TermsOfUseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751018F18AE8D6F001F1E7F /* TermsOfUseViewController.m */; };
+		F751019718B134DE001F1E7F /* ChangeEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751019618B134DE001F1E7F /* ChangeEmailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -586,6 +587,8 @@
 		F751018C18AE8D5E001F1E7F /* PrivacyPolicyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivacyPolicyViewController.m; sourceTree = "<group>"; };
 		F751018E18AE8D6F001F1E7F /* TermsOfUseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsOfUseViewController.h; sourceTree = "<group>"; };
 		F751018F18AE8D6F001F1E7F /* TermsOfUseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsOfUseViewController.m; sourceTree = "<group>"; };
+		F751019518B134DE001F1E7F /* ChangeEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeEmailViewController.h; sourceTree = "<group>"; };
+		F751019618B134DE001F1E7F /* ChangeEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeEmailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1612,6 +1615,8 @@
 		F751019418AEA266001F1E7F /* ChildPages */ = {
 			isa = PBXGroup;
 			children = (
+				F751019518B134DE001F1E7F /* ChangeEmailViewController.h */,
+				F751019618B134DE001F1E7F /* ChangeEmailViewController.m */,
 				F751018518AE856C001F1E7F /* ChangePasswordViewController.h */,
 				F751018618AE856C001F1E7F /* ChangePasswordViewController.m */,
 				F751018818AE8D3A001F1E7F /* SupportViewController.h */,
@@ -1786,6 +1791,7 @@
 				3A720C7818A1C06700423959 /* XMPPRoomMessageMemoryStorageObject.m in Sources */,
 				3A720C7E18A1C06700423959 /* XMPPvCardAvatarCoreDataStorageObject.m in Sources */,
 				3A939633189C876A004B01CE /* ChatParticipantVCardBuffer.m in Sources */,
+				F751019718B134DE001F1E7F /* ChangeEmailViewController.m in Sources */,
 				3A720C6818A1C06700423959 /* XMPPSystemInputActivityMonitor.m in Sources */,
 				3AF19A461881EF1600F3E4D3 /* DDASLLogger.m in Sources */,
 				F751016618ABE101001F1E7F /* IASKPSTextFieldSpecifierViewCell.m in Sources */,

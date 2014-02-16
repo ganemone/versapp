@@ -152,6 +152,54 @@
             </objects>
             <point key="canvasLocation" x="1729" y="-1983"/>
         </scene>
+        <!--Change Email View Controller - Change Email-->
+        <scene sceneID="4w2-jp-6Qa">
+            <objects>
+                <viewController id="2Mg-rU-u8q" customClass="ChangeEmailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="du4-I4-sdi"/>
+                        <viewControllerLayoutGuide type="bottom" id="kSf-QR-awg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CPt-vu-gmd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UCs-Bq-YBy">
+                                <rect key="frame" x="0.0" y="70" width="320" height="27"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xdo-ba-v4L">
+                                <rect key="frame" x="25" y="105" width="275" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="top-Yo-Lz9">
+                                <rect key="frame" x="245" y="143" width="55" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Submit">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(Current Email)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h9g-Im-ART">
+                                <rect key="frame" x="25" y="76" width="275" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Change Email" id="d2p-ko-pec"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ct5-IH-lZe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2257" y="-2666"/>
+        </scene>
         <!--Change Password View Controller - Change Password-->
         <scene sceneID="OE0-wQ-Nyj">
             <objects>
@@ -198,6 +246,21 @@
             </objects>
             <point key="canvasLocation" x="2257" y="-1983"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="rC3-yP-ywR">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="gcv-ws-VXP" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iDa-kK-FKB">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="2Mg-rU-u8q" kind="relationship" relationship="rootViewController" id="f5d-Ra-j3v"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qMm-Du-iqe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1729" y="-2666"/>
+        </scene>
         <!--Support View Controller - Support-->
         <scene sceneID="ZaI-hR-Z3m">
             <objects>
@@ -210,7 +273,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hy3-LD-QBD">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hy3-LD-QBD">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -225,7 +288,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OlY-Ag-krb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2257" y="-2675"/>
+            <point key="canvasLocation" x="2257" y="-3367"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="STH-AU-OYX">
@@ -240,7 +303,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9yk-DV-T47" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1729" y="-2675"/>
+            <point key="canvasLocation" x="1729" y="-3367"/>
         </scene>
         <!--App Settings View Controller - Root View Controller-->
         <scene sceneID="llI-35-0uB">
@@ -267,6 +330,7 @@
                         <segue destination="Wp9-Tt-w8E" kind="push" identifier="info_support" id="yvf-5p-X2z"/>
                         <segue destination="aHE-or-bVy" kind="push" identifier="info_privacy" id="KzQ-2I-z5y"/>
                         <segue destination="16T-5r-CX5" kind="push" identifier="info_terms" id="cCp-tS-h07"/>
+                        <segue destination="2Mg-rU-u8q" kind="push" identifier="change_email" id="Vys-x9-fbS"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bVc-RM-2zP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -671,7 +735,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XT4-fO-rhw">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XT4-fO-rhw">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -686,7 +750,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bIf-sj-UrG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2257" y="-3351"/>
+            <point key="canvasLocation" x="2257" y="-4043"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Qnm-hI-NTg">
@@ -701,7 +765,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QNz-hm-hPo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1729" y="-3351"/>
+            <point key="canvasLocation" x="1729" y="-4043"/>
         </scene>
         <!--Terms Of Use View Controller - Terms of Use-->
         <scene sceneID="PAZ-DR-3IZ">
@@ -730,7 +794,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Edc-vY-McD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2257" y="-4032"/>
+            <point key="canvasLocation" x="2257" y="-4724"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2nx-PV-2Sv">
@@ -745,7 +809,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M4i-Yx-2R2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1729" y="-4032"/>
+            <point key="canvasLocation" x="1729" y="-4724"/>
         </scene>
     </scenes>
     <resources>
@@ -758,6 +822,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="fcf-HI-Tc8"/>
+        <segue reference="Vys-x9-fbS"/>
         <segue reference="yvf-5p-X2z"/>
         <segue reference="T8K-NQ-vMc"/>
         <segue reference="KzQ-2I-z5y"/>

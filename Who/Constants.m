@@ -87,6 +87,7 @@ int const STATUS_UNREGISTERED = 4;
 NSString *const INVITATION_ACCEPT = @"accept";
 NSString *const INVITATION_DECLINE = @"decline";
 
+NSString *const SETTING_CHANGE_EMAIL = @"change_email";
 NSString *const SETTING_CHANGE_PASSWORD = @"change_password";
 NSString *const SETTING_LEAVE_GROUPS = @"leave_groups";
 NSString *const SETTING_LOGOUT = @"logout";

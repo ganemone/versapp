@@ -30,40 +30,12 @@
 			</dict>
 		</dict>
 		<dict>
-			<key>AutocapitalizationType</key>
-			<string>Words</string>
-			<key>AutocorrectionType</key>
-			<string>No</string>
-			<key>DefaultValue</key>
-			<string></string>
-			<key>IsSecure</key>
-			<false/>
-			<key>Key</key>
-			<string>username_preference</string>
-			<key>KeyboardType</key>
-			<string>NumberPad</string>
-			<key>Title</key>
-			<string>Username</string>
 			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-		</dict>
-		<dict>
-			<key>AutocapitalizationType</key>
-			<string>None</string>
-			<key>AutocorrectionType</key>
-			<string>No</string>
-			<key>DefaultValue</key>
-			<string></string>
-			<key>IsSecure</key>
-			<false/>
-			<key>Key</key>
-			<string>email_preference</string>
-			<key>KeyboardType</key>
-			<string>EmailAddress</string>
+			<string>IASKButtonSpecifier</string>
 			<key>Title</key>
 			<string>Email</string>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
+			<key>Key</key>
+			<string>change_email</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -183,7 +155,7 @@
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
 			<key>Title</key>
-			<string>Leave all groups</string>
+			<string>Terms of Use</string>
 			<key>Key</key>
 			<string>info_terms</string>
 		</dict>
