@@ -13,7 +13,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "JSBubbleImageViewFactory.h"
+#import "JSBubbleImageViewFactory.h"    
 
 /**
  *  An instance of JSBubbleView is a means for displaying text in a speech bubble image to be placed in a JSBubbleMessageCell. 

@@ -24,11 +24,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"Current GC: %@", [self.gc description]);
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceived:) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
     self.navigationItem.title = self.gc.name;
     self.delegate = self;
     self.dataSource = self;
+    
+    self.im = [[ImageManager alloc] init];
+    [self.im setDelegate:self];
+    
+    self.imageCache = [ImageCache getInstance];
+    
     //[self.conversationTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -66,8 +71,6 @@
 
 -(JSBubbleMessageType)messageTypeForRowAtIndexPath:(NSIndexPath *)indexPath {
     Message * message = [self.gc getMessageByIndex:indexPath.row];
-    NSLog(@"Message Sender: %@", message.sender);
-    NSLog(@"User: %@", [ConnectionProvider getUser]);
     if ([message.sender compare:[ConnectionProvider getUser]] == 0) {
         return JSBubbleMessageTypeOutgoing;
     }
@@ -76,6 +79,10 @@
 
 -(id<JSMessageData>)messageForRowAtIndexPath:(NSIndexPath *)indexPath {
     Message * message = [self.gc getMessageByIndex:indexPath.row];
+    if (message.imageLink != nil) {
+        NSLog(@"Message has Image Link: %@", message.imageLink);
+        [self.im downloadImageForMessage:message];
+    }
     NSDate *date = [NSDate dateWithTimeIntervalSince1970: [message.timestamp doubleValue]];
     JSMessage *jmessage = [[JSMessage alloc] initWithText:message.body sender:@"" date:date];
     return jmessage;
@@ -120,7 +127,16 @@
 }
 
 -(UIImageView *)avatarImageViewForRowAtIndexPath:(NSIndexPath *)indexPath sender:(NSString *)sender {
-    return nil;
+    Message *message = [self.gc getMessageByIndex:indexPath.row];
+    UIImage *image;
+    if (message.imageLink == nil) {
+        return nil;
+    } else if((image = [self.imageCache getImageByMessageSender:message.sender timestamp:message.timestamp]) != nil) {
+        return [[UIImageView alloc] initWithImage:image];
+    } else {
+        UIImageView *emptyImageView = [[UIImageView alloc] init];
+        return emptyImageView;
+    }
 }
 
 -(void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
@@ -137,13 +153,11 @@
 
 -(void)didSelectImage:(UIImage *)image {
     self.isUploadingImage = YES;
-    ImageManager *im = [[ImageManager alloc] init];
-    [im setDelegate:self];
-    [im uploadImage:image url:[NSString stringWithFormat:@"http://%@", [ConnectionProvider getServerIPAddress]]];
+    [self.im uploadImage:image url:[NSString stringWithFormat:@"http://%@", [ConnectionProvider getServerIPAddress]]];
 }
 
 -(void)didFinishDownloadingImage:(UIImage *)image fromURL:(NSString *)url forMessage:(Message *)message {
-    
+    [self reloadInputViews];
 }
 
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {

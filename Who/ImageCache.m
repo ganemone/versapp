@@ -19,7 +19,7 @@ static ImageCache *selfInstance;
 @implementation ImageCache
 
 // Class method (+) for getting instance of Connection Provider
-+ (id)getInstance {
++ (ImageCache*)getInstance {
     @synchronized(self) {
         if(selfInstance == nil) {
             selfInstance = [[self alloc] init];
