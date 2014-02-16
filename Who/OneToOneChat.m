@@ -15,7 +15,6 @@
 @implementation OneToOneChat
 
 +(OneToOneChat *)create:(NSString *)threadID inviterID:(NSString *)inviterID invitedID:(NSString *)invitedID createdTimestamp:(NSString *)createdTimestamp {
-    NSLog(@"Creating One To One: %@ %@", inviterID, invitedID);
     OneToOneChat *instance = [[OneToOneChat alloc] init];
     instance.chatID = threadID;
     instance.createdTime = createdTimestamp;

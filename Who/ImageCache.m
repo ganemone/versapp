@@ -30,6 +30,7 @@ static ImageCache *selfInstance;
 }
 
 -(void)setImage:(UIImage *)image sender:(NSString *)sender timestamp:(NSString *)timestamp {
+    NSLog(@"Setting image...");
     [self.images setObject:image forKey:[NSString stringWithFormat:@"%@%@", sender, timestamp]];
 }
 

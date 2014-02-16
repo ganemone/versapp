@@ -37,7 +37,6 @@ static GroupChatManager * selfInstance;
 }
 
 -(void)addChat:(GroupChat *)chat {
-    NSLog(@"Adding Chat to GCM: %@", [chat description]);
     if (self.timeLastActive == nil) {
         chat.joined = NO;
     } else {
@@ -78,12 +77,10 @@ static GroupChatManager * selfInstance;
 
 -(void)incrementNumUninvitedUsers {
     self.numUninvitedUsers++;
-    NSLog(@"Incrementing Number of Users to: %ld", (long)self.numUninvitedUsers);
 }
 
 -(void)decrementNumUninvitedUsers {
     self.numUninvitedUsers--;
-    NSLog(@"Decrementing number of users to: %ld", (long)self.numUninvitedUsers);
     if (self.numUninvitedUsers == 0) {
         GroupChat * chat;
         for (int i = 0; i < self.mucIDValues.count; i++) {

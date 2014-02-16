@@ -10,6 +10,7 @@
 #import "ConnectionProvider.h"
 #import "AppDelegate.h"
 #import "Base64.h"
+#import "ImageCache.h"
 
 NSString *const DICTIONARY_KEY_DOWNLOADED_IMAGE = @"dictionary_key_downloaded_image";
 NSString *const DICTIONARY_KEY_UPLOADED_IMAGE = @"dictionary_key_uploaded_image";
@@ -74,6 +75,7 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
     UIImage *image = [downloadInfo objectForKey:DICTIONARY_KEY_DOWNLOADED_IMAGE];
     NSString *url = [downloadInfo objectForKey:DICTIONARY_KEY_IMAGE_URL];
     Message *message = [downloadInfo objectForKey:DICTIONARY_KEY_MESSAGE];
+    [[ImageCache getInstance] setImage:image sender:message.sender timestamp:message.timestamp];
     [self.delegate didFinishDownloadingImage:image fromURL:url forMessage:message];
 }
 

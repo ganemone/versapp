@@ -34,6 +34,8 @@
     
     self.imageCache = [ImageCache getInstance];
     
+    self.downloadingImageURLs = [[NSMutableArray alloc] initWithCapacity:20];
+    
     //[self.conversationTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -79,10 +81,6 @@
 
 -(id<JSMessageData>)messageForRowAtIndexPath:(NSIndexPath *)indexPath {
     Message * message = [self.gc getMessageByIndex:indexPath.row];
-    if (message.imageLink != nil) {
-        NSLog(@"Message has Image Link: %@", message.imageLink);
-        [self.im downloadImageForMessage:message];
-    }
     NSDate *date = [NSDate dateWithTimeIntervalSince1970: [message.timestamp doubleValue]];
     JSMessage *jmessage = [[JSMessage alloc] initWithText:message.body sender:@"" date:date];
     return jmessage;
@@ -131,12 +129,16 @@
     UIImage *image;
     if (message.imageLink == nil) {
         return nil;
+        NSLog(@"No Avatar");
     } else if((image = [self.imageCache getImageByMessageSender:message.sender timestamp:message.timestamp]) != nil) {
         return [[UIImageView alloc] initWithImage:image];
-    } else {
-        UIImageView *emptyImageView = [[UIImageView alloc] init];
-        return emptyImageView;
+        NSLog(@"Returning image from cache");
+    } else if(![self.downloadingImageURLs containsObject:message.imageLink]) {
+        [self.im downloadImageForMessage:message];
+        [self.downloadingImageURLs addObject:message.imageLink];
     }
+    UIImageView *emptyImageView = [[UIImageView alloc] init];
+    return emptyImageView;
 }
 
 -(void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
@@ -157,7 +159,8 @@
 }
 
 -(void)didFinishDownloadingImage:(UIImage *)image fromURL:(NSString *)url forMessage:(Message *)message {
-    [self reloadInputViews];
+    NSLog(@"Reached Delegate Method");
+    [self.tableView reloadData];
 }
 
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {
