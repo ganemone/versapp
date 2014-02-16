@@ -16,6 +16,7 @@
 
 #import "JSAvatarImageFactory.h"
 #import "UIColor+JSMessagesView.h"
+//#import <QuartzCore/QuartzCore.h>
 
 static const CGFloat kJSLabelPadding = 5.0f;
 static const CGFloat kJSTimeStampLabelHeight = 15.0f;
@@ -108,9 +109,30 @@ static const CGFloat kJSSubtitleLabelHeight = 15.0f;
                                          | UIViewAutoresizingFlexibleLeftMargin
                                          | UIViewAutoresizingFlexibleRightMargin);
     
+    
+    CALayer *imageViewLayer = imageView.layer;
+    [imageViewLayer setCornerRadius:imageView.frame.size.width / 2];
+    [imageViewLayer setMasksToBounds:YES];
+    
     [self.contentView addSubview:imageView];
     _avatarImageView = imageView;
 }
+
+/*- (UIImage*) maskImage:(UIImage *)image withMask:(UIImage *)maskImage {
+    
+    CGImageRef maskRef = maskImage.CGImage;
+    
+    CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(maskRef),
+                                        CGImageGetHeight(maskRef),
+                                        CGImageGetBitsPerComponent(maskRef),
+                                        CGImageGetBitsPerPixel(maskRef),
+                                        CGImageGetBytesPerRow(maskRef),
+                                        CGImageGetDataProvider(maskRef), NULL, false);
+    
+    CGImageRef masked = CGImageCreateWithMask([image CGImage], mask);
+    return [UIImage imageWithCGImage:masked];
+    
+}*/
 
 - (void)configureSubtitleLabelForMessageType:(JSBubbleMessageType)type
 {
