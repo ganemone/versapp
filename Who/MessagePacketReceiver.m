@@ -76,7 +76,13 @@
             receiverID = value;
         }
     }
-    [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:receiverID];
+    
+    if (imageLink != nil) {
+        NSLog(@"Received Image Link: %@", imageLink);
+        [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:receiverID imageLink:imageLink];
+    } else {
+        [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:receiverID];
+    }
     
     if ([message.type compare:CHAT_TYPE_GROUP] == 0) {
         NSDictionary *messageDictionary = [NSDictionary dictionaryWithObject:groupID forKey:MESSAGE_PROPERTY_GROUP_ID];

@@ -63,7 +63,7 @@
     MessageMO *dbmessage;
     for (int i = 0; i < fetchedRecords.count; i++) {
         dbmessage = [fetchedRecords objectAtIndex:i];
-        [messages addObject:[Message createForMUC:dbmessage.message_body sender:dbmessage.sender_id chatID:dbmessage.group_id timestamp:dbmessage.time]];
+        [messages addObject:[Message createForMUCWithImage:dbmessage.message_body sender:dbmessage.sender_id chatID:dbmessage.group_id imageLink:dbmessage.image_link timestamp:dbmessage.time]];
     }
     return messages;
 }
@@ -74,7 +74,7 @@
     MessageMO *dbmessage;
     for (int i = 0; i < fetchedRecords.count; i++) {
         dbmessage = [fetchedRecords objectAtIndex:i];
-        [messages addObject:[Message createForOneToOne:dbmessage.message_body sender:dbmessage.sender_id chatID:dbmessage.group_id messageTo:dbmessage.receiver_id timestamp:dbmessage.time]];
+        [messages addObject:[Message createForOneToOneWithImage:dbmessage.message_body sender:dbmessage.sender_id chatID:dbmessage.group_id messageTo:dbmessage.receiver_id imageLink:dbmessage.image_link timestamp:dbmessage.time]];
     }
     return messages;
 }
