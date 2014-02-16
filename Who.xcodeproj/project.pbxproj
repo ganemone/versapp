@@ -2306,7 +2306,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/giancarloanemone/Desktop/ios/Who,
+					/Users/laurenalysa18/Documents/iosApp/who_ios,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Who-Prefix.pch";
@@ -2314,7 +2314,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/giancarloanemone/desktop/ios/who/who,
+					/Users/laurenalysa18/Documents/iosApp/who_ios/Who,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2331,7 +2331,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/giancarloanemone/Desktop/ios/Who,
+					/Users/laurenalysa18/Documents/iosApp/who_ios,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Who-Prefix.pch";
@@ -2339,7 +2339,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/giancarloanemone/desktop/ios/who/who,
+					/Users/laurenalysa18/Documents/iosApp/who_ios/Who,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
