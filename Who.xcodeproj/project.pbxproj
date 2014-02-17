@@ -2555,7 +2555,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/giancarloanemone/desktop/ios/who/who,
-					"/Users/rlundquist3/development/ios/who/who_ios/who\n/Users/rlundquist3/development/ios/who/who_ios/who\n",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

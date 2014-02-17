@@ -34,6 +34,8 @@
 
 -(void)addMessage:(Message*)message;
 
+-(void)updateMessage:(Message *)message;
+
 -(NSString*)getChatAddress;
 
 -(Message*)getMessageByIndex:(NSInteger)index;

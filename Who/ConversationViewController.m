@@ -75,11 +75,15 @@
 -(void)messageReceived:(NSNotification*)notification {
     NSDictionary *userInfo = notification.userInfo;
     if ([(NSString*)[userInfo objectForKey:MESSAGE_PROPERTY_GROUP_ID] compare:self.gc.chatID] == 0) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.gc.getNumberOfMessages - 1 inSection:0];
-        NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
-        [self.tableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationFade];
-        [self scrollToBottomAnimated:YES];
+        [self animateAddNewestMessage];
     }
+}
+
+-(void)animateAddNewestMessage {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.gc.getNumberOfMessages - 1 inSection:0];
+    NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
+    [self.tableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationFade];
+    [self scrollToBottomAnimated:YES];
 }
 
 -(JSBubbleMessageType)messageTypeForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -92,7 +96,12 @@
 
 -(id<JSMessageData>)messageForRowAtIndexPath:(NSIndexPath *)indexPath {
     Message * message = [self.gc getMessageByIndex:indexPath.row];
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970: [message.timestamp doubleValue]];
+    NSDate *date;
+    if(message.timestamp != nil) {
+        date = [NSDate dateWithTimeIntervalSince1970: [message.timestamp doubleValue]];
+    } else {
+        date = [NSDate date];
+    }
     JSMessage *jmessage = [[JSMessage alloc] initWithText:message.body sender:@"" date:date];
     return jmessage;
 }
@@ -104,13 +113,12 @@
 
 -(void)configureCell:(JSBubbleMessageCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     if ([cell messageType] == JSBubbleMessageTypeOutgoing) {
-        cell.bubbleView.textView.textColor = [UIColor whiteColor];
-        
-        if ([cell.bubbleView.textView respondsToSelector:@selector(linkTextAttributes)]) {
+        cell.bubbleView.textView.textColor = [UIColor blackColor];
+        /*if ([cell.bubbleView.textView respondsToSelector:@selector(linkTextAttributes)]) {
             NSMutableDictionary *attrs = [cell.bubbleView.textView.linkTextAttributes mutableCopy];
             [attrs setValue:[UIColor blueColor] forKey:UITextAttributeTextColor];
             cell.bubbleView.textView.linkTextAttributes = attrs;
-        }
+        }*/
     }
     
     if (cell.timestampLabel) {
@@ -118,9 +126,9 @@
         cell.timestampLabel.shadowOffset = CGSizeZero;
     }
     
-    if (cell.subtitleLabel) {
+    /*if (cell.subtitleLabel) {
         cell.subtitleLabel.textColor = [UIColor lightGrayColor];
-    }
+    }*/
 }
 
 - (UIImageView *)bubbleImageViewWithType:(JSBubbleMessageType)type
@@ -128,7 +136,7 @@
 {
     if (type == JSBubbleMessageTypeIncoming) {
         return [JSBubbleImageViewFactory bubbleImageViewForType:type
-                                                          color:[UIColor js_bubbleLightGrayColor]];
+                                                          color:[UIColor js_bubbleGreenColor]];
     }
     else {
         return [JSBubbleImageViewFactory bubbleImageViewForType:type
@@ -166,6 +174,7 @@
     } else {
         [self.gc sendMUCMessage:text];
     }
+    [self animateAddNewestMessage];
     [self finishSend];
 }
 

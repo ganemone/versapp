@@ -106,8 +106,8 @@ static const CGFloat kJSSubtitleLabelHeight = 15.0f;
     
     imageView.frame = CGRectMake(avatarX, avatarY, kJSAvatarImageSize, kJSAvatarImageSize);
     imageView.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin
-                                         | UIViewAutoresizingFlexibleLeftMargin
-                                         | UIViewAutoresizingFlexibleRightMargin);
+                                  | UIViewAutoresizingFlexibleLeftMargin
+                                  | UIViewAutoresizingFlexibleRightMargin);
     
     [imageView setContentMode:UIViewContentModeScaleAspectFill];
     
@@ -120,20 +120,20 @@ static const CGFloat kJSSubtitleLabelHeight = 15.0f;
 }
 
 /*- (UIImage*) maskImage:(UIImage *)image withMask:(UIImage *)maskImage {
-    
-    CGImageRef maskRef = maskImage.CGImage;
-    
-    CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(maskRef),
-                                        CGImageGetHeight(maskRef),
-                                        CGImageGetBitsPerComponent(maskRef),
-                                        CGImageGetBitsPerPixel(maskRef),
-                                        CGImageGetBytesPerRow(maskRef),
-                                        CGImageGetDataProvider(maskRef), NULL, false);
-    
-    CGImageRef masked = CGImageCreateWithMask([image CGImage], mask);
-    return [UIImage imageWithCGImage:masked];
-    
-}*/
+ 
+ CGImageRef maskRef = maskImage.CGImage;
+ 
+ CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(maskRef),
+ CGImageGetHeight(maskRef),
+ CGImageGetBitsPerComponent(maskRef),
+ CGImageGetBitsPerPixel(maskRef),
+ CGImageGetBytesPerRow(maskRef),
+ CGImageGetDataProvider(maskRef), NULL, false);
+ 
+ CGImageRef masked = CGImageCreateWithMask([image CGImage], mask);
+ return [UIImage imageWithCGImage:masked];
+ 
+ }*/
 
 - (void)configureSubtitleLabelForMessageType:(JSBubbleMessageType)type
 {
@@ -151,7 +151,7 @@ static const CGFloat kJSSubtitleLabelHeight = 15.0f;
 - (void)configureWithType:(JSBubbleMessageType)type
           bubbleImageView:(UIImageView *)bubbleImageView
                   message:(id<JSMessageData>)message
-         displaysTimestamp:(BOOL)displaysTimestamp
+        displaysTimestamp:(BOOL)displaysTimestamp
                    avatar:(BOOL)hasAvatar
 {
     CGFloat bubbleY = 0.0f;
@@ -188,8 +188,8 @@ static const CGFloat kJSSubtitleLabelHeight = 15.0f;
                                                    bubbleImageView:bubbleImageView];
     
     bubbleView.autoresizingMask = (UIViewAutoresizingFlexibleWidth
-                                    | UIViewAutoresizingFlexibleHeight
-                                    | UIViewAutoresizingFlexibleBottomMargin);
+                                   | UIViewAutoresizingFlexibleHeight
+                                   | UIViewAutoresizingFlexibleBottomMargin);
     
     [self.contentView addSubview:bubbleView];
     [self.contentView sendSubviewToBack:bubbleView];
@@ -261,9 +261,21 @@ static const CGFloat kJSSubtitleLabelHeight = 15.0f;
 
 - (void)setTimestamp:(NSDate *)date
 {
-    self.timestampLabel.text = [NSDateFormatter localizedStringFromDate:date
-                                                              dateStyle:NSDateFormatterMediumStyle
-                                                              timeStyle:NSDateFormatterShortStyle];
+    NSDateComponents *today = [[NSCalendar currentCalendar] components:NSEraCalendarUnit|NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:[NSDate date]];
+    NSDateComponents *otherDay = [[NSCalendar currentCalendar] components:NSEraCalendarUnit|NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:date];
+    
+    if([today day] == [otherDay day] &&
+       [today month] == [otherDay month] &&
+       [today year] == [otherDay year] &&
+       [today era] == [otherDay era]) {
+        self.timestampLabel.text = [NSDateFormatter localizedStringFromDate:date
+                                                                  dateStyle:NSDateFormatterNoStyle
+                                                                  timeStyle:NSDateFormatterShortStyle];
+    } else {
+        self.timestampLabel.text = [NSDateFormatter localizedStringFromDate:date
+                                                                  dateStyle:NSDateFormatterShortStyle
+                                                                  timeStyle:NSDateFormatterShortStyle];
+    }
 }
 
 - (void)setSubtitle:(NSString *)subtitle

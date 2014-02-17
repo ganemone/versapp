@@ -88,8 +88,13 @@
         NSDictionary *messageDictionary = [NSDictionary dictionaryWithObject:groupID forKey:MESSAGE_PROPERTY_GROUP_ID];
         GroupChatManager *gcm = [GroupChatManager getInstance];
         GroupChat *gc = [gcm getChat:groupID];
-        [gc addMessage: [Message createForMUCWithImage:message.body sender:senderID chatID:groupID imageLink:imageLink timestamp:timestamp]];
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
+        Message *messageObject = [Message createForMUCWithImage:message.body sender:senderID chatID:groupID imageLink:imageLink timestamp:timestamp];
+        if ([senderID compare:[ConnectionProvider getUser]] == 0) {
+            [gc updateMessage:messageObject];
+        } else {
+            [gc addMessage: messageObject];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
+        }
     } else {
         NSDictionary *messageDictionary = [NSDictionary dictionaryWithObject:message.thread forKey:MESSAGE_PROPERTY_GROUP_ID];
         OneToOneChatManager *cm = [OneToOneChatManager getInstance];

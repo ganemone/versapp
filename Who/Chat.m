@@ -23,6 +23,7 @@
 
 -(void)sendMUCMessage:(NSString *)messageText {
     Message *message = [Message createForMUC:messageText sender:[ConnectionProvider getUser] chatID:self.chatID];
+    [self addMessage:message];
     DDXMLElement *packet = [IQPacketManager createSendMUCMessagePacket:message];
     [[[ConnectionProvider getInstance] getConnection] sendElement:packet];
 }
@@ -34,11 +35,23 @@
 
 -(void)sendMUCMessage:(NSString *)messageText imageLink:(NSString *)imageLink {
     Message *message = [Message createForMUCWithImage:messageText sender:[ConnectionProvider getUser] chatID:self.chatID imageLink:imageLink];
+    [self addMessage:message];
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSendMUCMessagePacket:message]];
 }
 
 -(void)sendOneToOneMessage:(NSString *)messageText messageTo:(NSString *)messageTo imageLink:(NSString *)imageLink {
     
+}
+
+-(void)updateMessage:(Message *)message {
+    Message *tempMessage;
+    for (int i = (int)self.history.count - 1; i >= 0; i--) {
+        tempMessage = [self.history objectAtIndex:i];
+        if ([tempMessage timestamp] == nil) {
+            [tempMessage setTimestamp:message.timestamp];
+            i = 0;
+        }
+    }
 }
 
 -(void)addMessage:(Message *)message {
