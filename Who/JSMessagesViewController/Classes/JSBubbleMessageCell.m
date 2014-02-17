@@ -109,6 +109,7 @@ static const CGFloat kJSSubtitleLabelHeight = 15.0f;
                                          | UIViewAutoresizingFlexibleLeftMargin
                                          | UIViewAutoresizingFlexibleRightMargin);
     
+    [imageView setContentMode:UIViewContentModeScaleAspectFill];
     
     CALayer *imageViewLayer = imageView.layer;
     [imageViewLayer setCornerRadius:imageView.frame.size.width / 2];

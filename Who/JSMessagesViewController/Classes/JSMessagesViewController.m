@@ -288,7 +288,7 @@
         [self.delegate configureCell:cell atIndexPath:indexPath];                       
     }
     
-    [self.cellCache setObject:cell forKey:[NSNumber numberWithInt:indexPath.row]];
+    [self.cellCache setObject:cell forKey:[NSNumber numberWithInt:(int)indexPath.row]];
     
     return cell;
 }
