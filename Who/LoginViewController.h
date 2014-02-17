@@ -11,6 +11,8 @@
 
 @interface LoginViewController : UIViewController <XMPPStreamDelegate, UITextFieldDelegate>
 
+- (IBAction)unwindToList:(UIStoryboardSegue *)segue;
+
 -(void)authenticated;
 
 @end

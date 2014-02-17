@@ -18,6 +18,21 @@
 @property (weak, nonatomic) IBOutlet UITextField *username;
 @property (weak, nonatomic) IBOutlet UITextField *password;
 
+@property (weak, nonatomic) IBOutlet UITextField *confirmPassword;
+
+@property (weak, nonatomic) IBOutlet UITextField *name;
+
+@property (weak, nonatomic) IBOutlet UITextField *email;
+
+@property (weak, nonatomic) IBOutlet UIView *registerView;
+
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
+@property (weak, nonatomic) IBOutlet UIButton *registerButton;
+@property (weak, nonatomic) IBOutlet UIButton *signUpButton;
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+
+
+
 @property (strong, nonatomic) NSString *usernameText;
 @property (strong, nonatomic) NSString *passwordText;
 @property (strong, nonatomic) NSString *emailText;
@@ -32,13 +47,18 @@
 - (IBAction)loginClick:(id)sender;
 - (IBAction)register:(id)sender;
 
+- (IBAction)signUpClick:(id)sender;
+- (IBAction)cancelClick:(id)sender;
 
-//- (IBAction)loginClicked:(id)sender;
-//@property ConnectionProvider *connectionProviderInstance;
 @end
 
 
 @implementation LoginViewController
+
+- (IBAction)unwindToList:(UIStoryboardSegue *)segue
+{
+    
+}
 
 - (void)viewDidLoad
 {
@@ -57,7 +77,15 @@
     self.cp = [ConnectionProvider getInstance];
     [self.username setDelegate:self];
     [self.password setDelegate:self];
+    //[self.email addTarget:self action:@selector(textFieldFinished:) forControlEvents: UIControlEventEditingDidEndOnExit];
+
 }
+
+
+/*-(void) textFieldFinished:(id) sender
+{
+    [sender resignFirstResponder];
+}*/
 
 -(void)authenticated
 {
@@ -103,13 +131,20 @@
     
 }
 
-- (IBAction)register:(id)sender {
+- (IBAction)register:(id)sender{
+    
     NSString *firstName, *lastName,
-    *username = @"1234512345",
-    *name = @"John Doe",
-    *password = @"password",
-    *confirm = @"password",
-    *email = @"ganemone@gmail.com";
+    //*username = @"1234512345",
+    *username = self.username.text,
+    *name = self.name.text,
+    *password = self.password.text,
+    *confirm = self.confirmPassword.text,
+    *email = self.email.text;
+    
+   // *name = @"John Doe",
+   // *password = @"password",
+   // *confirm = @"password",
+   // *email = @"ganemone@gmail.com";
     
     BOOL valid = YES;
     NSError *error = NULL;
@@ -145,6 +180,26 @@
     } else {
         NSLog(@"Failed Validation");
     }
+
+    
 }
 
+- (IBAction)signUpClick:(id)sender {
+    self.registerButton.hidden = false;
+     self.loginButton.hidden = true;
+     self.signUpButton.hidden = true;
+     self.cancelButton.hidden = false;
+     self.registerView.hidden = false;
+     self.email.hidden = false;
+     self.confirmPassword.hidden = false;
+     self.name.hidden = false;
+}
+
+- (IBAction)cancelClick:(id)sender {
+    
+    self.registerView.hidden = true;
+    self.loginButton.hidden = false;
+    self.signUpButton.hidden = false;
+    self.registerButton.hidden = true;
+}
 @end
