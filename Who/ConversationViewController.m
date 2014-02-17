@@ -13,6 +13,8 @@
 #import "JSMessage.h"
 #import "ConnectionProvider.h"
 #import "ImageManager.h"
+#import "ConversationImageExpandViewController.h"
+
 @interface ConversationViewController ()
 
 @end
@@ -20,6 +22,15 @@
 @implementation ConversationViewController
 
 @synthesize gc;
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier compare:SEGUE_ID_GROUP_VIEW_IMAGE] == 0) {
+        NSLog(@"Setting image on controller....");
+        self.navigationItem.backBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:self.gc.name style:UIBarButtonItemStylePlain target:nil action:nil];
+        ConversationImageExpandViewController *dest = segue.destinationViewController;
+        [dest setSelectedImage:self.selectedImage];
+    }
+}
 
 - (void)viewDidLoad
 {
@@ -84,6 +95,11 @@
     NSDate *date = [NSDate dateWithTimeIntervalSince1970: [message.timestamp doubleValue]];
     JSMessage *jmessage = [[JSMessage alloc] initWithText:message.body sender:@"" date:date];
     return jmessage;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.selectedImage = [[self avatarImageViewForRowAtIndexPath:indexPath sender:@""] image];
+    [self performSegueWithIdentifier:SEGUE_ID_GROUP_VIEW_IMAGE sender:self];
 }
 
 -(void)configureCell:(JSBubbleMessageCell *)cell atIndexPath:(NSIndexPath *)indexPath {

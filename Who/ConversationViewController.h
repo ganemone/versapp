@@ -18,5 +18,6 @@
 @property (strong, nonatomic) ImageManager *im;
 @property (strong, nonatomic) NSMutableArray *downloadingImageURLs;
 @property (strong, nonatomic) ImageCache *imageCache;
+@property (strong, nonatomic) UIImage *selectedImage;
 
 @end
