@@ -249,6 +249,26 @@
 		3AFFC93D18A06AE3009D7F13 /* db.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC93B18A06AE3009D7F13 /* db.xcdatamodeld */; };
 		3AFFC94018A06B95009D7F13 /* MessageMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC93F18A06B95009D7F13 /* MessageMO.m */; };
 		3AFFC94318A06BA9009D7F13 /* FriendMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC94218A06BA9009D7F13 /* FriendMO.m */; };
+		F751015D18ABE101001F1E7F /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751013F18ABE100001F1E7F /* IASKAppSettingsViewController.m */; };
+		F751015E18ABE101001F1E7F /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751014118ABE100001F1E7F /* IASKAppSettingsWebViewController.m */; };
+		F751015F18ABE101001F1E7F /* IASKSpecifierValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751014318ABE100001F1E7F /* IASKSpecifierValuesViewController.m */; };
+		F751016018ABE101001F1E7F /* IASKSettingsReader.m in Sources */ = {isa = PBXBuildFile; fileRef = F751014718ABE100001F1E7F /* IASKSettingsReader.m */; };
+		F751016118ABE101001F1E7F /* IASKSettingsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F751014918ABE100001F1E7F /* IASKSettingsStore.m */; };
+		F751016218ABE101001F1E7F /* IASKSettingsStoreFile.m in Sources */ = {isa = PBXBuildFile; fileRef = F751014B18ABE100001F1E7F /* IASKSettingsStoreFile.m */; };
+		F751016318ABE101001F1E7F /* IASKSettingsStoreUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = F751014D18ABE100001F1E7F /* IASKSettingsStoreUserDefaults.m */; };
+		F751016418ABE101001F1E7F /* IASKSpecifier.m in Sources */ = {isa = PBXBuildFile; fileRef = F751014F18ABE100001F1E7F /* IASKSpecifier.m */; };
+		F751016518ABE101001F1E7F /* IASKPSSliderSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F751015218ABE100001F1E7F /* IASKPSSliderSpecifierViewCell.m */; };
+		F751016618ABE101001F1E7F /* IASKPSTextFieldSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F751015418ABE101001F1E7F /* IASKPSTextFieldSpecifierViewCell.m */; };
+		F751016718ABE101001F1E7F /* IASKPSTitleValueSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F751015618ABE101001F1E7F /* IASKPSTitleValueSpecifierViewCell.m */; };
+		F751016818ABE101001F1E7F /* IASKSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = F751015818ABE101001F1E7F /* IASKSlider.m */; };
+		F751016918ABE101001F1E7F /* IASKSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = F751015A18ABE101001F1E7F /* IASKSwitch.m */; };
+		F751016A18ABE101001F1E7F /* IASKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = F751015C18ABE101001F1E7F /* IASKTextField.m */; };
+		F751016C18ABE8A2001F1E7F /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F751016B18ABE8A2001F1E7F /* Settings.bundle */; };
+		F751018718AE856C001F1E7F /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751018618AE856C001F1E7F /* ChangePasswordViewController.m */; };
+		F751018A18AE8D3A001F1E7F /* SupportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751018918AE8D3A001F1E7F /* SupportViewController.m */; };
+		F751018D18AE8D5E001F1E7F /* PrivacyPolicyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751018C18AE8D5E001F1E7F /* PrivacyPolicyViewController.m */; };
+		F751019018AE8D6F001F1E7F /* TermsOfUseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751018F18AE8D6F001F1E7F /* TermsOfUseViewController.m */; };
+		F751019718B134DE001F1E7F /* ChangeEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751019618B134DE001F1E7F /* ChangeEmailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -692,6 +712,46 @@
 		3AFFC93F18A06B95009D7F13 /* MessageMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageMO.m; sourceTree = "<group>"; };
 		3AFFC94118A06BA9009D7F13 /* FriendMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendMO.h; sourceTree = "<group>"; };
 		3AFFC94218A06BA9009D7F13 /* FriendMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendMO.m; sourceTree = "<group>"; };
+		F751013E18ABE100001F1E7F /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsViewController.h; sourceTree = "<group>"; };
+		F751013F18ABE100001F1E7F /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsViewController.m; sourceTree = "<group>"; };
+		F751014018ABE100001F1E7F /* IASKAppSettingsWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsWebViewController.h; sourceTree = "<group>"; };
+		F751014118ABE100001F1E7F /* IASKAppSettingsWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsWebViewController.m; sourceTree = "<group>"; };
+		F751014218ABE100001F1E7F /* IASKSpecifierValuesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSpecifierValuesViewController.h; sourceTree = "<group>"; };
+		F751014318ABE100001F1E7F /* IASKSpecifierValuesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSpecifierValuesViewController.m; sourceTree = "<group>"; };
+		F751014418ABE100001F1E7F /* IASKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKViewController.h; sourceTree = "<group>"; };
+		F751014618ABE100001F1E7F /* IASKSettingsReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSettingsReader.h; sourceTree = "<group>"; };
+		F751014718ABE100001F1E7F /* IASKSettingsReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSettingsReader.m; sourceTree = "<group>"; };
+		F751014818ABE100001F1E7F /* IASKSettingsStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSettingsStore.h; sourceTree = "<group>"; };
+		F751014918ABE100001F1E7F /* IASKSettingsStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSettingsStore.m; sourceTree = "<group>"; };
+		F751014A18ABE100001F1E7F /* IASKSettingsStoreFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSettingsStoreFile.h; sourceTree = "<group>"; };
+		F751014B18ABE100001F1E7F /* IASKSettingsStoreFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSettingsStoreFile.m; sourceTree = "<group>"; };
+		F751014C18ABE100001F1E7F /* IASKSettingsStoreUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSettingsStoreUserDefaults.h; sourceTree = "<group>"; };
+		F751014D18ABE100001F1E7F /* IASKSettingsStoreUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSettingsStoreUserDefaults.m; sourceTree = "<group>"; };
+		F751014E18ABE100001F1E7F /* IASKSpecifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSpecifier.h; sourceTree = "<group>"; };
+		F751014F18ABE100001F1E7F /* IASKSpecifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSpecifier.m; sourceTree = "<group>"; };
+		F751015118ABE100001F1E7F /* IASKPSSliderSpecifierViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKPSSliderSpecifierViewCell.h; sourceTree = "<group>"; };
+		F751015218ABE100001F1E7F /* IASKPSSliderSpecifierViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKPSSliderSpecifierViewCell.m; sourceTree = "<group>"; };
+		F751015318ABE101001F1E7F /* IASKPSTextFieldSpecifierViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKPSTextFieldSpecifierViewCell.h; sourceTree = "<group>"; };
+		F751015418ABE101001F1E7F /* IASKPSTextFieldSpecifierViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKPSTextFieldSpecifierViewCell.m; sourceTree = "<group>"; };
+		F751015518ABE101001F1E7F /* IASKPSTitleValueSpecifierViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKPSTitleValueSpecifierViewCell.h; sourceTree = "<group>"; };
+		F751015618ABE101001F1E7F /* IASKPSTitleValueSpecifierViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKPSTitleValueSpecifierViewCell.m; sourceTree = "<group>"; };
+		F751015718ABE101001F1E7F /* IASKSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSlider.h; sourceTree = "<group>"; };
+		F751015818ABE101001F1E7F /* IASKSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSlider.m; sourceTree = "<group>"; };
+		F751015918ABE101001F1E7F /* IASKSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSwitch.h; sourceTree = "<group>"; };
+		F751015A18ABE101001F1E7F /* IASKSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSwitch.m; sourceTree = "<group>"; };
+		F751015B18ABE101001F1E7F /* IASKTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKTextField.h; sourceTree = "<group>"; };
+		F751015C18ABE101001F1E7F /* IASKTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKTextField.m; sourceTree = "<group>"; };
+		F751016B18ABE8A2001F1E7F /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		F751018518AE856C001F1E7F /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
+		F751018618AE856C001F1E7F /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
+		F751018818AE8D3A001F1E7F /* SupportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupportViewController.h; sourceTree = "<group>"; };
+		F751018918AE8D3A001F1E7F /* SupportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupportViewController.m; sourceTree = "<group>"; };
+		F751018B18AE8D5E001F1E7F /* PrivacyPolicyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivacyPolicyViewController.h; sourceTree = "<group>"; };
+		F751018C18AE8D5E001F1E7F /* PrivacyPolicyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivacyPolicyViewController.m; sourceTree = "<group>"; };
+		F751018E18AE8D6F001F1E7F /* TermsOfUseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsOfUseViewController.h; sourceTree = "<group>"; };
+		F751018F18AE8D6F001F1E7F /* TermsOfUseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsOfUseViewController.m; sourceTree = "<group>"; };
+		F751019518B134DE001F1E7F /* ChangeEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeEmailViewController.h; sourceTree = "<group>"; };
+		F751019618B134DE001F1E7F /* ChangeEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeEmailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -779,6 +839,8 @@
 			children = (
 				3AB9E67C18A45573001EFDB8 /* LoadingDialogManager.h */,
 				3AB9E67D18A45573001EFDB8 /* LoadingDialogManager.m */,
+				F751016B18ABE8A2001F1E7F /* Settings.bundle */,
+				F751013C18ABE100001F1E7F /* InAppSettingsKit */,
 				3A47C841189F1A30003020D7 /* DB */,
 				3AF19ACE1881F86000F3E4D3 /* Dependencies */,
 				3A939630189B3543004B01CE /* Main */,
@@ -1893,6 +1955,85 @@
 			name = Dependencies;
 			sourceTree = "<group>";
 		};
+		F751013C18ABE100001F1E7F /* InAppSettingsKit */ = {
+			isa = PBXGroup;
+			children = (
+				F751019418AEA266001F1E7F /* ChildPages */,
+				F751013D18ABE100001F1E7F /* Controllers */,
+				F751014518ABE100001F1E7F /* Models */,
+				F751015018ABE100001F1E7F /* Views */,
+			);
+			path = InAppSettingsKit;
+			sourceTree = "<group>";
+		};
+		F751013D18ABE100001F1E7F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F751013E18ABE100001F1E7F /* IASKAppSettingsViewController.h */,
+				F751013F18ABE100001F1E7F /* IASKAppSettingsViewController.m */,
+				F751014018ABE100001F1E7F /* IASKAppSettingsWebViewController.h */,
+				F751014118ABE100001F1E7F /* IASKAppSettingsWebViewController.m */,
+				F751014218ABE100001F1E7F /* IASKSpecifierValuesViewController.h */,
+				F751014318ABE100001F1E7F /* IASKSpecifierValuesViewController.m */,
+				F751014418ABE100001F1E7F /* IASKViewController.h */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		F751014518ABE100001F1E7F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F751014618ABE100001F1E7F /* IASKSettingsReader.h */,
+				F751014718ABE100001F1E7F /* IASKSettingsReader.m */,
+				F751014818ABE100001F1E7F /* IASKSettingsStore.h */,
+				F751014918ABE100001F1E7F /* IASKSettingsStore.m */,
+				F751014A18ABE100001F1E7F /* IASKSettingsStoreFile.h */,
+				F751014B18ABE100001F1E7F /* IASKSettingsStoreFile.m */,
+				F751014C18ABE100001F1E7F /* IASKSettingsStoreUserDefaults.h */,
+				F751014D18ABE100001F1E7F /* IASKSettingsStoreUserDefaults.m */,
+				F751014E18ABE100001F1E7F /* IASKSpecifier.h */,
+				F751014F18ABE100001F1E7F /* IASKSpecifier.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F751015018ABE100001F1E7F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F751015118ABE100001F1E7F /* IASKPSSliderSpecifierViewCell.h */,
+				F751015218ABE100001F1E7F /* IASKPSSliderSpecifierViewCell.m */,
+				F751015318ABE101001F1E7F /* IASKPSTextFieldSpecifierViewCell.h */,
+				F751015418ABE101001F1E7F /* IASKPSTextFieldSpecifierViewCell.m */,
+				F751015518ABE101001F1E7F /* IASKPSTitleValueSpecifierViewCell.h */,
+				F751015618ABE101001F1E7F /* IASKPSTitleValueSpecifierViewCell.m */,
+				F751015718ABE101001F1E7F /* IASKSlider.h */,
+				F751015818ABE101001F1E7F /* IASKSlider.m */,
+				F751015918ABE101001F1E7F /* IASKSwitch.h */,
+				F751015A18ABE101001F1E7F /* IASKSwitch.m */,
+				F751015B18ABE101001F1E7F /* IASKTextField.h */,
+				F751015C18ABE101001F1E7F /* IASKTextField.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F751019418AEA266001F1E7F /* ChildPages */ = {
+			isa = PBXGroup;
+			children = (
+				F751019518B134DE001F1E7F /* ChangeEmailViewController.h */,
+				F751019618B134DE001F1E7F /* ChangeEmailViewController.m */,
+				F751018518AE856C001F1E7F /* ChangePasswordViewController.h */,
+				F751018618AE856C001F1E7F /* ChangePasswordViewController.m */,
+				F751018818AE8D3A001F1E7F /* SupportViewController.h */,
+				F751018918AE8D3A001F1E7F /* SupportViewController.m */,
+				F751018B18AE8D5E001F1E7F /* PrivacyPolicyViewController.h */,
+				F751018C18AE8D5E001F1E7F /* PrivacyPolicyViewController.m */,
+				F751018E18AE8D6F001F1E7F /* TermsOfUseViewController.h */,
+				F751018F18AE8D6F001F1E7F /* TermsOfUseViewController.m */,
+			);
+			name = ChildPages;
+			path = ..;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1942,6 +2083,11 @@
 				TargetAttributes = {
 					3A25B6321881E03700166623 = {
 						DevelopmentTeam = 5M27X5RDD6;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					3A25B6561881E03700166623 = {
 						TestTargetID = 3A25B6321881E03700166623;
@@ -1992,6 +2138,7 @@
 				3A3A0B0A18AB1126006FBAE4 /* send-button-pressed.png in Resources */,
 				3A3A0B1218AB1126006FBAE4 /* message-received.aiff in Resources */,
 				3A3A0B0018AB1126006FBAE4 /* bubble-stroked.png in Resources */,
+				F751016C18ABE8A2001F1E7F /* Settings.bundle in Resources */,
 				3AF19A6E1881F34A00F3E4D3 /* README.txt in Resources */,
 				3A3A0B0818AB1126006FBAE4 /* input-field-cover.png in Resources */,
 				3A3A0B1018AB1126006FBAE4 /* input-bar-flat.png in Resources */,
@@ -2067,6 +2214,7 @@
 				3AF19A8A1881F75100F3E4D3 /* XMPPAnonymousAuthentication.m in Sources */,
 				3AF19A9B1881F7E800F3E4D3 /* NSNumber+XMPP.m in Sources */,
 				3A720C6518A1C06700423959 /* XMPPRosterMemoryStorage.m in Sources */,
+				F751016718ABE101001F1E7F /* IASKPSTitleValueSpecifierViewCell.m in Sources */,
 				3AF19A8D1881F75100F3E4D3 /* XMPPDigestMD5Authentication.m in Sources */,
 				3AF19A9D1881F7E800F3E4D3 /* NSXMLElement+XMPP.m in Sources */,
 				3A7D69F31896F12100E18B45 /* OneToOneConversationViewController.m in Sources */,
@@ -2082,28 +2230,36 @@
 				3A720CAA18A1C06700423959 /* NSXMLElement+XEP_0203.m in Sources */,
 				3AFFC93D18A06AE3009D7F13 /* db.xcdatamodeld in Sources */,
 				3A720C8118A1C06700423959 /* XMPPvCardTempCoreDataStorageObject.m in Sources */,
+				F751018718AE856C001F1E7F /* ChangePasswordViewController.m in Sources */,
 				3A720C9818A1C06700423959 /* XMPPCapabilitiesCoreDataStorage.m in Sources */,
 				3ACA788218833EDB00B384BF /* MainTabBarController.m in Sources */,
 				3A720CB718A28DAD00423959 /* PresencePacketReceiver.m in Sources */,
 				3A720C6D18A1C06700423959 /* XMPPLastActivity.m in Sources */,
+				F751016418ABE101001F1E7F /* IASKSpecifier.m in Sources */,
 				3A720C8F18A1C06700423959 /* XMPPIQ+XEP_0066.m in Sources */,
 				3A3A0ADF18AB1126006FBAE4 /* JSBubbleMessageCell.m in Sources */,
 				3A720C9C18A1C06700423959 /* XMPPMessageArchiving.xcdatamodeld in Sources */,
 				3A720C9B18A1C06700423959 /* XMPPCapabilities.m in Sources */,
 				3AF19AC41881F81900F3E4D3 /* XMPPParser.m in Sources */,
 				3AF19A481881EF1600F3E4D3 /* DDLog.m in Sources */,
+				F751016018ABE101001F1E7F /* IASKSettingsReader.m in Sources */,
+				F751016518ABE101001F1E7F /* IASKPSSliderSpecifierViewCell.m in Sources */,
 				3A720C8618A1C06700423959 /* XMPPvCardTempEmail.m in Sources */,
+				F751018D18AE8D5E001F1E7F /* PrivacyPolicyViewController.m in Sources */,
 				3A720C7818A1C06700423959 /* XMPPRoomMessageMemoryStorageObject.m in Sources */,
 				3A720C7E18A1C06700423959 /* XMPPvCardAvatarCoreDataStorageObject.m in Sources */,
 				3A939633189C876A004B01CE /* ChatParticipantVCardBuffer.m in Sources */,
 				3A3A0AE218AB1126006FBAE4 /* JSMessage.m in Sources */,
+				F751019718B134DE001F1E7F /* ChangeEmailViewController.m in Sources */,
 				3A720C6818A1C06700423959 /* XMPPSystemInputActivityMonitor.m in Sources */,
 				3AF19A461881EF1600F3E4D3 /* DDASLLogger.m in Sources */,
+				F751016618ABE101001F1E7F /* IASKPSTextFieldSpecifierViewCell.m in Sources */,
 				3A81F49A188D905A0006DD5D /* GroupChatManager.m in Sources */,
 				3A720C7418A1C06700423959 /* XMPPRoomHybridStorage.m in Sources */,
 				3A720C6718A1C06700423959 /* XMPPRoster.m in Sources */,
 				3A3A0AE718AB1126006FBAE4 /* JSMessageTextView.m in Sources */,
 				3AF19AC51881F81900F3E4D3 /* XMPPPresence.m in Sources */,
+				F751016218ABE101001F1E7F /* IASKSettingsStoreFile.m in Sources */,
 				3A720C5E18A1C06700423959 /* XMPPReconnect.m in Sources */,
 				3A720CA018A1C06700423959 /* XMPPMessageArchiving.m in Sources */,
 				3A720CAC18A1C06700423959 /* XMPPAttentionModule.m in Sources */,
@@ -2143,23 +2299,27 @@
 				3AF19A491881EF1600F3E4D3 /* DDTTYLogger.m in Sources */,
 				3A720CA518A1C06700423959 /* XMPPMessageDeliveryReceipts.m in Sources */,
 				3A3A0B1418AB1126006FBAE4 /* JSQSystemSoundPlayer.m in Sources */,
+				F751016318ABE101001F1E7F /* IASKSettingsStoreUserDefaults.m in Sources */,
 				3A25B6701881E7F100166623 /* RequestsViewController.m in Sources */,
 				3A720CAF18A1C06700423959 /* XMPPMessage+XEP_0308.m in Sources */,
 				3A720C8A18A1C06700423959 /* NSXMLElement+XEP_0059.m in Sources */,
 				3A3A0AE118AB1126006FBAE4 /* JSDismissiveTextView.m in Sources */,
 				3AF19A9A1881F7E800F3E4D3 /* NSData+XMPP.m in Sources */,
+				F751019018AE8D6F001F1E7F /* TermsOfUseViewController.m in Sources */,
 				3A39475B189FF12E005730D2 /* UserProfile.m in Sources */,
 				3A720C8E18A1C06700423959 /* TURNSocket.m in Sources */,
 				3A6C3BBB1884AD61003B162B /* LoginViewController.m in Sources */,
 				3A720C7718A1C06700423959 /* XMPPRoomMemoryStorage.m in Sources */,
 				3A720CA418A1C06700423959 /* XMPPMessage+XEP_0184.m in Sources */,
 				3A720C8318A1C06700423959 /* XMPPvCardTempAdr.m in Sources */,
+				F751018A18AE8D3A001F1E7F /* SupportViewController.m in Sources */,
 				3AFFC94018A06B95009D7F13 /* MessageMO.m in Sources */,
 				3A720CB018A1C06700423959 /* NSXMLElement+XEP_0335.m in Sources */,
 				3A25B6471881E03700166623 /* AppDelegate.m in Sources */,
 				3A720C6318A1C06700423959 /* XMPPUserCoreDataStorageObject.m in Sources */,
 				3A3A0AE018AB1126006FBAE4 /* JSBubbleView.m in Sources */,
 				3AC0BA2F18AEEFBA0061A565 /* Base64.m in Sources */,
+				F751015D18ABE101001F1E7F /* IASKAppSettingsViewController.m in Sources */,
 				3AF19A6D1881F34A00F3E4D3 /* DispatchQueueLogFormatter.m in Sources */,
 				3AF19AC91881F81900F3E4D3 /* RFImageToDataTransformer.m in Sources */,
 				3A720C6118A1C06700423959 /* XMPPRoster.xcdatamodel in Sources */,
@@ -2175,13 +2335,16 @@
 				3AF19AC81881F81900F3E4D3 /* GCDMulticastDelegate.m in Sources */,
 				3A720C9418A1C06700423959 /* XMPPSoftwareVersion.m in Sources */,
 				3A720C7118A1C06700423959 /* XMPPRoomMessageCoreDataStorageObject.m in Sources */,
+				F751016A18ABE101001F1E7F /* IASKTextField.m in Sources */,
 				3AF19A8F1881F75100F3E4D3 /* XMPPXFacebookPlatformAuthentication.m in Sources */,
 				3A25B6431881E03700166623 /* main.m in Sources */,
+				F751016918ABE101001F1E7F /* IASKSwitch.m in Sources */,
 				3A5699AB1886D4B900746CC8 /* Chat.m in Sources */,
 				3AF19ACC1881F81900F3E4D3 /* XMPPStringPrep.m in Sources */,
 				3AF5113D1885D79E002383D3 /* Constants.m in Sources */,
 				3AF19A6B1881F34A00F3E4D3 /* DDXMLNode.m in Sources */,
 				3AF19AC21881F81900F3E4D3 /* XMPPMessage.m in Sources */,
+				F751015F18ABE101001F1E7F /* IASKSpecifierValuesViewController.m in Sources */,
 				3AF19A6A1881F34A00F3E4D3 /* DDXMLElement.m in Sources */,
 				3A720C8418A1C06700423959 /* XMPPvCardTempAdrTypes.m in Sources */,
 				3A720C9218A1C06700423959 /* XMPPDateTimeProfiles.m in Sources */,
@@ -2189,6 +2352,7 @@
 				3A720C6F18A1C06700423959 /* XMPPRoom.xcdatamodeld in Sources */,
 				3A720C9A18A1C06700423959 /* XMPPCapsResourceCoreDataStorageObject.m in Sources */,
 				3AF19AC31881F81900F3E4D3 /* XMPPModule.m in Sources */,
+				F751016818ABE101001F1E7F /* IASKSlider.m in Sources */,
 				3AF19A471881EF1600F3E4D3 /* DDFileLogger.m in Sources */,
 				3A720C9E18A1C06700423959 /* XMPPMessageArchiving_Message_CoreDataObject.m in Sources */,
 				3A25B6731881E83500166623 /* DashboardViewController.m in Sources */,
@@ -2209,9 +2373,11 @@
 				3AF19A6C1881F34A00F3E4D3 /* ContextFilterLogFormatter.m in Sources */,
 				3A720C6B18A1C06700423959 /* XMPPJabberRPCModule.m in Sources */,
 				3A720C6618A1C06700423959 /* XMPPUserMemoryStorageObject.m in Sources */,
+				F751016118ABE101001F1E7F /* IASKSettingsStore.m in Sources */,
 				3A720C9618A1C06700423959 /* NSString+XEP_0106.m in Sources */,
 				3A720C6018A1C06700423959 /* XMPPResourceCoreDataStorageObject.m in Sources */,
 				3AF19A9C1881F7E800F3E4D3 /* NSString+DDXML.m in Sources */,
+				F751015E18ABE101001F1E7F /* IASKAppSettingsWebViewController.m in Sources */,
 				3A720C7518A1C06700423959 /* XMPPRoomMessageHybridCoreDataStorageObject.m in Sources */,
 				3A720C7A18A1C06700423959 /* XMPPMessage+XEP0045.m in Sources */,
 				3A720C9F18A1C06700423959 /* XMPPMessageArchivingCoreDataStorage.m in Sources */,
@@ -2389,6 +2555,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/giancarloanemone/desktop/ios/who/who,
+					"/Users/rlundquist3/development/ios/who/who_ios/who\n/Users/rlundquist3/development/ios/who/who_ios/who\n",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

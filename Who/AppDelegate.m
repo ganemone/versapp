@@ -102,4 +102,13 @@
     [self saveContext];
 }
 
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    NSLog(@"didReceiveRemoteNotification");
+    
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.alertBody = @"Test Notification";
+    [application presentLocalNotificationNow:notification];
+    completionHandler(UIBackgroundFetchResultNewData);
+}
+
 @end
