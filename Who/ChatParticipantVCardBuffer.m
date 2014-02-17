@@ -93,14 +93,6 @@ static ChatParticipantVCardBuffer *selfInstance;
 }
 
 -(NSArray*)getAcceptedUserProfiles {
-    for (int i = 0; i < self.accepted.count; i++) {
-        NSLog(@"Accepted JID: %@", [self.accepted objectAtIndex:i]);
-    }
-    NSEnumerator *keyEnumerator = [self.users keyEnumerator];
-    NSString *next;
-    while ((next = keyEnumerator.nextObject) != NULL) {
-        NSLog(@"Key Value: %@", next);
-    }
     return [self.users objectsForKeys:self.accepted notFoundMarker:[NSNull null]];
 }
 
