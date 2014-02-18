@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FriendsViewController : UITableViewController <UIAlertViewDelegate, UISearchBarDelegate>
+@interface FriendsViewController : UIViewController <UIAlertViewDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UIButton *createButton;
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end

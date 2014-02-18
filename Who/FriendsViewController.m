@@ -58,16 +58,14 @@
     self.cp = [ConnectionProvider getInstance];
     self.ldm = [LoadingDialogManager create:self.view];
     self.buff = [ChatParticipantVCardBuffer getInstance];
+    [self.tableView setDataSource:self];
+    [self.tableView setDelegate:self];
     NSArray *userProfiles = [self.buff getAcceptedUserProfiles];
-    for (int i = 0; i < [userProfiles count]; i++) {
-        NSLog(@"User Profile: %@", [[userProfiles objectAtIndex:i] description]);
-    }
 }
 
 - (IBAction)beginSelectingFriendsForGroup:(id)sender {
-    if(self.navigationItem.leftBarButtonItem != nil) {
-        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(beginSelectingFriendsForGroup:)] animated:YES];
-        self.navigationItem.leftBarButtonItem = nil;
+    if(self.isSelecting) {
+        [self.cancelButton setHidden:YES];
         self.isSelecting = NO;
         if (self.selectedJIDs.count > 0) {
             self.isCreatingGroup = YES;
@@ -76,15 +74,15 @@
             [groupNamePrompt show];
         }
     } else {
-        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(beginSelectingFriendsForGroup:)] animated:YES];
-        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(cancelSelectingFriendsForGroup:)] animated:YES];
+        [self.createButton setTitle:@"Done" forState:UIControlStateNormal];
+        [self.cancelButton setHidden:NO];
         self.isSelecting = YES;
     }
 }
 
 - (IBAction)cancelSelectingFriendsForGroup:(id)sender {
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(beginSelectingFriendsForGroup:)] animated:YES];
-    self.navigationItem.leftBarButtonItem = nil;
+    [self.createButton setTitle:@"Create" forState:UIControlStateNormal];
+    [self.cancelButton setHidden:YES];
     self.isSelecting = NO;
     for (int i = 0; i < self.buff.accepted.count; i++) {
         NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];

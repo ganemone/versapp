@@ -166,7 +166,7 @@
     [query addChild:nTag];
     [query addChild:[DDXMLElement elementWithName:VCARD_TAG_USERNAME stringValue:phone]];
     [query addChild:[DDXMLElement elementWithName:VCARD_TAG_EMAIL stringValue:email]];
-    [query addChild:[DDXMLElement elementWithName:VCARD_TAG_USERNAME stringValue:firstName]];
+    [query addChild:[DDXMLElement elementWithName:VCARD_TAG_NICKNAME stringValue:[NSString stringWithFormat:@"%@ %@", firstName, lastName]]];
     
 	DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
     [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_CREATE_VCARD]];
