@@ -40,7 +40,11 @@
 }
 
 -(void)sendOneToOneMessage:(NSString *)messageText messageTo:(NSString *)messageTo imageLink:(NSString *)imageLink {
-    
+    NSString * timeStampValue = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
+    Message *message = [Message createForOneToOneWithImage:messageText sender:[ConnectionProvider getUser] chatID:self.chatID messageTo:messageTo imageLink:imageLink timestamp:timeStampValue];
+    [self addMessage:message];
+    [MessagesDBManager insert:messageText groupID:self.chatID time:timeStampValue senderID:[ConnectionProvider getUser] receiverID:message.messageTo imageLink:imageLink];
+    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSendOneToOneMessagePacket:message]];
 }
 
 -(void)updateMessage:(Message *)message {

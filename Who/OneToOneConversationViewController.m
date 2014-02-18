@@ -11,11 +11,10 @@
 #import "Message.h"
 #import "JSMessage.h"
 #import "ConnectionProvider.h"
+#import "RNBlurModalView.h"
 
 
 @implementation OneToOneConversationViewController
-
-@synthesize chat;
 
 - (void)viewDidLoad
 {
@@ -35,10 +34,7 @@
 -(void)messageReceived:(NSNotification*)notification {
     NSDictionary *userInfo = notification.userInfo;
     if ([(NSString*)[userInfo objectForKey:MESSAGE_PROPERTY_GROUP_ID] compare:self.chat.chatID] == 0) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.chat.getNumberOfMessages - 1 inSection:0];
-        NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
-        [self.tableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationBottom];
-        [self scrollToBottomAnimated:YES];
+        [self animateAddNewestMessage];
     }
 }
 
@@ -58,8 +54,25 @@
     return [self.chat getNumberOfMessages];
 }
 
--(void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
-    [self.chat sendOneToOneMessage:text messageTo:[self.chat getMessageTo]];
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.selectedImage = [[self avatarImageViewForRowAtIndexPath:indexPath sender:@""] image];
+    CGFloat imageAspectRatio = self.selectedImage.size.height / self.selectedImage.size.width,
+    screenAspectRatio = self.view.frame.size.height / self.view.frame.size.width,
+    imageWidth = 0.0,
+    imageHeight = 0.0;
+    
+    if (imageAspectRatio > screenAspectRatio) {
+        imageHeight = self.view.frame.size.height - 70;
+        imageWidth = imageHeight / imageAspectRatio;
+    } else {
+        imageWidth = self.view.frame.size.width - 70;
+        imageHeight = imageWidth * imageAspectRatio;
+    }
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x , self.view.frame.origin.y, imageWidth, imageHeight)];
+    [imageView setImage:self.selectedImage];
+    RNBlurModalView *modal = [[RNBlurModalView alloc] initWithViewController:self view:imageView];
+    [modal show];
 }
 
 -(JSBubbleMessageType)messageTypeForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -81,11 +94,11 @@
     if ([cell messageType] == JSBubbleMessageTypeOutgoing) {
         cell.bubbleView.textView.textColor = [UIColor whiteColor];
         
-        if ([cell.bubbleView.textView respondsToSelector:@selector(linkTextAttributes)]) {
+        /*if ([cell.bubbleView.textView respondsToSelector:@selector(linkTextAttributes)]) {
             NSMutableDictionary *attrs = [cell.bubbleView.textView.linkTextAttributes mutableCopy];
             [attrs setValue:[UIColor blueColor] forKey:UITextAttributeTextColor];
             cell.bubbleView.textView.linkTextAttributes = attrs;
-        }
+        }*/
     }
     
     if (cell.timestampLabel) {
@@ -93,9 +106,9 @@
         cell.timestampLabel.shadowOffset = CGSizeZero;
     }
     
-    if (cell.subtitleLabel) {
+    /*if (cell.subtitleLabel) {
         cell.subtitleLabel.textColor = [UIColor lightGrayColor];
-    }
+    }*/
 }
 
 - (UIImageView *)bubbleImageViewWithType:(JSBubbleMessageType)type
@@ -116,11 +129,55 @@
 }
 
 -(UIImageView *)avatarImageViewForRowAtIndexPath:(NSIndexPath *)indexPath sender:(NSString *)sender {
-    return nil;
+    Message *message = [self.chat getMessageByIndex:indexPath.row];
+    UIImage *image;
+    if (message.imageLink == nil) {
+        return nil;
+    } else if((image = [self.imageCache getImageByMessageSender:message.sender timestamp:message.timestamp]) != nil) {
+        return [[UIImageView alloc] initWithImage:image];
+    } else if(![self.downloadingImageURLs containsObject:message.imageLink]) {
+        [self.im downloadImageForMessage:message];
+        [self.downloadingImageURLs addObject:message.imageLink];
+    }
+    UIImageView *emptyImageView = [[UIImageView alloc] init];
+    return emptyImageView;
 }
 
+-(void)animateAddNewestMessage {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.chat.getNumberOfMessages - 1 inSection:0];
+    NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
+    [self.tableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationFade];
+    [self scrollToBottomAnimated:YES];
+}
+
+-(void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
+    while (self.isUploadingImage == YES);
+    if (self.messageImageLink != nil) {
+        [self.chat sendOneToOneMessage:text messageTo:[self.chat getMessageTo] imageLink:self.messageImageLink];
+        self.messageImage = nil;
+        self.messageImageLink = nil;
+    } else {
+        [self.chat sendOneToOneMessage:text messageTo:[self.chat getMessageTo]];
+    }
+    [self animateAddNewestMessage];
+    [self finishSend];
+}
+
+
 -(void)didSelectImage:(UIImage *)image {
+    self.isUploadingImage = YES;
+    [self.im uploadImage:image url:[NSString stringWithFormat:@"http://%@", [ConnectionProvider getServerIPAddress]]];
     
+}
+
+-(void)didFinishDownloadingImage:(UIImage *)image fromURL:(NSString *)url forMessage:(Message *)message {
+    [self.tableView reloadData];
+}
+
+-(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {
+    self.isUploadingImage = NO;
+    self.messageImage = image;
+    self.messageImageLink = url;
 }
 
 /*

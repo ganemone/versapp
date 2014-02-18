@@ -22,17 +22,6 @@
 
 @implementation ConversationViewController
 
-@synthesize gc;
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier compare:SEGUE_ID_GROUP_VIEW_IMAGE] == 0) {
-        NSLog(@"Setting image on controller....");
-        self.navigationItem.backBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:self.gc.name style:UIBarButtonItemStylePlain target:nil action:nil];
-        ConversationImageExpandViewController *dest = segue.destinationViewController;
-        [dest setSelectedImage:self.selectedImage];
-    }
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -174,10 +163,8 @@
     UIImage *image;
     if (message.imageLink == nil) {
         return nil;
-        NSLog(@"No Avatar");
     } else if((image = [self.imageCache getImageByMessageSender:message.sender timestamp:message.timestamp]) != nil) {
         return [[UIImageView alloc] initWithImage:image];
-        NSLog(@"Returning image from cache");
     } else if(![self.downloadingImageURLs containsObject:message.imageLink]) {
         [self.im downloadImageForMessage:message];
         [self.downloadingImageURLs addObject:message.imageLink];

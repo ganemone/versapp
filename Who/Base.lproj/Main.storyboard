@@ -492,7 +492,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="FriendsViewController" title="Friends" id="3aX-9q-IPd" customClass="FriendsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="tTc-Nr-doF">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" id="hft-qM-n6F">
@@ -549,23 +549,6 @@
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1203" y="900"/>
-        </scene>
-        <!--Navigation Controller - Friends-->
-        <scene sceneID="Cvx-aK-e4l">
-            <objects>
-                <navigationController title="Friends" definesPresentationContext="YES" id="c10-xT-pOh" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <tabBarItem key="tabBarItem" systemItem="contacts" id="Hf7-In-jGn"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YDa-Yd-i6W">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="3aX-9q-IPd" kind="relationship" relationship="rootViewController" id="vOY-e5-FCA"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aHN-cp-zq9" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="671" y="900"/>
         </scene>
         <!--Navigation Controller - Messages-->
         <scene sceneID="0H2-vL-YPp">

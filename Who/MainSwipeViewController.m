@@ -107,7 +107,11 @@
 
 -(void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers {
     UIViewController *viewController = [pendingViewControllers firstObject];
-    NSString *title;
+    [self.navigationItem setLeftBarButtonItem:[viewController.navigationItem leftBarButtonItem]];
+    [self.navigationItem setRightBarButtonItem:[viewController.navigationItem rightBarButtonItem]];
+    [self.navigationItem setTitle:[viewController.navigationItem title]];
+    
+    /*NSString *title;
     if ([viewController isKindOfClass:[DashboardViewController class]]) {
         title = @"Chats";
     } else if([viewController isKindOfClass:[FriendsViewController class]]) {
@@ -115,7 +119,7 @@
     } else if([viewController isKindOfClass:[ContactsViewController class]]) {
         title = @"Contacts";
     }
-    [self setTitle:title];
+    [self setTitle:title];*/
 }
 
 @end
