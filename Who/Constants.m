@@ -65,6 +65,7 @@ NSString *const NOTIFICATION_FINISHED_INVITING_ONE_TO_ONE_USERS = @"notification
 
 NSString *const APPLICATION_RESOURCE = @"who";
 
+NSString *const SEGUE_ID_AUTHENTICATED = @"SegueIDAuthenticated";
 NSString *const SEGUE_ID_GROUP_CONVERSATION = @"SegueGroupConversation";
 NSString *const SEGUE_ID_ONE_TO_ONE_CONVERSATION = @"SegueOneToOneConversation";
 NSString *const SEGUE_ID_CREATED_MUC = @"SegueIdentifierCreatedMUC";
@@ -105,5 +106,12 @@ NSString *const SETTING_LOGOUT = @"logout";
 NSString *const SETTING_SUPPORT = @"info_support";
 NSString *const SETTING_PRIVACY = @"info_privacy";
 NSString *const SETTING_TERMS = @"info_terms";
+
+NSString *const STORYBOARD_ID_PAGE_VIEW_CONTROLLER = @"MainPageViewController";
+NSString *const STORYBOARD_ID_NOTIFICATIONS_VIEW_CONTROLLER = @"NotificationsViewController";
+NSString *const STORYBOARD_ID_DASHBOARD_VIEW_CONTROLLER = @"DashboardViewController";
+NSString *const STORYBOARD_ID_FRIENDS_VIEW_CONTROLLER = @"FriendsViewController";
+NSString *const STORYBOARD_ID_CONTACTS_VIEW_CONTROLLER = @"ContactsViewController";
+NSString *const STORYBOARD_ID_SWIPE_VIEW_CONTROLLER = @"MainSwipeViewController";
 
 @end

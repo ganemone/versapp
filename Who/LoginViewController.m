@@ -8,7 +8,6 @@
 
 #import "LoginViewController.h"
 #import "ConnectionProvider.h"
-#import "MainTabBarController.h"
 #import "RequestsViewController.h"
 #import "IQPacketManager.h"
 #import "Constants.h"
@@ -94,7 +93,7 @@
         NSLog(@"Sending Create VCard Packet");
         [[self.cp getConnection] sendElement:[IQPacketManager createCreateVCardPacket:self.firstNameText lastname:self.lastNameText phone:self.usernameText email:self.emailText]];
     } else {
-        [self performSegueWithIdentifier:@"Authenticated" sender:self];
+        [self performSegueWithIdentifier:SEGUE_ID_AUTHENTICATED sender:self];
     } 
 }
 
@@ -104,7 +103,7 @@
 
 - (void)createdVCard:(NSNotification *)notification {
     NSLog(@"createdVCard");
-    [self performSegueWithIdentifier:@"Authenticated" sender:self];
+    [self performSegueWithIdentifier:SEGUE_ID_AUTHENTICATED sender:self];
 }
 
 - (void)registeredUser:(NSNotification *)notification {
@@ -124,11 +123,9 @@
 }
 
 - (void)didNotAuthenticate:(NSNotification *) notification{
-    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your username and password could not be authenticated." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
      self.passwordText = @"";
-    
 }
 
 - (IBAction)register:(id)sender{
@@ -180,8 +177,6 @@
     } else {
         NSLog(@"Failed Validation");
     }
-
-    
 }
 
 - (IBAction)signUpClick:(id)sender {
