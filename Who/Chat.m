@@ -29,7 +29,9 @@
 }
 
 -(void)sendOneToOneMessage:(NSString *)messageText messageTo:(NSString *)messageTo {
+    NSString * timeStampValue = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
     Message *message = [Message createForOneToOne:messageText sender:[ConnectionProvider getUser] chatID:self.chatID messageTo:messageTo];
+    [MessagesDBManager insert:messageText groupID:self.chatID time:timeStampValue senderID:[ConnectionProvider getUser] receiverID:messageTo];
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSendOneToOneMessagePacket:message]];
 }
 

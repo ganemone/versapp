@@ -77,14 +77,15 @@
         }
     }
     
-    if (imageLink != nil) {
-        NSLog(@"Received Image Link: %@", imageLink);
-        [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:receiverID imageLink:imageLink];
-    } else {
-        [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:receiverID];
-    }
-    
     if ([message.type compare:CHAT_TYPE_GROUP] == 0) {
+        
+        if (imageLink != nil) {
+            [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:receiverID imageLink:imageLink];
+        } else {
+            [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:receiverID];
+        }
+        
+        NSLog(@"Found Message of type group");
         NSDictionary *messageDictionary = [NSDictionary dictionaryWithObject:groupID forKey:MESSAGE_PROPERTY_GROUP_ID];
         GroupChatManager *gcm = [GroupChatManager getInstance];
         GroupChat *gc = [gcm getChat:groupID];
@@ -95,11 +96,21 @@
             [gc addMessage: messageObject];
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
         }
+        
     } else {
+        NSLog(@"Found message of type chat");
+        NSLog(@"Message Thread: %@", message.thread);
+        
+        if (imageLink != nil) {
+            [MessagesDBManager insert:message.body groupID:message.thread time:timestamp senderID:senderID receiverID:receiverID imageLink:imageLink];
+        } else {
+            [MessagesDBManager insert:message.body groupID:message.thread time:timestamp senderID:senderID receiverID:receiverID];
+        }
+        
         NSDictionary *messageDictionary = [NSDictionary dictionaryWithObject:message.thread forKey:MESSAGE_PROPERTY_GROUP_ID];
         OneToOneChatManager *cm = [OneToOneChatManager getInstance];
-        OneToOneChat *chat = [cm getChat:groupID];
-        [chat addMessage:[Message createForOneToOneWithImage:message.body sender:senderID chatID:groupID messageTo:receiverID imageLink:imageLink timestamp:timestamp]];
+        OneToOneChat *chat = [cm getChat:message.thread];
+        [chat addMessage:[Message createForOneToOneWithImage:message.body sender:senderID chatID:message.thread messageTo:receiverID imageLink:imageLink timestamp:timestamp]];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
     }
 }

@@ -98,6 +98,7 @@
 }
 
 -(void)handleRefreshListView:(NSNotification*)notification {
+    NSLog(@"Refreshing List View...");
     [self.tableView reloadData];
 }
 

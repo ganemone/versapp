@@ -144,7 +144,7 @@
 }
 
 -(void)animateAddNewestMessage {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.chat.getNumberOfMessages - 1 inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.chat getNumberOfMessages] - 1 inSection:0];
     NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
     [self.tableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationFade];
     [self scrollToBottomAnimated:YES];
