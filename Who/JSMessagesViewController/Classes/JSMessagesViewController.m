@@ -132,9 +132,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    [self scrollToBottomAnimated:NO];
-    
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(handleWillShowKeyboardNotification:)
 												 name:UIKeyboardWillShowNotification
@@ -149,8 +146,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    [self scrollToBottomAnimated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

@@ -35,13 +35,7 @@
     self.imageCache = [ImageCache getInstance];
     
     self.downloadingImageURLs = [[NSMutableArray alloc] initWithCapacity:20];
-    
-    //[self.conversationTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self scrollToBottomAnimated:NO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -96,38 +90,40 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     self.selectedImage = [[self avatarImageViewForRowAtIndexPath:indexPath sender:@""] image];
-    CGFloat imageAspectRatio = self.selectedImage.size.height / self.selectedImage.size.width,
-    screenAspectRatio = self.view.frame.size.height / self.view.frame.size.width,
-    imageWidth = 0.0,
-    imageHeight = 0.0;
-    
-    if (imageAspectRatio > screenAspectRatio) {
-        NSLog(@"Image Aspect Ratio Greater than Screen");
-        imageHeight = self.view.frame.size.height - 70;
-        imageWidth = imageHeight / imageAspectRatio;
-    } else {
-        NSLog(@"Image Aspect Ratio Less than Screen");
-        imageWidth = self.view.frame.size.width - 70;
-        imageHeight = imageWidth * imageAspectRatio;
+    if (self.selectedImage != nil) {
+        
+        CGFloat imageAspectRatio = self.selectedImage.size.height / self.selectedImage.size.width,
+        screenAspectRatio = self.view.frame.size.height / self.view.frame.size.width,
+        imageWidth = 0.0,
+        imageHeight = 0.0;
+        
+        if (imageAspectRatio > screenAspectRatio) {
+            NSLog(@"Image Aspect Ratio Greater than Screen");
+            imageHeight = self.view.frame.size.height - 70;
+            imageWidth = imageHeight / imageAspectRatio;
+        } else {
+            NSLog(@"Image Aspect Ratio Less than Screen");
+            imageWidth = self.view.frame.size.width - 70;
+            imageHeight = imageWidth * imageAspectRatio;
+        }
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x , self.view.frame.origin.y, imageWidth, imageHeight)];
+        [imageView setImage:self.selectedImage];
+        RNBlurModalView *modal = [[RNBlurModalView alloc] initWithViewController:self view:imageView];
+        [modal show];
     }
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x , self.view.frame.origin.y, imageWidth, imageHeight)];
-    [imageView setImage:self.selectedImage];
-    RNBlurModalView *modal = [[RNBlurModalView alloc] initWithViewController:self view:imageView];
-    [modal show];
-    
-    //[self performSegueWithIdentifier:SEGUE_ID_GROUP_VIEW_IMAGE sender:self];
 }
 
 -(void)configureCell:(JSBubbleMessageCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     if ([cell messageType] == JSBubbleMessageTypeOutgoing) {
         cell.bubbleView.textView.textColor = [UIColor blackColor];
         /*if ([cell.bubbleView.textView respondsToSelector:@selector(linkTextAttributes)]) {
-            NSMutableDictionary *attrs = [cell.bubbleView.textView.linkTextAttributes mutableCopy];
-            [attrs setValue:[UIColor blueColor] forKey:UITextAttributeTextColor];
-            cell.bubbleView.textView.linkTextAttributes = attrs;
-        }*/
+         NSMutableDictionary *attrs = [cell.bubbleView.textView.linkTextAttributes mutableCopy];
+         [attrs setValue:[UIColor blueColor] forKey:UITextAttributeTextColor];
+         cell.bubbleView.textView.linkTextAttributes = attrs;
+         }*/
     }
     
     if (cell.timestampLabel) {
@@ -136,8 +132,8 @@
     }
     
     /*if (cell.subtitleLabel) {
-        cell.subtitleLabel.textColor = [UIColor lightGrayColor];
-    }*/
+     cell.subtitleLabel.textColor = [UIColor lightGrayColor];
+     }*/
 }
 
 - (UIImageView *)bubbleImageViewWithType:(JSBubbleMessageType)type
@@ -193,6 +189,15 @@
 -(void)didFinishDownloadingImage:(UIImage *)image fromURL:(NSString *)url forMessage:(Message *)message {
     NSLog(@"Reached Delegate Method");
     [self.tableView reloadData];
+    [self scrollToBottomAnimated:NO];
+}
+
+-(BOOL)shouldPreventScrollToBottomWhileUserScrolling {
+    return YES;
+}
+
+-(BOOL)allowsPanToDismissKeyboard {
+    return YES;
 }
 
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {
