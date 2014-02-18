@@ -28,7 +28,10 @@
     [self.im setDelegate:self];
     self.imageCache = [ImageCache getInstance];
     self.downloadingImageURLs = [[NSMutableArray alloc] initWithCapacity:20];
-    [self scrollToBottomAnimated:NO];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [self scrollToBottomAnimated:YES];
 }
 
 -(void)messageReceived:(NSNotification*)notification {
