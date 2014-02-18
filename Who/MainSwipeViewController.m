@@ -117,17 +117,4 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers {
-    UIViewController *viewController = [pendingViewControllers firstObject];
-    NSString *title;
-    /*if ([viewController isKindOfClass:[DashboardViewController class]]) {
-        title = @"Chats";
-    } else if([viewController isKindOfClass:[FriendsViewController class]]) {
-        title = @"Friends";
-    } else if([viewController isKindOfClass:[ContactsViewController class]]) {
-        title = @"Contacts";
-    }*/
-    [self setTitle:title];
-}
-
 @end
