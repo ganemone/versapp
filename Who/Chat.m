@@ -31,6 +31,7 @@
 -(void)sendOneToOneMessage:(NSString *)messageText messageTo:(NSString *)messageTo {
     NSString * timeStampValue = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
     Message *message = [Message createForOneToOne:messageText sender:[ConnectionProvider getUser] chatID:self.chatID messageTo:messageTo];
+    [self addMessage:message];
     [MessagesDBManager insert:messageText groupID:self.chatID time:timeStampValue senderID:[ConnectionProvider getUser] receiverID:messageTo];
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSendOneToOneMessagePacket:message]];
 }
@@ -94,6 +95,7 @@
 }
 
 -(NSInteger)getNumberOfMessages {
+    NSLog(@"Number of Messages: %ld", self.history.count);
     return self.history.count;
 }
 

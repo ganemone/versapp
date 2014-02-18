@@ -192,14 +192,6 @@
     [self scrollToBottomAnimated:NO];
 }
 
--(BOOL)shouldPreventScrollToBottomWhileUserScrolling {
-    return YES;
-}
-
--(BOOL)allowsPanToDismissKeyboard {
-    return YES;
-}
-
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {
     self.isUploadingImage = NO;
     self.messageImage = image;
