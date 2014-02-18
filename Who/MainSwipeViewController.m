@@ -10,6 +10,8 @@
 #import "DashboardViewController.h"
 #import "FriendsViewController.h"
 #import "ContactsViewController.h"
+#import "ConversationViewController.h"
+#import "OneToOneConversationViewController.h"
 
 #import "Constants.h"
 
@@ -35,18 +37,28 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.navigationController setDelegate:self];
     self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:STORYBOARD_ID_PAGE_VIEW_CONTROLLER];
     self.pageViewController.dataSource = self;
     self.pageViewController.delegate = self;
     UIViewController *initialViewController = [self viewControllerAtIndex:0];
     NSArray *viewControllers = @[initialViewController];
-    
+
     [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:nil];
-    
+    [self.navigationController setNavigationBarHidden:YES];
     [self addChildViewController:_pageViewController];
     [self.view addSubview:_pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];
     
+}
+
+-(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    if ([viewController isKindOfClass:[ConversationViewController class]] ||
+        [viewController isKindOfClass:[OneToOneConversationViewController class]]) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    } else {
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    }
 }
 
 - (UIViewController*)viewControllerAtIndex:(int)index {
@@ -107,19 +119,15 @@
 
 -(void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers {
     UIViewController *viewController = [pendingViewControllers firstObject];
-    [self.navigationItem setLeftBarButtonItem:[viewController.navigationItem leftBarButtonItem]];
-    [self.navigationItem setRightBarButtonItem:[viewController.navigationItem rightBarButtonItem]];
-    [self.navigationItem setTitle:[viewController.navigationItem title]];
-    
-    /*NSString *title;
-    if ([viewController isKindOfClass:[DashboardViewController class]]) {
+    NSString *title;
+    /*if ([viewController isKindOfClass:[DashboardViewController class]]) {
         title = @"Chats";
     } else if([viewController isKindOfClass:[FriendsViewController class]]) {
         title = @"Friends";
     } else if([viewController isKindOfClass:[ContactsViewController class]]) {
         title = @"Contacts";
-    }
-    [self setTitle:title];*/
+    }*/
+    [self setTitle:title];
 }
 
 @end

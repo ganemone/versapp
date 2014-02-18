@@ -29,7 +29,6 @@
     self.navigationItem.title = self.gc.name;
     self.delegate = self;
     self.dataSource = self;
-    
     self.im = [[ImageManager alloc] init];
     [self.im setDelegate:self];
     
