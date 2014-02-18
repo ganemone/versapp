@@ -14,6 +14,7 @@
 #import "ConnectionProvider.h"
 #import "ImageManager.h"
 #import "ConversationImageExpandViewController.h"
+#import "RNBlurModalView.h"
 
 @interface ConversationViewController ()
 
@@ -108,7 +109,15 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.selectedImage = [[self avatarImageViewForRowAtIndexPath:indexPath sender:@""] image];
-    [self performSegueWithIdentifier:SEGUE_ID_GROUP_VIEW_IMAGE sender:self];
+    CGFloat imageAspectRatio = self.selectedImage.size.height / self.selectedImage.size.width;
+    CGFloat imageWidth = self.view.frame.size.width - 70;
+    CGFloat imageHeight = imageWidth * imageAspectRatio;
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x , self.view.frame.origin.y, imageWidth, imageHeight)];
+    [imageView setImage:self.selectedImage];
+    RNBlurModalView *modal = [[RNBlurModalView alloc] initWithViewController:self view:imageView];
+    [modal show];
+    
+    //[self performSegueWithIdentifier:SEGUE_ID_GROUP_VIEW_IMAGE sender:self];
 }
 
 -(void)configureCell:(JSBubbleMessageCell *)cell atIndexPath:(NSIndexPath *)indexPath {
