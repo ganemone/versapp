@@ -100,6 +100,8 @@
 		3A5699B11886D4F900746CC8 /* OneToOneChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5699B01886D4F900746CC8 /* OneToOneChat.m */; };
 		3A5699B81886D80C00746CC8 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5699B71886D80C00746CC8 /* Message.m */; };
 		3A59D5EB18B2D4C800CE7B7B /* MainSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A59D5EA18B2D4C800CE7B7B /* MainSwipeViewController.m */; };
+		3A59D5EE18B2F2FE00CE7B7B /* RNBlurModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A59D5ED18B2F2FE00CE7B7B /* RNBlurModalView.m */; };
+		3A59D5F118B2F32200CE7B7B /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A59D5F018B2F32200CE7B7B /* Accelerate.framework */; };
 		3A6C3BBB1884AD61003B162B /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6C3BBA1884AD61003B162B /* LoginViewController.m */; };
 		3A720C5A18A1C06700423959 /* XMPPBandwidthMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A720B7D18A1C06700423959 /* XMPPBandwidthMonitor.m */; };
 		3A720C5B18A1C06700423959 /* XMPPCoreDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A720B8018A1C06700423959 /* XMPPCoreDataStorage.m */; };
@@ -410,6 +412,9 @@
 		3A5699B71886D80C00746CC8 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		3A59D5E918B2D4C800CE7B7B /* MainSwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainSwipeViewController.h; sourceTree = "<group>"; };
 		3A59D5EA18B2D4C800CE7B7B /* MainSwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainSwipeViewController.m; sourceTree = "<group>"; };
+		3A59D5EC18B2F2FE00CE7B7B /* RNBlurModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNBlurModalView.h; sourceTree = "<group>"; };
+		3A59D5ED18B2F2FE00CE7B7B /* RNBlurModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBlurModalView.m; sourceTree = "<group>"; };
+		3A59D5F018B2F32200CE7B7B /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		3A6C3BB91884AD61003B162B /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		3A6C3BBA1884AD61003B162B /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		3A720B7C18A1C06700423959 /* XMPPBandwidthMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPBandwidthMonitor.h; sourceTree = "<group>"; };
@@ -759,6 +764,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A59D5F118B2F32200CE7B7B /* Accelerate.framework in Frameworks */,
 				3A3A0B1618AB118A006FBAE4 /* AudioToolbox.framework in Frameworks */,
 				3A0FE1C518A9A4C7003692EB /* CoreText.framework in Frameworks */,
 				3A0FE1C118A99EB2003692EB /* QuartzCore.framework in Frameworks */,
@@ -818,6 +824,7 @@
 		3A25B6351881E03700166623 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3A59D5F018B2F32200CE7B7B /* Accelerate.framework */,
 				3A3A0B1518AB118A006FBAE4 /* AudioToolbox.framework */,
 				3A0FE1C418A9A4C7003692EB /* CoreText.framework */,
 				3A0FE1C218A9A448003692EB /* Pixate.framework */,
@@ -1133,6 +1140,15 @@
 				3AAE9B1618945710003B4560 /* OneToOneChatManager.m */,
 			);
 			name = Chat;
+			sourceTree = "<group>";
+		};
+		3A59D5EF18B2F30300CE7B7B /* RNBlurModalView */ = {
+			isa = PBXGroup;
+			children = (
+				3A59D5EC18B2F2FE00CE7B7B /* RNBlurModalView.h */,
+				3A59D5ED18B2F2FE00CE7B7B /* RNBlurModalView.m */,
+			);
+			name = RNBlurModalView;
 			sourceTree = "<group>";
 		};
 		3A720B7A18A1C06700423959 /* FrameworkExtensions */ = {
@@ -1943,6 +1959,7 @@
 		3AF19ACE1881F86000F3E4D3 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				3A59D5EF18B2F30300CE7B7B /* RNBlurModalView */,
 				3AC0BA2C18AEEFBA0061A565 /* base64 */,
 				3A3A0A8018AB1126006FBAE4 /* JSMessagesViewController */,
 				3A3A0AD618AB1126006FBAE4 /* JSQSystemSoundPlayer */,
@@ -2301,6 +2318,7 @@
 				F751016318ABE101001F1E7F /* IASKSettingsStoreUserDefaults.m in Sources */,
 				3A25B6701881E7F100166623 /* RequestsViewController.m in Sources */,
 				3A720CAF18A1C06700423959 /* XMPPMessage+XEP_0308.m in Sources */,
+				3A59D5EE18B2F2FE00CE7B7B /* RNBlurModalView.m in Sources */,
 				3A720C8A18A1C06700423959 /* NSXMLElement+XEP_0059.m in Sources */,
 				3A3A0AE118AB1126006FBAE4 /* JSDismissiveTextView.m in Sources */,
 				3AF19A9A1881F7E800F3E4D3 /* NSData+XMPP.m in Sources */,
