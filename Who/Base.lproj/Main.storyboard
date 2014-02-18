@@ -63,7 +63,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
-                                            <segue destination="FvA-Qe-GrR" kind="custom" identifier="SegueIDAuthenticated" id="R5R-M4-qay"/>
+                                            <segue destination="FvA-Qe-GrR" kind="modal" identifier="SegueIDAuthenticated" id="R5R-M4-qay"/>
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="confirm password" minimumFontSize="17" id="gQd-1M-tfr">
@@ -478,16 +478,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" id="hlI-Do-iEy">
-                                <rect key="frame" x="0.0" y="43" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="q0A-9I-XMY" id="kNb-QD-gmH"/>
-                                </connections>
-                            </searchBar>
                             <view contentMode="scaleToFill" id="b2u-mj-P71">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="npS-m4-ngf">
@@ -520,7 +512,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="wKq-yO-HDY">
-                                <rect key="frame" x="0.0" y="87" width="320" height="393"/>
+                                <rect key="frame" x="0.0" y="115" width="320" height="365"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -543,30 +535,63 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <searchBar contentMode="redraw" id="G30-1u-tkr">
+                                <rect key="frame" x="0.0" y="63" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="NsY-JL-92d" id="oY3-KZ-Pcj"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="AyH-7P-r1o"/>
                     <connections>
                         <outlet property="cancelButton" destination="mkB-QU-ThY" id="rf7-S0-OOU"/>
                         <outlet property="createButton" destination="npS-m4-ngf" id="Fqy-p1-n5t"/>
-                        <outlet property="searchDisplayController" destination="NsY-JL-92d" id="i6u-Bu-9Mj"/>
+                        <outlet property="searchBar" destination="G30-1u-tkr" id="C19-rP-HhO"/>
+                        <outlet property="searchDisplayController" destination="xnm-H1-FA6" id="TsH-Et-elB"/>
                         <outlet property="tableView" destination="wKq-yO-HDY" id="PKP-a1-gTn"/>
-                        <segue destination="LSk-rM-HTJ" kind="custom" identifier="SegueIdentifierCreatedChat" id="zTQ-Mf-6oX"/>
-                        <segue destination="iDZ-uG-Ep6" kind="custom" identifier="SegueIdentifierCreatedChat" id="8c7-Mw-K5g"/>
+                        <segue destination="LSk-rM-HTJ" kind="push" identifier="SegueIdentifierCreatedChat" id="zTQ-Mf-6oX"/>
+                        <segue destination="iDZ-uG-Ep6" kind="push" identifier="SegueIdentifierCreatedChat" id="8c7-Mw-K5g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iKx-99-eOK" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <searchDisplayController id="NsY-JL-92d">
                     <connections>
                         <outlet property="delegate" destination="q0A-9I-XMY" id="Pwq-9u-Uyu"/>
-                        <outlet property="searchBar" destination="hlI-Do-iEy" id="7om-Zk-SbG"/>
                         <outlet property="searchContentsController" destination="q0A-9I-XMY" id="IY1-8d-s42"/>
                         <outlet property="searchResultsDataSource" destination="q0A-9I-XMY" id="OeE-P0-9ks"/>
                         <outlet property="searchResultsDelegate" destination="q0A-9I-XMY" id="KWz-oC-qk0"/>
                     </connections>
                 </searchDisplayController>
+                <searchDisplayController id="sLa-Js-auY">
+                    <connections>
+                        <outlet property="delegate" destination="q0A-9I-XMY" id="Wu1-Mo-FrW"/>
+                        <outlet property="searchContentsController" destination="q0A-9I-XMY" id="eC4-bC-cS2"/>
+                        <outlet property="searchResultsDataSource" destination="q0A-9I-XMY" id="DJT-z0-9Je"/>
+                        <outlet property="searchResultsDelegate" destination="q0A-9I-XMY" id="mCE-RF-heh"/>
+                    </connections>
+                </searchDisplayController>
+                <searchDisplayController id="AwA-96-Sdn">
+                    <connections>
+                        <outlet property="delegate" destination="q0A-9I-XMY" id="hC1-jX-BQV"/>
+                        <outlet property="searchContentsController" destination="q0A-9I-XMY" id="RfS-f4-sX2"/>
+                        <outlet property="searchResultsDataSource" destination="q0A-9I-XMY" id="JcF-4m-zZA"/>
+                        <outlet property="searchResultsDelegate" destination="q0A-9I-XMY" id="mMK-T2-0EK"/>
+                    </connections>
+                </searchDisplayController>
+                <searchDisplayController id="xnm-H1-FA6">
+                    <connections>
+                        <outlet property="delegate" destination="q0A-9I-XMY" id="WGO-RN-geJ"/>
+                        <outlet property="searchContentsController" destination="q0A-9I-XMY" id="gH4-6i-CSB"/>
+                        <outlet property="searchResultsDataSource" destination="q0A-9I-XMY" id="kbA-US-C89"/>
+                        <outlet property="searchResultsDelegate" destination="q0A-9I-XMY" id="Ug3-0Y-nAU"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1789" y="180"/>
+            <point key="canvasLocation" x="1789" y="164"/>
         </scene>
         <!--Navigation Controller - Notifications-->
         <scene sceneID="22y-RF-Gaz">
@@ -609,7 +634,7 @@
             <objects>
                 <viewController storyboardIdentifier="ConversationViewController" hidesBottomBarWhenPushed="YES" id="LSk-rM-HTJ" customClass="ConversationViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0UM-Gi-lHb">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -620,7 +645,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yd9-J6-Wir" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2987" y="180"/>
+            <point key="canvasLocation" x="3513" y="180"/>
         </scene>
         <!--Navigation Controller - Conversation-->
         <scene sceneID="WcW-T3-2la">
@@ -639,14 +664,14 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j9h-0E-rVD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2549" y="180"/>
+            <point key="canvasLocation" x="3075" y="180"/>
         </scene>
         <!--One To One Conversation View Controller-->
         <scene sceneID="3FC-Hw-v7z">
             <objects>
                 <viewController storyboardIdentifier="OneToOneConversationViewController" hidesBottomBarWhenPushed="YES" id="iDZ-uG-Ep6" customClass="OneToOneConversationViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IqH-NC-C3h">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -777,8 +802,8 @@
         <segue reference="T8K-NQ-vMc"/>
         <segue reference="cCp-tS-h07"/>
         <segue reference="GTj-hh-MDQ"/>
+        <segue reference="zTQ-Mf-6oX"/>
+        <segue reference="8c7-Mw-K5g"/>
         <segue reference="f5d-Ra-j3v"/>
-        <segue reference="v72-9M-1Zf"/>
-        <segue reference="rOT-zb-Yrt"/>
     </inferredMetricsTieBreakers>
 </document>
