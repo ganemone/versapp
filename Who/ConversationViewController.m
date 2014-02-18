@@ -109,9 +109,21 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.selectedImage = [[self avatarImageViewForRowAtIndexPath:indexPath sender:@""] image];
-    CGFloat imageAspectRatio = self.selectedImage.size.height / self.selectedImage.size.width;
-    CGFloat imageWidth = self.view.frame.size.width - 70;
-    CGFloat imageHeight = imageWidth * imageAspectRatio;
+    CGFloat imageAspectRatio = self.selectedImage.size.height / self.selectedImage.size.width,
+    screenAspectRatio = self.view.frame.size.height / self.view.frame.size.width,
+    imageWidth = 0.0,
+    imageHeight = 0.0;
+    
+    if (imageAspectRatio > screenAspectRatio) {
+        NSLog(@"Image Aspect Ratio Greater than Screen");
+        imageHeight = self.view.frame.size.height - 70;
+        imageWidth = imageHeight / imageAspectRatio;
+    } else {
+        NSLog(@"Image Aspect Ratio Less than Screen");
+        imageWidth = self.view.frame.size.width - 70;
+        imageHeight = imageWidth * imageAspectRatio;
+    }
+    
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x , self.view.frame.origin.y, imageWidth, imageHeight)];
     [imageView setImage:self.selectedImage];
     RNBlurModalView *modal = [[RNBlurModalView alloc] initWithViewController:self view:imageView];
