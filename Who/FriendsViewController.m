@@ -61,7 +61,7 @@
     [self.tableView setDataSource:self];
     [self.tableView setDelegate:self];
     
-    [self.searchBar setSearchBarStyle:UISearchBarStyleProminent];
+    [self.searchBar setSearchBarStyle:UISearchBarStyleMinimal];
     [self.searchBar setDelegate:self];
     
     self.isSelecting = NO;
@@ -209,6 +209,10 @@
     }
 }
 
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    [self.searchBar setShowsCancelButton:YES animated:YES];
+}
+
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if (searchText.length > 0) {
         self.isSearching = YES;
@@ -219,6 +223,13 @@
         self.searchResults = _allAccepted;
     }
     [self.tableView reloadData];
+}
+
+-(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    self.searchResults = _allAccepted;
+    [self.tableView reloadData];
+    [self.searchBar setShowsCancelButton:NO animated:YES];
+    [self.searchBar resignFirstResponder];
 }
 
 
