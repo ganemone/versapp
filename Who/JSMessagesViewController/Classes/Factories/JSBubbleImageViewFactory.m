@@ -41,11 +41,11 @@ static NSDictionary *bubbleImageDictionary;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         bubbleImageDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                 @"bubble-classic-gray", @(JSBubbleImageViewStyleClassicGray),
-                                 @"bubble-classic-blue", @(JSBubbleImageViewStyleClassicBlue),
-                                 @"bubble-classic-green", @(JSBubbleImageViewStyleClassicGreen),
-                                 @"bubble-classic-square-gray", @(JSBubbleImageViewStyleClassicSquareGray),
-                                 @"bubble-classic-square-blue", @(JSBubbleImageViewStyleClassicSquareBlue),
+                                 @"bubble", @(JSBubbleImageViewStyleClassicGray),
+                                 @"bubble", @(JSBubbleImageViewStyleClassicBlue),
+                                 @"bubble", @(JSBubbleImageViewStyleClassicGreen),
+                                 @"bubble", @(JSBubbleImageViewStyleClassicSquareGray),
+                                 @"bubble", @(JSBubbleImageViewStyleClassicSquareBlue),
                                  nil];
     });
 }
@@ -106,11 +106,11 @@ static NSDictionary *bubbleImageDictionary;
         case JSBubbleImageViewStyleClassicGray:
         case JSBubbleImageViewStyleClassicBlue:
         case JSBubbleImageViewStyleClassicGreen:
-            return [UIImage imageNamed:@"bubble-classic-selected"];
+            return [UIImage imageNamed:@"bubble"];
             
         case JSBubbleImageViewStyleClassicSquareGray:
         case JSBubbleImageViewStyleClassicSquareBlue:
-            return [UIImage imageNamed:@"bubble-classic-square-selected"];
+            return [UIImage imageNamed:@"bubble"];
             
         default:
             return nil;
