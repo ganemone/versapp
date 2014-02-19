@@ -14,11 +14,14 @@
 #import "GroupChat.h"
 #import "OneToOneChatManager.h"
 #import "OneToOneChat.h"
+#import "ChatParticipantVCardBuffer.h"
 
 @interface RequestsViewController ()
 
 @property(nonatomic, strong) ConnectionProvider *connectionProvider;
+@property(nonatomic, strong) ChatParticipantVCardBuffer *chatParticipant;
 @property(nonatomic, strong) NSMutableArray *notifications;
+@property(nonatomic, strong) NSMutableArray *friendRequests;
 
 @end
 
@@ -31,35 +34,52 @@
     
     self.connectionProvider = [ConnectionProvider getInstance];
     [[self.connectionProvider getConnection] sendElement:[IQPacketManager createGetPendingChatsPacket]];
+    
+    self.chatParticipant = [ChatParticipantVCardBuffer getInstance];
+    self.friendRequests = self.chatParticipant.pending;
+    
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.notifications count];
+    if (section == 0)
+        return [self.notifications count];
+    else
+        return [self.friendRequests count];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"NotificationCellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    NSDictionary *notification = [self.notifications objectAtIndex:indexPath.row];
-    cell.textLabel.text = [notification objectForKey:@"chatName"];
-    NSLog(@"Label: %@", [notification objectForKey:@"chatName"]);
-    
     UIButton *accept = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     accept.frame = CGRectMake(175.0f, 5.0f, 50.0f, 30.0f);
     [accept setTitle:INVITATION_ACCEPT forState:UIControlStateNormal];
     [cell.contentView addSubview:accept];
-    [accept addTarget:self action:@selector(acceptInvitation:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *decline = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     decline.frame = CGRectMake(250.0f, 5.0f, 50.0f, 30.0f);
     [decline setTitle:INVITATION_DECLINE forState:UIControlStateNormal];
     [cell.contentView addSubview:decline];
-    [decline addTarget:self action:@selector(declineInvitation:) forControlEvents:UIControlEventTouchUpInside];
+    
+    if (indexPath.section == 0) {
+        NSDictionary *notification = [self.notifications objectAtIndex:indexPath.row];
+        cell.textLabel.text = [notification objectForKey:@"chatName"];
+        NSLog(@"Notification: %@", [notification objectForKey:@"chatName"]);
+        
+        [accept addTarget:self action:@selector(acceptInvitation:) forControlEvents:UIControlEventTouchUpInside];
+        [decline addTarget:self action:@selector(declineInvitation:) forControlEvents:UIControlEventTouchUpInside];
+    } else {
+        UserProfile *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", friendRequest.firstName, friendRequest.lastName];
+        NSLog(@"Friend: %@", [NSString stringWithFormat:@"%@ %@", friendRequest.firstName, friendRequest.lastName]);
+        
+        [accept addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
+        [decline addTarget:self action:@selector(declineFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
+    }
     
     return cell;
 }
@@ -87,6 +107,32 @@
     NSLog(@"Declined: %@", [notification objectForKey:@"chatId"]);
     
     [self.notifications removeObjectAtIndex:indexPath.row];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (IBAction)acceptFriendRequest:(id)sender {
+    CGPoint click = [sender convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:click];
+    
+    UserProfile *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
+    //Send accept request packet
+    
+    NSLog(@"Accepted friend request");
+    
+    [self.friendRequests removeObjectAtIndex:indexPath.row];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (IBAction)declineFriendRequest:(id)sender {
+    CGPoint click = [sender convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:click];
+    
+    UserProfile *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
+    //Send accept request packet
+    
+    NSLog(@"Declined friend request");
+    
+    [self.friendRequests removeObjectAtIndex:indexPath.row];
     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 

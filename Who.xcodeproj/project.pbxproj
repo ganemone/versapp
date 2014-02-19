@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3A0FE1C118A99EB2003692EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C018A99EB2003692EB /* QuartzCore.framework */; };
-		3A0FE1C318A9A448003692EB /* Pixate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C218A9A448003692EB /* Pixate.framework */; };
 		3A0FE1C518A9A4C7003692EB /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C418A9A4C7003692EB /* CoreText.framework */; };
 		3A0FE1CB18A9A9B8003692EB /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = 3A0FE1CA18A9A9B8003692EB /* default.css */; };
 		3A15896A18B1996B007CCA67 /* ConversationImageExpandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A15896918B1996B007CCA67 /* ConversationImageExpandViewController.m */; };
@@ -251,6 +250,7 @@
 		3AFFC93D18A06AE3009D7F13 /* db.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC93B18A06AE3009D7F13 /* db.xcdatamodeld */; };
 		3AFFC94018A06B95009D7F13 /* MessageMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC93F18A06B95009D7F13 /* MessageMO.m */; };
 		3AFFC94318A06BA9009D7F13 /* FriendMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC94218A06BA9009D7F13 /* FriendMO.m */; };
+		F740906E18B43EB800F44E40 /* Pixate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F740906D18B43EB800F44E40 /* Pixate.framework */; };
 		F751015D18ABE101001F1E7F /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751013F18ABE100001F1E7F /* IASKAppSettingsViewController.m */; };
 		F751015E18ABE101001F1E7F /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751014118ABE100001F1E7F /* IASKAppSettingsWebViewController.m */; };
 		F751015F18ABE101001F1E7F /* IASKSpecifierValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751014318ABE100001F1E7F /* IASKSpecifierValuesViewController.m */; };
@@ -285,7 +285,6 @@
 
 /* Begin PBXFileReference section */
 		3A0FE1C018A99EB2003692EB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		3A0FE1C218A9A448003692EB /* Pixate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Pixate.framework; sourceTree = "<group>"; };
 		3A0FE1C418A9A4C7003692EB /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		3A0FE1CA18A9A9B8003692EB /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = default.css; sourceTree = "<group>"; };
 		3A15896818B1996B007CCA67 /* ConversationImageExpandViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationImageExpandViewController.h; sourceTree = "<group>"; };
@@ -717,6 +716,7 @@
 		3AFFC93F18A06B95009D7F13 /* MessageMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageMO.m; sourceTree = "<group>"; };
 		3AFFC94118A06BA9009D7F13 /* FriendMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendMO.h; sourceTree = "<group>"; };
 		3AFFC94218A06BA9009D7F13 /* FriendMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendMO.m; sourceTree = "<group>"; };
+		F740906D18B43EB800F44E40 /* Pixate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Pixate.framework; sourceTree = "<group>"; };
 		F751013E18ABE100001F1E7F /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsViewController.h; sourceTree = "<group>"; };
 		F751013F18ABE100001F1E7F /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsViewController.m; sourceTree = "<group>"; };
 		F751014018ABE100001F1E7F /* IASKAppSettingsWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsWebViewController.h; sourceTree = "<group>"; };
@@ -768,13 +768,13 @@
 				3A3A0B1618AB118A006FBAE4 /* AudioToolbox.framework in Frameworks */,
 				3A0FE1C518A9A4C7003692EB /* CoreText.framework in Frameworks */,
 				3A0FE1C118A99EB2003692EB /* QuartzCore.framework in Frameworks */,
-				3A0FE1C318A9A448003692EB /* Pixate.framework in Frameworks */,
 				3A39475D18A06483005730D2 /* CoreData.framework in Frameworks */,
 				3AF19A761881F6C300F3E4D3 /* libresolv.dylib in Frameworks */,
 				3AF19A4E1881F11800F3E4D3 /* Security.framework in Frameworks */,
 				3AF19A4C1881F10B00F3E4D3 /* CFNetwork.framework in Frameworks */,
 				3A25B6391881E03700166623 /* CoreGraphics.framework in Frameworks */,
 				3AF19A731881F67300F3E4D3 /* libidn.a in Frameworks */,
+				F740906E18B43EB800F44E40 /* Pixate.framework in Frameworks */,
 				3A25B63B1881E03700166623 /* UIKit.framework in Frameworks */,
 				3A25B6371881E03700166623 /* Foundation.framework in Frameworks */,
 			);
@@ -824,10 +824,10 @@
 		3A25B6351881E03700166623 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F740906D18B43EB800F44E40 /* Pixate.framework */,
 				3A59D5F018B2F32200CE7B7B /* Accelerate.framework */,
 				3A3A0B1518AB118A006FBAE4 /* AudioToolbox.framework */,
 				3A0FE1C418A9A4C7003692EB /* CoreText.framework */,
-				3A0FE1C218A9A448003692EB /* Pixate.framework */,
 				3A0FE1C018A99EB2003692EB /* QuartzCore.framework */,
 				3A39475C18A06483005730D2 /* CoreData.framework */,
 				3AF19A751881F6C300F3E4D3 /* libresolv.dylib */,
@@ -2539,7 +2539,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/giancarloanemone/Desktop/ios/Who,
+					/Users/rlundquist3/Development/ios/who/who_ios,
+					/Users/rlundquist3/Development/ios/Who/who_ios,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Who-Prefix.pch";
@@ -2547,7 +2548,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/giancarloanemone/desktop/ios/who/who,
+					/Users/rlundquist3/Development/ios/who/who_ios/who,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2564,7 +2565,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/giancarloanemone/Desktop/ios/Who,
+					/Users/rlundquist3/Development/ios/who/who_ios,
+					/Users/rlundquist3/Development/ios/Who/who_ios,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Who-Prefix.pch";
@@ -2572,7 +2574,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/giancarloanemone/desktop/ios/who/who,
+					/Users/rlundquist3/Development/ios/who/who_ios/who,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
