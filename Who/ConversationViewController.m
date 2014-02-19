@@ -37,10 +37,6 @@
     self.downloadingImageURLs = [[NSMutableArray alloc] initWithCapacity:20];
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    [self scrollToBottomAnimated:YES];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -192,7 +188,7 @@
 -(void)didFinishDownloadingImage:(UIImage *)image fromURL:(NSString *)url forMessage:(Message *)message {
     NSLog(@"Reached Delegate Method");
     [self.tableView reloadData];
-    [self scrollToBottomAnimated:NO];
+    [self scrollToBottomAnimated:YES];
 }
 
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {
