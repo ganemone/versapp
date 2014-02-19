@@ -26,15 +26,22 @@
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceived:) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
+
+    UIImage *image = [UIImage imageNamed:@"background-messages.jpg"];
+    UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
+    [backgroundImageView setImage:image];
+    [self.tableView setBackgroundView:backgroundImageView];
+    //[self.view addSubview:backgroundImageView];
+    
+    
     self.navigationItem.title = self.gc.name;
     self.delegate = self;
     self.dataSource = self;
     self.im = [[ImageManager alloc] init];
     [self.im setDelegate:self];
-    
     self.imageCache = [ImageCache getInstance];
-    
     self.downloadingImageURLs = [[NSMutableArray alloc] initWithCapacity:20];
+    
 }
 
 - (void)didReceiveMemoryWarning
