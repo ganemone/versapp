@@ -26,7 +26,7 @@
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceived:) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
-
+    
     UIImage *image = [UIImage imageNamed:@"background-messages.jpg"];
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
     [backgroundImageView setImage:image];
@@ -127,23 +127,11 @@
 }
 
 -(void)configureCell:(JSBubbleMessageCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    if ([cell messageType] == JSBubbleMessageTypeOutgoing) {
-        cell.bubbleView.textView.textColor = [UIColor blackColor];
-        /*if ([cell.bubbleView.textView respondsToSelector:@selector(linkTextAttributes)]) {
-         NSMutableDictionary *attrs = [cell.bubbleView.textView.linkTextAttributes mutableCopy];
-         [attrs setValue:[UIColor blueColor] forKey:UITextAttributeTextColor];
-         cell.bubbleView.textView.linkTextAttributes = attrs;
-         }*/
-    }
-    
+    cell.bubbleView.textView.textColor = [UIColor whiteColor];
     if (cell.timestampLabel) {
         cell.timestampLabel.textColor = [UIColor lightGrayColor];
         cell.timestampLabel.shadowOffset = CGSizeZero;
     }
-    
-    /*if (cell.subtitleLabel) {
-     cell.subtitleLabel.textColor = [UIColor lightGrayColor];
-     }*/
 }
 
 - (UIImageView *)bubbleImageViewWithType:(JSBubbleMessageType)type
@@ -151,11 +139,11 @@
 {
     if (type == JSBubbleMessageTypeIncoming) {
         return [JSBubbleImageViewFactory bubbleImageViewForType:type
-                                                          color:[UIColor js_bubbleGreenColor]];
+                                                          color:[UIColor blackColor]];
     }
     else {
         return [JSBubbleImageViewFactory bubbleImageViewForType:type
-                                                          color:[UIColor js_bubbleBlueColor]];
+                                                          color:[UIColor blackColor]];
     }
 }
 

@@ -274,7 +274,7 @@
     
     [cell setMessage:message];
     [cell setAvatarImageView:avatar];
-    [cell setBackgroundColor:tableView.backgroundColor];
+    //[cell setBackgroundColor:tableView.backgroundColor];
     
 #if TARGET_IPHONE_SIMULATOR
     cell.bubbleView.textView.dataDetectorTypes = UIDataDetectorTypeNone;
