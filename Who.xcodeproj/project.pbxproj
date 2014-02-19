@@ -248,6 +248,11 @@
 		3AF19AD11882075D00F3E4D3 /* ConnectionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF19AD01882075D00F3E4D3 /* ConnectionProvider.m */; };
 		3AF5113A1885B1EC002383D3 /* IQPacketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF511391885B1EC002383D3 /* IQPacketManager.m */; };
 		3AF5113D1885D79E002383D3 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF5113C1885D79E002383D3 /* Constants.m */; };
+		3AF86D2918B504CF00033495 /* bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF86D2718B504CF00033495 /* bubble.png */; };
+		3AF86D2A18B504CF00033495 /* bubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF86D2818B504CF00033495 /* bubble@2x.png */; };
+		3AF86D2E18B506F500033495 /* Background Confessions.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3AF86D2B18B506F500033495 /* Background Confessions.jpg */; };
+		3AF86D2F18B506F500033495 /* Background Friends.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3AF86D2C18B506F500033495 /* Background Friends.jpg */; };
+		3AF86D3018B506F500033495 /* Background Messages.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3AF86D2D18B506F500033495 /* Background Messages.jpg */; };
 		3AFFC93D18A06AE3009D7F13 /* db.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC93B18A06AE3009D7F13 /* db.xcdatamodeld */; };
 		3AFFC94018A06B95009D7F13 /* MessageMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC93F18A06B95009D7F13 /* MessageMO.m */; };
 		3AFFC94318A06BA9009D7F13 /* FriendMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC94218A06BA9009D7F13 /* FriendMO.m */; };
@@ -712,6 +717,11 @@
 		3AF511391885B1EC002383D3 /* IQPacketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQPacketManager.m; sourceTree = "<group>"; };
 		3AF5113B1885D79E002383D3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		3AF5113C1885D79E002383D3 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		3AF86D2718B504CF00033495 /* bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bubble.png; sourceTree = "<group>"; };
+		3AF86D2818B504CF00033495 /* bubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble@2x.png"; sourceTree = "<group>"; };
+		3AF86D2B18B506F500033495 /* Background Confessions.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Background Confessions.jpg"; sourceTree = "<group>"; };
+		3AF86D2C18B506F500033495 /* Background Friends.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Background Friends.jpg"; sourceTree = "<group>"; };
+		3AF86D2D18B506F500033495 /* Background Messages.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Background Messages.jpg"; sourceTree = "<group>"; };
 		3AFFC93C18A06AE3009D7F13 /* db.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = db.xcdatamodel; sourceTree = "<group>"; };
 		3AFFC93E18A06B95009D7F13 /* MessageMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageMO.h; sourceTree = "<group>"; };
 		3AFFC93F18A06B95009D7F13 /* MessageMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageMO.m; sourceTree = "<group>"; };
@@ -844,6 +854,7 @@
 		3A25B63C1881E03700166623 /* Who */ = {
 			isa = PBXGroup;
 			children = (
+				3AF86D3118B506FB00033495 /* Resources */,
 				3AB9E67C18A45573001EFDB8 /* LoadingDialogManager.h */,
 				3AB9E67D18A45573001EFDB8 /* LoadingDialogManager.m */,
 				F751016B18ABE8A2001F1E7F /* Settings.bundle */,
@@ -1005,6 +1016,8 @@
 		3A3A0AA618AB1126006FBAE4 /* bubble-classic */ = {
 			isa = PBXGroup;
 			children = (
+				3AF86D2718B504CF00033495 /* bubble.png */,
+				3AF86D2818B504CF00033495 /* bubble@2x.png */,
 				3ABA80D618AE5BF0002012C7 /* MessageBubble-Fill@2x.png */,
 				3ABA80D418AE59F9002012C7 /* MessageBubble-Fill.png */,
 				3A3A0AA718AB1126006FBAE4 /* bubble-classic-blue.png */,
@@ -1972,6 +1985,24 @@
 			name = Dependencies;
 			sourceTree = "<group>";
 		};
+		3AF86D3118B506FB00033495 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3AF86D3218B5070200033495 /* Images */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		3AF86D3218B5070200033495 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				3AF86D2B18B506F500033495 /* Background Confessions.jpg */,
+				3AF86D2C18B506F500033495 /* Background Friends.jpg */,
+				3AF86D2D18B506F500033495 /* Background Messages.jpg */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		F751013C18ABE100001F1E7F /* InAppSettingsKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -2151,6 +2182,7 @@
 				3A25B6411881E03700166623 /* InfoPlist.strings in Resources */,
 				3A3A0B0B18AB1126006FBAE4 /* send-button-pressed@2x.png in Resources */,
 				3A3A0AFD18AB1126006FBAE4 /* bubble-min@2x.png in Resources */,
+				3AF86D2F18B506F500033495 /* Background Friends.jpg in Resources */,
 				3A3A0AF018AB1126006FBAE4 /* bubble-classic-selected.png in Resources */,
 				3A3A0B0A18AB1126006FBAE4 /* send-button-pressed.png in Resources */,
 				3A3A0B1218AB1126006FBAE4 /* message-received.aiff in Resources */,
@@ -2159,16 +2191,20 @@
 				3AF19A6E1881F34A00F3E4D3 /* README.txt in Resources */,
 				3A3A0B0818AB1126006FBAE4 /* input-field-cover.png in Resources */,
 				3A3A0B1018AB1126006FBAE4 /* input-bar-flat.png in Resources */,
+				3AF86D3018B506F500033495 /* Background Messages.jpg in Resources */,
 				3A3A0B1118AB1126006FBAE4 /* input-bar-flat@2x.png in Resources */,
 				3A3A0AEE18AB1126006FBAE4 /* bubble-classic-green.png in Resources */,
 				3A3A0B0E18AB1126006FBAE4 /* button-photo.png in Resources */,
 				3A3A0B0F18AB1126006FBAE4 /* button-photo@2x.png in Resources */,
 				3A3A0AFC18AB1126006FBAE4 /* bubble-min.png in Resources */,
 				3A3A0AF418AB1126006FBAE4 /* bubble-classic-square-blue.png in Resources */,
+				3AF86D2A18B504CF00033495 /* bubble@2x.png in Resources */,
 				3A3A0AF718AB1126006FBAE4 /* bubble-classic-square-gray@2x.png in Resources */,
 				3A3A0B0C18AB1126006FBAE4 /* send-button.png in Resources */,
+				3AF86D2E18B506F500033495 /* Background Confessions.jpg in Resources */,
 				3A3A0AEC18AB1126006FBAE4 /* bubble-classic-gray.png in Resources */,
 				3A3A0AF118AB1126006FBAE4 /* bubble-classic-selected@2x.png in Resources */,
+				3AF86D2918B504CF00033495 /* bubble.png in Resources */,
 				3A3A0AEF18AB1126006FBAE4 /* bubble-classic-green@2x.png in Resources */,
 				3ABA80D718AE5BF0002012C7 /* MessageBubble-Fill@2x.png in Resources */,
 				3A3A0B0518AB1126006FBAE4 /* bubble@2x.png in Resources */,
