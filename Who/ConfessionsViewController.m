@@ -7,31 +7,30 @@
 //
 
 #import "ConfessionsViewController.h"
+#import "Confession.h"
+#import "ConfessionsManager.h"
 
 @interface ConfessionsViewController ()
+
+@property ConfessionsManager *confessionsManager;
 
 @end
 
 @implementation ConfessionsViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
+/*- (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
     }
     return self;
-}
+}*/
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.confessionsManager = [ConfessionsManager getInstance];
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,24 +43,21 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
     return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return [self.confessionsManager getNumberOfConfessions];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"BasicConfessionCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    // Configure the cell...
+    Confession *confession = [_confessionsManager getConfessionAtIndex:indexPath.row];
+    [cell.textLabel setText:[confession body]];
     
     return cell;
 }

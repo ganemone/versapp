@@ -15,4 +15,8 @@
 
 +(instancetype)getInstance;
 
+-(int)getNumberOfConfessions;
+
+-(Confession*)getConfessionAtIndex:(int)index;
+
 @end
