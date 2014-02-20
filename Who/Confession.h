@@ -21,4 +21,5 @@
 
 +(instancetype)create:(NSString*)body imageURL:(NSString*)imageURL confessionID:(NSNumber*)confessionID createdTimestamp:(NSString*)createdTimestamp favoritedUsers:(NSMutableArray*)favoritedUsers;
 
+
 @end

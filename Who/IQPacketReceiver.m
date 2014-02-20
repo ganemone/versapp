@@ -182,7 +182,7 @@
         
         NSDictionary *pendingChats = [NSDictionary dictionaryWithObjects:values forKeys:keys];
         count++;
-        NSString *keyName = (@"notification%i", [NSString stringWithFormat:@"%i", count]);
+        NSString *keyName = [NSString stringWithFormat:@"%i", count];
         [allNotifications setObject:pendingChats forKey:keyName];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_PENDING_CHATS object:nil userInfo:allNotifications];
