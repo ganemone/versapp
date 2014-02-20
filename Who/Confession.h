@@ -1,0 +1,24 @@
+//
+//  Confession.h
+//  Who
+//
+//  Created by Giancarlo Anemone on 2/19/14.
+//  Copyright (c) 2014 Giancarlo Anemone. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface Confession : NSObject
+
+@property (strong, nonatomic) NSNumber *confessionID;
+@property (strong, nonatomic) NSString *body;
+@property (strong, nonatomic) NSString *imageURL;
+@property (strong, nonatomic) NSString *createdTimestamp;
+@property (strong, nonatomic) NSMutableArray *favoritedUsers;
+@property (strong, nonatomic) NSNumber *favoriteCount;
+
++(instancetype)create:(NSString*)body imageURL:(NSString*)imageURL;
+
++(instancetype)create:(NSString*)body imageURL:(NSString*)imageURL confessionID:(NSNumber*)confessionID createdTimestamp:(NSString*)createdTimestamp favoritedUsers:(NSMutableArray*)favoritedUsers;
+
+@end
