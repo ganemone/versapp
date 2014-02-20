@@ -202,10 +202,10 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier compare:SEGUE_ID_CREATED_MUC] == 0) {
         ConversationViewController *dest = segue.destinationViewController;
-        [dest setGc:self.createdGroupChat];
+        [dest setGc:_createdGroupChat];
     } else if([segue.identifier compare:SEGUE_ID_CREATED_CHAT] == 0) {
         OneToOneConversationViewController *dest = segue.destinationViewController;
-        [dest setChat:self.createdOneToOneChat];
+        [dest setChat:_createdOneToOneChat];
     }
 }
 

@@ -142,7 +142,6 @@
 											 selector:@selector(handleWillHideKeyboardNotification:)
 												 name:UIKeyboardWillHideNotification
                                                object:nil];
-    [[self tableView] reloadData];
     [self.tableView setContentOffset:CGPointMake(0, CGFLOAT_MAX)];
 }
 

@@ -33,6 +33,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:PACKET_ID_GET_VCARD object:nil];
     
+    UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
+    [backgroundImageView setImage:[UIImage imageNamed:@"background-confessions.jpg"]];
+    [self.tableView setBackgroundView:backgroundImageView];
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
+    
     self.cp = [ConnectionProvider getInstance];
     
 }
@@ -53,8 +58,29 @@
     return 2;
 }
 
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return (section == 0) ? @"Groups" : @"One To One";
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *customView = [[UIView alloc] initWithFrame:CGRectMake(10.0, 10.0f, self.view.frame.size.width, 44.0)];
+    UILabel * headerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    headerLabel.backgroundColor = [UIColor clearColor];
+    headerLabel.opaque = NO;
+    headerLabel.textColor = [UIColor whiteColor];
+    headerLabel.highlightedTextColor = [UIColor whiteColor];
+    headerLabel.font = [UIFont boldSystemFontOfSize:20];
+    headerLabel.frame = CGRectMake(10.0f, 10.0f, self.view.frame.size.width, 44.0);
+    
+    if (section == 0) {
+        headerLabel.text = @"Groups";
+    } else {
+        headerLabel.text = @"One to One";
+    }
+    
+    [customView addSubview:headerLabel];
+    
+    return customView;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 50.0f;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -71,6 +97,7 @@
         cell.textLabel.text = chat.name;
         cell.detailTextLabel.text = [chat getLastMessageText];
     }
+    [cell setBackgroundColor:[UIColor clearColor]];
     return cell;
 }
 

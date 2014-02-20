@@ -35,9 +35,6 @@
     [self.tableView setOpaque:YES];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
-    //[self.view addSubview:backgroundImageView];
-    
-    
     self.navigationItem.title = self.gc.name;
     self.delegate = self;
     self.dataSource = self;

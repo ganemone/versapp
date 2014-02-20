@@ -37,7 +37,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.navigationController setDelegate:self];
+    
     self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:STORYBOARD_ID_PAGE_VIEW_CONTROLLER];
     self.pageViewController.dataSource = self;
     self.pageViewController.delegate = self;
@@ -45,20 +45,11 @@
     NSArray *viewControllers = @[initialViewController];
 
     [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:nil];
-    [self.navigationController setNavigationBarHidden:YES];
     [self addChildViewController:_pageViewController];
+    [_pageViewController.view setFrame:self.view.frame];
     [self.view addSubview:_pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];
     
-}
-
--(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    if ([viewController isKindOfClass:[ConversationViewController class]] ||
-        [viewController isKindOfClass:[OneToOneConversationViewController class]]) {
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
-    } else {
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
-    }
 }
 
 - (UIViewController*)viewControllerAtIndex:(int)index {
@@ -103,13 +94,13 @@
     return index;
 }
 
--(NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
+/*-(NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
     return NumViewPages;
 }
 
 -(NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {
     return 0;
-}
+}*/
 
 - (void)didReceiveMemoryWarning
 {
