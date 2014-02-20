@@ -516,7 +516,7 @@
     [query addChild:confession];
     
     DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_GET_CONFESSIONS]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_GET_MY_CONFESSIONS]];
 	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"get"]];
     [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
     [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[ConnectionProvider getUser]]];

@@ -131,22 +131,13 @@ static ConnectionProvider *selfInstance;
     if([self.username compare:@"admin"] == 0) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ADMIN_AUTHENTICATED object:nil];
     } else {
-        DDXMLElement *getConfessionsPacket = [IQPacketManager createGetConfessionsPacket];
-        DDXMLElement *getMyConfessionsPacket = [IQPacketManager createGetMyConfessionsPacket];
-        DDXMLElement *toggleFavoritePacket = [IQPacketManager createToggleFavoriteConfessionPacket:@"confessionIDGoesHEre"];
-        Confession *confession = [Confession create:@"Confession Body Goes Here...." imageURL:@"imageLinkGoesHere..."];
-        DDXMLElement *postConfessionPacket = [IQPacketManager createPostConfessionPacket:confession];
-        NSLog(@"\n\n Get Confession Packet: %@ \n\n", getConfessionsPacket.XMLString);
-        NSLog(@"\n\n Get My Confession Packet: %@ \n\n", getMyConfessionsPacket.XMLString);
-        NSLog(@"\n\n Toggle Favorite Packet: %@ \n\n", toggleFavoritePacket.XMLString);
-        NSLog(@"\n\n Post Confession Packet: %@ \n\n", postConfessionPacket.XMLString);
-        
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetLastTimeActivePacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetRosterPacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
+        [self.xmppStream sendElement:[IQPacketManager createGetConfessionsPacket]];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
     }
 }

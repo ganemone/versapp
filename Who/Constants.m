@@ -34,6 +34,7 @@ NSString *const PACKET_ID_GET_SESSION_ID = @"packet_id_get_session_id";
 NSString *const PACKET_ID_GET_CONFESSIONS = @"packet_id_get_confessions";
 NSString *const PACKET_ID_POST_CONFESSION = @"packet_id_post_confession";
 NSString *const PACKET_ID_FAVORITE_CONFESSION = @"packet_id_favorite_confession";
+NSString *const PACKET_ID_GET_MY_CONFESSIONS = @"packet_id_get_my_confessions";
 
 NSString *const VCARD_TAG_FULL_NAME = @"FN";
 NSString *const VCARD_TAG_FIRST_NAME = @"GIVEN";
