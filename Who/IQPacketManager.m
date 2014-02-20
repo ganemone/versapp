@@ -452,4 +452,77 @@
     return iq;
 }
 
++(DDXMLElement *)createGetConfessionsPacket {
+    DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
+	[query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:confession"]];
+    [query addChild:[DDXMLElement elementWithName:@"confession"]];
+    
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_GET_CONFESSIONS]];
+	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"get"]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[ConnectionProvider getUser]]];
+    [iq addChild:query];
+    
+    return iq;
+}
+
++(DDXMLElement *)createPostConfessionPacket:(Confession *)confession {
+    DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
+	[query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:confession"]];
+    
+    DDXMLElement *confessionXML = [DDXMLElement elementWithName:@"confession"];
+    [confessionXML addAttribute:[DDXMLNode attributeWithName:@"body" stringValue:[confession body]]];
+    [confessionXML addAttribute:[DDXMLNode attributeWithName:@"image_url" stringValue:[confession imageURL]]];
+    
+    [query addChild:confessionXML];
+    
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_POST_CONFESSION]];
+	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"set"]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[ConnectionProvider getUser]]];
+    [iq addChild:query];
+    
+    return iq;
+}
+
++(DDXMLElement *)createToggleFavoriteConfessionPacket:(NSString *)confessionID {
+    DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
+	[query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:confession"]];
+    
+    DDXMLElement *confessionXML = [DDXMLElement elementWithName:@"confession"];
+    [confessionXML addAttribute:[DDXMLNode attributeWithName:@"confession_id" stringValue:confessionID]];
+    [confessionXML addAttribute:[DDXMLNode attributeWithName:@"action" stringValue:@"toggle_favorite"]];
+    
+    [query addChild:confessionXML];
+    
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_FAVORITE_CONFESSION]];
+	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"set"]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[ConnectionProvider getUser]]];
+    [iq addChild:query];
+    
+    return iq;
+}
+
++(DDXMLElement *)createGetMyConfessionsPacket {
+    DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
+	[query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:confession"]];
+    
+    DDXMLElement *confession = [DDXMLElement elementWithName:@"confession"];
+    [confession addAttribute:[DDXMLNode attributeWithName:@"action" stringValue:@"mine"]];
+    [query addChild:confession];
+    
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_GET_CONFESSIONS]];
+	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"get"]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[ConnectionProvider getUser]]];
+    [iq addChild:query];
+    
+    return iq;
+}
+
 @end

@@ -29,6 +29,9 @@ extern NSString *const PACKET_ID_ACCEPT_CHAT_INVITE;
 extern NSString *const PACKET_ID_DENY_CHAT_INVITE;
 extern NSString *const PACKET_ID_GET_VCARD;
 extern NSString *const PACKET_ID_GET_SESSION_ID;
+extern NSString *const PACKET_ID_GET_CONFESSIONS;
+extern NSString *const PACKET_ID_POST_CONFESSION;
+extern NSString *const PACKET_ID_FAVORITE_CONFESSION;
 
 extern NSString *const VCARD_TAG_FULL_NAME;
 extern NSString *const VCARD_TAG_FIRST_NAME;
