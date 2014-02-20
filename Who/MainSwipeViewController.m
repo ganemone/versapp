@@ -12,10 +12,10 @@
 #import "ContactsViewController.h"
 #import "ConversationViewController.h"
 #import "OneToOneConversationViewController.h"
-
+#import "ConfessionsViewController.h"
 #import "Constants.h"
 
-#define NumViewPages 3
+#define NumViewPages 4
 
 @interface MainSwipeViewController ()
 
@@ -66,6 +66,8 @@
             storyboardID = STORYBOARD_ID_FRIENDS_VIEW_CONTROLLER; break;
         case 2:
             storyboardID = STORYBOARD_ID_CONTACTS_VIEW_CONTROLLER; break;
+        case 3:
+            storyboardID = STORYBOARD_ID_CONFESSIONS_VIEW_CONTROLLER; break;
         default:
             return nil;
     }
@@ -90,6 +92,8 @@
         index = 1;
     } else if([viewController isKindOfClass:[ContactsViewController class]]) {
         index = 2;
+    } else if([viewController isKindOfClass:[ConfessionsViewController class]]) {
+        index = 3;
     }
     return index;
 }

@@ -113,5 +113,6 @@ NSString *const STORYBOARD_ID_DASHBOARD_VIEW_CONTROLLER = @"DashboardViewControl
 NSString *const STORYBOARD_ID_FRIENDS_VIEW_CONTROLLER = @"FriendsViewController";
 NSString *const STORYBOARD_ID_CONTACTS_VIEW_CONTROLLER = @"ContactsViewController";
 NSString *const STORYBOARD_ID_SWIPE_VIEW_CONTROLLER = @"MainSwipeViewController";
+NSString *const STORYBOARD_ID_CONFESSIONS_VIEW_CONTROLLER = @"ConfessionsViewController";
 
 @end
