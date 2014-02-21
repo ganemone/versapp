@@ -43,9 +43,8 @@
         CGFloat cellY = 0.0f;
         CGSize contentSize = self.contentView.frame.size;
         CGRect imageFrame = CGRectMake(cellX, cellY, contentSize.width - 20.0f, contentSize.height);
-        CGRect textFrame = CGRectMake(cellX + 10.0f, cellY, contentSize.width - 20.0f, contentSize.height);
+        CGRect textFrame = CGRectMake(cellX + 10.0f, cellY, contentSize.width - 25.0f, contentSize.height - 5.0f);
         
-        NSLog(@"imageFrame : %f %f", contentSize.width, contentSize.height);
         
         UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:imageFrame];
         [backgroundImageView setImage:[UIImage imageNamed:@"bubble.png"]];
