@@ -56,18 +56,22 @@
         CGFloat iconSize = 25.0f;
         CGRect chatButtonFrame = CGRectMake(cellX + (contentSize.width / 4.0f), cellHeight - 15.0f, iconSize, iconSize);
         CGRect favoriteButtonFrame = CGRectMake(cellX + 3 * (contentSize.width / 4.0f) - 2 * iconSize, cellHeight - 15.0f, iconSize, iconSize);
-        UIButton *chatButton = [[UIButton alloc] initWithFrame:chatButtonFrame];
-        UIButton *favoriteButton = [[UIButton alloc] initWithFrame:favoriteButtonFrame];
-        [chatButton setImage:[UIImage imageNamed:@"chat-icon.png"] forState:UIControlStateNormal];
-        [favoriteButton setImage:[UIImage imageNamed:@"fav-icon.png"] forState:UIControlStateNormal];
+        UIButton *chatBtn = [[UIButton alloc] initWithFrame:chatButtonFrame];
+        UIButton *favoriteBtn = [[UIButton alloc] initWithFrame:favoriteButtonFrame];
+        [chatBtn setImage:[UIImage imageNamed:@"chat-icon.png"] forState:UIControlStateNormal];
+        [favoriteBtn setImage:[UIImage imageNamed:@"fav-icon.png"] forState:UIControlStateNormal];
+        
+        [favoriteBtn addTarget:self action:@selector(handleConfessionFavorited:) forControlEvents:UIControlEventTouchUpInside];
+        [chatBtn addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
         
         [self.contentView addSubview:backgroundView];
         [self.contentView addSubview:textView];
-        [self.contentView addSubview:chatButton];
-        [self.contentView addSubview:favoriteButton];
+        [self.contentView addSubview:chatBtn];
+        [self.contentView addSubview:favoriteBtn];
         
         _confessionText = textView;
         _transparentBackgroundView = backgroundView;
+        _confession = confession;
         
     }
     return self;
@@ -79,6 +83,14 @@
     CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
     CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
     return labelSize.height + 30.0f;
+}
+
+-(void)handleConfessionFavorited:(id)sender {
+    NSLog(@"Favoriting Confession: %@", [_confession confessionID]);
+}
+
+-(void)handleConfessionChatStarted:(id)sender {
+    NSLog(@"Handling Confession Chat Started: %@", [_confession confessionID]);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
