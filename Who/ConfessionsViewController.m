@@ -43,7 +43,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -57,6 +57,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     Confession *confession = [_confessionsManager getConfessionAtIndex:indexPath.row];
+    NSLog(@"Confession Body: %@", [confession body]);
     [cell.textLabel setText:[confession body]];
     
     return cell;
