@@ -61,9 +61,9 @@
     
     switch (index) {
         case 0:
-            storyboardID = STORYBOARD_ID_CONFESSIONS_VIEW_CONTROLLER; break;
-        case 1:
             storyboardID = STORYBOARD_ID_DASHBOARD_VIEW_CONTROLLER; break;
+        case 1:
+            storyboardID = STORYBOARD_ID_CONFESSIONS_VIEW_CONTROLLER; break;
         case 2:
             storyboardID = STORYBOARD_ID_FRIENDS_VIEW_CONTROLLER; break;
         case 3:
@@ -88,7 +88,7 @@
 
 - (int)indexForViewController:(UIViewController*)viewController {
     int index = 0;
-    if ([viewController isKindOfClass:[DashboardViewController class]]) {
+    if ([viewController isKindOfClass:[ConfessionsViewController class]]) {
         index = 1;
     } else if([viewController isKindOfClass:[FriendsViewController class]]) {
         index = 2;
