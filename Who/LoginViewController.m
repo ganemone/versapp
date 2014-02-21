@@ -8,7 +8,6 @@
 
 #import "LoginViewController.h"
 #import "ConnectionProvider.h"
-#import "RequestsViewController.h"
 #import "IQPacketManager.h"
 #import "Constants.h"
 

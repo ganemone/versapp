@@ -133,10 +133,18 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="rKC-2w-NnG" appends="YES" id="DkY-04-KlF"/>
+                        </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="xEY-92-p7p">
-                        <barButtonItem key="leftBarButtonItem" title="Settings" id="3bT-1A-aai"/>
+                        <barButtonItem key="leftBarButtonItem" title="Settings" id="3bT-1A-aai">
+                            <connections>
+                                <segue destination="bp7-7c-bhQ" kind="push" id="9oi-dR-KeV"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Notifications" id="VED-Q5-Zbt">
                             <connections>
                                 <action selector="notificationsClicked:" destination="FvA-Qe-GrR" id="wWh-e7-9kF"/>
@@ -148,6 +156,12 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iUp-KR-8dx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer cancelsTouchesInView="NO" id="rKC-2w-NnG">
+                    <connections>
+                        <action selector="displayGestureForTapRecognizer:" destination="FvA-Qe-GrR" id="KAx-tu-yaO"/>
+                        <outlet property="delegate" destination="FvA-Qe-GrR" id="6pf-xy-5eU"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1790" y="180"/>
         </scene>
@@ -447,11 +461,7 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Root View Controller" id="F0O-lg-JQN">
-                        <barButtonItem key="rightBarButtonItem" title="Settings" id="AIC-dG-wJK">
-                            <connections>
-                                <segue destination="bp7-7c-bhQ" kind="push" id="fcf-HI-Tc8"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Settings" id="AIC-dG-wJK"/>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QQl-vi-J1r" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -879,13 +889,13 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="zTQ-Mf-6oX"/>
+        <segue reference="8c7-Mw-K5g"/>
+        <segue reference="9oi-dR-KeV"/>
         <segue reference="Vys-x9-fbS"/>
-        <segue reference="fcf-HI-Tc8"/>
+        <segue reference="KzQ-2I-z5y"/>
+        <segue reference="T8K-NQ-vMc"/>
         <segue reference="cCp-tS-h07"/>
         <segue reference="yvf-5p-X2z"/>
-        <segue reference="GTj-hh-MDQ"/>
-        <segue reference="8c7-Mw-K5g"/>
-        <segue reference="zTQ-Mf-6oX"/>
-        <segue reference="hBn-y3-qKM"/>
     </inferredMetricsTieBreakers>
 </document>

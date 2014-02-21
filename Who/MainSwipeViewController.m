@@ -67,9 +67,6 @@ CAShapeLayer *closedNotifications;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadNotifications:) name:PACKET_ID_GET_PENDING_CHATS object:nil];
     self.connectionProvider = [ConnectionProvider getInstance];
     [[self.connectionProvider getConnection] sendElement:[IQPacketManager createGetPendingChatsPacket]];
-    
-    [self drawOpenLayer];
-    [self drawClosedLayer];
 }
 
 - (IBAction)notificationsClicked:(id)sender {
@@ -84,121 +81,59 @@ CAShapeLayer *closedNotifications;
 - (void) showNotifications {
     NSLog(@"Show Notifications");
     
-    [self.view addSubview:self.notificationTableView];
+    CGRect notificationFrame = self.notificationTableView.frame;
+    notificationFrame.origin.y = 0;
     
     self.notificationTableView.hidden = NO;
     
-    /*[closedNotifications removeFromSuperlayer];
-    [[[self view] layer] addSublayer:openedNotifications];
-    
-    // Set new origin of menu
-    CGRect notificationFrame = self.notificationTableView.frame;
-    notificationFrame.origin.y = self.view.frame.size.height;
-    
-    // Set new alpha of Container View (to get fade effect)
-    //float containerAlpha = 0.5f;
-    
-    [UIView animateWithDuration:0.4
+    [UIView animateWithDuration:1.0
                           delay:0.0
          usingSpringWithDamping:1.0
           initialSpringVelocity:4.0
-                        options: UIViewAnimationOptionCurveEaseInOut
+                        options: UIViewAnimationOptionCurveEaseIn
                      animations:^{
                          self.notificationTableView.frame = notificationFrame;
-                         //[self.container setAlpha: containerAlpha];
+                         [self.view addSubview:self.notificationTableView];
                      }
                      completion:^(BOOL finished){
+                         
                      }];
-    [UIView commitAnimations];*/
+    [UIView commitAnimations];
     
 }
 
 - (void) hideNotifications {
     NSLog(@"Hide Notifications");
     
-    [self.notificationTableView removeFromSuperview];
-    
-    self.notificationTableView.hidden = YES;
-    
-    /*// Set the border layer to hidden menu state
-    [openedNotifications removeFromSuperlayer];
-    [[[self view] layer] addSublayer:closedNotifications];
-    
-    // Set new origin of menu
     CGRect notificationFrame = self.notificationTableView.frame;
-    notificationFrame.origin.y = self.view.frame.size.height-notificationFrame.size.height;
+    notificationFrame.origin.y = -1*notificationFrame.size.height;
     
-    // Set new alpha of Container View (to get fade effect)
-    //float containerAlpha = 1.0f;
-    
-    [UIView animateWithDuration:0.3f
-                          delay:0.05f
+    [UIView animateWithDuration:1.0
+                          delay:0.1
          usingSpringWithDamping:1.0
           initialSpringVelocity:4.0
-                        options: UIViewAnimationOptionCurveEaseInOut
+                        options: UIViewAnimationOptionCurveEaseOut
                      animations:^{
                          self.notificationTableView.frame = notificationFrame;
-                         //[self.container setAlpha: containerAlpha];
                      }
                      completion:^(BOOL finished){
-                         self.notificationTableView.hidden = YES;
+                         
                      }];
-    [UIView commitAnimations];*/
+    [UIView commitAnimations];
     
+    [self.notificationTableView removeFromSuperview];
+    self.notificationTableView.hidden = YES;
 }
 
-- (void) drawOpenLayer {
-    openedNotifications = [CAShapeLayer layer];
+- (IBAction)displayGestureForTapRecognizer:(UITapGestureRecognizer *)recognizer {
+    // Get the location of the gesture
+    CGPoint tapLocation = [recognizer locationInView:self.view];
+    // NSLog(@"Tap location X:%1.0f, Y:%1.0f", tapLocation.x, tapLocation.y);
     
-    // Constants to ease drawing the border and the stroke.
-    int height = self.view.frame.size.height;
-    int width = self.view.frame.size.width;
-    int triangleSize = 8;
-    int trianglePosition = 0.87*width;
-    
-    // The path for the triangle (showing that the menu is open).
-    UIBezierPath *triangleShape = [[UIBezierPath alloc] init];
-    [triangleShape moveToPoint:CGPointMake(trianglePosition, height)];
-    [triangleShape addLineToPoint:CGPointMake(trianglePosition+triangleSize, height-triangleSize)];
-    [triangleShape addLineToPoint:CGPointMake(trianglePosition+2*triangleSize, height)];
-    [triangleShape addLineToPoint:CGPointMake(trianglePosition, height)];
-    
-    [openedNotifications setPath:triangleShape.CGPath];
-    //[openMenuShape setFillColor:[self.menubar.backgroundColor CGColor]];
-    [openedNotifications setFillColor:[self.notificationTableView.backgroundColor CGColor]];
-    UIBezierPath *borderPath = [[UIBezierPath alloc] init];
-    [borderPath moveToPoint:CGPointMake(0, height)];
-    [borderPath addLineToPoint:CGPointMake(trianglePosition, height)];
-    [borderPath addLineToPoint:CGPointMake(trianglePosition+triangleSize, height-triangleSize)];
-    [borderPath addLineToPoint:CGPointMake(trianglePosition+2*triangleSize, height)];
-    [borderPath addLineToPoint:CGPointMake(width, height)];
-    
-    [openedNotifications setPath:borderPath.CGPath];
-    [openedNotifications setStrokeColor:[[UIColor whiteColor] CGColor]];
-    
-    [openedNotifications setBounds:CGRectMake(0.0f, 0.0f, height+triangleSize, width)];
-    [openedNotifications setAnchorPoint:CGPointMake(0.0f, 0.0f)];
-    [openedNotifications setPosition:CGPointMake(0.0f, 0.0f)];
-}
-
-- (void) drawClosedLayer {
-    closedNotifications = [CAShapeLayer layer];
-    
-    // Constants to ease drawing the border and the stroke.
-    int height = self.view.frame.size.height;
-    int width = self.view.frame.size.width;
-    
-    // The path for the border (just a straight line)
-    UIBezierPath *borderPath = [[UIBezierPath alloc] init];
-    [borderPath moveToPoint:CGPointMake(0, height)];
-    [borderPath addLineToPoint:CGPointMake(width, height)];
-    
-    [closedNotifications setPath:borderPath.CGPath];
-    [closedNotifications setStrokeColor:[[UIColor whiteColor] CGColor]];
-    
-    [closedNotifications setBounds:CGRectMake(0.0f, 0.0f, height, width)];
-    [closedNotifications setAnchorPoint:CGPointMake(0.0f, 0.0f)];
-    [closedNotifications setPosition:CGPointMake(0.0f, 0.0f)];
+    // If menu is open, and the tap is outside of the menu, close it.
+    if (!CGRectContainsPoint(self.notificationTableView.frame, tapLocation) && !self.notificationTableView.hidden) {
+        [self hideNotifications];
+    }
 }
 
 -(void)loadNotifications:(NSNotification *)notification {
@@ -211,7 +146,7 @@ CAShapeLayer *closedNotifications;
     self.friendRequests = self.chatParticipant.pending;
     NSLog(@"%d friend requests", [self.friendRequests count]);
     
-    self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(self.view.frame.size.width*0.1, 0, self.view.frame.size.width*0.8, self.view.frame.size.height*0.3)];
+    self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(self.view.frame.size.width*0.05, 0, self.view.frame.size.width*0.9, self.view.frame.size.height*0.3)];
     self.notificationTableView.hidden = YES;
     [self.notificationTableView setDelegate:self];
     [self.notificationTableView setDataSource:self];
@@ -239,12 +174,12 @@ CAShapeLayer *closedNotifications;
     }
     
     UIButton *accept = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    accept.frame = CGRectMake(175.0f, 5.0f, 50.0f, 30.0f);
+    accept.frame = CGRectMake(200.0f, 5.0f, 30.0f, 30.0f);
     [accept setTitle:INVITATION_ACCEPT forState:UIControlStateNormal];
     [cell.contentView addSubview:accept];
     
     UIButton *decline = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    decline.frame = CGRectMake(250.0f, 5.0f, 50.0f, 30.0f);
+    decline.frame = CGRectMake(240.0f, 5.0f, 30.0f, 30.0f);
     [decline setTitle:INVITATION_DECLINE forState:UIControlStateNormal];
     [cell.contentView addSubview:decline];
     

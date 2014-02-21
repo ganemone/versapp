@@ -23,7 +23,6 @@
 		3A25B65B1881E03700166623 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A25B63A1881E03700166623 /* UIKit.framework */; };
 		3A25B6631881E03700166623 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3A25B6611881E03700166623 /* InfoPlist.strings */; };
 		3A25B6651881E03700166623 /* WhoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A25B6641881E03700166623 /* WhoTests.m */; };
-		3A25B6701881E7F100166623 /* RequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A25B66F1881E7F100166623 /* RequestsViewController.m */; };
 		3A25B6731881E83500166623 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A25B6721881E83500166623 /* DashboardViewController.m */; };
 		3A25B6761881E84800166623 /* FriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A25B6751881E84800166623 /* FriendsViewController.m */; };
 		3A25B6791881E85B00166623 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A25B6781881E85B00166623 /* ContactsViewController.m */; };
@@ -286,8 +285,6 @@
 		3A25B6601881E03700166623 /* WhoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WhoTests-Info.plist"; sourceTree = "<group>"; };
 		3A25B6621881E03700166623 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3A25B6641881E03700166623 /* WhoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WhoTests.m; sourceTree = "<group>"; };
-		3A25B66E1881E7F100166623 /* RequestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestsViewController.h; sourceTree = "<group>"; };
-		3A25B66F1881E7F100166623 /* RequestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestsViewController.m; sourceTree = "<group>"; };
 		3A25B6711881E83500166623 /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
 		3A25B6721881E83500166623 /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
 		3A25B6741881E84800166623 /* FriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsViewController.h; sourceTree = "<group>"; };
@@ -1657,8 +1654,6 @@
 		3A939630189B3543004B01CE /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				3A25B66E1881E7F100166623 /* RequestsViewController.h */,
-				3A25B66F1881E7F100166623 /* RequestsViewController.m */,
 				3A25B6711881E83500166623 /* DashboardViewController.h */,
 				3A25B6721881E83500166623 /* DashboardViewController.m */,
 				3AAE9B181894A049003B4560 /* ConversationViewController.h */,
@@ -2262,7 +2257,6 @@
 				3A720CA518A1C06700423959 /* XMPPMessageDeliveryReceipts.m in Sources */,
 				3A3A0B1418AB1126006FBAE4 /* JSQSystemSoundPlayer.m in Sources */,
 				F751016318ABE101001F1E7F /* IASKSettingsStoreUserDefaults.m in Sources */,
-				3A25B6701881E7F100166623 /* RequestsViewController.m in Sources */,
 				3A720CAF18A1C06700423959 /* XMPPMessage+XEP_0308.m in Sources */,
 				3A59D5EE18B2F2FE00CE7B7B /* RNBlurModalView.m in Sources */,
 				3A720C8A18A1C06700423959 /* NSXMLElement+XEP_0059.m in Sources */,
