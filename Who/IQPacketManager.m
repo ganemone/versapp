@@ -461,7 +461,7 @@
     [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_GET_CONFESSIONS]];
 	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"get"]];
     [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[ConnectionProvider getUser]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[self getPacketFromString]]];
     [iq addChild:query];
     
     return iq;
@@ -481,7 +481,7 @@
     [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_POST_CONFESSION]];
 	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"set"]];
     [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[ConnectionProvider getUser]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[self getPacketFromString]]];
     [iq addChild:query];
     
     return iq;
@@ -501,7 +501,7 @@
     [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_FAVORITE_CONFESSION]];
 	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"set"]];
     [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[ConnectionProvider getUser]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[self getPacketFromString]]];
     [iq addChild:query];
     
     return iq;
@@ -519,10 +519,14 @@
     [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_GET_MY_CONFESSIONS]];
 	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"get"]];
     [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[ConnectionProvider getUser]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[self getPacketFromString]]];
     [iq addChild:query];
     
     return iq;
+}
+
++(NSString *)getPacketFromString {
+    return [NSString stringWithFormat:@"%@@%@",[ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]];
 }
 
 @end
