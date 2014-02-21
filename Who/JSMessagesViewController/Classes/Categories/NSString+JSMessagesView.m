@@ -23,6 +23,7 @@
 
 - (NSUInteger)js_numberOfLines
 {
+    NSLog(@"js_number of lines: %u", [[self componentsSeparatedByString:@"\n"] count] + 1);
     return [[self componentsSeparatedByString:@"\n"] count] + 1;
 }
 
