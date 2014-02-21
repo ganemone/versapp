@@ -11,12 +11,17 @@
 
 @interface ConfessionsManager : NSObject
 
-@property NSMutableArray *confessions;
+@property NSMutableDictionary *confessions;
+@property NSMutableArray *confessionIDValues;
 
 +(instancetype)getInstance;
 
 -(int)getNumberOfConfessions;
 
 -(Confession*)getConfessionAtIndex:(int)index;
+
+-(Confession*)getConfessionWithID:(NSString*)confessionID;
+
+-(void)addConfession:(Confession*)confession;
 
 @end

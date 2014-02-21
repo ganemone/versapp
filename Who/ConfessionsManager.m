@@ -16,7 +16,8 @@ static ConfessionsManager *selfInstance;
     @synchronized(self) {
         if(selfInstance == nil) {
             selfInstance = [[self alloc] init];
-            [selfInstance setConfessions:[[NSMutableArray alloc] initWithCapacity:100]];
+            [selfInstance setConfessions:[[NSMutableDictionary alloc] initWithCapacity:100]];
+            [selfInstance setConfessionIDValues:[[NSMutableArray alloc] initWithCapacity:100]];
         }
     }
     return selfInstance;
@@ -27,6 +28,16 @@ static ConfessionsManager *selfInstance;
 }
 
 -(Confession *)getConfessionAtIndex:(int)index {
-    return [_confessions objectAtIndex:index];
+    return [_confessions objectForKey:[_confessionIDValues objectAtIndex:index]];
 }
+
+-(Confession *)getConfessionWithID:(NSString *)confessionID {
+    return [_confessions objectForKey:confessionID];
+}
+
+-(void)addConfession:(Confession *)confession {
+    [self.confessions setObject:confession forKey:confession.confessionID];
+    [self.confessionIDValues addObject:confession.confessionID];
+}
+
 @end

@@ -19,6 +19,9 @@
 #import "UserProfile.h"
 #import "AppDelegate.h"
 
+#import "Confession.h"
+#import "ConfessionsManager.h"
+
 @implementation IQPacketReceiver
 
 +(bool)isPacketWithID:(NSString *)packetID packet:(XMPPIQ *)packet {
@@ -242,6 +245,34 @@
 
 +(void)handleGetConfessionsPacket:(XMPPIQ *)iq {
     NSLog(@"\n\n Handling Get Confessions Packet: %@ \n\n", iq.XMLString);
+    
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(\\d+)\",\"(.*?)\",\"(.*?)\",\"(.*?)\",\"(.*?)\",(\".*?\"|null),\"(\\d+)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSArray *matches = [regex matchesInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
+    NSTextCheckingResult *match;
+    NSString *confessionID, *jid, *body, *imageURL, *timestamp, *favoritedUsers;
+    NSNumber *favoriteCount;
+    NSMutableArray *favoritedUsersArray;
+    Confession *confession;
+    ConfessionsManager *confessionsManager = [ConfessionsManager getInstance];
+    for (int i = 0; i < [matches count]; i++) {
+        match = [matches objectAtIndex:i];
+        confessionID = [iq.XMLString substringWithRange:[match rangeAtIndex:1]];
+        jid = [iq.XMLString substringWithRange:[match rangeAtIndex:2]];
+        body = [iq.XMLString substringWithRange:[match rangeAtIndex:3]];
+        imageURL = [iq.XMLString substringWithRange:[match rangeAtIndex:4]];
+        timestamp = [iq.XMLString substringWithRange:[match rangeAtIndex:5]];
+        favoritedUsers = [iq.XMLString substringWithRange:[match rangeAtIndex:6]];
+        favoriteCount = [NSNumber numberWithInt:[[iq.XMLString substringWithRange:[match rangeAtIndex:7]] integerValue]];
+        if (favoriteCount > 0) {
+            favoritedUsers = [favoritedUsers stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+            favoritedUsersArray = [NSMutableArray arrayWithArray:[favoritedUsers componentsSeparatedByString:@","]];
+        } else {
+            favoritedUsersArray = [[NSMutableArray alloc] init];
+        }
+        confession = [Confession create:body imageURL:imageURL confessionID:confessionID createdTimestamp:timestamp favoritedUsers:favoritedUsersArray];
+        
+    }
 }
 
 +(void)handleGetMyConfessionsPacket:(XMPPIQ *)iq {
