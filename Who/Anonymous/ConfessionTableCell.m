@@ -49,6 +49,9 @@
         UITextView *textView = [[UITextView alloc] initWithFrame:textFrame];
         [textView setBackgroundColor:[UIColor clearColor]];
         [textView setText:[confession body]];
+        //[textView setNumberOfLines:0];
+        //[cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
+        [textView setFont:[UIFont fontWithName:@"Helvetica" size:16.0]];
         
         [self.contentView addSubview:backgroundImageView];
         [self.contentView addSubview:textView];

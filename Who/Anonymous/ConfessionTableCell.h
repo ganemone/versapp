@@ -16,6 +16,6 @@
 @property (weak, nonatomic, readonly) UIButton *favoriteButton;
 @property (weak, nonatomic, readonly) UIButton *chatButton;
 
-- (instancetype)initWithConfession:(Confession*)confession;
+- (instancetype)initWithConfession:(Confession*)confession reuseIdentifier:(NSString*)reuseIdentifier;
 
 @end

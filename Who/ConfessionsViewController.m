@@ -9,6 +9,7 @@
 #import "ConfessionsViewController.h"
 #import "Confession.h"
 #import "ConfessionsManager.h"
+#import "ConfessionTableCell.h"
 
 @interface ConfessionsViewController ()
 
@@ -46,13 +47,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"BasicConfessionCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
+    ConfessionTableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     Confession *confession = [_confessionsManager getConfessionAtIndex:indexPath.row];
-    [cell.textLabel setText:[confession body]];
-    [cell.textLabel setNumberOfLines:0];
-    [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
-    cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:16.0];
+    if (!cell) {
+        cell = [[ConfessionTableCell alloc] initWithConfession:confession reuseIdentifier:CellIdentifier];
+    }
     return cell;
 }
 
