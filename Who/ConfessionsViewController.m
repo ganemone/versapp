@@ -66,7 +66,7 @@
     UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:16.0];
     CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
     CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
-    return labelSize.height + 50;
+    return labelSize.height + 80;
 }
 
 @end

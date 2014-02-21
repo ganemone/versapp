@@ -53,8 +53,9 @@
         [textView setTextColor:[UIColor whiteColor]];
         [textView setFont:[UIFont fontWithName:@"Helvetica" size:16.0]];
         
-        CGRect chatButtonFrame = CGRectMake(cellX + contentSize.width / 3.0f, cellHeight - 10.0f, 50.0f, 50.0f);
-        CGRect favoriteButtonFrame = CGRectMake(cellX + 2 * contentSize.width / 3.0f, cellHeight - 10.0f, 50.0f, 50.0f);
+        CGFloat iconSize = 25.0f;
+        CGRect chatButtonFrame = CGRectMake(cellX + (contentSize.width / 4.0f), cellHeight - 15.0f, iconSize, iconSize);
+        CGRect favoriteButtonFrame = CGRectMake(cellX + 3 * (contentSize.width / 4.0f) - 2 * iconSize, cellHeight - 15.0f, iconSize, iconSize);
         UIButton *chatButton = [[UIButton alloc] initWithFrame:chatButtonFrame];
         UIButton *favoriteButton = [[UIButton alloc] initWithFrame:favoriteButtonFrame];
         [chatButton setImage:[UIImage imageNamed:@"chat-icon.png"] forState:UIControlStateNormal];
