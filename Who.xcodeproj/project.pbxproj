@@ -168,6 +168,7 @@
 		3A8BCF7518B5960300D4B7CE /* ConfessionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BCF7418B5960300D4B7CE /* ConfessionsViewController.m */; };
 		3A8BCF7918B5964400D4B7CE /* ConfessionsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BCF7818B5964400D4B7CE /* ConfessionsManager.m */; };
 		3A8BCF7F18B59C5400D4B7CE /* Confession.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BCF7E18B59C5400D4B7CE /* Confession.m */; };
+		3A8BCF8218B6DFBB00D4B7CE /* ConfessionTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BCF8118B6DFBB00D4B7CE /* ConfessionTableCell.m */; };
 		3A939633189C876A004B01CE /* ChatParticipantVCardBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A939632189C876A004B01CE /* ChatParticipantVCardBuffer.m */; };
 		3AAE9B1718945710003B4560 /* OneToOneChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAE9B1618945710003B4560 /* OneToOneChatManager.m */; };
 		3AAE9B1A1894A049003B4560 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAE9B191894A049003B4560 /* ConversationViewController.m */; };
@@ -559,6 +560,8 @@
 		3A8BCF7818B5964400D4B7CE /* ConfessionsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfessionsManager.m; sourceTree = "<group>"; };
 		3A8BCF7D18B59C5400D4B7CE /* Confession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Confession.h; sourceTree = "<group>"; };
 		3A8BCF7E18B59C5400D4B7CE /* Confession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Confession.m; sourceTree = "<group>"; };
+		3A8BCF8018B6DFBB00D4B7CE /* ConfessionTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConfessionTableCell.h; path = Anonymous/ConfessionTableCell.h; sourceTree = "<group>"; };
+		3A8BCF8118B6DFBB00D4B7CE /* ConfessionTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConfessionTableCell.m; path = Anonymous/ConfessionTableCell.m; sourceTree = "<group>"; };
 		3A939631189C876A004B01CE /* ChatParticipantVCardBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatParticipantVCardBuffer.h; sourceTree = "<group>"; };
 		3A939632189C876A004B01CE /* ChatParticipantVCardBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatParticipantVCardBuffer.m; sourceTree = "<group>"; };
 		3AAE9B1518945710003B4560 /* OneToOneChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneToOneChatManager.h; sourceTree = "<group>"; };
@@ -1637,6 +1640,8 @@
 				3A8BCF7818B5964400D4B7CE /* ConfessionsManager.m */,
 				3A8BCF7D18B59C5400D4B7CE /* Confession.h */,
 				3A8BCF7E18B59C5400D4B7CE /* Confession.m */,
+				3A8BCF8018B6DFBB00D4B7CE /* ConfessionTableCell.h */,
+				3A8BCF8118B6DFBB00D4B7CE /* ConfessionTableCell.m */,
 			);
 			name = Confessions;
 			sourceTree = "<group>";
@@ -2263,6 +2268,7 @@
 				3A720CA418A1C06700423959 /* XMPPMessage+XEP_0184.m in Sources */,
 				3A720C8318A1C06700423959 /* XMPPvCardTempAdr.m in Sources */,
 				F751018A18AE8D3A001F1E7F /* SupportViewController.m in Sources */,
+				3A8BCF8218B6DFBB00D4B7CE /* ConfessionTableCell.m in Sources */,
 				3AFFC94018A06B95009D7F13 /* MessageMO.m in Sources */,
 				3A720CB018A1C06700423959 /* NSXMLElement+XEP_0335.m in Sources */,
 				3A25B6471881E03700166623 /* AppDelegate.m in Sources */,
