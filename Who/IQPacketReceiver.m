@@ -192,6 +192,18 @@
     return packetXML;
 }
 
++(NSString*)getPacketXMLWithoutWhiteSpace:(XMPPIQ *)iq {
+    NSString *packetXML = [iq.XMLString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    packetXML = [packetXML stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+    packetXML = [packetXML stringByReplacingOccurrencesOfString:@" " withString:@""];
+    return packetXML;
+}
+
++(NSString*)getDecodedPacketXML:(XMPPIQ *)iq {
+    NSString *ret = [self getPacketXMLWithoutWhiteSpace:iq];
+    return [[ret stringByReplacingOccurrencesOfString:@"+" withString:@" "]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
 +(void)handleGetRosterPacket: (XMPPIQ *)iq{
     NSError *error = NULL;
     DDXMLElement *query = [[iq children] firstObject];
@@ -245,31 +257,35 @@
 
 +(void)handleGetConfessionsPacket:(XMPPIQ *)iq {
     NSLog(@"\n\n Handling Get Confessions Packet: %@ \n\n", iq.XMLString);
-    
+    NSString *decodedPacketXML = [self getPacketXMLWithoutWhiteSpace:iq];
+    decodedPacketXML = [self getDecodedPacketXML:iq];
     NSError *error = NULL;
+    NSLog(@"Decoded Packet XML: %@", decodedPacketXML);
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(\\d+)\",\"(.*?)\",\"(.*?)\",\"(.*?)\",\"(.*?)\",(\".*?\"|null),\"(\\d+)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
-    NSArray *matches = [regex matchesInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
+    NSArray *matches = [regex matchesInString:decodedPacketXML options:0 range:NSMakeRange(0, decodedPacketXML.length)];
     NSTextCheckingResult *match;
     NSString *confessionID, *jid, *body, *imageURL, *timestamp, *favoritedUsers;
     NSNumber *favoriteCount;
     NSMutableArray *favoritedUsersArray;
     Confession *confession;
     ConfessionsManager *confessionsManager = [ConfessionsManager getInstance];
+    
     for (int i = 0; i < [matches count]; i++) {
         match = [matches objectAtIndex:i];
-        confessionID = [iq.XMLString substringWithRange:[match rangeAtIndex:1]];
-        jid = [iq.XMLString substringWithRange:[match rangeAtIndex:2]];
-        body = [iq.XMLString substringWithRange:[match rangeAtIndex:3]];
-        imageURL = [iq.XMLString substringWithRange:[match rangeAtIndex:4]];
-        timestamp = [iq.XMLString substringWithRange:[match rangeAtIndex:5]];
-        favoritedUsers = [iq.XMLString substringWithRange:[match rangeAtIndex:6]];
-        favoriteCount = [NSNumber numberWithInt:[[iq.XMLString substringWithRange:[match rangeAtIndex:7]] integerValue]];
+        confessionID = [decodedPacketXML substringWithRange:[match rangeAtIndex:1]];
+        jid = [decodedPacketXML substringWithRange:[match rangeAtIndex:2]];
+        body = [decodedPacketXML substringWithRange:[match rangeAtIndex:3]];
+        imageURL = [decodedPacketXML substringWithRange:[match rangeAtIndex:4]];
+        timestamp = [decodedPacketXML substringWithRange:[match rangeAtIndex:5]];
+        favoritedUsers = [decodedPacketXML substringWithRange:[match rangeAtIndex:6]];
+        favoriteCount = [NSNumber numberWithInt:[[decodedPacketXML substringWithRange:[match rangeAtIndex:7]] integerValue]];
         if (favoriteCount > 0) {
             favoritedUsers = [favoritedUsers stringByReplacingOccurrencesOfString:@"\"" withString:@""];
             favoritedUsersArray = [NSMutableArray arrayWithArray:[favoritedUsers componentsSeparatedByString:@","]];
         } else {
             favoritedUsersArray = [[NSMutableArray alloc] init];
         }
+        NSLog(@"Confession Body: %@", body);
         confession = [Confession create:body imageURL:imageURL confessionID:confessionID createdTimestamp:timestamp favoritedUsers:favoritedUsersArray];
         [confessionsManager addConfession:confession];
     }
