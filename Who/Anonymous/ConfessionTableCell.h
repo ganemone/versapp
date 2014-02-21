@@ -11,7 +11,7 @@
 
 @interface ConfessionTableCell : UITableViewCell
 
-@property (weak, nonatomic, readonly) UIImageView *messageImageView;
+@property (weak, nonatomic, readonly) UIView *transparentBackgroundView;
 @property (weak, nonatomic, readonly) UITextView *confessionText;
 //@property (weak, nonatomic, readonly) UIButton *favoriteButton;
 //@property (weak, nonatomic, readonly) UIButton *chatButton;

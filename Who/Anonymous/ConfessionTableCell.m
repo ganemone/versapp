@@ -39,27 +39,27 @@
     NSLog(@"Initializing Cell With Confession");
     if (self) {
         NSLog(@"Creating Cell");
-        CGFloat cellX = 0.0f;
+        CGFloat cellX = 10.0f;
         CGFloat cellY = 0.0f;
         CGSize contentSize = self.contentView.frame.size;
         CGFloat cellHeight = [self heightForConfession:confession];
         CGRect imageFrame = CGRectMake(cellX, cellY, contentSize.width - 20.0f, cellHeight);
-        CGRect textFrame = CGRectMake(cellX + 10.0f, cellY, contentSize.width - 25.0f, cellHeight);
+        CGRect textFrame = CGRectMake(cellX + 10.0f, cellY, contentSize.width - 30.0f, cellHeight);
         
-        UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:imageFrame];
-        [backgroundImageView setImage:[UIImage imageNamed:@"bubble.png"]];
-        [backgroundImageView setContentMode:UIViewContentModeScaleAspectFill];
+        UIView *backgroundView = [[UIImageView alloc] initWithFrame:imageFrame];
+        [backgroundView setBackgroundColor:[UIColor grayColor]];
+        [backgroundView setAlpha:60];
         
         UITextView *textView = [[UITextView alloc] initWithFrame:textFrame];
         [textView setBackgroundColor:[UIColor clearColor]];
         [textView setText:[confession body]];
         [textView setFont:[UIFont fontWithName:@"Helvetica" size:16.0]];
         
-        [self.contentView addSubview:backgroundImageView];
+        [self.contentView addSubview:backgroundView];
         [self.contentView addSubview:textView];
         
         _confessionText = textView;
-        _messageImageView = backgroundImageView;
+        _transparentBackgroundView = backgroundView;
         
     }
     return self;
@@ -70,7 +70,7 @@
     UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:16.0];
     CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
     CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
-    return labelSize.height + 50;
+    return labelSize.height + 20.0f;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
