@@ -11,6 +11,8 @@
 
 @interface GroupChatManager : NSObject
 
+@property (nonatomic, strong) NSMutableArray *pending;
+
 +(GroupChatManager*)getInstance;
 
 -(void)addChat:(GroupChat*)chat;
@@ -28,5 +30,7 @@
 -(void)decrementNumUninvitedUsers;
 
 -(void)setTimeForHistory:(NSString*)time;
+
+
 
 @end

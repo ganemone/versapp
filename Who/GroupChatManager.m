@@ -24,6 +24,8 @@ static GroupChatManager * selfInstance;
 
 @implementation GroupChatManager
 
+@synthesize pending;
+
 +(GroupChatManager *)getInstance {
     @synchronized(self) {
         if(selfInstance == nil) {
@@ -31,6 +33,7 @@ static GroupChatManager * selfInstance;
             selfInstance.mucs = [[NSMutableDictionary alloc] init];
             selfInstance.mucIDValues = [[NSMutableArray alloc] init];
             selfInstance.numUninvitedUsers = 0;
+            selfInstance.pending = [[NSMutableArray alloc] init];
         }
     }
     return selfInstance;

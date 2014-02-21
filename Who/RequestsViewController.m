@@ -128,7 +128,7 @@
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:click];
     
     UserProfile *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
-    //Send accept request packet
+    //Send deny request packet
     
     NSLog(@"Declined friend request");
     

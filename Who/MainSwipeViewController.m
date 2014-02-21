@@ -12,7 +12,10 @@
 #import "ContactsViewController.h"
 #import "ConversationViewController.h"
 #import "OneToOneConversationViewController.h"
-
+#import "GroupChatManager.h"
+#import "ChatParticipantVCardBuffer.h"
+#import "ConnectionProvider.h"
+#import "IQPacketManager.h"
 #import "Constants.h"
 
 #define NumViewPages 3
@@ -20,10 +23,20 @@
 @interface MainSwipeViewController ()
 
 @property UIPageViewController *pageViewController;
+@property(nonatomic, strong) ConnectionProvider *connectionProvider;
+@property (nonatomic, strong) GroupChatManager *groupChat;
+@property (nonatomic, strong) ChatParticipantVCardBuffer *chatParticipant;
+@property (nonatomic, strong) NSMutableArray *notifications;
+@property (nonatomic, strong) NSMutableArray *friendRequests;
+@property (nonatomic, strong) UITableView *notificationTableView;
+@property (nonatomic, strong) IBOutlet UIButton *notificationButton;
 
 @end
 
 @implementation MainSwipeViewController
+
+CAShapeLayer *openedNotifications;
+CAShapeLayer *closedNotifications;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -50,7 +63,256 @@
     [self.view addSubview:_pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadNotifications:) name:PACKET_ID_GET_PENDING_CHATS object:nil];
+    self.connectionProvider = [ConnectionProvider getInstance];
+    [[self.connectionProvider getConnection] sendElement:[IQPacketManager createGetPendingChatsPacket]];
 }
+
+- (IBAction) notificationButtonClicked: (UIButton *) sender {
+    [self toggleNotifications];
+}
+
+- (void) toggleNotifications {
+    if(self.notificationTableView.hidden) {
+        [self showNotifications];
+    } else {
+        [self hideNotifications];
+    }
+}
+
+- (void) showNotifications {
+    self.notificationTableView.hidden = NO;
+    
+    [closedNotifications removeFromSuperlayer];
+    [[[self view] layer] addSublayer:openedNotifications];
+    
+    // Set new origin of menu
+    CGRect notificationFrame = self.notificationTableView.frame;
+    notificationFrame.origin.y = self.view.frame.size.height;
+    
+    // Set new alpha of Container View (to get fade effect)
+    //float containerAlpha = 0.5f;
+    
+    [UIView animateWithDuration:0.4
+                          delay:0.0
+         usingSpringWithDamping:1.0
+          initialSpringVelocity:4.0
+                        options: UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         self.notificationTableView.frame = notificationFrame;
+                         //[self.container setAlpha: containerAlpha];
+                     }
+                     completion:^(BOOL finished){
+                     }];
+    [UIView commitAnimations];
+    
+}
+
+- (void) hideNotifications {
+    // Set the border layer to hidden menu state
+    [openedNotifications removeFromSuperlayer];
+    [[[self view] layer] addSublayer:closedNotifications];
+    
+    // Set new origin of menu
+    CGRect notificationFrame = self.notificationTableView.frame;
+    notificationFrame.origin.y = self.view.frame.size.height-notificationFrame.size.height;
+    
+    // Set new alpha of Container View (to get fade effect)
+    //float containerAlpha = 1.0f;
+    
+    [UIView animateWithDuration:0.3f
+                          delay:0.05f
+         usingSpringWithDamping:1.0
+          initialSpringVelocity:4.0
+                        options: UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         self.notificationTableView.frame = notificationFrame;
+                         //[self.container setAlpha: containerAlpha];
+                     }
+                     completion:^(BOOL finished){
+                         self.notificationTableView.hidden = YES;
+                     }];
+    [UIView commitAnimations];
+    
+}
+
+- (void) drawOpenLayer {
+    openedNotifications = [CAShapeLayer layer];
+    
+    // Constants to ease drawing the border and the stroke.
+    int height = self.view.frame.size.height;
+    int width = self.view.frame.size.width;
+    int triangleSize = 8;
+    int trianglePosition = 0.87*width;
+    
+    // The path for the triangle (showing that the menu is open).
+    UIBezierPath *triangleShape = [[UIBezierPath alloc] init];
+    [triangleShape moveToPoint:CGPointMake(trianglePosition, height)];
+    [triangleShape addLineToPoint:CGPointMake(trianglePosition+triangleSize, height-triangleSize)];
+    [triangleShape addLineToPoint:CGPointMake(trianglePosition+2*triangleSize, height)];
+    [triangleShape addLineToPoint:CGPointMake(trianglePosition, height)];
+    
+    [openedNotifications setPath:triangleShape.CGPath];
+    //[openMenuShape setFillColor:[self.menubar.backgroundColor CGColor]];
+    [openedNotifications setFillColor:[self.notificationTableView.backgroundColor CGColor]];
+    UIBezierPath *borderPath = [[UIBezierPath alloc] init];
+    [borderPath moveToPoint:CGPointMake(0, height)];
+    [borderPath addLineToPoint:CGPointMake(trianglePosition, height)];
+    [borderPath addLineToPoint:CGPointMake(trianglePosition+triangleSize, height-triangleSize)];
+    [borderPath addLineToPoint:CGPointMake(trianglePosition+2*triangleSize, height)];
+    [borderPath addLineToPoint:CGPointMake(width, height)];
+    
+    [openedNotifications setPath:borderPath.CGPath];
+    [openedNotifications setStrokeColor:[[UIColor whiteColor] CGColor]];
+    
+    [openedNotifications setBounds:CGRectMake(0.0f, 0.0f, height+triangleSize, width)];
+    [openedNotifications setAnchorPoint:CGPointMake(0.0f, 0.0f)];
+    [openedNotifications setPosition:CGPointMake(0.0f, 0.0f)];
+}
+
+- (void) drawClosedLayer {
+    closedNotifications = [CAShapeLayer layer];
+    
+    // Constants to ease drawing the border and the stroke.
+    int height = self.view.frame.size.height;
+    int width = self.view.frame.size.width;
+    
+    // The path for the border (just a straight line)
+    UIBezierPath *borderPath = [[UIBezierPath alloc] init];
+    [borderPath moveToPoint:CGPointMake(0, height)];
+    [borderPath addLineToPoint:CGPointMake(width, height)];
+    
+    [closedNotifications setPath:borderPath.CGPath];
+    [closedNotifications setStrokeColor:[[UIColor whiteColor] CGColor]];
+    
+    [closedNotifications setBounds:CGRectMake(0.0f, 0.0f, height, width)];
+    [closedNotifications setAnchorPoint:CGPointMake(0.0f, 0.0f)];
+    [closedNotifications setPosition:CGPointMake(0.0f, 0.0f)];
+}
+
+-(void)loadNotifications:(NSNotification *)notification {
+    NSLog(@"Load notifications");
+    
+    //self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/2)];
+    //self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    [self.notificationTableView setDelegate:self];
+    [self.notificationTableView setDataSource:self];
+    
+    self.groupChat = [GroupChatManager getInstance];
+    self.notifications = self.groupChat.pending;
+    NSLog(@"%d notifications", [self.notifications count]);
+    self.chatParticipant = [ChatParticipantVCardBuffer getInstance];
+    self.friendRequests = self.chatParticipant.pending;
+    NSLog(@"%d friend requests", [self.friendRequests count]);
+    
+    [self.view addSubview:self.notificationTableView];
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (section == 0)
+        return [self.notifications count];
+    else
+        return [self.friendRequests count];
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellIdentifier = @"Cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        NSLog(@"created cell when null");
+    }
+    
+    UIButton *accept = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    accept.frame = CGRectMake(175.0f, 5.0f, 50.0f, 30.0f);
+    [accept setTitle:INVITATION_ACCEPT forState:UIControlStateNormal];
+    [cell.contentView addSubview:accept];
+    
+    UIButton *decline = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    decline.frame = CGRectMake(250.0f, 5.0f, 50.0f, 30.0f);
+    [decline setTitle:INVITATION_DECLINE forState:UIControlStateNormal];
+    [cell.contentView addSubview:decline];
+    
+    NSLog(@"Cell: %@", [cell description]);
+    if (indexPath.section == 0) {
+        NSDictionary *notification = [self.notifications objectAtIndex:indexPath.row];
+        cell.textLabel.text = [notification objectForKey:@"chatName"];
+        //[[cell textLabel] setText:[notification objectForKey:@"chatName"]];
+        NSLog(@"Notification: %@", [notification objectForKey:@"chatName"]);
+        
+        NSLog(@"Testing cell...%@", cell.textLabel.text);
+        [accept addTarget:self action:@selector(acceptInvitation:) forControlEvents:UIControlEventTouchUpInside];
+        [decline addTarget:self action:@selector(declineInvitation:) forControlEvents:UIControlEventTouchUpInside];
+    } else {
+        UserProfile *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", friendRequest.firstName, friendRequest.lastName];
+        NSLog(@"Friend: %@", [NSString stringWithFormat:@"%@ %@", friendRequest.firstName, friendRequest.lastName]);
+        
+        [accept addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
+        [decline addTarget:self action:@selector(declineFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    return cell;
+}
+
+- (IBAction)acceptInvitation:(id)sender {
+    CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
+    NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
+    
+    NSDictionary *notification = [self.notifications objectAtIndex:indexPath.row];
+    [[self.connectionProvider getConnection] sendElement:[IQPacketManager createAcceptChatInvitePacket:[notification objectForKey:@"chatId"]]];
+    
+    NSLog(@"Accepted: %@", [notification objectForKey:@"chatId"]);
+    
+    [self.notifications removeObjectAtIndex:indexPath.row];
+    [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (IBAction)declineInvitation:(id)sender {
+    CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
+    NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
+    
+    NSDictionary *notification = [self.notifications objectAtIndex:indexPath.row];
+    [[self.connectionProvider getConnection] sendElement:[IQPacketManager createDenyChatInvitePacket:[notification objectForKey:@"chatId"]]];
+    
+    NSLog(@"Declined: %@", [notification objectForKey:@"chatId"]);
+    
+    [self.notifications removeObjectAtIndex:indexPath.row];
+    [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (IBAction)acceptFriendRequest:(id)sender {
+    CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
+    NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
+    
+    UserProfile *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
+    //Send accept request packet
+    
+    NSLog(@"Accepted friend request");
+    
+    [self.friendRequests removeObjectAtIndex:indexPath.row];
+    [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (IBAction)declineFriendRequest:(id)sender {
+    CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
+    NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
+    
+    UserProfile *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
+    //Send deny request packet
+    
+    NSLog(@"Declined friend request");
+    
+    [self.friendRequests removeObjectAtIndex:indexPath.row];
+    [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+}
+
 
 -(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     if ([viewController isKindOfClass:[ConversationViewController class]] ||

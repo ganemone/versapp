@@ -170,9 +170,10 @@
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
     NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
     
-    NSMutableDictionary *allNotifications = [[NSMutableDictionary alloc] init];
+    //NSMutableDictionary *allNotifications = [[NSMutableDictionary alloc] init];
+    NSMutableArray *allNotifications = [[NSMutableArray alloc] init];
     NSArray *keys = [NSArray arrayWithObjects:@"chatId", @"chatType", @"chatOwnerId", @"chatName", @"created", nil];
-    int count = 0;
+    //int count = 0;
     
     for(NSTextCheckingResult *match in matches) {
         NSMutableArray *values = [[NSMutableArray alloc] init];
@@ -181,11 +182,20 @@
             [values addObject:[packetXML substringWithRange:[match rangeAtIndex:i]]];
         
         NSDictionary *pendingChats = [NSDictionary dictionaryWithObjects:values forKeys:keys];
-        count++;
-        NSString *keyName = (@"notification%i", [NSString stringWithFormat:@"%i", count]);
-        [allNotifications setObject:pendingChats forKey:keyName];
+        //count++;
+        //NSString *keyName = [NSString stringWithFormat:@"notification%i", count];
+        //[allNotifications setObject:pendingChats forKey:keyName];
+        [allNotifications addObject:pendingChats];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_PENDING_CHATS object:nil userInfo:allNotifications];
+    
+    GroupChatManager *groupChat = [GroupChatManager getInstance];
+    groupChat.pending = allNotifications;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_PENDING_CHATS object:nil];
+    
+    NSLog(@"IQPacketReceiver set %d notifications", [groupChat.pending count]);
+    
+    //[[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_PENDING_CHATS object:nil userInfo:allNotifications];
 }
 
 +(NSString*)getPacketXMLWithoutNewLines:(XMPPIQ *)iq {

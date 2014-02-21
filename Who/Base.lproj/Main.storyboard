@@ -13,7 +13,7 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1234512345" borderStyle="roundedRect" placeholder="Phone Number" minimumFontSize="17" id="NHs-F6-AKY">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="333333" borderStyle="roundedRect" placeholder="Phone Number" minimumFontSize="17" id="NHs-F6-AKY">
                                 <rect key="frame" x="20" y="69" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -31,7 +31,7 @@
                                     <action selector="loginClick:" destination="Dcg-Mp-WjV" eventType="touchUpInside" id="UP4-7u-l8G"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="password" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" id="hBY-Bd-80i">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="test" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" id="hBY-Bd-80i">
                                 <rect key="frame" x="20" y="102" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -137,7 +137,21 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" id="xEY-92-p7p"/>
+                    <navigationItem key="navigationItem" id="xEY-92-p7p">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="MIz-Gc-CLz">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xNZ-6c-dcX">
+                                <rect key="frame" x="233" y="5" width="71" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="n"/>
+                                <connections>
+                                    <action selector="notificationButtonClicked:" destination="FvA-Qe-GrR" eventType="touchUpInside" id="Qwm-tW-bTR"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="notificationButton" destination="xNZ-6c-dcX" id="B1y-Mf-qDp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iUp-KR-8dx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -519,7 +533,7 @@
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendsCellPrototype" textLabel="s3B-ug-9mP" style="IBUITableViewCellStyleDefault" id="LPA-T2-row">
                                         <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LPA-T2-row">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LPA-T2-row" id="wMa-BR-2LC">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -596,7 +610,6 @@
         <!--Navigation Controller - Notifications-->
         <scene sceneID="22y-RF-Gaz">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Cdv-yH-Eie" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController title="Notifications" definesPresentationContext="YES" id="RGF-3O-Icv" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <tabBarItem key="tabBarItem" title="Notifications" image="first" id="IxQ-q0-3lI"/>
@@ -607,6 +620,7 @@
                         <segue destination="ekD-rM-6X5" kind="relationship" relationship="rootViewController" id="QZ1-Us-pCq"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cdv-yH-Eie" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1789" y="-1029"/>
         </scene>
@@ -819,9 +833,9 @@
         <segue reference="fcf-HI-Tc8"/>
         <segue reference="T8K-NQ-vMc"/>
         <segue reference="cCp-tS-h07"/>
-        <segue reference="GTj-hh-MDQ"/>
+        <segue reference="KzQ-2I-z5y"/>
+        <segue reference="Vys-x9-fbS"/>
         <segue reference="zTQ-Mf-6oX"/>
         <segue reference="8c7-Mw-K5g"/>
-        <segue reference="f5d-Ra-j3v"/>
     </inferredMetricsTieBreakers>
 </document>
