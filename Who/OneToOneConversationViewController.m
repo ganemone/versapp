@@ -13,8 +13,9 @@
 #import "ConnectionProvider.h"
 #import "RNBlurModalView.h"
 
-
 @implementation OneToOneConversationViewController
+
+@synthesize chat;
 
 - (void)viewDidLoad
 {

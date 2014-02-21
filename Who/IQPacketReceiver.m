@@ -19,6 +19,9 @@
 #import "UserProfile.h"
 #import "AppDelegate.h"
 
+#import "Confession.h"
+#import "ConfessionsManager.h"
+
 @implementation IQPacketReceiver
 
 +(bool)isPacketWithID:(NSString *)packetID packet:(XMPPIQ *)packet {
@@ -51,6 +54,14 @@
         [self handleCreateOneToOneChatPacket:iq];
     } else if([self isPacketWithID:PACKET_ID_GET_SESSION_ID packet:iq]) {
         [self handleGetSessionIDPacket:iq];
+    } else if([self isPacketWithID:PACKET_ID_GET_CONFESSIONS packet:iq]) {
+        [self handleGetConfessionsPacket:iq];
+    } else if([self isPacketWithID:PACKET_ID_GET_MY_CONFESSIONS packet:iq]) {
+        [self handleGetMyConfessionsPacket:iq];
+    } else if([self isPacketWithID:PACKET_ID_FAVORITE_CONFESSION packet:iq]) {
+        [self handleToggleFavoriteConfessionPacket:iq];
+    } else if([self isPacketWithID:PACKET_ID_POST_CONFESSION packet:iq]) {
+        [self handlePostConfessionPacket:iq];
     }
 }
 
@@ -76,19 +87,8 @@
         }
         if([type isEqualToString:CHAT_TYPE_GROUP]) {
             [gcm addChat:[GroupChat create:chatId participants:participants groupName:name owner:owner createdTime:createdTime]];
-            /*for (int i = 0; i < participants.count; i++) {
-                if([buff hasVCard:[participants objectAtIndex:i]] == NO) {
-                    DDXMLElement *packet = [IQPacketManager createGetVCardPacket:[participants objectAtIndex:i]];
-                    [conn sendElement:packet];
-                }
-            }*/
         } else if([type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
             [cm addChat:[OneToOneChat create:chatId inviterID:owner invitedID:participantString createdTimestamp:createdTime]];
-            /*if([participantString compare:[ConnectionProvider getServerIPAddress]] != 0) {
-                if([buff hasVCard:participantString] == NO) {
-                    [conn sendElement:[IQPacketManager createGetVCardPacket:participantString]];
-                }
-            }*/
         }
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
@@ -110,7 +110,6 @@
         [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
         [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
         NSString *utcStringDate =[formatter stringFromDate:gregDate];
-        NSLog(@"UTC: %@", utcStringDate);
         userInfo = [NSDictionary dictionaryWithObject:utcStringDate forKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
     }
     GroupChatManager *gcm = [GroupChatManager getInstance];
@@ -129,7 +128,6 @@
 }
 
 +(void)handleGetVCardPacket:(XMPPIQ *)packet {
-    NSLog(@"\n\n Handling VCard Packet \n\n");
     NSString *firstName, *lastName, *username, *email, *itemName, *nickname;
     NSArray *children = [packet children];
     for (int i = 0; i < children.count; i++) {
@@ -204,9 +202,19 @@
     return packetXML;
 }
 
++(NSString*)getPacketXMLWithoutWhiteSpace:(XMPPIQ *)iq {
+    NSString *packetXML = [iq.XMLString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    packetXML = [packetXML stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+    packetXML = [packetXML stringByReplacingOccurrencesOfString:@" " withString:@""];
+    return packetXML;
+}
+
++(NSString*)getDecodedPacketXML:(XMPPIQ *)iq {
+    NSString *ret = [self getPacketXMLWithoutWhiteSpace:iq];
+    return [[ret stringByReplacingOccurrencesOfString:@"+" withString:@" "]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
 +(void)handleGetRosterPacket: (XMPPIQ *)iq{
-    NSLog(@"\n\n Handling Roster Packet \n\n");
-    
     NSError *error = NULL;
     DDXMLElement *query = [[iq children] firstObject];
     NSArray *items = [query children];
@@ -255,7 +263,55 @@
     NSTextCheckingResult *match = [regex firstMatchInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     [delegate setSessionID:[iq.XMLString substringWithRange:[match rangeAtIndex:1]]];
-    NSLog(@"Session ID: %@", [delegate sessionID]);
+}
+
++(void)handleGetConfessionsPacket:(XMPPIQ *)iq {
+    NSLog(@"\n\n Handling Get Confessions Packet: %@ \n\n", iq.XMLString);
+    NSString *decodedPacketXML = [self getPacketXMLWithoutWhiteSpace:iq];
+    decodedPacketXML = [self getDecodedPacketXML:iq];
+    NSError *error = NULL;
+    NSLog(@"Decoded Packet XML: %@", decodedPacketXML);
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(\\d+)\",\"(.*?)\",\"(.*?)\",\"(.*?)\",\"(.*?)\",(\".*?\"|null),\"(\\d+)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSArray *matches = [regex matchesInString:decodedPacketXML options:0 range:NSMakeRange(0, decodedPacketXML.length)];
+    NSTextCheckingResult *match;
+    NSString *confessionID, *jid, *body, *imageURL, *timestamp, *favoritedUsers;
+    NSNumber *favoriteCount;
+    NSMutableArray *favoritedUsersArray;
+    Confession *confession;
+    ConfessionsManager *confessionsManager = [ConfessionsManager getInstance];
+    
+    for (int i = 0; i < [matches count]; i++) {
+        match = [matches objectAtIndex:i];
+        confessionID = [decodedPacketXML substringWithRange:[match rangeAtIndex:1]];
+        jid = [decodedPacketXML substringWithRange:[match rangeAtIndex:2]];
+        body = [decodedPacketXML substringWithRange:[match rangeAtIndex:3]];
+        imageURL = [decodedPacketXML substringWithRange:[match rangeAtIndex:4]];
+        timestamp = [decodedPacketXML substringWithRange:[match rangeAtIndex:5]];
+        favoritedUsers = [decodedPacketXML substringWithRange:[match rangeAtIndex:6]];
+        favoriteCount = [NSNumber numberWithInt:[[decodedPacketXML substringWithRange:[match rangeAtIndex:7]] integerValue]];
+        if (favoriteCount > 0) {
+            favoritedUsers = [favoritedUsers stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+            favoritedUsersArray = [NSMutableArray arrayWithArray:[favoritedUsers componentsSeparatedByString:@","]];
+        } else {
+            favoritedUsersArray = [[NSMutableArray alloc] init];
+        }
+        NSLog(@"Confession Body: %@", body);
+        confession = [Confession create:body imageURL:imageURL confessionID:confessionID createdTimestamp:timestamp favoritedUsers:favoritedUsersArray];
+        [confessionsManager addConfession:confession];
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_CONFESSIONS object:nil];
+}
+
++(void)handleGetMyConfessionsPacket:(XMPPIQ *)iq {
+    
+}
+
++(void)handleToggleFavoriteConfessionPacket:(XMPPIQ *)iq {
+    
+}
+
++(void)handlePostConfessionPacket:(XMPPIQ *)iq {
+    
 }
 
 @end

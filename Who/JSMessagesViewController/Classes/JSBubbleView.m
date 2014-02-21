@@ -179,7 +179,7 @@
 {
     CGSize bubbleSize = [JSBubbleView neededSizeForText:self.textView.text];
     
-    return CGRectIntegral(CGRectMake((self.type == JSBubbleMessageTypeOutgoing ? self.frame.size.width - bubbleSize.width : 0.0f),
+    return CGRectIntegral(CGRectMake((self.type == JSBubbleMessageTypeOutgoing ? self.frame.size.width - bubbleSize.width - 10.0f : 10.0f),
                                      kMarginTop,
                                      bubbleSize.width,
                                      bubbleSize.height + kMarginTop));
@@ -197,6 +197,9 @@
     
     if (self.type == JSBubbleMessageTypeIncoming) {
         textX += (self.bubbleImageView.image.capInsets.left / 2.0f);
+        textX -= 5; // shift for no bubble tail
+    } else {
+        textX += 5; // shift for no bubble tail
     }
     
     CGRect textFrame = CGRectMake(textX,

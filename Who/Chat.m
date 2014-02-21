@@ -95,7 +95,6 @@
 }
 
 -(NSInteger)getNumberOfMessages {
-    NSLog(@"Number of Messages: %ld", self.history.count);
     return self.history.count;
 }
 

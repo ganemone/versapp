@@ -16,9 +16,10 @@
 #import "ChatParticipantVCardBuffer.h"
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
+#import "ConfessionsViewController.h"
 #import "Constants.h"
 
-#define NumViewPages 3
+#define NumViewPages 4
 
 @interface MainSwipeViewController ()
 
@@ -29,7 +30,7 @@
 @property (nonatomic, strong) NSMutableArray *notifications;
 @property (nonatomic, strong) NSMutableArray *friendRequests;
 @property (nonatomic, strong) UITableView *notificationTableView;
-@property (nonatomic, strong) IBOutlet UIButton *notificationButton;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *notificationButton;
 
 @end
 
@@ -50,7 +51,7 @@ CAShapeLayer *closedNotifications;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.navigationController setDelegate:self];
+    
     self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:STORYBOARD_ID_PAGE_VIEW_CONTROLLER];
     self.pageViewController.dataSource = self;
     self.pageViewController.delegate = self;
@@ -58,21 +59,21 @@ CAShapeLayer *closedNotifications;
     NSArray *viewControllers = @[initialViewController];
 
     [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:nil];
-    [self.navigationController setNavigationBarHidden:YES];
     [self addChildViewController:_pageViewController];
+    [_pageViewController.view setFrame:self.view.frame];
     [self.view addSubview:_pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadNotifications:) name:PACKET_ID_GET_PENDING_CHATS object:nil];
     self.connectionProvider = [ConnectionProvider getInstance];
     [[self.connectionProvider getConnection] sendElement:[IQPacketManager createGetPendingChatsPacket]];
+    
+    [self drawOpenLayer];
+    [self drawClosedLayer];
 }
 
-- (IBAction) notificationButtonClicked: (UIButton *) sender {
-    [self toggleNotifications];
-}
-
-- (void) toggleNotifications {
+- (IBAction)notificationsClicked:(id)sender {
+    NSLog(@"Notifications Clicked");
     if(self.notificationTableView.hidden) {
         [self showNotifications];
     } else {
@@ -81,9 +82,13 @@ CAShapeLayer *closedNotifications;
 }
 
 - (void) showNotifications {
+    NSLog(@"Show Notifications");
+    
+    [self.view addSubview:self.notificationTableView];
+    
     self.notificationTableView.hidden = NO;
     
-    [closedNotifications removeFromSuperlayer];
+    /*[closedNotifications removeFromSuperlayer];
     [[[self view] layer] addSublayer:openedNotifications];
     
     // Set new origin of menu
@@ -104,12 +109,18 @@ CAShapeLayer *closedNotifications;
                      }
                      completion:^(BOOL finished){
                      }];
-    [UIView commitAnimations];
+    [UIView commitAnimations];*/
     
 }
 
 - (void) hideNotifications {
-    // Set the border layer to hidden menu state
+    NSLog(@"Hide Notifications");
+    
+    [self.notificationTableView removeFromSuperview];
+    
+    self.notificationTableView.hidden = YES;
+    
+    /*// Set the border layer to hidden menu state
     [openedNotifications removeFromSuperlayer];
     [[[self view] layer] addSublayer:closedNotifications];
     
@@ -132,7 +143,7 @@ CAShapeLayer *closedNotifications;
                      completion:^(BOOL finished){
                          self.notificationTableView.hidden = YES;
                      }];
-    [UIView commitAnimations];
+    [UIView commitAnimations];*/
     
 }
 
@@ -193,11 +204,6 @@ CAShapeLayer *closedNotifications;
 -(void)loadNotifications:(NSNotification *)notification {
     NSLog(@"Load notifications");
     
-    //self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/2)];
-    //self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-    [self.notificationTableView setDelegate:self];
-    [self.notificationTableView setDataSource:self];
-    
     self.groupChat = [GroupChatManager getInstance];
     self.notifications = self.groupChat.pending;
     NSLog(@"%d notifications", [self.notifications count]);
@@ -205,7 +211,10 @@ CAShapeLayer *closedNotifications;
     self.friendRequests = self.chatParticipant.pending;
     NSLog(@"%d friend requests", [self.friendRequests count]);
     
-    [self.view addSubview:self.notificationTableView];
+    self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(self.view.frame.size.width*0.1, 0, self.view.frame.size.width*0.8, self.view.frame.size.height*0.3)];
+    self.notificationTableView.hidden = YES;
+    [self.notificationTableView setDelegate:self];
+    [self.notificationTableView setDataSource:self];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -337,6 +346,8 @@ CAShapeLayer *closedNotifications;
             storyboardID = STORYBOARD_ID_FRIENDS_VIEW_CONTROLLER; break;
         case 2:
             storyboardID = STORYBOARD_ID_CONTACTS_VIEW_CONTROLLER; break;
+        case 3:
+            storyboardID = STORYBOARD_ID_CONFESSIONS_VIEW_CONTROLLER; break;
         default:
             return nil;
     }
@@ -361,17 +372,19 @@ CAShapeLayer *closedNotifications;
         index = 1;
     } else if([viewController isKindOfClass:[ContactsViewController class]]) {
         index = 2;
+    } else if([viewController isKindOfClass:[ConfessionsViewController class]]) {
+        index = 3;
     }
     return index;
 }
 
--(NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
+/*-(NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
     return NumViewPages;
 }
 
 -(NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {
     return 0;
-}
+}*/
 
 - (void)didReceiveMemoryWarning
 {

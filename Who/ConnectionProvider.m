@@ -21,6 +21,8 @@
 #import "IQPacketManager.h"
 #import "MUCCreationManager.h"
 
+#import "Confession.h"
+
 
 @interface ConnectionProvider ()
 
@@ -135,6 +137,7 @@ static ConnectionProvider *selfInstance;
         [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetRosterPacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
+        [self.xmppStream sendElement:[IQPacketManager createGetConfessionsPacket]];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
     }
 }

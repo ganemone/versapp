@@ -142,8 +142,7 @@
 											 selector:@selector(handleWillHideKeyboardNotification:)
 												 name:UIKeyboardWillHideNotification
                                                object:nil];
-    [[self tableView] reloadData];
-    [self.tableView setContentOffset:CGPointMake(0, self.tableView.frame.size.height)];
+    [self.tableView setContentOffset:CGPointMake(0, CGFLOAT_MAX)];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -274,7 +273,7 @@
     
     [cell setMessage:message];
     [cell setAvatarImageView:avatar];
-    [cell setBackgroundColor:tableView.backgroundColor];
+    //[cell setBackgroundColor:tableView.backgroundColor];
     
 #if TARGET_IPHONE_SIMULATOR
     cell.bubbleView.textView.dataDetectorTypes = UIDataDetectorTypeNone;

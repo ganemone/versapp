@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "DDXMLElement.h"
 #import "Message.h"
+#include "Confession.h"
 
 @interface IQPacketManager : NSObject
 
@@ -62,4 +63,11 @@
 
 +(DDXMLElement *)createGetSessionIDPacket;
 
++(DDXMLElement *)createGetConfessionsPacket;
+
++(DDXMLElement *)createPostConfessionPacket:(Confession *)confession;
+
++(DDXMLElement *)createToggleFavoriteConfessionPacket:(NSString*)confessionID;
+
++(DDXMLElement *)createGetMyConfessionsPacket;
 @end
