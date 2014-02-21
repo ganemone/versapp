@@ -10,7 +10,7 @@
 
 @interface Confession : NSObject
 
-@property (strong, nonatomic) NSNumber *confessionID;
+@property (strong, nonatomic) NSString *confessionID;
 @property (strong, nonatomic) NSString *body;
 @property (strong, nonatomic) NSString *imageURL;
 @property (strong, nonatomic) NSString *createdTimestamp;
@@ -19,7 +19,7 @@
 
 +(instancetype)create:(NSString*)body imageURL:(NSString*)imageURL;
 
-+(instancetype)create:(NSString*)body imageURL:(NSString*)imageURL confessionID:(NSNumber*)confessionID createdTimestamp:(NSString*)createdTimestamp favoritedUsers:(NSMutableArray*)favoritedUsers;
++(instancetype)create:(NSString*)body imageURL:(NSString*)imageURL confessionID:(NSString*)confessionID createdTimestamp:(NSString*)createdTimestamp favoritedUsers:(NSMutableArray*)favoritedUsers;
 
 
 @end

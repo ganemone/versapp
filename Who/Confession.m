@@ -19,7 +19,7 @@
     return instance;
 }
 
-+(instancetype)create:(NSString *)body imageURL:(NSString *)imageURL confessionID:(NSNumber *)confessionID createdTimestamp:(NSString *)createdTimestamp favoritedUsers:(NSMutableArray *)favoritedUsers {
++(instancetype)create:(NSString *)body imageURL:(NSString *)imageURL confessionID:(NSString *)confessionID createdTimestamp:(NSString *)createdTimestamp favoritedUsers:(NSMutableArray *)favoritedUsers {
     Confession *instance = [[Confession alloc] init];
     [instance setBody:body];
     [instance encodeBody];

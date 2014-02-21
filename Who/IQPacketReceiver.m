@@ -271,8 +271,9 @@
             favoritedUsersArray = [[NSMutableArray alloc] init];
         }
         confession = [Confession create:body imageURL:imageURL confessionID:confessionID createdTimestamp:timestamp favoritedUsers:favoritedUsersArray];
-        
+        [confessionsManager addConfession:confession];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_CONFESSIONS object:nil];
 }
 
 +(void)handleGetMyConfessionsPacket:(XMPPIQ *)iq {
