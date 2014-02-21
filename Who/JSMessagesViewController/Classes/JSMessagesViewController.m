@@ -127,6 +127,7 @@
     [super viewDidLoad];
     [self setup];
     [[JSBubbleView appearance] setFont:[UIFont systemFontOfSize:16.0f]];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -141,6 +142,8 @@
 											 selector:@selector(handleWillHideKeyboardNotification:)
 												 name:UIKeyboardWillHideNotification
                                                object:nil];
+    [[self tableView] reloadData];
+    [self.tableView setContentOffset:CGPointMake(0, self.tableView.frame.size.height)];
 }
 
 - (void)viewDidAppear:(BOOL)animated

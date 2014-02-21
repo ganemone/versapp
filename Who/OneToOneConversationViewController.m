@@ -30,10 +30,6 @@
     self.downloadingImageURLs = [[NSMutableArray alloc] initWithCapacity:20];
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    [self scrollToBottomAnimated:YES];
-}
-
 -(void)messageReceived:(NSNotification*)notification {
     NSDictionary *userInfo = notification.userInfo;
     if ([(NSString*)[userInfo objectForKey:MESSAGE_PROPERTY_GROUP_ID] compare:self.chat.chatID] == 0) {
