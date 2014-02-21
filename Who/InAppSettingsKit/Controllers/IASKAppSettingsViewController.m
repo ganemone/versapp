@@ -214,6 +214,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 	[super viewDidDisappear:animated];
 }
 
+- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender {
+    
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return YES;
 }
@@ -461,8 +465,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 	} else {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
 	}
-	cell.textLabel.minimumFontSize = kIASKMinimumFontSize;
-	cell.detailTextLabel.minimumFontSize = kIASKMinimumFontSize;
 	return cell;
 }
 

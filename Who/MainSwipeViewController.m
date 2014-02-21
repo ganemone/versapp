@@ -86,30 +86,29 @@ CAShapeLayer *closedNotifications;
     
     self.notificationTableView.hidden = NO;
     
-    [UIView animateWithDuration:1.0
+    [UIView animateWithDuration:0.5
                           delay:0.0
          usingSpringWithDamping:1.0
           initialSpringVelocity:4.0
                         options: UIViewAnimationOptionCurveEaseIn
                      animations:^{
                          self.notificationTableView.frame = notificationFrame;
-                         [self.view addSubview:self.notificationTableView];
                      }
                      completion:^(BOOL finished){
                          
                      }];
     [UIView commitAnimations];
-    
 }
 
 - (void) hideNotifications {
     NSLog(@"Hide Notifications");
     
     CGRect notificationFrame = self.notificationTableView.frame;
-    notificationFrame.origin.y = -1*notificationFrame.size.height;
+    notificationFrame.origin.y = -1*self.notificationTableView.frame.size.height;
+    //notificationFrame.origin.y = self.view.frame.size.height;
     
-    [UIView animateWithDuration:1.0
-                          delay:0.1
+    [UIView animateWithDuration:0.5
+                          delay:0.2
          usingSpringWithDamping:1.0
           initialSpringVelocity:4.0
                         options: UIViewAnimationOptionCurveEaseOut
@@ -117,20 +116,14 @@ CAShapeLayer *closedNotifications;
                          self.notificationTableView.frame = notificationFrame;
                      }
                      completion:^(BOOL finished){
-                         
+                         self.notificationTableView.hidden = YES;
                      }];
     [UIView commitAnimations];
-    
-    [self.notificationTableView removeFromSuperview];
-    self.notificationTableView.hidden = YES;
 }
 
 - (IBAction)displayGestureForTapRecognizer:(UITapGestureRecognizer *)recognizer {
-    // Get the location of the gesture
     CGPoint tapLocation = [recognizer locationInView:self.view];
-    // NSLog(@"Tap location X:%1.0f, Y:%1.0f", tapLocation.x, tapLocation.y);
     
-    // If menu is open, and the tap is outside of the menu, close it.
     if (!CGRectContainsPoint(self.notificationTableView.frame, tapLocation) && !self.notificationTableView.hidden) {
         [self hideNotifications];
     }
@@ -146,10 +139,13 @@ CAShapeLayer *closedNotifications;
     self.friendRequests = self.chatParticipant.pending;
     NSLog(@"%d friend requests", [self.friendRequests count]);
     
-    self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(self.view.frame.size.width*0.05, 0, self.view.frame.size.width*0.9, self.view.frame.size.height*0.3)];
+    self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(self.view.frame.size.width*0.05, 0, self.view.frame.size.width*0.9, self.view.frame.size.height*0.5)];
     self.notificationTableView.hidden = YES;
     [self.notificationTableView setDelegate:self];
     [self.notificationTableView setDataSource:self];
+
+    [self.view addSubview:self.notificationTableView];
+    [self hideNotifications];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -161,6 +157,13 @@ CAShapeLayer *closedNotifications;
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 0)
+        return NOTIFICATIONS_GROUP;
+    else
+        return NOTIFICATIONS_FRIEND;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
