@@ -10,6 +10,7 @@
 #import "Confession.h"
 #import "ConfessionsManager.h"
 #import "ConfessionTableCell.h"
+#import "Constants.h"
 
 @interface ConfessionsViewController ()
 
@@ -27,6 +28,8 @@
     UIImage *image = [UIImage imageNamed:@"background-messages.jpg"];
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
     [backgroundImageView setImage:image];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name: PACKET_ID_GET_CONFESSIONS object:nil];
     [self.tableView setBackgroundView:backgroundImageView];
     [self.tableView setBackgroundColor:nil];
     [self.tableView setOpaque:YES];
@@ -67,6 +70,10 @@
     CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
     CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
     return labelSize.height + 80;
+}
+
+- (void)refreshListView {
+    [self.tableView reloadData];
 }
 
 @end
