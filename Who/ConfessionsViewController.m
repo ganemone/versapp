@@ -23,6 +23,13 @@
 {
     [super viewDidLoad];
     self.confessionsManager = [ConfessionsManager getInstance];
+    
+    UIImage *image = [UIImage imageNamed:@"background-messages.jpg"];
+    UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
+    [backgroundImageView setImage:image];
+    [self.tableView setBackgroundView:backgroundImageView];
+    [self.tableView setBackgroundColor:nil];
+    [self.tableView setOpaque:YES];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 }
 

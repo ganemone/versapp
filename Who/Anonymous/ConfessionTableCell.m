@@ -36,9 +36,7 @@
 
 - (instancetype)initWithConfession:(Confession*)confession reuseIdentifier:(NSString *)reuseIdentifier {
     self = [self initWithStyle:UITableViewCellStyleDefault reuseIdentifier: reuseIdentifier];
-    NSLog(@"Initializing Cell With Confession");
     if (self) {
-        NSLog(@"Creating Cell");
         CGFloat cellX = 10.0f;
         CGFloat cellY = 0.0f;
         CGSize contentSize = self.contentView.frame.size;
@@ -47,16 +45,25 @@
         CGRect textFrame = CGRectMake(cellX + 10.0f, cellY, contentSize.width - 30.0f, cellHeight);
         
         UIView *backgroundView = [[UIImageView alloc] initWithFrame:imageFrame];
-        [backgroundView setBackgroundColor:[UIColor grayColor]];
-        [backgroundView setAlpha:60];
+        [backgroundView setBackgroundColor:[UIColor colorWithHue:0.0f saturation:0.0f brightness:0.0f alpha:.30f]];
         
         UITextView *textView = [[UITextView alloc] initWithFrame:textFrame];
         [textView setBackgroundColor:[UIColor clearColor]];
         [textView setText:[confession body]];
+        [textView setTextColor:[UIColor whiteColor]];
         [textView setFont:[UIFont fontWithName:@"Helvetica" size:16.0]];
+        
+        CGRect chatButtonFrame = CGRectMake(cellX + contentSize.width / 3.0f, cellHeight - 10.0f, 50.0f, 50.0f);
+        CGRect favoriteButtonFrame = CGRectMake(cellX + 2 * contentSize.width / 3.0f, cellHeight - 10.0f, 50.0f, 50.0f);
+        UIButton *chatButton = [[UIButton alloc] initWithFrame:chatButtonFrame];
+        UIButton *favoriteButton = [[UIButton alloc] initWithFrame:favoriteButtonFrame];
+        [chatButton setImage:[UIImage imageNamed:@"chat-icon.png"] forState:UIControlStateNormal];
+        [favoriteButton setImage:[UIImage imageNamed:@"fav-icon.png"] forState:UIControlStateNormal];
         
         [self.contentView addSubview:backgroundView];
         [self.contentView addSubview:textView];
+        [self.contentView addSubview:chatButton];
+        [self.contentView addSubview:favoriteButton];
         
         _confessionText = textView;
         _transparentBackgroundView = backgroundView;
@@ -70,7 +77,7 @@
     UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:16.0];
     CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
     CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
-    return labelSize.height + 20.0f;
+    return labelSize.height + 30.0f;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
