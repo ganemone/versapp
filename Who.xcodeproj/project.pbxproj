@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3A0FE1C118A99EB2003692EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C018A99EB2003692EB /* QuartzCore.framework */; };
 		3A0FE1C518A9A4C7003692EB /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C418A9A4C7003692EB /* CoreText.framework */; };
-		3A15896A18B1996B007CCA67 /* ConversationImageExpandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A15896918B1996B007CCA67 /* ConversationImageExpandViewController.m */; };
 		3A25B6371881E03700166623 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A25B6361881E03700166623 /* Foundation.framework */; };
 		3A25B6391881E03700166623 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A25B6381881E03700166623 /* CoreGraphics.framework */; };
 		3A25B63B1881E03700166623 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A25B63A1881E03700166623 /* UIKit.framework */; };
@@ -265,8 +264,6 @@
 /* Begin PBXFileReference section */
 		3A0FE1C018A99EB2003692EB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3A0FE1C418A9A4C7003692EB /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		3A15896818B1996B007CCA67 /* ConversationImageExpandViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationImageExpandViewController.h; sourceTree = "<group>"; };
-		3A15896918B1996B007CCA67 /* ConversationImageExpandViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationImageExpandViewController.m; sourceTree = "<group>"; };
 		3A25B6331881E03700166623 /* Who.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Who.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A25B6361881E03700166623 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3A25B6381881E03700166623 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1661,8 +1658,6 @@
 				3A25B6751881E84800166623 /* FriendsViewController.m */,
 				3A25B6771881E85B00166623 /* ContactsViewController.h */,
 				3A25B6781881E85B00166623 /* ContactsViewController.m */,
-				3A15896818B1996B007CCA67 /* ConversationImageExpandViewController.h */,
-				3A15896918B1996B007CCA67 /* ConversationImageExpandViewController.m */,
 				3A59D5E918B2D4C800CE7B7B /* MainSwipeViewController.h */,
 				3A59D5EA18B2D4C800CE7B7B /* MainSwipeViewController.m */,
 			);
@@ -2219,7 +2214,6 @@
 				3A720C7C18A1C06700423959 /* XMPPRoom.m in Sources */,
 				3A720C6E18A1C06700423959 /* XMPPPrivacy.m in Sources */,
 				3A720C8018A1C06700423959 /* XMPPvCardCoreDataStorageObject.m in Sources */,
-				3A15896A18B1996B007CCA67 /* ConversationImageExpandViewController.m in Sources */,
 				3A720C9018A1C06700423959 /* XMPPMessage+XEP_0066.m in Sources */,
 				3A720CA918A1C06700423959 /* XMPPTime.m in Sources */,
 				3A25B6761881E84800166623 /* FriendsViewController.m in Sources */,

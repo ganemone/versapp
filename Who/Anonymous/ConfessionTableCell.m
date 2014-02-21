@@ -42,12 +42,13 @@
         CGFloat cellX = 0.0f;
         CGFloat cellY = 0.0f;
         CGSize contentSize = self.contentView.frame.size;
-        CGRect imageFrame = CGRectMake(cellX, cellY, contentSize.width - 20.0f, contentSize.height);
-        CGRect textFrame = CGRectMake(cellX + 10.0f, cellY, contentSize.width - 25.0f, contentSize.height - 5.0f);
-        
+        CGFloat cellHeight = [self heightForConfession:confession];
+        CGRect imageFrame = CGRectMake(cellX, cellY, contentSize.width - 20.0f, cellHeight);
+        CGRect textFrame = CGRectMake(cellX + 10.0f, cellY, contentSize.width - 25.0f, cellHeight);
         
         UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:imageFrame];
         [backgroundImageView setImage:[UIImage imageNamed:@"bubble.png"]];
+        [backgroundImageView setContentMode:UIViewContentModeScaleAspectFill];
         
         UITextView *textView = [[UITextView alloc] initWithFrame:textFrame];
         [textView setBackgroundColor:[UIColor clearColor]];
@@ -62,6 +63,14 @@
         
     }
     return self;
+}
+
+- (CGFloat)heightForConfession:(Confession*)confession {
+    NSString *cellText = [confession body];
+    UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:16.0];
+    CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
+    CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
+    return labelSize.height + 50;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

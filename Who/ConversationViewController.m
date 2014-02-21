@@ -13,7 +13,6 @@
 #import "JSMessage.h"
 #import "ConnectionProvider.h"
 #import "ImageManager.h"
-#import "ConversationImageExpandViewController.h"
 #import "RNBlurModalView.h"
 
 @interface ConversationViewController ()
