@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ConfessionsViewController : UITableViewController
+@interface ConfessionsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
 
 @end

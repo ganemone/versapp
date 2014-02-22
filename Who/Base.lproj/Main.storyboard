@@ -170,35 +170,6 @@
             </objects>
             <point key="canvasLocation" x="1789" y="761"/>
         </scene>
-        <!--Confessions View Controller - Confessions-->
-        <scene sceneID="1xM-tU-Jnh">
-            <objects>
-                <tableViewController storyboardIdentifier="ConfessionsViewController" id="9MR-8y-YtQ" customClass="ConfessionsViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hWx-mI-xD3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="BasicConfessionCell" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BasicConfessionCell" id="lTA-nj-kFV" customClass="ConfessionTableCell">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lTA-nj-kFV" id="qL0-aa-Ih8">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="9MR-8y-YtQ" id="ZhO-Bp-bAk"/>
-                            <outlet property="delegate" destination="9MR-8y-YtQ" id="bIV-a4-rJ7"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Confessions" id="fao-RO-JC4"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CKO-3Z-kdN" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2842" y="765"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="ytD-Qm-JKC">
             <objects>
@@ -668,6 +639,63 @@
             </objects>
             <point key="canvasLocation" x="3513" y="154"/>
         </scene>
+        <!--Confessions View Controller - Confessions-->
+        <scene sceneID="g8k-18-lyM">
+            <objects>
+                <viewController storyboardIdentifier="ConfessionsViewController" id="jpr-Ku-F24" customClass="ConfessionsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="urc-XE-TP2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="jZx-yj-7oZ">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="440"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BasicConfessionCell" id="aMg-NJ-Oav">
+                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aMg-NJ-Oav">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <view contentMode="scaleToFill" id="xNe-oj-gI8">
+                                <rect key="frame" x="0.0" y="440" width="320" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="IIL-et-yzh">
+                                        <rect key="frame" x="261" y="5" width="32" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                        <state key="normal" title="Post">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1Nu-Lm-c7J">
+                                        <rect key="frame" x="16" y="5" width="54" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                        <state key="normal" title="Camera">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Confessions" id="1d5-ZF-uSM"/>
+                    <connections>
+                        <outlet property="bottomView" destination="xNe-oj-gI8" id="sWY-3R-ygq"/>
+                        <outlet property="tableView" destination="jZx-yj-7oZ" id="UqM-pt-QRe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VJW-15-iT1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2841" y="761"/>
+        </scene>
         <!--Navigation Controller - Conversation-->
         <scene sceneID="WcW-T3-2la">
             <objects>
@@ -845,22 +873,22 @@
             <point key="canvasLocation" x="1789" y="-410"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="e32-Es-0cc">
+        <scene sceneID="P4S-r6-xmZ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="X91-r2-V4X" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="IiY-aK-JWy" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="s1z-r8-Jec">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="t7j-BZ-c4L">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="9MR-8y-YtQ" kind="relationship" relationship="rootViewController" id="hHA-pg-2z3"/>
+                        <segue destination="jpr-Ku-F24" kind="relationship" relationship="rootViewController" id="uVS-52-Qpw"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Mik-Hc-GdM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YQN-PR-wXm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2316" y="765"/>
+            <point key="canvasLocation" x="2315" y="761"/>
         </scene>
     </scenes>
     <resources>

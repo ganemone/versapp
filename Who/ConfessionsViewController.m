@@ -30,10 +30,13 @@
     [backgroundImageView setImage:image];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name: PACKET_ID_GET_CONFESSIONS object:nil];
+    [self.tableView setDelegate:self];
+    [self.tableView setDataSource:self];
     [self.tableView setBackgroundView:backgroundImageView];
     [self.tableView setBackgroundColor:nil];
     [self.tableView setOpaque:YES];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+
 }
 
 - (void)didReceiveMemoryWarning
