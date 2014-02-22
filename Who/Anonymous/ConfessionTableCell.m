@@ -56,6 +56,7 @@
         [textView setText:[confession body]];
         [textView setTextColor:[UIColor whiteColor]];
         [textView setFont:[UIFont fontWithName:@"Helvetica" size:16.0]];
+        [textView setEditable:NO];
         
         CGFloat iconSize = 25.0f;
         CGRect chatButtonFrame = CGRectMake(cellX + (contentSize.width / 4.0f), cellHeight - 15.0f, iconSize, iconSize);
