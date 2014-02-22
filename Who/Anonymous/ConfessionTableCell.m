@@ -95,6 +95,8 @@
     NSLog(@"Favoriting Confession: %@", [_confession confessionID]);
     [_favoriteButton setBackgroundColor:[UIColor blackColor]];
     
+    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createToggleFavoriteConfessionPacket:[_confession confessionID]]];
+    
     [_confession toggleFavorite];
     ConfessionsManager *confessionsManager = [ConfessionsManager getInstance];
     [confessionsManager updateConfession:_confession];

@@ -296,7 +296,7 @@
 }
 
 +(void)handleToggleFavoriteConfessionPacket:(XMPPIQ *)iq {
-    
+    //NSLog(@"Toggle Confession Response: %@", iq.XMLString);
 }
 
 +(void)handlePostConfessionPacket:(XMPPIQ *)iq {
