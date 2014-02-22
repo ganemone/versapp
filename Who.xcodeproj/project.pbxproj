@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3A00167E18B8231000C54059 /* message-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A00167C18B8231000C54059 /* message-icon.png */; };
 		3A00167F18B8231000C54059 /* photo-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A00167D18B8231000C54059 /* photo-icon.png */; };
+		3A00168218B82BB200C54059 /* ComposeConfessionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A00168118B82BB200C54059 /* ComposeConfessionViewController.m */; };
 		3A0FE1C118A99EB2003692EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C018A99EB2003692EB /* QuartzCore.framework */; };
 		3A0FE1C518A9A4C7003692EB /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C418A9A4C7003692EB /* CoreText.framework */; };
 		3A25B6371881E03700166623 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A25B6361881E03700166623 /* Foundation.framework */; };
@@ -268,6 +269,8 @@
 /* Begin PBXFileReference section */
 		3A00167C18B8231000C54059 /* message-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message-icon.png"; sourceTree = "<group>"; };
 		3A00167D18B8231000C54059 /* photo-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo-icon.png"; sourceTree = "<group>"; };
+		3A00168018B82BB200C54059 /* ComposeConfessionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeConfessionViewController.h; sourceTree = "<group>"; };
+		3A00168118B82BB200C54059 /* ComposeConfessionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeConfessionViewController.m; sourceTree = "<group>"; };
 		3A0FE1C018A99EB2003692EB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3A0FE1C418A9A4C7003692EB /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		3A25B6331881E03700166623 /* Who.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Who.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1639,6 +1642,8 @@
 		3A8BCF7618B5961F00D4B7CE /* Confessions */ = {
 			isa = PBXGroup;
 			children = (
+				3A00168018B82BB200C54059 /* ComposeConfessionViewController.h */,
+				3A00168118B82BB200C54059 /* ComposeConfessionViewController.m */,
 				3A8BCF7318B5960300D4B7CE /* ConfessionsViewController.h */,
 				3A8BCF7418B5960300D4B7CE /* ConfessionsViewController.m */,
 				3A8BCF7718B5964400D4B7CE /* ConfessionsManager.h */,
@@ -2236,6 +2241,7 @@
 				3A720CA618A1C06700423959 /* XMPPAutoPing.m in Sources */,
 				3A47C844189F1A52003020D7 /* FriendsDBManager.m in Sources */,
 				3A720C9918A1C06700423959 /* XMPPCapsCoreDataStorageObject.m in Sources */,
+				3A00168218B82BB200C54059 /* ComposeConfessionViewController.m in Sources */,
 				3A720C6C18A1C06700423959 /* XMPPIQ+LastActivity.m in Sources */,
 				3A720CBA18A28ECB00423959 /* MessagePacketReceiver.m in Sources */,
 				3A720C7018A1C06700423959 /* XMPPRoomCoreDataStorage.m in Sources */,

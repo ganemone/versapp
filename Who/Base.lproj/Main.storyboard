@@ -626,7 +626,7 @@
             <objects>
                 <viewController storyboardIdentifier="ConversationViewController" hidesBottomBarWhenPushed="YES" id="LSk-rM-HTJ" customClass="ConversationViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0UM-Gi-lHb">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -637,7 +637,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yd9-J6-Wir" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3513" y="154"/>
+            <point key="canvasLocation" x="4045" y="164"/>
         </scene>
         <!--Confessions View Controller - Confessions-->
         <scene sceneID="g8k-18-lyM">
@@ -696,6 +696,21 @@
             </objects>
             <point key="canvasLocation" x="2841" y="761"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="nHE-9V-Fd3">
+            <objects>
+                <viewController id="lnb-gW-AWX" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dCU-MI-WK9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="bRR-D9-Nnz"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tA4-AL-IFV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4045" y="805"/>
+        </scene>
         <!--Navigation Controller - Conversation-->
         <scene sceneID="WcW-T3-2la">
             <objects>
@@ -713,7 +728,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j9h-0E-rVD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3075" y="154"/>
+            <point key="canvasLocation" x="3583" y="174"/>
         </scene>
         <!--One To One Conversation View Controller-->
         <scene sceneID="3FC-Hw-v7z">
@@ -890,6 +905,24 @@
             </objects>
             <point key="canvasLocation" x="2315" y="761"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="yBm-AZ-eE1">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Cux-g5-SSx" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TJc-vs-KVz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="lnb-gW-AWX" kind="relationship" relationship="rootViewController" id="y0l-DF-V89"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cpg-JW-8es" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3583" y="797"/>
+        </scene>
     </scenes>
     <resources>
         <image name="first" width="30" height="30"/>
@@ -901,12 +934,12 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="f5d-Ra-j3v"/>
+        <segue reference="8c7-Mw-K5g"/>
+        <segue reference="cCp-tS-h07"/>
         <segue reference="fcf-HI-Tc8"/>
         <segue reference="yvf-5p-X2z"/>
-        <segue reference="cCp-tS-h07"/>
-        <segue reference="GTj-hh-MDQ"/>
         <segue reference="hBn-y3-qKM"/>
-        <segue reference="8c7-Mw-K5g"/>
-        <segue reference="zTQ-Mf-6oX"/>
+        <segue reference="v72-9M-1Zf"/>
+        <segue reference="GTj-hh-MDQ"/>
     </inferredMetricsTieBreakers>
 </document>
