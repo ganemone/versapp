@@ -40,4 +40,8 @@ static ConfessionsManager *selfInstance;
     [self.confessionIDValues addObject:confession.confessionID];
 }
 
+-(void)updateConfession:(Confession *)confession {
+    [self.confessions setObject:confession forKey:confession.confessionID];
+}
+
 @end

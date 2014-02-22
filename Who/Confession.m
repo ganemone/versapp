@@ -7,6 +7,7 @@
 //
 
 #import "Confession.h"
+#import "ConnectionProvider.h"
 
 @implementation Confession
 
@@ -51,6 +52,16 @@
         }
     }
     return output;
+}
+
+-(void)toggleFavorite {
+    NSInteger selfIndex;
+    NSString *jid = [NSString stringWithFormat:@"%@@%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]];
+    if ((selfIndex = [_favoritedUsers indexOfObject:jid]) != NSNotFound) {
+        [_favoritedUsers removeObjectAtIndex:selfIndex];
+    } else {
+        [_favoritedUsers addObject:jid];
+    }
 }
 
 @end

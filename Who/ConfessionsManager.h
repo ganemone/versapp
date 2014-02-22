@@ -24,4 +24,6 @@
 
 -(void)addConfession:(Confession*)confession;
 
+-(void)updateConfession:(Confession*)confession;
+
 @end
