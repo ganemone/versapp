@@ -24,5 +24,7 @@
 
 - (void)encodeBody;
 
+- (void)decodeBody;
+
 
 @end

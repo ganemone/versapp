@@ -28,7 +28,8 @@ static ConfessionsManager *selfInstance;
 }
 
 -(Confession *)getConfessionAtIndex:(int)index {
-    return [_confessions objectForKey:[_confessionIDValues objectAtIndex:index]];
+    int adjustedIndex = [self getNumberOfConfessions] - index - 1;
+    return [_confessions objectForKey:[_confessionIDValues objectAtIndex:adjustedIndex]];
 }
 
 -(Confession *)getConfessionWithID:(NSString *)confessionID {
@@ -47,6 +48,7 @@ static ConfessionsManager *selfInstance;
 -(void)updatePendingConfession:(NSString*)confessionID timestamp:(NSString*)timestamp {
     [_pendingConfession setConfessionID:confessionID];
     [_pendingConfession setCreatedTimestamp:timestamp];
+    [_pendingConfession decodeBody];
     [self addConfession:_pendingConfession];
     [self setPendingConfession:nil];
 }

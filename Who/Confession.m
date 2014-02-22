@@ -33,6 +33,11 @@
     [self setBody: [self urlencode:_body]];
 }
 
+-(void)decodeBody {
+    NSString *newBody = [[_body stringByReplacingOccurrencesOfString:@"+" withString:@" "]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [self setBody:newBody];
+}
+
 - (NSString *)urlencode:(NSString*)stringToEncode {
     NSMutableString *output = [NSMutableString string];
     const unsigned char *source = (const unsigned char *)[stringToEncode UTF8String];
@@ -62,5 +67,6 @@
         [_favoritedUsers addObject:jid];
     }
 }
+
 
 @end

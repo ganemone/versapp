@@ -52,7 +52,6 @@
 }
 
 -(void)handleFinishedPostingConfession {
-    //[self performSegueWithIdentifier:SEGUE_ID_POSTED_CONFESSION sender:self];
     [[self navigationController] popToRootViewControllerAnimated:YES];
 }
 
