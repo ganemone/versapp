@@ -468,6 +468,8 @@
 }
 
 +(DDXMLElement *)createPostConfessionPacket:(Confession *)confession {
+    [confession encodeBody];
+    
     DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
 	[query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:confession"]];
     

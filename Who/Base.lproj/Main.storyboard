@@ -672,6 +672,9 @@
                                         <state key="normal" title="Post">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="lnb-gW-AWX" kind="push" id="YCw-e7-spT"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1Nu-Lm-c7J">
                                         <rect key="frame" x="16" y="5" width="54" height="30"/>
@@ -696,20 +699,43 @@
             </objects>
             <point key="canvasLocation" x="2841" y="761"/>
         </scene>
-        <!--View Controller-->
+        <!--Compose Confession View Controller - Compose-->
         <scene sceneID="nHE-9V-Fd3">
             <objects>
-                <viewController id="lnb-gW-AWX" sceneMemberID="viewController">
+                <viewController id="lnb-gW-AWX" customClass="ComposeConfessionViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dCU-MI-WK9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="lyF-9W-sxP">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="250"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="NAg-qb-d2Q">
+                                <rect key="frame" x="0.0" y="250" width="320" height="230"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="bRR-D9-Nnz"/>
+                    <navigationItem key="navigationItem" title="Compose" id="bRR-D9-Nnz">
+                        <barButtonItem key="rightBarButtonItem" title="Post" id="zYL-lD-IH8">
+                            <connections>
+                                <action selector="postConfession:" destination="lnb-gW-AWX" id="P00-iM-uAQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="composeTextView" destination="lyF-9W-sxP" id="5jH-W1-B3m"/>
+                        <outlet property="imageView" destination="NAg-qb-d2Q" id="je8-so-cbx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tA4-AL-IFV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4045" y="805"/>
+            <point key="canvasLocation" x="4045" y="761"/>
         </scene>
         <!--Navigation Controller - Conversation-->
         <scene sceneID="WcW-T3-2la">
@@ -735,7 +761,7 @@
             <objects>
                 <viewController storyboardIdentifier="OneToOneConversationViewController" hidesBottomBarWhenPushed="YES" id="iDZ-uG-Ep6" customClass="OneToOneConversationViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IqH-NC-C3h">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -746,7 +772,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g7A-1E-cma" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4045" y="-471"/>
+            <point key="canvasLocation" x="4045" y="-459"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LHe-G0-1Nd">
@@ -765,7 +791,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fnI-fu-3e5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3601" y="-471"/>
+            <point key="canvasLocation" x="3583" y="-459"/>
         </scene>
         <!--Privacy Policy View Controller - Privacy Policy-->
         <scene sceneID="13F-Dp-5jR">
@@ -921,7 +947,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cpg-JW-8es" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3583" y="797"/>
+            <point key="canvasLocation" x="3583" y="761"/>
         </scene>
     </scenes>
     <resources>
@@ -934,7 +960,8 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="f5d-Ra-j3v"/>
-        <segue reference="8c7-Mw-K5g"/>
+        <segue reference="rOT-zb-Yrt"/>
+        <segue reference="YCw-e7-spT"/>
         <segue reference="cCp-tS-h07"/>
         <segue reference="fcf-HI-Tc8"/>
         <segue reference="yvf-5p-X2z"/>

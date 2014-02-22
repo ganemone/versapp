@@ -44,4 +44,11 @@ static ConfessionsManager *selfInstance;
     [self.confessions setObject:confession forKey:confession.confessionID];
 }
 
+-(void)updatePendingConfession:(NSString*)confessionID timestamp:(NSString*)timestamp {
+    [_pendingConfession setConfessionID:confessionID];
+    [_pendingConfession setCreatedTimestamp:timestamp];
+    [self addConfession:_pendingConfession];
+    [self setPendingConfession:nil];
+}
+
 @end

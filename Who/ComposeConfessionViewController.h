@@ -10,4 +10,7 @@
 
 @interface ComposeConfessionViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UITextView *composeTextView;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+
 @end

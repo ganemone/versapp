@@ -7,6 +7,11 @@
 //
 
 #import "ComposeConfessionViewController.h"
+#import "Confession.h"
+#import "ConfessionsManager.h"
+#import "ConnectionProvider.h"
+#import "IQPacketManager.h"
+#import "Constants.h"
 
 @interface ComposeConfessionViewController ()
 
@@ -26,13 +31,29 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [[self composeTextView] becomeFirstResponder];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedPostingConfession) name:PACKET_ID_POST_CONFESSION object:nil];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (IBAction)postConfession:(id)sender {
+    NSString *confessionText = [_composeTextView text];
+    if (confessionText.length > 0) {
+        Confession *confession = [Confession create:confessionText imageURL:nil];
+        [[ConfessionsManager getInstance] setPendingConfession:confession];
+        [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createPostConfessionPacket:confession]];
+    } else {
+        NSLog(@"No text in confession text box");
+    }
+}
+
+-(void)handleFinishedPostingConfession {
+    //[self performSegueWithIdentifier:SEGUE_ID_POSTED_CONFESSION sender:self];
+    [[self navigationController] popToRootViewControllerAnimated:YES];
 }
 
 @end
