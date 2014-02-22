@@ -279,13 +279,12 @@
         timestamp = [decodedPacketXML substringWithRange:[match rangeAtIndex:5]];
         favoritedUsers = [decodedPacketXML substringWithRange:[match rangeAtIndex:6]];
         favoriteCount = [NSNumber numberWithInt:[[decodedPacketXML substringWithRange:[match rangeAtIndex:7]] integerValue]];
-        if (favoriteCount > 0) {
+        if ([favoriteCount isEqualToNumber:[NSNumber numberWithInt:0]] == FALSE) {
             favoritedUsers = [favoritedUsers stringByReplacingOccurrencesOfString:@"\"" withString:@""];
             favoritedUsersArray = [NSMutableArray arrayWithArray:[favoritedUsers componentsSeparatedByString:@","]];
         } else {
             favoritedUsersArray = [[NSMutableArray alloc] init];
         }
-        NSLog(@"Confession Body: %@", body);
         confession = [Confession create:body imageURL:imageURL confessionID:confessionID createdTimestamp:timestamp favoritedUsers:favoritedUsersArray];
         [confessionsManager addConfession:confession];
     }
