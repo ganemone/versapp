@@ -38,6 +38,8 @@
 {
     [super viewDidLoad];
     
+    [self.navigationController setDelegate:self];
+    
     self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:STORYBOARD_ID_PAGE_VIEW_CONTROLLER];
     self.pageViewController.dataSource = self;
     self.pageViewController.delegate = self;
@@ -110,6 +112,23 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    // -----------------
+    // HACKY SOLUTION - Try to improve in the future
+    // -----------------
+    NSArray *childViewControllers = [[self pageViewController] childViewControllers];
+    if ([childViewControllers count] > 2) {
+        ConfessionsViewController *viewController;
+        for (int i = 0; i < [childViewControllers count]; i++) {
+            if ([[childViewControllers objectAtIndex:i] isKindOfClass:[ConfessionsViewController class]]) {
+                viewController = [childViewControllers objectAtIndex:i];
+                [viewController.tableView reloadData];
+                i = [childViewControllers count];
+            }
+        }
+    }
 }
 
 @end

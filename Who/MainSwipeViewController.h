@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MainSwipeViewController : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
+@interface MainSwipeViewController : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate, UINavigationControllerDelegate>
 
 @end
