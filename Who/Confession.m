@@ -26,7 +26,6 @@
     [instance setConfessionID:confessionID];
     [instance setCreatedTimestamp:createdTimestamp];
     [instance setFavoritedUsers:favoritedUsers];
-    [instance setFavoriteCount:[NSNumber numberWithInt:[favoritedUsers count]]];
     return instance;
 }
 

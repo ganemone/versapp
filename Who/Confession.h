@@ -15,7 +15,6 @@
 @property (strong, nonatomic) NSString *imageURL;
 @property (strong, nonatomic) NSString *createdTimestamp;
 @property (strong, nonatomic) NSMutableArray *favoritedUsers;
-@property (strong, nonatomic) NSNumber *favoriteCount;
 
 +(instancetype)create:(NSString*)body imageURL:(NSString*)imageURL;
 

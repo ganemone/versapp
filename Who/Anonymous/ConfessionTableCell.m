@@ -94,11 +94,10 @@
 -(void)handleConfessionFavorited:(id)sender {
     NSLog(@"Favoriting Confession: %@", [_confession confessionID]);
     [_favoriteButton setBackgroundColor:[UIColor blackColor]];
+    
     [_confession toggleFavorite];
     ConfessionsManager *confessionsManager = [ConfessionsManager getInstance];
     [confessionsManager updateConfession:_confession];
-    NSLog(@"Favorites: %@", [[[confessionsManager getConfessionWithID:[_confession confessionID]] favoritedUsers] componentsJoinedByString:@"\n"]);
-    
 }
 
 -(void)handleConfessionChatStarted:(id)sender {
