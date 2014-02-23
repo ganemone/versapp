@@ -185,14 +185,20 @@
     
     NSDictionary *properties = [NSDictionary dictionaryWithObjectsAndKeys:roomName, @"name", [ConnectionProvider getUser], @"owner_id", CHAT_TYPE_GROUP, @"type", nil];
     DDXMLElement *iq = [IQPacketManager createWhoIQPacket:@"set" action:@"create" packetID:PACKET_ID_CREATE_MUC chatID:chatID properties:properties];
-    NSLog(@"PACKET: %@", iq.XMLString);
     return iq;
 }
 
 +(DDXMLElement *)createCreateOneToOneChatPacket:(NSString*)chatID roomName:(NSString*)roomName {
     NSDictionary *properties = [NSDictionary dictionaryWithObjectsAndKeys:roomName, @"name", [ConnectionProvider getUser], @"owner_id", CHAT_TYPE_ONE_TO_ONE, @"type", nil];
     DDXMLElement *iq = [IQPacketManager createWhoIQPacket:@"set" action:@"create" packetID:PACKET_ID_CREATE_ONE_TO_ONE_CHAT chatID:chatID properties:properties];
-    NSLog(@"PACKET: %@", iq.XMLString);
+    return iq;
+}
+
++(DDXMLElement *)createCreateOneToOneChatFromConfessionPacket:(Confession*)confession {
+    NSDictionary *properties = [NSDictionary dictionaryWithObjectsAndKeys:confession.body, @"name", @"confession", @"owner_id", CHAT_TYPE_ONE_TO_ONE, @"type", nil];
+    NSString *chatID = [NSString stringWithFormat:@"%@%ld", [ConnectionProvider getUser],(long)[[NSDate date] timeIntervalSince1970]];
+    DDXMLElement *iq = [IQPacketManager createWhoIQPacket:@"set" action:@"create" packetID:PACKET_ID_CREATE_ONE_TO_ONE_CHAT chatID:chatID properties:properties];
+    NSLog(@"IQ: %@", iq.XMLString);
     return iq;
 }
 

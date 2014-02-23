@@ -139,7 +139,7 @@
                         <barButtonItem key="leftBarButtonItem" image="notifications-icon-ios.png" id="3bT-1A-aai">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="settings-icon-ios.png" style="plain" id="VED-Q5-Zbt">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="settings-icon-ios.png" id="VED-Q5-Zbt">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </barButtonItem>
                     </navigationItem>

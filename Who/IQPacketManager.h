@@ -70,4 +70,6 @@
 +(DDXMLElement *)createToggleFavoriteConfessionPacket:(NSString*)confessionID;
 
 +(DDXMLElement *)createGetMyConfessionsPacket;
+
++(DDXMLElement *)createCreateOneToOneChatFromConfessionPacket:(Confession*)confession;
 @end

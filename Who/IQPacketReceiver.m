@@ -256,11 +256,9 @@
 }
 
 +(void)handleGetConfessionsPacket:(XMPPIQ *)iq {
-    NSLog(@"\n\n Handling Get Confessions Packet: %@ \n\n", iq.XMLString);
     NSString *decodedPacketXML = [self getPacketXMLWithoutWhiteSpace:iq];
     decodedPacketXML = [self getDecodedPacketXML:iq];
     NSError *error = NULL;
-    NSLog(@"Decoded Packet XML: %@", decodedPacketXML);
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(\\d+)\",\"(.*?)\",\"(.*?)\",\"(.*?)\",\"(.*?)\",(\".*?\"|null),\"(\\d+)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
     NSArray *matches = [regex matchesInString:decodedPacketXML options:0 range:NSMakeRange(0, decodedPacketXML.length)];
     NSTextCheckingResult *match;
@@ -285,7 +283,7 @@
         } else {
             favoritedUsersArray = [[NSMutableArray alloc] init];
         }
-        confession = [Confession create:body imageURL:imageURL confessionID:confessionID createdTimestamp:timestamp favoritedUsers:favoritedUsersArray];
+        confession = [Confession create:body posterJID:jid imageURL:imageURL confessionID:confessionID createdTimestamp:timestamp favoritedUsers:favoritedUsersArray];
         [confessionsManager addConfession:confession];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_CONFESSIONS object:nil];

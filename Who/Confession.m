@@ -8,6 +8,7 @@
 
 #import "Confession.h"
 #import "ConnectionProvider.h"
+#import "IQPacketManager.h"
 
 @implementation Confession
 
@@ -19,9 +20,10 @@
     return instance;
 }
 
-+(instancetype)create:(NSString *)body imageURL:(NSString *)imageURL confessionID:(NSString *)confessionID createdTimestamp:(NSString *)createdTimestamp favoritedUsers:(NSMutableArray *)favoritedUsers {
++(instancetype)create:(NSString *)body posterJID:(NSString *)posterJID imageURL:(NSString *)imageURL confessionID:(NSString *)confessionID createdTimestamp:(NSString *)createdTimestamp favoritedUsers:(NSMutableArray *)favoritedUsers {
     Confession *instance = [[Confession alloc] init];
     [instance setBody:body];
+    [instance setPosterJID:posterJID];
     [instance setImageURL:imageURL];
     [instance setConfessionID:confessionID];
     [instance setCreatedTimestamp:createdTimestamp];
@@ -83,5 +85,8 @@
     return [formatter stringFromDate:date];
 }
 
+-(void)startChat {
+    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createCreateOneToOneChatFromConfessionPacket:self]];
+}
 
 @end
