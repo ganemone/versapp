@@ -72,13 +72,10 @@
         CGRect favoriteButtonFrame = CGRectMake(contentSize.width - iconSize - padding, cellHeight - iconSize - 5.0f, iconSize, iconSize);
         UIButton *chatBtn = [[UIButton alloc] initWithFrame:chatButtonFrame];
         UIButton *favoriteBtn = [[UIButton alloc] initWithFrame:favoriteButtonFrame];
-        [chatBtn setImage:[UIImage imageNamed:@"chat-icon.png"] forState:UIControlStateNormal];
-        [favoriteBtn setImage:[UIImage imageNamed:@"fav-icon.png"] forState:UIControlStateNormal];
         
         // Configure gradient underline
         CGRect underlineViewFrame = CGRectMake(iconSize + padding, chatButtonFrame.origin.y + iconSize / 2, contentSize.width - (2.0f * iconSize) - 2 * padding, 1.0f);
         UIImageView *underlineView = [[UIImageView alloc] initWithFrame:underlineViewFrame];
-        [underlineView setImage:[UIImage imageNamed:@"grad-line-small.png"]];
         
         // Configure favorite label
         CGRect favoriteLabelFrame = CGRectMake(favoriteButtonFrame.origin.x - iconSize/2.5f, favoriteButtonFrame.origin.y + iconSize/2.5f, iconSize, iconSize);
@@ -86,11 +83,7 @@
         [label setTextColor:[UIColor whiteColor]];
         [label setText:[NSString stringWithFormat:@"%d", [[confession favoritedUsers] count]]];
         [label setFont:[UIFont fontWithName:@"Helvetica" size:8.0f]];
-        if ([confession isFavoritedByConnectedUser]) {
-            [favoriteBtn setImage:[UIImage imageNamed:@"fav-icon-active.png"] forState:UIControlStateNormal];
-        } else {
-            [favoriteBtn setImage:[UIImage imageNamed:@"fav-icon.png"] forState:UIControlStateNormal];
-        }
+
         [favoriteBtn addTarget:self action:@selector(handleConfessionFavorited:) forControlEvents:UIControlEventTouchUpInside];
         [chatBtn addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -119,6 +112,7 @@
         _favoriteButton = favoriteBtn;
         _chatButton = chatBtn;
         _favoriteCountLabel = label;
+        _gradLine = underlineView;
         
     }
     return self;

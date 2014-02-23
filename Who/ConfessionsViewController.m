@@ -15,6 +15,11 @@
 @interface ConfessionsViewController ()
 
 @property ConfessionsManager *confessionsManager;
+@property (strong, nonatomic) NSMutableDictionary *cellCache;
+@property (strong, nonatomic) UIImage *favIcon;
+@property (strong, nonatomic) UIImage *favIconActive;
+@property (strong, nonatomic) UIImage *gradLineSmall;
+@property (strong, nonatomic) UIImage *chatIcon;
 
 @end
 
@@ -30,13 +35,19 @@
     [backgroundImageView setImage:image];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name: PACKET_ID_GET_CONFESSIONS object:nil];
+    self.cellCache = [[NSMutableDictionary alloc] initWithCapacity:[_confessionsManager getNumberOfConfessions]];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     [self.tableView setBackgroundView:backgroundImageView];
     [self.tableView setBackgroundColor:nil];
     [self.tableView setOpaque:YES];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-
+    
+    self.favIcon = [UIImage imageNamed:@"fav-icon.png"];
+    self.favIconActive = [UIImage imageNamed:@"fav-icon-active.png"];
+    self.gradLineSmall = [UIImage imageNamed:@"grad-line-small.png"];
+    self.chatIcon = [UIImage imageNamed:@"chat-icon.png"];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,10 +71,19 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"BasicConfessionCell";
-    Confession *confession = [_confessionsManager getConfessionAtIndex:indexPath.row]; 
-
-    ConfessionTableCell *cell = [[ConfessionTableCell alloc] initWithConfession:confession reuseIdentifier:CellIdentifier];
-    
+    Confession *confession = [_confessionsManager getConfessionAtIndex:indexPath.row];
+    ConfessionTableCell *cell = [_cellCache objectForKey:[confession confessionID]];
+    if (cell == nil) {
+        cell = [[ConfessionTableCell alloc] initWithConfession:confession reuseIdentifier:CellIdentifier];
+        if ([confession isFavoritedByConnectedUser]) {
+            [cell.favoriteButton setImage:self.favIconActive forState:UIControlStateNormal];
+        } else {
+            [cell.favoriteButton setImage:self.favIcon forState:UIControlStateNormal];
+        }
+        [cell.chatButton setImage:self.chatIcon forState:UIControlStateNormal];
+        [cell.gradLine setImage:self.gradLineSmall];
+        [_cellCache setObject:cell forKey:[confession confessionID]];
+    }
     return cell;
 }
 

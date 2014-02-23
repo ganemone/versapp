@@ -16,6 +16,8 @@
 @property (weak, nonatomic, readonly) UIButton *favoriteButton;
 @property (weak, nonatomic, readonly) UIButton *chatButton;
 @property (weak, nonatomic, readonly) UILabel *favoriteCountLabel;
+@property (weak, nonatomic, readonly) UIImageView *gradLine;
+
 @property (strong, nonatomic) Confession *confession;
 
 - (instancetype)initWithConfession:(Confession*)confession reuseIdentifier:(NSString*)reuseIdentifier;
