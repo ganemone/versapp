@@ -74,7 +74,7 @@
         UIButton *favoriteBtn = [[UIButton alloc] initWithFrame:favoriteButtonFrame];
         
         // Configure gradient underline
-        CGRect underlineViewFrame = CGRectMake(iconSize + padding, chatButtonFrame.origin.y + iconSize / 2, contentSize.width - (2.0f * iconSize) - 2 * padding, 1.0f);
+        CGRect underlineViewFrame = CGRectMake(iconSize + padding, chatButtonFrame.origin.y + iconSize / 2.5, contentSize.width - (2.0f * iconSize) - 2 * padding, 1.0f);
         UIImageView *underlineView = [[UIImageView alloc] initWithFrame:underlineViewFrame];
         
         // Configure favorite label
@@ -88,10 +88,10 @@
         [chatBtn addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
         
         // Configure timestamp
-        CGRect timestampFrame = CGRectMake(0, underlineViewFrame.origin.y + 2.0f, contentSize.width, 10.0f);
+        CGRect timestampFrame = CGRectMake(0, underlineViewFrame.origin.y + 4.0f, contentSize.width, 10.0f);
         UILabel *timestamp = [[UILabel alloc] initWithFrame:timestampFrame];
         [timestamp setText:[confession getTimePosted]];
-        [timestamp setFont:[UIFont fontWithName:@"Helvetica" size:8.0f]];
+        [timestamp setFont:[UIFont fontWithName:@"Helvetica" size:10.0f]];
         [timestamp setTextColor:[UIColor whiteColor]];
         [timestamp setBackgroundColor:[UIColor clearColor]];
         [timestamp setTextAlignment:NSTextAlignmentCenter];

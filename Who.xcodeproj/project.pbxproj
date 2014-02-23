@@ -17,6 +17,14 @@
 		3A00168D18BA6DEF00C54059 /* grad-line-large.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A00168B18BA6DEF00C54059 /* grad-line-large.png */; };
 		3A00168E18BA6DEF00C54059 /* grad-line-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A00168C18BA6DEF00C54059 /* grad-line-small.png */; };
 		3A00169018BA705700C54059 /* fav-icon-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A00168F18BA705700C54059 /* fav-icon-active.png */; };
+		3A00169518BA838F00C54059 /* grad-bottom-dark1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A00169118BA838F00C54059 /* grad-bottom-dark1.jpg */; };
+		3A00169618BA838F00C54059 /* grad-bottom-dark2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A00169218BA838F00C54059 /* grad-bottom-dark2.jpg */; };
+		3A00169718BA838F00C54059 /* grad-bottom-light1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A00169318BA838F00C54059 /* grad-bottom-light1.jpg */; };
+		3A00169818BA838F00C54059 /* grad-bottom-light2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A00169418BA838F00C54059 /* grad-bottom-light2.jpg */; };
+		3A00169D18BA839800C54059 /* grad-top-dark1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A00169918BA839800C54059 /* grad-top-dark1.jpg */; };
+		3A00169E18BA839800C54059 /* grad-top-dark2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A00169A18BA839800C54059 /* grad-top-dark2.jpg */; };
+		3A00169F18BA839800C54059 /* grad-top-light1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A00169B18BA839800C54059 /* grad-top-light1.jpg */; };
+		3A0016A018BA839800C54059 /* grad-top-light2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A00169C18BA839800C54059 /* grad-top-light2.jpg */; };
 		3A0FE1C118A99EB2003692EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C018A99EB2003692EB /* QuartzCore.framework */; };
 		3A0FE1C518A9A4C7003692EB /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C418A9A4C7003692EB /* CoreText.framework */; };
 		3A25B6371881E03700166623 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A25B6361881E03700166623 /* Foundation.framework */; };
@@ -282,6 +290,14 @@
 		3A00168B18BA6DEF00C54059 /* grad-line-large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grad-line-large.png"; sourceTree = "<group>"; };
 		3A00168C18BA6DEF00C54059 /* grad-line-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grad-line-small.png"; sourceTree = "<group>"; };
 		3A00168F18BA705700C54059 /* fav-icon-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fav-icon-active.png"; sourceTree = "<group>"; };
+		3A00169118BA838F00C54059 /* grad-bottom-dark1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "grad-bottom-dark1.jpg"; sourceTree = "<group>"; };
+		3A00169218BA838F00C54059 /* grad-bottom-dark2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "grad-bottom-dark2.jpg"; sourceTree = "<group>"; };
+		3A00169318BA838F00C54059 /* grad-bottom-light1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "grad-bottom-light1.jpg"; sourceTree = "<group>"; };
+		3A00169418BA838F00C54059 /* grad-bottom-light2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "grad-bottom-light2.jpg"; sourceTree = "<group>"; };
+		3A00169918BA839800C54059 /* grad-top-dark1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "grad-top-dark1.jpg"; sourceTree = "<group>"; };
+		3A00169A18BA839800C54059 /* grad-top-dark2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "grad-top-dark2.jpg"; sourceTree = "<group>"; };
+		3A00169B18BA839800C54059 /* grad-top-light1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "grad-top-light1.jpg"; sourceTree = "<group>"; };
+		3A00169C18BA839800C54059 /* grad-top-light2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "grad-top-light2.jpg"; sourceTree = "<group>"; };
 		3A0FE1C018A99EB2003692EB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3A0FE1C418A9A4C7003692EB /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		3A25B6331881E03700166623 /* Who.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Who.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1939,6 +1955,14 @@
 		3AF86D3218B5070200033495 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3A00169918BA839800C54059 /* grad-top-dark1.jpg */,
+				3A00169A18BA839800C54059 /* grad-top-dark2.jpg */,
+				3A00169B18BA839800C54059 /* grad-top-light1.jpg */,
+				3A00169C18BA839800C54059 /* grad-top-light2.jpg */,
+				3A00169118BA838F00C54059 /* grad-bottom-dark1.jpg */,
+				3A00169218BA838F00C54059 /* grad-bottom-dark2.jpg */,
+				3A00169318BA838F00C54059 /* grad-bottom-light1.jpg */,
+				3A00169418BA838F00C54059 /* grad-bottom-light2.jpg */,
 				3A00168F18BA705700C54059 /* fav-icon-active.png */,
 				3A00168B18BA6DEF00C54059 /* grad-line-large.png */,
 				3A00168C18BA6DEF00C54059 /* grad-line-small.png */,
@@ -2119,10 +2143,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A00169518BA838F00C54059 /* grad-bottom-dark1.jpg in Resources */,
 				3A3A0B0918AB1126006FBAE4 /* input-field-cover@2x.png in Resources */,
 				3A00167F18B8231000C54059 /* photo-icon.png in Resources */,
 				3A00168A18BA67EE00C54059 /* grad-back-light2.jpg in Resources */,
+				3A00169F18BA839800C54059 /* grad-top-light1.jpg in Resources */,
 				3A3A0AE818AB1126006FBAE4 /* avatar-placeholder.png in Resources */,
+				3A00169D18BA839800C54059 /* grad-top-dark1.jpg in Resources */,
 				3A25B6521881E03700166623 /* Images.xcassets in Resources */,
 				3A3A0B0718AB1126006FBAE4 /* input-bar-background@2x.png in Resources */,
 				3A3A0AE918AB1126006FBAE4 /* avatar-placeholder@2x.png in Resources */,
@@ -2130,15 +2157,19 @@
 				3A3A0B0B18AB1126006FBAE4 /* send-button-pressed@2x.png in Resources */,
 				3A8BCF8418B6FB7B00D4B7CE /* chat-icon.png in Resources */,
 				3AF0B00818B515E500E3D0D3 /* transparent-bg.png in Resources */,
+				3A00169818BA838F00C54059 /* grad-bottom-light2.jpg in Resources */,
 				3A3A0B0A18AB1126006FBAE4 /* send-button-pressed.png in Resources */,
 				3A3A0B1218AB1126006FBAE4 /* message-received.aiff in Resources */,
 				F751016C18ABE8A2001F1E7F /* Settings.bundle in Resources */,
 				3AF19A6E1881F34A00F3E4D3 /* README.txt in Resources */,
+				3A0016A018BA839800C54059 /* grad-top-light2.jpg in Resources */,
 				3A3A0B0818AB1126006FBAE4 /* input-field-cover.png in Resources */,
 				3A3A0B1018AB1126006FBAE4 /* input-bar-flat.png in Resources */,
 				3A3A0B1118AB1126006FBAE4 /* input-bar-flat@2x.png in Resources */,
 				3A3A0B0E18AB1126006FBAE4 /* button-photo.png in Resources */,
+				3A00169718BA838F00C54059 /* grad-bottom-light1.jpg in Resources */,
 				3A3A0B0F18AB1126006FBAE4 /* button-photo@2x.png in Resources */,
+				3A00169E18BA839800C54059 /* grad-top-dark2.jpg in Resources */,
 				3A8BCF8618B6FB8300D4B7CE /* fav-icon.png in Resources */,
 				3A00168D18BA6DEF00C54059 /* grad-line-large.png in Resources */,
 				3AF86D2A18B504CF00033495 /* bubble@2x.png in Resources */,
@@ -2153,6 +2184,7 @@
 				3A3A0B0618AB1126006FBAE4 /* input-bar-background.png in Resources */,
 				3A3A0B1318AB1126006FBAE4 /* message-sent.aiff in Resources */,
 				3A3A0B0D18AB1126006FBAE4 /* send-button@2x.png in Resources */,
+				3A00169618BA838F00C54059 /* grad-bottom-dark2.jpg in Resources */,
 				3A00168918BA67EE00C54059 /* grad-back-light1.jpg in Resources */,
 				3A00168718BA67EE00C54059 /* grad-back-dark1.jpg in Resources */,
 			);

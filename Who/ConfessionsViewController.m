@@ -74,7 +74,7 @@
     Confession *confession = [_confessionsManager getConfessionAtIndex:indexPath.row];
     if (self.cellCache == nil) {
         self.cellCache = [[NSMutableDictionary alloc] initWithCapacity:100];
-    }
+    }   
     ConfessionTableCell *cell = [_cellCache objectForKey:[confession confessionID]];
     if (cell == nil) {
         cell = [[ConfessionTableCell alloc] initWithConfession:confession reuseIdentifier:CellIdentifier];
@@ -95,7 +95,7 @@
     UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:16.0];
     CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
     CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
-    return labelSize.height + 80;
+    return labelSize.height + 60;
 }
 
 - (void)refreshListView {
