@@ -76,6 +76,10 @@
 }
 
 -(NSString *)getTimePosted {
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970: [_createdTimestamp doubleValue]];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterLongStyle];
+    return [formatter stringFromDate:date];
 }
 
 

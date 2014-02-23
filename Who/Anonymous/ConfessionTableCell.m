@@ -97,7 +97,7 @@
         // Configure timestamp
         CGRect timestampFrame = CGRectMake(0, underlineViewFrame.origin.y + 2.0f, contentSize.width, 10.0f);
         UILabel *timestamp = [[UILabel alloc] initWithFrame:timestampFrame];
-        [timestamp setText:@"9:30 pm Feb 21"];
+        [timestamp setText:[confession getTimePosted]];
         [timestamp setFont:[UIFont fontWithName:@"Helvetica" size:8.0f]];
         [timestamp setTextColor:[UIColor whiteColor]];
         [timestamp setBackgroundColor:[UIColor clearColor]];
