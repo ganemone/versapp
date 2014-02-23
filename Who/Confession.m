@@ -58,13 +58,15 @@
     return output;
 }
 
--(void)toggleFavorite {
+-(BOOL)toggleFavorite {
     NSInteger selfIndex;
     NSString *jid = [NSString stringWithFormat:@"%@@%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]];
     if ((selfIndex = [_favoritedUsers indexOfObject:jid]) != NSNotFound) {
         [_favoritedUsers removeObjectAtIndex:selfIndex];
+        return false;
     } else {
         [_favoritedUsers addObject:jid];
+        return true;
     }
 }
 

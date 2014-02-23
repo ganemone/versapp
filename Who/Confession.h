@@ -20,7 +20,7 @@
 
 +(instancetype)create:(NSString*)body imageURL:(NSString*)imageURL confessionID:(NSString*)confessionID createdTimestamp:(NSString*)createdTimestamp favoritedUsers:(NSMutableArray*)favoritedUsers;
 
-- (void)toggleFavorite;
+- (BOOL)toggleFavorite;
 
 - (void)encodeBody;
 
