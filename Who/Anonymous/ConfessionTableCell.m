@@ -48,9 +48,14 @@
         CGRect imageFrame = CGRectMake(cellX, cellY, contentSize.width - 20.0f, cellHeight);
         CGRect textFrame = CGRectMake(cellX + 10.0f, cellY, contentSize.width - 30.0f, cellHeight);
         
+        // Configure Background View
         UIView *backgroundView = [[UIImageView alloc] initWithFrame:imageFrame];
         [backgroundView setBackgroundColor:[UIColor colorWithHue:0.0f saturation:0.0f brightness:0.0f alpha:.30f]];
+        [backgroundView.layer setBorderColor:[UIColor whiteColor].CGColor];
+        [backgroundView.layer setBorderWidth:1.0f];
+        [backgroundView.layer setCornerRadius:5.0f];
         
+        // Configure textview
         UITextView *textView = [[UITextView alloc] initWithFrame:textFrame];
         [textView setBackgroundColor:[UIColor clearColor]];
         [textView setText:[confession body]];
@@ -58,34 +63,56 @@
         [textView setFont:[UIFont fontWithName:@"Helvetica" size:16.0]];
         [textView setEditable:NO];
         
-        CGFloat iconSize = 25.0f;
-        CGRect chatButtonFrame = CGRectMake(cellX + (contentSize.width / 4.0f), cellHeight - iconSize - 5.0f, iconSize, iconSize);
-        CGRect favoriteButtonFrame = CGRectMake(cellX + 3 * (contentSize.width / 4.0f) - 2 * iconSize, cellHeight - iconSize - 5.0f, iconSize, iconSize);
+        
+        // Configure chat and favorite buttons
+        CGFloat iconSize = 20.0f;
+        CGFloat padding = 15.0f;
+        
+        CGRect chatButtonFrame = CGRectMake(cellX + 5.0f, cellHeight - iconSize - 5.0f, iconSize, iconSize);
+        CGRect favoriteButtonFrame = CGRectMake(contentSize.width - iconSize - padding, cellHeight - iconSize - 5.0f, iconSize, iconSize);
         UIButton *chatBtn = [[UIButton alloc] initWithFrame:chatButtonFrame];
         UIButton *favoriteBtn = [[UIButton alloc] initWithFrame:favoriteButtonFrame];
         [chatBtn setImage:[UIImage imageNamed:@"chat-icon.png"] forState:UIControlStateNormal];
         [favoriteBtn setImage:[UIImage imageNamed:@"fav-icon.png"] forState:UIControlStateNormal];
         
-        CGRect favoriteLabelFrame = CGRectMake(favoriteButtonFrame.origin.x + iconSize + 10.0f, favoriteButtonFrame.origin.y, iconSize, iconSize);
+        // Configure gradient underline
+        CGRect underlineViewFrame = CGRectMake(iconSize + padding, chatButtonFrame.origin.y + iconSize / 2, contentSize.width - (2.0f * iconSize) - 2 * padding, 1.0f);
+        UIImageView *underlineView = [[UIImageView alloc] initWithFrame:underlineViewFrame];
+        [underlineView setImage:[UIImage imageNamed:@"grad-line-small.png"]];
+        
+        // Configure favorite label
+        CGRect favoriteLabelFrame = CGRectMake(favoriteButtonFrame.origin.x - iconSize/2.5f, favoriteButtonFrame.origin.y + iconSize/2.5f, iconSize, iconSize);
         UILabel *label = [[UILabel alloc] initWithFrame:favoriteLabelFrame];
         [label setTextColor:[UIColor whiteColor]];
         [label setText:[NSString stringWithFormat:@"%d", [[confession favoritedUsers] count]]];
-        
+        [label setFont:[UIFont fontWithName:@"Helvetica" size:8.0f]];
         if ([confession isFavoritedByConnectedUser]) {
-            [favoriteBtn setBackgroundColor:[UIColor blackColor]];
+            [favoriteBtn setImage:[UIImage imageNamed:@"fav-icon-active.png"] forState:UIControlStateNormal];
         } else {
-            [favoriteBtn setBackgroundColor:[UIColor clearColor]];
+            [favoriteBtn setImage:[UIImage imageNamed:@"fav-icon.png"] forState:UIControlStateNormal];
         }
-        
         [favoriteBtn addTarget:self action:@selector(handleConfessionFavorited:) forControlEvents:UIControlEventTouchUpInside];
         [chatBtn addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
         
+        // Configure timestamp
+        CGRect timestampFrame = CGRectMake(0, underlineViewFrame.origin.y + 2.0f, contentSize.width, 10.0f);
+        UILabel *timestamp = [[UILabel alloc] initWithFrame:timestampFrame];
+        [timestamp setText:@"9:30 pm Feb 21"];
+        [timestamp setFont:[UIFont fontWithName:@"Helvetica" size:8.0f]];
+        [timestamp setTextColor:[UIColor whiteColor]];
+        [timestamp setBackgroundColor:[UIColor clearColor]];
+        [timestamp setTextAlignment:NSTextAlignmentCenter];
+        
+        // Add subviews
         [self.contentView addSubview:backgroundView];
         [self.contentView addSubview:textView];
         [self.contentView addSubview:chatBtn];
         [self.contentView addSubview:favoriteBtn];
         [self.contentView addSubview:label];
+        [self.contentView addSubview:underlineView];
+        [self.contentView addSubview:timestamp];
         
+        // Store variables
         _confessionText = textView;
         _transparentBackgroundView = backgroundView;
         _confession = confession;
@@ -102,7 +129,7 @@
     UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:16.0];
     CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
     CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
-    return labelSize.height + 50.0f;
+    return labelSize.height + 40.0f;
 }
 
 -(void)handleConfessionFavorited:(id)sender {
@@ -111,11 +138,10 @@
     BOOL isFavorited = [_confession toggleFavorite];
     NSLog(@"Is Favorited... %d", [_confession isFavoritedByConnectedUser]);
     if (isFavorited) {
-        [_favoriteButton setBackgroundColor:[UIColor blackColor]];
+        [_favoriteButton setImage:[UIImage imageNamed:@"fav-icon-active.png"] forState:UIControlStateNormal];
     } else {
-        [_favoriteButton setBackgroundColor:[UIColor clearColor]];
+        [_favoriteButton setImage:[UIImage imageNamed:@"fav-icon.png"] forState:UIControlStateNormal];
     }
-    
     [_favoriteCountLabel setText:[NSString stringWithFormat:@"%d", [[_confession favoritedUsers] count]]];
     ConfessionsManager *confessionsManager = [ConfessionsManager getInstance];
     [confessionsManager updateConfession:_confession];

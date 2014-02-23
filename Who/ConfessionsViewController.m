@@ -25,7 +25,7 @@
     [super viewDidLoad];
     self.confessionsManager = [ConfessionsManager getInstance];
     
-    UIImage *image = [UIImage imageNamed:@"grad-back-dark1.jpg"];
+    UIImage *image = [UIImage imageNamed:@"grad-back-light2.jpg"];
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
     [backgroundImageView setImage:image];
     

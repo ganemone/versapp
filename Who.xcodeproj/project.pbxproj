@@ -14,6 +14,9 @@
 		3A00168818BA67EE00C54059 /* grad-back-dark2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A00168418BA67EE00C54059 /* grad-back-dark2.jpg */; };
 		3A00168918BA67EE00C54059 /* grad-back-light1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A00168518BA67EE00C54059 /* grad-back-light1.jpg */; };
 		3A00168A18BA67EE00C54059 /* grad-back-light2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A00168618BA67EE00C54059 /* grad-back-light2.jpg */; };
+		3A00168D18BA6DEF00C54059 /* grad-line-large.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A00168B18BA6DEF00C54059 /* grad-line-large.png */; };
+		3A00168E18BA6DEF00C54059 /* grad-line-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A00168C18BA6DEF00C54059 /* grad-line-small.png */; };
+		3A00169018BA705700C54059 /* fav-icon-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A00168F18BA705700C54059 /* fav-icon-active.png */; };
 		3A0FE1C118A99EB2003692EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C018A99EB2003692EB /* QuartzCore.framework */; };
 		3A0FE1C518A9A4C7003692EB /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C418A9A4C7003692EB /* CoreText.framework */; };
 		3A25B6371881E03700166623 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A25B6361881E03700166623 /* Foundation.framework */; };
@@ -276,6 +279,9 @@
 		3A00168418BA67EE00C54059 /* grad-back-dark2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "grad-back-dark2.jpg"; sourceTree = "<group>"; };
 		3A00168518BA67EE00C54059 /* grad-back-light1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "grad-back-light1.jpg"; sourceTree = "<group>"; };
 		3A00168618BA67EE00C54059 /* grad-back-light2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "grad-back-light2.jpg"; sourceTree = "<group>"; };
+		3A00168B18BA6DEF00C54059 /* grad-line-large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grad-line-large.png"; sourceTree = "<group>"; };
+		3A00168C18BA6DEF00C54059 /* grad-line-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grad-line-small.png"; sourceTree = "<group>"; };
+		3A00168F18BA705700C54059 /* fav-icon-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fav-icon-active.png"; sourceTree = "<group>"; };
 		3A0FE1C018A99EB2003692EB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3A0FE1C418A9A4C7003692EB /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		3A25B6331881E03700166623 /* Who.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Who.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1933,6 +1939,9 @@
 		3AF86D3218B5070200033495 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3A00168F18BA705700C54059 /* fav-icon-active.png */,
+				3A00168B18BA6DEF00C54059 /* grad-line-large.png */,
+				3A00168C18BA6DEF00C54059 /* grad-line-small.png */,
 				3A00168318BA67EE00C54059 /* grad-back-dark1.jpg */,
 				3A00168418BA67EE00C54059 /* grad-back-dark2.jpg */,
 				3A00168518BA67EE00C54059 /* grad-back-light1.jpg */,
@@ -2131,13 +2140,16 @@
 				3A3A0B0E18AB1126006FBAE4 /* button-photo.png in Resources */,
 				3A3A0B0F18AB1126006FBAE4 /* button-photo@2x.png in Resources */,
 				3A8BCF8618B6FB8300D4B7CE /* fav-icon.png in Resources */,
+				3A00168D18BA6DEF00C54059 /* grad-line-large.png in Resources */,
 				3AF86D2A18B504CF00033495 /* bubble@2x.png in Resources */,
+				3A00168E18BA6DEF00C54059 /* grad-line-small.png in Resources */,
 				3A00168818BA67EE00C54059 /* grad-back-dark2.jpg in Resources */,
 				3AF0B00A18B54E9000E3D0D3 /* bottom-section.png in Resources */,
 				3A3A0B0C18AB1126006FBAE4 /* send-button.png in Resources */,
 				3AF86D2918B504CF00033495 /* bubble.png in Resources */,
 				3A00167E18B8231000C54059 /* message-icon.png in Resources */,
 				3A25B64A1881E03700166623 /* Main.storyboard in Resources */,
+				3A00169018BA705700C54059 /* fav-icon-active.png in Resources */,
 				3A3A0B0618AB1126006FBAE4 /* input-bar-background.png in Resources */,
 				3A3A0B1318AB1126006FBAE4 /* message-sent.aiff in Resources */,
 				3A3A0B0D18AB1126006FBAE4 /* send-button@2x.png in Resources */,

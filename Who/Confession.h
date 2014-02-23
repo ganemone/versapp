@@ -28,4 +28,6 @@
 
 - (BOOL)isFavoritedByConnectedUser;
 
+- (NSString*)getTimePosted;
+
 @end

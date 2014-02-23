@@ -75,5 +75,8 @@
     return [_favoritedUsers containsObject:jid];
 }
 
+-(NSString *)getTimePosted {
+}
+
 
 @end

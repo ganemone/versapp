@@ -86,6 +86,9 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"ChatCellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    [cell.textLabel setTextColor:[UIColor whiteColor]];
+    [cell.detailTextLabel setTextColor:[UIColor whiteColor]];
+    
     if(indexPath.section == 0) {
         GroupChatManager *gcm = [GroupChatManager getInstance];
         GroupChat *muc = [gcm getChatByIndex:indexPath.row];
