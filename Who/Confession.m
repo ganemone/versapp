@@ -70,5 +70,10 @@
     }
 }
 
+- (BOOL)isFavoritedByConnectedUser {
+    NSString *jid = [NSString stringWithFormat:@"%@@%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]];
+    return [_favoritedUsers containsObject:jid];
+}
+
 
 @end

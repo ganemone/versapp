@@ -26,5 +26,6 @@
 
 - (void)decodeBody;
 
+- (BOOL)isFavoritedByConnectedUser;
 
 @end

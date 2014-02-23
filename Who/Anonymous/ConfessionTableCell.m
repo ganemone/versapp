@@ -71,6 +71,11 @@
         [label setTextColor:[UIColor whiteColor]];
         [label setText:[NSString stringWithFormat:@"%d", [[confession favoritedUsers] count]]];
         
+        if ([confession isFavoritedByConnectedUser]) {
+            [favoriteBtn setBackgroundColor:[UIColor blackColor]];
+        } else {
+            [favoriteBtn setBackgroundColor:[UIColor clearColor]];
+        }
         
         [favoriteBtn addTarget:self action:@selector(handleConfessionFavorited:) forControlEvents:UIControlEventTouchUpInside];
         [chatBtn addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
@@ -104,6 +109,7 @@
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createToggleFavoriteConfessionPacket:[_confession confessionID]]];
     
     BOOL isFavorited = [_confession toggleFavorite];
+    NSLog(@"Is Favorited... %d", [_confession isFavoritedByConnectedUser]);
     if (isFavorited) {
         [_favoriteButton setBackgroundColor:[UIColor blackColor]];
     } else {
@@ -125,5 +131,6 @@
 
     // Configure the view for the selected state
 }
+
 
 @end
