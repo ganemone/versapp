@@ -53,7 +53,7 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    self.cellCache = nil;
 }
 
 #pragma mark - Table view data source
@@ -72,6 +72,9 @@
 {
     static NSString *CellIdentifier = @"BasicConfessionCell";
     Confession *confession = [_confessionsManager getConfessionAtIndex:indexPath.row];
+    if (self.cellCache == nil) {
+        self.cellCache = [[NSMutableDictionary alloc] initWithCapacity:100];
+    }
     ConfessionTableCell *cell = [_cellCache objectForKey:[confession confessionID]];
     if (cell == nil) {
         cell = [[ConfessionTableCell alloc] initWithConfession:confession reuseIdentifier:CellIdentifier];
