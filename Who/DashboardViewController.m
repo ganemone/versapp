@@ -34,7 +34,7 @@
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:PACKET_ID_GET_VCARD object:nil];
     
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
-    [backgroundImageView setImage:[UIImage imageNamed:@"background-confessions.jpg"]];
+    [backgroundImageView setImage:[UIImage imageNamed:@"grad-back-light2.jpg"]];
     [self.tableView setBackgroundView:backgroundImageView];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     

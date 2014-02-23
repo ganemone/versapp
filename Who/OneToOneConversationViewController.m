@@ -22,6 +22,15 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceived:) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
     
+    UIImage *image = [UIImage imageNamed:@"grad-back-light1.jpg"];
+    UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
+    [backgroundImageView setImage:image];
+    
+    [self.tableView setBackgroundView:backgroundImageView];
+    [self.tableView setBackgroundColor:nil];
+    [self.tableView setOpaque:YES];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    
     self.navigationItem.title = self.chat.name;
     self.delegate = self;
     self.dataSource = self;

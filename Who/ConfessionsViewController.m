@@ -25,7 +25,7 @@
     [super viewDidLoad];
     self.confessionsManager = [ConfessionsManager getInstance];
     
-    UIImage *image = [UIImage imageNamed:@"background-messages.jpg"];
+    UIImage *image = [UIImage imageNamed:@"grad-back-dark1.jpg"];
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
     [backgroundImageView setImage:image];
     
@@ -60,7 +60,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"BasicConfessionCell";
-    Confession *confession = [_confessionsManager getConfessionAtIndex:indexPath.row];
+    Confession *confession = [_confessionsManager getConfessionAtIndex:indexPath.row]; 
 
     ConfessionTableCell *cell = [[ConfessionTableCell alloc] initWithConfession:confession reuseIdentifier:CellIdentifier];
     
