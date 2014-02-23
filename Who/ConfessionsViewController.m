@@ -48,6 +48,7 @@
     self.gradLineSmall = [UIImage imageNamed:@"grad-line-small.png"];
     self.chatIcon = [UIImage imageNamed:@"chat-icon.png"];
     
+    [self.bottomView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"grad-bottom-light2.jpg"]]];
 }
 
 - (void)didReceiveMemoryWarning

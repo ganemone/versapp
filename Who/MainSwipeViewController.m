@@ -85,6 +85,15 @@
 
 -(UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
     int index = [self indexForViewController:viewController] + 1;
+    if (index == 0) {
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-dark1.jpg"] forBarMetrics:UIBarMetricsDefault];
+    } else if (index == 1) {
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-dark1.jpg"] forBarMetrics:UIBarMetricsDefault];
+    } else if (index == 2) {
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-dark2.jpg"] forBarMetrics:UIBarMetricsDefault];
+    } else if (index == 3) {
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-dark1.jpg"] forBarMetrics:UIBarMetricsDefault];
+    }
     return [self viewControllerAtIndex:index];
 }
 
