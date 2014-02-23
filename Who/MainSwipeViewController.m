@@ -40,6 +40,16 @@
     
     [self.navigationController setDelegate:self];
     
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor clearColor]];
+    [self.navigationController.navigationBar setOpaque:YES];
+    [self setTitle:@"Messages"];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-messages.jpg"] forBarMetrics:UIBarMetricsDefault];
+    NSDictionary *navbarTitleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                               [UIColor whiteColor],UITextAttributeTextColor,
+                                               [UIColor blackColor], UITextAttributeTextShadowColor,
+                                               [NSValue valueWithUIOffset:UIOffsetMake(-1, 0)], UITextAttributeTextShadowOffset, nil];
+    [self.navigationController.navigationBar setTitleTextAttributes:navbarTitleTextAttributes];
+    
     self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:STORYBOARD_ID_PAGE_VIEW_CONTROLLER];
     self.pageViewController.dataSource = self;
     self.pageViewController.delegate = self;
@@ -80,19 +90,38 @@
 
 -(UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
     int index = [self indexForViewController:viewController] - 1;
+    NSLog(@"View Controller Before: %d", index);
+    if (index == 0) {
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-confessions.jpg"] forBarMetrics:UIBarMetricsDefault];
+        [self setTitle:@"Confessions"];
+    } else if (index == 1) {
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-dark1.jpg"] forBarMetrics:UIBarMetricsDefault];
+        [self setTitle:@"Friends"];
+    } else if (index == 2) {
+        [self setTitle:@"Invite"];
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-confessions.jpg"] forBarMetrics:UIBarMetricsDefault];
+    } else {
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-messages.jpg"] forBarMetrics:UIBarMetricsDefault];
+        [self setTitle:@"Messages"];
+    }
     return [self viewControllerAtIndex:index];
 }
 
 -(UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
     int index = [self indexForViewController:viewController] + 1;
-    if (index == 0) {
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-dark1.jpg"] forBarMetrics:UIBarMetricsDefault];
-    } else if (index == 1) {
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-dark1.jpg"] forBarMetrics:UIBarMetricsDefault];
+    NSLog(@"View Controller After Index: %d", index);
+    if (index == 1) {
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-messages.jpg"] forBarMetrics:UIBarMetricsDefault];
+        [self setTitle:@"Messages"];
     } else if (index == 2) {
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-dark2.jpg"] forBarMetrics:UIBarMetricsDefault];
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-confessions.jpg"] forBarMetrics:UIBarMetricsDefault];
+        [self setTitle:@"Confessions"];
     } else if (index == 3) {
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-dark1.jpg"] forBarMetrics:UIBarMetricsDefault];
+        [self setTitle:@"Friends"];
+    } else {
+        [self setTitle:@"Invite"];
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-confessions.jpg"] forBarMetrics:UIBarMetricsDefault];
     }
     return [self viewControllerAtIndex:index];
 }

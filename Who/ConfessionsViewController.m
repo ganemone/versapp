@@ -30,7 +30,7 @@
     [super viewDidLoad];
     self.confessionsManager = [ConfessionsManager getInstance];
     
-    UIImage *image = [UIImage imageNamed:@"grad-back-light2.jpg"];
+    UIImage *image = [UIImage imageNamed:@"grad-back-confessions.jpg"];
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
     [backgroundImageView setImage:image];
     
@@ -48,7 +48,7 @@
     self.gradLineSmall = [UIImage imageNamed:@"grad-line-small.png"];
     self.chatIcon = [UIImage imageNamed:@"chat-icon.png"];
     
-    [self.bottomView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"grad-bottom-light2.jpg"]]];
+    [self.bottomView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"grad-bottom-confessions.jpg"]]];
 }
 
 - (void)didReceiveMemoryWarning
