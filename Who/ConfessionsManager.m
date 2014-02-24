@@ -24,7 +24,7 @@ static ConfessionsManager *selfInstance;
 }
 
 -(int)getNumberOfConfessions {
-    return [_confessions count];
+    return (int)[_confessions count];
 }
 
 -(Confession *)getConfessionAtIndex:(int)index {

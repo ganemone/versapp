@@ -29,6 +29,8 @@
 
 - (BOOL)isFavoritedByConnectedUser;
 
+- (BOOL)isPostedByConnectedUser;
+
 - (NSString*)getTimePosted;
 
 - (void)startChat;

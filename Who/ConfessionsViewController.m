@@ -72,7 +72,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"BasicConfessionCell";
-    Confession *confession = [_confessionsManager getConfessionAtIndex:indexPath.row];
+    Confession *confession = [_confessionsManager getConfessionAtIndex:(int)indexPath.row];
     if (self.cellCache == nil) {
         self.cellCache = [[NSMutableDictionary alloc] initWithCapacity:100];
     }   
@@ -92,7 +92,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *cellText = [[[self confessionsManager] getConfessionAtIndex:indexPath.row] body];
+    NSString *cellText = [[[self confessionsManager] getConfessionAtIndex:(int)indexPath.row] body];
     UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:16.0];
     CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
     CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];

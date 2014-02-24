@@ -81,7 +81,7 @@
         CGRect favoriteLabelFrame = CGRectMake(favoriteButtonFrame.origin.x - iconSize/2.5f, favoriteButtonFrame.origin.y + iconSize/2.5f, iconSize, iconSize);
         UILabel *label = [[UILabel alloc] initWithFrame:favoriteLabelFrame];
         [label setTextColor:[UIColor whiteColor]];
-        [label setText:[NSString stringWithFormat:@"%d", [[confession favoritedUsers] count]]];
+        [label setText:[NSString stringWithFormat:@"%lu", (unsigned long)[[confession favoritedUsers] count]]];
         [label setFont:[UIFont fontWithName:@"Helvetica" size:8.0f]];
 
         [favoriteBtn addTarget:self action:@selector(handleConfessionFavorited:) forControlEvents:UIControlEventTouchUpInside];
@@ -99,7 +99,9 @@
         // Add subviews
         [self.contentView addSubview:backgroundView];
         [self.contentView addSubview:textView];
-        [self.contentView addSubview:chatBtn];
+        if ([confession isPostedByConnectedUser] == NO) {
+            [self.contentView addSubview:chatBtn];
+        }
         [self.contentView addSubview:favoriteBtn];
         [self.contentView addSubview:label];
         [self.contentView addSubview:underlineView];
@@ -136,13 +138,15 @@
     } else {
         [_favoriteButton setImage:[UIImage imageNamed:@"fav-icon.png"] forState:UIControlStateNormal];
     }
-    [_favoriteCountLabel setText:[NSString stringWithFormat:@"%d", [[_confession favoritedUsers] count]]];
+    [_favoriteCountLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)[[_confession favoritedUsers] count]]];
     ConfessionsManager *confessionsManager = [ConfessionsManager getInstance];
     [confessionsManager updateConfession:_confession];
 }
 
 -(void)handleConfessionChatStarted:(id)sender {
     NSLog(@"Handling Confession Chat Started: %@", [_confession confessionID]);
+    NSLog(@"Confession JID: %@", _confession.posterJID);
+    [_confession startChat];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

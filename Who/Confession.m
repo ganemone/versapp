@@ -43,7 +43,7 @@
 - (NSString *)urlencode:(NSString*)stringToEncode {
     NSMutableString *output = [NSMutableString string];
     const unsigned char *source = (const unsigned char *)[stringToEncode UTF8String];
-    int sourceLen = strlen((const char *)source);
+    int sourceLen = (int)strlen((const char *)source);
     for (int i = 0; i < sourceLen; ++i) {
         const unsigned char thisChar = source[i];
         if (thisChar == ' '){
@@ -75,6 +75,11 @@
 - (BOOL)isFavoritedByConnectedUser {
     NSString *jid = [NSString stringWithFormat:@"%@@%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]];
     return [_favoritedUsers containsObject:jid];
+}
+
+- (BOOL)isPostedByConnectedUser {
+    NSString *jid = [NSString stringWithFormat:@"%@@%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]];
+    return ([_posterJID compare:jid] == 0);
 }
 
 -(NSString *)getTimePosted {

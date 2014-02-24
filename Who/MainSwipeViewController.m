@@ -163,7 +163,7 @@
             if ([[childViewControllers objectAtIndex:i] isKindOfClass:[ConfessionsViewController class]]) {
                 viewController = [childViewControllers objectAtIndex:i];
                 [viewController.tableView reloadData];
-                i = [childViewControllers count];
+                i = (int)[childViewControllers count];
             }
         }
     }
