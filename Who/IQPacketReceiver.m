@@ -182,9 +182,6 @@
             [values addObject:[packetXML substringWithRange:[match rangeAtIndex:i]]];
         
         NSDictionary *pendingChats = [NSDictionary dictionaryWithObjects:values forKeys:keys];
-        //count++;
-        //NSString *keyName = [NSString stringWithFormat:@"notification%i", count];
-        //[allNotifications setObject:pendingChats forKey:keyName];
         [allNotifications addObject:pendingChats];
     }
     
@@ -192,10 +189,6 @@
     groupChat.pending = allNotifications;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_PENDING_CHATS object:nil];
-    
-    NSLog(@"IQPacketReceiver set %d notifications", [groupChat.pending count]);
-    
-    //[[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_PENDING_CHATS object:nil userInfo:allNotifications];
 }
 
 +(NSString*)getPacketXMLWithoutNewLines:(XMPPIQ *)iq {

@@ -19,6 +19,9 @@
         NSLog(@"Name Space: %@", [[namespaces objectAtIndex:i] description]);
     }
     
+    // -----------------
+    // Group Was Created
+    // -----------------
     NSError *error;
     NSRegularExpression *createGroupRegex = [NSRegularExpression regularExpressionWithPattern:@"<presence.xmlns=\"jabber:client\".from=\"(.*?)@.*?\".to=\"(.*?)\"><x xmlns=\"(.*?)\"><item.jid=\"(.*?)\".affiliation=\"owner\".role=\"moderator\"\\/><status.code=\"201\"\\/><\\/x><\\/presence>" options:NSRegularExpressionCaseInsensitive error:&error];
     NSTextCheckingResult *match = [createGroupRegex firstMatchInString:presence.XMLString options:0 range:NSMakeRange(0, presence.XMLString.length)];
@@ -33,6 +36,12 @@
             [gc invitePendingParticpants];
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CREATED_MUC object:nil];
         }
+    }
+    // -----------------------
+    // Handle Friend Request
+    // -----------------------
+    else {
+        NSLog(@"Friend Request Presence: %@", presence.XMLString);
     }
 }
 

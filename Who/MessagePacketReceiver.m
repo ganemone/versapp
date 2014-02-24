@@ -84,8 +84,6 @@
         } else {
             [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:receiverID];
         }
-        
-        NSLog(@"Found Message of type group");
         NSDictionary *messageDictionary = [NSDictionary dictionaryWithObject:groupID forKey:MESSAGE_PROPERTY_GROUP_ID];
         GroupChatManager *gcm = [GroupChatManager getInstance];
         GroupChat *gc = [gcm getChat:groupID];
@@ -98,9 +96,7 @@
         }
         
     } else if([message.type compare:CHAT_TYPE_ONE_TO_ONE] == 0) {
-        NSLog(@"Found message of type chat");
-        NSLog(@"Message Thread: %@", message.thread);
-        
+
         if (imageLink != nil) {
             [MessagesDBManager insert:message.body groupID:message.thread time:timestamp senderID:senderID receiverID:receiverID imageLink:imageLink];
         } else {
