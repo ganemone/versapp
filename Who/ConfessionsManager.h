@@ -11,8 +11,9 @@
 
 @interface ConfessionsManager : NSObject
 
-@property NSMutableDictionary *confessions;
-@property NSMutableArray *confessionIDValues;
+@property (strong, nonatomic) NSMutableDictionary *confessions;
+@property (strong, nonatomic) NSMutableArray *confessionIDValues;
+@property (strong, nonatomic) Confession *pendingConfession;
 
 +(instancetype)getInstance;
 
@@ -23,5 +24,9 @@
 -(Confession*)getConfessionWithID:(NSString*)confessionID;
 
 -(void)addConfession:(Confession*)confession;
+
+-(void)updateConfession:(Confession*)confession;
+
+-(void)updatePendingConfession:(NSString*)confessionID timestamp:(NSString*)timestamp;
 
 @end

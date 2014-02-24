@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A00167E18B8231000C54059 /* message-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A00167C18B8231000C54059 /* message-icon.png */; };
+		3A00167F18B8231000C54059 /* photo-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A00167D18B8231000C54059 /* photo-icon.png */; };
+		3A00168218B82BB200C54059 /* ComposeConfessionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A00168118B82BB200C54059 /* ComposeConfessionViewController.m */; };
 		3A0FE1C118A99EB2003692EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C018A99EB2003692EB /* QuartzCore.framework */; };
 		3A0FE1C518A9A4C7003692EB /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C418A9A4C7003692EB /* CoreText.framework */; };
-		3A15896A18B1996B007CCA67 /* ConversationImageExpandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A15896918B1996B007CCA67 /* ConversationImageExpandViewController.m */; };
 		3A25B6371881E03700166623 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A25B6361881E03700166623 /* Foundation.framework */; };
 		3A25B6391881E03700166623 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A25B6381881E03700166623 /* CoreGraphics.framework */; };
 		3A25B63B1881E03700166623 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A25B63A1881E03700166623 /* UIKit.framework */; };
@@ -168,6 +170,8 @@
 		3A8BCF7918B5964400D4B7CE /* ConfessionsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BCF7818B5964400D4B7CE /* ConfessionsManager.m */; };
 		3A8BCF7F18B59C5400D4B7CE /* Confession.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BCF7E18B59C5400D4B7CE /* Confession.m */; };
 		3A8BCF8218B6DFBB00D4B7CE /* ConfessionTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BCF8118B6DFBB00D4B7CE /* ConfessionTableCell.m */; };
+		3A8BCF8418B6FB7B00D4B7CE /* chat-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A8BCF8318B6FB7B00D4B7CE /* chat-icon.png */; };
+		3A8BCF8618B6FB8300D4B7CE /* fav-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A8BCF8518B6FB8300D4B7CE /* fav-icon.png */; };
 		3A939633189C876A004B01CE /* ChatParticipantVCardBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A939632189C876A004B01CE /* ChatParticipantVCardBuffer.m */; };
 		3AAE9B1718945710003B4560 /* OneToOneChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAE9B1618945710003B4560 /* OneToOneChatManager.m */; };
 		3AAE9B1A1894A049003B4560 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAE9B191894A049003B4560 /* ConversationViewController.m */; };
@@ -223,13 +227,9 @@
 		3AF5113D1885D79E002383D3 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF5113C1885D79E002383D3 /* Constants.m */; };
 		3AF86D2918B504CF00033495 /* bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF86D2718B504CF00033495 /* bubble.png */; };
 		3AF86D2A18B504CF00033495 /* bubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF86D2818B504CF00033495 /* bubble@2x.png */; };
-		3AF86D2E18B506F500033495 /* background-confessions.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3AF86D2B18B506F500033495 /* background-confessions.jpg */; };
-		3AF86D2F18B506F500033495 /* background-friends.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3AF86D2C18B506F500033495 /* background-friends.jpg */; };
-		3AF86D3018B506F500033495 /* background-messages.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3AF86D2D18B506F500033495 /* background-messages.jpg */; };
 		3AFFC93D18A06AE3009D7F13 /* db.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC93B18A06AE3009D7F13 /* db.xcdatamodeld */; };
 		3AFFC94018A06B95009D7F13 /* MessageMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC93F18A06B95009D7F13 /* MessageMO.m */; };
 		3AFFC94318A06BA9009D7F13 /* FriendMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC94218A06BA9009D7F13 /* FriendMO.m */; };
-		F740906E18B43EB800F44E40 /* Pixate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F740906D18B43EB800F44E40 /* Pixate.framework */; };
 		F751015D18ABE101001F1E7F /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751013F18ABE100001F1E7F /* IASKAppSettingsViewController.m */; };
 		F751015E18ABE101001F1E7F /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751014118ABE100001F1E7F /* IASKAppSettingsWebViewController.m */; };
 		F751015F18ABE101001F1E7F /* IASKSpecifierValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751014318ABE100001F1E7F /* IASKSpecifierValuesViewController.m */; };
@@ -250,7 +250,6 @@
 		F751018D18AE8D5E001F1E7F /* PrivacyPolicyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751018C18AE8D5E001F1E7F /* PrivacyPolicyViewController.m */; };
 		F751019018AE8D6F001F1E7F /* TermsOfUseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751018F18AE8D6F001F1E7F /* TermsOfUseViewController.m */; };
 		F751019718B134DE001F1E7F /* ChangeEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751019618B134DE001F1E7F /* ChangeEmailViewController.m */; };
-		F77B1F6B18B6F394009DB1E8 /* Pixate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77B1F6A18B6F394009DB1E8 /* Pixate.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -264,10 +263,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A00167C18B8231000C54059 /* message-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message-icon.png"; sourceTree = "<group>"; };
+		3A00167D18B8231000C54059 /* photo-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo-icon.png"; sourceTree = "<group>"; };
+		3A00168018B82BB200C54059 /* ComposeConfessionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeConfessionViewController.h; sourceTree = "<group>"; };
+		3A00168118B82BB200C54059 /* ComposeConfessionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeConfessionViewController.m; sourceTree = "<group>"; };
 		3A0FE1C018A99EB2003692EB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3A0FE1C418A9A4C7003692EB /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		3A15896818B1996B007CCA67 /* ConversationImageExpandViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationImageExpandViewController.h; sourceTree = "<group>"; };
-		3A15896918B1996B007CCA67 /* ConversationImageExpandViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationImageExpandViewController.m; sourceTree = "<group>"; };
 		3A25B6331881E03700166623 /* Who.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Who.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A25B6361881E03700166623 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3A25B6381881E03700166623 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -561,6 +562,8 @@
 		3A8BCF7E18B59C5400D4B7CE /* Confession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Confession.m; sourceTree = "<group>"; };
 		3A8BCF8018B6DFBB00D4B7CE /* ConfessionTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConfessionTableCell.h; path = Anonymous/ConfessionTableCell.h; sourceTree = "<group>"; };
 		3A8BCF8118B6DFBB00D4B7CE /* ConfessionTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConfessionTableCell.m; path = Anonymous/ConfessionTableCell.m; sourceTree = "<group>"; };
+		3A8BCF8318B6FB7B00D4B7CE /* chat-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-icon.png"; sourceTree = "<group>"; };
+		3A8BCF8518B6FB8300D4B7CE /* fav-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fav-icon.png"; sourceTree = "<group>"; };
 		3A939631189C876A004B01CE /* ChatParticipantVCardBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatParticipantVCardBuffer.h; sourceTree = "<group>"; };
 		3A939632189C876A004B01CE /* ChatParticipantVCardBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatParticipantVCardBuffer.m; sourceTree = "<group>"; };
 		3AAE9B1518945710003B4560 /* OneToOneChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneToOneChatManager.h; sourceTree = "<group>"; };
@@ -670,15 +673,11 @@
 		3AF5113C1885D79E002383D3 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		3AF86D2718B504CF00033495 /* bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bubble.png; sourceTree = "<group>"; };
 		3AF86D2818B504CF00033495 /* bubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble@2x.png"; sourceTree = "<group>"; };
-		3AF86D2B18B506F500033495 /* background-confessions.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background-confessions.jpg"; sourceTree = "<group>"; };
-		3AF86D2C18B506F500033495 /* background-friends.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background-friends.jpg"; sourceTree = "<group>"; };
-		3AF86D2D18B506F500033495 /* background-messages.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background-messages.jpg"; sourceTree = "<group>"; };
 		3AFFC93C18A06AE3009D7F13 /* db.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = db.xcdatamodel; sourceTree = "<group>"; };
 		3AFFC93E18A06B95009D7F13 /* MessageMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageMO.h; sourceTree = "<group>"; };
 		3AFFC93F18A06B95009D7F13 /* MessageMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageMO.m; sourceTree = "<group>"; };
 		3AFFC94118A06BA9009D7F13 /* FriendMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendMO.h; sourceTree = "<group>"; };
 		3AFFC94218A06BA9009D7F13 /* FriendMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendMO.m; sourceTree = "<group>"; };
-		F740906D18B43EB800F44E40 /* Pixate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Pixate.framework; sourceTree = "<group>"; };
 		F751013E18ABE100001F1E7F /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsViewController.h; sourceTree = "<group>"; };
 		F751013F18ABE100001F1E7F /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsViewController.m; sourceTree = "<group>"; };
 		F751014018ABE100001F1E7F /* IASKAppSettingsWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsWebViewController.h; sourceTree = "<group>"; };
@@ -719,7 +718,6 @@
 		F751018F18AE8D6F001F1E7F /* TermsOfUseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsOfUseViewController.m; sourceTree = "<group>"; };
 		F751019518B134DE001F1E7F /* ChangeEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeEmailViewController.h; sourceTree = "<group>"; };
 		F751019618B134DE001F1E7F /* ChangeEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeEmailViewController.m; sourceTree = "<group>"; };
-		F77B1F6A18B6F394009DB1E8 /* Pixate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Pixate.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -736,9 +734,7 @@
 				3AF19A4E1881F11800F3E4D3 /* Security.framework in Frameworks */,
 				3AF19A4C1881F10B00F3E4D3 /* CFNetwork.framework in Frameworks */,
 				3A25B6391881E03700166623 /* CoreGraphics.framework in Frameworks */,
-				F77B1F6B18B6F394009DB1E8 /* Pixate.framework in Frameworks */,
 				3AF19A731881F67300F3E4D3 /* libidn.a in Frameworks */,
-				F740906E18B43EB800F44E40 /* Pixate.framework in Frameworks */,
 				3A25B63B1881E03700166623 /* UIKit.framework in Frameworks */,
 				3A25B6371881E03700166623 /* Foundation.framework in Frameworks */,
 			);
@@ -788,8 +784,6 @@
 		3A25B6351881E03700166623 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F77B1F6A18B6F394009DB1E8 /* Pixate.framework */,
-				F740906D18B43EB800F44E40 /* Pixate.framework */,
 				3A59D5F018B2F32200CE7B7B /* Accelerate.framework */,
 				3A3A0B1518AB118A006FBAE4 /* AudioToolbox.framework */,
 				3A0FE1C418A9A4C7003692EB /* CoreText.framework */,
@@ -1639,6 +1633,8 @@
 		3A8BCF7618B5961F00D4B7CE /* Confessions */ = {
 			isa = PBXGroup;
 			children = (
+				3A00168018B82BB200C54059 /* ComposeConfessionViewController.h */,
+				3A00168118B82BB200C54059 /* ComposeConfessionViewController.m */,
 				3A8BCF7318B5960300D4B7CE /* ConfessionsViewController.h */,
 				3A8BCF7418B5960300D4B7CE /* ConfessionsViewController.m */,
 				3A8BCF7718B5964400D4B7CE /* ConfessionsManager.h */,
@@ -1664,8 +1660,6 @@
 				3A25B6751881E84800166623 /* FriendsViewController.m */,
 				3A25B6771881E85B00166623 /* ContactsViewController.h */,
 				3A25B6781881E85B00166623 /* ContactsViewController.m */,
-				3A15896818B1996B007CCA67 /* ConversationImageExpandViewController.h */,
-				3A15896918B1996B007CCA67 /* ConversationImageExpandViewController.m */,
 				3A59D5E918B2D4C800CE7B7B /* MainSwipeViewController.h */,
 				3A59D5EA18B2D4C800CE7B7B /* MainSwipeViewController.m */,
 			);
@@ -1926,11 +1920,12 @@
 		3AF86D3218B5070200033495 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3A00167C18B8231000C54059 /* message-icon.png */,
+				3A00167D18B8231000C54059 /* photo-icon.png */,
+				3A8BCF8518B6FB8300D4B7CE /* fav-icon.png */,
+				3A8BCF8318B6FB7B00D4B7CE /* chat-icon.png */,
 				3AF0B00918B54E9000E3D0D3 /* bottom-section.png */,
 				3AF0B00718B515E500E3D0D3 /* transparent-bg.png */,
-				3AF86D2B18B506F500033495 /* background-confessions.jpg */,
-				3AF86D2C18B506F500033495 /* background-friends.jpg */,
-				3AF86D2D18B506F500033495 /* background-messages.jpg */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -2099,29 +2094,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A3A0B0918AB1126006FBAE4 /* input-field-cover@2x.png in Resources */,
+				3A00167F18B8231000C54059 /* photo-icon.png in Resources */,
 				3A3A0AE818AB1126006FBAE4 /* avatar-placeholder.png in Resources */,
 				3A25B6521881E03700166623 /* Images.xcassets in Resources */,
 				3A3A0B0718AB1126006FBAE4 /* input-bar-background@2x.png in Resources */,
 				3A3A0AE918AB1126006FBAE4 /* avatar-placeholder@2x.png in Resources */,
 				3A25B6411881E03700166623 /* InfoPlist.strings in Resources */,
 				3A3A0B0B18AB1126006FBAE4 /* send-button-pressed@2x.png in Resources */,
+				3A8BCF8418B6FB7B00D4B7CE /* chat-icon.png in Resources */,
 				3AF0B00818B515E500E3D0D3 /* transparent-bg.png in Resources */,
-				3AF86D2F18B506F500033495 /* background-friends.jpg in Resources */,
 				3A3A0B0A18AB1126006FBAE4 /* send-button-pressed.png in Resources */,
 				3A3A0B1218AB1126006FBAE4 /* message-received.aiff in Resources */,
 				F751016C18ABE8A2001F1E7F /* Settings.bundle in Resources */,
 				3AF19A6E1881F34A00F3E4D3 /* README.txt in Resources */,
 				3A3A0B0818AB1126006FBAE4 /* input-field-cover.png in Resources */,
 				3A3A0B1018AB1126006FBAE4 /* input-bar-flat.png in Resources */,
-				3AF86D3018B506F500033495 /* background-messages.jpg in Resources */,
 				3A3A0B1118AB1126006FBAE4 /* input-bar-flat@2x.png in Resources */,
 				3A3A0B0E18AB1126006FBAE4 /* button-photo.png in Resources */,
 				3A3A0B0F18AB1126006FBAE4 /* button-photo@2x.png in Resources */,
+				3A8BCF8618B6FB8300D4B7CE /* fav-icon.png in Resources */,
 				3AF86D2A18B504CF00033495 /* bubble@2x.png in Resources */,
 				3AF0B00A18B54E9000E3D0D3 /* bottom-section.png in Resources */,
 				3A3A0B0C18AB1126006FBAE4 /* send-button.png in Resources */,
-				3AF86D2E18B506F500033495 /* background-confessions.jpg in Resources */,
 				3AF86D2918B504CF00033495 /* bubble.png in Resources */,
+				3A00167E18B8231000C54059 /* message-icon.png in Resources */,
 				3A25B64A1881E03700166623 /* Main.storyboard in Resources */,
 				3A3A0B0618AB1126006FBAE4 /* input-bar-background.png in Resources */,
 				3A3A0B1318AB1126006FBAE4 /* message-sent.aiff in Resources */,
@@ -2222,13 +2218,13 @@
 				3A720C7C18A1C06700423959 /* XMPPRoom.m in Sources */,
 				3A720C6E18A1C06700423959 /* XMPPPrivacy.m in Sources */,
 				3A720C8018A1C06700423959 /* XMPPvCardCoreDataStorageObject.m in Sources */,
-				3A15896A18B1996B007CCA67 /* ConversationImageExpandViewController.m in Sources */,
 				3A720C9018A1C06700423959 /* XMPPMessage+XEP_0066.m in Sources */,
 				3A720CA918A1C06700423959 /* XMPPTime.m in Sources */,
 				3A25B6761881E84800166623 /* FriendsViewController.m in Sources */,
 				3A720CA618A1C06700423959 /* XMPPAutoPing.m in Sources */,
 				3A47C844189F1A52003020D7 /* FriendsDBManager.m in Sources */,
 				3A720C9918A1C06700423959 /* XMPPCapsCoreDataStorageObject.m in Sources */,
+				3A00168218B82BB200C54059 /* ComposeConfessionViewController.m in Sources */,
 				3A720C6C18A1C06700423959 /* XMPPIQ+LastActivity.m in Sources */,
 				3A720CBA18A28ECB00423959 /* MessagePacketReceiver.m in Sources */,
 				3A720C7018A1C06700423959 /* XMPPRoomCoreDataStorage.m in Sources */,
@@ -2481,8 +2477,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/rlundquist3/Development/ios/who/who_ios,
-					/Users/rlundquist3/Development/ios/Who/who_ios,
+					/Users/giancarloanemone/Desktop/ios/Who,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Who-Prefix.pch";
@@ -2490,7 +2485,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/rlundquist3/Development/ios/who/who_ios/who,
+					/Users/giancarloanemone/desktop/ios/who/who,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2507,8 +2502,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/rlundquist3/Development/ios/who/who_ios,
-					/Users/rlundquist3/Development/ios/Who/who_ios,
+					/Users/giancarloanemone/Desktop/ios/Who,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Who-Prefix.pch";
@@ -2516,7 +2510,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/rlundquist3/Development/ios/who/who_ios/who,
+					/Users/giancarloanemone/desktop/ios/who/who,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

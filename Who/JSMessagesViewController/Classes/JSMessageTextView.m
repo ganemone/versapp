@@ -123,7 +123,6 @@
 
 + (NSUInteger)numberOfLinesForMessage:(NSString *)text
 {
-    NSLog(@"Number of Lines for Message: %u", (text.length / [JSMessageTextView maxCharactersPerLine]) + 1);
     return (text.length / [JSMessageTextView maxCharactersPerLine]) + 1;
 }
 

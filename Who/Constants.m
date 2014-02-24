@@ -19,6 +19,7 @@ NSString *const PACKET_ID_REGISTER_USER = @"packet_id_register_user";
 NSString *const PACKET_ID_CREATE_VCARD = @"packet_id_create_vcard";
 NSString *const PACKET_ID_CREATE_MUC = @"packet_id_create_muc";
 NSString *const PACKET_ID_CREATE_ONE_TO_ONE_CHAT = @"packet_id_create_one_to_one_chat";
+NSString *const PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION = @"packet_id_create_one_to_one_chat_from_confession";
 NSString *const PACKET_ID_GET_CONFIGURATION_FORM = @"packet_id_get_configuration_form";
 NSString *const PACKET_ID_JOIN_MUC = @"packet_id_join_muc";
 NSString *const PACKET_ID_GET_LAST_TIME_ACTIVE = @"packet_id_get_last_time_active";
@@ -76,6 +77,7 @@ NSString *const SEGUE_ID_CREATED_MUC = @"SegueIdentifierCreatedMUC";
 NSString *const SEGUE_ID_CREATED_CHAT = @"SegueIdentifierCreatedChat";
 NSString *const SEGUE_ID_GROUP_VIEW_IMAGE = @"SegueIDGroupViewImage";
 NSString *const SEGUE_ID_ONE_TO_ONE_VIEW_IMAGE = @"SegueIDOneToOneViewImage";
+NSString *const SEGUE_ID_CREATED_ONE_TO_ONE_CHAT_FROM_CONFESSION = @"SegueIDCreatedOneToOneChatFromConfession";
 
 NSString *const CELL_ID_CONVERSATION_PROTOTYPE = @"ConversationCellPrototype";
 NSString *const CELL_ID_FRIENDS_PROTOTYPE = @"FriendsCellPrototype";

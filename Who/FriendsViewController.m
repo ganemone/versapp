@@ -58,8 +58,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedInvitingUsersToMUC:) name:NOTIFICATION_FINISHED_INVITING_MUC_USERS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCreatedOneToOneChat:) name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT object:nil];
     
+    UIImage *image = [UIImage imageNamed:@"grad-back-dark1.jpg"];
+    UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
+    [backgroundImageView setImage:image];
+    
     [self.tableView setDataSource:self];
     [self.tableView setDelegate:self];
+    
+    [self.tableView setBackgroundView:backgroundImageView];
+    [self.tableView setBackgroundColor:nil];
+    [self.tableView setOpaque:YES];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     [self.searchBar setSearchBarStyle:UISearchBarStyleMinimal];
     [self.searchBar setDelegate:self];

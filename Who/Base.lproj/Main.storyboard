@@ -13,7 +13,7 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="333333" borderStyle="roundedRect" placeholder="Phone Number" minimumFontSize="17" id="NHs-F6-AKY">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1234512345" borderStyle="roundedRect" placeholder="Phone Number" minimumFontSize="17" id="NHs-F6-AKY">
                                 <rect key="frame" x="20" y="69" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -28,7 +28,7 @@
                                     <action selector="loginClick:" destination="Dcg-Mp-WjV" eventType="touchUpInside" id="UP4-7u-l8G"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="test" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" id="hBY-Bd-80i">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="password" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" id="hBY-Bd-80i">
                                 <rect key="frame" x="20" y="102" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -133,35 +133,18 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <gestureRecognizers/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="rKC-2w-NnG" appends="YES" id="DkY-04-KlF"/>
-                        </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="xEY-92-p7p">
-                        <barButtonItem key="leftBarButtonItem" title="Settings" id="3bT-1A-aai">
-                            <connections>
-                                <segue destination="bp7-7c-bhQ" kind="push" id="9oi-dR-KeV"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" title="Settings" id="3bT-1A-aai"/>
                         <barButtonItem key="rightBarButtonItem" title="Notifications" id="VED-Q5-Zbt">
                             <connections>
-                                <action selector="notificationsClicked:" destination="FvA-Qe-GrR" id="wWh-e7-9kF"/>
+                                <action selector="notificationsClicked:" destination="FvA-Qe-GrR" id="lQK-no-cqU"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="notificationButton" destination="VED-Q5-Zbt" id="HXF-lJ-vlZ"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iUp-KR-8dx" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer cancelsTouchesInView="NO" id="rKC-2w-NnG">
-                    <connections>
-                        <action selector="displayGestureForTapRecognizer:" destination="FvA-Qe-GrR" id="KAx-tu-yaO"/>
-                        <outlet property="delegate" destination="FvA-Qe-GrR" id="6pf-xy-5eU"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1790" y="180"/>
         </scene>
@@ -190,35 +173,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fk4-yc-32Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1789" y="761"/>
-        </scene>
-        <!--Confessions View Controller - Confessions-->
-        <scene sceneID="1xM-tU-Jnh">
-            <objects>
-                <tableViewController storyboardIdentifier="ConfessionsViewController" id="9MR-8y-YtQ" customClass="ConfessionsViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hWx-mI-xD3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="BasicConfessionCell" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BasicConfessionCell" id="lTA-nj-kFV" customClass="ConfessionTableCell">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lTA-nj-kFV" id="qL0-aa-Ih8">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="9MR-8y-YtQ" id="ZhO-Bp-bAk"/>
-                            <outlet property="delegate" destination="9MR-8y-YtQ" id="bIV-a4-rJ7"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Confessions" id="fao-RO-JC4"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CKO-3Z-kdN" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2842" y="765"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ytD-Qm-JKC">
@@ -461,7 +415,11 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Root View Controller" id="F0O-lg-JQN">
-                        <barButtonItem key="rightBarButtonItem" title="Settings" id="AIC-dG-wJK"/>
+                        <barButtonItem key="rightBarButtonItem" title="Settings" id="AIC-dG-wJK">
+                            <connections>
+                                <segue destination="bp7-7c-bhQ" kind="push" id="fcf-HI-Tc8"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QQl-vi-J1r" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -557,7 +515,7 @@
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendsCellPrototype" textLabel="s3B-ug-9mP" style="IBUITableViewCellStyleDefault" id="LPA-T2-row">
                                         <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LPA-T2-row" id="wMa-BR-2LC">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LPA-T2-row" id="fbS-7e-s1a">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -672,7 +630,7 @@
             <objects>
                 <viewController storyboardIdentifier="ConversationViewController" hidesBottomBarWhenPushed="YES" id="LSk-rM-HTJ" customClass="ConversationViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0UM-Gi-lHb">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -683,7 +641,105 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yd9-J6-Wir" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3513" y="154"/>
+            <point key="canvasLocation" x="4045" y="164"/>
+        </scene>
+        <!--Confessions View Controller - Confessions-->
+        <scene sceneID="g8k-18-lyM">
+            <objects>
+                <viewController storyboardIdentifier="ConfessionsViewController" id="jpr-Ku-F24" customClass="ConfessionsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="urc-XE-TP2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="jZx-yj-7oZ">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="440"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BasicConfessionCell" id="aMg-NJ-Oav">
+                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aMg-NJ-Oav" id="uD6-Wz-b5T">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <view contentMode="scaleToFill" id="xNe-oj-gI8">
+                                <rect key="frame" x="0.0" y="440" width="320" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="IIL-et-yzh">
+                                        <rect key="frame" x="261" y="5" width="32" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                        <state key="normal" title="Post">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="lnb-gW-AWX" kind="push" id="YCw-e7-spT"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1Nu-Lm-c7J">
+                                        <rect key="frame" x="16" y="5" width="54" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                        <state key="normal" title="Camera">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Confessions" id="1d5-ZF-uSM"/>
+                    <connections>
+                        <outlet property="bottomView" destination="xNe-oj-gI8" id="sWY-3R-ygq"/>
+                        <outlet property="tableView" destination="jZx-yj-7oZ" id="UqM-pt-QRe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VJW-15-iT1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2841" y="761"/>
+        </scene>
+        <!--Compose Confession View Controller - Compose-->
+        <scene sceneID="nHE-9V-Fd3">
+            <objects>
+                <viewController id="lnb-gW-AWX" customClass="ComposeConfessionViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dCU-MI-WK9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="lyF-9W-sxP">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="250"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="NAg-qb-d2Q">
+                                <rect key="frame" x="0.0" y="250" width="320" height="230"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Compose" id="bRR-D9-Nnz">
+                        <barButtonItem key="rightBarButtonItem" title="Post" id="zYL-lD-IH8">
+                            <connections>
+                                <action selector="postConfession:" destination="lnb-gW-AWX" id="P00-iM-uAQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="composeTextView" destination="lyF-9W-sxP" id="5jH-W1-B3m"/>
+                        <outlet property="imageView" destination="NAg-qb-d2Q" id="je8-so-cbx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tA4-AL-IFV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4045" y="761"/>
         </scene>
         <!--Navigation Controller - Conversation-->
         <scene sceneID="WcW-T3-2la">
@@ -702,14 +758,14 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j9h-0E-rVD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3075" y="154"/>
+            <point key="canvasLocation" x="3583" y="174"/>
         </scene>
         <!--One To One Conversation View Controller-->
         <scene sceneID="3FC-Hw-v7z">
             <objects>
                 <viewController storyboardIdentifier="OneToOneConversationViewController" hidesBottomBarWhenPushed="YES" id="iDZ-uG-Ep6" customClass="OneToOneConversationViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IqH-NC-C3h">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -720,7 +776,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g7A-1E-cma" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4045" y="-471"/>
+            <point key="canvasLocation" x="4045" y="-459"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LHe-G0-1Nd">
@@ -739,7 +795,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fnI-fu-3e5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3601" y="-471"/>
+            <point key="canvasLocation" x="3583" y="-459"/>
         </scene>
         <!--Privacy Policy View Controller - Privacy Policy-->
         <scene sceneID="13F-Dp-5jR">
@@ -862,22 +918,40 @@
             <point key="canvasLocation" x="1789" y="-410"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="e32-Es-0cc">
+        <scene sceneID="P4S-r6-xmZ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="X91-r2-V4X" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="IiY-aK-JWy" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="s1z-r8-Jec">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="t7j-BZ-c4L">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="9MR-8y-YtQ" kind="relationship" relationship="rootViewController" id="hHA-pg-2z3"/>
+                        <segue destination="jpr-Ku-F24" kind="relationship" relationship="rootViewController" id="uVS-52-Qpw"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Mik-Hc-GdM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YQN-PR-wXm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2316" y="765"/>
+            <point key="canvasLocation" x="2315" y="761"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="yBm-AZ-eE1">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Cux-g5-SSx" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TJc-vs-KVz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="lnb-gW-AWX" kind="relationship" relationship="rootViewController" id="y0l-DF-V89"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cpg-JW-8es" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3583" y="761"/>
         </scene>
     </scenes>
     <resources>
@@ -889,13 +963,14 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="zTQ-Mf-6oX"/>
-        <segue reference="8c7-Mw-K5g"/>
-        <segue reference="9oi-dR-KeV"/>
-        <segue reference="Vys-x9-fbS"/>
-        <segue reference="KzQ-2I-z5y"/>
-        <segue reference="T8K-NQ-vMc"/>
+        <segue reference="f5d-Ra-j3v"/>
+        <segue reference="rOT-zb-Yrt"/>
+        <segue reference="YCw-e7-spT"/>
         <segue reference="cCp-tS-h07"/>
+        <segue reference="fcf-HI-Tc8"/>
         <segue reference="yvf-5p-X2z"/>
+        <segue reference="hBn-y3-qKM"/>
+        <segue reference="v72-9M-1Zf"/>
+        <segue reference="GTj-hh-MDQ"/>
     </inferredMetricsTieBreakers>
 </document>

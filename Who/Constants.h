@@ -17,6 +17,7 @@ extern NSString *const PACKET_ID_REGISTER_USER;
 extern NSString *const PACKET_ID_CREATE_VCARD;
 extern NSString *const PACKET_ID_CREATE_MUC;
 extern NSString *const PACKET_ID_CREATE_ONE_TO_ONE_CHAT;
+extern NSString *const PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION;
 extern NSString *const PACKET_ID_JOIN_MUC;
 extern NSString *const PACKET_ID_GET_CONFIGURATION_FORM;
 extern NSString *const PACKET_ID_GET_LAST_TIME_ACTIVE;
@@ -74,6 +75,7 @@ extern NSString *const SEGUE_ID_CREATED_MUC;
 extern NSString *const SEGUE_ID_CREATED_CHAT;
 extern NSString *const SEGUE_ID_GROUP_VIEW_IMAGE;
 extern NSString *const SEGUE_ID_ONE_TO_ONE_VIEW_IMAGE;
+extern NSString *const SEGUE_ID_CREATED_ONE_TO_ONE_CHAT_FROM_CONFESSION;
 
 extern NSString *const CELL_ID_CONVERSATION_PROTOTYPE;
 extern NSString *const CELL_ID_FRIENDS_PROTOTYPE;

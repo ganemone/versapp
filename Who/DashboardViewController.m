@@ -34,7 +34,7 @@
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:PACKET_ID_GET_VCARD object:nil];
     
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
-    [backgroundImageView setImage:[UIImage imageNamed:@"background-confessions.jpg"]];
+    [backgroundImageView setImage:[UIImage imageNamed:@"grad-back-messages.jpg"]];
     [self.tableView setBackgroundView:backgroundImageView];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     
@@ -59,14 +59,15 @@
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *customView = [[UIView alloc] initWithFrame:CGRectMake(10.0, 10.0f, self.view.frame.size.width, 44.0)];
+    UIView *customView = [[UIView alloc] initWithFrame:CGRectMake(10.0, 10.0f, self.view.frame.size.width, 30.0)];
+    [customView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"grad-back-messages.jpg"]]];
     UILabel * headerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     headerLabel.backgroundColor = [UIColor clearColor];
     headerLabel.opaque = NO;
     headerLabel.textColor = [UIColor whiteColor];
     headerLabel.highlightedTextColor = [UIColor whiteColor];
     headerLabel.font = [UIFont boldSystemFontOfSize:20];
-    headerLabel.frame = CGRectMake(10.0f, 10.0f, self.view.frame.size.width, 44.0);
+    headerLabel.frame = CGRectMake(10.0f, 10.0f, self.view.frame.size.width, 30.0);
     
     if (section == 0) {
         headerLabel.text = @"Groups";
@@ -86,6 +87,9 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"ChatCellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    [cell.textLabel setTextColor:[UIColor whiteColor]];
+    [cell.detailTextLabel setTextColor:[UIColor whiteColor]];
+    
     if(indexPath.section == 0) {
         GroupChatManager *gcm = [GroupChatManager getInstance];
         GroupChat *muc = [gcm getChatByIndex:indexPath.row];

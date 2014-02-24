@@ -22,6 +22,15 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceived:) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
     
+    UIImage *image = [UIImage imageNamed:@"grad-back-dark1.jpg"];
+    UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
+    [backgroundImageView setImage:image];
+    
+    [self.tableView setBackgroundView:backgroundImageView];
+    [self.tableView setBackgroundColor:nil];
+    [self.tableView setOpaque:YES];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    
     self.navigationItem.title = self.chat.name;
     self.delegate = self;
     self.dataSource = self;
@@ -91,15 +100,7 @@
 }
 
 -(void)configureCell:(JSBubbleMessageCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    if ([cell messageType] == JSBubbleMessageTypeOutgoing) {
-        cell.bubbleView.textView.textColor = [UIColor whiteColor];
-        
-        /*if ([cell.bubbleView.textView respondsToSelector:@selector(linkTextAttributes)]) {
-            NSMutableDictionary *attrs = [cell.bubbleView.textView.linkTextAttributes mutableCopy];
-            [attrs setValue:[UIColor blueColor] forKey:UITextAttributeTextColor];
-            cell.bubbleView.textView.linkTextAttributes = attrs;
-        }*/
-    }
+    cell.bubbleView.textView.textColor = [UIColor whiteColor];
     
     if (cell.timestampLabel) {
         cell.timestampLabel.textColor = [UIColor lightGrayColor];

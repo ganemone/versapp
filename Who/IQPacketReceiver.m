@@ -62,6 +62,8 @@
         [self handleToggleFavoriteConfessionPacket:iq];
     } else if([self isPacketWithID:PACKET_ID_POST_CONFESSION packet:iq]) {
         [self handlePostConfessionPacket:iq];
+    } else if([self isPacketWithID:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION packet:iq]) {
+        [self handleCreateOneToOneChatFromConfessionPacket:(XMPPIQ*)iq];
     }
 }
 
@@ -266,11 +268,9 @@
 }
 
 +(void)handleGetConfessionsPacket:(XMPPIQ *)iq {
-    NSLog(@"\n\n Handling Get Confessions Packet: %@ \n\n", iq.XMLString);
     NSString *decodedPacketXML = [self getPacketXMLWithoutWhiteSpace:iq];
     decodedPacketXML = [self getDecodedPacketXML:iq];
     NSError *error = NULL;
-    NSLog(@"Decoded Packet XML: %@", decodedPacketXML);
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(\\d+)\",\"(.*?)\",\"(.*?)\",\"(.*?)\",\"(.*?)\",(\".*?\"|null),\"(\\d+)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
     NSArray *matches = [regex matchesInString:decodedPacketXML options:0 range:NSMakeRange(0, decodedPacketXML.length)];
     NSTextCheckingResult *match;
@@ -288,15 +288,14 @@
         imageURL = [decodedPacketXML substringWithRange:[match rangeAtIndex:4]];
         timestamp = [decodedPacketXML substringWithRange:[match rangeAtIndex:5]];
         favoritedUsers = [decodedPacketXML substringWithRange:[match rangeAtIndex:6]];
-        favoriteCount = [NSNumber numberWithInt:[[decodedPacketXML substringWithRange:[match rangeAtIndex:7]] integerValue]];
-        if (favoriteCount > 0) {
+        favoriteCount = [NSNumber numberWithInteger:[[decodedPacketXML substringWithRange:[match rangeAtIndex:7]] integerValue]];
+        if ([favoriteCount isEqualToNumber:[NSNumber numberWithInt:0]] == FALSE) {
             favoritedUsers = [favoritedUsers stringByReplacingOccurrencesOfString:@"\"" withString:@""];
             favoritedUsersArray = [NSMutableArray arrayWithArray:[favoritedUsers componentsSeparatedByString:@","]];
         } else {
             favoritedUsersArray = [[NSMutableArray alloc] init];
         }
-        NSLog(@"Confession Body: %@", body);
-        confession = [Confession create:body imageURL:imageURL confessionID:confessionID createdTimestamp:timestamp favoritedUsers:favoritedUsersArray];
+        confession = [Confession create:body posterJID:jid imageURL:imageURL confessionID:confessionID createdTimestamp:timestamp favoritedUsers:favoritedUsersArray];
         [confessionsManager addConfession:confession];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_CONFESSIONS object:nil];
@@ -307,11 +306,27 @@
 }
 
 +(void)handleToggleFavoriteConfessionPacket:(XMPPIQ *)iq {
-    
+    //NSLog(@"Toggle Confession Response: %@", iq.XMLString);
 }
 
 +(void)handlePostConfessionPacket:(XMPPIQ *)iq {
-    
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<value>\"(\\d{3})\",\"(.*?)\"<\\/value>" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSString *packetXML = [IQPacketReceiver getPacketXMLWithoutWhiteSpace:iq];
+    NSTextCheckingResult *match = [regex firstMatchInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
+    if ([match numberOfRanges] > 0) {
+        NSString *confessionID = [packetXML substringWithRange:[match rangeAtIndex:1]];
+        NSString *timestamp = [packetXML substringWithRange:[match rangeAtIndex:2]];
+        ConfessionsManager *confessionsManager = [ConfessionsManager getInstance];
+        [confessionsManager updatePendingConfession:confessionID timestamp:timestamp];
+    } else {
+        NSLog(@"Something went wrong with posting a confession...");
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_POST_CONFESSION object:nil];
+}
+
++(void)handleCreateOneToOneChatFromConfessionPacket:(XMPPIQ *)iq {
+    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION object:nil];
 }
 
 @end

@@ -52,6 +52,18 @@ CAShapeLayer *closedNotifications;
 {
     [super viewDidLoad];
     
+    [self.navigationController setDelegate:self];
+    
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor clearColor]];
+    [self.navigationController.navigationBar setOpaque:YES];
+    [self setTitle:@"Messages"];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-messages.jpg"] forBarMetrics:UIBarMetricsDefault];
+    NSDictionary *navbarTitleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                               [UIColor whiteColor],UITextAttributeTextColor,
+                                               [UIColor blackColor], UITextAttributeTextShadowColor,
+                                               [NSValue valueWithUIOffset:UIOffsetMake(-1, 0)], UITextAttributeTextShadowOffset, nil];
+    [self.navigationController.navigationBar setTitleTextAttributes:navbarTitleTextAttributes];
+    
     self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:STORYBOARD_ID_PAGE_VIEW_CONTROLLER];
     self.pageViewController.dataSource = self;
     self.pageViewController.delegate = self;
@@ -134,10 +146,8 @@ CAShapeLayer *closedNotifications;
     
     self.groupChat = [GroupChatManager getInstance];
     self.notifications = self.groupChat.pending;
-    NSLog(@"%d notifications", [self.notifications count]);
     self.chatParticipant = [ChatParticipantVCardBuffer getInstance];
     self.friendRequests = self.chatParticipant.pending;
-    NSLog(@"%d friend requests", [self.friendRequests count]);
     
     self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(self.view.frame.size.width*0.05, 0, self.view.frame.size.width*0.9, self.view.frame.size.height*0.5)];
     self.notificationTableView.hidden = YES;
@@ -260,16 +270,6 @@ CAShapeLayer *closedNotifications;
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
-
--(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    if ([viewController isKindOfClass:[ConversationViewController class]] ||
-        [viewController isKindOfClass:[OneToOneConversationViewController class]]) {
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
-    } else {
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
-    }
-}
-
 - (UIViewController*)viewControllerAtIndex:(int)index {
     NSString *storyboardID;
     
@@ -281,11 +281,11 @@ CAShapeLayer *closedNotifications;
         case 0:
             storyboardID = STORYBOARD_ID_DASHBOARD_VIEW_CONTROLLER; break;
         case 1:
-            storyboardID = STORYBOARD_ID_FRIENDS_VIEW_CONTROLLER; break;
-        case 2:
-            storyboardID = STORYBOARD_ID_CONTACTS_VIEW_CONTROLLER; break;
-        case 3:
             storyboardID = STORYBOARD_ID_CONFESSIONS_VIEW_CONTROLLER; break;
+        case 2:
+            storyboardID = STORYBOARD_ID_FRIENDS_VIEW_CONTROLLER; break;
+        case 3:
+            storyboardID = STORYBOARD_ID_CONTACTS_VIEW_CONTROLLER; break;
         default:
             return nil;
     }
@@ -296,38 +296,75 @@ CAShapeLayer *closedNotifications;
 
 -(UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
     int index = [self indexForViewController:viewController] - 1;
+    NSLog(@"View Controller Before: %d", index);
+    if (index == 0) {
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-confessions.jpg"] forBarMetrics:UIBarMetricsDefault];
+        [self setTitle:@"Confessions"];
+    } else if (index == 1) {
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-dark1.jpg"] forBarMetrics:UIBarMetricsDefault];
+        [self setTitle:@"Friends"];
+    } else if (index == 2) {
+        [self setTitle:@"Invite"];
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-confessions.jpg"] forBarMetrics:UIBarMetricsDefault];
+    } else {
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-messages.jpg"] forBarMetrics:UIBarMetricsDefault];
+        [self setTitle:@"Messages"];
+    }
     return [self viewControllerAtIndex:index];
 }
 
 -(UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
     int index = [self indexForViewController:viewController] + 1;
+    NSLog(@"View Controller After Index: %d", index);
+    if (index == 1) {
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-messages.jpg"] forBarMetrics:UIBarMetricsDefault];
+        [self setTitle:@"Messages"];
+    } else if (index == 2) {
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-confessions.jpg"] forBarMetrics:UIBarMetricsDefault];
+        [self setTitle:@"Confessions"];
+    } else if (index == 3) {
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-dark1.jpg"] forBarMetrics:UIBarMetricsDefault];
+        [self setTitle:@"Friends"];
+    } else {
+        [self setTitle:@"Invite"];
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-confessions.jpg"] forBarMetrics:UIBarMetricsDefault];
+    }
     return [self viewControllerAtIndex:index];
 }
 
 - (int)indexForViewController:(UIViewController*)viewController {
     int index = 0;
-    if ([viewController isKindOfClass:[FriendsViewController class]]) {
+    if ([viewController isKindOfClass:[ConfessionsViewController class]]) {
         index = 1;
-    } else if([viewController isKindOfClass:[ContactsViewController class]]) {
+    } else if([viewController isKindOfClass:[FriendsViewController class]]) {
         index = 2;
-    } else if([viewController isKindOfClass:[ConfessionsViewController class]]) {
+    } else if([viewController isKindOfClass:[ContactsViewController class]]) {
         index = 3;
     }
     return index;
 }
 
-/*-(NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
-    return NumViewPages;
-}
-
--(NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {
-    return 0;
-}*/
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    // -----------------
+    // HACKY SOLUTION - Try to improve in the future
+    // -----------------
+    NSArray *childViewControllers = [[self pageViewController] childViewControllers];
+    if ([childViewControllers count] > 2) {
+        ConfessionsViewController *viewController;
+        for (int i = 0; i < [childViewControllers count]; i++) {
+            if ([[childViewControllers objectAtIndex:i] isKindOfClass:[ConfessionsViewController class]]) {
+                viewController = [childViewControllers objectAtIndex:i];
+                [viewController.tableView reloadData];
+                i = (int)[childViewControllers count];
+            }
+        }
+    }
 }
 
 @end
