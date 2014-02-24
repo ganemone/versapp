@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DashboardViewController : UITableViewController
+@interface DashboardViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 
 @end

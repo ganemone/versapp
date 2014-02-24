@@ -35,6 +35,8 @@
     
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
     [backgroundImageView setImage:[UIImage imageNamed:@"grad-back-messages.jpg"]];
+    [self.tableView setDelegate:self];
+    [self.tableView setDataSource:self];
     [self.tableView setBackgroundView:backgroundImageView];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     
