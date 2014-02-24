@@ -481,11 +481,11 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="b2u-mj-P71">
-                                <rect key="frame" x="0.0" y="443" width="320" height="37"/>
+                                <rect key="frame" x="0.0" y="440" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="npS-m4-ngf">
-                                        <rect key="frame" x="254" y="1" width="46" height="30"/>
+                                        <rect key="frame" x="254" y="5" width="46" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Create">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -495,7 +495,7 @@
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mkB-QU-ThY">
-                                        <rect key="frame" x="19" y="0.0" width="48" height="30"/>
+                                        <rect key="frame" x="20" y="5" width="48" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Cancel">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -508,7 +508,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="wKq-yO-HDY">
-                                <rect key="frame" x="0.0" y="44" width="320" height="355"/>
+                                <rect key="frame" x="0.0" y="66" width="320" height="330"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -532,7 +532,7 @@
                                 </prototypes>
                             </tableView>
                             <searchBar contentMode="redraw" id="G30-1u-tkr">
-                                <rect key="frame" x="0.0" y="399" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="396" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -540,11 +540,11 @@
                                 </connections>
                             </searchBar>
                             <view contentMode="scaleToFill" id="DnC-T6-Hmx">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="D8u-sU-pBy">
-                                        <rect key="frame" x="132" y="11" width="57" height="21"/>
+                                        <rect key="frame" x="132" y="32" width="57" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -601,7 +601,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="2315" y="164"/>
+            <point key="canvasLocation" x="2315" y="180"/>
         </scene>
         <!--Navigation Controller - Notifications-->
         <scene sceneID="22y-RF-Gaz">
@@ -666,12 +666,12 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="jZx-yj-7oZ">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="440"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="396"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BasicConfessionCell" id="aMg-NJ-Oav">
-                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aMg-NJ-Oav" id="uD6-Wz-b5T">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -685,7 +685,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="IIL-et-yzh">
-                                        <rect key="frame" x="261" y="5" width="32" height="30"/>
+                                        <rect key="frame" x="261" y="2" width="32" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                         <state key="normal" title="Post">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -695,7 +695,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1Nu-Lm-c7J">
-                                        <rect key="frame" x="16" y="5" width="54" height="30"/>
+                                        <rect key="frame" x="16" y="2" width="54" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                         <state key="normal" title="Camera">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -715,7 +715,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VJW-15-iT1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2841" y="761"/>
+            <point key="canvasLocation" x="2307" y="761"/>
         </scene>
         <!--Compose Confession View Controller - Compose-->
         <scene sceneID="nHE-9V-Fd3">
@@ -930,24 +930,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qwo-lE-8Rs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1789" y="-410"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="P4S-r6-xmZ">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="IiY-aK-JWy" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="t7j-BZ-c4L">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="jpr-Ku-F24" kind="relationship" relationship="rootViewController" id="uVS-52-Qpw"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YQN-PR-wXm" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2315" y="761"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yBm-AZ-eE1">
