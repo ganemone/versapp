@@ -11,6 +11,7 @@
 #import "ConfessionsManager.h"
 #import "ConfessionTableCell.h"
 #import "Constants.h"
+#import "OneToOneChat.h"
 
 @interface ConfessionsViewController ()
 
@@ -20,6 +21,7 @@
 @property (strong, nonatomic) UIImage *favIconActive;
 @property (strong, nonatomic) UIImage *gradLineSmall;
 @property (strong, nonatomic) UIImage *chatIcon;
+@property (strong, nonatomic) OneToOneChat *createdChat;
 
 @end
 
@@ -35,6 +37,8 @@
     [backgroundImageView setImage:image];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name: PACKET_ID_GET_CONFESSIONS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOneToOneChatCreatedFromConfession:) name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION object:nil];
+    
     self.cellCache = [[NSMutableDictionary alloc] initWithCapacity:[_confessionsManager getNumberOfConfessions]];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
@@ -101,6 +105,10 @@
 
 - (void)refreshListView {
     [self.tableView reloadData];
+}
+
+- (void)handleOneToOneChatCreatedFromConfession:(NSNotification *)notification {
+    
 }
 
 @end

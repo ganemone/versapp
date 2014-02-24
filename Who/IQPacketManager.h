@@ -71,5 +71,5 @@
 
 +(DDXMLElement *)createGetMyConfessionsPacket;
 
-+(DDXMLElement *)createCreateOneToOneChatFromConfessionPacket:(Confession*)confession;
++(DDXMLElement *)createCreateOneToOneChatFromConfessionPacket:(Confession*)confession chatID:(NSString *)chatID;
 @end

@@ -9,6 +9,8 @@
 #import "Confession.h"
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
+#import "OneToOneChat.h"
+#import "OneToOneChatManager.h"
 
 @implementation Confession
 
@@ -91,7 +93,11 @@
 }
 
 -(void)startChat {
-    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createCreateOneToOneChatFromConfessionPacket:self]];
+    NSString *chatID = [NSString stringWithFormat:@"%@%ld", [ConnectionProvider getUser],(long)[[NSDate date] timeIntervalSince1970]];
+    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createCreateOneToOneChatFromConfessionPacket:self chatID:chatID]];
+    NSString *invitedID = [[_posterJID componentsSeparatedByString:@"@"] firstObject];
+    OneToOneChat *chat = [OneToOneChat create:chatID inviterID:[ConnectionProvider getUser] invitedID:invitedID createdTimestamp:nil];
+    [[OneToOneChatManager getInstance] addChat:chat];
 }
 
 @end

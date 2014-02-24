@@ -62,6 +62,8 @@
         [self handleToggleFavoriteConfessionPacket:iq];
     } else if([self isPacketWithID:PACKET_ID_POST_CONFESSION packet:iq]) {
         [self handlePostConfessionPacket:iq];
+    } else if([self isPacketWithID:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION packet:iq]) {
+        [self handleCreateOneToOneChatFromConfessionPacket:(XMPPIQ*)iq];
     }
 }
 
@@ -311,6 +313,10 @@
         NSLog(@"Something went wrong with posting a confession...");
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_POST_CONFESSION object:nil];
+}
+
++(void)handleCreateOneToOneChatFromConfessionPacket:(XMPPIQ *)iq {
+    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION object:nil];
 }
 
 @end
