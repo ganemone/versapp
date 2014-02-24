@@ -12,6 +12,8 @@
 #import "ConfessionTableCell.h"
 #import "Constants.h"
 #import "OneToOneChat.h"
+#import "OneToOneChatManager.h"
+#import "OneToOneConversationViewController.h"
 
 @interface ConfessionsViewController ()
 
@@ -37,7 +39,7 @@
     [backgroundImageView setImage:image];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name: PACKET_ID_GET_CONFESSIONS object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOneToOneChatCreatedFromConfession:) name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOneToOneChatCreatedFromConfession) name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION object:nil];
     
     self.cellCache = [[NSMutableDictionary alloc] initWithCapacity:[_confessionsManager getNumberOfConfessions]];
     [self.tableView setDelegate:self];
@@ -53,6 +55,11 @@
     self.chatIcon = [UIImage imageNamed:@"chat-icon.png"];
     
     [self.bottomView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"grad-bottom-confessions.jpg"]]];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    OneToOneConversationViewController *dest = segue.destinationViewController;
+    [dest setChat:_createdChat];
 }
 
 - (void)didReceiveMemoryWarning
@@ -107,8 +114,9 @@
     [self.tableView reloadData];
 }
 
-- (void)handleOneToOneChatCreatedFromConfession:(NSNotification *)notification {
-    
+- (void)handleOneToOneChatCreatedFromConfession {
+    _createdChat = [[OneToOneChatManager getInstance] getPendingChat];
+    [self performSegueWithIdentifier:SEGUE_ID_CREATED_ONE_TO_ONE_CHAT_FROM_CONFESSION sender:self];
 }
 
 @end

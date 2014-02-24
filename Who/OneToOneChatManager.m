@@ -13,8 +13,8 @@
 
 @property(strong, nonatomic) NSMutableDictionary *chats;
 @property(strong, nonatomic) NSMutableArray *chatIDValues;
-
 @property NSInteger numUninvitedUsers;
+
 @end
 
 @implementation OneToOneChatManager
@@ -54,6 +54,10 @@ static OneToOneChatManager *selfInstance;
     NSUInteger unsignedInteger = (NSUInteger)index;
     OneToOneChat *chat = [self.chats objectForKey:[self.chatIDValues objectAtIndex:unsignedInteger]];
     return chat;
+}
+
+-(OneToOneChat *)getPendingChat {
+    return [self getChat:_pendingChatID];
 }
 
 @end

@@ -77,6 +77,7 @@ NSString *const SEGUE_ID_CREATED_MUC = @"SegueIdentifierCreatedMUC";
 NSString *const SEGUE_ID_CREATED_CHAT = @"SegueIdentifierCreatedChat";
 NSString *const SEGUE_ID_GROUP_VIEW_IMAGE = @"SegueIDGroupViewImage";
 NSString *const SEGUE_ID_ONE_TO_ONE_VIEW_IMAGE = @"SegueIDOneToOneViewImage";
+NSString *const SEGUE_ID_CREATED_ONE_TO_ONE_CHAT_FROM_CONFESSION = @"SegueIDCreatedOneToOneChatFromConfession";
 
 NSString *const CELL_ID_CONVERSATION_PROTOTYPE = @"ConversationCellPrototype";
 NSString *const CELL_ID_FRIENDS_PROTOTYPE = @"FriendsCellPrototype";

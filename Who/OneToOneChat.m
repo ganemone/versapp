@@ -37,6 +37,17 @@
     return instance;
 }
 
++(OneToOneChat *)create:(NSString *)threadID inviterID:(NSString *)inviterID invitedID:(NSString *)invitedID createdTimestamp:(NSString *)createdTimestamp chatName:(NSString*)chatName {
+    OneToOneChat *instance = [[OneToOneChat alloc] init];
+    instance.chatID = threadID;
+    instance.createdTime = createdTimestamp;
+    instance.name = chatName;
+    instance.invitedID = invitedID;
+    instance.inviterID = inviterID;
+    instance.history = [MessagesDBManager getMessageObjectsForOneToOneChat:instance.chatID];
+    return instance;
+}
+
 -(NSString *)getMessageTo {
     return ([self.invitedID compare:[ConnectionProvider getUser]] == 0) ? self.inviterID : self.invitedID;
 }

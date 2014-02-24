@@ -96,8 +96,10 @@
     NSString *chatID = [NSString stringWithFormat:@"%@%ld", [ConnectionProvider getUser],(long)[[NSDate date] timeIntervalSince1970]];
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createCreateOneToOneChatFromConfessionPacket:self chatID:chatID]];
     NSString *invitedID = [[_posterJID componentsSeparatedByString:@"@"] firstObject];
-    OneToOneChat *chat = [OneToOneChat create:chatID inviterID:[ConnectionProvider getUser] invitedID:invitedID createdTimestamp:nil];
-    [[OneToOneChatManager getInstance] addChat:chat];
+    OneToOneChat *chat = [OneToOneChat create:chatID inviterID:[ConnectionProvider getUser] invitedID:invitedID createdTimestamp:nil chatName:_body];
+    OneToOneChatManager *cm = [OneToOneChatManager getInstance];
+    [cm addChat:chat];
+    [cm setPendingChatID:chatID];    
 }
 
 @end

@@ -11,6 +11,8 @@
 
 @interface OneToOneChatManager : NSObject
 
+@property(strong, nonatomic) NSString *pendingChatID;
+
 +(OneToOneChatManager*)getInstance;
 
 -(void)addChat:(OneToOneChat*)chat;
@@ -22,5 +24,7 @@
 -(OneToOneChat*)getChatByIndex:(NSInteger)index;
 
 -(int)getNumberOfChats;
+
+-(OneToOneChat*)getPendingChat;
 
 @end

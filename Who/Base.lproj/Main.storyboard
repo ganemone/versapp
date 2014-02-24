@@ -698,6 +698,7 @@
                     <connections>
                         <outlet property="bottomView" destination="xNe-oj-gI8" id="sWY-3R-ygq"/>
                         <outlet property="tableView" destination="jZx-yj-7oZ" id="UqM-pt-QRe"/>
+                        <segue destination="iDZ-uG-Ep6" kind="push" identifier="SegueIDCreatedOneToOneChatFromConfession" id="1C5-VK-Dah"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VJW-15-iT1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -968,14 +969,14 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="f5d-Ra-j3v"/>
-        <segue reference="rOT-zb-Yrt"/>
-        <segue reference="YCw-e7-spT"/>
-        <segue reference="cCp-tS-h07"/>
-        <segue reference="fcf-HI-Tc8"/>
         <segue reference="yvf-5p-X2z"/>
-        <segue reference="hBn-y3-qKM"/>
+        <segue reference="fcf-HI-Tc8"/>
+        <segue reference="cCp-tS-h07"/>
         <segue reference="v72-9M-1Zf"/>
         <segue reference="GTj-hh-MDQ"/>
+        <segue reference="YCw-e7-spT"/>
+        <segue reference="1C5-VK-Dah"/>
+        <segue reference="hBn-y3-qKM"/>
+        <segue reference="f5d-Ra-j3v"/>
     </inferredMetricsTieBreakers>
 </document>

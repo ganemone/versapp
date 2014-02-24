@@ -144,8 +144,6 @@
 }
 
 -(void)handleConfessionChatStarted:(id)sender {
-    NSLog(@"Handling Confession Chat Started: %@", [_confession confessionID]);
-    NSLog(@"Confession JID: %@", _confession.posterJID);
     [_confession startChat];
 }
 
