@@ -52,33 +52,26 @@ CAShapeLayer *closedNotifications;
 {
     [super viewDidLoad];
     
-    [self.navigationController setDelegate:self];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadNotifications:) name:PACKET_ID_GET_PENDING_CHATS object:nil];
     
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor clearColor]];
-    [self.navigationController.navigationBar setOpaque:YES];
-    [self setTitle:@"Messages"];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-messages.jpg"] forBarMetrics:UIBarMetricsDefault];
-    NSDictionary *navbarTitleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                               [UIColor whiteColor],UITextAttributeTextColor,
-                                               [UIColor blackColor], UITextAttributeTextShadowColor,
-                                               [NSValue valueWithUIOffset:UIOffsetMake(-1, 0)], UITextAttributeTextShadowOffset, nil];
-    [self.navigationController.navigationBar setTitleTextAttributes:navbarTitleTextAttributes];
+    [self.navigationController.navigationBar setHidden:YES];
     
+    // Initialize and configure page view controller
     self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:STORYBOARD_ID_PAGE_VIEW_CONTROLLER];
     self.pageViewController.dataSource = self;
     self.pageViewController.delegate = self;
+    
+    // Set the first controller to be shown
     UIViewController *initialViewController = [self viewControllerAtIndex:0];
     NSArray *viewControllers = @[initialViewController];
-
     [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:nil];
     [self addChildViewController:_pageViewController];
+    
+    // Add the page view controller frame to the current view controller
     [_pageViewController.view setFrame:self.view.frame];
     [self.view addSubview:_pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadNotifications:) name:PACKET_ID_GET_PENDING_CHATS object:nil];
-    self.connectionProvider = [ConnectionProvider getInstance];
-    [[self.connectionProvider getConnection] sendElement:[IQPacketManager createGetPendingChatsPacket]];
 }
 
 - (IBAction)notificationsClicked:(id)sender {
@@ -153,7 +146,7 @@ CAShapeLayer *closedNotifications;
     self.notificationTableView.hidden = YES;
     [self.notificationTableView setDelegate:self];
     [self.notificationTableView setDataSource:self];
-
+    
     [self.view addSubview:self.notificationTableView];
     [self hideNotifications];
 }
@@ -200,10 +193,6 @@ CAShapeLayer *closedNotifications;
     if (indexPath.section == 0) {
         NSDictionary *notification = [self.notifications objectAtIndex:indexPath.row];
         cell.textLabel.text = [notification objectForKey:@"chatName"];
-        //[[cell textLabel] setText:[notification objectForKey:@"chatName"]];
-        NSLog(@"Notification: %@", [notification objectForKey:@"chatName"]);
-        
-        NSLog(@"Testing cell...%@", cell.textLabel.text);
         [accept addTarget:self action:@selector(acceptInvitation:) forControlEvents:UIControlEventTouchUpInside];
         [decline addTarget:self action:@selector(declineInvitation:) forControlEvents:UIControlEventTouchUpInside];
     } else {
@@ -296,39 +285,11 @@ CAShapeLayer *closedNotifications;
 
 -(UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
     int index = [self indexForViewController:viewController] - 1;
-    NSLog(@"View Controller Before: %d", index);
-    if (index == 0) {
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-confessions.jpg"] forBarMetrics:UIBarMetricsDefault];
-        [self setTitle:@"Confessions"];
-    } else if (index == 1) {
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-dark1.jpg"] forBarMetrics:UIBarMetricsDefault];
-        [self setTitle:@"Friends"];
-    } else if (index == 2) {
-        [self setTitle:@"Invite"];
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-confessions.jpg"] forBarMetrics:UIBarMetricsDefault];
-    } else {
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-messages.jpg"] forBarMetrics:UIBarMetricsDefault];
-        [self setTitle:@"Messages"];
-    }
     return [self viewControllerAtIndex:index];
 }
 
 -(UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
     int index = [self indexForViewController:viewController] + 1;
-    NSLog(@"View Controller After Index: %d", index);
-    if (index == 1) {
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-messages.jpg"] forBarMetrics:UIBarMetricsDefault];
-        [self setTitle:@"Messages"];
-    } else if (index == 2) {
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-confessions.jpg"] forBarMetrics:UIBarMetricsDefault];
-        [self setTitle:@"Confessions"];
-    } else if (index == 3) {
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-dark1.jpg"] forBarMetrics:UIBarMetricsDefault];
-        [self setTitle:@"Friends"];
-    } else {
-        [self setTitle:@"Invite"];
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"grad-top-confessions.jpg"] forBarMetrics:UIBarMetricsDefault];
-    }
     return [self viewControllerAtIndex:index];
 }
 

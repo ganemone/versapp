@@ -138,6 +138,7 @@ static ConnectionProvider *selfInstance;
         [self.xmppStream sendElement:[IQPacketManager createGetRosterPacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetConfessionsPacket]];
+        [self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
     }
 }
