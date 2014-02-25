@@ -15,21 +15,15 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *username;
 @property (weak, nonatomic) IBOutlet UITextField *password;
-
 @property (weak, nonatomic) IBOutlet UITextField *confirmPassword;
-
 @property (weak, nonatomic) IBOutlet UITextField *name;
-
 @property (weak, nonatomic) IBOutlet UITextField *email;
-
 @property (weak, nonatomic) IBOutlet UIView *registerView;
 
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIButton *registerButton;
 @property (weak, nonatomic) IBOutlet UIButton *signUpButton;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
-
-
 
 @property (strong, nonatomic) NSString *usernameText;
 @property (strong, nonatomic) NSString *passwordText;
@@ -38,13 +32,11 @@
 @property (strong, nonatomic) NSString *lastNameText;
 
 @property BOOL createVCardWhenAuthenticated;
-
 @property CGPoint originalCenter;
-
 @property (strong, atomic) ConnectionProvider *cp;
+
 - (IBAction)loginClick:(id)sender;
 - (IBAction)register:(id)sender;
-
 - (IBAction)signUpClick:(id)sender;
 - (IBAction)cancelClick:(id)sender;
 
@@ -75,15 +67,7 @@
     self.cp = [ConnectionProvider getInstance];
     [self.username setDelegate:self];
     [self.password setDelegate:self];
-    //[self.email addTarget:self action:@selector(textFieldFinished:) forControlEvents: UIControlEventEditingDidEndOnExit];
-
 }
-
-
-/*-(void) textFieldFinished:(id) sender
-{
-    [sender resignFirstResponder];
-}*/
 
 -(void)authenticated
 {
@@ -137,11 +121,6 @@
     *confirm = self.confirmPassword.text,
     *email = self.email.text;
     
-   // *name = @"John Doe",
-   // *password = @"password",
-   // *confirm = @"password",
-   // *email = @"ganemone@gmail.com";
-    
     BOOL valid = YES;
     NSError *error = NULL;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^a-zA-Z\\s\\'-]" options:NSRegularExpressionCaseInsensitive error:&error];
@@ -190,7 +169,6 @@
 }
 
 - (IBAction)cancelClick:(id)sender {
-    
     self.registerView.hidden = true;
     self.loginButton.hidden = false;
     self.signUpButton.hidden = false;
