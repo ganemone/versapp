@@ -10,6 +10,7 @@
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
 #import "Constants.h"
+#import "LoadingDialogManager.h"
 
 @interface LoginViewController()
 
@@ -32,7 +33,8 @@
 @property (strong, nonatomic) NSString *lastNameText;
 
 @property BOOL createVCardWhenAuthenticated;
-@property (strong, atomic) ConnectionProvider *cp;
+@property (strong, nonatomic) ConnectionProvider *cp;
+@property (strong, nonatomic) LoadingDialogManager *ld;
 
 - (IBAction)loginClick:(id)sender;
 - (IBAction)register:(id)sender;
@@ -63,6 +65,7 @@
     
     self.createVCardWhenAuthenticated = NO;
     self.cp = [ConnectionProvider getInstance];
+    self.ld = [LoadingDialogManager create:self.view];
     [self.username setDelegate:self];
     [self.password setDelegate:self];
 }
@@ -71,14 +74,16 @@
 {
     NSLog(@"Reached Authenticated Selector in LoginViewController");
     if(self.createVCardWhenAuthenticated == YES) {
-        NSLog(@"Sending Create VCard Packet");
+        NSLog(@"Sending Create ; Packet");
         [[self.cp getConnection] sendElement:[IQPacketManager createCreateVCardPacket:self.firstNameText lastname:self.lastNameText phone:self.usernameText email:self.emailText]];
     } else {
+        [self.ld hideLoadingDialogWithoutProgress];
         [self performSegueWithIdentifier:SEGUE_ID_AUTHENTICATED sender:self];
-    } 
+    }
 }
 
 - (IBAction)loginClick:(id)sender {
+    [self.ld showLoadingDialogWithoutProgress];
     [self.cp connect:self.username.text password:self.password.text];
 }
 
@@ -100,13 +105,13 @@
 
 - (void)adminAuthenticated:(NSNotification *)notification {
     [[self.cp getConnection] sendElement:[IQPacketManager createRegisterUserPacket:self.usernameText password:self.passwordText]];
-
+    
 }
 
 - (void)didNotAuthenticate:(NSNotification *) notification{
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your username and password could not be authenticated." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
-     self.passwordText = @"";
+    self.passwordText = @"";
 }
 
 - (IBAction)register:(id)sender{
@@ -157,13 +162,13 @@
 
 - (IBAction)signUpClick:(id)sender {
     self.registerButton.hidden = false;
-     self.loginButton.hidden = true;
-     self.signUpButton.hidden = true;
-     self.cancelButton.hidden = false;
-     self.registerView.hidden = false;
-     self.email.hidden = false;
-     self.confirmPassword.hidden = false;
-     self.name.hidden = false;
+    self.loginButton.hidden = true;
+    self.signUpButton.hidden = true;
+    self.cancelButton.hidden = false;
+    self.registerView.hidden = false;
+    self.email.hidden = false;
+    self.confirmPassword.hidden = false;
+    self.name.hidden = false;
 }
 
 - (IBAction)cancelClick:(id)sender {
