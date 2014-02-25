@@ -22,7 +22,7 @@
 #import "MUCCreationManager.h"
 
 #import "Confession.h"
-
+#import "AppDelegate.h"
 
 @interface ConnectionProvider ()
 
@@ -147,12 +147,14 @@ static ConnectionProvider *selfInstance;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"didNotAuthenticate" object:nil];
     [self.xmppStream disconnect];
-
+    
 }
 
 -(void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error
 {
     NSLog(@"XMPPStream Disconnected.  Error: %@", error);
+    //AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    //[delegate handleConnectionLost];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];
 }
 

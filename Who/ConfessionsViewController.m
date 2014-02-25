@@ -57,11 +57,6 @@
     [self.bottomView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"grad-bottom-confessions.jpg"]]];
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    OneToOneConversationViewController *dest = segue.destinationViewController;
-    [dest setChat:_createdChat];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
