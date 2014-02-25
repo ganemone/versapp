@@ -21,6 +21,7 @@
 @property (strong, nonatomic) ConnectionProvider* cp;
 @property (strong, nonatomic) NSString *timeLastActive;
 @property (strong, nonatomic) NSIndexPath *clickedCellIndexPath;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
