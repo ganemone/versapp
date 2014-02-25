@@ -32,7 +32,6 @@
 @property (strong, nonatomic) NSString *lastNameText;
 
 @property BOOL createVCardWhenAuthenticated;
-@property CGPoint originalCenter;
 @property (strong, atomic) ConnectionProvider *cp;
 
 - (IBAction)loginClick:(id)sender;
@@ -63,7 +62,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didNotAuthenticate:) name:@"didNotAuthenticate" object:nil];
     
     self.createVCardWhenAuthenticated = NO;
-    self.originalCenter = self.view.center;
     self.cp = [ConnectionProvider getInstance];
     [self.username setDelegate:self];
     [self.password setDelegate:self];
