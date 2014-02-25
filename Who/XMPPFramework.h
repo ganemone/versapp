@@ -30,3 +30,4 @@
 #import "XMPPPing.h"
 #import "XMPPAutoPing.h"
 #import "XMPPRoom.h"
+#import "XMPPReconnect.h"

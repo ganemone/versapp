@@ -10,12 +10,14 @@
 #import "XMPPStream.h"
 #import "IQPacketReceiver.h"
 #import "LoginViewController.h"
+#import "XMPPAutoPing.h"
+#import "XMPPReconnect.h"
 
 // A class that handles connecting and authenticating to xmpp. Implements a
 // singleton pattern to allow connection functionality across the application.
 // Extends from NSObject and implements the <XMPPStreamDelegate> interface to
 // allow for helpful callback methods.
-@interface ConnectionProvider : NSObject  <XMPPStreamDelegate>
+@interface ConnectionProvider : NSObject  <XMPPStreamDelegate, XMPPAutoPingDelegate, XMPPReconnectDelegate>
 
 @property(strong, nonatomic) UIViewController *controller;
 @property BOOL authenticated;

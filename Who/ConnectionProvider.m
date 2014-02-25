@@ -23,9 +23,13 @@
 
 #import "Confession.h"
 #import "AppDelegate.h"
+#import "XMPPReconnect.h"
+#import "XMPPAutoPing.h"
 
 @interface ConnectionProvider ()
 
+@property(strong, nonatomic) XMPPReconnect *xmppReconnect;
+@property(strong, nonatomic) XMPPAutoPing *xmppPing;
 @property(strong, nonatomic) XMPPStream* xmppStream;
 @property(strong, nonatomic) NSString* username;
 @property(strong, nonatomic) NSString* password;
@@ -45,6 +49,12 @@ static ConnectionProvider *selfInstance;
             selfInstance = [[self alloc] init];
             selfInstance.SERVER_IP_ADDRESS = @"199.175.55.10";
             selfInstance.CONFERENCE_IP_ADDRESS = @"conference.199.175.55.10";
+            selfInstance.xmppReconnect = [[XMPPReconnect alloc] initWithDispatchQueue:dispatch_get_main_queue()];
+            [selfInstance.xmppReconnect addDelegate:self delegateQueue:dispatch_get_main_queue()];
+            selfInstance.xmppPing = [[XMPPAutoPing alloc] initWithDispatchQueue:dispatch_get_main_queue()];
+            selfInstance.xmppPing.pingInterval = 25.f; // default is 60
+            selfInstance.xmppPing.pingTimeout = 10.f; // default is 10
+            [selfInstance.xmppPing addDelegate:self delegateQueue:dispatch_get_main_queue()];
             [selfInstance addSelfStreamDelegate];
         }
     }
@@ -126,7 +136,7 @@ static ConnectionProvider *selfInstance;
 - (void)xmppStreamDidAuthenticate:(XMPPStream *)sender
 {
     NSLog(@"XMPP Stream Did Authenticate");
-    NSLog(@"%s", __FUNCTION__);
+    [self.xmppReconnect activate:self.xmppStream];
     self.authenticated = YES;
     if([self.username compare:@"admin"] == 0) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ADMIN_AUTHENTICATED object:nil];
@@ -214,5 +224,20 @@ static ConnectionProvider *selfInstance;
     return [[self getInstance] username];
 }
 
+-(void)xmppAutoPingDidSendPing:(XMPPAutoPing *)sender {
+    NSLog(@"Did send ping...");
+}
 
+-(void)xmppAutoPingDidReceivePong:(XMPPAutoPing *)sender {
+    NSLog(@"Did receive pong...");
+}
+
+-(BOOL)xmppReconnect:(XMPPReconnect *)sender shouldAttemptAutoReconnect:(SCNetworkConnectionFlags)connectionFlags {
+    NSLog(@"Should attempt auto reconnect: %u", connectionFlags);
+    return true;
+}
+
+-(void)xmppReconnect:(XMPPReconnect *)sender didDetectAccidentalDisconnect:(SCNetworkConnectionFlags)connectionFlags {
+    NSLog(@"Did detect accidental disconnect...");
+}
 @end
