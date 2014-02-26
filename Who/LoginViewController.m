@@ -90,8 +90,12 @@
 }
 
 - (IBAction)loginClick:(id)sender {
+    self.passwordText = self.password.text;
+    self.usernameText = self.username.text;
+    
     [LoginManager savePassword:self.passwordText];
-    [LoginManager savePassword:self.usernameText];
+    [LoginManager saveUsername:self.usernameText];
+    
     [self login];
 }
 
