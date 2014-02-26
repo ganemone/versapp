@@ -15,7 +15,9 @@ extern NSString *const NSDEFAULT_KEY_USERNAME;
 
 +(void)savePassword:(NSString*)password;
 +(void)saveUsername:(NSString*)username;
++(void)clearUsernameAndPassword;
 +(NSString*)loadPassword;
 +(NSString*)loadUsername;
+
 
 @end

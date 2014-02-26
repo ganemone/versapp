@@ -11,6 +11,7 @@
 #import "IQPacketManager.h"
 #import "Constants.h"
 #import "LoadingDialogManager.h"
+#import "LoginManager.h"
 
 @interface LoginViewController()
 
@@ -56,7 +57,6 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticated) name:@"authenticated" object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(adminAuthenticated:) name:NOTIFICATION_ADMIN_AUTHENTICATED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createdVCard:) name:PACKET_ID_CREATE_VCARD object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registeredUser:) name:PACKET_ID_REGISTER_USER object:nil];
@@ -68,6 +68,13 @@
     self.ld = [LoadingDialogManager create:self.view];
     [self.username setDelegate:self];
     [self.password setDelegate:self];
+    
+    self.usernameText = [LoginManager loadUsername];
+    self.passwordText = [LoginManager loadPassword];
+    
+    if (self.usernameText != nil && self.passwordText != nil) {
+        [self login];
+    }
 }
 
 -(void)authenticated
@@ -83,6 +90,12 @@
 }
 
 - (IBAction)loginClick:(id)sender {
+    [LoginManager savePassword:self.passwordText];
+    [LoginManager savePassword:self.usernameText];
+    [self login];
+}
+
+- (void)login {
     [self.ld showLoadingDialogWithoutProgress];
     [self.cp connect:self.username.text password:self.password.text];
 }
@@ -109,6 +122,7 @@
 }
 
 - (void)didNotAuthenticate:(NSNotification *) notification{
+    [LoginManager clearUsernameAndPassword];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your username and password could not be authenticated." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     self.passwordText = @"";

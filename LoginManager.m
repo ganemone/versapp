@@ -35,4 +35,11 @@ NSString *const NSDEFAULT_KEY_USERNAME = @"nsdefault_key_username";
     return [preferences stringForKey:NSDEFAULT_KEY_USERNAME];
 }
 
++(void)clearUsernameAndPassword {
+    NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
+    [preferences removeObjectForKey:NSDEFAULT_KEY_USERNAME];
+    [preferences removeObjectForKey:NSDEFAULT_KEY_PASSWORD];
+    [preferences synchronize];
+}
+
 @end
