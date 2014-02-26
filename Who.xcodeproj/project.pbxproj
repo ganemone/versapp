@@ -228,6 +228,7 @@
 		3AF5113D1885D79E002383D3 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF5113C1885D79E002383D3 /* Constants.m */; };
 		3AF86D2918B504CF00033495 /* bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF86D2718B504CF00033495 /* bubble.png */; };
 		3AF86D2A18B504CF00033495 /* bubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF86D2818B504CF00033495 /* bubble@2x.png */; };
+		3AFB643318BE342000BFA9A3 /* LoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFB643218BE342000BFA9A3 /* LoginManager.m */; };
 		3AFFC93D18A06AE3009D7F13 /* db.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC93B18A06AE3009D7F13 /* db.xcdatamodeld */; };
 		3AFFC94018A06B95009D7F13 /* MessageMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC93F18A06B95009D7F13 /* MessageMO.m */; };
 		3AFFC94318A06BA9009D7F13 /* FriendMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC94218A06BA9009D7F13 /* FriendMO.m */; };
@@ -676,6 +677,8 @@
 		3AF5113C1885D79E002383D3 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		3AF86D2718B504CF00033495 /* bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bubble.png; sourceTree = "<group>"; };
 		3AF86D2818B504CF00033495 /* bubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble@2x.png"; sourceTree = "<group>"; };
+		3AFB643118BE342000BFA9A3 /* LoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginManager.h; path = ../LoginManager.h; sourceTree = "<group>"; };
+		3AFB643218BE342000BFA9A3 /* LoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginManager.m; path = ../LoginManager.m; sourceTree = "<group>"; };
 		3AFFC93C18A06AE3009D7F13 /* db.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = db.xcdatamodel; sourceTree = "<group>"; };
 		3AFFC93E18A06B95009D7F13 /* MessageMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageMO.h; sourceTree = "<group>"; };
 		3AFFC93F18A06B95009D7F13 /* MessageMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageMO.m; sourceTree = "<group>"; };
@@ -806,6 +809,8 @@
 		3A25B63C1881E03700166623 /* Who */ = {
 			isa = PBXGroup;
 			children = (
+				3AFB643118BE342000BFA9A3 /* LoginManager.h */,
+				3AFB643218BE342000BFA9A3 /* LoginManager.m */,
 				3AB9E67C18A45573001EFDB8 /* LoadingDialogManager.h */,
 				3AB9E67D18A45573001EFDB8 /* LoadingDialogManager.m */,
 				F751016B18ABE8A2001F1E7F /* Settings.bundle */,
@@ -2256,6 +2261,7 @@
 				3ABA80DA18AE5F87002012C7 /* ImageManager.m in Sources */,
 				3A98D9D718BD1A2600B69049 /* XMPPResourceCoreDataStorageObject.m in Sources */,
 				3A98DA0D18BD1A2600B69049 /* NSString+XEP_0106.m in Sources */,
+				3AFB643318BE342000BFA9A3 /* LoginManager.m in Sources */,
 				3A3A0ADB18AB1126006FBAE4 /* UIColor+JSMessagesView.m in Sources */,
 				3A98DA0918BD1A2600B69049 /* XMPPDateTimeProfiles.m in Sources */,
 				3A25B6791881E85B00166623 /* ContactsViewController.m in Sources */,
