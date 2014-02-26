@@ -137,4 +137,13 @@
     [self.tableView reloadData];
 }
 
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    NSLog(@"Will Begin dragging...");
+    
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+}
+
 @end
