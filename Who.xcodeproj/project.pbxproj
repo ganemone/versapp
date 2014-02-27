@@ -109,10 +109,6 @@
 		3A98D9DC18BD1A2600B69049 /* XMPPRosterMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D90B18BD1A2600B69049 /* XMPPRosterMemoryStorage.m */; };
 		3A98D9DD18BD1A2600B69049 /* XMPPUserMemoryStorageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D90E18BD1A2600B69049 /* XMPPUserMemoryStorageObject.m */; };
 		3A98D9DE18BD1A2600B69049 /* XMPPRoster.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D91118BD1A2600B69049 /* XMPPRoster.m */; };
-		3A98D9DF18BD1A2600B69049 /* XMPPSystemInputActivityMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D91618BD1A2600B69049 /* XMPPSystemInputActivityMonitor.m */; };
-		3A98D9E018BD1A2600B69049 /* XMPPIQ+JabberRPC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D91918BD1A2600B69049 /* XMPPIQ+JabberRPC.m */; };
-		3A98D9E118BD1A2600B69049 /* XMPPIQ+JabberRPCResonse.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D91B18BD1A2600B69049 /* XMPPIQ+JabberRPCResonse.m */; };
-		3A98D9E218BD1A2600B69049 /* XMPPJabberRPCModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D91D18BD1A2600B69049 /* XMPPJabberRPCModule.m */; };
 		3A98D9E318BD1A2600B69049 /* XMPPIQ+LastActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D92018BD1A2600B69049 /* XMPPIQ+LastActivity.m */; };
 		3A98D9E418BD1A2600B69049 /* XMPPLastActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D92218BD1A2600B69049 /* XMPPLastActivity.m */; };
 		3A98D9E518BD1A2600B69049 /* XMPPPrivacy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D92518BD1A2600B69049 /* XMPPPrivacy.m */; };
@@ -444,14 +440,6 @@
 		3A98D91118BD1A2600B69049 /* XMPPRoster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPRoster.m; sourceTree = "<group>"; };
 		3A98D91218BD1A2600B69049 /* XMPPRosterPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPRosterPrivate.h; sourceTree = "<group>"; };
 		3A98D91318BD1A2600B69049 /* XMPPUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPUser.h; sourceTree = "<group>"; };
-		3A98D91518BD1A2600B69049 /* XMPPSystemInputActivityMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPSystemInputActivityMonitor.h; sourceTree = "<group>"; };
-		3A98D91618BD1A2600B69049 /* XMPPSystemInputActivityMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPSystemInputActivityMonitor.m; sourceTree = "<group>"; };
-		3A98D91818BD1A2600B69049 /* XMPPIQ+JabberRPC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XMPPIQ+JabberRPC.h"; sourceTree = "<group>"; };
-		3A98D91918BD1A2600B69049 /* XMPPIQ+JabberRPC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XMPPIQ+JabberRPC.m"; sourceTree = "<group>"; };
-		3A98D91A18BD1A2600B69049 /* XMPPIQ+JabberRPCResonse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XMPPIQ+JabberRPCResonse.h"; sourceTree = "<group>"; };
-		3A98D91B18BD1A2600B69049 /* XMPPIQ+JabberRPCResonse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XMPPIQ+JabberRPCResonse.m"; sourceTree = "<group>"; };
-		3A98D91C18BD1A2600B69049 /* XMPPJabberRPCModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPJabberRPCModule.h; sourceTree = "<group>"; };
-		3A98D91D18BD1A2600B69049 /* XMPPJabberRPCModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPJabberRPCModule.m; sourceTree = "<group>"; };
 		3A98D91F18BD1A2600B69049 /* XMPPIQ+LastActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XMPPIQ+LastActivity.h"; sourceTree = "<group>"; };
 		3A98D92018BD1A2600B69049 /* XMPPIQ+LastActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XMPPIQ+LastActivity.m"; sourceTree = "<group>"; };
 		3A98D92118BD1A2600B69049 /* XMPPLastActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPLastActivity.h; sourceTree = "<group>"; };
@@ -1189,8 +1177,6 @@
 				3A98D8F618BD1A2600B69049 /* ProcessOne */,
 				3A98D8F918BD1A2600B69049 /* Reconnect */,
 				3A98D8FC18BD1A2600B69049 /* Roster */,
-				3A98D91418BD1A2600B69049 /* SystemInputActivityMonitor */,
-				3A98D91718BD1A2600B69049 /* XEP-0009 */,
 				3A98D91E18BD1A2600B69049 /* XEP-0012 */,
 				3A98D92318BD1A2600B69049 /* XEP-0016 */,
 				3A98D92618BD1A2600B69049 /* XEP-0045 */,
@@ -1312,28 +1298,6 @@
 				3A98D90E18BD1A2600B69049 /* XMPPUserMemoryStorageObject.m */,
 			);
 			path = MemoryStorage;
-			sourceTree = "<group>";
-		};
-		3A98D91418BD1A2600B69049 /* SystemInputActivityMonitor */ = {
-			isa = PBXGroup;
-			children = (
-				3A98D91518BD1A2600B69049 /* XMPPSystemInputActivityMonitor.h */,
-				3A98D91618BD1A2600B69049 /* XMPPSystemInputActivityMonitor.m */,
-			);
-			path = SystemInputActivityMonitor;
-			sourceTree = "<group>";
-		};
-		3A98D91718BD1A2600B69049 /* XEP-0009 */ = {
-			isa = PBXGroup;
-			children = (
-				3A98D91818BD1A2600B69049 /* XMPPIQ+JabberRPC.h */,
-				3A98D91918BD1A2600B69049 /* XMPPIQ+JabberRPC.m */,
-				3A98D91A18BD1A2600B69049 /* XMPPIQ+JabberRPCResonse.h */,
-				3A98D91B18BD1A2600B69049 /* XMPPIQ+JabberRPCResonse.m */,
-				3A98D91C18BD1A2600B69049 /* XMPPJabberRPCModule.h */,
-				3A98D91D18BD1A2600B69049 /* XMPPJabberRPCModule.m */,
-			);
-			path = "XEP-0009";
 			sourceTree = "<group>";
 		};
 		3A98D91E18BD1A2600B69049 /* XEP-0012 */ = {
@@ -2176,7 +2140,6 @@
 				3A98D9D518BD1A2600B69049 /* XMPPReconnect.m in Sources */,
 				3AAE9B1718945710003B4560 /* OneToOneChatManager.m in Sources */,
 				3AF19A511881F1DD00F3E4D3 /* GCDAsyncSocket.m in Sources */,
-				3A98D9E218BD1A2600B69049 /* XMPPJabberRPCModule.m in Sources */,
 				3A98D8E618BD19B200B69049 /* XMPPMessage.m in Sources */,
 				3AF19A691881F34A00F3E4D3 /* DDXMLDocument.m in Sources */,
 				3A98DA1B18BD1A2600B69049 /* XMPPMessage+XEP_0184.m in Sources */,
@@ -2207,7 +2170,6 @@
 				3A98D9F018BD1A2600B69049 /* XMPPRoomOccupantMemoryStorageObject.m in Sources */,
 				3A98DA1C18BD1A2600B69049 /* XMPPMessageDeliveryReceipts.m in Sources */,
 				3A98D8E818BD19B200B69049 /* XMPPParser.m in Sources */,
-				3A98D9E018BD1A2600B69049 /* XMPPIQ+JabberRPC.m in Sources */,
 				3A98D9F718BD1A2600B69049 /* XMPPvCardCoreDataStorageObject.m in Sources */,
 				F751016418ABE101001F1E7F /* IASKSpecifier.m in Sources */,
 				3A3A0ADF18AB1126006FBAE4 /* JSBubbleMessageCell.m in Sources */,
@@ -2313,7 +2275,6 @@
 				3A98D9E918BD1A2600B69049 /* XMPPRoomOccupantCoreDataStorageObject.m in Sources */,
 				3A47C847189F1F02003020D7 /* MessagesDBManager.m in Sources */,
 				3A98DA0118BD1A2600B69049 /* NSXMLElement+XEP_0059.m in Sources */,
-				3A98D9E118BD1A2600B69049 /* XMPPIQ+JabberRPCResonse.m in Sources */,
 				3A98D9DB18BD1A2600B69049 /* XMPPResourceMemoryStorageObject.m in Sources */,
 				3AF19AD11882075D00F3E4D3 /* ConnectionProvider.m in Sources */,
 				3AF19A451881EF1600F3E4D3 /* DDAbstractDatabaseLogger.m in Sources */,
@@ -2354,7 +2315,6 @@
 				3A98D9F818BD1A2600B69049 /* XMPPvCardTempCoreDataStorageObject.m in Sources */,
 				3A25B6731881E83500166623 /* DashboardViewController.m in Sources */,
 				3A98D9F418BD1A2600B69049 /* XMPPvCard.xcdatamodeld in Sources */,
-				3A98D9DF18BD1A2600B69049 /* XMPPSystemInputActivityMonitor.m in Sources */,
 				3A98DA3B18BD1A4B00B69049 /* XMPPSRVResolver.m in Sources */,
 				3A98D9D418BD1A2600B69049 /* XMPPProcessOne.m in Sources */,
 				3A8BCF7918B5964400D4B7CE /* ConfessionsManager.m in Sources */,
