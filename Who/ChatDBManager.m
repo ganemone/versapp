@@ -14,6 +14,10 @@
 
 @implementation ChatDBManager
 
++(BOOL)hasChatWithID:(NSString *)chatID {
+    return ([self getChatWithID:chatID] != nil);
+}
+
 +(void)insertChatWithID:(NSString *)chatID chatName:(NSString *)chatName {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate managedObjectContext];
