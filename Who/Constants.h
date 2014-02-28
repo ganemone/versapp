@@ -90,11 +90,16 @@ extern NSString *const PACKET_ID_ROSTER;
 
 extern NSString *const CORE_DATA_TABLE_MESSAGES;
 extern NSString *const CORE_DATA_TABLE_FRIENDS;
+extern NSString *const CORE_DATA_TABLE_CHATS;
 
 extern NSString *const FRIENDS_TABLE_COLUMN_NAME_USERNAME;
 extern NSString *const FRIENDS_TABLE_COLUMN_NAME_NAME;
 extern NSString *const FRIENDS_TABLE_COLUMN_NAME_STATUS;
 extern NSString *const FRIENDS_TABLE_COLUMN_NAME_EMAIL;
+
+extern NSString *const CHATS_TABLE_COLUMN_NAME_CHAT_ID;
+extern NSString *const CHATS_TABLE_COLUMN_NAME_CHAT_NAME;
+extern NSString *const CHATS_TABLE_COLUMN_NAME_USER_DEFINED_CHAT_NAME;
 
 extern int const STATUS_FRIENDS;
 extern int const STATUS_REGISTERED;

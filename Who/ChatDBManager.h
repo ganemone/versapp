@@ -10,4 +10,11 @@
 
 @interface ChatDBManager : NSObject
 
++(void)insertChatWithID:(NSString*)chatID chatName:(NSString*)chatName;
+
++(void)updateUserDefinedChatNameWithID:(NSString*)chatID chatName:(NSString*)chatName;
+
++(NSString*)getChatNameWithID:(NSString*)chatID;
+
++(NSString*)getUserDefinedChatNameWithID:(NSString*)chatID;
 @end

@@ -90,11 +90,16 @@ NSString *const USER_STATUS_UNREGISTERED = @"user_status_unregistered";
 
 NSString *const CORE_DATA_TABLE_MESSAGES = @"MessageMO";
 NSString *const CORE_DATA_TABLE_FRIENDS = @"FriendMO";
+NSString *const CORE_DATA_TABLE_CHATS = @"ChatMO";
 
 NSString *const FRIENDS_TABLE_COLUMN_NAME_USERNAME = @"username";
 NSString *const FRIENDS_TABLE_COLUMN_NAME_NAME = @"name";
 NSString *const FRIENDS_TABLE_COLUMN_NAME_STATUS = @"status";
 NSString *const FRIENDS_TABLE_COLUMN_NAME_EMAIL = @"email";
+
+NSString *const CHATS_TABLE_COLUMN_NAME_CHAT_ID = @"chat_id";
+NSString *const CHATS_TABLE_COLUMN_NAME_CHAT_NAME = @"chat_name";
+NSString *const CHATS_TABLE_COLUMN_NAME_USER_DEFINED_CHAT_NAME = @"user_defined_chat_name";
 
 int const STATUS_FRIENDS = 0;
 int const STATUS_REGISTERED = 1;
