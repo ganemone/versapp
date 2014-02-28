@@ -106,4 +106,13 @@ static GroupChatManager * selfInstance;
     }
 }
 
+-(void)sortChats {
+    NSArray *sortedIDValues = [self.mucIDValues sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        NSString *first = [(GroupChat*)a getLastMessage].timestamp;
+        NSString *second = [(GroupChat*)b getLastMessage].timestamp;
+        return [first compare:second];
+    }];
+    _mucIDValues = [[NSMutableArray alloc] initWithArray:sortedIDValues];
+}
+
 @end

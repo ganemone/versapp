@@ -41,6 +41,9 @@
     [self.tableView setBackgroundView:backgroundImageView];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     
+    GroupChatManager *gcm = [GroupChatManager getInstance];
+    [gcm sortChats];
+    
     self.cp = [ConnectionProvider getInstance];
     
 }

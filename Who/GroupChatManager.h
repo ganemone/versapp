@@ -31,6 +31,6 @@
 
 -(void)setTimeForHistory:(NSString*)time;
 
-
+-(void)sortChats;
 
 @end
