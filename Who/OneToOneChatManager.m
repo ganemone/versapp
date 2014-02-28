@@ -60,4 +60,14 @@ static OneToOneChatManager *selfInstance;
     return [self getChat:_pendingChatID];
 }
 
+-(void)sortChats {
+    NSArray *sortedIDValues = [self.chatIDValues sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        NSString *first = [[[[self chats] objectForKey:a] getLastMessage] timestamp];
+        NSString *second = [[[[self chats] objectForKey:b] getLastMessage] timestamp];
+        return [second compare:first];
+    }];
+    _chatIDValues = [[NSMutableArray alloc] initWithArray:sortedIDValues];
+}
+
+
 @end

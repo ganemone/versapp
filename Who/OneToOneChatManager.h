@@ -27,4 +27,6 @@
 
 -(OneToOneChat*)getPendingChat;
 
+-(void)sortChats;
+
 @end

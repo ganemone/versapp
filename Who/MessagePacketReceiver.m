@@ -108,6 +108,8 @@
         OneToOneChat *chat = [cm getChat:message.thread];
         [chat addMessage:[Message createForOneToOneWithImage:message.body sender:senderID chatID:message.thread messageTo:receiverID imageLink:imageLink timestamp:timestamp]];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
+        
+        [cm sortChats];
     } else {
         NSLog(@"Received Unrecognized Message Packet Type!!");
     }
