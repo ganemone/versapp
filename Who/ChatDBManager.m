@@ -45,7 +45,7 @@
 }
 
 +(ChatMO*)getChatWithID:(NSString*)chatID {
-    return [[self makeFetchRequest:[NSString stringWithFormat:@"%@ = %@", CHATS_TABLE_COLUMN_NAME_CHAT_ID, chatID]] firstObject];
+    return [[self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", CHATS_TABLE_COLUMN_NAME_CHAT_ID, chatID]] firstObject];
 }
 
 +(NSArray*)makeFetchRequest:(NSString*)predicateString {
@@ -60,10 +60,21 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat: predicateString];
     [fetchRequest setPredicate:predicate];
     
-    NSError* error;
+    NSError* error = NULL;
     NSArray *fetchedRecords = [moc executeFetchRequest:fetchRequest error:&error];
     
     return fetchedRecords;
+}
+
++(NSArray *)getAllChats {
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *moc = [delegate managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:CORE_DATA_TABLE_CHATS inManagedObjectContext:moc];
+    [fetchRequest setEntity:entity];
+    NSError * error = NULL;
+    return [moc executeFetchRequest:fetchRequest error:&error];
 }
 
 @end

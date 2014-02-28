@@ -19,4 +19,6 @@
 +(NSString*)getChatNameWithID:(NSString*)chatID;
 
 +(NSString*)getUserDefinedChatNameWithID:(NSString*)chatID;
+
++(NSArray*)getAllChats;
 @end

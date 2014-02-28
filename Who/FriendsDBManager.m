@@ -57,7 +57,7 @@
 }
 
 +(FriendMO *)getUserWithEmail:(NSString *)email {
-    NSArray *fetchedData = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = %@", FRIENDS_TABLE_COLUMN_NAME_EMAIL, email]];
+    NSArray *fetchedData = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", FRIENDS_TABLE_COLUMN_NAME_EMAIL, email]];
     if(fetchedData.count > 0) {
         return [fetchedData firstObject];
     }
@@ -66,7 +66,7 @@
 
 
 +(FriendMO *)getUserWithJID:(NSString *)jid {
-    NSArray *fetchedData = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = %@", FRIENDS_TABLE_COLUMN_NAME_USERNAME, jid]];
+    NSArray *fetchedData = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", FRIENDS_TABLE_COLUMN_NAME_USERNAME, jid]];
     if(fetchedData.count > 0) {
         return [fetchedData firstObject];
     }
