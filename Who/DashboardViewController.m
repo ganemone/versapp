@@ -45,6 +45,10 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [self.tableView reloadData];
+}
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier compare:SEGUE_ID_GROUP_CONVERSATION] == 0) {
         GroupChatManager *gcm = [GroupChatManager getInstance];

@@ -65,7 +65,11 @@
 -(void)messageReceived:(NSNotification*)notification {
     NSDictionary *userInfo = notification.userInfo;
     if ([(NSString*)[userInfo objectForKey:MESSAGE_PROPERTY_GROUP_ID] compare:self.gc.chatID] == 0) {
-        [self animateAddNewestMessage];
+        if([self.gc getNumberOfMessages] <= 1) {
+            [self.tableView reloadData];
+        } else {
+            [self animateAddNewestMessage];
+        }
     }
 }
 

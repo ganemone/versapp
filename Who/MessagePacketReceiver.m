@@ -94,7 +94,7 @@
             [gc addMessage: messageObject];
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
         }
-        
+        [gcm sortChats];
     } else if([message.type compare:CHAT_TYPE_ONE_TO_ONE] == 0) {
 
         if (imageLink != nil) {
