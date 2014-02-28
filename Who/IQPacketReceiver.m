@@ -18,7 +18,7 @@
 #import "MessagesDBManager.h"
 #import "UserProfile.h"
 #import "AppDelegate.h"
-
+#import "ChatDBManager.h"
 #import "Confession.h"
 #import "ConfessionsManager.h"
 
@@ -86,6 +86,14 @@
         NSString* createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
         if([owner compare:participantString] == 0) {
             participantString = [ConnectionProvider getUser];
+        }
+        if ([ChatDBManager hasChatWithID:chatId]) {
+            NSLog(@"Has Chat With ID");
+            name = [ChatDBManager getUserDefinedChatNameWithID:chatId];
+            NSLog(@"User Defined Name: %@", name);
+        } else {
+            NSLog(@"Storing chat information locally....");
+            [ChatDBManager insertChatWithID:chatId chatName:name];
         }
         if([type isEqualToString:CHAT_TYPE_GROUP]) {
             [gcm addChat:[GroupChat create:chatId participants:participants groupName:name owner:owner createdTime:createdTime]];
