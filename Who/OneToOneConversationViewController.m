@@ -7,6 +7,7 @@
 //
 
 #import "OneToOneConversationViewController.h"
+#import "OneToOneChatManager.h"
 #import "Constants.h"
 #import "Message.h"
 #import "JSMessage.h"
@@ -43,7 +44,11 @@
 -(void)messageReceived:(NSNotification*)notification {
     NSDictionary *userInfo = notification.userInfo;
     if ([(NSString*)[userInfo objectForKey:MESSAGE_PROPERTY_GROUP_ID] compare:self.chat.chatID] == 0) {
-        [self animateAddNewestMessage];
+        if([self.chat getNumberOfMessages] <= 1) {
+            [self.tableView reloadData];
+        } else {
+            [self animateAddNewestMessage];
+        }
     }
 }
 
@@ -149,6 +154,8 @@
     NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
     [self.tableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationFade];
     [self scrollToBottomAnimated:YES];
+    
+    [[OneToOneChatManager getInstance] sortChats];
 }
 
 -(void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
