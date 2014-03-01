@@ -24,6 +24,7 @@
 @property (strong, nonatomic) NSString *timeLastActive;
 @property (strong, nonatomic) NSIndexPath *clickedCellIndexPath;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UILabel *header;
 
 @end
 
@@ -50,6 +51,8 @@
         NSLog(@"Chat: %@ %@ %@", chat.chat_id, chat.chat_name, chat.user_defined_chat_name);
     }
     self.cp = [ConnectionProvider getInstance];
+    
+    [self.header setFont:[UIFont fontWithName:@"MavenProLight100-Regular" size:12]];
     
 }
 

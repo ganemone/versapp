@@ -488,9 +488,9 @@
 		3AC6D0CE18C0E17100091539 /* ChatDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatDBManager.m; sourceTree = "<group>"; };
 		3AC6D0D018C22A9500091539 /* StyleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleManager.h; sourceTree = "<group>"; };
 		3AC6D0D118C22A9500091539 /* StyleManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleManager.m; sourceTree = "<group>"; };
-		3AC6D0D318C22F9E00091539 /* MavenProLight-100.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MavenProLight-100.ttf"; sourceTree = "<group>"; };
-		3AC6D0D418C22F9E00091539 /* MavenProLight-200.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MavenProLight-200.ttf"; sourceTree = "<group>"; };
-		3AC6D0D518C22F9E00091539 /* MavenProLight-300.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MavenProLight-300.ttf"; sourceTree = "<group>"; };
+		3AC6D0D918C23B2D00091539 /* MavenProLight-100.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MavenProLight-100.ttf"; sourceTree = "<group>"; };
+		3AC6D0DA18C23B2D00091539 /* MavenProLight-200.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MavenProLight-200.ttf"; sourceTree = "<group>"; };
+		3AC6D0DB18C23B2D00091539 /* MavenProLight-300.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MavenProLight-300.ttf"; sourceTree = "<group>"; };
 		3AF0B00718B515E500E3D0D3 /* transparent-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "transparent-bg.png"; sourceTree = "<group>"; };
 		3AF0B00918B54E9000E3D0D3 /* bottom-section.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bottom-section.png"; sourceTree = "<group>"; };
 		3AF19A3B1881EF1600F3E4D3 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
@@ -615,9 +615,9 @@
 		3A0FE1CC18A9B6DA003692EB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3AC6D0D318C22F9E00091539 /* MavenProLight-100.ttf */,
-				3AC6D0D418C22F9E00091539 /* MavenProLight-200.ttf */,
-				3AC6D0D518C22F9E00091539 /* MavenProLight-300.ttf */,
+				3AC6D0D918C23B2D00091539 /* MavenProLight-100.ttf */,
+				3AC6D0DA18C23B2D00091539 /* MavenProLight-200.ttf */,
+				3AC6D0DB18C23B2D00091539 /* MavenProLight-300.ttf */,
 				3AF86D3218B5070200033495 /* Images */,
 			);
 			name = Resources;

@@ -52,7 +52,6 @@ CAShapeLayer *closedNotifications;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [StyleManager setAllFontStyles];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadNotifications:) name:PACKET_ID_GET_PENDING_CHATS object:nil];
     
