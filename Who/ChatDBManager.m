@@ -77,4 +77,21 @@
     return [moc executeFetchRequest:fetchRequest error:&error];
 }
 
++(void)setHasNewMessageNo:(NSString *)chatID {
+    ChatMO *chatEntry = [self getChatWithID:chatID];
+    [chatEntry setValue:@"NO" forKey:CHATS_TABLE_COLUMN_NAME_HAS_NEW_MESSAGE];
+    [(AppDelegate*)[UIApplication sharedApplication].delegate saveContext];
+}
+
++(void)setHasNewMessageYes:(NSString *)chatID {
+    ChatMO *chatEntry = [self getChatWithID:chatID];
+    [chatEntry setValue:@"YES" forKey:CHATS_TABLE_COLUMN_NAME_HAS_NEW_MESSAGE];
+    [(AppDelegate*)[UIApplication sharedApplication].delegate saveContext];
+}
+
++(BOOL)doesChatHaveNewMessage:(NSString *)chatID {
+    ChatMO *chatEntry = [self getChatWithID:chatID];
+    return ([chatEntry.has_new_message compare:@"YES"] == 0);
+}
+
 @end

@@ -100,6 +100,7 @@ NSString *const FRIENDS_TABLE_COLUMN_NAME_EMAIL = @"email";
 NSString *const CHATS_TABLE_COLUMN_NAME_CHAT_ID = @"chat_id";
 NSString *const CHATS_TABLE_COLUMN_NAME_CHAT_NAME = @"chat_name";
 NSString *const CHATS_TABLE_COLUMN_NAME_USER_DEFINED_CHAT_NAME = @"user_defined_chat_name";
+NSString *const CHATS_TABLE_COLUMN_NAME_HAS_NEW_MESSAGE = @"has_new_message";
 
 int const STATUS_FRIENDS = 0;
 int const STATUS_REGISTERED = 1;

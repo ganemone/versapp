@@ -13,5 +13,6 @@
 @property (nonatomic, retain) NSString *chat_name;
 @property (nonatomic, retain) NSString *user_defined_chat_name;
 @property (nonatomic, retain) NSString *chat_id;
+@property (nonatomic, retain) NSString *has_new_message;
 
 @end

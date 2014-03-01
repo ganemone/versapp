@@ -21,4 +21,9 @@
 +(NSString*)getUserDefinedChatNameWithID:(NSString*)chatID;
 
 +(NSArray*)getAllChats;
+
++(void)setHasNewMessageYes:(NSString*)chatID;
+
++(void)setHasNewMessageNo:(NSString*)chatID;
+
 @end
