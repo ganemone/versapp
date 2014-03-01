@@ -12,6 +12,7 @@
 
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
+#import "StyleManager.h"
 
 @implementation ConfessionTableCell
 
@@ -60,7 +61,7 @@
         [textView setBackgroundColor:[UIColor clearColor]];
         [textView setText:[confession body]];
         [textView setTextColor:[UIColor whiteColor]];
-        [textView setFont:[UIFont fontWithName:@"Helvetica" size:16.0]];
+        [StyleManager setFontStyleNormalForTextView:textView];
         [textView setEditable:NO];
         
         
@@ -82,7 +83,7 @@
         UILabel *label = [[UILabel alloc] initWithFrame:favoriteLabelFrame];
         [label setTextColor:[UIColor whiteColor]];
         [label setText:[NSString stringWithFormat:@"%lu", (unsigned long)[[confession favoritedUsers] count]]];
-        [label setFont:[UIFont fontWithName:@"Helvetica" size:8.0f]];
+        [StyleManager setFontStyleSmallForLabel:label];
 
         [favoriteBtn addTarget:self action:@selector(handleConfessionFavorited:) forControlEvents:UIControlEventTouchUpInside];
         [chatBtn addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
@@ -91,7 +92,7 @@
         CGRect timestampFrame = CGRectMake(0, underlineViewFrame.origin.y + 4.0f, contentSize.width, 10.0f);
         UILabel *timestamp = [[UILabel alloc] initWithFrame:timestampFrame];
         [timestamp setText:[confession getTimePosted]];
-        [timestamp setFont:[UIFont fontWithName:@"Helvetica" size:10.0f]];
+        [StyleManager setFontStyleSmallForLabel:timestamp];
         [timestamp setTextColor:[UIColor whiteColor]];
         [timestamp setBackgroundColor:[UIColor clearColor]];
         [timestamp setTextAlignment:NSTextAlignmentCenter];
@@ -122,7 +123,7 @@
 
 - (CGFloat)heightForConfession:(Confession*)confession {
     NSString *cellText = [confession body];
-    UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:16.0];
+    UIFont *cellFont = [StyleManager getFontStyleNormal];
     CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
     CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
     return labelSize.height + 40.0f;

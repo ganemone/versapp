@@ -45,12 +45,6 @@
     [self.tableView setBackgroundView:backgroundImageView];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     
-    NSArray *chats = [ChatDBManager getAllChats];
-    ChatMO *chat;
-    for (int i = 0; i < chats.count; i++) {
-        chat = [chats objectAtIndex:i];
-        NSLog(@"Chat: %@ %@ %@", chat.chat_id, chat.chat_name, chat.user_defined_chat_name);
-    }
     self.cp = [ConnectionProvider getInstance];
     
     [StyleManager setFontStyleHeaderForLabel:self.header];
