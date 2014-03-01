@@ -7,6 +7,10 @@
 		<string>MavenProLight-100.ttf</string>
 		<string>MavenProLight-200.ttf</string>
 		<string>MavenProLight-300.ttf</string>
+		<string>MavenProBlack.ttf</string>
+		<string>MavenProBold.ttf</string>
+		<string>MavenProMedium.ttf</string>
+		<string>MavenProRegular.ttf</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
