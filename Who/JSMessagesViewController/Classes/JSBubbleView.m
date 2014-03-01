@@ -17,6 +17,7 @@
 #import "JSMessageInputView.h"
 #import "JSAvatarImageFactory.h"
 #import "NSString+JSMessagesView.h"
+#import "StyleManager.h"
 
 #define kMarginTop 8.0f
 #define kMarginBottom 4.0f
@@ -68,7 +69,7 @@
         _bubbleImageView = bubbleImageView;
         
         UITextView *textView = [[UITextView alloc] init];
-        textView.font = [UIFont systemFontOfSize:16.0f];
+        textView.font = [StyleManager getFontStyleNormal];
         textView.textColor = [UIColor blackColor];
         textView.editable = NO;
         textView.userInteractionEnabled = YES;
@@ -170,7 +171,7 @@
         return _font;
     }
     
-    return [UIFont systemFontOfSize:16.0f];
+    return [StyleManager getFontStyleNormal];
 }
 
 #pragma mark - Getters
