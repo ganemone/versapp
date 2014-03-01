@@ -17,6 +17,7 @@
 #import "MessagesDBManager.h"
 #import "ChatDBManager.h"
 #import "ChatMO.h"
+#import "StyleManager.h"
 
 @interface DashboardViewController()
 
@@ -52,14 +53,8 @@
     }
     self.cp = [ConnectionProvider getInstance];
     
-    [self.header setFont:[UIFont fontWithName:@"MavenProLight100-Regular" size:12]];
-    
-    for (NSString *familyName in [UIFont familyNames]) {
-        for (NSString *fontName in [UIFont fontNamesForFamilyName:familyName]) {
-            NSLog(@"%@", fontName);
-        }
-    }
-    
+    [StyleManager setFontStyleHeaderForLabel:self.header];
+    [self.header setTextColor:[UIColor blackColor]];
 }
 
 -(void)viewWillAppear:(BOOL)animated {

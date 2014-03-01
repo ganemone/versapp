@@ -9,21 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface StyleManager : NSObject
-/*
-+ (void)setFontStyleLightForLabel:(UILabel*)label;
-
-+ (void)setFontStyleLightForTextView:(UITextView*)textview;
-
-+ (void)setFontStyleThinForLabel:(UIView*)label;
-
-+ (void)setFontStyleThinForTextView:(UIView*)textview;
 
 + (void)setFontStyleHeaderForLabel:(UILabel*)label;
 
 + (void)setFontStyleNormalForLabel:(UILabel*)label;
 
 + (void)setFontStyleNormalForTextView:(UITextView*)textview;
-*/
 
-+ (void)setAllFontStyles;
 @end

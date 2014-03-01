@@ -10,13 +10,16 @@
 
 @implementation StyleManager
 
-+(void)setAllFontStyles {
-    [[UILabel appearance] setFont:[UIFont fontWithName:@"Arial Black" size:18.0]];
-    [[UITextView appearance] setFont:[UIFont fontWithName:@"MavenProLight   " size:12.0]];
-    
-    NSArray *fontFamilies = [UIFont fontNamesForFamilyName:@"Maven Pro Light"];
-    NSLog(@"Font Families: %@", [fontFamilies componentsJoinedByString:@"\n\n"]);
-    NSLog(@"Font Family Size: %lu", (unsigned long)[fontFamilies count]);
++(void)setFontStyleHeaderForLabel:(UILabel *)label {
+    [label setFont:[UIFont fontWithName:@"MavenProLight300-Regular" size:20]];
 }
+
++(void)setFontStyleNormalForLabel:(UILabel *)label {
+    [label setFont:[UIFont fontWithName:@"MavenProLight200-Regular" size:16]];
+}
+
++(void)setFontStyleNormalForTextView:(UITextView *)textview {
+    [textview setFont:[UIFont fontWithName:@"MavenProLight200-Regular" size:16]];
+ }
 
 @end
