@@ -680,24 +680,15 @@
 		3A25B63C1881E03700166623 /* Who */ = {
 			isa = PBXGroup;
 			children = (
-				3A08D1F818BFD3BB002A7C8E /* LoginManager.h */,
-				3A08D1F918BFD3BB002A7C8E /* LoginManager.m */,
-				3AB9E67C18A45573001EFDB8 /* LoadingDialogManager.h */,
-				3AB9E67D18A45573001EFDB8 /* LoadingDialogManager.m */,
+				3AB8D19318C2A42B0082B77C /* Login */,
 				F751016B18ABE8A2001F1E7F /* Settings.bundle */,
 				F751013C18ABE100001F1E7F /* InAppSettingsKit */,
 				3A47C841189F1A30003020D7 /* DB */,
 				3AF19ACE1881F86000F3E4D3 /* Dependencies */,
 				3A939630189B3543004B01CE /* Main */,
 				3A2A357F18AFC7AD006402E5 /* Image Handling */,
-				3A6C3BB91884AD61003B162B /* LoginViewController.h */,
-				3A6C3BBA1884AD61003B162B /* LoginViewController.m */,
-				3AC6D0D018C22A9500091539 /* StyleManager.h */,
-				3AC6D0D118C22A9500091539 /* StyleManager.m */,
 				3A25B6461881E03700166623 /* AppDelegate.m */,
 				3A25B6451881E03700166623 /* AppDelegate.h */,
-				3A939631189C876A004B01CE /* ChatParticipantVCardBuffer.h */,
-				3A939632189C876A004B01CE /* ChatParticipantVCardBuffer.m */,
 				3A25B6481881E03700166623 /* Main.storyboard */,
 				3A8BCF7618B5961F00D4B7CE /* Confessions */,
 				3A5699B21886D50300746CC8 /* Chat */,
@@ -941,6 +932,8 @@
 		3A5699B21886D50300746CC8 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				3A939631189C876A004B01CE /* ChatParticipantVCardBuffer.h */,
+				3A939632189C876A004B01CE /* ChatParticipantVCardBuffer.m */,
 				3A394759189FF12E005730D2 /* UserProfile.h */,
 				3A39475A189FF12E005730D2 /* UserProfile.m */,
 				3A5699A91886D4B900746CC8 /* Chat.h */,
@@ -1015,6 +1008,10 @@
 		3A939630189B3543004B01CE /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				3AB9E67C18A45573001EFDB8 /* LoadingDialogManager.h */,
+				3AB9E67D18A45573001EFDB8 /* LoadingDialogManager.m */,
+				3AC6D0D018C22A9500091539 /* StyleManager.h */,
+				3AC6D0D118C22A9500091539 /* StyleManager.m */,
 				3A25B6711881E83500166623 /* DashboardViewController.h */,
 				3A25B6721881E83500166623 /* DashboardViewController.m */,
 				3AAE9B181894A049003B4560 /* ConversationViewController.h */,
@@ -1377,6 +1374,17 @@
 				3A98DA5C18BD1A7E00B69049 /* XMPPXOAuth2Google.m */,
 			);
 			path = "X-OAuth2-Google";
+			sourceTree = "<group>";
+		};
+		3AB8D19318C2A42B0082B77C /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				3A6C3BB91884AD61003B162B /* LoginViewController.h */,
+				3A6C3BBA1884AD61003B162B /* LoginViewController.m */,
+				3A08D1F818BFD3BB002A7C8E /* LoginManager.h */,
+				3A08D1F918BFD3BB002A7C8E /* LoginManager.m */,
+			);
+			name = Login;
 			sourceTree = "<group>";
 		};
 		3AC0BA2C18AEEFBA0061A565 /* base64 */ = {
