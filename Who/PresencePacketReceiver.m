@@ -40,8 +40,25 @@
     // -----------------------
     // Handle Friend Request
     // -----------------------
+    // Accept
     else {
-        NSLog(@"Friend Request Presence: %@", presence.XMLString);
+        // Packet represents a friend request
+        if ([presence.type compare:@"subscribe"] == 0) {
+            
+        }
+        // Friend accepted connected users request
+        // => move friend to contacts
+        else if([presence.type compare:@"subscribed"] == 0) {
+            
+        }
+        // Remove friend from roster...
+        else if([presence.type compare:@"unsubscribed"] == 0) {
+            
+        }
+        // Return unsubscribed packet + remove friend from roster
+        else if([presence.type compare:@"unsubscribe"] == 0) {
+            
+        }
     }
 }
 
