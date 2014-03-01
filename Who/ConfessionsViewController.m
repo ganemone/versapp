@@ -14,7 +14,7 @@
 #import "OneToOneChat.h"
 #import "OneToOneChatManager.h"
 #import "OneToOneConversationViewController.h"
-
+#import "StyleManager.h"
 @interface ConfessionsViewController ()
 
 @property ConfessionsManager *confessionsManager;
@@ -99,7 +99,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *cellText = [[[self confessionsManager] getConfessionAtIndex:(int)indexPath.row] body];
-    UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:16.0];
+    UIFont *cellFont = [StyleManager getFontStyleNormal];
     CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
     CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
     return labelSize.height + 60;

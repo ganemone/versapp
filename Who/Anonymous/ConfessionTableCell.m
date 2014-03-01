@@ -61,7 +61,7 @@
         [textView setBackgroundColor:[UIColor clearColor]];
         [textView setText:[confession body]];
         [textView setTextColor:[UIColor whiteColor]];
-        [StyleManager setFontStyleNormalForTextView:textView];
+        [textView setFont:[StyleManager getFontStyleNormal]];
         [textView setEditable:NO];
         
         
@@ -83,7 +83,7 @@
         UILabel *label = [[UILabel alloc] initWithFrame:favoriteLabelFrame];
         [label setTextColor:[UIColor whiteColor]];
         [label setText:[NSString stringWithFormat:@"%lu", (unsigned long)[[confession favoritedUsers] count]]];
-        [StyleManager setFontStyleSmallForLabel:label];
+        [label setFont:[StyleManager getFontStyleSmall]];
 
         [favoriteBtn addTarget:self action:@selector(handleConfessionFavorited:) forControlEvents:UIControlEventTouchUpInside];
         [chatBtn addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
@@ -92,7 +92,7 @@
         CGRect timestampFrame = CGRectMake(0, underlineViewFrame.origin.y + 4.0f, contentSize.width, 10.0f);
         UILabel *timestamp = [[UILabel alloc] initWithFrame:timestampFrame];
         [timestamp setText:[confession getTimePosted]];
-        [StyleManager setFontStyleSmallForLabel:timestamp];
+        [timestamp setFont:[StyleManager getFontStyleSmall]];
         [timestamp setTextColor:[UIColor whiteColor]];
         [timestamp setBackgroundColor:[UIColor clearColor]];
         [timestamp setTextAlignment:NSTextAlignmentCenter];

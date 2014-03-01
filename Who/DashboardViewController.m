@@ -47,7 +47,7 @@
     
     self.cp = [ConnectionProvider getInstance];
     
-    [StyleManager setFontStyleHeaderForLabel:self.header];
+    [self.header setFont:[StyleManager getFontStyleLarge]];
     [self.header setTextColor:[UIColor blackColor]];
 }
 
@@ -79,7 +79,7 @@
     headerLabel.opaque = NO;
     headerLabel.textColor = [UIColor whiteColor];
     headerLabel.highlightedTextColor = [UIColor whiteColor];
-    headerLabel.font = [UIFont boldSystemFontOfSize:20];
+    [headerLabel setFont:[StyleManager getFontStyleLarge]];
     headerLabel.frame = CGRectMake(10.0f, 10.0f, self.view.frame.size.width, 30.0);
     
     if (section == 0) {
@@ -100,20 +100,27 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"ChatCellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
     [cell.textLabel setTextColor:[UIColor whiteColor]];
     [cell.detailTextLabel setTextColor:[UIColor whiteColor]];
-    
+    [cell.detailTextLabel setHidden:NO];
+    [cell.textLabel setFont:[StyleManager getFontStyleLarge]];
+    [cell.detailTextLabel setFont:[StyleManager getFontStyleNormal]];
+    NSString *cellText;
     if(indexPath.section == 0) {
         GroupChatManager *gcm = [GroupChatManager getInstance];
         GroupChat *muc = [gcm getChatByIndex:indexPath.row];
-        cell.textLabel.text = muc.name;
-        cell.detailTextLabel.text = [muc getLastMessageText];
+        [cell.textLabel setText:muc.name];
+        [cell.detailTextLabel setText:[muc getLastMessageText]];
+        cellText = [muc getLastMessageText];
     } else {
         OneToOneChatManager *cm = [OneToOneChatManager getInstance];
         OneToOneChat *chat = [cm getChatByIndex:indexPath.row];
-        cell.textLabel.text = chat.name;
-        cell.detailTextLabel.text = [chat getLastMessageText];
+        [cell.textLabel setText:chat.name];
+        [cell.detailTextLabel setText:[chat getLastMessageText]];
+        cellText = [chat getLastMessageText];
     }
+    
     [cell setBackgroundColor:[UIColor clearColor]];
     return cell;
 }
@@ -143,17 +150,7 @@
 }
 
 -(void)handleRefreshListView:(NSNotification*)notification {
-    NSLog(@"Refreshing List View...");
     [self.tableView reloadData];
-}
-
--(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    NSLog(@"Will Begin dragging...");
-    
-}
-
--(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
 }
 
 @end

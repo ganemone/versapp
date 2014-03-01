@@ -10,26 +10,6 @@
 
 @implementation StyleManager
 
-+(void)setFontStyleHeaderForLabel:(UILabel *)label {
-    [label setFont: [self getFontStyleLarge]];
-}
-
-+(void)setFontStyleNormalForLabel:(UILabel *)label {
-    [label setFont:[self getFontStyleNormal]];
-}
-
-+(void)setFontStyleNormalForTextView:(UITextView *)textview {
-    [textview setFont: [self getFontStyleNormal]];
-}
-
-+(void)setFontStyleSmallForLabel:(UILabel *)label {
-    [label setFont:[self getFontStyleSmall]];
-}
-
-+(void)setFontStyleSmallForTextView:(UITextView *)textview {
-    [textview setFont:[self getFontStyleSmall]];
-}
-
 +(UIFont*)getFontStyleNormal {
     return [UIFont fontWithName:@"MavenProLight200-Regular" size:16];
 }
@@ -40,6 +20,14 @@
 
 +(UIFont*)getFontStyleSmall {
     return [UIFont fontWithName:@"MavenProLight200-Regular" size:12];
+}
+
++(UIFont *)getFontStyleThickNormal {
+    return [UIFont fontWithName:@"MavenProLight300-Regular" size:18];
+}
+
++(UIFont *)getFontStyleMediumSmall {
+    return [UIFont fontWithName:@"MavenProLight200-Regular" size:14];
 }
 
 @end
