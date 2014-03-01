@@ -16,6 +16,7 @@
 
 #import "JSAvatarImageFactory.h"
 #import "UIColor+JSMessagesView.h"
+#import "StyleManager.h"
 //#import <QuartzCore/QuartzCore.h>
 
 static const CGFloat kJSLabelPadding = 5.0f;
@@ -85,7 +86,7 @@ static const CGFloat kJSSubtitleLabelHeight = 15.0f;
     label.textColor = [UIColor js_messagesTimestampColorClassic];
     label.shadowColor = [UIColor whiteColor];
     label.shadowOffset = CGSizeMake(0.0f, 1.0f);
-    label.font = [UIFont boldSystemFontOfSize:12.0f];
+    label.font = [StyleManager getFontStyleNormal];
     
     [self.contentView addSubview:label];
     [self.contentView bringSubviewToFront:label];
@@ -142,7 +143,7 @@ static const CGFloat kJSSubtitleLabelHeight = 15.0f;
     label.backgroundColor = [UIColor clearColor];
     label.textAlignment = (type == JSBubbleMessageTypeOutgoing) ? NSTextAlignmentRight : NSTextAlignmentLeft;
     label.textColor = [UIColor js_messagesTimestampColorClassic];
-    label.font = [UIFont systemFontOfSize:12.5f];
+    label.font = [StyleManager getFontStyleNormal];
     
     [self.contentView addSubview:label];
     _subtitleLabel = label;

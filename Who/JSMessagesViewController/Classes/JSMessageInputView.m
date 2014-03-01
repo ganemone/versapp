@@ -18,6 +18,7 @@
 #import "JSBubbleView.h"
 #import "NSString+JSMessagesView.h"
 #import "UIColor+JSMessagesView.h"
+#import "StyleManager.h"
 
 @interface JSMessageInputView ()
 
@@ -91,7 +92,7 @@
     [cameraButton setTitleColor:[UIColor js_bubbleBlueColor] forState:UIControlStateHighlighted];
     [cameraButton setTitleColor:[UIColor js_bubbleLightGrayColor] forState:UIControlStateDisabled];
     
-    cameraButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0f];
+    cameraButton.titleLabel.font = [StyleManager getFontStyleNormal];
     NSString *title = NSLocalizedString(@"Pic", nil);
     [cameraButton setTitle:title forState:UIControlStateNormal];
     [cameraButton setTitle:title forState:UIControlStateHighlighted];
@@ -112,7 +113,7 @@
     [sendButton setTitleColor:[UIColor js_bubbleBlueColor] forState:UIControlStateHighlighted];
     [sendButton setTitleColor:[UIColor js_bubbleLightGrayColor] forState:UIControlStateDisabled];
     
-    sendButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0f];
+    sendButton.titleLabel.font = [StyleManager getFontStyleNormal];
     //}
     
     NSString *title = NSLocalizedString(@"Send", nil);

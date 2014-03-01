@@ -15,6 +15,7 @@
 #import "JSMessagesViewController.h"
 #import "JSMessageTextView.h"
 #import "NSString+JSMessagesView.h"
+#import "StyleManager.h"
 
 @interface JSMessagesViewController () <JSDismissiveTextViewDelegate>
 
@@ -126,7 +127,7 @@
 {
     [super viewDidLoad];
     [self setup];
-    [[JSBubbleView appearance] setFont:[UIFont systemFontOfSize:16.0f]];
+    [[JSBubbleView appearance] setFont:[StyleManager getFontStyleNormal]];
     
 }
 
