@@ -95,6 +95,10 @@ static ChatParticipantVCardBuffer *selfInstance;
     return [self.users objectsForKeys:self.accepted notFoundMarker:[NSNull null]];
 }
 
+-(NSMutableArray *)getPendingUserProfiles {
+    return [self.users objectsForKeys:self.pending notFoundMarker:[NSNull null]];
+}
+
 -(void)updateOneToOneChatNames:(UserProfile*)vcard {
     OneToOneChatManager *cm = [OneToOneChatManager getInstance];
     OneToOneChat *chat;

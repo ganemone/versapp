@@ -142,7 +142,7 @@ CAShapeLayer *closedNotifications;
     self.groupChat = [GroupChatManager getInstance];
     self.notifications = self.groupChat.pending;
     self.chatParticipant = [ChatParticipantVCardBuffer getInstance];
-    self.friendRequests = self.chatParticipant.pending;
+    self.friendRequests = [[NSMutableArray alloc] initWithArray:[self.chatParticipant getPendingUserProfiles]];
     
     self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(self.view.frame.size.width*0.05, 0, self.view.frame.size.width*0.9, self.view.frame.size.height*0.5)];
     self.notificationTableView.hidden = YES;
@@ -192,7 +192,7 @@ CAShapeLayer *closedNotifications;
     [cell.contentView addSubview:decline];
     
     NSLog(@"Cell: %@", [cell description]);
-    /*
+    
     if (indexPath.section == 0) {
         NSDictionary *notification = [self.notifications objectAtIndex:indexPath.row];
         cell.textLabel.text = [notification objectForKey:@"chatName"];
@@ -206,7 +206,7 @@ CAShapeLayer *closedNotifications;
         [accept addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
         [decline addTarget:self action:@selector(declineFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
     }
-    */
+    
     return cell;
 }
 
