@@ -26,4 +26,6 @@
 
 +(void)setHasNewMessageNo:(NSString*)chatID;
 
++(BOOL)doesChatHaveNewMessage:(NSString *)chatID;
+
 @end

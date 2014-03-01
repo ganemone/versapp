@@ -13,6 +13,7 @@
 #import "JSMessage.h"
 #import "ConnectionProvider.h"
 #import "RNBlurModalView.h"
+#import "ChatDBManager.h"
 
 @implementation OneToOneConversationViewController
 
@@ -39,12 +40,15 @@
     [self.im setDelegate:self];
     self.imageCache = [ImageCache getInstance];
     self.downloadingImageURLs = [[NSMutableArray alloc] initWithCapacity:20];
+    
+    [ChatDBManager setHasNewMessageNo:self.chat.chatID];
 }
 
 -(void)messageReceived:(NSNotification*)notification {
     NSDictionary *userInfo = notification.userInfo;
     if ([(NSString*)[userInfo objectForKey:MESSAGE_PROPERTY_GROUP_ID] compare:self.chat.chatID] == 0) {
         if([self.chat getNumberOfMessages] <= 1) {
+            [ChatDBManager setHasNewMessageNo:self.chat.chatID];
             [self.tableView reloadData];
         } else {
             [self animateAddNewestMessage];

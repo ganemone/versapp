@@ -106,19 +106,28 @@
     [cell.detailTextLabel setHidden:NO];
     [cell.textLabel setFont:[StyleManager getFontStyleLarge]];
     [cell.detailTextLabel setFont:[StyleManager getFontStyleNormal]];
-    NSString *cellText;
+    
+    NSString *cellText, *chatID;
     if(indexPath.section == 0) {
         GroupChatManager *gcm = [GroupChatManager getInstance];
         GroupChat *muc = [gcm getChatByIndex:indexPath.row];
         [cell.textLabel setText:muc.name];
         [cell.detailTextLabel setText:[muc getLastMessageText]];
         cellText = [muc getLastMessageText];
+        chatID = muc.chatID;
     } else {
         OneToOneChatManager *cm = [OneToOneChatManager getInstance];
         OneToOneChat *chat = [cm getChatByIndex:indexPath.row];
         [cell.textLabel setText:chat.name];
         [cell.detailTextLabel setText:[chat getLastMessageText]];
         cellText = [chat getLastMessageText];
+        chatID = chat.chatID;
+    }
+    
+    if ([ChatDBManager doesChatHaveNewMessage:chatID]) {
+
+    } else {
+        
     }
     
     [cell setBackgroundColor:[UIColor clearColor]];

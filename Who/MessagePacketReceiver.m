@@ -20,7 +20,7 @@
 #import "ConnectionProvider.h"
 #import "Message.h"
 #import "IQPacketManager.h"
-
+#import "ChatDBManager.h"
 
 @implementation MessagePacketReceiver
 
@@ -94,6 +94,8 @@
             [gc addMessage: messageObject];
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
         }
+        [ChatDBManager setHasNewMessageYes:groupID];
+        
         [gcm sortChats];
     } else if([message.type compare:CHAT_TYPE_ONE_TO_ONE] == 0) {
 
@@ -109,6 +111,7 @@
         [chat addMessage:[Message createForOneToOneWithImage:message.body sender:senderID chatID:message.thread messageTo:receiverID imageLink:imageLink timestamp:timestamp]];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
         
+        [ChatDBManager setHasNewMessageYes:message.thread];
         [cm sortChats];
     } else {
         NSLog(@"Received Unrecognized Message Packet Type!!");

@@ -14,7 +14,7 @@
 #import "ConnectionProvider.h"
 #import "ImageManager.h"
 #import "RNBlurModalView.h"
-
+#import "ChatDBManager.h"
 @interface ConversationViewController ()
 
 @end
@@ -43,6 +43,7 @@
     self.imageCache = [ImageCache getInstance];
     self.downloadingImageURLs = [[NSMutableArray alloc] initWithCapacity:20];
     
+    [ChatDBManager setHasNewMessageNo:self.gc.chatID];
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,6 +66,7 @@
 -(void)messageReceived:(NSNotification*)notification {
     NSDictionary *userInfo = notification.userInfo;
     if ([(NSString*)[userInfo objectForKey:MESSAGE_PROPERTY_GROUP_ID] compare:self.gc.chatID] == 0) {
+        [ChatDBManager setHasNewMessageNo:self.gc.chatID];
         if([self.gc getNumberOfMessages] <= 1) {
             [self.tableView reloadData];
         } else {
