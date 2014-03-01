@@ -11,19 +11,19 @@
 @implementation StyleManager
 
 +(UIFont*)getFontStyleLightSizeSmall {
-    return [UIFont fontWithName:@"MavenProLight200-Regular" size:12];
+    return [UIFont fontWithName:@"MavenProLight300-Regular" size:12];
 }
 
 +(UIFont*)getFontStyleLightSizeMed {
-    return [UIFont fontWithName:@"MavenProLight200-Regular" size:14];
+    return [UIFont fontWithName:@"MavenProLight300-Regular" size:14];
 }
 
 +(UIFont*)getFontStyleLightSizeLarge {
-    return [UIFont fontWithName:@"MavenProLight200-Regular" size:16];
+    return [UIFont fontWithName:@"MavenProLight300-Regular" size:16];
 }
 
 +(UIFont*)getFontStyleLightSizeXL {
-    return [UIFont fontWithName:@"MavenProLight200-Regular" size:18];
+    return [UIFont fontWithName:@"MavenProLight300-Regular" size:22];
 }
 
 +(UIFont*)getFontStyleRegularSizeSmall {
