@@ -149,6 +149,9 @@
 		3A98DA6718BD1B9D00B69049 /* NSString+DDXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98DA6618BD1B9D00B69049 /* NSString+DDXML.m */; };
 		3AAE9B1718945710003B4560 /* OneToOneChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAE9B1618945710003B4560 /* OneToOneChatManager.m */; };
 		3AAE9B1A1894A049003B4560 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAE9B191894A049003B4560 /* ConversationViewController.m */; };
+		3AB8D18818C23DF00082B77C /* MavenProLight-100.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AB8D18518C23DF00082B77C /* MavenProLight-100.ttf */; };
+		3AB8D18918C23DF00082B77C /* MavenProLight-200.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AB8D18618C23DF00082B77C /* MavenProLight-200.ttf */; };
+		3AB8D18A18C23DF00082B77C /* MavenProLight-300.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AB8D18718C23DF00082B77C /* MavenProLight-300.ttf */; };
 		3AB9E67E18A45573001EFDB8 /* LoadingDialogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB9E67D18A45573001EFDB8 /* LoadingDialogManager.m */; };
 		3ABA80DA18AE5F87002012C7 /* ImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABA80D918AE5F87002012C7 /* ImageManager.m */; };
 		3AC0BA2F18AEEFBA0061A565 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC0BA2E18AEEFBA0061A565 /* Base64.m */; };
@@ -476,6 +479,9 @@
 		3AAE9B1618945710003B4560 /* OneToOneChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneToOneChatManager.m; sourceTree = "<group>"; };
 		3AAE9B181894A049003B4560 /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
 		3AAE9B191894A049003B4560 /* ConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
+		3AB8D18518C23DF00082B77C /* MavenProLight-100.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MavenProLight-100.ttf"; sourceTree = "<group>"; };
+		3AB8D18618C23DF00082B77C /* MavenProLight-200.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MavenProLight-200.ttf"; sourceTree = "<group>"; };
+		3AB8D18718C23DF00082B77C /* MavenProLight-300.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MavenProLight-300.ttf"; sourceTree = "<group>"; };
 		3AB9E67C18A45573001EFDB8 /* LoadingDialogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingDialogManager.h; sourceTree = "<group>"; };
 		3AB9E67D18A45573001EFDB8 /* LoadingDialogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingDialogManager.m; sourceTree = "<group>"; };
 		3ABA80D818AE5F87002012C7 /* ImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageManager.h; sourceTree = "<group>"; };
@@ -488,9 +494,6 @@
 		3AC6D0CE18C0E17100091539 /* ChatDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatDBManager.m; sourceTree = "<group>"; };
 		3AC6D0D018C22A9500091539 /* StyleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleManager.h; sourceTree = "<group>"; };
 		3AC6D0D118C22A9500091539 /* StyleManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleManager.m; sourceTree = "<group>"; };
-		3AC6D0D918C23B2D00091539 /* MavenProLight-100.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MavenProLight-100.ttf"; sourceTree = "<group>"; };
-		3AC6D0DA18C23B2D00091539 /* MavenProLight-200.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MavenProLight-200.ttf"; sourceTree = "<group>"; };
-		3AC6D0DB18C23B2D00091539 /* MavenProLight-300.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MavenProLight-300.ttf"; sourceTree = "<group>"; };
 		3AF0B00718B515E500E3D0D3 /* transparent-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "transparent-bg.png"; sourceTree = "<group>"; };
 		3AF0B00918B54E9000E3D0D3 /* bottom-section.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bottom-section.png"; sourceTree = "<group>"; };
 		3AF19A3B1881EF1600F3E4D3 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
@@ -615,9 +618,9 @@
 		3A0FE1CC18A9B6DA003692EB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3AC6D0D918C23B2D00091539 /* MavenProLight-100.ttf */,
-				3AC6D0DA18C23B2D00091539 /* MavenProLight-200.ttf */,
-				3AC6D0DB18C23B2D00091539 /* MavenProLight-300.ttf */,
+				3AB8D18518C23DF00082B77C /* MavenProLight-100.ttf */,
+				3AB8D18618C23DF00082B77C /* MavenProLight-200.ttf */,
+				3AB8D18718C23DF00082B77C /* MavenProLight-300.ttf */,
 				3AF86D3218B5070200033495 /* Images */,
 			);
 			name = Resources;
@@ -1664,11 +1667,13 @@
 				3A8BCF8418B6FB7B00D4B7CE /* chat-icon.png in Resources */,
 				3AF0B00818B515E500E3D0D3 /* transparent-bg.png in Resources */,
 				3A3A0B0A18AB1126006FBAE4 /* send-button-pressed.png in Resources */,
+				3AB8D18818C23DF00082B77C /* MavenProLight-100.ttf in Resources */,
 				3A3A0B1218AB1126006FBAE4 /* message-received.aiff in Resources */,
 				F751016C18ABE8A2001F1E7F /* Settings.bundle in Resources */,
 				3AF19A6E1881F34A00F3E4D3 /* README.txt in Resources */,
 				3A3A0B0818AB1126006FBAE4 /* input-field-cover.png in Resources */,
 				3A3A0B1018AB1126006FBAE4 /* input-bar-flat.png in Resources */,
+				3AB8D18A18C23DF00082B77C /* MavenProLight-300.ttf in Resources */,
 				3A3A0B1118AB1126006FBAE4 /* input-bar-flat@2x.png in Resources */,
 				3A3A0B0E18AB1126006FBAE4 /* button-photo.png in Resources */,
 				3A3A0B0F18AB1126006FBAE4 /* button-photo@2x.png in Resources */,
@@ -1682,6 +1687,7 @@
 				3A3A0B0618AB1126006FBAE4 /* input-bar-background.png in Resources */,
 				3A3A0B1318AB1126006FBAE4 /* message-sent.aiff in Resources */,
 				3A3A0B0D18AB1126006FBAE4 /* send-button@2x.png in Resources */,
+				3AB8D18918C23DF00082B77C /* MavenProLight-200.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -54,6 +54,12 @@
     
     [self.header setFont:[UIFont fontWithName:@"MavenProLight100-Regular" size:12]];
     
+    for (NSString *familyName in [UIFont familyNames]) {
+        for (NSString *fontName in [UIFont fontNamesForFamilyName:familyName]) {
+            NSLog(@"%@", fontName);
+        }
+    }
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
