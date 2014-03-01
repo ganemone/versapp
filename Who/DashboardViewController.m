@@ -47,7 +47,7 @@
     
     self.cp = [ConnectionProvider getInstance];
     
-    [self.header setFont:[StyleManager getFontStyleLarge]];
+    [self.header setFont:[StyleManager getFontStyleLightSizeXL]];
     [self.header setTextColor:[UIColor blackColor]];
 }
 
@@ -79,7 +79,7 @@
     headerLabel.opaque = NO;
     headerLabel.textColor = [UIColor whiteColor];
     headerLabel.highlightedTextColor = [UIColor whiteColor];
-    [headerLabel setFont:[StyleManager getFontStyleLarge]];
+    [headerLabel setFont:[StyleManager getFontStyleLightSizeMed]];
     headerLabel.frame = CGRectMake(10.0f, 10.0f, self.view.frame.size.width, 30.0);
     
     if (section == 0) {
@@ -104,8 +104,6 @@
     [cell.textLabel setTextColor:[UIColor whiteColor]];
     [cell.detailTextLabel setTextColor:[UIColor whiteColor]];
     [cell.detailTextLabel setHidden:NO];
-    [cell.textLabel setFont:[StyleManager getFontStyleLarge]];
-    [cell.detailTextLabel setFont:[StyleManager getFontStyleNormal]];
     
     NSString *cellText, *chatID;
     if(indexPath.section == 0) {
@@ -125,9 +123,11 @@
     }
     
     if ([ChatDBManager doesChatHaveNewMessage:chatID]) {
-
+        [cell.textLabel setFont:[StyleManager getFontStyleBoldSizeLarge]];
+        [cell.detailTextLabel setFont:[StyleManager getFontStyleBoldSizeMed]];
     } else {
-        
+        [cell.textLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
+        [cell.detailTextLabel setFont:[StyleManager getFontStyleLightSizeMed]];
     }
     
     [cell setBackgroundColor:[UIColor clearColor]];

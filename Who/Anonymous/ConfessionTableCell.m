@@ -61,7 +61,7 @@
         [textView setBackgroundColor:[UIColor clearColor]];
         [textView setText:[confession body]];
         [textView setTextColor:[UIColor whiteColor]];
-        [textView setFont:[StyleManager getFontStyleNormal]];
+        [textView setFont:[StyleManager getFontStyleLightSizeMed]];
         [textView setEditable:NO];
         
         
@@ -83,7 +83,7 @@
         UILabel *label = [[UILabel alloc] initWithFrame:favoriteLabelFrame];
         [label setTextColor:[UIColor whiteColor]];
         [label setText:[NSString stringWithFormat:@"%lu", (unsigned long)[[confession favoritedUsers] count]]];
-        [label setFont:[StyleManager getFontStyleSmall]];
+        [label setFont:[StyleManager getFontStyleLightSizeSmall]];
 
         [favoriteBtn addTarget:self action:@selector(handleConfessionFavorited:) forControlEvents:UIControlEventTouchUpInside];
         [chatBtn addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
@@ -92,7 +92,7 @@
         CGRect timestampFrame = CGRectMake(0, underlineViewFrame.origin.y + 4.0f, contentSize.width, 10.0f);
         UILabel *timestamp = [[UILabel alloc] initWithFrame:timestampFrame];
         [timestamp setText:[confession getTimePosted]];
-        [timestamp setFont:[StyleManager getFontStyleSmall]];
+        [timestamp setFont:[StyleManager getFontStyleLightSizeSmall]];
         [timestamp setTextColor:[UIColor whiteColor]];
         [timestamp setBackgroundColor:[UIColor clearColor]];
         [timestamp setTextAlignment:NSTextAlignmentCenter];
@@ -123,7 +123,7 @@
 
 - (CGFloat)heightForConfession:(Confession*)confession {
     NSString *cellText = [confession body];
-    UIFont *cellFont = [StyleManager getFontStyleNormal];
+    UIFont *cellFont = [StyleManager getFontStyleLightSizeMed];
     CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
     CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
     return labelSize.height + 40.0f;

@@ -92,7 +92,7 @@
     [cameraButton setTitleColor:[UIColor js_bubbleBlueColor] forState:UIControlStateHighlighted];
     [cameraButton setTitleColor:[UIColor js_bubbleLightGrayColor] forState:UIControlStateDisabled];
     
-    cameraButton.titleLabel.font = [StyleManager getFontStyleNormal];
+    cameraButton.titleLabel.font = [StyleManager getFontStyleLightSizeMed];
     NSString *title = NSLocalizedString(@"Pic", nil);
     [cameraButton setTitle:title forState:UIControlStateNormal];
     [cameraButton setTitle:title forState:UIControlStateHighlighted];
@@ -113,7 +113,7 @@
     [sendButton setTitleColor:[UIColor js_bubbleBlueColor] forState:UIControlStateHighlighted];
     [sendButton setTitleColor:[UIColor js_bubbleLightGrayColor] forState:UIControlStateDisabled];
     
-    sendButton.titleLabel.font = [StyleManager getFontStyleNormal];
+    sendButton.titleLabel.font = [StyleManager getFontStyleLightSizeMed];
     //}
     
     NSString *title = NSLocalizedString(@"Send", nil);

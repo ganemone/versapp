@@ -127,7 +127,7 @@
 {
     [super viewDidLoad];
     [self setup];
-    [[JSBubbleView appearance] setFont:[StyleManager getFontStyleNormal]];
+    [[JSBubbleView appearance] setFont:[StyleManager getFontStyleLightSizeMed]];
     
 }
 

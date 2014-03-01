@@ -99,7 +99,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *cellText = [[[self confessionsManager] getConfessionAtIndex:(int)indexPath.row] body];
-    UIFont *cellFont = [StyleManager getFontStyleNormal];
+    UIFont *cellFont = [StyleManager getFontStyleLightSizeMed];
     CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
     CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
     return labelSize.height + 60;

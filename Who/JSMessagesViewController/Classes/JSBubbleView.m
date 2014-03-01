@@ -69,7 +69,7 @@
         _bubbleImageView = bubbleImageView;
         
         UITextView *textView = [[UITextView alloc] init];
-        textView.font = [StyleManager getFontStyleNormal];
+        textView.font = [StyleManager getFontStyleLightSizeMed];
         textView.textColor = [UIColor blackColor];
         textView.editable = NO;
         textView.userInteractionEnabled = YES;
@@ -171,7 +171,7 @@
         return _font;
     }
     
-    return [StyleManager getFontStyleNormal];
+    return [StyleManager getFontStyleLightSizeMed];
 }
 
 #pragma mark - Getters
