@@ -538,4 +538,28 @@
     return [NSString stringWithFormat:@"%@@%@",[ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]];
 }
 
++(DDXMLElement *)createForceCreateRosterEntryPacket:(NSString *)jid {
+    DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
+	[query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"jabber:iq:roster"]];
+    
+    DDXMLElement *item = [DDXMLElement elementWithName:@"item"];
+    [item addAttribute:[DDXMLNode attributeWithName:@"jid" stringValue:jid]];
+    [item addAttribute:[DDXMLNode attributeWithName:@"name" stringValue:@"nickname"]];
+    [item addAttribute:[DDXMLNode attributeWithName:@"subscription" stringValue:@"both"]];
+    
+    DDXMLElement *contactItem = [DDXMLElement elementWithName:@"groups" stringValue:@"Contacts"];
+    
+    [item addChild:contactItem];
+    [query addChild:item];
+    
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_FORCE_CREATE_ROSTER_ENTRY]];
+	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"set"]];
+    //[iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[self getPacketFromString]]];
+    [iq addChild:query];
+    
+    return iq;
+}
+
 @end

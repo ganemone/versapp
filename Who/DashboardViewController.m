@@ -18,6 +18,7 @@
 #import "ChatDBManager.h"
 #import "ChatMO.h"
 #import "StyleManager.h"
+#import "ChatParticipantVCardBuffer.h"
 
 @interface DashboardViewController()
 
@@ -53,6 +54,16 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [self.tableView reloadData];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    NSLog(@"View did appear");
+    ChatParticipantVCardBuffer *buff = [ChatParticipantVCardBuffer getInstance];
+    NSArray *pendingFriends = [buff pending];
+    for (int i = 0; i < [pendingFriends count]; i++) {
+        UserProfile *profile = [buff getVCard:[pendingFriends objectAtIndex:i]];
+        NSLog(@"Pending Friend: %@ \n %@ \n %@ \n", [profile jid], [profile firstName], [profile lastName]);
+    }
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

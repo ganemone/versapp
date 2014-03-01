@@ -34,6 +34,7 @@ extern NSString *const PACKET_ID_GET_CONFESSIONS;
 extern NSString *const PACKET_ID_POST_CONFESSION;
 extern NSString *const PACKET_ID_FAVORITE_CONFESSION;
 extern NSString *const PACKET_ID_GET_MY_CONFESSIONS;
+extern NSString *const PACKET_ID_FORCE_CREATE_ROSTER_ENTRY;
 
 extern NSString *const VCARD_TAG_FULL_NAME;
 extern NSString *const VCARD_TAG_FIRST_NAME;

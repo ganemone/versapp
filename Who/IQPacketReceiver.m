@@ -223,8 +223,7 @@
     NSArray *items = [query children];
     DDXMLElement *item;
     
-    NSMutableArray *pendingFriends = [[NSMutableArray alloc] init],
-    *acceptedFriends = [[NSMutableArray alloc] init];
+    NSMutableArray *acceptedFriends = [[NSMutableArray alloc] init];
     XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
     ChatParticipantVCardBuffer *buff = [ChatParticipantVCardBuffer getInstance];
     
@@ -242,11 +241,10 @@
             [buff addVCard:[UserProfile create:resultJid subscriptionStatus:STATUS_FRIENDS]];
         }
         else {
-            [pendingFriends addObject:resultJid];
+            [buff addPendingFriend:resultJid];
             [buff addVCard:[UserProfile create:resultJid subscriptionStatus:STATUS_PENDING]];
         }
     }
-    [buff setPending:pendingFriends];
     [buff setAccepted:acceptedFriends];
 }
 

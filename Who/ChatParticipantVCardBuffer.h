@@ -32,4 +32,6 @@
 
 -(NSArray*)getAcceptedUserProfiles;
 
+-(void)addPendingFriend:(NSString*)username;
+
 @end

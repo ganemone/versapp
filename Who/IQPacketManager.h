@@ -72,4 +72,6 @@
 +(DDXMLElement *)createGetMyConfessionsPacket;
 
 +(DDXMLElement *)createCreateOneToOneChatFromConfessionPacket:(Confession*)confession chatID:(NSString *)chatID;
+
++(DDXMLElement *)createForceCreateRosterEntryPacket:(NSString *)jid;
 @end

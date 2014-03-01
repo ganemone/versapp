@@ -192,6 +192,7 @@ CAShapeLayer *closedNotifications;
     [cell.contentView addSubview:decline];
     
     NSLog(@"Cell: %@", [cell description]);
+    /*
     if (indexPath.section == 0) {
         NSDictionary *notification = [self.notifications objectAtIndex:indexPath.row];
         cell.textLabel.text = [notification objectForKey:@"chatName"];
@@ -205,7 +206,7 @@ CAShapeLayer *closedNotifications;
         [accept addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
         [decline addTarget:self action:@selector(declineFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
     }
-    
+    */
     return cell;
 }
 

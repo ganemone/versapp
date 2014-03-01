@@ -17,16 +17,13 @@ static ChatParticipantVCardBuffer *selfInstance;
 
 @implementation ChatParticipantVCardBuffer
 
-@synthesize users;
-@synthesize pending;
-@synthesize accepted;
-
 // Class method (+) for getting instance of Connection Provider
 + (id)getInstance {
     @synchronized(self) {
         if(selfInstance == nil) {
             selfInstance = [[self alloc] init];
             selfInstance.users = [[NSMutableDictionary alloc] init];
+            selfInstance.pending = [[NSMutableArray alloc] init];
         }
     }
     return selfInstance;
@@ -80,8 +77,8 @@ static ChatParticipantVCardBuffer *selfInstance;
 
 -(void)updateUserProfile:(NSString *)jid firstName:(NSString *)firstName lastName:(NSString *)lastName nickname:(NSString *)nickname email:(NSString *)email {
     UserProfile *user = [self getVCard:jid];
-    if (jid == nil) {
-        user = [UserProfile create:jid subscriptionStatus:STATUS_REGISTERED];
+    if (user == nil) {
+        user = [UserProfile create:jid subscriptionStatus:STATUS_PENDING];
         [self.users setObject:user forKey:jid];
     }
     [user setFirstName:firstName];
@@ -89,7 +86,9 @@ static ChatParticipantVCardBuffer *selfInstance;
     [user setNickname:nickname];
     [user setEmail:email];
     
-    [self updateOneToOneChatNames:user];
+    if ([user subscriptionStatus] == STATUS_FRIENDS) {
+        [self updateOneToOneChatNames:user];
+    }
 }
 
 -(NSArray*)getAcceptedUserProfiles {
@@ -106,6 +105,11 @@ static ChatParticipantVCardBuffer *selfInstance;
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
         }
     }
+}
+
+-(void)addPendingFriend:(NSString *)username {
+    NSLog(@"adding pending friend");
+    [self.pending addObject:username];
 }
 
 @end

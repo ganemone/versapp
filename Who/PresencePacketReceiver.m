@@ -7,9 +7,12 @@
 //
 
 #import "PresencePacketReceiver.h"
+#import "ChatParticipantVCardBuffer.h"
 #import "GroupChatManager.h"
 #import "GroupChat.h"
 #import "Constants.h"
+#import "ConnectionProvider.h"
+#import "IQPacketManager.h"
 
 @implementation PresencePacketReceiver
 
@@ -42,22 +45,33 @@
     // -----------------------
     // Accept
     else {
+        NSString *jid = [[[presence fromStr] componentsSeparatedByString:@"/"] firstObject];
+        NSString *username = [[[presence fromStr] componentsSeparatedByString:@"@"] firstObject];
+        ChatParticipantVCardBuffer *buff = [ChatParticipantVCardBuffer getInstance];
+        XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
+        NSLog(@"Friend Request Presence");
+        if (![buff hasVCard:username]) {
+            NSLog(@"Getting vcard for pending user: %@", username);
+            [conn sendElement:[IQPacketManager createGetVCardPacket:username]];
+        }
         // Packet represents a friend request
         if ([presence.type compare:@"subscribe"] == 0) {
-            
+            NSLog(@"Adding Pending Friend...");
+            [buff addPendingFriend:username];
+            [buff addVCard:[UserProfile create:username subscriptionStatus:STATUS_PENDING]];
         }
         // Friend accepted connected users request
         // => move friend to contacts
         else if([presence.type compare:@"subscribed"] == 0) {
-            
+            [conn sendElement:[IQPacketManager createForceCreateRosterEntryPacket:jid]];
         }
         // Remove friend from roster...
         else if([presence.type compare:@"unsubscribed"] == 0) {
-            
+            NSLog(@"Friend Request Type unsubscribed");
         }
         // Return unsubscribed packet + remove friend from roster
         else if([presence.type compare:@"unsubscribe"] == 0) {
-            
+            NSLog(@"Friend Request Type unsubscribe");
         }
     }
 }
