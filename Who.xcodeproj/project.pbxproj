@@ -170,6 +170,8 @@
 		3AB8D1B118C2C4370082B77C /* grad-top-dark1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3AB8D1A318C2C4370082B77C /* grad-top-dark1.jpg */; };
 		3AB8D1B218C2C4370082B77C /* grad-top-dark2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3AB8D1A418C2C4370082B77C /* grad-top-dark2.jpg */; };
 		3AB8D1B318C2C4370082B77C /* grad-top-messages.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3AB8D1A518C2C4370082B77C /* grad-top-messages.jpg */; };
+		3AB8D1B518C2C6740082B77C /* notifications-icon-ios.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AB8D1B418C2C6740082B77C /* notifications-icon-ios.png */; };
+		3AB8D1B718C2C67C0082B77C /* settings-icon-ios.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AB8D1B618C2C67C0082B77C /* settings-icon-ios.png */; };
 		3AB9E67E18A45573001EFDB8 /* LoadingDialogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB9E67D18A45573001EFDB8 /* LoadingDialogManager.m */; };
 		3ABA80DA18AE5F87002012C7 /* ImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABA80D918AE5F87002012C7 /* ImageManager.m */; };
 		3AC0BA2F18AEEFBA0061A565 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC0BA2E18AEEFBA0061A565 /* Base64.m */; };
@@ -516,6 +518,8 @@
 		3AB8D1A318C2C4370082B77C /* grad-top-dark1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "grad-top-dark1.jpg"; sourceTree = "<group>"; };
 		3AB8D1A418C2C4370082B77C /* grad-top-dark2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "grad-top-dark2.jpg"; sourceTree = "<group>"; };
 		3AB8D1A518C2C4370082B77C /* grad-top-messages.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "grad-top-messages.jpg"; sourceTree = "<group>"; };
+		3AB8D1B418C2C6740082B77C /* notifications-icon-ios.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notifications-icon-ios.png"; sourceTree = "<group>"; };
+		3AB8D1B618C2C67C0082B77C /* settings-icon-ios.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings-icon-ios.png"; sourceTree = "<group>"; };
 		3AB9E67C18A45573001EFDB8 /* LoadingDialogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingDialogManager.h; sourceTree = "<group>"; };
 		3AB9E67D18A45573001EFDB8 /* LoadingDialogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingDialogManager.m; sourceTree = "<group>"; };
 		3ABA80D818AE5F87002012C7 /* ImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageManager.h; sourceTree = "<group>"; };
@@ -1525,6 +1529,8 @@
 		3AF86D3218B5070200033495 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3AB8D1B618C2C67C0082B77C /* settings-icon-ios.png */,
+				3AB8D1B418C2C6740082B77C /* notifications-icon-ios.png */,
 				3AB8D19818C2C4370082B77C /* grad-back-confessions.jpg */,
 				3AB8D19918C2C4370082B77C /* grad-back-dark1.jpg */,
 				3AB8D19A18C2C4370082B77C /* grad-back-dark2.jpg */,
@@ -1720,6 +1726,7 @@
 				3A00167F18B8231000C54059 /* photo-icon.png in Resources */,
 				3AB8D19718C2C4070082B77C /* fav-icon-active.png in Resources */,
 				3AB8D1AC18C2C4370082B77C /* grad-bottom-dark2.jpg in Resources */,
+				3AB8D1B518C2C6740082B77C /* notifications-icon-ios.png in Resources */,
 				3AB8D18F18C259B00082B77C /* MavenProBlack.ttf in Resources */,
 				3A3A0AE818AB1126006FBAE4 /* avatar-placeholder.png in Resources */,
 				3A25B6521881E03700166623 /* Images.xcassets in Resources */,
@@ -1752,6 +1759,7 @@
 				3AB8D18A18C23DF00082B77C /* MavenProLight-300.ttf in Resources */,
 				3A3A0B1118AB1126006FBAE4 /* input-bar-flat@2x.png in Resources */,
 				3A3A0B0E18AB1126006FBAE4 /* button-photo.png in Resources */,
+				3AB8D1B718C2C67C0082B77C /* settings-icon-ios.png in Resources */,
 				3A3A0B0F18AB1126006FBAE4 /* button-photo@2x.png in Resources */,
 				3A8BCF8618B6FB8300D4B7CE /* fav-icon.png in Resources */,
 				3AF86D2A18B504CF00033495 /* bubble@2x.png in Resources */,
