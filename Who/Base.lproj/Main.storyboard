@@ -123,7 +123,7 @@
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VqM-Dg-cyw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1264" y="-396"/>
+            <point key="canvasLocation" x="1790" y="-412"/>
         </scene>
         <!--Main Swipe View Controller-->
         <scene sceneID="x6a-AS-YEr">
@@ -135,14 +135,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" id="xEY-92-p7p">
-                        <barButtonItem key="leftBarButtonItem" title="Settings" id="3bT-1A-aai"/>
-                        <barButtonItem key="rightBarButtonItem" title="Notifications" id="VED-Q5-Zbt">
-                            <connections>
-                                <action selector="notificationsClicked:" destination="FvA-Qe-GrR" id="lQK-no-cqU"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="xEY-92-p7p"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iUp-KR-8dx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -172,7 +165,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fk4-yc-32Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1789" y="761"/>
+            <point key="canvasLocation" x="2279" y="1337"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ytD-Qm-JKC">
@@ -596,6 +589,13 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xDh-jx-IBl">
+                                        <rect key="frame" x="20" y="28" width="46" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
