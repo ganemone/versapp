@@ -13,6 +13,7 @@
 #import "Constants.h"
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
+#import "FriendsDBManager.h"
 
 @implementation PresencePacketReceiver
 
@@ -57,7 +58,7 @@
         // Packet represents a friend request
         if ([presence.type compare:@"subscribe"] == 0) {
             NSLog(@"Adding Pending Friend...");
-            [buff addPendingFriend:username];
+            [FriendsDBManager insert:username name:@"" email:@"" status:[NSNumber numberWithInt:STATUS_PENDING]];
             [buff addVCard:[UserProfile create:username subscriptionStatus:STATUS_PENDING]];
         }
         // Friend accepted connected users request

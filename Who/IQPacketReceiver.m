@@ -165,8 +165,7 @@
         }
     }
 
-    ChatParticipantVCardBuffer *buff = [ChatParticipantVCardBuffer getInstance];
-    [buff updateUserProfile:username firstName:firstName lastName:lastName nickname:nickname email:email];
+    [FriendsDBManager insert:username name:[NSString stringWithFormat:@"%@ %@", firstName, lastName] email:email status:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_VCARD object:nil];
 }
 
@@ -225,7 +224,6 @@
     
     NSMutableArray *acceptedFriends = [[NSMutableArray alloc] init];
     XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
-    ChatParticipantVCardBuffer *buff = [ChatParticipantVCardBuffer getInstance];
     
     for (int i = 0; i < items.count; i++) {
         item = items[i];
@@ -238,14 +236,12 @@
         [conn sendElement:[IQPacketManager createGetVCardPacket:resultJid]];
         if ([subscription rangeOfString:@"none"].location == NSNotFound){
             [acceptedFriends addObject:resultJid];
-            [buff addVCard:[UserProfile create:resultJid subscriptionStatus:STATUS_FRIENDS]];
+            [FriendsDBManager insert:jid name:nil email:nil status:[NSNumber numberWithInt:STATUS_FRIENDS]];
         }
         else {
-            [buff addPendingFriend:resultJid];
-            [buff addVCard:[UserProfile create:resultJid subscriptionStatus:STATUS_PENDING]];
+            [FriendsDBManager insert:jid name:nil email:nil status:[NSNumber numberWithInt:STATUS_PENDING]];
         }
     }
-    [buff setAccepted:acceptedFriends];
 }
 
 +(void)handleInviteUserToChatPacket:(XMPPIQ*)iq {

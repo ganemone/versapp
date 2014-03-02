@@ -16,13 +16,23 @@
 +(void)insert:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate managedObjectContext];
-    FriendMO *friend = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_FRIENDS inManagedObjectContext:moc];
     
-    [friend setValue:username forKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME];
-    [friend setValue:name forKey:FRIENDS_TABLE_COLUMN_NAME_NAME];
-    [friend setValue:email forKey:FRIENDS_TABLE_COLUMN_NAME_EMAIL];
-    [friend setValue:status forKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];
-    
+    FriendMO *friend = [self getUserWithJID:username];
+    if (friend == nil) {
+        friend = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_FRIENDS inManagedObjectContext:moc];
+    }
+    if (username != nil) {
+        [friend setValue:username forKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME];
+    }
+    if (name != nil) {
+        [friend setValue:name forKey:FRIENDS_TABLE_COLUMN_NAME_NAME];
+    }
+    if (email != nil) {
+        [friend setValue:email forKey:FRIENDS_TABLE_COLUMN_NAME_EMAIL];
+    }
+    if (status != nil) {
+        [friend setValue:status forKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];
+    }
     [delegate saveContext];
 }
 
