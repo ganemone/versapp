@@ -730,25 +730,26 @@
                                 <rect key="frame" x="0.0" y="440" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="IIL-et-yzh">
-                                        <rect key="frame" x="261" y="2" width="32" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1Nu-Lm-c7J">
+                                        <rect key="frame" x="20" y="4" width="44" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                        <state key="normal" title="Post">
+                                        <state key="normal" image="photo-icon.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="IIL-et-yzh">
+                                        <rect key="frame" x="260" y="0.0" width="40" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                        <state key="normal" image="message-icon.png">
+                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <segue destination="lnb-gW-AWX" kind="push" id="YCw-e7-spT"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1Nu-Lm-c7J">
-                                        <rect key="frame" x="16" y="2" width="54" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                        <state key="normal" title="Camera">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" id="aeu-EJ-Rlq">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
@@ -994,6 +995,8 @@
     <resources>
         <image name="arrow-right.png" width="69" height="135"/>
         <image name="first" width="30" height="30"/>
+        <image name="message-icon.png" width="157" height="153"/>
+        <image name="photo-icon.png" width="183" height="145"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
