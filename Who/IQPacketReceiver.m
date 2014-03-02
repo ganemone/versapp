@@ -11,7 +11,6 @@
 #import "GroupChat.h"
 #import "GroupChatManager.h"
 #import "OneToOneChatManager.h"
-#import "ChatParticipantVCardBuffer.h"
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
 #import "FriendsDBManager.h"
@@ -236,10 +235,10 @@
         [conn sendElement:[IQPacketManager createGetVCardPacket:resultJid]];
         if ([subscription rangeOfString:@"none"].location == NSNotFound){
             [acceptedFriends addObject:resultJid];
-            [FriendsDBManager insert:jid name:nil email:nil status:[NSNumber numberWithInt:STATUS_FRIENDS]];
+            [FriendsDBManager insert:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_FRIENDS]];
         }
         else {
-            [FriendsDBManager insert:jid name:nil email:nil status:[NSNumber numberWithInt:STATUS_PENDING]];
+            [FriendsDBManager insert:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_PENDING]];
         }
     }
 }

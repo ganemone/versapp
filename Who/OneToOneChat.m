@@ -8,9 +8,10 @@
 
 #import "OneToOneChat.h"
 #import "ConnectionProvider.h"
-#import "ChatParticipantVCardBuffer.h"
 #import "Constants.h"
 #import "MessagesDBManager.h"
+#import "FriendMO.h"
+#import "FriendsDBManager.h"
 
 @implementation OneToOneChat
 
@@ -20,16 +21,10 @@
     instance.createdTime = createdTimestamp;
     if([invitedID compare:[ConnectionProvider getUser]] == 0) {
         instance.name = @"Anonymous Friend";
+    } else if([FriendsDBManager hasUserWithJID:invitedID]) {
+        instance.name = [[FriendsDBManager getUserWithJID:invitedID] name];
     } else {
-        ChatParticipantVCardBuffer *buffer = [ChatParticipantVCardBuffer getInstance];
-        UserProfile *vcard = [buffer getVCard:invitedID];
-        if (vcard != NULL) {
-            if (vcard.nickname != NULL) {
-                instance.name = vcard.nickname;
-            }
-        } else {
-            instance.name = @"Loading...";
-        }
+        instance.name = @"Loading...";
     }
     instance.invitedID = invitedID;
     instance.inviterID = inviterID;

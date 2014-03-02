@@ -16,7 +16,7 @@
 +(void)insert:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate managedObjectContext];
-    
+    NSLog(@"Username: %@", username);
     FriendMO *friend = [self getUserWithJID:username];
     if (friend == nil) {
         friend = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_FRIENDS inManagedObjectContext:moc];

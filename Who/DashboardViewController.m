@@ -18,7 +18,6 @@
 #import "ChatDBManager.h"
 #import "ChatMO.h"
 #import "StyleManager.h"
-#import "ChatParticipantVCardBuffer.h"
 
 @interface DashboardViewController()
 
