@@ -156,6 +156,7 @@
 		3AB8D19018C259B00082B77C /* MavenProBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AB8D18C18C259B00082B77C /* MavenProBold.ttf */; };
 		3AB8D19118C259B00082B77C /* MavenProMedium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AB8D18D18C259B00082B77C /* MavenProMedium.ttf */; };
 		3AB8D19218C259B00082B77C /* MavenProRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AB8D18E18C259B00082B77C /* MavenProRegular.ttf */; };
+		3AB8D19518C2A5840082B77C /* arrow-right.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AB8D19418C2A5840082B77C /* arrow-right.png */; };
 		3AB9E67E18A45573001EFDB8 /* LoadingDialogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB9E67D18A45573001EFDB8 /* LoadingDialogManager.m */; };
 		3ABA80DA18AE5F87002012C7 /* ImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABA80D918AE5F87002012C7 /* ImageManager.m */; };
 		3AC0BA2F18AEEFBA0061A565 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC0BA2E18AEEFBA0061A565 /* Base64.m */; };
@@ -490,6 +491,7 @@
 		3AB8D18C18C259B00082B77C /* MavenProBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MavenProBold.ttf; sourceTree = "<group>"; };
 		3AB8D18D18C259B00082B77C /* MavenProMedium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MavenProMedium.ttf; sourceTree = "<group>"; };
 		3AB8D18E18C259B00082B77C /* MavenProRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MavenProRegular.ttf; sourceTree = "<group>"; };
+		3AB8D19418C2A5840082B77C /* arrow-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-right.png"; sourceTree = "<group>"; };
 		3AB9E67C18A45573001EFDB8 /* LoadingDialogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingDialogManager.h; sourceTree = "<group>"; };
 		3AB9E67D18A45573001EFDB8 /* LoadingDialogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingDialogManager.m; sourceTree = "<group>"; };
 		3ABA80D818AE5F87002012C7 /* ImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageManager.h; sourceTree = "<group>"; };
@@ -1503,6 +1505,7 @@
 		3AF86D3218B5070200033495 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3AB8D19418C2A5840082B77C /* arrow-right.png */,
 				3A00167C18B8231000C54059 /* message-icon.png */,
 				3A00167D18B8231000C54059 /* photo-icon.png */,
 				3A8BCF8518B6FB8300D4B7CE /* fav-icon.png */,
@@ -1691,6 +1694,7 @@
 				3AB8D18818C23DF00082B77C /* MavenProLight-100.ttf in Resources */,
 				3AB8D19118C259B00082B77C /* MavenProMedium.ttf in Resources */,
 				3A3A0B1218AB1126006FBAE4 /* message-received.aiff in Resources */,
+				3AB8D19518C2A5840082B77C /* arrow-right.png in Resources */,
 				F751016C18ABE8A2001F1E7F /* Settings.bundle in Resources */,
 				3AB8D19018C259B00082B77C /* MavenProBold.ttf in Resources */,
 				3AF19A6E1881F34A00F3E4D3 /* README.txt in Resources */,

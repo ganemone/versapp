@@ -27,6 +27,7 @@
 @property (strong, nonatomic) NSIndexPath *clickedCellIndexPath;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *header;
+@property (weak, nonatomic) IBOutlet UILabel *footerView;
 
 @end
 
@@ -50,10 +51,16 @@
     
     [self.header setFont:[StyleManager getFontStyleLightSizeXL]];
     [self.header setTextColor:[UIColor blackColor]];
+    
+    [self.footerView setFont:[StyleManager getFontStyleLightSizeXL]];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [self.tableView reloadData];
+}
+
+- (IBAction)arrowClicked:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"test" object:nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated {

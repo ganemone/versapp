@@ -55,6 +55,8 @@ CAShapeLayer *closedNotifications;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadNotifications:) name:PACKET_ID_GET_PENDING_CHATS object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleMessagesRightArrowClicked) name:@"test" object:nil];
+    
     [self.navigationController.navigationBar setHidden:YES];
     [self.navigationController setDelegate:self];
     
@@ -83,6 +85,18 @@ CAShapeLayer *closedNotifications;
     } else {
         [self hideNotifications];
     }
+}
+
+- (void)handleMessagesRightArrowClicked {
+    __weak UIPageViewController *pvcw = _pageViewController;
+    UIViewController *controller = [self viewControllerAtIndex:2];
+    [_pageViewController setViewControllers:@[controller] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:^(BOOL finished) {
+        UIPageViewController *pvcs = pvcw;
+        if (!pvcs) return;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [pvcs setViewControllers:@[controller] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+        });
+    }];
 }
 
 - (void) showNotifications {
