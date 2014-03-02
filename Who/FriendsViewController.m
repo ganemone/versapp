@@ -24,7 +24,6 @@
 #import "Constants.h"
 
 // Objects
-#import "UserProfile.h"
 #import "MUCCreationManager.h"
 #import "LoadingDialogManager.h"
 

@@ -30,7 +30,6 @@
 		3A25B6761881E84800166623 /* FriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A25B6751881E84800166623 /* FriendsViewController.m */; };
 		3A25B6791881E85B00166623 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A25B6781881E85B00166623 /* ContactsViewController.m */; };
 		3A2A357E18AFC79F006402E5 /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2A357D18AFC79F006402E5 /* ImageCache.m */; };
-		3A39475B189FF12E005730D2 /* UserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A39475A189FF12E005730D2 /* UserProfile.m */; };
 		3A39475D18A06483005730D2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A39475C18A06483005730D2 /* CoreData.framework */; };
 		3A3A0ADA18AB1126006FBAE4 /* NSString+JSMessagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3A0A8418AB1126006FBAE4 /* NSString+JSMessagesView.m */; };
 		3A3A0ADB18AB1126006FBAE4 /* UIColor+JSMessagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3A0A8618AB1126006FBAE4 /* UIColor+JSMessagesView.m */; };
@@ -254,8 +253,6 @@
 		3A25B6781881E85B00166623 /* ContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsViewController.m; sourceTree = "<group>"; };
 		3A2A357C18AFC79F006402E5 /* ImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCache.h; sourceTree = "<group>"; };
 		3A2A357D18AFC79F006402E5 /* ImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCache.m; sourceTree = "<group>"; };
-		3A394759189FF12E005730D2 /* UserProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfile.h; sourceTree = "<group>"; };
-		3A39475A189FF12E005730D2 /* UserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfile.m; sourceTree = "<group>"; };
 		3A39475C18A06483005730D2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		3A3A0A8318AB1126006FBAE4 /* NSString+JSMessagesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JSMessagesView.h"; sourceTree = "<group>"; };
 		3A3A0A8418AB1126006FBAE4 /* NSString+JSMessagesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JSMessagesView.m"; sourceTree = "<group>"; };
@@ -931,8 +928,6 @@
 		3A5699B21886D50300746CC8 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				3A394759189FF12E005730D2 /* UserProfile.h */,
-				3A39475A189FF12E005730D2 /* UserProfile.m */,
 				3A5699A91886D4B900746CC8 /* Chat.h */,
 				3A5699AA1886D4B900746CC8 /* Chat.m */,
 				3A5699B61886D80C00746CC8 /* Message.h */,
@@ -1810,7 +1805,6 @@
 				3A3A0AE118AB1126006FBAE4 /* JSDismissiveTextView.m in Sources */,
 				F751019018AE8D6F001F1E7F /* TermsOfUseViewController.m in Sources */,
 				3A98D9DD18BD1A2600B69049 /* XMPPUserMemoryStorageObject.m in Sources */,
-				3A39475B189FF12E005730D2 /* UserProfile.m in Sources */,
 				3A6C3BBB1884AD61003B162B /* LoginViewController.m in Sources */,
 				F751018A18AE8D3A001F1E7F /* SupportViewController.m in Sources */,
 				3A98DA6218BD1A7E00B69049 /* XMPPPlainAuthentication.m in Sources */,

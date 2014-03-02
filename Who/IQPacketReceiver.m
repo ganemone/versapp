@@ -15,7 +15,6 @@
 #import "IQPacketManager.h"
 #import "FriendsDBManager.h"
 #import "MessagesDBManager.h"
-#import "UserProfile.h"
 #import "AppDelegate.h"
 #import "ChatDBManager.h"
 #import "Confession.h"

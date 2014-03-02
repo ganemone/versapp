@@ -13,7 +13,6 @@
 #import "Constants.h"
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
-#import "UserProfile.h"
 
 @interface ContactsViewController()
 @property (strong, nonatomic) ConnectionProvider* cp;
