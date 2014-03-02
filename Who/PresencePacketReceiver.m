@@ -49,7 +49,7 @@
         NSString *username = [[[presence fromStr] componentsSeparatedByString:@"@"] firstObject];
         XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
         NSLog(@"Friend Request Presence");
-        if ([FriendsDBManager hasUserWithJID:username] == NO) {
+        if ([FriendsDBManager hasUserWithJID:username] == NO && [username compare:[ConnectionProvider getUser]] != 0) {
             [conn sendElement:[IQPacketManager createGetVCardPacket:username]];
         }
         // Packet represents a friend request

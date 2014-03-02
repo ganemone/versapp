@@ -162,8 +162,9 @@
             }
         }
     }
-
-    [FriendsDBManager insert:username name:[NSString stringWithFormat:@"%@ %@", firstName, lastName] email:email status:nil];
+    if ([username compare:[ConnectionProvider getUser]] != 0) {
+        [FriendsDBManager insert:username name:[NSString stringWithFormat:@"%@ %@", firstName, lastName] email:email status:nil];
+    }
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_VCARD object:nil];
 }
 
@@ -219,8 +220,6 @@
     DDXMLElement *query = [[iq children] firstObject];
     NSArray *items = [query children];
     DDXMLElement *item;
-    
-    NSMutableArray *acceptedFriends = [[NSMutableArray alloc] init];
     XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
     
     for (int i = 0; i < items.count; i++) {
@@ -233,7 +232,6 @@
         NSString *resultJid = [jid substringWithRange:[matchJid rangeAtIndex:1]];
         [conn sendElement:[IQPacketManager createGetVCardPacket:resultJid]];
         if ([subscription rangeOfString:@"none"].location == NSNotFound){
-            [acceptedFriends addObject:resultJid];
             [FriendsDBManager insert:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_FRIENDS]];
         }
         else {
