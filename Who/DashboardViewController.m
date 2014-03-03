@@ -68,9 +68,7 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier compare:SEGUE_ID_GROUP_CONVERSATION] == 0) {
-        GroupChatManager *gcm = [GroupChatManager getInstance];
         ConversationViewController *dest = segue.destinationViewController;
-        dest.gc = [gcm getChatByIndex:self.clickedCellIndexPath.row];
         dest.chatMO = [[self groupChats] objectAtIndex:self.clickedCellIndexPath.row];
     } else if([segue.identifier compare:SEGUE_ID_ONE_TO_ONE_CONVERSATION] == 0) {
         OneToOneChatManager *cm = [OneToOneChatManager getInstance];

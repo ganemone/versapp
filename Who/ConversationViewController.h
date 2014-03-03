@@ -15,7 +15,6 @@
 
 @interface ConversationViewController : JSMessagesViewController <JSMessagesViewDelegate, JSMessagesViewDataSource, ImageManagerDelegate>
 
-@property (strong, nonatomic) GroupChat *gc;
 @property (strong, nonatomic) ChatMO *chatMO;
 @property (strong, nonatomic) ImageManager *im;
 @property (strong, nonatomic) NSMutableArray *downloadingImageURLs;

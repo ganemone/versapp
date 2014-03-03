@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ChatMO.h"
 
 @interface ChatDBManager : NSObject
 
 +(BOOL)hasChatWithID:(NSString*)chatID;
 
-+(void)insertChatWithID:(NSString*)chatID chatName:(NSString*)chatName chatType:(NSString*)chatType status:(int)status;
++(ChatMO*)insertChatWithID:(NSString*)chatID chatName:(NSString*)chatName chatType:(NSString*)chatType status:(int)status;
 
 +(void)updateUserDefinedChatNameWithID:(NSString*)chatID chatName:(NSString*)chatName;
 

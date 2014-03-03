@@ -20,7 +20,7 @@
     return ([self getChatWithID:chatID] != nil);
 }
 
-+(void)insertChatWithID:(NSString *)chatID chatName:(NSString *)chatName chatType:(NSString*)chatType status:(int)status {
++(ChatMO*)insertChatWithID:(NSString *)chatID chatName:(NSString *)chatName chatType:(NSString*)chatType status:(int)status {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     ChatMO *chatEntry = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_CHATS inManagedObjectContext:moc];
@@ -31,6 +31,8 @@
     [chatEntry setValue:chatType forKey:CHATS_TABLE_COLUMN_NAME_CHAT_TYPE];
     [chatEntry setValue:[NSNumber numberWithInt:status] forKey:CHATS_TABLE_COLUMN_NAME_STATUS];
     [delegate saveContext];
+    
+    return chatEntry;
 }
 
 +(void)updateUserDefinedChatNameWithID:(NSString *)chatID chatName:(NSString *)chatName {

@@ -30,6 +30,8 @@
 // DB
 #import "FriendMO.h"
 #import "FriendsDBManager.h"
+#import "ChatMO.h"
+#import "ChatDBManager.h"
 
 @interface FriendsViewController()
 
@@ -37,8 +39,7 @@
 @property (strong, nonatomic) NSArray *searchResults;
 @property (strong, nonatomic) NSArray *allAccepted;
 @property (strong, nonatomic) NSMutableArray *selectedJIDs;
-@property (strong, nonatomic) GroupChat *createdGroupChat;
-@property (strong, nonatomic) OneToOneChat *createdOneToOneChat;
+@property (strong, nonatomic) ChatMO *createdChat;
 @property (strong, nonatomic) LoadingDialogManager *ldm;
 @property (strong, nonatomic) NSString *invitedUser;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -180,14 +181,16 @@
         NSString *groupName = [alertView textFieldAtIndex:0].text;
         if (buttonIndex == 1 && groupName.length > 0) {
             [self.ldm showLoadingDialogWithoutProgress];
-            self.createdGroupChat = [MUCCreationManager createMUC:groupName participants:self.selectedJIDs];
+            GroupChat *gc = [MUCCreationManager createMUC:groupName participants:self.selectedJIDs];
+            _createdChat = [ChatDBManager insertChatWithID:gc.chatID chatName:groupName chatType:CHAT_TYPE_GROUP status:STATUS_JOINED];
         }
         self.isCreatingGroup = NO;
     } else if (buttonIndex == 1) {
         XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
         NSString *chatID = [Chat createGroupID];
         [conn sendElement:[IQPacketManager createCreateOneToOneChatPacket:chatID roomName:chatID]];
-        self.createdOneToOneChat = [OneToOneChat create:chatID inviterID:[ConnectionProvider getUser] invitedID:self.invitedUser createdTimestamp:0];
+        OneToOneChat *chat = [OneToOneChat create:chatID inviterID:[ConnectionProvider getUser] invitedID:self.invitedUser createdTimestamp:0];
+        _createdChat = [ChatDBManager insertChatWithID:chat.chatID chatName:[FriendsDBManager getUserWithJID:self.invitedUser].name chatType:CHAT_TYPE_ONE_TO_ONE status:STATUS_JOINED];
     }
     self.selectedJIDs = [[NSMutableArray alloc] init];
     [self.tableView reloadData];
@@ -200,8 +203,8 @@
 
 -(void)handleCreatedOneToOneChat:(NSNotification*)notification {
     XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
-    [conn sendElement:[IQPacketManager createInviteToChatPacket:self.createdOneToOneChat.chatID invitedUsername:self.createdOneToOneChat.inviterID]];
-    [conn sendElement:[IQPacketManager createInviteToChatPacket:self.createdOneToOneChat.chatID invitedUsername:self.createdOneToOneChat.invitedID]];
+    [conn sendElement:[IQPacketManager createInviteToChatPacket:_createdChat.chat_id invitedUsername:self.invitedUser]];
+    [conn sendElement:[IQPacketManager createInviteToChatPacket:_createdChat.chat_id invitedUsername:[ConnectionProvider getUser]]];
     [self.ldm hideLoadingDialogWithoutProgress];
     [self performSegueWithIdentifier:SEGUE_ID_CREATED_CHAT sender:self];
 }
@@ -209,10 +212,10 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier compare:SEGUE_ID_CREATED_MUC] == 0) {
         ConversationViewController *dest = segue.destinationViewController;
-        [dest setGc:_createdGroupChat];
+        [dest setChatMO:_createdChat];
     } else if([segue.identifier compare:SEGUE_ID_CREATED_CHAT] == 0) {
-        OneToOneConversationViewController *dest = segue.destinationViewController;
-        [dest setChat:_createdOneToOneChat];
+        //OneToOneConversationViewController *dest = segue.destinationViewController;
+        //[dest setChat:_createdOneToOneChat];
     }
 }
 

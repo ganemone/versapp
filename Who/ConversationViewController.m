@@ -36,7 +36,7 @@
     [self.tableView setOpaque:YES];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
-    self.navigationItem.title = self.gc.name;
+    self.navigationItem.title = self.chatMO.user_defined_chat_name;
     self.delegate = self;
     self.dataSource = self;
     self.im = [[ImageManager alloc] init];
@@ -44,7 +44,7 @@
     self.imageCache = [ImageCache getInstance];
     self.downloadingImageURLs = [[NSMutableArray alloc] initWithCapacity:20];
     
-    [ChatDBManager setHasNewMessageNo:self.gc.chatID];
+    [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
 }
 
 - (void)didReceiveMemoryWarning
