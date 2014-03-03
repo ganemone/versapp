@@ -71,6 +71,7 @@
         GroupChatManager *gcm = [GroupChatManager getInstance];
         ConversationViewController *dest = segue.destinationViewController;
         dest.gc = [gcm getChatByIndex:self.clickedCellIndexPath.row];
+        dest.chatMO = [[self groupChats] objectAtIndex:self.clickedCellIndexPath.row];
     } else if([segue.identifier compare:SEGUE_ID_ONE_TO_ONE_CONVERSATION] == 0) {
         OneToOneChatManager *cm = [OneToOneChatManager getInstance];
         OneToOneConversationViewController *dest = segue.destinationViewController;
@@ -120,13 +121,9 @@
     if(indexPath.section == 0) {
         GroupChatManager *gcm = [GroupChatManager getInstance];
         GroupChat *muc = [gcm getChatByIndex:indexPath.row];
-        [cell.textLabel setText:muc.name];
-        [cell.detailTextLabel setText:[muc getLastMessageText]];
-        cellText = [muc getLastMessageText];
-        chatID = muc.chatID;
         ChatMO *chatMo = [self.groupChats objectAtIndex:indexPath.row];
-        NSLog(@"Chat in DB: %@ %@", [chatMo user_defined_chat_name], [[[chatMo messages] firstObject] body]);
-        
+        [cell.textLabel setText:chatMo.user_defined_chat_name];
+        [cell.detailTextLabel setText:[chatMo getLastMessage]];
     } else {
         OneToOneChatManager *cm = [OneToOneChatManager getInstance];
         OneToOneChat *chat = [cm getChatByIndex:indexPath.row];

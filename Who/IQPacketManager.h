@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "DDXMLElement.h"
 #import "Message.h"
-#include "Confession.h"
+#import "Confession.h"
+#import "MessageMO.h"
 
 @interface IQPacketManager : NSObject
 
@@ -45,9 +46,9 @@
 
 +(DDXMLElement*)createGetServerTimePacket;
 
-+(DDXMLElement*)createSendMUCMessagePacket:(Message*)message;
++(DDXMLElement *)createSendMUCMessagePacket:(MessageMO *)message;
 
-+(DDXMLElement*)createSendOneToOneMessagePacket:(Message*)message;
++(DDXMLElement *)createSendOneToOneMessagePacket:(MessageMO *)message;
 
 +(DDXMLElement*)createAvailabilityPresencePacket;
 

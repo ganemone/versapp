@@ -22,4 +22,16 @@
 
 @property (strong, nonatomic) NSMutableArray *messages;
 
+-(NSString*)getLastMessage;
+
+-(void)sendMUCMessageWithBody:(NSString *)messageText imageLink:(NSString*)imageLink;
+
+-(void)createSendOneToOneMessage:(NSString*)messageText messageTo:(NSString*)messageTo imageLink:(NSString*)imageLink;
+
+-(int)getNumberOfMessages;
+
+-(void)addMessage:(MessageMO*)message;
+
+-(void)updateMessage:(MessageMO*)message;
+
 @end

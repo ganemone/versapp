@@ -83,22 +83,23 @@
     
     if (inviteFlag == nil) {
         if ([message.type compare:CHAT_TYPE_GROUP] == 0) {
-            
+            MessageMO *newMessage;
             if (imageLink != nil) {
-                [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:receiverID imageLink:imageLink];
+                newMessage = [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:receiverID imageLink:imageLink];
             } else {
-                [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:receiverID];
+                newMessage = [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:receiverID];
             }
-            NSDictionary *messageDictionary = [NSDictionary dictionaryWithObject:groupID forKey:MESSAGE_PROPERTY_GROUP_ID];
+            NSDictionary *messageDictionary = [NSDictionary dictionaryWithObject:newMessage forKey:DICTIONARY_KEY_MESSAGE_OBJECT];
             GroupChatManager *gcm = [GroupChatManager getInstance];
-            GroupChat *gc = [gcm getChat:groupID];
-            Message *messageObject = [Message createForMUCWithImage:message.body sender:senderID chatID:groupID imageLink:imageLink timestamp:timestamp];
-            if ([senderID compare:[ConnectionProvider getUser]] == 0) {
-                [gc updateMessage:messageObject];
-            } else {
-                [gc addMessage: messageObject];
-                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
-            }
+            //GroupChat *gc = [gcm getChat:groupID];
+            //Message *messageObject = [Message createForMUCWithImage:message.body sender:senderID chatID:groupID imageLink:imageLink timestamp:timestamp];
+            //if ([senderID compare:[ConnectionProvider getUser]] == 0) {
+            //[gc updateMessage:messageObject];
+            //} else {
+            //[gc addMessage: messageObject];
+            NSLog(@"Received Message! Sending notification now...");
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
+            //}
             [ChatDBManager setHasNewMessageYes:groupID];
             
             [gcm sortChats];

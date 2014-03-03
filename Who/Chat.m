@@ -22,33 +22,33 @@
 }
 
 -(void)sendMUCMessage:(NSString *)messageText {
-    Message *message = [Message createForMUC:messageText sender:[ConnectionProvider getUser] chatID:self.chatID];
+    /*Message *message = [Message createForMUC:messageText sender:[ConnectionProvider getUser] chatID:self.chatID];
     [self addMessage:message];
     DDXMLElement *packet = [IQPacketManager createSendMUCMessagePacket:message];
-    [[[ConnectionProvider getInstance] getConnection] sendElement:packet];
+    [[[ConnectionProvider getInstance] getConnection] sendElement:packet];*/
 }
 
 -(void)sendOneToOneMessage:(NSString *)messageText messageTo:(NSString *)messageTo {
-    NSString * timeStampValue = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
+    /*NSString * timeStampValue = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
     Message *message = [Message createForOneToOne:messageText sender:[ConnectionProvider getUser] chatID:self.chatID messageTo:messageTo timestamp:timeStampValue];
     [self addMessage:message];
     [MessagesDBManager insert:messageText groupID:self.chatID time:timeStampValue senderID:[ConnectionProvider getUser] receiverID:messageTo];
-    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSendOneToOneMessagePacket:message]];
+    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSendOneToOneMessagePacket:message]];*/
 }
 
 -(void)sendMUCMessage:(NSString *)messageText imageLink:(NSString *)imageLink {
-    Message *message = [Message createForMUCWithImage:messageText sender:[ConnectionProvider getUser] chatID:self.chatID imageLink:imageLink];
-    [self addMessage:message];
-    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSendMUCMessagePacket:message]];
+//    Message *message = [Message createForMUCWithImage:messageText sender:[ConnectionProvider getUser] chatID:self.chatID imageLink:imageLink];
+//    [self addMessage:message];
+//    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSendMUCMessagePacket:message]];
 }
 
 -(void)sendOneToOneMessage:(NSString *)messageText messageTo:(NSString *)messageTo imageLink:(NSString *)imageLink {
-    NSString * timeStampValue = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
-    
-    Message *message = [Message createForOneToOneWithImage:messageText sender:[ConnectionProvider getUser] chatID:self.chatID messageTo:messageTo imageLink:imageLink timestamp:timeStampValue];
-    [self addMessage:message];
-    [MessagesDBManager insert:messageText groupID:self.chatID time:timeStampValue senderID:[ConnectionProvider getUser] receiverID:message.messageTo imageLink:imageLink];
-    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSendOneToOneMessagePacket:message]];
+//    NSString * timeStampValue = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
+//    
+//    Message *message = [Message createForOneToOneWithImage:messageText sender:[ConnectionProvider getUser] chatID:self.chatID messageTo:messageTo imageLink:imageLink timestamp:timeStampValue];
+//    [self addMessage:message];
+//    [MessagesDBManager insert:messageText groupID:self.chatID time:timeStampValue senderID:[ConnectionProvider getUser] receiverID:message.messageTo imageLink:imageLink];
+//    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSendOneToOneMessagePacket:message]];
 }
 
 -(void)updateMessage:(Message *)message {

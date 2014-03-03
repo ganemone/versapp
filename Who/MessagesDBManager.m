@@ -14,7 +14,7 @@
 
 @implementation MessagesDBManager
 
-+(void)insert:(NSString *)messageBody groupID:(NSString *)groupID time:(NSString *)time senderID:(NSString *)senderID receiverID:(NSString *)receiverID {
++(MessageMO*)insert:(NSString *)messageBody groupID:(NSString *)groupID time:(NSString *)time senderID:(NSString *)senderID receiverID:(NSString *)receiverID {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     MessageMO *message = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_MESSAGES inManagedObjectContext:moc];
@@ -25,9 +25,11 @@
     [message setValue:receiverID forKey:MESSAGE_PROPERTY_RECEIVER_ID];
     
     [delegate saveContext];
+    
+    return message;
 }
 
-+(void)insert:(NSString *)messageBody groupID:(NSString *)groupID time:(NSString *)time senderID:(NSString *)senderID receiverID:(NSString *)receiverID imageLink:(NSString *)imageLink {
++(MessageMO*)insert:(NSString *)messageBody groupID:(NSString *)groupID time:(NSString *)time senderID:(NSString *)senderID receiverID:(NSString *)receiverID imageLink:(NSString *)imageLink {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     MessageMO *message = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_MESSAGES inManagedObjectContext:moc];
@@ -40,6 +42,8 @@
     [message setValue:imageLink forKey:MESSAGE_PROPERTY_IMAGE_LINK];
     
     [delegate saveContext];
+    
+    return message;
 }
 
 +(NSMutableArray *)getMessagesByChat:(NSString *)chatID {

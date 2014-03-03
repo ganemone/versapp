@@ -9,6 +9,7 @@
 #import "ConversationViewController.h"
 #import "Constants.h"
 #import "MessagesDBManager.h"
+#import "MessageMO.h"
 #import <QuartzCore/QuartzCore.h>
 #import "JSMessage.h"
 #import "ConnectionProvider.h"
@@ -52,7 +53,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -60,45 +60,51 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.gc getNumberOfMessages];
+    return [self.chatMO getNumberOfMessages];
 }
 
 -(void)messageReceived:(NSNotification*)notification {
     NSDictionary *userInfo = notification.userInfo;
-    if ([(NSString*)[userInfo objectForKey:MESSAGE_PROPERTY_GROUP_ID] compare:self.gc.chatID] == 0) {
-        [ChatDBManager setHasNewMessageNo:self.gc.chatID];
-        if([self.gc getNumberOfMessages] <= 1) {
-            [self.tableView reloadData];
+    MessageMO *newMessage = [userInfo objectForKey:DICTIONARY_KEY_MESSAGE_OBJECT];
+    NSLog(@"Received Message! :%@", [newMessage message_body]);
+    if ([newMessage.group_id compare:self.chatMO.chat_id] == 0) {
+        [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
+        if ([newMessage.sender_id compare:[ConnectionProvider getUser]] == 0) {
+            [self.chatMO updateMessage:newMessage];
         } else {
-            [self animateAddNewestMessage];
+            if([self.chatMO getNumberOfMessages] <= 1) {
+                [self.tableView reloadData];
+            } else {
+                [self animateAddNewestMessage];
+            }
         }
     }
 }
 
 -(void)animateAddNewestMessage {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.gc.getNumberOfMessages - 1 inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.chatMO getNumberOfMessages] - 1 inSection:0];
     NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
     [self.tableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationFade];
     [self scrollToBottomAnimated:YES];
 }
 
 -(JSBubbleMessageType)messageTypeForRowAtIndexPath:(NSIndexPath *)indexPath {
-    Message * message = [self.gc getMessageByIndex:indexPath.row];
-    if ([message.sender compare:[ConnectionProvider getUser]] == 0) {
+    MessageMO *messageMO = [[_chatMO messages] objectAtIndex:indexPath.row];
+    if ([messageMO.sender_id compare:[ConnectionProvider getUser]] == 0) {
         return JSBubbleMessageTypeOutgoing;
     }
     return JSBubbleMessageTypeIncoming;
 }
 
 -(id<JSMessageData>)messageForRowAtIndexPath:(NSIndexPath *)indexPath {
-    Message * message = [self.gc getMessageByIndex:indexPath.row];
+    MessageMO *messageMO = [[_chatMO messages] objectAtIndex:indexPath.row];
     NSDate *date;
-    if(message.timestamp != nil) {
-        date = [NSDate dateWithTimeIntervalSince1970: [message.timestamp doubleValue]];
+    if(messageMO.time != nil) {
+        date = [NSDate dateWithTimeIntervalSince1970: [messageMO.time doubleValue]];
     } else {
         date = [NSDate date];
     }
-    JSMessage *jmessage = [[JSMessage alloc] initWithText:message.body sender:@"" date:date];
+    JSMessage *jmessage = [[JSMessage alloc] initWithText:messageMO.message_body sender:@"" date:date];
     return jmessage;
 }
 
@@ -155,29 +161,26 @@
 }
 
 -(UIImageView *)avatarImageViewForRowAtIndexPath:(NSIndexPath *)indexPath sender:(NSString *)sender {
-    Message *message = [self.gc getMessageByIndex:indexPath.row];
+    MessageMO *message = [self.chatMO.messages objectAtIndex:indexPath.row];
     UIImage *image;
-    if (message.imageLink == nil) {
-        return nil;
-    } else if((image = [self.imageCache getImageByMessageSender:message.sender timestamp:message.timestamp]) != nil) {
-        return [[UIImageView alloc] initWithImage:image];
-    } else if(![self.downloadingImageURLs containsObject:message.imageLink]) {
-        [self.im downloadImageForMessage:message];
-        [self.downloadingImageURLs addObject:message.imageLink];
-    }
+    return nil;
+    //    if (message.image_link == nil) {
+    //        return nil;
+    //    } else if((image = [self.imageCache getImageByMessageSender:message.sender timestamp:message.timestamp]) != nil) {
+    //        return [[UIImageView alloc] initWithImage:image];
+    //    } else if(![self.downloadingImageURLs containsObject:message.image_link]) {
+    //        [self.im downloadImageForMessage:message];
+    //        [self.downloadingImageURLs addObject:message.image_link];
+    //    }
     UIImageView *emptyImageView = [[UIImageView alloc] init];
     return emptyImageView;
 }
 
 -(void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
     while (self.isUploadingImage == YES);
-    if (self.messageImageLink != nil) {
-        [self.gc sendMUCMessage:text imageLink:self.messageImageLink];
-        self.messageImage = nil;
-        self.messageImageLink = nil;
-    } else {
-        [self.gc sendMUCMessage:text];
-    }
+    [self.chatMO sendMUCMessageWithBody:text imageLink:self.messageImageLink];
+    self.messageImage = nil;
+    self.messageImageLink = nil;
     [self animateAddNewestMessage];
     [self finishSend];
 }
