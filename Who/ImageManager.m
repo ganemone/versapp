@@ -25,7 +25,7 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
 
 @implementation ImageManager
 
--(void)downloadImageForMessage:(Message *)message {
+-(void)downloadImageForMessage:(MessageMO *)message {
     [self performSelectorInBackground:@selector(performDownloadRequest:) withObject:message];
 }
 
@@ -35,8 +35,8 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
     [self performUploadRequest:uploadInfo];
 }
 
--(void)performDownloadRequest:(Message *)message {
-    NSString *url = message.imageLink;
+-(void)performDownloadRequest:(MessageMO *)message {
+    NSString *url = message.image_link;
     NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
     UIImage *image = [UIImage imageWithData:data];
     NSDictionary *downloadInfo = [NSDictionary dictionaryWithObjectsAndKeys:image, DICTIONARY_KEY_DOWNLOADED_IMAGE, url, DICTIONARY_KEY_IMAGE_URL, message, DICTIONARY_KEY_MESSAGE, nil];
@@ -74,8 +74,8 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
 -(void)handleDownloadRequestFinished:(NSDictionary*)downloadInfo {
     UIImage *image = [downloadInfo objectForKey:DICTIONARY_KEY_DOWNLOADED_IMAGE];
     NSString *url = [downloadInfo objectForKey:DICTIONARY_KEY_IMAGE_URL];
-    Message *message = [downloadInfo objectForKey:DICTIONARY_KEY_MESSAGE];
-    [[ImageCache getInstance] setImage:image sender:message.sender timestamp:message.timestamp];
+    MessageMO *message = [downloadInfo objectForKey:DICTIONARY_KEY_MESSAGE];
+    [[ImageCache getInstance] setImage:image sender:message.sender_id timestamp:message.time];
     [self.delegate didFinishDownloadingImage:image fromURL:url forMessage:message];
 }
 

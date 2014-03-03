@@ -66,7 +66,6 @@
 -(void)messageReceived:(NSNotification*)notification {
     NSDictionary *userInfo = notification.userInfo;
     MessageMO *newMessage = [userInfo objectForKey:DICTIONARY_KEY_MESSAGE_OBJECT];
-    NSLog(@"Received Message! :%@", [newMessage message_body]);
     if ([newMessage.group_id compare:self.chatMO.chat_id] == 0) {
         [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
         if ([newMessage.sender_id compare:[ConnectionProvider getUser]] == 0) {
@@ -163,15 +162,14 @@
 -(UIImageView *)avatarImageViewForRowAtIndexPath:(NSIndexPath *)indexPath sender:(NSString *)sender {
     MessageMO *message = [self.chatMO.messages objectAtIndex:indexPath.row];
     UIImage *image;
-    return nil;
-    //    if (message.image_link == nil) {
-    //        return nil;
-    //    } else if((image = [self.imageCache getImageByMessageSender:message.sender timestamp:message.timestamp]) != nil) {
-    //        return [[UIImageView alloc] initWithImage:image];
-    //    } else if(![self.downloadingImageURLs containsObject:message.image_link]) {
-    //        [self.im downloadImageForMessage:message];
-    //        [self.downloadingImageURLs addObject:message.image_link];
-    //    }
+    if (message.image_link == nil) {
+        return nil;
+    } else if((image = [self.imageCache getImageByMessageSender:message.sender_id timestamp:message.time]) != nil) {
+        return [[UIImageView alloc] initWithImage:image];
+    } else if(![self.downloadingImageURLs containsObject:message.image_link]) {
+        [self.im downloadImageForMessage:message];
+        [self.downloadingImageURLs addObject:message.image_link];
+    }
     UIImageView *emptyImageView = [[UIImageView alloc] init];
     return emptyImageView;
 }
