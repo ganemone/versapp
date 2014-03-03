@@ -79,4 +79,21 @@
     return messages;
 }
 
++(NSString*)getLastMessageForChatWithID:(NSString*)chatID {
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *moc = [delegate managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:CORE_DATA_TABLE_MESSAGES inManagedObjectContext:moc];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:MESSAGE_PROPERTY_TIMESTAMP ascending:YES];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%@ = \"%@\"", MESSAGE_PROPERTY_GROUP_ID, chatID]];
+    [fetchRequest setSortDescriptors:@[sort]];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setFetchLimit:1];
+    [fetchRequest setPredicate:predicate];
+    
+    NSError* error;
+    NSArray *fetchedItems = [moc executeFetchRequest:fetchRequest error:&error];
+    return [[fetchedItems firstObject] message_body];
+}
+
 @end

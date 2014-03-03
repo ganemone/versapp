@@ -112,6 +112,8 @@
     [cell.detailTextLabel setTextColor:[UIColor whiteColor]];
     [cell.detailTextLabel setHidden:NO];
     
+    
+    
     NSString *cellText, *chatID;
     if(indexPath.section == 0) {
         GroupChatManager *gcm = [GroupChatManager getInstance];
