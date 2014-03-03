@@ -5,6 +5,7 @@
         <attribute name="chat_name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="chat_type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="has_new_message" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="participant_string" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="user_defined_chat_name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
