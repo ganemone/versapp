@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="ChatMO" syncable="YES">
+    <entity name="ChatMO" representedClassName="ChatMO" syncable="YES">
         <attribute name="chat_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="chat_name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="has_new_message" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="user_defined_chat_name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MessageMO" inverseName="chat" inverseEntity="MessageMO" syncable="YES"/>
     </entity>
     <entity name="FriendMO" representedClassName="FriendMO" syncable="YES">
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
@@ -20,10 +21,11 @@
         <attribute name="receiver_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sender_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="chat" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ChatMO" inverseName="messages" inverseEntity="ChatMO" syncable="YES"/>
     </entity>
     <elements>
-        <element name="ChatMO" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="FriendMO" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MessageMO" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ChatMO" positionX="-9" positionY="-0" width="128" height="133"/>
+        <element name="FriendMO" positionX="-173" positionY="-0" width="128" height="105"/>
+        <element name="MessageMO" positionX="162" positionY="-0" width="128" height="148"/>
     </elements>
 </model>

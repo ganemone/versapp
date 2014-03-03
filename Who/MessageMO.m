@@ -2,7 +2,7 @@
 //  MessageMO.m
 //  Who
 //
-//  Created by Giancarlo Anemone on 2/3/14.
+//  Created by Giancarlo Anemone on 3/2/14.
 //  Copyright (c) 2014 Giancarlo Anemone. All rights reserved.
 //
 
@@ -11,11 +11,12 @@
 
 @implementation MessageMO
 
-@dynamic message_body;
-@dynamic sender_id;
-@dynamic receiver_id;
-@dynamic time;
 @dynamic group_id;
 @dynamic image_link;
+@dynamic message_body;
+@dynamic receiver_id;
+@dynamic sender_id;
+@dynamic time;
+@dynamic chat;
 
 @end
