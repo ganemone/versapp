@@ -42,7 +42,7 @@
     [delegate saveContext];
 }
 
-+(NSArray *)getMessagesByChat:(NSString *)chatID {
++(NSMutableArray *)getMessagesByChat:(NSString *)chatID {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -50,11 +50,12 @@
     [fetchRequest setEntity:entity];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%@ = \"%@\"", MESSAGE_PROPERTY_GROUP_ID, chatID]];
+    [fetchRequest setFetchLimit:100];
     [fetchRequest setPredicate:predicate];
     
     NSError* error;
     NSArray *fetchedItems = [moc executeFetchRequest:fetchRequest error:&error];
-    return fetchedItems;
+    return [NSMutableArray arrayWithArray:fetchedItems];
 }
 
 +(NSMutableArray *)getMessageObjectsForMUC:(NSString *)chatID {

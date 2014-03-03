@@ -24,6 +24,8 @@
 @property (strong, nonatomic) ConnectionProvider* cp;
 @property (strong, nonatomic) NSString *timeLastActive;
 @property (strong, nonatomic) NSIndexPath *clickedCellIndexPath;
+@property (strong, nonatomic) NSArray *groupChats;
+@property (strong, nonatomic) NSArray *oneToOneChats;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *header;
 @property (weak, nonatomic) IBOutlet UILabel *footerView;
@@ -50,8 +52,10 @@
     
     [self.header setFont:[StyleManager getFontStyleLightSizeXL]];
     [self.header setTextColor:[UIColor blackColor]];
-    
     [self.footerView setFont:[StyleManager getFontStyleLightSizeXL]];
+    
+    self.groupChats = [ChatDBManager getAllGroupChats];
+    self.oneToOneChats = [ChatDBManager getAllOneToOneChats];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -112,8 +116,6 @@
     [cell.detailTextLabel setTextColor:[UIColor whiteColor]];
     [cell.detailTextLabel setHidden:NO];
     
-    
-    
     NSString *cellText, *chatID;
     if(indexPath.section == 0) {
         GroupChatManager *gcm = [GroupChatManager getInstance];
@@ -122,6 +124,9 @@
         [cell.detailTextLabel setText:[muc getLastMessageText]];
         cellText = [muc getLastMessageText];
         chatID = muc.chatID;
+        ChatMO *chatMo = [self.groupChats objectAtIndex:indexPath.row];
+        NSLog(@"Chat in DB: %@ %@", [chatMo user_defined_chat_name], [[[chatMo messages] firstObject] body]);
+        
     } else {
         OneToOneChatManager *cm = [OneToOneChatManager getInstance];
         OneToOneChat *chat = [cm getChatByIndex:indexPath.row];
@@ -164,10 +169,14 @@
 }
 
 -(void)handleGetLastPacketReceived:(NSNotification*)notification {
+    self.groupChats = [ChatDBManager getAllGroupChats];
+    self.oneToOneChats = [ChatDBManager getAllOneToOneChats];
     [self.tableView reloadData];
 }
 
 -(void)handleRefreshListView:(NSNotification*)notification {
+    self.groupChats = [ChatDBManager getAllGroupChats];
+    self.oneToOneChats = [ChatDBManager getAllOneToOneChats];
     [self.tableView reloadData];
 }
 

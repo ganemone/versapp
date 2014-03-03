@@ -15,17 +15,11 @@
 
 @property (nonatomic, retain) NSString * chat_id;
 @property (nonatomic, retain) NSString * chat_name;
+@property (nonatomic, retain) NSString * chat_type;
 @property (nonatomic, retain) NSString * has_new_message;
 @property (nonatomic, retain) NSNumber * status;
 @property (nonatomic, retain) NSString * user_defined_chat_name;
-@property (nonatomic, retain) NSSet *messages;
-@end
 
-@interface ChatMO (CoreDataGeneratedAccessors)
-
-- (void)addMessagesObject:(MessageMO *)value;
-- (void)removeMessagesObject:(MessageMO *)value;
-- (void)addMessages:(NSSet *)values;
-- (void)removeMessages:(NSSet *)values;
+@property (strong, nonatomic) NSMutableArray *messages;
 
 @end

@@ -15,7 +15,7 @@
 
 +(void)insert:(NSString*)messageBody groupID:(NSString*)groupID time:(NSString*)time senderID:(NSString*)senderID receiverID:(NSString*)receiverID imageLink:(NSString*)imageLink;
 
-+(NSArray*)getMessagesByChat:(NSString*)chatID;
++(NSMutableArray*)getMessagesByChat:(NSString*)chatID;
 
 +(NSMutableArray *)getMessageObjectsForMUC:(NSString *)chatID;
 

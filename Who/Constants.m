@@ -103,6 +103,7 @@ NSString *const CHATS_TABLE_COLUMN_NAME_CHAT_NAME = @"chat_name";
 NSString *const CHATS_TABLE_COLUMN_NAME_USER_DEFINED_CHAT_NAME = @"user_defined_chat_name";
 NSString *const CHATS_TABLE_COLUMN_NAME_HAS_NEW_MESSAGE = @"has_new_message";
 NSString *const CHATS_TABLE_COLUMN_NAME_STATUS = @"status";
+NSString *const CHATS_TABLE_COLUMN_NAME_CHAT_TYPE = @"chat_type";
 
 int const STATUS_FRIENDS = 0;
 int const STATUS_REGISTERED = 1;

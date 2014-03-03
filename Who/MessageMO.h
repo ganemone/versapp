@@ -18,6 +18,5 @@
 @property (nonatomic, retain) NSString * receiver_id;
 @property (nonatomic, retain) NSString * sender_id;
 @property (nonatomic, retain) NSString * time;
-@property (nonatomic, retain) NSManagedObject *chat;
 
 @end

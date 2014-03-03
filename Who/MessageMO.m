@@ -17,6 +17,5 @@
 @dynamic receiver_id;
 @dynamic sender_id;
 @dynamic time;
-@dynamic chat;
 
 @end
