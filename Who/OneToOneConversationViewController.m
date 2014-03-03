@@ -9,11 +9,13 @@
 #import "OneToOneConversationViewController.h"
 #import "OneToOneChatManager.h"
 #import "Constants.h"
-#import "Message.h"
 #import "JSMessage.h"
 #import "ConnectionProvider.h"
 #import "RNBlurModalView.h"
 #import "ChatDBManager.h"
+#import "Message.h"
+#import "MessageMO.h"
+#import "ChatMO.h"
 
 @implementation OneToOneConversationViewController
 
@@ -69,7 +71,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.chat getNumberOfMessages];
+    return [self.chatMO getNumberOfMessages];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -102,9 +104,9 @@
 }
 
 -(id<JSMessageData>)messageForRowAtIndexPath:(NSIndexPath *)indexPath {
-    Message * message = [self.chat getMessageByIndex:indexPath.row];
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970: [message.timestamp doubleValue]];
-    JSMessage *jmessage = [[JSMessage alloc] initWithText:message.body sender:@"" date:date];
+    MessageMO *message = [self.chatMO.messages objectAtIndex:indexPath.row];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970: [message.time doubleValue]];
+    JSMessage *jmessage = [[JSMessage alloc] initWithText:message.message_body sender:@"" date:date];
     return jmessage;
 }
 
@@ -139,37 +141,34 @@
 }
 
 -(UIImageView *)avatarImageViewForRowAtIndexPath:(NSIndexPath *)indexPath sender:(NSString *)sender {
-    Message *message = [self.chat getMessageByIndex:indexPath.row];
+    MessageMO *message = [self.chatMO.messages objectAtIndex:indexPath.row];
     UIImage *image;
-    if (message.imageLink == nil) {
+    if (message.image_link == nil) {
         return nil;
-    } else if((image = [self.imageCache getImageByMessageSender:message.sender timestamp:message.timestamp]) != nil) {
+    } else if((image = [self.imageCache getImageByMessageSender:message.sender_id timestamp:message.time]) != nil) {
         return [[UIImageView alloc] initWithImage:image];
-    } else if(![self.downloadingImageURLs containsObject:message.imageLink]) {
+    } else if(![self.downloadingImageURLs containsObject:message.image_link]) {
         [self.im downloadImageForMessage:message];
-        [self.downloadingImageURLs addObject:message.imageLink];
+        [self.downloadingImageURLs addObject:message.image_link];
     }
     UIImageView *emptyImageView = [[UIImageView alloc] init];
     return emptyImageView;
 }
 
 -(void)animateAddNewestMessage {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.chat getNumberOfMessages] - 1 inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.chatMO getNumberOfMessages] - 1 inSection:0];
     NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
     [self.tableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationFade];
     [self scrollToBottomAnimated:YES];
-    
     [[OneToOneChatManager getInstance] sortChats];
 }
 
 -(void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
     while (self.isUploadingImage == YES);
     if (self.messageImageLink != nil) {
-        [self.chat sendOneToOneMessage:text messageTo:[self.chat getMessageTo] imageLink:self.messageImageLink];
+        [self.chatMO sendOneToOneMessage:text imageLink:self.messageImageLink];
         self.messageImage = nil;
         self.messageImageLink = nil;
-    } else {
-        [self.chat sendOneToOneMessage:text messageTo:[self.chat getMessageTo]];
     }
     [self animateAddNewestMessage];
     [self finishSend];

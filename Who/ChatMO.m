@@ -20,8 +20,10 @@
 @dynamic status;
 @dynamic user_defined_chat_name;
 @dynamic chat_type;
+@dynamic participant_string;
 
 @synthesize messages = _messages;
+@synthesize participants = _participants;
 
 -(NSString *)getChatAddress {
     return [NSString stringWithFormat:@"%@@%@", self.chat_id, [ConnectionProvider getConferenceIPAddress]];
@@ -34,9 +36,10 @@
     [[[ConnectionProvider getInstance] getConnection] sendElement:packet];
 }
 
--(void)createSendOneToOneMessage:(NSString*)messageText messageTo:(NSString*)messageTo imageLink:(NSString*)imageLink {
+-(void)sendOneToOneMessage:(NSString*)messageText imageLink:(NSString*)imageLink {
     NSString * timeStampValue = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
-    MessageMO *newMessage = [MessagesDBManager insert:messageText groupID:self.chat_id time:timeStampValue senderID:[ConnectionProvider getUser] receiverID:messageTo imageLink:imageLink];
+    MessageMO *newMessage = [MessagesDBManager insert:messageText groupID:self.chat_id time:timeStampValue senderID:[ConnectionProvider getUser] receiverID:[self getMessageTo] imageLink:imageLink];
+    [self addMessage:newMessage];
     DDXMLElement *packet = [IQPacketManager createSendOneToOneMessagePacket:newMessage];
     [[[ConnectionProvider getInstance] getConnection] sendElement:packet];
 }
@@ -61,6 +64,10 @@
             [tempMessage setTime:message.time];
         }
     }
+}
+
+-(NSString *)getMessageTo {
+    return ([[ConnectionProvider getUser] compare:[_participants firstObject]] == 0) ? [_participants firstObject] : [_participants lastObject];
 }
 
 @end

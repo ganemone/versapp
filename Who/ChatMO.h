@@ -19,19 +19,23 @@
 @property (nonatomic, retain) NSString * has_new_message;
 @property (nonatomic, retain) NSNumber * status;
 @property (nonatomic, retain) NSString * user_defined_chat_name;
+@property (nonatomic, retain) NSString * participant_string;
 
 @property (strong, nonatomic) NSMutableArray *messages;
+@property (strong, nonatomic) NSMutableArray *participants;
 
 -(NSString*)getLastMessage;
 
 -(void)sendMUCMessageWithBody:(NSString *)messageText imageLink:(NSString*)imageLink;
 
--(void)createSendOneToOneMessage:(NSString*)messageText messageTo:(NSString*)messageTo imageLink:(NSString*)imageLink;
+-(void)sendOneToOneMessage:(NSString*)messageText imageLink:(NSString*)imageLink;
 
 -(int)getNumberOfMessages;
 
 -(void)addMessage:(MessageMO*)message;
 
 -(void)updateMessage:(MessageMO*)message;
+
+-(NSString*)getMessageTo;
 
 @end

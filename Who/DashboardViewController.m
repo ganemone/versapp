@@ -117,8 +117,6 @@
     
     NSString *cellText, *chatID;
     if(indexPath.section == 0) {
-        GroupChatManager *gcm = [GroupChatManager getInstance];
-        GroupChat *muc = [gcm getChatByIndex:indexPath.row];
         ChatMO *chatMo = [self.groupChats objectAtIndex:indexPath.row];
         [cell.textLabel setText:chatMo.user_defined_chat_name];
         [cell.detailTextLabel setText:[chatMo getLastMessage]];
