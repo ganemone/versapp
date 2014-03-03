@@ -14,5 +14,6 @@
 @dynamic user_defined_chat_name;
 @dynamic chat_id;
 @dynamic has_new_message;
+@dynamic status;
 
 @end

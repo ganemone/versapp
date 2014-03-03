@@ -18,7 +18,7 @@
     return ([self getChatWithID:chatID] != nil);
 }
 
-+(void)insertChatWithID:(NSString *)chatID chatName:(NSString *)chatName {
++(void)insertChatWithID:(NSString *)chatID chatName:(NSString *)chatName status:(int)status {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     ChatMO *chatEntry = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_CHATS inManagedObjectContext:moc];
@@ -26,7 +26,7 @@
     [chatEntry setValue:chatID forKey:CHATS_TABLE_COLUMN_NAME_CHAT_ID];
     [chatEntry setValue:chatName forKey:CHATS_TABLE_COLUMN_NAME_CHAT_NAME];
     [chatEntry setValue:chatName forKey:CHATS_TABLE_COLUMN_NAME_USER_DEFINED_CHAT_NAME];
-    
+    [chatEntry setValue:[NSNumber numberWithInt:status] forKey:CHATS_TABLE_COLUMN_NAME_STATUS];
     [delegate saveContext];
 }
 
@@ -92,6 +92,12 @@
 +(BOOL)doesChatHaveNewMessage:(NSString *)chatID {
     ChatMO *chatEntry = [self getChatWithID:chatID];
     return ([chatEntry.has_new_message compare:@"YES"] == 0);
+}
+
++(void)setChatStatus:(int)status chatID:(NSString*)chatID {
+    ChatMO *chatEntry = [self getChatWithID:chatID];
+    [chatEntry setValue:[NSNumber numberWithInt:status] forKey:CHATS_TABLE_COLUMN_NAME_STATUS];
+    [(AppDelegate*)[UIApplication sharedApplication].delegate saveContext];
 }
 
 @end

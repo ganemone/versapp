@@ -102,6 +102,7 @@ extern NSString *const CHATS_TABLE_COLUMN_NAME_CHAT_ID;
 extern NSString *const CHATS_TABLE_COLUMN_NAME_CHAT_NAME;
 extern NSString *const CHATS_TABLE_COLUMN_NAME_USER_DEFINED_CHAT_NAME;
 extern NSString *const CHATS_TABLE_COLUMN_NAME_HAS_NEW_MESSAGE;
+extern NSString *const CHATS_TABLE_COLUMN_NAME_STATUS;
 
 extern int const STATUS_FRIENDS;
 extern int const STATUS_REGISTERED;
@@ -109,6 +110,11 @@ extern int const STATUS_PENDING;
 extern int const STATUS_REJECTED;
 extern int const STATUS_UNREGISTERED;
 extern int const STATUS_REQUESTED;
+
+extern int const STATUS_JOINED;
+extern int const STATUS_REQUEST_PENDING;
+extern int const STATUS_INACTIVE;
+extern int const STATUS_REQUEST_REJECTED;
 
 extern NSString *const INVITATION_ACCEPT;
 extern NSString *const INVITATION_DECLINE;

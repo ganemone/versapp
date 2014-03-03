@@ -102,6 +102,7 @@ NSString *const CHATS_TABLE_COLUMN_NAME_CHAT_ID = @"chat_id";
 NSString *const CHATS_TABLE_COLUMN_NAME_CHAT_NAME = @"chat_name";
 NSString *const CHATS_TABLE_COLUMN_NAME_USER_DEFINED_CHAT_NAME = @"user_defined_chat_name";
 NSString *const CHATS_TABLE_COLUMN_NAME_HAS_NEW_MESSAGE = @"has_new_message";
+NSString *const CHATS_TABLE_COLUMN_NAME_STATUS = @"status";
 
 int const STATUS_FRIENDS = 0;
 int const STATUS_REGISTERED = 1;
@@ -109,6 +110,11 @@ int const STATUS_PENDING = 2;
 int const STATUS_REJECTED = 3;
 int const STATUS_UNREGISTERED = 4;
 int const STATUS_REQUESTED = 5;
+
+int const STATUS_JOINED = 0;
+int const STATUS_REQUEST_PENDING = 1;
+int const STATUS_INACTIVE = 2;
+int const STATUS_REQUEST_REJECTED = 3;
 
 NSString *const INVITATION_ACCEPT = @"a";
 NSString *const INVITATION_DECLINE = @"d";
