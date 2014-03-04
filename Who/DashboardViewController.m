@@ -39,7 +39,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:PACKET_ID_GET_VCARD object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:PACKET_ID_GET_VCARD object:nil];
     
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
     [backgroundImageView setImage:[UIImage imageNamed:@"grad-back-messages.jpg"]];
@@ -116,21 +116,17 @@
     [cell.detailTextLabel setTextColor:[UIColor whiteColor]];
     [cell.detailTextLabel setHidden:NO];
     
-    NSString *cellText, *chatID;
+    ChatMO *chatMo;
     if(indexPath.section == 0) {
-        ChatMO *chatMo = [self.groupChats objectAtIndex:indexPath.row];
-        [cell.textLabel setText:chatMo.user_defined_chat_name];
-        [cell.detailTextLabel setText:[chatMo getLastMessage]];
+        chatMo = [self.groupChats objectAtIndex:indexPath.row];
     } else {
-        OneToOneChatManager *cm = [OneToOneChatManager getInstance];
-        OneToOneChat *chat = [cm getChatByIndex:indexPath.row];
-        [cell.textLabel setText:chat.name];
-        [cell.detailTextLabel setText:[chat getLastMessageText]];
-        cellText = [chat getLastMessageText];
-        chatID = chat.chatID;
+        chatMo = [self.oneToOneChats objectAtIndex:indexPath.row];
     }
     
-    if ([ChatDBManager doesChatHaveNewMessage:chatID]) {
+    [cell.textLabel setText:chatMo.user_defined_chat_name];
+    [cell.detailTextLabel setText:[chatMo getLastMessage]];
+    
+    if ([ChatDBManager doesChatHaveNewMessage:chatMo.chat_id]) {
         [cell.textLabel setFont:[StyleManager getFontStyleBoldSizeLarge]];
         [cell.detailTextLabel setFont:[StyleManager getFontStyleBoldSizeMed]];
     } else {

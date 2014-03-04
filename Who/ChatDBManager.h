@@ -31,4 +31,6 @@
 
 +(BOOL)doesChatHaveNewMessage:(NSString *)chatID;
 
++(void)updateOneToOneChatNames:(NSString *)name username:(NSString*)username;
+
 @end

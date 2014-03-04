@@ -78,7 +78,7 @@
 }
 
 -(NSString *)getMessageTo {
-    return ([[ConnectionProvider getUser] compare:[_participants firstObject]] == 0) ? [_participants firstObject] : [_participants lastObject];
+    return ([[ConnectionProvider getUser] compare:[_participants firstObject]] == 0) ? [_participants lastObject] : [_participants firstObject];
 }
 
 @end

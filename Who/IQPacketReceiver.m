@@ -82,17 +82,20 @@
         NSString* owner = [packetXML substringWithRange:[match rangeAtIndex:4]];
         NSString* name = [packetXML substringWithRange:[match rangeAtIndex:5]];
         NSString* createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
-        if([owner compare:participantString] == 0) {
-            participantString = [ConnectionProvider getUser];
+        
+        if ([type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
+            if ([owner isEqualToString:[ConnectionProvider getUser]]) {
+                NSString *participant = ([[participants firstObject] isEqualToString:[ConnectionProvider getUser]]) ? [participants lastObject] : [participants firstObject];
+                name = [FriendsDBManager getUserWithJID:participant].name;
+                if (name == nil) {
+                    name = @"Loading...";
+                }
+            } else if(![owner isEqualToString:@"confession"]) {
+                name = @"Anonymous Friend";
+            }
         }
-        if ([ChatDBManager hasChatWithID:chatId]) {
-            NSLog(@"Has Chat With ID");
-            name = [ChatDBManager getUserDefinedChatNameWithID:chatId];
-            NSLog(@"User Defined Name: %@", name);
-        } else {
-            NSLog(@"Storing chat information locally....");
-            [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_JOINED];
-        }
+        [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_JOINED];
+        
         if([type isEqualToString:CHAT_TYPE_GROUP]) {
             [gcm addChat:[GroupChat create:chatId participants:participants groupName:name owner:owner createdTime:createdTime]];
         } else if([type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
@@ -163,7 +166,9 @@
         }
     }
     if ([username compare:[ConnectionProvider getUser]] != 0) {
-        [FriendsDBManager insert:username name:[NSString stringWithFormat:@"%@ %@", firstName, lastName] email:email status:nil];
+        NSString *name = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
+        [FriendsDBManager insert:username name:name email:email status:nil];
+        [ChatDBManager updateOneToOneChatNames:name username:username];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_VCARD object:nil];
 }

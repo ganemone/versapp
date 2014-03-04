@@ -23,7 +23,12 @@
 +(ChatMO*)insertChatWithID:(NSString *)chatID chatName:(NSString *)chatName chatType:(NSString*)chatType participantString:(NSString*)participantString status:(int)status {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate managedObjectContext];
-    ChatMO *chatEntry = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_CHATS inManagedObjectContext:moc];
+    
+    ChatMO *chatEntry = [self getChatWithID:chatID];
+    
+    if (chatEntry == nil) {
+        chatEntry = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_CHATS inManagedObjectContext:moc];
+    }
     
     [chatEntry setValue:chatID forKey:CHATS_TABLE_COLUMN_NAME_CHAT_ID];
     [chatEntry setValue:chatName forKey:CHATS_TABLE_COLUMN_NAME_CHAT_NAME];
@@ -129,6 +134,21 @@
     ChatMO *chatEntry = [self getChatWithID:chatID];
     [chatEntry setValue:[NSNumber numberWithInt:status] forKey:CHATS_TABLE_COLUMN_NAME_STATUS];
     [(AppDelegate*)[UIApplication sharedApplication].delegate saveContext];
+}
+
++(void)updateOneToOneChatNames:(NSString *)name username:(NSString*)username {
+    NSArray *loadingOneToOneChats = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", CHATS_TABLE_COLUMN_NAME_CHAT_TYPE, CHAT_TYPE_ONE_TO_ONE]];
+    ChatMO *chatEntry;
+    for (int i = 0; i < loadingOneToOneChats.count; i++) {
+        chatEntry = [loadingOneToOneChats objectAtIndex:i];
+        if ([chatEntry.chat_name isEqualToString:@"Loading..."] || chatEntry.chat_name == nil) {
+            if ([[chatEntry.participant_string componentsSeparatedByString:@", "] containsObject:username]) {
+                [chatEntry setValue:name forKey:CHATS_TABLE_COLUMN_NAME_CHAT_NAME];
+                [chatEntry setValue:name forKey:CHATS_TABLE_COLUMN_NAME_USER_DEFINED_CHAT_NAME];
+                [(AppDelegate*)[UIApplication sharedApplication].delegate saveContext];
+            }
+        }
+    }
 }
 
 
