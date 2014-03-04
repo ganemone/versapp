@@ -9,8 +9,6 @@
 #import "DashboardViewController.h"
 #import "ConversationViewController.h"
 #import "OneToOneConversationViewController.h"
-#import "GroupChatManager.h"
-#import "OneToOneChatManager.h"
 #import "Constants.h"
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
@@ -71,10 +69,8 @@
         ConversationViewController *dest = segue.destinationViewController;
         dest.chatMO = [[self groupChats] objectAtIndex:self.clickedCellIndexPath.row];
     } else if([segue.identifier compare:SEGUE_ID_ONE_TO_ONE_CONVERSATION] == 0) {
-        OneToOneChatManager *cm = [OneToOneChatManager getInstance];
         OneToOneConversationViewController *dest = segue.destinationViewController;
         dest.chatMO = [self.oneToOneChats objectAtIndex:self.clickedCellIndexPath.row];
-        dest.chat = [cm getChatByIndex:self.clickedCellIndexPath.row];
     }
 }
 
@@ -150,11 +146,9 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if(section == 0) {
-        GroupChatManager *gcm = [GroupChatManager getInstance];
-        return [gcm getNumberOfChats];
+        return self.groupChats.count;
     } else {
-        OneToOneChatManager *cm = [OneToOneChatManager getInstance];
-        return [cm getNumberOfChats];
+        return self.oneToOneChats.count;
     }
 }
 
