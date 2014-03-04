@@ -35,7 +35,7 @@
     [self.tableView setOpaque:YES];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
-    self.navigationItem.title = self.chat.name;
+    self.navigationItem.title = self.chatMO.user_defined_chat_name;
     self.delegate = self;
     self.dataSource = self;
     self.im = [[ImageManager alloc] init];
@@ -43,14 +43,14 @@
     self.imageCache = [ImageCache getInstance];
     self.downloadingImageURLs = [[NSMutableArray alloc] initWithCapacity:20];
     
-    [ChatDBManager setHasNewMessageNo:self.chat.chatID];
+    [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
 }
 
 -(void)messageReceived:(NSNotification*)notification {
     NSDictionary *userInfo = notification.userInfo;
-    if ([(NSString*)[userInfo objectForKey:MESSAGE_PROPERTY_GROUP_ID] compare:self.chat.chatID] == 0) {
-        if([self.chat getNumberOfMessages] <= 1) {
-            [ChatDBManager setHasNewMessageNo:self.chat.chatID];
+    if ([(NSString*)[userInfo objectForKey:MESSAGE_PROPERTY_GROUP_ID] compare:self.chatMO.chat_id] == 0) {
+        if([self.chatMO getNumberOfMessages] <= 1) {
+            [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
             [self.tableView reloadData];
         } else {
             [self animateAddNewestMessage];
@@ -96,8 +96,8 @@
 }
 
 -(JSBubbleMessageType)messageTypeForRowAtIndexPath:(NSIndexPath *)indexPath {
-    Message * message = [self.chat getMessageByIndex:indexPath.row];
-    if ([message.sender compare:[ConnectionProvider getUser]] == 0) {
+    MessageMO * message = [self.chatMO.messages objectAtIndex:indexPath.row];
+    if ([message.sender_id compare:[ConnectionProvider getUser]] == 0) {
         return JSBubbleMessageTypeOutgoing;
     }
     return JSBubbleMessageTypeIncoming;
@@ -119,8 +119,8 @@
     }
     
     /*if (cell.subtitleLabel) {
-        cell.subtitleLabel.textColor = [UIColor lightGrayColor];
-    }*/
+     cell.subtitleLabel.textColor = [UIColor lightGrayColor];
+     }*/
 }
 
 - (UIImageView *)bubbleImageViewWithType:(JSBubbleMessageType)type
@@ -165,11 +165,12 @@
 
 -(void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
     while (self.isUploadingImage == YES);
-    if (self.messageImageLink != nil) {
-        [self.chatMO sendOneToOneMessage:text imageLink:self.messageImageLink];
-        self.messageImage = nil;
-        self.messageImageLink = nil;
-    }
+    NSLog(@"Chat Size: %u", [self.chatMO getNumberOfMessages]);
+    NSLog(@"Current ChatMO: %@", [self.chatMO description]);
+    [self.chatMO sendOneToOneMessage:text imageLink:self.messageImageLink];
+    
+    self.messageImage = nil;
+    self.messageImageLink = nil;
     [self animateAddNewestMessage];
     [self finishSend];
 }

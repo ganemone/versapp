@@ -13,7 +13,7 @@
 
 +(BOOL)hasChatWithID:(NSString*)chatID;
 
-+(ChatMO*)insertChatWithID:(NSString*)chatID chatName:(NSString*)chatName chatType:(NSString*)chatType status:(int)status;
++(ChatMO*)insertChatWithID:(NSString *)chatID chatName:(NSString *)chatName chatType:(NSString*)chatType participantString:(NSString*)participantString status:(int)status;
 
 +(void)updateUserDefinedChatNameWithID:(NSString*)chatID chatName:(NSString*)chatName;
 

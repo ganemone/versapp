@@ -91,7 +91,7 @@
             NSLog(@"User Defined Name: %@", name);
         } else {
             NSLog(@"Storing chat information locally....");
-            [ChatDBManager insertChatWithID:chatId chatName:name chatType:type status:STATUS_JOINED];
+            [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_JOINED];
         }
         if([type isEqualToString:CHAT_TYPE_GROUP]) {
             [gcm addChat:[GroupChat create:chatId participants:participants groupName:name owner:owner createdTime:createdTime]];

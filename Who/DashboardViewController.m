@@ -73,6 +73,7 @@
     } else if([segue.identifier compare:SEGUE_ID_ONE_TO_ONE_CONVERSATION] == 0) {
         OneToOneChatManager *cm = [OneToOneChatManager getInstance];
         OneToOneConversationViewController *dest = segue.destinationViewController;
+        dest.chatMO = [self.oneToOneChats objectAtIndex:self.clickedCellIndexPath.row];
         dest.chat = [cm getChatByIndex:self.clickedCellIndexPath.row];
     }
 }

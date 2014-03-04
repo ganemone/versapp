@@ -37,9 +37,11 @@
 }
 
 -(void)sendOneToOneMessage:(NSString*)messageText imageLink:(NSString*)imageLink {
+    NSLog(@"Trying to send a message");
     NSString * timeStampValue = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
     MessageMO *newMessage = [MessagesDBManager insert:messageText groupID:self.chat_id time:timeStampValue senderID:[ConnectionProvider getUser] receiverID:[self getMessageTo] imageLink:imageLink];
     [self addMessage:newMessage];
+    NSLog(@"Created Message: %@", newMessage);
     DDXMLElement *packet = [IQPacketManager createSendOneToOneMessagePacket:newMessage];
     [[[ConnectionProvider getInstance] getConnection] sendElement:packet];
 }
@@ -53,7 +55,16 @@
 }
 
 -(void)addMessage:(MessageMO*)message {
-    [self.messages addObject:message];
+    NSLog(@"Adding new message here...");
+    if(_messages == nil) {
+        NSLog(@"Messages were nil...");
+        _messages = [[NSMutableArray alloc] initWithCapacity:20];
+    }
+    NSLog(@"Current Messages: %@", [_messages description]);
+    NSLog(@"Message Count: %u", [_messages count]);
+    [_messages addObject:message];
+    NSLog(@"Message Count: %u", [_messages count]);
+    NSLog(@"Current Messages: %@", [_messages description]);
 }
 
 -(void)updateMessage:(MessageMO*)message {

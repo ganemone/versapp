@@ -115,7 +115,7 @@
             if (chat == nil) {
                 chat = [OneToOneChat create:message.thread inviterID:senderID invitedID:receiverID createdTimestamp:timestamp];
                 [chat setName:@"Anonymous Friend"];
-                [ChatDBManager insertChatWithID:message.thread chatName:@"Anonymous Friend" chatType:CHAT_TYPE_ONE_TO_ONE status:STATUS_JOINED];
+                [ChatDBManager insertChatWithID:message.thread chatName:@"Anonymous Friend" chatType:CHAT_TYPE_ONE_TO_ONE participantString:[NSString stringWithFormat:@"%@, %@", senderID, receiverID] status:STATUS_JOINED];
                 [cm addChat:chat];
             }
             [chat addMessage:[Message createForOneToOneWithImage:message.body sender:senderID chatID:message.thread messageTo:receiverID imageLink:imageLink timestamp:timestamp]];
