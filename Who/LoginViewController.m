@@ -57,7 +57,6 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticated) name:@"authenticated" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(adminAuthenticated:) name:NOTIFICATION_ADMIN_AUTHENTICATED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createdVCard:) name:PACKET_ID_CREATE_VCARD object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registeredUser:) name:PACKET_ID_REGISTER_USER object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(streamDidDisconnect:) name:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];
@@ -118,11 +117,6 @@
     if(self.createVCardWhenAuthenticated == YES) {
         [self.cp connect:self.usernameText password:self.passwordText];
     }
-}
-
-- (void)adminAuthenticated:(NSNotification *)notification {
-    [[self.cp getConnection] sendElement:[IQPacketManager createRegisterUserPacket:self.usernameText password:self.passwordText]];
-    
 }
 
 - (void)didNotAuthenticate:(NSNotification *) notification{

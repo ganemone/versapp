@@ -183,8 +183,8 @@
 }
 
 +(DDXMLElement *)createCreateMUCPacket:(NSString*)chatID roomName:(NSString*)roomName participants:(NSArray*)participants {
-    DDXMLElement *iq = [self getWhoChatIQElement],
-    *create = [DDXMLElement elementWithName:@"create"],
+    
+    DDXMLElement *create = [DDXMLElement elementWithName:@"create"],
     *chatIDElement = [DDXMLElement elementWithName:@"id" stringValue:chatID],
     *name = [DDXMLElement elementWithName:@"name" stringValue:roomName],
     *owner = [DDXMLElement elementWithName:@"owner_id" stringValue:[ConnectionProvider getUser]],
@@ -201,14 +201,24 @@
     [create addChild:type];
     [create addChild:participantsElement];
     
-    [iq addChild:create];
-    
+    DDXMLElement *iq = [self getWhoChatIQElementWithType:@"set" packetID:PACKET_ID_CREATE_MUC children:create];
+    NSLog(@"Create Muc Packet \n\n %@", iq.XMLString);
     return iq;
 }
 
-+(DDXMLElement*)getWhoChatIQElement {
-    DDXMLElement *iq = [DDXMLElement elementWithName:@"chat"];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:chat"]];
++(DDXMLElement*)getWhoChatIQElementWithType:(NSString*)type packetID: (NSString*)packetID children:(DDXMLElement*)element {
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"],
+    *chat = [DDXMLElement elementWithName:@"chat"];
+    
+    [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:type]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from"
+                                      stringValue:[NSString stringWithFormat:@"%@@%@",[ConnectionProvider getUser],[ConnectionProvider getServerIPAddress]]]];
+    
+    [chat addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:chat"]];
+    [chat addChild:element];
+    
+    [iq addChild:chat];
     return iq;
 }
 

@@ -89,21 +89,6 @@ static ConnectionProvider *selfInstance;
     }
 }
 
-- (void) connectAdmin {
-    self.authenticated = NO;
-    self.didConnect = NO;
-    [self.xmppStream setHostName:self.SERVER_IP_ADDRESS];
-    self.username = @"admin";
-    self.password = @"kalamazoo123";
-    self.xmppStream.myJID = [XMPPJID jidWithString:[NSString stringWithFormat:@"admin@%@", self.SERVER_IP_ADDRESS]];
-    NSError *error = nil;
-    if(![self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error]) {
-        NSLog(@"Failed to connection due to some error %@", error);
-    } else {
-        NSLog(@"Connected Successfully");
-    }
-}
-
 - (void) createAccount:(NSDictionary*)accountInfo {
     NSLog(@"Trying to create an account...");
     self.authenticated = NO;
@@ -183,7 +168,7 @@ static ConnectionProvider *selfInstance;
      [self.xmppStream sendElement:[IQPacketManager createGetConfessionsPacket]];
      [self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];*/
     //[[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
-    //[MUCCreationManager createMUC:@"some chat name" participants:@[@""]
+    [MUCCreationManager createMUC:@"some chat name" participants:@[@"111111", @"222222"]];
 }
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error
 {

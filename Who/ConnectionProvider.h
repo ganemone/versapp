@@ -30,8 +30,6 @@
 // passed as parameters.
 - (void) connect:(NSString*)username password:(NSString*)password;
 
-- (void) connectAdmin;
-
 - (void) disconnect;
 
 - (XMPPStream*) getConnection;
