@@ -182,10 +182,33 @@
     return [self createCreateVCardPacket:firstName lastname:lastName phone:phone email:email];
 }
 
-+(DDXMLElement *)createCreateMUCPacket:(NSString*)chatID roomName:(NSString*)roomName {
++(DDXMLElement *)createCreateMUCPacket:(NSString*)chatID roomName:(NSString*)roomName participants:(NSArray*)participants {
+    DDXMLElement *iq = [self getWhoChatIQElement],
+    *create = [DDXMLElement elementWithName:@"create"],
+    *chatIDElement = [DDXMLElement elementWithName:@"id" stringValue:chatID],
+    *name = [DDXMLElement elementWithName:@"name" stringValue:roomName],
+    *owner = [DDXMLElement elementWithName:@"owner_id" stringValue:[ConnectionProvider getUser]],
+    *type = [DDXMLElement elementWithName:@"type" stringValue:CHAT_TYPE_GROUP],
+    *participantsElement = [DDXMLElement elementWithName:@"participants"];
     
-    NSDictionary *properties = [NSDictionary dictionaryWithObjectsAndKeys:roomName, @"name", [ConnectionProvider getUser], @"owner_id", CHAT_TYPE_GROUP, @"type", nil];
-    DDXMLElement *iq = [IQPacketManager createWhoIQPacket:@"set" action:@"create" packetID:PACKET_ID_CREATE_MUC chatID:chatID properties:properties];
+    for (NSString *participant in participants) {
+        [participantsElement addChild:[DDXMLNode elementWithName:@"participant" stringValue:participant]];
+    }
+    
+    [create addChild:chatIDElement];
+    [create addChild:name];
+    [create addChild:owner];
+    [create addChild:type];
+    [create addChild:participantsElement];
+    
+    [iq addChild:create];
+    
+    return iq;
+}
+
++(DDXMLElement*)getWhoChatIQElement {
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"chat"];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:chat"]];
     return iq;
 }
 
@@ -272,7 +295,7 @@
 +(DDXMLElement *)createSendMUCMessagePacket:(MessageMO *)message {
     XMPPMessage *messagePacket = [XMPPMessage messageWithType:CHAT_TYPE_GROUP to:[XMPPJID jidWithString:[NSString stringWithFormat:@"%@@%@", message.group_id, [ConnectionProvider getConferenceIPAddress]]]];
     [messagePacket addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:@"null"]];
-
+    
     DDXMLElement *properties = [self createMessagePropertiesElement:message chatID:message.group_id];
     
     DDXMLElement *groupChatProperty = [DDXMLElement elementWithName:@"property"];
@@ -281,7 +304,7 @@
     [groupChatPropertyValue addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"string"]];
     [groupChatProperty addChild:groupChatPropertyName];
     [groupChatProperty addChild:groupChatPropertyValue];
-
+    
     DDXMLElement *receiverIDProperty = [DDXMLElement elementWithName:@"property"];
     DDXMLElement *receiverIDPropertyName = [DDXMLElement elementWithName:@"name" stringValue:MESSAGE_PROPERTY_RECEIVER_ID];
     DDXMLElement *receiverIDPropertyValue = [DDXMLElement elementWithName:@"value" stringValue:[NSString stringWithFormat:@"%@@%@", message.group_id, [ConnectionProvider getConferenceIPAddress]]];
@@ -291,11 +314,11 @@
     
     [properties addChild:groupChatProperty];
     [properties addChild:receiverIDProperty];
-
+    
     [messagePacket addBody:message.message_body];
     [messagePacket addThread:message.group_id];
     [messagePacket addChild:properties];
-
+    
     
     NSLog(@"Message XML: %@", messagePacket.XMLString);
     return messagePacket;

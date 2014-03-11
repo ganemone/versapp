@@ -26,6 +26,8 @@
 #import "XMPPReconnect.h"
 #import "XMPPAutoPing.h"
 
+#import "MUCCreationManager.h"
+#import "LoginManager.h"
 @interface ConnectionProvider ()
 
 @property(strong, nonatomic) XMPPReconnect *xmppReconnect;
@@ -35,6 +37,8 @@
 @property(strong, nonatomic) NSString* password;
 @property(strong, nonatomic) NSString* SERVER_IP_ADDRESS;
 @property(strong, nonatomic) NSString* CONFERENCE_IP_ADDRESS;
+@property(strong, nonatomic) NSDictionary *pendingAccountInfo;
+@property BOOL isCreatingAccount;
 
 @end
 
@@ -88,9 +92,6 @@ static ConnectionProvider *selfInstance;
 - (void) connectAdmin {
     self.authenticated = NO;
     self.didConnect = NO;
-    
-    NSLog(@"Server IP Address %@", self.SERVER_IP_ADDRESS);
-    
     [self.xmppStream setHostName:self.SERVER_IP_ADDRESS];
     self.username = @"admin";
     self.password = @"kalamazoo123";
@@ -100,6 +101,22 @@ static ConnectionProvider *selfInstance;
         NSLog(@"Failed to connection due to some error %@", error);
     } else {
         NSLog(@"Connected Successfully");
+    }
+}
+
+- (void) createAccount:(NSDictionary*)accountInfo {
+    NSLog(@"Trying to create an account...");
+    self.authenticated = NO;
+    self.didConnect = NO;
+    self.isCreatingAccount = YES;
+    self.pendingAccountInfo = accountInfo;
+    [self.xmppStream setHostName:self.SERVER_IP_ADDRESS];
+    self.xmppStream.myJID = [XMPPJID jidWithString:[NSString stringWithFormat:@"%@@%@", [accountInfo objectForKey:VCARD_TAG_USERNAME], self.SERVER_IP_ADDRESS]];
+    NSError *error = nil;
+    if(![self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error]) {
+        NSLog(@"Failed to connection due to some error %@", error);
+    } else {
+        NSLog(@"Connected Successfully... about to create an account");
     }
 }
 
@@ -119,16 +136,27 @@ static ConnectionProvider *selfInstance;
 - (void)xmppStreamDidConnect:(XMPPStream *)sender
 {
     NSError *error;
-    NSLog(@"XMPP Stream Did Connect");
-    if ([[self xmppStream] authenticateWithPassword:self.password error:&error])
-    {
-        NSLog(@"Authentificated to XMPP.");
-    }
-    else
-    {
-        NSLog(@"Error authentificating to XMPP: %@", [error localizedDescription]);
-    }
     
+    if (self.isCreatingAccount == YES) {
+        NSLog(@"Trying to create an account");
+        BOOL success = [[self xmppStream] registerWithPassword:[self.pendingAccountInfo objectForKey:USER_DEFAULTS_PASSWORD] error:&error];
+        if (success) {
+            NSLog(@"Creating Account");
+        } else {
+            NSLog(@"Failed to create account");
+        }
+    }
+    else {
+        NSLog(@"XMPP Stream Did Connect");
+        if ([[self xmppStream] authenticateWithPassword:self.password error:&error])
+        {
+            NSLog(@"Authentificated to XMPP.");
+        }
+        else
+        {
+            NSLog(@"Error authentificating to XMPP: %@", [error localizedDescription]);
+        }
+    }
     self.didConnect = YES;
     
 }
@@ -138,23 +166,28 @@ static ConnectionProvider *selfInstance;
     NSLog(@"XMPP Stream Did Authenticate");
     [self.xmppReconnect activate:self.xmppStream];
     self.authenticated = YES;
-    if([self.username compare:@"admin"] == 0) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ADMIN_AUTHENTICATED object:nil];
-    } else {
-        [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
-        [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];
-        [self.xmppStream sendElement:[IQPacketManager createGetLastTimeActivePacket]];
-        [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
-        [self.xmppStream sendElement:[IQPacketManager createGetRosterPacket]];
-        [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
-        [self.xmppStream sendElement:[IQPacketManager createGetConfessionsPacket]];
-        [self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
+    if (self.isCreatingAccount == YES) {
+        [self.xmppStream sendElement:
+         [IQPacketManager createCreateVCardPacket:[self.pendingAccountInfo objectForKey:VCARD_TAG_FIRST_NAME]
+                                         lastname:[self.pendingAccountInfo objectForKey:VCARD_TAG_LAST_NAME]
+                                            phone:[self.pendingAccountInfo objectForKey:VCARD_TAG_USERNAME]
+                                            email:[self.pendingAccountInfo objectForKey:VCARD_TAG_EMAIL]]];
+        self.isCreatingAccount = NO;
     }
+    /*[self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
+     [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];
+     [self.xmppStream sendElement:[IQPacketManager createGetLastTimeActivePacket]];
+     [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
+     [self.xmppStream sendElement:[IQPacketManager createGetRosterPacket]];
+     [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
+     [self.xmppStream sendElement:[IQPacketManager createGetConfessionsPacket]];
+     [self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];*/
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
+    //[MUCCreationManager createMUC:@"some chat name" participants:@[@""]
 }
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error
 {
-    
+    NSLog(@"did not authenticate");
     [[NSNotificationCenter defaultCenter] postNotificationName:@"didNotAuthenticate" object:nil];
     [self.xmppStream disconnect];
     
@@ -239,5 +272,36 @@ static ConnectionProvider *selfInstance;
 
 -(void)xmppReconnect:(XMPPReconnect *)sender didDetectAccidentalDisconnect:(SCNetworkConnectionFlags)connectionFlags {
     NSLog(@"Did detect accidental disconnect...");
+}
+
+-(void)xmppStreamDidRegister:(XMPPStream *)sender {
+    NSLog(@"Registered Account!");
+    self.username = [self.pendingAccountInfo objectForKey:VCARD_TAG_USERNAME];
+    self.password = [self.pendingAccountInfo objectForKey:USER_DEFAULTS_PASSWORD];
+    
+    [LoginManager savePassword:self.username];
+    [LoginManager saveUsername:self.password];
+    NSError *error = nil;
+    if ([[self xmppStream] authenticateWithPassword:self.password error:&error])
+    {
+        NSLog(@"Authentificated to XMPP.");
+    }
+    else
+    {
+        NSLog(@"Error authentificating to XMPP: %@", [error localizedDescription]);
+    }
+}
+
+-(void)xmppStream:(XMPPStream *)sender didNotRegister:(DDXMLElement *)error {
+    DDXMLElement *errorXML = [error elementForName:@"error"];
+    NSString *errorCode  = [[errorXML attributeForName:@"code"] stringValue];
+    
+    NSString *regError = [NSString stringWithFormat:@"ERROR :- %@",error.description];
+    
+    if([errorCode isEqualToString:@"409"]){
+        NSLog(@"Username already exists");
+    }
+    
+    NSLog(@"%@", regError);
 }
 @end

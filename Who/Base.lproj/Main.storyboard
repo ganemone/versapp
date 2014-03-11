@@ -59,9 +59,6 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
-                                        <connections>
-                                            <segue destination="itr-4b-KD6" kind="modal" identifier="SegueIDAuthenticated" id="R5R-M4-qay"/>
-                                        </connections>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="confirm password" minimumFontSize="17" id="gQd-1M-tfr">
                                         <rect key="frame" x="0.0" y="8" width="280" height="30"/>
@@ -108,6 +105,7 @@
                         <outlet property="registerView" destination="gu9-cv-M0m" id="kyw-lx-0XZ"/>
                         <outlet property="signUpButton" destination="FPX-LT-128" id="dBg-ic-fn8"/>
                         <outlet property="username" destination="NHs-F6-AKY" id="PM9-H3-tti"/>
+                        <segue destination="FvA-Qe-GrR" kind="modal" identifier="SegueIDAuthenticated" id="z0p-MQ-MuO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ys-sZ-kKc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -130,7 +128,7 @@
             <objects>
                 <viewController storyboardIdentifier="MainSwipeViewController" id="FvA-Qe-GrR" customClass="MainSwipeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qgn-rc-9ur">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -1020,14 +1018,15 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="YCw-e7-spT"/>
-        <segue reference="Y5D-AL-CYy"/>
         <segue reference="AGt-Q0-zDh"/>
+        <segue reference="Y5D-AL-CYy"/>
+        <segue reference="fcf-HI-Tc8"/>
+        <segue reference="yvf-5p-X2z"/>
+        <segue reference="cCp-tS-h07"/>
         <segue reference="f5d-Ra-j3v"/>
         <segue reference="GTj-hh-MDQ"/>
-        <segue reference="fcf-HI-Tc8"/>
-        <segue reference="cCp-tS-h07"/>
-        <segue reference="yvf-5p-X2z"/>
         <segue reference="hBn-y3-qKM"/>
+        <segue reference="YCw-e7-spT"/>
+        <segue reference="z0p-MQ-MuO"/>
     </inferredMetricsTieBreakers>
 </document>

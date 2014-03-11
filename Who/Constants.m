@@ -44,6 +44,7 @@ NSString *const VCARD_TAG_LAST_NAME = @"FAMILY";
 NSString *const VCARD_TAG_USERNAME = @"USERNAME";
 NSString *const VCARD_TAG_NICKNAME = @"NICKNAME";
 NSString *const VCARD_TAG_EMAIL = @"EMAIL";
+NSString *const USER_DEFAULTS_PASSWORD = @"password";
 
 NSString *const CHAT_TYPE_GROUP = @"groupchat";
 NSString *const CHAT_TYPE_ONE_TO_ONE = @"chat";

@@ -38,4 +38,6 @@
 
 -(NSString*)getMessageTo;
 
++(NSString *)createGroupID;
+
 @end

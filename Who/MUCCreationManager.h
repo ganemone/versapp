@@ -9,9 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "XMPPRoom.h"
 #import "GroupChat.h"
+#import "ChatMO.h"
 
 @interface MUCCreationManager : NSObject <XMPPRoomDelegate>
 
-+(GroupChat*)createMUC:(NSString*)roomName participants:(NSArray*)participants;
++(ChatMO*)createMUC:(NSString*)roomName participants:(NSArray*)participants;
 
 @end

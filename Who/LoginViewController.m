@@ -69,12 +69,12 @@
     [self.username setDelegate:self];
     [self.password setDelegate:self];
     
-    self.usernameText = [LoginManager loadUsername];
+    /*self.usernameText = [LoginManager loadUsername];
     self.passwordText = [LoginManager loadPassword];
     
     if (self.usernameText != nil && self.passwordText != nil) {
         [self login];
-    }
+    }*/
 }
 
 -(void)authenticated
@@ -172,7 +172,8 @@
         self.firstNameText = firstName;
         self.lastNameText = lastName;
         self.emailText = email;
-        [self.cp connectAdmin];
+        NSDictionary *accountInfo = [NSDictionary dictionaryWithObjectsAndKeys:username, VCARD_TAG_USERNAME, password, USER_DEFAULTS_PASSWORD, firstName, VCARD_TAG_FIRST_NAME, lastName, VCARD_TAG_LAST_NAME, email, VCARD_TAG_EMAIL, nil];
+        [self.cp createAccount:accountInfo];
     } else {
         NSLog(@"Failed Validation");
     }

@@ -34,7 +34,7 @@
 
 +(DDXMLElement*)createJoinMUCPacket:(NSString*)chatID lastTimeActive: (NSString*)lastTimeActive;
 
-+(DDXMLElement*)createCreateMUCPacket:(NSString*)chatID roomName:(NSString*)roomName;
++(DDXMLElement *)createCreateMUCPacket:(NSString*)chatID roomName:(NSString*)roomName participants:(NSArray*)participants;
 
 +(DDXMLElement*)createRegisterUserPacket:(NSString*)username password:(NSString*)password;
 

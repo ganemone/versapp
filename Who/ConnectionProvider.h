@@ -44,4 +44,6 @@
 
 + (NSString*) getUser;
 
+- (void) createAccount:(NSDictionary*)accountInfo;
+
 @end

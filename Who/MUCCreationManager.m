@@ -13,21 +13,22 @@
 #import "ConnectionProvider.h"
 #import "GroupChatManager.h"
 #import "IQPacketManager.h"
+#import "ChatMO.h"
+#import "ChatDBManager.h"
+#import "Constants.h"
 
 @implementation MUCCreationManager
 
-+(GroupChat*)createMUC:(NSString *)roomName participants:(NSArray*)participants {
-    
++(ChatMO*)createMUC:(NSString *)roomName participants:(NSArray*)participants {
     // Send who:iq packet to activate create chat module
     ConnectionProvider *cp = [ConnectionProvider getInstance];
     XMPPStream *conn = [cp getConnection];
-    NSString *groupId = [GroupChat createGroupID];
-    [conn sendElement:[IQPacketManager createCreateMUCPacket:groupId roomName:roomName]];
+    NSString *chatID = [ChatMO createGroupID];
+    [conn sendElement:[IQPacketManager createCreateMUCPacket:chatID roomName:roomName participants:participants]];
     
     // initialize, configure, and join room
     XMPPRoomMemoryStorage *storage = [[XMPPRoomMemoryStorage alloc] init];
-    XMPPJID *jid = [XMPPJID jidWithString:[NSString stringWithFormat:@"%@@%@", groupId, [ConnectionProvider getConferenceIPAddress]]];
-    NSLog(@"jid: %@", [jid description]);
+    XMPPJID *jid = [XMPPJID jidWithString:[NSString stringWithFormat:@"%@@%@", chatID, [ConnectionProvider getConferenceIPAddress]]];
     XMPPRoom *room = [[XMPPRoom alloc] initWithRoomStorage:storage jid:jid];
 
     [room addDelegate:self delegateQueue:dispatch_get_main_queue()];
@@ -35,12 +36,8 @@
     [room joinRoomUsingNickname:[ConnectionProvider getUser] history:nil];
     //[room fetchConfigurationForm];
     [room configureRoomUsingOptions:[IQPacketManager createRoomConfigurationForm:roomName]];
-    GroupChatManager *gcm = [GroupChatManager getInstance];
-    GroupChat *gc = [GroupChat create:groupId participants:participants groupName:roomName owner:[ConnectionProvider getUser] createdTime:0];
-    [gc setParticipantsPending];
-    [gcm addChat: gc];
-    NSLog(@"Returning Group Chat: %@", [gc description]);
-    return gc;
+    
+    return [ChatDBManager insertChatWithID:chatID chatName:roomName chatType:CHAT_TYPE_GROUP participantString:@"" status:STATUS_JOINED];
 }
 
 -(void)handleDidJoinRoom:(XMPPRoom *)room withNickname:(NSString *)nickname {

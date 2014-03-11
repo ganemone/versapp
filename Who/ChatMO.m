@@ -51,7 +51,7 @@
 }
 
 -(int)getNumberOfMessages {
-    return [_messages count];
+    return (int)[_messages count];
 }
 
 -(void)addMessage:(MessageMO*)message {
@@ -61,9 +61,9 @@
         _messages = [[NSMutableArray alloc] initWithCapacity:20];
     }
     NSLog(@"Current Messages: %@", [_messages description]);
-    NSLog(@"Message Count: %u", [_messages count]);
+    NSLog(@"Message Count: %lu", (unsigned long)[_messages count]);
     [_messages addObject:message];
-    NSLog(@"Message Count: %u", [_messages count]);
+    NSLog(@"Message Count: %lu", (unsigned long)[_messages count]);
     NSLog(@"Current Messages: %@", [_messages description]);
 }
 
@@ -79,6 +79,11 @@
 
 -(NSString *)getMessageTo {
     return ([[ConnectionProvider getUser] compare:[_participants firstObject]] == 0) ? [_participants lastObject] : [_participants firstObject];
+}
+
++(NSString *)createGroupID {
+    NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
+    return [NSString stringWithFormat:@"%@%d", [ConnectionProvider getUser], (int)timeStamp];
 }
 
 @end
