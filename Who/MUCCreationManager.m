@@ -25,7 +25,7 @@
     XMPPStream *conn = [cp getConnection];
     NSString *chatID = [ChatMO createGroupID];
     [conn sendElement:[IQPacketManager createCreateMUCPacket:chatID roomName:roomName participants:participants]];
-    
+    [cp setPendingParticipantsChatID:chatID];
     // initialize, configure, and join room
     XMPPRoomMemoryStorage *storage = [[XMPPRoomMemoryStorage alloc] init];
     XMPPJID *jid = [XMPPJID jidWithString:[NSString stringWithFormat:@"%@@%@", chatID, [ConnectionProvider getConferenceIPAddress]]];
@@ -37,7 +37,7 @@
     //[room fetchConfigurationForm];
     [room configureRoomUsingOptions:[IQPacketManager createRoomConfigurationForm:roomName]];
     
-    return [ChatDBManager insertChatWithID:chatID chatName:roomName chatType:CHAT_TYPE_GROUP participantString:@"" status:STATUS_JOINED];
+    return [ChatDBManager insertChatWithID:chatID chatName:roomName chatType:CHAT_TYPE_GROUP participantString:[participants componentsJoinedByString:@", "] status:STATUS_JOINED];
 }
 
 -(void)handleDidJoinRoom:(XMPPRoom *)room withNickname:(NSString *)nickname {

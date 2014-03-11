@@ -62,6 +62,8 @@
         [self handlePostConfessionPacket:iq];
     } else if([self isPacketWithID:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION packet:iq]) {
         [self handleCreateOneToOneChatFromConfessionPacket:(XMPPIQ*)iq];
+    } else if([self isPacketWithID:PACKET_ID_CREATE_MUC packet:iq]) {
+        [self handleCreatedMUCPacket:iq];
     }
 }
 
@@ -323,6 +325,19 @@
 
 +(void)handleCreateOneToOneChatFromConfessionPacket:(XMPPIQ *)iq {
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION object:nil];
+}
+
++(void)handleCreatedMUCPacket:(XMPPIQ *)iq {
+    ConnectionProvider *cp = [ConnectionProvider getInstance];
+    XMPPStream *conn = [cp getConnection];
+    NSString *pendingChatID = [cp pendingParticipantsChatID];
+    if (cp != nil) {
+        NSMutableArray *participants = [[ChatDBManager getChatWithID:pendingChatID] participants];
+        for (NSString *participant in participants) {
+            [conn sendElement:[IQPacketManager createInviteToChatPacket:pendingChatID invitedUsername:participant]];
+        }
+        [cp setPendingParticipantsChatID:nil];
+    }
 }
 
 @end

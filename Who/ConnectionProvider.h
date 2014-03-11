@@ -19,7 +19,7 @@
 // allow for helpful callback methods.
 @interface ConnectionProvider : NSObject  <XMPPStreamDelegate, XMPPAutoPingDelegate, XMPPReconnectDelegate>
 
-@property(strong, nonatomic) UIViewController *controller;
+@property(strong, nonatomic) NSString *pendingParticipantsChatID;
 @property BOOL authenticated;
 @property BOOL didConnect;
 

@@ -38,6 +38,7 @@
 @property(strong, nonatomic) NSString* SERVER_IP_ADDRESS;
 @property(strong, nonatomic) NSString* CONFERENCE_IP_ADDRESS;
 @property(strong, nonatomic) NSDictionary *pendingAccountInfo;
+
 @property BOOL isCreatingAccount;
 
 @end
@@ -289,4 +290,5 @@ static ConnectionProvider *selfInstance;
     
     NSLog(@"%@", regError);
 }
+
 @end
