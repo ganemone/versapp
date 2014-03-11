@@ -181,8 +181,8 @@
         NSString *groupName = [alertView textFieldAtIndex:0].text;
         if (buttonIndex == 1 && groupName.length > 0) {
             [self.ldm showLoadingDialogWithoutProgress];
-            GroupChat *gc = [MUCCreationManager createMUC:groupName participants:self.selectedJIDs];
-            _createdChat = [ChatDBManager insertChatWithID:gc.chatID chatName:groupName chatType:CHAT_TYPE_GROUP participantString:[self.selectedJIDs componentsJoinedByString:@", "] status:STATUS_JOINED];
+            ChatMO *gc = [MUCCreationManager createMUC:groupName participants:self.selectedJIDs];
+            _createdChat = [ChatDBManager insertChatWithID:gc.chat_id chatName:groupName chatType:CHAT_TYPE_GROUP participantString:[self.selectedJIDs componentsJoinedByString:@", "] status:STATUS_JOINED];
         }
         self.isCreatingGroup = NO;
     } else if (buttonIndex == 1) {

@@ -29,8 +29,10 @@
 }
 
 +(DDXMLElement *)createGetJoinedChatsPacket {
-    NSLog(@"Getting Joined Chats: %@", [self createWhoIQPacket:@"get" action:@"joined" packetID:PACKET_ID_GET_JOINED_CHATS].XMLString);
-    return [self createWhoIQPacket:@"get" action:@"joined" packetID:PACKET_ID_GET_JOINED_CHATS];
+    DDXMLElement *query = [DDXMLElement elementWithName:@"status" stringValue:@"active"];
+    DDXMLElement *iq = [self getWhoChatIQElementWithType:@"get" packetID:PACKET_ID_GET_JOINED_CHATS children:query];
+    NSLog(@"Create Get Joined Chats Packet: %@", iq.XMLString);
+    return iq;
 }
 
 +(DDXMLElement *)createGetPendingChatsPacket {
