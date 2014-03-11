@@ -47,8 +47,8 @@ static ConnectionProvider *selfInstance;
     @synchronized(self) {
         if(selfInstance == nil) {
             selfInstance = [[self alloc] init];
-            selfInstance.SERVER_IP_ADDRESS = @"199.175.55.10";
-            selfInstance.CONFERENCE_IP_ADDRESS = @"conference.199.175.55.10";
+            selfInstance.SERVER_IP_ADDRESS = @"ejabberd.versapp.co";
+            selfInstance.CONFERENCE_IP_ADDRESS = @"conference.ejabberd.versapp.co";
             selfInstance.xmppReconnect = [[XMPPReconnect alloc] initWithDispatchQueue:dispatch_get_main_queue()];
             [selfInstance.xmppReconnect addDelegate:self delegateQueue:dispatch_get_main_queue()];
             selfInstance.xmppPing = [[XMPPAutoPing alloc] initWithDispatchQueue:dispatch_get_main_queue()];
