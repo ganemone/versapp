@@ -70,13 +70,25 @@
 }
 
 +(DDXMLElement *)createAcceptChatInvitePacket:(NSString *)chatId {
-    DDXMLElement *element = [self createWhoIQPacket:@"set" action:@"participant_join" packetID:PACKET_ID_ACCEPT_CHAT_INVITE chatID:chatId];
-    NSLog(@"Accept Packet: %@",element.XMLString);
-    return element;
+    DDXMLElement *query = [DDXMLElement elementWithName:@"participant"];
+    [query addChild:[DDXMLNode elementWithName:@"chat_id" stringValue:chatId]];
+    [query addChild:[DDXMLNode elementWithName:@"status" stringValue:@"active"]];
+    DDXMLElement *iq = [self getWhoChatIQElementWithType:@"set" packetID:PACKET_ID_ACCEPT_CHAT_INVITE children:query];
+    NSLog(@"Create Accept Chat Invite Packet: %@", iq.XMLString);
+    return iq;
 }
 
 +(DDXMLElement *)createDenyChatInvitePacket:(NSString *)chatId {
-    return [self createWhoIQPacket:@"set" action:@"participant_leave" packetID:PACKET_ID_DENY_CHAT_INVITE chatID:chatId];
+    DDXMLElement *query = [DDXMLElement elementWithName:@"participant"];
+    [query addChild:[DDXMLNode elementWithName:@"chat_id" stringValue:chatId]];
+    [query addChild:[DDXMLNode elementWithName:@"status" stringValue:@"inactive"]];
+    DDXMLElement *iq = [self getWhoChatIQElementWithType:@"set" packetID:PACKET_ID_DENY_CHAT_INVITE children:query];
+    NSLog(@"Create Invite to Chat Packet: %@", iq.XMLString);
+    return iq;
+}
+
++(DDXMLElement *)createLeaveChatPacket:(NSString *)chatId {
+    return [self createDenyChatInvitePacket:chatId];
 }
 
 +(DDXMLElement*)createWhoIQPacket:(NSString*)type action:(NSString*)action packetID: (NSString*)packetID {
