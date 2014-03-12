@@ -170,6 +170,7 @@ static ConnectionProvider *selfInstance;
      [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
      [self.xmppStream sendElement:[IQPacketManager createGetConfessionsPacket]];*/
      [self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];
+    [IQPacketManager createInviteToChatPacket:@"chatID" invitedUsername:@"invited username"];
     //[MUCCreationManager createMUC:@"test chat name" participants:@[@"111111", @"222222"]];
     //[[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
 }

@@ -60,8 +60,13 @@
 }
 
 +(DDXMLElement *)createInviteToChatPacket:(NSString *)chatId invitedUsername:(NSString *)invitedUsername {
-    NSDictionary *properties = [NSDictionary dictionaryWithObject:invitedUsername forKey:@"invited_username"];
-    return [self createWhoIQPacket:@"set" action:@"participant_insert" packetID:PACKET_ID_INVITE_USER_TO_CHAT chatID:chatId properties:properties];
+    DDXMLElement *query = [DDXMLElement elementWithName:@"participant"];
+    [query addChild:[DDXMLNode elementWithName:@"user_id" stringValue:invitedUsername]];
+    [query addChild:[DDXMLNode elementWithName:@"chat_id" stringValue:chatId]];
+    [query addChild:[DDXMLNode elementWithName:@"status" stringValue:@"pending"]];
+    DDXMLElement *iq = [self getWhoChatIQElementWithType:@"set" packetID:PACKET_ID_INVITE_USER_TO_CHAT children:query];
+    NSLog(@"Create Invite to Chat Packet: %@", iq.XMLString);
+    return iq;
 }
 
 +(DDXMLElement *)createAcceptChatInvitePacket:(NSString *)chatId {

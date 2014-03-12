@@ -83,7 +83,7 @@
         }
     }
     [ChatDBManager updateChatParticipants:participants];
-    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_CHAT_PARTICIPANTS object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_CHAT_PARTICIPANTS object:nil]; 
 }
 
 +(void)handleGetJoinedChatsPacket:(XMPPIQ *)iq {
@@ -116,7 +116,6 @@
             }
         }
         [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_JOINED];
-        [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetChatParticipantsPacket:chatId]];
     }
     [ChatDBManager joinAllChats];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
@@ -241,7 +240,6 @@
     NSArray *items = [query children];
     DDXMLElement *item;
     XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
-    
     for (int i = 0; i < items.count; i++) {
         item = items[i];
         NSString *subscription = [[item attributeForName:@"subscription"] XMLString];

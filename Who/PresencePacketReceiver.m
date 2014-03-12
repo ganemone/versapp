@@ -40,6 +40,9 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CREATED_MUC object:nil];
         }
     }
+    else if([presence.elementID isEqualToString:PACKET_ID_JOIN_MUC]) {
+        NSLog(@"joined muc...");
+    }
     // -----------------------
     // Handle Friend Request
     // -----------------------
@@ -48,7 +51,7 @@
         NSString *jid = [[[presence fromStr] componentsSeparatedByString:@"/"] firstObject];
         NSString *username = [[[presence fromStr] componentsSeparatedByString:@"@"] firstObject];
         XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
-        NSLog(@"Friend Request Presence");
+        NSLog(@"Friend Request Presence: %@", presence.XMLString);
         if ([FriendsDBManager hasUserWithJID:username] == NO && [username compare:[ConnectionProvider getUser]] != 0) {
             [conn sendElement:[IQPacketManager createGetVCardPacket:username]];
         }
