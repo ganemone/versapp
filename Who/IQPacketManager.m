@@ -129,28 +129,6 @@
     return iq;
 }
 
-+(DDXMLElement*)createWhoIQPacket:(NSString*)type action:(NSString *)action packetID:(NSString *)packetID chatID:(NSString*)chatID properties:(NSDictionary*)properties {
-    DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
-	[query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:chat"]];
-    
-    DDXMLElement *actionElement = [DDXMLElement elementWithName:@"chat"];
-    [actionElement addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:chatID]];
-	[actionElement addAttribute:[DDXMLNode attributeWithName:@"action" stringValue:action]];
-    for(NSString *key in [properties allKeys]) {
-        [actionElement addAttribute:[DDXMLNode attributeWithName:key stringValue:[properties objectForKey:key]]];
-    }
-    
-    [query addChild:actionElement];
-	
-	DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:packetID]];
-	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:type]];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
-	[iq addChild:query];
-    
-    return iq;
-}
-
 +(DDXMLElement *)createGetRosterPacket {
     DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
 	[query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"jabber:iq:roster"]];
@@ -233,35 +211,31 @@
     return iq;
 }
 
-+(DDXMLElement*)getWhoChatIQElementWithType:(NSString*)type packetID: (NSString*)packetID children:(DDXMLElement*)element {
-    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"],
-    *chat = [DDXMLElement elementWithName:@"chat"];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:packetID]];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:type]];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"from"
-                                      stringValue:[NSString stringWithFormat:@"%@@%@",[ConnectionProvider getUser],[ConnectionProvider getServerIPAddress]]]];
-    
-    [chat addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:chat"]];
-    [chat addChild:element];
-    
-    [iq addChild:chat];
-    return iq;
-}
 
-+(DDXMLElement *)createCreateOneToOneChatPacket:(NSString*)chatID roomName:(NSString*)roomName {
-    NSDictionary *properties = [NSDictionary dictionaryWithObjectsAndKeys:roomName, @"name", [ConnectionProvider getUser], @"owner_id", CHAT_TYPE_ONE_TO_ONE, @"type", nil];
-    DDXMLElement *iq = [IQPacketManager createWhoIQPacket:@"set" action:@"create" packetID:PACKET_ID_CREATE_ONE_TO_ONE_CHAT chatID:chatID properties:properties];
+
++(DDXMLElement *)createCreateOneToOneChatPacket:(NSString*)chatID invitedUser:(NSString*)invitedUser roomName:(NSString*)roomName {
+    DDXMLElement *create = [DDXMLElement elementWithName:@"create"],
+    *chatIDElement = [DDXMLElement elementWithName:@"id" stringValue:chatID],
+    *name = [DDXMLElement elementWithName:@"name" stringValue:roomName],
+    *owner = [DDXMLElement elementWithName:@"owner_id" stringValue:[ConnectionProvider getUser]],
+    *type = [DDXMLElement elementWithName:@"type" stringValue:CHAT_TYPE_ONE_TO_ONE],
+    *participantsElement = [DDXMLElement elementWithName:@"participants"];
+    
+    [participantsElement addChild:[DDXMLNode elementWithName:@"participant" stringValue:invitedUser]];
+    
+    [create addChild:chatIDElement];
+    [create addChild:name];
+    [create addChild:owner];
+    [create addChild:type];
+    [create addChild:participantsElement];
+    
+    DDXMLElement *iq = [self getWhoChatIQElementWithType:@"set" packetID:PACKET_ID_CREATE_MUC children:create];
+    NSLog(@"Create Muc Packet \n\n %@", iq.XMLString);
     return iq;
 }
 
 +(DDXMLElement *)createCreateOneToOneChatFromConfessionPacket:(Confession*)confession chatID:(NSString*)chatID {
-    NSLog(@"Confession Body: %@", confession.body);
-    NSLog(@"Confession: %@", [confession description]);
-    NSDictionary *properties = [NSDictionary dictionaryWithObjectsAndKeys:confession.body, @"name", @"confession", @"owner_id", CHAT_TYPE_ONE_TO_ONE, @"type", nil];
-    DDXMLElement *iq = [IQPacketManager createWhoIQPacket:@"set" action:@"create" packetID:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION chatID:chatID properties:properties];
-    NSLog(@"IQ: %@", iq.XMLString);
-    return iq;
+    return nil;
 }
 
 +(DDXMLElement *)createMUCConfigurationFormRequestPacket:(NSString*)roomName {
@@ -595,10 +569,6 @@
     return iq;
 }
 
-+(NSString *)getPacketFromString {
-    return [NSString stringWithFormat:@"%@@%@",[ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]];
-}
-
 +(DDXMLElement *)createForceCreateRosterEntryPacket:(NSString *)jid {
     DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
 	[query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"jabber:iq:roster"]];
@@ -623,4 +593,26 @@
     return iq;
 }
 
+// ---------------------
+// Helper Packet Methods
+// ---------------------
++(DDXMLElement*)getWhoChatIQElementWithType:(NSString*)type packetID: (NSString*)packetID children:(DDXMLElement*)element {
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"],
+    *chat = [DDXMLElement elementWithName:@"chat"];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:packetID]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:type]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from"
+                                      stringValue:[NSString stringWithFormat:@"%@@%@",[ConnectionProvider getUser],[ConnectionProvider getServerIPAddress]]]];
+    
+    [chat addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:chat"]];
+    [chat addChild:element];
+    
+    [iq addChild:chat];
+    return iq;
+}
+
++(NSString *)getPacketFromString {
+    return [NSString stringWithFormat:@"%@@%@",[ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]];
+}
 @end
