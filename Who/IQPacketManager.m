@@ -515,22 +515,10 @@
 }
 
 +(DDXMLElement *)createToggleFavoriteConfessionPacket:(NSString *)confessionID {
-    DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
-	[query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:confession"]];
-    
-    DDXMLElement *confessionXML = [DDXMLElement elementWithName:@"confession"];
-    [confessionXML addAttribute:[DDXMLNode attributeWithName:@"confession_id" stringValue:confessionID]];
-    [confessionXML addAttribute:[DDXMLNode attributeWithName:@"action" stringValue:@"toggle_favorite"]];
-    
-    [query addChild:confessionXML];
-    
-    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_FAVORITE_CONFESSION]];
-	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"set"]];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[self getPacketFromString]]];
-    [iq addChild:query];
-    
+    DDXMLElement *toggleFavorite = [DDXMLElement elementWithName:@"toggle_favorite"];
+    [toggleFavorite addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:confessionID]];
+    DDXMLElement *iq = [self getWhoConfessionIQElementWithType:@"set" packetID:PACKET_ID_POST_CONFESSION children:toggleFavorite];
+    NSLog(@"Toggle Favorite Confession Packet: %@", iq.XMLString);
     return iq;
 }
 
@@ -549,6 +537,14 @@
     [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[self getPacketFromString]]];
     [iq addChild:query];
     
+    return iq;
+}
+
++(DDXMLElement *)createDestroyConfessionPacket:(NSString*)confessionID {
+    DDXMLElement *destroy = [DDXMLElement elementWithName:@"destroy"];
+    [destroy addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:confessionID]];
+    DDXMLElement *iq = [self getWhoConfessionIQElementWithType:@"set" packetID:PACKET_ID_POST_CONFESSION children:destroy];
+    NSLog(@"Destroy Confession Packet: %@", iq.XMLString);
     return iq;
 }
 

@@ -60,7 +60,7 @@
 
 +(DDXMLElement *)createInviteToMUCMessage:(NSString*)chatID username:(NSString*)username;
 
-+(DDXMLElement *)createCreateOneToOneChatPacket:(NSString*)chatID roomName:(NSString*)roomName;
++(DDXMLElement *)createCreateOneToOneChatPacket:(NSString*)chatID invitedUser:(NSString*)invitedUser roomName:(NSString*)roomName;
 
 +(DDXMLElement *)createGetSessionIDPacket;
 
@@ -77,5 +77,7 @@
 +(DDXMLElement *)createForceCreateRosterEntryPacket:(NSString *)jid;
 
 +(DDXMLElement *)createLeaveChatPacket:(NSString *)chatId;
+
++(DDXMLElement *)createDestroyConfessionPacket:(NSString*)confessionID;
 
 @end

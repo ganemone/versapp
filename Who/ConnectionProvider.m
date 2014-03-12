@@ -170,6 +170,8 @@ static ConnectionProvider *selfInstance;
     //[self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
     [self.xmppStream sendElement:[IQPacketManager createGetConfessionsPacket]];
     [self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];
+    [IQPacketManager createDestroyConfessionPacket:@"confession id"];
+    [IQPacketManager createToggleFavoriteConfessionPacket:@"confession id"];
     //[IQPacketManager createInviteToChatPacket:@"chatID" invitedUsername:@"invited username"];
     //[MUCCreationManager createMUC:@"test chat name" participants:@[@"111111", @"222222"]];
     //[[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
@@ -179,7 +181,6 @@ static ConnectionProvider *selfInstance;
     NSLog(@"did not authenticate");
     [[NSNotificationCenter defaultCenter] postNotificationName:@"didNotAuthenticate" object:nil];
     [self.xmppStream disconnect];
-    
 }
 
 -(void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error
