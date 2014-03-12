@@ -279,7 +279,7 @@
     NSString *decodedPacketXML = [self getPacketXMLWithoutWhiteSpace:iq];
     decodedPacketXML = [self getDecodedPacketXML:iq];
     NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(\\d+)\",\"(.*?)\",\"(.*?)\",\"(.*?)\",\"(.*?)\",(\".*?\"|null),\"(\\d+)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(\\d+)?\".*?\"(.*?)\".*?\"(.*?)\".*?(?:\\[\\]|\"(.*?)\").*?\"(\\d+)?\".*?(?:\\[\\]|\"(.*?)\").*?\"(\\d+)\"" options:NSRegularExpressionCaseInsensitive error:&error];
     NSArray *matches = [regex matchesInString:decodedPacketXML options:0 range:NSMakeRange(0, decodedPacketXML.length)];
     NSTextCheckingResult *match;
     NSString *confessionID, *jid, *body, *imageURL, *timestamp, *favoritedUsers;
@@ -303,6 +303,13 @@
         } else {
             favoritedUsersArray = [[NSMutableArray alloc] init];
         }
+        NSLog(@"Confession ID: %@", confessionID);
+        NSLog(@"jid: %@", jid);
+        NSLog(@"Body: %@", body);
+        NSLog(@"Image URL: %@", imageURL);
+        NSLog(@"Timestamp: %@", timestamp);
+        NSLog(@"Favorited Users: %@", favoritedUsers);
+        NSLog(@"Favorite Count: %@", favoriteCount);
         confession = [Confession create:body posterJID:jid imageURL:imageURL confessionID:confessionID createdTimestamp:timestamp favoritedUsers:favoritedUsersArray];
         [confessionsManager addConfession:confession];
     }

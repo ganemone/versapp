@@ -495,39 +495,22 @@
 }
 
 +(DDXMLElement *)createGetConfessionsPacket {
-    DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
-	[query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:confession"]];
-    [query addChild:[DDXMLElement elementWithName:@"confession"]];
-    
-    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_GET_CONFESSIONS]];
-	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"get"]];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[self getPacketFromString]]];
-    [iq addChild:query];
-    
+
+    DDXMLElement *since = [DDXMLElement elementWithName:@"since" stringValue:@"0"];
+    DDXMLElement *iq = [self getWhoConfessionIQElementWithType:@"get" packetID:PACKET_ID_GET_CONFESSIONS children:since];
+    NSLog(@"Get Confessions Packet: %@", iq.XMLString);
     return iq;
 }
 
 +(DDXMLElement *)createPostConfessionPacket:(Confession *)confession {
     [confession encodeBody];
     
-    DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
-	[query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:confession"]];
+    DDXMLElement *create = [DDXMLElement elementWithName:@"create"];
+    [create addChild:[DDXMLNode elementWithName:@"body" stringValue:confession.body]];
+    [create addChild:[DDXMLNode elementWithName:@"image_url" stringValue:confession.imageURL]];
     
-    DDXMLElement *confessionXML = [DDXMLElement elementWithName:@"confession"];
-    [confessionXML addAttribute:[DDXMLNode attributeWithName:@"body" stringValue:[confession body]]];
-    [confessionXML addAttribute:[DDXMLNode attributeWithName:@"image_url" stringValue:[confession imageURL]]];
-    
-    [query addChild:confessionXML];
-    
-    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_POST_CONFESSION]];
-	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"set"]];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[self getPacketFromString]]];
-    [iq addChild:query];
-    
+    DDXMLElement *iq = [self getWhoConfessionIQElementWithType:@"set" packetID:PACKET_ID_POST_CONFESSION children:create];
+    NSLog(@"Posting Confession Packet: %@", iq.XMLString);
     return iq;
 }
 
@@ -606,6 +589,21 @@
                                       stringValue:[NSString stringWithFormat:@"%@@%@",[ConnectionProvider getUser],[ConnectionProvider getServerIPAddress]]]];
     
     [chat addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:chat"]];
+    [chat addChild:element];
+    
+    [iq addChild:chat];
+    return iq;
+}
+
++(DDXMLElement*)getWhoConfessionIQElementWithType:(NSString*)type packetID: (NSString*)packetID children:(DDXMLElement*)element {
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"],
+    *chat = [DDXMLElement elementWithName:@"confession"];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:packetID]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:type]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue: [self getPacketFromString]]];
+    
+    [chat addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:confession"]];
     [chat addChild:element];
     
     [iq addChild:chat];
