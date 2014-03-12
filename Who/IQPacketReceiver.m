@@ -259,8 +259,7 @@
 }
 
 +(void)handleInviteUserToChatPacket:(XMPPIQ*)iq {
-    GroupChatManager *gcm = [GroupChatManager getInstance];
-    [gcm decrementNumUninvitedUsers];
+    [ChatDBManager decrementNumUninvitedParticipants];
 }
 
 +(void)handleCreateOneToOneChatPacket:(XMPPIQ*)iq {

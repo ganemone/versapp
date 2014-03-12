@@ -18,6 +18,7 @@
 @implementation ChatDBManager
 
 static NSString *chatIDUpdatingParticipants;
+static int numUninvitedParticipants;
 
 +(BOOL)hasChatWithID:(NSString *)chatID {
     return ([self getChatWithID:chatID] != nil);
@@ -195,6 +196,26 @@ static NSString *chatIDUpdatingParticipants;
 
 +(void)setChatIDUpdatingParticipants:(NSString*)chatID {
     chatIDUpdatingParticipants = chatID;
+}
+
++(void)incrementNumUninvitedParticipants {
+    numUninvitedParticipants++;
+}
+
++(void)decrementNumUninvitedParticipants {
+    numUninvitedParticipants--;
+}
+
++(int)getNumUninvitedParticipants {
+    return numUninvitedParticipants;
+}
+
++(void)resetNumUninvitedParticipants {
+    numUninvitedParticipants = 0;
+}
+
++(void)setNumUninvitedParticipants:(int)num {
+    numUninvitedParticipants = num;
 }
 
 @end

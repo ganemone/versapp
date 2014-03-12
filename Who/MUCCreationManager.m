@@ -36,7 +36,7 @@
     [room joinRoomUsingNickname:[ConnectionProvider getUser] history:nil];
     //[room fetchConfigurationForm];
     [room configureRoomUsingOptions:[IQPacketManager createRoomConfigurationForm:roomName]];
-    
+    [ChatDBManager setNumUninvitedParticipants:(int)participants.count];
     return [ChatDBManager insertChatWithID:chatID chatName:roomName chatType:CHAT_TYPE_GROUP participantString:[participants componentsJoinedByString:@", "] status:STATUS_JOINED];
 }
 
