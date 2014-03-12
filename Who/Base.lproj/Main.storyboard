@@ -105,7 +105,7 @@
                         <outlet property="registerView" destination="gu9-cv-M0m" id="kyw-lx-0XZ"/>
                         <outlet property="signUpButton" destination="FPX-LT-128" id="dBg-ic-fn8"/>
                         <outlet property="username" destination="NHs-F6-AKY" id="PM9-H3-tti"/>
-                        <segue destination="FvA-Qe-GrR" kind="modal" identifier="SegueIDAuthenticated" id="z0p-MQ-MuO"/>
+                        <segue destination="Dwh-Bp-3UK" kind="modal" identifier="SegueIDAuthenticated" id="z0p-MQ-MuO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ys-sZ-kKc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -128,7 +128,7 @@
             <objects>
                 <viewController storyboardIdentifier="MainSwipeViewController" id="FvA-Qe-GrR" customClass="MainSwipeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qgn-rc-9ur">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -137,7 +137,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iUp-KR-8dx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1790" y="180"/>
+            <point key="canvasLocation" x="1789" y="180"/>
         </scene>
         <!--Contacts View Controller - Invite-->
         <scene sceneID="ODG-ub-ds4">
@@ -521,7 +521,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bIz-uI-TiQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2279" y="-381"/>
+            <point key="canvasLocation" x="2279" y="-400"/>
         </scene>
         <!--Friends View Controller-->
         <scene sceneID="5BD-hw-9QN">
@@ -621,8 +621,8 @@
                         <outlet property="searchBar" destination="G30-1u-tkr" id="C19-rP-HhO"/>
                         <outlet property="searchDisplayController" destination="xnm-H1-FA6" id="TsH-Et-elB"/>
                         <outlet property="tableView" destination="wKq-yO-HDY" id="PKP-a1-gTn"/>
-                        <segue destination="LSk-rM-HTJ" kind="push" identifier="SegueIdentifierCreatedMUC" id="zTQ-Mf-6oX"/>
-                        <segue destination="iDZ-uG-Ep6" kind="push" identifier="SegueIdentifierCreatedChat" id="8c7-Mw-K5g"/>
+                        <segue destination="LSk-rM-HTJ" kind="modal" identifier="SegueIdentifierCreatedMUC" id="zTQ-Mf-6oX"/>
+                        <segue destination="iDZ-uG-Ep6" kind="modal" identifier="SegueIdentifierCreatedChat" id="8c7-Mw-K5g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iKx-99-eOK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -704,16 +704,43 @@
                     <view key="view" contentMode="scaleToFill" id="0UM-Gi-lHb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="vsd-42-qBE">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Fw9-eG-ihU">
+                                        <rect key="frame" x="63" y="32" width="194" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="oVV-yT-uoA">
+                                        <rect key="frame" x="19" y="28" width="38" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Back"/>
+                                        <connections>
+                                            <action selector="onBackClicked:" destination="LSk-rM-HTJ" eventType="touchUpInside" id="0ds-Bj-FaE"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="qz8-H8-B20">
                         <barButtonItem key="backBarButtonItem" title="Dashboard" id="mgi-GM-OSh"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="header" destination="Fw9-eG-ihU" id="0As-at-kN5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yd9-J6-Wir" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4045" y="164"/>
+            <point key="canvasLocation" x="4571" y="164"/>
         </scene>
         <!--Confessions View Controller - Confessions-->
         <scene sceneID="g8k-18-lyM">
@@ -757,7 +784,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="lnb-gW-AWX" kind="push" id="YCw-e7-spT"/>
+                                            <segue destination="lnb-gW-AWX" kind="modal" id="YCw-e7-spT"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -844,7 +871,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j9h-0E-rVD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3583" y="174"/>
+            <point key="canvasLocation" x="4109" y="174"/>
         </scene>
         <!--One To One Conversation View Controller-->
         <scene sceneID="3FC-Hw-v7z">
@@ -853,16 +880,44 @@
                     <view key="view" contentMode="scaleToFill" id="IqH-NC-C3h">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="Cey-fd-2nt">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="l1b-JD-9CX">
+                                        <rect key="frame" x="63" y="32" width="194" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="s33-9h-SeM">
+                                        <rect key="frame" x="20" y="28" width="35" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Back">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onBackClicked:" destination="iDZ-uG-Ep6" eventType="touchUpInside" id="KTi-cY-2i2"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="CbB-Xy-nAC">
                         <barButtonItem key="backBarButtonItem" title="Dashboard" id="5Re-bn-JwE"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="header" destination="l1b-JD-9CX" id="RYF-mh-4Q1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g7A-1E-cma" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4045" y="-459"/>
+            <point key="canvasLocation" x="4045" y="-454"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LHe-G0-1Nd">
@@ -968,24 +1023,6 @@
             <point key="canvasLocation" x="1761" y="-4724"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="SPa-yP-JUk">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="itr-4b-KD6" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iFs-Ey-BQQ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="FvA-Qe-GrR" kind="relationship" relationship="rootViewController" id="ppe-5J-e3o"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dyR-bX-xAN" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1264" y="180"/>
-        </scene>
-        <!--Navigation Controller-->
         <scene sceneID="yBm-AZ-eE1">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Cux-g5-SSx" sceneMemberID="viewController">
@@ -1003,6 +1040,37 @@
             </objects>
             <point key="canvasLocation" x="3583" y="761"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="FMz-2A-bta">
+            <objects>
+                <viewController id="6NJ-vJ-9YP" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="c9H-UY-Uus">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M4F-0q-Yft" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="t1m-dM-6jS">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Dwh-Bp-3UK" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="f6e-tz-9CN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="FvA-Qe-GrR" kind="relationship" relationship="rootViewController" id="szA-BG-9FW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4qU-Ra-GLj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1263" y="180"/>
+        </scene>
     </scenes>
     <resources>
         <image name="arrow-right.png" width="69" height="135"/>
@@ -1018,15 +1086,14 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="hBn-y3-qKM"/>
         <segue reference="AGt-Q0-zDh"/>
         <segue reference="Y5D-AL-CYy"/>
-        <segue reference="fcf-HI-Tc8"/>
-        <segue reference="yvf-5p-X2z"/>
-        <segue reference="cCp-tS-h07"/>
         <segue reference="f5d-Ra-j3v"/>
-        <segue reference="GTj-hh-MDQ"/>
-        <segue reference="hBn-y3-qKM"/>
+        <segue reference="yvf-5p-X2z"/>
+        <segue reference="fcf-HI-Tc8"/>
+        <segue reference="cCp-tS-h07"/>
         <segue reference="YCw-e7-spT"/>
-        <segue reference="z0p-MQ-MuO"/>
+        <segue reference="GTj-hh-MDQ"/>
     </inferredMetricsTieBreakers>
 </document>

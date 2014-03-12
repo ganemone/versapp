@@ -27,13 +27,13 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceived:) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
     
-    UIImage *image = [UIImage imageNamed:@"grad-back-dark2.jpg"];
+    /*UIImage *image = [UIImage imageNamed:@"grad-back-dark2.jpg"];
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
     [backgroundImageView setImage:image];
     
     [self.tableView setBackgroundView:backgroundImageView];
     [self.tableView setBackgroundColor:nil];
-    [self.tableView setOpaque:YES];
+    [self.tableView setOpaque:YES];*/
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     self.navigationItem.title = self.chatMO.user_defined_chat_name;
@@ -43,7 +43,7 @@
     [self.im setDelegate:self];
     self.imageCache = [ImageCache getInstance];
     self.downloadingImageURLs = [[NSMutableArray alloc] initWithCapacity:20];
-    
+    [self.header setText:[self.chatMO user_defined_chat_name]];
     [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
 }
 
@@ -198,6 +198,9 @@
     self.isUploadingImage = NO;
     self.messageImage = image;
     self.messageImageLink = url;
+}
+- (IBAction)onBackClicked:(id)sender {
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 @end

@@ -21,5 +21,6 @@
 @property (strong, nonatomic) ImageCache *imageCache;
 @property (strong, nonatomic) UIImage *selectedImage;
 @property (strong, nonatomic) ChatMO *chatMO;
+@property (weak, nonatomic) IBOutlet UILabel *header;
 
 @end

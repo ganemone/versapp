@@ -39,12 +39,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:PACKET_ID_GET_VCARD object:nil];
     
-    UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
-    [backgroundImageView setImage:[UIImage imageNamed:@"grad-back-messages.jpg"]];
+    /*UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
+    [backgroundImageView setImage:[UIImage imageNamed:@"grad-back-messages.jpg"]];*/
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
-    [self.tableView setBackgroundView:backgroundImageView];
-    [self.tableView setBackgroundColor:[UIColor clearColor]];
+    //[self.tableView setBackgroundView:backgroundImageView];
+    //[self.tableView setBackgroundColor:[UIColor clearColor]];
     
     self.cp = [ConnectionProvider getInstance];
     
@@ -78,7 +78,7 @@
     return 2;
 }
 
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+/*-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *customView = [[UIView alloc] initWithFrame:CGRectMake(10.0, 10.0f, self.view.frame.size.width, 30.0)];
     [customView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"grad-back-messages.jpg"]]];
     UILabel * headerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -98,18 +98,22 @@
     [customView addSubview:headerLabel];
     
     return customView;
-}
+}*/
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+/*-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 50.0f;
+}*/
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return (section == 0) ? @"Groups" : @"One to One";
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"ChatCellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    [cell.textLabel setTextColor:[UIColor whiteColor]];
-    [cell.detailTextLabel setTextColor:[UIColor whiteColor]];
+    [cell.textLabel setTextColor:[UIColor blackColor]];
+    [cell.detailTextLabel setTextColor:[UIColor blackColor]];
     [cell.detailTextLabel setHidden:NO];
     
     ChatMO *chatMo;
@@ -118,7 +122,7 @@
     } else {
         chatMo = [self.oneToOneChats objectAtIndex:indexPath.row];
     }
-    
+
     [cell.textLabel setText:chatMo.user_defined_chat_name];
     [cell.detailTextLabel setText:[chatMo getLastMessage]];
     

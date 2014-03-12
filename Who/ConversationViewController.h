@@ -20,5 +20,6 @@
 @property (strong, nonatomic) NSMutableArray *downloadingImageURLs;
 @property (strong, nonatomic) ImageCache *imageCache;
 @property (strong, nonatomic) UIImage *selectedImage;
+@property (weak, nonatomic) IBOutlet UILabel *header;
 
 @end

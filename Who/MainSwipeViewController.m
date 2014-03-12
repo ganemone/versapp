@@ -58,7 +58,7 @@ CAShapeLayer *closedNotifications;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleMessagesRightArrowClicked) name:@"test" object:nil];
     
     [self.navigationController.navigationBar setHidden:YES];
-    [self.navigationController setDelegate:self];
+    //[self.navigationController setDelegate:self];
     
     // Initialize and configure page view controller
     self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:STORYBOARD_ID_PAGE_VIEW_CONTROLLER];
@@ -326,12 +326,12 @@ CAShapeLayer *closedNotifications;
 }
 
 -(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    NSLog(@"Will Show view controller");
+    /*
     if ([viewController isKindOfClass:[MainSwipeViewController class]]) {
         [self.navigationController.navigationBar setHidden:YES];
     } else {
         [self.navigationController.navigationBar setHidden:NO];
-    }
+    }*/
     // -----------------
     // HACKY SOLUTION - Try to improve in the future
     // Updates confession posts after posting one

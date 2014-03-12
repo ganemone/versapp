@@ -65,7 +65,7 @@
     JSMessageInputViewStyle inputViewStyle = [self.delegate inputViewStyle];
     CGFloat inputViewHeight = (inputViewStyle == JSMessageInputViewStyleFlat) ? 45.0f : 40.0f;
     
-    CGRect tableFrame = CGRectMake(0.0f, 0.0f, size.width, size.height - inputViewHeight);
+    CGRect tableFrame = CGRectMake(0.0f, 66.0f, size.width, size.height - inputViewHeight);
 	JSMessageTableView *tableView = [[JSMessageTableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
 	tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	tableView.dataSource = self;
