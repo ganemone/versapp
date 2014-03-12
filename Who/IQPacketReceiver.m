@@ -290,14 +290,20 @@
     
     for (int i = 0; i < [matches count]; i++) {
         match = [matches objectAtIndex:i];
+        NSLog(@"Number of matches: %lu", (unsigned long)[match numberOfRanges]);
         confessionID = [decodedPacketXML substringWithRange:[match rangeAtIndex:1]];
         jid = [decodedPacketXML substringWithRange:[match rangeAtIndex:2]];
         body = [decodedPacketXML substringWithRange:[match rangeAtIndex:3]];
         imageURL = [decodedPacketXML substringWithRange:[match rangeAtIndex:4]];
         timestamp = [decodedPacketXML substringWithRange:[match rangeAtIndex:5]];
-        favoritedUsers = [decodedPacketXML substringWithRange:[match rangeAtIndex:6]];
-        favoriteCount = [NSNumber numberWithInteger:[[decodedPacketXML substringWithRange:[match rangeAtIndex:7]] integerValue]];
-        if ([favoriteCount isEqualToNumber:[NSNumber numberWithInt:0]] == FALSE) {
+        if ([match rangeAtIndex:6].length != 0) {
+            favoritedUsers = [decodedPacketXML substringWithRange:[match rangeAtIndex:6]];
+        }
+        if ([match rangeAtIndex:7].length != 0) {
+            favoriteCount = [NSNumber numberWithInteger:[[decodedPacketXML substringWithRange:[match rangeAtIndex:7]] integerValue]];
+        }
+        
+        if (favoriteCount != nil && [favoriteCount isEqualToNumber:[NSNumber numberWithInt:0]] == FALSE) {
             favoritedUsers = [favoritedUsers stringByReplacingOccurrencesOfString:@"\"" withString:@""];
             favoritedUsersArray = [NSMutableArray arrayWithArray:[favoritedUsers componentsSeparatedByString:@","]];
         } else {

@@ -188,10 +188,10 @@
     } else if (buttonIndex == 1) {
         XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
         NSString *chatID = [Chat createGroupID];
-        [conn sendElement:[IQPacketManager createCreateOneToOneChatPacket:chatID roomName:chatID]];
+        [conn sendElement:[IQPacketManager createCreateOneToOneChatPacket:chatID invitedUser:self.invitedUser roomName:@"Anonymous Friend"]];
         OneToOneChat *chat = [OneToOneChat create:chatID inviterID:[ConnectionProvider getUser] invitedID:self.invitedUser createdTimestamp:0];
         _createdChat = [ChatDBManager insertChatWithID:chat.chatID chatName:[FriendsDBManager getUserWithJID:self.invitedUser].name chatType:CHAT_TYPE_ONE_TO_ONE participantString:[NSString stringWithFormat:@"%@, %@", [ConnectionProvider getUser], self.invitedUser] status:STATUS_JOINED];
-    }
+    }   
     self.selectedJIDs = [[NSMutableArray alloc] init];
     [self.tableView reloadData];
 }
