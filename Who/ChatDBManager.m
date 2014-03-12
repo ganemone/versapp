@@ -205,8 +205,11 @@ static int numUninvitedParticipants;
 +(void)decrementNumUninvitedParticipants {
     numUninvitedParticipants--;
     if (numUninvitedParticipants == 0) {
-        // Invite participants through message here...
-        // need to keep track of chat with pending ids also...
+        ChatMO *chat = [self getChatWithID:chatIDUpdatingParticipants];
+        XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
+        for (NSString *participant in chat.participants) {
+            [conn sendElement:[IQPacketManager createInviteToMUCMessage:chat.chat_id username:participant]];
+        }
     }
 }
 
