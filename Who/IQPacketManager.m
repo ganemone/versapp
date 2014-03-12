@@ -13,7 +13,7 @@
 #import "Constants.h"
 #import "OneToOneChatManager.h"
 #import "MessageMO.h"
-
+#import "ChatDBManager.h"
 @implementation IQPacketManager
 
 -(XMPPIQ*)buildIQPacket:(NSString *)packetType packetID:(NSString *)packetID {
@@ -47,7 +47,12 @@
 }
 
 +(DDXMLElement *)createGetChatParticipantsPacket:(NSString *)chatId {
-    return [self createWhoIQPacket:@"get" action:@"get_participants" packetID:PACKET_ID_GET_CHAT_PARTICIPANTS chatID:chatId];
+    [ChatDBManager setChatIDUpdatingParticipants:chatId];
+    DDXMLElement *query = [DDXMLElement elementWithName:@"participants"];
+    [query addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:chatId]];
+    DDXMLElement *iq = [self getWhoChatIQElementWithType:@"get" packetID:PACKET_ID_GET_CHAT_PARTICIPANTS children:query];
+    NSLog(@"Create Get Pending Chats Packet: %@", iq.XMLString);
+    return iq;
 }
 
 +(DDXMLElement *)createDestroyChatPacket:(NSString *)chatId {

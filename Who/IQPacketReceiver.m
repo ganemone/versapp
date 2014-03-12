@@ -65,7 +65,25 @@
         [self handleCreateOneToOneChatFromConfessionPacket:(XMPPIQ*)iq];
     } else if([self isPacketWithID:PACKET_ID_CREATE_MUC packet:iq]) {
         [self handleCreatedMUCPacket:iq];
+    } else if([self isPacketWithID:PACKET_ID_GET_CHAT_PARTICIPANTS packet:iq]) {
+        [self handleGetChatParticipantsPacket:iq];
     }
+}
+
++(void)handleGetChatParticipantsPacket:(XMPPIQ *)iq {
+    NSError *error = NULL;
+    NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\"\\]" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
+    NSMutableArray *participants;
+    
+    for (NSTextCheckingResult *match in matches) {
+        if ([[packetXML substringWithRange:[match rangeAtIndex:3]] isEqualToString:@"active"]) {
+            [participants addObject:[packetXML substringWithRange:[match rangeAtIndex:1]]];
+        }
+    }
+    [ChatDBManager updateChatParticipants:participants];
+    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_CHAT_PARTICIPANTS object:nil];
 }
 
 +(void)handleGetJoinedChatsPacket:(XMPPIQ *)iq {
@@ -98,6 +116,7 @@
             }
         }
         [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_JOINED];
+        [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetChatParticipantsPacket:chatId]];
     }
     [ChatDBManager joinAllChats];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];

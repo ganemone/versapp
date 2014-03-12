@@ -17,6 +17,8 @@
 #import "IQPacketManager.h"
 @implementation ChatDBManager
 
+static NSString *chatIDUpdatingParticipants;
+
 +(BOOL)hasChatWithID:(NSString *)chatID {
     return ([self getChatWithID:chatID] != nil);
 }
@@ -180,5 +182,19 @@
     }
 }
 
++(void)updateChatParticipants:(NSMutableArray *)participants {
+    if (chatIDUpdatingParticipants != nil) {
+        ChatMO *chat = [self getChatWithID:chatIDUpdatingParticipants];
+        [chat setParticipants:participants];
+        [chat setParticipant_string:[participants componentsJoinedByString:@", "]];
+        AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+        [delegate saveContext];
+        chatIDUpdatingParticipants = nil;
+    }
+}
+
++(void)setChatIDUpdatingParticipants:(NSString*)chatID {
+    chatIDUpdatingParticipants = chatID;
+}
 
 @end
