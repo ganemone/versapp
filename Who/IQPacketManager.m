@@ -36,7 +36,10 @@
 }
 
 +(DDXMLElement *)createGetPendingChatsPacket {
-    return [self createWhoIQPacket:@"get" action:@"pending" packetID:PACKET_ID_GET_PENDING_CHATS];
+    DDXMLElement *query = [DDXMLElement elementWithName:@"status" stringValue:@"pending"];
+    DDXMLElement *iq = [self getWhoChatIQElementWithType:@"get" packetID:PACKET_ID_GET_PENDING_CHATS children:query];
+    NSLog(@"Create Get Pending Chats Packet: %@", iq.XMLString);
+    return iq;
 }
 
 +(DDXMLElement *)createGetChatInfoPacket:(NSString *)chatId {
@@ -211,7 +214,7 @@
 +(DDXMLElement*)getWhoChatIQElementWithType:(NSString*)type packetID: (NSString*)packetID children:(DDXMLElement*)element {
     DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"],
     *chat = [DDXMLElement elementWithName:@"chat"];
-    
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:packetID]];
     [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:type]];
     [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
     [iq addAttribute:[DDXMLNode attributeWithName:@"from"

@@ -75,6 +75,7 @@ static ConnectionProvider *selfInstance;
 - (void) connect: (NSString*)username password:(NSString*) password {
     self.authenticated = NO;
     self.didConnect = NO;
+    self.isCreatingAccount = NO;
     
     NSLog(@"Server IP Address %@", self.SERVER_IP_ADDRESS);
     [self.xmppStream setHostName:self.SERVER_IP_ADDRESS];
@@ -153,6 +154,7 @@ static ConnectionProvider *selfInstance;
     [self.xmppReconnect activate:self.xmppStream];
     self.authenticated = YES;
     if (self.isCreatingAccount == YES) {
+        NSLog(@"Creating VCard...");
         [self.xmppStream sendElement:
          [IQPacketManager createCreateVCardPacket:[self.pendingAccountInfo objectForKey:VCARD_TAG_FIRST_NAME]
                                          lastname:[self.pendingAccountInfo objectForKey:VCARD_TAG_LAST_NAME]
@@ -162,14 +164,13 @@ static ConnectionProvider *selfInstance;
     }
     /*[self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
      [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];
-     [self.xmppStream sendElement:[IQPacketManager createGetLastTimeActivePacket]];
-     [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
+     [self.xmppStream sendElement:[IQPacketManager createGetLastTimeActivePacket]];*/
+     [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];/*
      [self.xmppStream sendElement:[IQPacketManager createGetRosterPacket]];
      [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
-     [self.xmppStream sendElement:[IQPacketManager createGetConfessionsPacket]];
-     [self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];*/
+     [self.xmppStream sendElement:[IQPacketManager createGetConfessionsPacket]];*/
+     [self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];
     //[[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
-    [MUCCreationManager createMUC:@"some chat name" participants:@[@"111111", @"222222"]];
 }
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error
 {

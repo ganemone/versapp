@@ -23,11 +23,12 @@
 @implementation IQPacketReceiver
 
 +(bool)isPacketWithID:(NSString *)packetID packet:(XMPPIQ *)packet {
-    return ([packet.elementID compare:packetID] == 0);
+    return ([packet.elementID compare:packetID] == 0 && packet.elementID != nil);
 }
 
 +(void)handleIQPacket:(XMPPIQ *)iq {
     if([self isPacketWithID:PACKET_ID_CREATE_VCARD packet:iq]) {
+        NSLog(@"POSTING CREATE VCARD NOTIFICATION...");
         [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_CREATE_VCARD object:nil];
     } else if([self isPacketWithID:PACKET_ID_GET_JOINED_CHATS packet:iq]) {
         [self handleGetJoinedChatsPacket:iq];
@@ -72,7 +73,7 @@
     NSError *error = NULL;
     
     NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\"\\]" options:NSRegularExpressionCaseInsensitive error:&error];
     NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
     GroupChatManager *gcm = [GroupChatManager getInstance];
     OneToOneChatManager *cm = [OneToOneChatManager getInstance];
