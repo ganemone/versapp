@@ -363,22 +363,28 @@ static const CGFloat kJSSubtitleLabelHeight = 15.0f;
 
 - (void)handleLongPressGesture:(UILongPressGestureRecognizer *)longPress
 {
+//    return;
     if (longPress.state != UIGestureRecognizerStateBegan || ![self becomeFirstResponder])
         return;
     
-    UIMenuController *menu = [UIMenuController sharedMenuController];
-    CGRect targetRect = [self convertRect:[self.bubbleView bubbleFrame]
-                                 fromView:self.bubbleView];
+    UIAlertView *reportAbuse = [[UIAlertView alloc] initWithTitle:@"report" message: @"Do you want to report for abuse?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Report",@"Block", nil];
     
-    [menu setTargetRect:CGRectInset(targetRect, 0.0f, 4.0f) inView:self];
-    
-    self.bubbleView.bubbleImageView.highlighted = YES;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleMenuWillShowNotification:)
-                                                 name:UIMenuControllerWillShowMenuNotification
-                                               object:nil];
-    [menu setMenuVisible:YES animated:YES];
+    reportAbuse.alertViewStyle = UIAlertViewStyleDefault;
+    [reportAbuse show];
+//
+//    UIMenuController *menu = [UIMenuController sharedMenuController];
+//    CGRect targetRect = [self convertRect:[self.bubbleView bubbleFrame]
+//                                 fromView:self.bubbleView];
+//    
+//    [menu setTargetRect:CGRectInset(targetRect, 0.0f, 4.0f) inView:self];
+//    
+//    self.bubbleView.bubbleImageView.highlighted = YES;
+//    
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(handleMenuWillShowNotification:)
+//                                                 name:UIMenuControllerWillShowMenuNotification
+//                                               object:nil];
+//    [menu setMenuVisible:YES animated:YES];
 }
 
 #pragma mark - Notifications
