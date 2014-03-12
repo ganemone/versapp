@@ -13,7 +13,8 @@
 #import "ChatMO.h"
 #import "MessageMO.h"
 #import "MessagesDBManager.h"
-
+#import "ConnectionProvider.h"
+#import "IQPacketManager.h"
 @implementation ChatDBManager
 
 +(BOOL)hasChatWithID:(NSString *)chatID {
@@ -63,6 +64,15 @@
     return chat;
 }
 
++(void)joinAllChats {
+    NSArray *chats = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\" && %@ = \"%d\"",CHATS_TABLE_COLUMN_NAME_CHAT_TYPE, CHAT_TYPE_GROUP, CHATS_TABLE_COLUMN_NAME_STATUS, STATUS_JOINED]];
+    XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
+    NSString *time = [MessagesDBManager getTimeForHistory];
+    for (ChatMO *chat in chats) {
+        [conn sendElement:[IQPacketManager createJoinMUCPacket:chat.chat_id lastTimeActive:time]];
+    }
+}
+
 +(NSArray*)makeFetchRequest:(NSString*)predicateString {
     
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
@@ -82,28 +92,47 @@
 }
 
 +(NSArray*)getAllGroupChats {
-    NSArray *chats = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", CHATS_TABLE_COLUMN_NAME_CHAT_TYPE, @"groupchat"]];
-    [self setMessagesForChatsInArray:chats];
-    for (int i = 0; i < [chats count]; i++) {
-        NSLog(@"Chats: %@", [[chats objectAtIndex:i] user_defined_chat_name]);
-    }
-    return [self sortChats:chats];
+    return [self getAllChatsWithType:CHAT_TYPE_GROUP];
 }
 
 +(NSArray*)getAllOneToOneChats {
-    NSArray *chats =  [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", CHATS_TABLE_COLUMN_NAME_CHAT_TYPE, @"chat"]];
-    [self setMessagesForChatsInArray:chats];
-    for (int i = 0; i < [chats count]; i++) {
-        NSLog(@"Chats: %@", [[chats objectAtIndex:i] user_defined_chat_name]);
-    }
+    return [self getAllChatsWithType:CHAT_TYPE_ONE_TO_ONE];
+}
+
++(NSArray*)getAllActiveActiveGroupChats {
+    return [self getAllChatsWithType:CHAT_TYPE_GROUP status:STATUS_JOINED];
+}
+
++(NSArray*)getAllActiveActiveOneToOneChats {
+    return [self getAllChatsWithType:CHAT_TYPE_ONE_TO_ONE status:STATUS_JOINED];
+}
+
++(NSArray*)getAllPendingActiveGroupChats {
+    return [self getAllChatsWithType:CHAT_TYPE_GROUP status:STATUS_PENDING];
+}
+
++(NSArray*)getAllPendingActiveOneToOneChats {
+    return [self getAllChatsWithType:CHAT_TYPE_ONE_TO_ONE status:STATUS_PENDING];
+}
+
++(NSArray*)getAllChatsWithType:(NSString*)type status:(int)status {
+    NSArray *chats = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\" && %@ = \"%d\"", CHATS_TABLE_COLUMN_NAME_CHAT_TYPE, type, CHATS_TABLE_COLUMN_NAME_STATUS, status]];
+    [self setUpChatsInArray:chats];
     return [self sortChats:chats];
 }
 
-+(void)setMessagesForChatsInArray:(NSArray*)chats {
++(NSArray*)getAllChatsWithType:(NSString*)type {
+    NSArray *chats = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", CHATS_TABLE_COLUMN_NAME_CHAT_TYPE, type]];
+    [self setUpChatsInArray:chats];
+    return [self sortChats:chats];
+}
+
++(void)setUpChatsInArray:(NSArray*)chats {
     ChatMO *chat;
     for (int i = 0; i < [chats count]; i++) {
         chat = [chats objectAtIndex:i];
         [chat setMessages:[MessagesDBManager getMessagesByChat:chat.chat_id]];
+        [chat setParticipants:[NSMutableArray arrayWithArray:[chat.participant_string componentsSeparatedByString:@", "]]];
     }
 }
 

@@ -22,4 +22,6 @@
 
 +(NSMutableArray *)getMessageObjectsForOneToOneChat:(NSString *)chatID;
 
++(NSString*)getTimeForHistory;
+
 @end

@@ -25,6 +25,8 @@
 
 +(NSArray*)getAllGroupChats;
 
++(NSArray*)getAllActiveActiveGroupChats;
+
 +(NSArray*)getAllOneToOneChats;
 
 +(void)setHasNewMessageYes:(NSString*)chatID;
@@ -34,5 +36,7 @@
 +(BOOL)doesChatHaveNewMessage:(NSString *)chatID;
 
 +(void)updateOneToOneChatNames:(NSString *)name username:(NSString*)username;
+
++(void)joinAllChats;
 
 @end

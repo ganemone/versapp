@@ -74,17 +74,17 @@
     
     NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\"\\]" options:NSRegularExpressionCaseInsensitive error:&error];
-    NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
-    GroupChatManager *gcm = [GroupChatManager getInstance];
-    OneToOneChatManager *cm = [OneToOneChatManager getInstance];
+    NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)],
+    *participants;
+    NSString *participantString, *chatId, *type, *owner, *name;
     for (NSTextCheckingResult *match in matches) {
-        NSString *participantString = [packetXML substringWithRange:[match rangeAtIndex:1]];
-        NSArray *participants = [participantString componentsSeparatedByString:@", "];
-        NSString* chatId = [packetXML substringWithRange:[match rangeAtIndex:2]];
-        NSString* type = [packetXML substringWithRange:[match rangeAtIndex:3]];
-        NSString* owner = [packetXML substringWithRange:[match rangeAtIndex:4]];
-        NSString* name = [packetXML substringWithRange:[match rangeAtIndex:5]];
-        NSString* createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
+        participantString = [packetXML substringWithRange:[match rangeAtIndex:1]];
+        chatId = [packetXML substringWithRange:[match rangeAtIndex:2]];
+        type = [packetXML substringWithRange:[match rangeAtIndex:3]];
+        owner = [packetXML substringWithRange:[match rangeAtIndex:4]];
+        name = [packetXML substringWithRange:[match rangeAtIndex:5]];
+        //*createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
+        participants = [participantString componentsSeparatedByString:@", "];
         
         if ([type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
             if ([owner isEqualToString:[ConnectionProvider getUser]]) {
@@ -98,13 +98,8 @@
             }
         }
         [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_JOINED];
-        
-        if([type isEqualToString:CHAT_TYPE_GROUP]) {
-            [gcm addChat:[GroupChat create:chatId participants:participants groupName:name owner:owner createdTime:createdTime]];
-        } else if([type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
-            [cm addChat:[OneToOneChat create:chatId inviterID:owner invitedID:participantString createdTimestamp:createdTime]];
-        }
     }
+    [ChatDBManager joinAllChats];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
 }
 
@@ -181,26 +176,24 @@
     NSError *error = NULL;
     NSString *packetXML = [self getPacketXMLWithoutNewLines:packet];
     
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
-    NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
-    
-    //NSMutableDictionary *allNotifications = [[NSMutableDictionary alloc] init];
-    NSMutableArray *allNotifications = [[NSMutableArray alloc] init];
-    NSArray *keys = [NSArray arrayWithObjects:@"chatId", @"chatType", @"chatOwnerId", @"chatName", @"created", nil];
-    //int count = 0;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\"\\]}" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)],
+    *participants;
+    NSString *participantString, *chatId, *type, *owner, *name, *createdTime;
     
     for(NSTextCheckingResult *match in matches) {
-        NSMutableArray *values = [[NSMutableArray alloc] init];
+        participantString = [packetXML substringWithRange:[match rangeAtIndex:1]];
+        chatId = [packetXML substringWithRange:[match rangeAtIndex:2]];
+        type = [packetXML substringWithRange:[match rangeAtIndex:3]];
+        owner = [packetXML substringWithRange:[match rangeAtIndex:4]];
+        name = [packetXML substringWithRange:[match rangeAtIndex:5]];
+        createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
+        participants = [participantString componentsSeparatedByString:@", "];
         
-        for (int i=1; i<=5; i++)
-            [values addObject:[packetXML substringWithRange:[match rangeAtIndex:i]]];
-        
-        NSDictionary *pendingChats = [NSDictionary dictionaryWithObjects:values forKeys:keys];
-        [allNotifications addObject:pendingChats];
+        if (![ChatDBManager hasChatWithID:chatId]) {
+            [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_PENDING];
+        }
     }
-    
-    GroupChatManager *groupChat = [GroupChatManager getInstance];
-    groupChat.pending = allNotifications;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_PENDING_CHATS object:nil];
 }

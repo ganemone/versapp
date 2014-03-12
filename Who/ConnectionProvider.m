@@ -170,6 +170,7 @@ static ConnectionProvider *selfInstance;
      [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
      [self.xmppStream sendElement:[IQPacketManager createGetConfessionsPacket]];*/
      [self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];
+    //[MUCCreationManager createMUC:@"test chat name" participants:@[@"111111", @"222222"]];
     //[[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
 }
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error
@@ -194,7 +195,7 @@ static ConnectionProvider *selfInstance;
     [self.xmppStream disconnect];
 }
 -(void)xmppStream:(XMPPStream *)sender didReceiveError:(DDXMLElement *)error {
-    NSLog(@"Received Error: %@", error.XMLString);
+    NSLog(@"didReceiveError: %@", error.XMLString);
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveP2PFeatures:(DDXMLElement *)streamFeatures {
@@ -202,16 +203,16 @@ static ConnectionProvider *selfInstance;
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
-    NSLog(@"Received Message: %@", message);
+    NSLog(@"didReceiveMessage: %@", message);
     [MessagePacketReceiver handleMessagePacket:message];
 }
 
 -(void)xmppStream:(XMPPStream *)sender didSendMessage:(XMPPMessage *)message {
-    NSLog(@"Sent Message! %@", message.XMLString);
+    NSLog(@"didSendMessage %@", message.XMLString);
 }
 
 -(void)xmppStream:(XMPPStream *)sender didSendPresence:(XMPPPresence *)presence {
-    NSLog(@"Send Presence: %@", presence.XMLString);
+    NSLog(@"didSendPresence: %@", presence.XMLString);
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {

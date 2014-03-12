@@ -101,4 +101,29 @@
     return [[fetchedItems firstObject] message_body];
 }
 
++(NSString*)getTimeForHistory {
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *moc = [delegate managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:CORE_DATA_TABLE_MESSAGES inManagedObjectContext:moc];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:MESSAGE_PROPERTY_TIMESTAMP ascending:YES];
+    [fetchRequest setSortDescriptors:@[sort]];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setFetchLimit:1];
+    
+    NSError* error;
+    NSArray *fetchedItems = [moc executeFetchRequest:fetchRequest error:&error];
+    if ([fetchedItems count] > 0) {
+        NSTimeInterval interval= [[[fetchedItems firstObject] time] doubleValue];
+        NSDate *gregDate = [NSDate dateWithTimeIntervalSince1970: interval];
+        NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+        [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+        [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+        NSString *utcStringDate =[formatter stringFromDate:gregDate];
+        return utcStringDate;
+    } else {
+        return @"1970-01-01T00:00:00Z";
+    }
+}
+
 @end
