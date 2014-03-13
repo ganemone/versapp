@@ -279,22 +279,23 @@
     NSString *decodedPacketXML = [self getPacketXMLWithoutWhiteSpace:iq];
     decodedPacketXML = [self getDecodedPacketXML:iq];
     NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(\\d+)?\".*?\"(.*?)\".*?\"(.*?)\".*?(?:\\[\\]|\"(.*?)\").*?\"(\\d+)?\".*?(?:\\[\\]|\"(.*?)\").*?\"(\\d+)\"" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSLog(@"Decoded Packet XML: %@", decodedPacketXML);
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\",\"(.*?)\",\"(.*?)\",(?:\\[\\]|\"(.*?)\"),\"(.*?)\",(?:\\[\\]|\"(.*?)\"),\"(.*?)\"\\]" options:NSRegularExpressionCaseInsensitive error:&error];
     NSArray *matches = [regex matchesInString:decodedPacketXML options:0 range:NSMakeRange(0, decodedPacketXML.length)];
-    NSTextCheckingResult *match;
     NSString *confessionID, *jid, *body, *imageURL, *timestamp, *favoritedUsers;
     NSNumber *favoriteCount;
     NSMutableArray *favoritedUsersArray;
     Confession *confession;
     ConfessionsManager *confessionsManager = [ConfessionsManager getInstance];
     
-    for (int i = 0; i < [matches count]; i++) {
-        match = [matches objectAtIndex:i];
+    for(NSTextCheckingResult *match in matches) {
         NSLog(@"Number of matches: %lu", (unsigned long)[match numberOfRanges]);
         confessionID = [decodedPacketXML substringWithRange:[match rangeAtIndex:1]];
         jid = [decodedPacketXML substringWithRange:[match rangeAtIndex:2]];
         body = [decodedPacketXML substringWithRange:[match rangeAtIndex:3]];
-        imageURL = [decodedPacketXML substringWithRange:[match rangeAtIndex:4]];
+        if ([match rangeAtIndex:4].length != 0) {
+            imageURL = [decodedPacketXML substringWithRange:[match rangeAtIndex:4]];
+        }
         timestamp = [decodedPacketXML substringWithRange:[match rangeAtIndex:5]];
         if ([match rangeAtIndex:6].length != 0) {
             favoritedUsers = [decodedPacketXML substringWithRange:[match rangeAtIndex:6]];

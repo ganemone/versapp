@@ -34,9 +34,9 @@
     [super viewDidLoad];
     self.confessionsManager = [ConfessionsManager getInstance];
     
-    UIImage *image = [UIImage imageNamed:@"grad-back-confessions.jpg"];
+    /*UIImage *image = [UIImage imageNamed:@"grad-back-confessions.jpg"];
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
-    [backgroundImageView setImage:image];
+    [backgroundImageView setImage:image];*/
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name: PACKET_ID_GET_CONFESSIONS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOneToOneChatCreatedFromConfession) name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION object:nil];
@@ -44,9 +44,9 @@
     self.cellCache = [[NSMutableDictionary alloc] initWithCapacity:[_confessionsManager getNumberOfConfessions]];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
-    [self.tableView setBackgroundView:backgroundImageView];
-    [self.tableView setBackgroundColor:nil];
-    [self.tableView setOpaque:YES];
+    //[self.tableView setBackgroundView:backgroundImageView];
+    //[self.tableView setBackgroundColor:nil];
+    //[self.tableView setOpaque:YES];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     self.favIcon = [UIImage imageNamed:@"fav-icon.png"];
@@ -54,7 +54,7 @@
     self.gradLineSmall = [UIImage imageNamed:@"grad-line-small.png"];
     self.chatIcon = [UIImage imageNamed:@"chat-icon.png"];
     
-    [self.bottomView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"grad-bottom-confessions.jpg"]]];
+    /*[self.bottomView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"grad-bottom-confessions.jpg"]]]; */
 }
 
 - (void)didReceiveMemoryWarning

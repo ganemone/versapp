@@ -40,6 +40,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 - (IBAction)postConfession:(id)sender {
     NSString *confessionText = [_composeTextView text];
     if (confessionText.length > 0) {
@@ -49,6 +50,10 @@
     } else {
         NSLog(@"No text in confession text box");
     }
+}
+
+- (IBAction)onBackPressed:(id)sender {
+    [[self navigationController] popToRootViewControllerAnimated:YES];
 }
 
 -(void)handleFinishedPostingConfession {
