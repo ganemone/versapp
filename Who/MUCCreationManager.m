@@ -11,7 +11,6 @@
 #import "XMPPMUC.h"
 #import "XMPPRoomMemoryStorage.h"
 #import "ConnectionProvider.h"
-#import "GroupChatManager.h"
 #import "IQPacketManager.h"
 #import "ChatMO.h"
 #import "ChatDBManager.h"

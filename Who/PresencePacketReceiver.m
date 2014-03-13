@@ -7,8 +7,6 @@
 //
 
 #import "PresencePacketReceiver.h"
-#import "GroupChatManager.h"
-#import "GroupChat.h"
 #import "Constants.h"
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
@@ -34,9 +32,6 @@
         NSString *xmlns = [presence.XMLString substringWithRange:[match rangeAtIndex:3]];
         //NSString *jid = [presence.XMLString substringWithRange:[match rangeAtIndex:4]];
         if ([xmlns compare:@"http://jabber.org/protocol/muc#user"] == 0) {
-            GroupChatManager *gcm = [GroupChatManager getInstance];
-            GroupChat *gc = [gcm getChat:from];
-            [gc invitePendingParticpants];
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CREATED_MUC object:nil];
         }
     }

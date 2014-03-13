@@ -8,9 +8,6 @@
 
 #import "IQPacketReceiver.h"
 #import "Constants.h"
-#import "GroupChat.h"
-#import "GroupChatManager.h"
-#import "OneToOneChatManager.h"
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
 #import "FriendsDBManager.h"

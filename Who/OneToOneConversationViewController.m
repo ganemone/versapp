@@ -7,7 +7,6 @@
 //
 
 #import "OneToOneConversationViewController.h"
-#import "OneToOneChatManager.h"
 #import "Constants.h"
 #import "JSMessage.h"
 #import "ConnectionProvider.h"
@@ -160,7 +159,6 @@
     NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
     [self.tableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationFade];
     [self scrollToBottomAnimated:YES];
-    [[OneToOneChatManager getInstance] sortChats];
 }
 
 -(void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {

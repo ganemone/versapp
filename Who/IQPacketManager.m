@@ -11,7 +11,6 @@
 #import "XMPPPresence.h"
 #import "ConnectionProvider.h"
 #import "Constants.h"
-#import "OneToOneChatManager.h"
 #import "MessageMO.h"
 #import "ChatDBManager.h"
 @implementation IQPacketManager
