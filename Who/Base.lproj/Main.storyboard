@@ -595,8 +595,8 @@
                         <outlet property="searchBar" destination="G30-1u-tkr" id="C19-rP-HhO"/>
                         <outlet property="searchDisplayController" destination="xnm-H1-FA6" id="TsH-Et-elB"/>
                         <outlet property="tableView" destination="wKq-yO-HDY" id="PKP-a1-gTn"/>
-                        <segue destination="LSk-rM-HTJ" kind="modal" identifier="SegueIdentifierCreatedMUC" id="zTQ-Mf-6oX"/>
-                        <segue destination="iDZ-uG-Ep6" kind="modal" identifier="SegueIdentifierCreatedChat" id="8c7-Mw-K5g"/>
+                        <segue destination="LSk-rM-HTJ" kind="push" identifier="SegueIdentifierCreatedMUC" id="zTQ-Mf-6oX"/>
+                        <segue destination="iDZ-uG-Ep6" kind="push" identifier="SegueIdentifierCreatedChat" id="8c7-Mw-K5g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iKx-99-eOK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1139,12 +1139,12 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="YCw-e7-spT"/>
-        <segue reference="qGQ-aw-vgl"/>
         <segue reference="cCp-tS-h07"/>
         <segue reference="fcf-HI-Tc8"/>
         <segue reference="yvf-5p-X2z"/>
         <segue reference="hBn-y3-qKM"/>
         <segue reference="AGt-Q0-zDh"/>
+        <segue reference="Y5D-AL-CYy"/>
         <segue reference="GTj-hh-MDQ"/>
         <segue reference="f5d-Ra-j3v"/>
     </inferredMetricsTieBreakers>
