@@ -53,4 +53,10 @@
 
 +(void)setNumUninvitedParticipants:(int)num;
 
++(void)setChatIDPendingCreation:(NSString*)chatID;
+
++(void)resetChatIDPendingCreation;
+
++(NSString *)getChatIDPendingCreation;
+
 @end

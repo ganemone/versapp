@@ -11,10 +11,10 @@
 #import "ConfessionsManager.h"
 #import "ConfessionTableCell.h"
 #import "Constants.h"
-#import "OneToOneChat.h"
-#import "OneToOneChatManager.h"
 #import "OneToOneConversationViewController.h"
 #import "StyleManager.h"
+#import "ChatDBManager.h"
+#import "ChatMO.h"
 @interface ConfessionsViewController ()
 
 @property ConfessionsManager *confessionsManager;
@@ -23,11 +23,18 @@
 @property (strong, nonatomic) UIImage *favIconActive;
 @property (strong, nonatomic) UIImage *gradLineSmall;
 @property (strong, nonatomic) UIImage *chatIcon;
-@property (strong, nonatomic) OneToOneChat *createdChat;
+@property (strong, nonatomic) ChatMO *createdChat;
 
 @end
 
 @implementation ConfessionsViewController
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:SEGUE_ID_CREATED_ONE_TO_ONE_CHAT_FROM_CONFESSION]) {
+        OneToOneConversationViewController *dest = segue.destinationViewController;
+        [dest setChatMO:_createdChat];
+    }
+}
 
 - (void)viewDidLoad
 {
@@ -110,8 +117,9 @@
 }
 
 - (void)handleOneToOneChatCreatedFromConfession {
-    _createdChat = [[OneToOneChatManager getInstance] getPendingChat];
+    _createdChat = [ChatDBManager getChatWithID:[ChatDBManager getChatIDPendingCreation]];
     [self performSegueWithIdentifier:SEGUE_ID_CREATED_ONE_TO_ONE_CHAT_FROM_CONFESSION sender:self];
+    [ChatDBManager resetChatIDPendingCreation];
 }
 
 @end

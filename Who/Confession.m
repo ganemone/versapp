@@ -9,8 +9,8 @@
 #import "Confession.h"
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
-#import "OneToOneChat.h"
-#import "OneToOneChatManager.h"
+#import "ChatDBManager.h"
+#import "Constants.h"
 
 @implementation Confession
 
@@ -96,10 +96,9 @@
     NSString *chatID = [NSString stringWithFormat:@"%@%ld", [ConnectionProvider getUser],(long)[[NSDate date] timeIntervalSince1970]];
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createCreateOneToOneChatFromConfessionPacket:self chatID:chatID]];
     NSString *invitedID = [[_posterJID componentsSeparatedByString:@"@"] firstObject];
-    OneToOneChat *chat = [OneToOneChat create:chatID inviterID:[ConnectionProvider getUser] invitedID:invitedID createdTimestamp:nil chatName:_body];
-    OneToOneChatManager *cm = [OneToOneChatManager getInstance];
-    [cm addChat:chat];
-    [cm setPendingChatID:chatID];    
+    NSString *participants = [NSString stringWithFormat:@"%@, %@", [ConnectionProvider getUser], invitedID];
+    [ChatDBManager setChatIDPendingCreation:chatID];
+    [ChatDBManager insertChatWithID:chatID chatName:_body chatType:CHAT_TYPE_ONE_TO_ONE participantString:participants status:STATUS_JOINED];
 }
 
 @end

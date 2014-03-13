@@ -229,13 +229,31 @@
     [create addChild:type];
     [create addChild:participantsElement];
     
-    DDXMLElement *iq = [self getWhoChatIQElementWithType:@"set" packetID:PACKET_ID_CREATE_MUC children:create];
-    NSLog(@"Create Muc Packet \n\n %@", iq.XMLString);
+    DDXMLElement *iq = [self getWhoChatIQElementWithType:@"set" packetID:PACKET_ID_CREATE_ONE_TO_ONE_CHAT children:create];
+    NSLog(@"Create One To One Chat Packet \n\n %@", iq.XMLString);
     return iq;
 }
 
 +(DDXMLElement *)createCreateOneToOneChatFromConfessionPacket:(Confession*)confession chatID:(NSString*)chatID {
-    return nil;
+    DDXMLElement *create = [DDXMLElement elementWithName:@"create"],
+    *chatIDElement = [DDXMLElement elementWithName:@"id" stringValue:chatID],
+    *name = [DDXMLElement elementWithName:@"name" stringValue:confession.body],
+    *owner = [DDXMLElement elementWithName:@"owner_id" stringValue:@"server"],
+    *type = [DDXMLElement elementWithName:@"type" stringValue:CHAT_TYPE_ONE_TO_ONE],
+    *participantsElement = [DDXMLElement elementWithName:@"participants"];
+    NSString *invitedID = [[confession.posterJID componentsSeparatedByString:@"@"] firstObject];
+
+    [participantsElement addChild:[DDXMLNode elementWithName:@"participant" stringValue:invitedID]];
+    
+    [create addChild:chatIDElement];
+    [create addChild:name];
+    [create addChild:owner];
+    [create addChild:type];
+    [create addChild:participantsElement];
+    
+    DDXMLElement *iq = [self getWhoChatIQElementWithType:@"set" packetID:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION children:create];
+    NSLog(@"Create Chat From Confession Packet \n\n %@", iq.XMLString);
+    return iq;
 }
 
 +(DDXMLElement *)createMUCConfigurationFormRequestPacket:(NSString*)roomName {

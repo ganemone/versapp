@@ -370,6 +370,7 @@
 }
 
 +(void)handleCreateOneToOneChatFromConfessionPacket:(XMPPIQ *)iq {
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION object:nil];
 }
 
