@@ -676,11 +676,11 @@
             <objects>
                 <viewController storyboardIdentifier="ConversationViewController" hidesBottomBarWhenPushed="YES" id="LSk-rM-HTJ" customClass="ConversationViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0UM-Gi-lHb">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="vsd-42-qBE">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="2"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Fw9-eG-ihU">
@@ -714,7 +714,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yd9-J6-Wir" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4571" y="164"/>
+            <point key="canvasLocation" x="4051" y="144"/>
         </scene>
         <!--Confessions View Controller - Confessions-->
         <scene sceneID="g8k-18-lyM">
@@ -936,7 +936,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j9h-0E-rVD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4109" y="174"/>
+            <point key="canvasLocation" x="3589" y="154"/>
         </scene>
         <!--One To One Conversation View Controller-->
         <scene sceneID="3FC-Hw-v7z">
@@ -1143,9 +1143,9 @@
         <segue reference="fcf-HI-Tc8"/>
         <segue reference="yvf-5p-X2z"/>
         <segue reference="hBn-y3-qKM"/>
-        <segue reference="AGt-Q0-zDh"/>
         <segue reference="Y5D-AL-CYy"/>
         <segue reference="GTj-hh-MDQ"/>
         <segue reference="f5d-Ra-j3v"/>
+        <segue reference="v72-9M-1Zf"/>
     </inferredMetricsTieBreakers>
 </document>
