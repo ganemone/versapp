@@ -18,4 +18,8 @@
 @dynamic searchedEmail;
 @dynamic searchedPhoneNumber;
 
+-(NSString *)description {
+    return [NSString stringWithFormat:@"%@ \n %@ \n %@ \n %@ \n %@ \n %@", self.email, self.name, self.status, self.username, self.searchedEmail, self.searchedPhoneNumber];
+}
+
 @end

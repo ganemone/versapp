@@ -83,7 +83,10 @@
         searchedPhoneNumber = [packetXML substringWithRange:[match rangeAtIndex:2]];
         if ([match rangeAtIndex:3].length != 0) {
             searchedEmail = [packetXML substringWithRange:[match rangeAtIndex:3]];
+        } else {
+            searchedEmail = nil;
         }
+        //NSLog(@"Search Match: \n Username: %@ \n Searched Phone: %@ \n Searched Email: %@ \n", username, searchedPhoneNumber, searchedEmail);
         [FriendsDBManager insert:username name:nil email:searchedEmail status:[NSNumber numberWithInt:STATUS_REGISTERED] searchedPhoneNumber:searchedPhoneNumber searchedEmail:searchedEmail];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_SEARCH_FOR_USERS object:nil];

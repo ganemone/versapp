@@ -66,6 +66,7 @@
 }
 
 -(void)handleUserSearchFinished {
+    NSLog(@"Handling user search finished....");
     ContactSearchManager *csm = [ContactSearchManager getInstance];
     [csm updateContactListAfterUserSearch];
     _registeredContacts = [FriendsDBManager getAllWithStatusRegistered];

@@ -27,6 +27,7 @@ static ContactSearchManager *selfInstance;
 +(instancetype)getInstance {
     @synchronized(self) {
         if (selfInstance == nil) {
+            NSLog(@"Allocating self...");
             selfInstance = [[self alloc] init];
             selfInstance.contacts = [[NSMutableArray alloc] initWithCapacity:100];
         }
@@ -88,7 +89,7 @@ static ContactSearchManager *selfInstance;
                             }
                         }
                         
-                        [self.contacts addObject:[NSDictionary dictionaryWithObjectsAndKeys:VCARD_TAG_FIRST_NAME, firstName, VCARD_TAG_LAST_NAME, lastName, VCARD_TAG_EMAIL, emailBufferArray, VCARD_TAG_USERNAME, phoneBufferArray, nil]];
+                        [self.contacts addObject:[NSDictionary dictionaryWithObjectsAndKeys:firstName, VCARD_TAG_FIRST_NAME, lastName, VCARD_TAG_LAST_NAME, emailBufferArray, VCARD_TAG_EMAIL, phoneBufferArray, VCARD_TAG_USERNAME, nil]];
                     }
                     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createUserSearchPacketWithPhoneNumbers:allPhoneNumbers emails:allEmails]];
                 }
@@ -115,9 +116,11 @@ static ContactSearchManager *selfInstance;
                 tempEmail = [emailAddresses objectAtIndex:i];
                 found = [FriendsDBManager hasUserWithEmail:tempEmail];
             }
+            i++;
         }
         int status = (found == YES) ? STATUS_REGISTERED : STATUS_UNREGISTERED;
         NSString *name = [NSString stringWithFormat:@"%@ %@", [contact objectForKey:VCARD_TAG_FIRST_NAME], [contact objectForKey:VCARD_TAG_LAST_NAME]];
+
         [FriendsDBManager insert:tempPhone
                             name:name
                            email:tempEmail
