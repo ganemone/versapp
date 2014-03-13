@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "DDXMLElement.h"
-#import "Message.h"
 #import "Confession.h"
 #import "MessageMO.h"
 

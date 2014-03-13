@@ -354,18 +354,6 @@
 }
 
 +(void)handlePostConfessionPacket:(XMPPIQ *)iq {
-    NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<value>\"(\\d{3})\",\"(.*?)\"<\\/value>" options:NSRegularExpressionCaseInsensitive error:&error];
-    NSString *packetXML = [IQPacketReceiver getPacketXMLWithoutWhiteSpace:iq];
-    NSTextCheckingResult *match = [regex firstMatchInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
-    if ([match numberOfRanges] > 0) {
-        NSString *confessionID = [packetXML substringWithRange:[match rangeAtIndex:1]];
-        NSString *timestamp = [packetXML substringWithRange:[match rangeAtIndex:2]];
-        ConfessionsManager *confessionsManager = [ConfessionsManager getInstance];
-        [confessionsManager updatePendingConfession:confessionID timestamp:timestamp];
-    } else {
-        NSLog(@"Something went wrong with posting a confession...");
-    }
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_POST_CONFESSION object:nil];
 }
 

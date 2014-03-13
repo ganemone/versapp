@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GroupChat.h"
 #import "JSMessagesViewController.h"
 #import "ImageManager.h"
 #import "ImageCache.h"

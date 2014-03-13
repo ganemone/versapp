@@ -66,10 +66,6 @@
 		3A47C844189F1A52003020D7 /* FriendsDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A47C843189F1A52003020D7 /* FriendsDBManager.m */; };
 		3A47C847189F1F02003020D7 /* MessagesDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A47C846189F1F02003020D7 /* MessagesDBManager.m */; };
 		3A5699A81886CE8300746CC8 /* IQPacketReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5699A71886CE8300746CC8 /* IQPacketReceiver.m */; };
-		3A5699AB1886D4B900746CC8 /* Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5699AA1886D4B900746CC8 /* Chat.m */; };
-		3A5699AE1886D4D900746CC8 /* GroupChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5699AD1886D4D900746CC8 /* GroupChat.m */; };
-		3A5699B11886D4F900746CC8 /* OneToOneChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5699B01886D4F900746CC8 /* OneToOneChat.m */; };
-		3A5699B81886D80C00746CC8 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5699B71886D80C00746CC8 /* Message.m */; };
 		3A59D5EB18B2D4C800CE7B7B /* MainSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A59D5EA18B2D4C800CE7B7B /* MainSwipeViewController.m */; };
 		3A59D5EE18B2F2FE00CE7B7B /* RNBlurModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A59D5ED18B2F2FE00CE7B7B /* RNBlurModalView.m */; };
 		3A59D5F118B2F32200CE7B7B /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A59D5F018B2F32200CE7B7B /* Accelerate.framework */; };
@@ -79,7 +75,6 @@
 		3A720CBA18A28ECB00423959 /* MessagePacketReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A720CB918A28ECB00423959 /* MessagePacketReceiver.m */; };
 		3A7D577318D14E47004F90B8 /* ContactSearchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A7D577218D14E47004F90B8 /* ContactSearchManager.m */; };
 		3A7D69F31896F12100E18B45 /* OneToOneConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A7D69F21896F12100E18B45 /* OneToOneConversationViewController.m */; };
-		3A81F49A188D905A0006DD5D /* GroupChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A81F499188D90590006DD5D /* GroupChatManager.m */; };
 		3A8BCF7518B5960300D4B7CE /* ConfessionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BCF7418B5960300D4B7CE /* ConfessionsViewController.m */; };
 		3A8BCF7918B5964400D4B7CE /* ConfessionsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BCF7818B5964400D4B7CE /* ConfessionsManager.m */; };
 		3A8BCF7F18B59C5400D4B7CE /* Confession.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BCF7E18B59C5400D4B7CE /* Confession.m */; };
@@ -146,7 +141,6 @@
 		3A98DA6318BD1A7E00B69049 /* XMPPXFacebookPlatformAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98DA5918BD1A7E00B69049 /* XMPPXFacebookPlatformAuthentication.m */; };
 		3A98DA6418BD1A7E00B69049 /* XMPPXOAuth2Google.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98DA5C18BD1A7E00B69049 /* XMPPXOAuth2Google.m */; };
 		3A98DA6718BD1B9D00B69049 /* NSString+DDXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98DA6618BD1B9D00B69049 /* NSString+DDXML.m */; };
-		3AAE9B1718945710003B4560 /* OneToOneChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAE9B1618945710003B4560 /* OneToOneChatManager.m */; };
 		3AAE9B1A1894A049003B4560 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAE9B191894A049003B4560 /* ConversationViewController.m */; };
 		3AB8D18818C23DF00082B77C /* MavenProLight-100.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AB8D18518C23DF00082B77C /* MavenProLight-100.ttf */; };
 		3AB8D18918C23DF00082B77C /* MavenProLight-200.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AB8D18618C23DF00082B77C /* MavenProLight-200.ttf */; };
@@ -326,14 +320,6 @@
 		3A47C846189F1F02003020D7 /* MessagesDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesDBManager.m; sourceTree = "<group>"; };
 		3A5699A61886CE8300746CC8 /* IQPacketReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQPacketReceiver.h; sourceTree = "<group>"; };
 		3A5699A71886CE8300746CC8 /* IQPacketReceiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQPacketReceiver.m; sourceTree = "<group>"; };
-		3A5699A91886D4B900746CC8 /* Chat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chat.h; sourceTree = "<group>"; };
-		3A5699AA1886D4B900746CC8 /* Chat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chat.m; sourceTree = "<group>"; };
-		3A5699AC1886D4D900746CC8 /* GroupChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupChat.h; sourceTree = "<group>"; };
-		3A5699AD1886D4D900746CC8 /* GroupChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupChat.m; sourceTree = "<group>"; };
-		3A5699AF1886D4F900746CC8 /* OneToOneChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneToOneChat.h; sourceTree = "<group>"; };
-		3A5699B01886D4F900746CC8 /* OneToOneChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneToOneChat.m; sourceTree = "<group>"; };
-		3A5699B61886D80C00746CC8 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
-		3A5699B71886D80C00746CC8 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		3A59D5E918B2D4C800CE7B7B /* MainSwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainSwipeViewController.h; sourceTree = "<group>"; };
 		3A59D5EA18B2D4C800CE7B7B /* MainSwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainSwipeViewController.m; sourceTree = "<group>"; };
 		3A59D5EC18B2F2FE00CE7B7B /* RNBlurModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNBlurModalView.h; sourceTree = "<group>"; };
@@ -352,8 +338,6 @@
 		3A7D577218D14E47004F90B8 /* ContactSearchManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactSearchManager.m; sourceTree = "<group>"; };
 		3A7D69F11896F12100E18B45 /* OneToOneConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneToOneConversationViewController.h; sourceTree = "<group>"; };
 		3A7D69F21896F12100E18B45 /* OneToOneConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneToOneConversationViewController.m; sourceTree = "<group>"; };
-		3A81F498188D90590006DD5D /* GroupChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupChatManager.h; sourceTree = "<group>"; };
-		3A81F499188D90590006DD5D /* GroupChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupChatManager.m; sourceTree = "<group>"; };
 		3A8BCF7318B5960300D4B7CE /* ConfessionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfessionsViewController.h; sourceTree = "<group>"; };
 		3A8BCF7418B5960300D4B7CE /* ConfessionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfessionsViewController.m; sourceTree = "<group>"; };
 		3A8BCF7718B5964400D4B7CE /* ConfessionsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfessionsManager.h; sourceTree = "<group>"; };
@@ -494,8 +478,6 @@
 		3A98DA5D18BD1A7E00B69049 /* XMPPSASLAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPSASLAuthentication.h; sourceTree = "<group>"; };
 		3A98DA6518BD1B9D00B69049 /* NSString+DDXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DDXML.h"; sourceTree = "<group>"; };
 		3A98DA6618BD1B9D00B69049 /* NSString+DDXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DDXML.m"; sourceTree = "<group>"; };
-		3AAE9B1518945710003B4560 /* OneToOneChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneToOneChatManager.h; sourceTree = "<group>"; };
-		3AAE9B1618945710003B4560 /* OneToOneChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneToOneChatManager.m; sourceTree = "<group>"; };
 		3AAE9B181894A049003B4560 /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
 		3AAE9B191894A049003B4560 /* ConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
 		3AB8D18518C23DF00082B77C /* MavenProLight-100.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MavenProLight-100.ttf"; sourceTree = "<group>"; };
@@ -726,7 +708,6 @@
 				3A25B6451881E03700166623 /* AppDelegate.h */,
 				3A25B6481881E03700166623 /* Main.storyboard */,
 				3A8BCF7618B5961F00D4B7CE /* Confessions */,
-				3A5699B21886D50300746CC8 /* Chat */,
 				3A81F49B188DB2190006DD5D /* Connection */,
 				3A25B6511881E03700166623 /* Images.xcassets */,
 				3A25B63D1881E03700166623 /* Supporting Files */,
@@ -962,25 +943,6 @@
 				3A47C846189F1F02003020D7 /* MessagesDBManager.m */,
 			);
 			name = DB;
-			sourceTree = "<group>";
-		};
-		3A5699B21886D50300746CC8 /* Chat */ = {
-			isa = PBXGroup;
-			children = (
-				3A5699A91886D4B900746CC8 /* Chat.h */,
-				3A5699AA1886D4B900746CC8 /* Chat.m */,
-				3A5699B61886D80C00746CC8 /* Message.h */,
-				3A5699B71886D80C00746CC8 /* Message.m */,
-				3A5699AC1886D4D900746CC8 /* GroupChat.h */,
-				3A5699AD1886D4D900746CC8 /* GroupChat.m */,
-				3A5699AF1886D4F900746CC8 /* OneToOneChat.h */,
-				3A5699B01886D4F900746CC8 /* OneToOneChat.m */,
-				3A81F498188D90590006DD5D /* GroupChatManager.h */,
-				3A81F499188D90590006DD5D /* GroupChatManager.m */,
-				3AAE9B1518945710003B4560 /* OneToOneChatManager.h */,
-				3AAE9B1618945710003B4560 /* OneToOneChatManager.m */,
-			);
-			name = Chat;
 			sourceTree = "<group>";
 		};
 		3A59D5EF18B2F30300CE7B7B /* RNBlurModalView */ = {
@@ -1803,7 +1765,6 @@
 				3A3A0AE618AB1126006FBAE4 /* JSMessageTableView.m in Sources */,
 				3A3A0ADD18AB1126006FBAE4 /* JSAvatarImageFactory.m in Sources */,
 				3A98D9D518BD1A2600B69049 /* XMPPReconnect.m in Sources */,
-				3AAE9B1718945710003B4560 /* OneToOneChatManager.m in Sources */,
 				3AF19A511881F1DD00F3E4D3 /* GCDAsyncSocket.m in Sources */,
 				3A98D8E618BD19B200B69049 /* XMPPMessage.m in Sources */,
 				3AF19A691881F34A00F3E4D3 /* DDXMLDocument.m in Sources */,
@@ -1844,7 +1805,6 @@
 				3A98D8E518BD19B200B69049 /* XMPPJID.m in Sources */,
 				3A98D9EC18BD1A2600B69049 /* XMPPRoomMessageHybridCoreDataStorageObject.m in Sources */,
 				3AC6D0D218C22A9500091539 /* StyleManager.m in Sources */,
-				3A81F49A188D905A0006DD5D /* GroupChatManager.m in Sources */,
 				3A3A0AE718AB1126006FBAE4 /* JSMessageTextView.m in Sources */,
 				3A98D9D118BD1A2600B69049 /* XMPPBandwidthMonitor.m in Sources */,
 				3A98DA3918BD1A4B00B69049 /* RFImageToDataTransformer.m in Sources */,
@@ -1896,7 +1856,6 @@
 				3AC6D0CF18C0E17100091539 /* ChatDBManager.m in Sources */,
 				3A98DA3A18BD1A4B00B69049 /* XMPPIDTracker.m in Sources */,
 				3A59D5EB18B2D4C800CE7B7B /* MainSwipeViewController.m in Sources */,
-				3A5699AE1886D4D900746CC8 /* GroupChat.m in Sources */,
 				3A98DA4618BD1A6500B69049 /* NSXMLElement+XMPP.m in Sources */,
 				3A3A0AE318AB1126006FBAE4 /* JSMessageInputView.m in Sources */,
 				3A98DA4518BD1A6500B69049 /* NSNumber+XMPP.m in Sources */,
@@ -1918,7 +1877,6 @@
 				F751016918ABE101001F1E7F /* IASKSwitch.m in Sources */,
 				3A98D9D618BD1A2600B69049 /* XMPPGroupCoreDataStorageObject.m in Sources */,
 				3A98D8E918BD19B200B69049 /* XMPPPresence.m in Sources */,
-				3A5699AB1886D4B900746CC8 /* Chat.m in Sources */,
 				3A98D9D818BD1A2600B69049 /* XMPPRoster.xcdatamodel in Sources */,
 				3AF5113D1885D79E002383D3 /* Constants.m in Sources */,
 				3AF19A6B1881F34A00F3E4D3 /* DDXMLNode.m in Sources */,
@@ -1929,7 +1887,6 @@
 				3A98DA6418BD1A7E00B69049 /* XMPPXOAuth2Google.m in Sources */,
 				3A98DA6318BD1A7E00B69049 /* XMPPXFacebookPlatformAuthentication.m in Sources */,
 				3AF19A6A1881F34A00F3E4D3 /* DDXMLElement.m in Sources */,
-				3A5699B81886D80C00746CC8 /* Message.m in Sources */,
 				F751016818ABE101001F1E7F /* IASKSlider.m in Sources */,
 				3A98DA1F18BD1A2600B69049 /* XMPPPing.m in Sources */,
 				3AF19A471881EF1600F3E4D3 /* DDFileLogger.m in Sources */,
@@ -1938,7 +1895,6 @@
 				3A98D9D418BD1A2600B69049 /* XMPPProcessOne.m in Sources */,
 				3A8BCF7918B5964400D4B7CE /* ConfessionsManager.m in Sources */,
 				3A720CB418A1C2E200423959 /* MUCCreationManager.m in Sources */,
-				3A5699B11886D4F900746CC8 /* OneToOneChat.m in Sources */,
 				3A3A0ADA18AB1126006FBAE4 /* NSString+JSMessagesView.m in Sources */,
 				3AF19A6C1881F34A00F3E4D3 /* ContextFilterLogFormatter.m in Sources */,
 				F751016118ABE101001F1E7F /* IASKSettingsStore.m in Sources */,

@@ -18,10 +18,6 @@
 
 +(NSMutableArray*)getMessagesByChat:(NSString*)chatID;
 
-+(NSMutableArray *)getMessageObjectsForMUC:(NSString *)chatID;
-
-+(NSMutableArray *)getMessageObjectsForOneToOneChat:(NSString *)chatID;
-
 +(NSString*)getTimeForHistory;
 
 @end

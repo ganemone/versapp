@@ -27,7 +27,7 @@
     NSRegularExpression *createGroupRegex = [NSRegularExpression regularExpressionWithPattern:@"<presence.xmlns=\"jabber:client\".from=\"(.*?)@.*?\".to=\"(.*?)\"><x xmlns=\"(.*?)\"><item.jid=\"(.*?)\".affiliation=\"owner\".role=\"moderator\"\\/><status.code=\"201\"\\/><\\/x><\\/presence>" options:NSRegularExpressionCaseInsensitive error:&error];
     NSTextCheckingResult *match = [createGroupRegex firstMatchInString:presence.XMLString options:0 range:NSMakeRange(0, presence.XMLString.length)];
     if ([match numberOfRanges] > 0) {
-        NSString *from = [presence.XMLString substringWithRange:[match rangeAtIndex:1]];
+        //NSString *from = [presence.XMLString substringWithRange:[match rangeAtIndex:1]];
         //NSString *to = [presence.XMLString substringWithRange:[match rangeAtIndex:2]];
         NSString *xmlns = [presence.XMLString substringWithRange:[match rangeAtIndex:3]];
         //NSString *jid = [presence.XMLString substringWithRange:[match rangeAtIndex:4]];

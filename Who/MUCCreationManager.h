@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "XMPPRoom.h"
-#import "GroupChat.h"
 #import "ChatMO.h"
 
 @interface MUCCreationManager : NSObject <XMPPRoomDelegate>

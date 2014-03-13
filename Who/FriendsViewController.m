@@ -183,7 +183,7 @@
         self.isCreatingGroup = NO;
     } else if (buttonIndex == 1) {
         XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
-        NSString *chatID = [Chat createGroupID];
+        NSString *chatID = [ChatMO createGroupID];
         [conn sendElement:[IQPacketManager createCreateOneToOneChatPacket:chatID invitedUser:self.invitedUser roomName:@"Anonymous Friend"]];
         _createdChat = [ChatDBManager insertChatWithID:chatID chatName:[FriendsDBManager getUserWithJID:self.invitedUser].name chatType:CHAT_TYPE_ONE_TO_ONE participantString:[NSString stringWithFormat:@"%@, %@", [ConnectionProvider getUser], self.invitedUser] status:STATUS_JOINED];
     }   

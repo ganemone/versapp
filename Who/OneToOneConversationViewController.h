@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OneToOneChat.h"
 #import "JSMessagesViewController.h"
 #import "ImageCache.h"
 #import "ImageManager.h"
@@ -15,7 +14,6 @@
 
 @interface OneToOneConversationViewController : JSMessagesViewController <JSMessagesViewDelegate, JSMessagesViewDataSource, ImageManagerDelegate>
 
-@property (strong, nonatomic) OneToOneChat *chat;
 @property (strong, nonatomic) ImageManager *im;
 @property (strong, nonatomic) NSMutableArray *downloadingImageURLs;
 @property (strong, nonatomic) ImageCache *imageCache;

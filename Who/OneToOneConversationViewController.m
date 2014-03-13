@@ -12,13 +12,10 @@
 #import "ConnectionProvider.h"
 #import "RNBlurModalView.h"
 #import "ChatDBManager.h"
-#import "Message.h"
 #import "MessageMO.h"
 #import "ChatMO.h"
 
 @implementation OneToOneConversationViewController
-
-@synthesize chat;
 
 - (void)viewDidLoad
 {
@@ -182,7 +179,7 @@
     
 }
 
--(void)didFinishDownloadingImage:(UIImage *)image fromURL:(NSString *)url forMessage:(Message *)message {
+-(void)didFinishDownloadingImage:(UIImage *)image fromURL:(NSString *)url forMessage:(MessageMO *)message {
     [self.tableView reloadData];
 }
 

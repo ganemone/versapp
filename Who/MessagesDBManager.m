@@ -8,7 +8,6 @@
 #import "AppDelegate.h"
 #import "MessagesDBManager.h"
 #import "Constants.h"
-#import "Message.h"
 #import "MessageMO.h"
 #import "ConnectionProvider.h"
 
@@ -60,28 +59,6 @@
     NSError* error;
     NSArray *fetchedItems = [moc executeFetchRequest:fetchRequest error:&error];
     return [NSMutableArray arrayWithArray:fetchedItems];
-}
-
-+(NSMutableArray *)getMessageObjectsForMUC:(NSString *)chatID {
-    NSArray *fetchedRecords = [self getMessagesByChat:chatID];
-    NSMutableArray *messages = [[NSMutableArray alloc] initWithCapacity:fetchedRecords.count];
-    MessageMO *dbmessage;
-    for (int i = 0; i < fetchedRecords.count; i++) {
-        dbmessage = [fetchedRecords objectAtIndex:i];
-        [messages addObject:[Message createForMUCWithImage:dbmessage.message_body sender:dbmessage.sender_id chatID:dbmessage.group_id imageLink:dbmessage.image_link timestamp:dbmessage.time]];
-    }
-    return messages;
-}
-
-+(NSMutableArray *)getMessageObjectsForOneToOneChat:(NSString *)chatID {
-    NSArray *fetchedRecords = [self getMessagesByChat:chatID];
-    NSMutableArray *messages = [[NSMutableArray alloc] initWithCapacity:fetchedRecords.count];
-    MessageMO *dbmessage;
-    for (int i = 0; i < fetchedRecords.count; i++) {
-        dbmessage = [fetchedRecords objectAtIndex:i];
-        [messages addObject:[Message createForOneToOneWithImage:dbmessage.message_body sender:dbmessage.sender_id chatID:dbmessage.group_id messageTo:dbmessage.receiver_id imageLink:dbmessage.image_link timestamp:dbmessage.time]];
-    }
-    return messages;
 }
 
 +(NSString*)getLastMessageForChatWithID:(NSString*)chatID {
