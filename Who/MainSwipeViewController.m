@@ -12,13 +12,13 @@
 #import "ContactsViewController.h"
 #import "ConversationViewController.h"
 #import "OneToOneConversationViewController.h"
-#import "GroupChatManager.h"
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
 #import "ConfessionsViewController.h"
 #import "Constants.h"
 #import "StyleManager.h"
 #import "FriendsDBManager.h"
+#import "ChatDBManager.h"
 #import "FriendMO.h"
 
 #define NumViewPages 4
@@ -27,7 +27,6 @@
 
 @property UIPageViewController *pageViewController;
 @property(nonatomic, strong) ConnectionProvider *connectionProvider;
-@property (nonatomic, strong) GroupChatManager *groupChat;
 @property (nonatomic, strong) NSMutableArray *notifications;
 @property (nonatomic, strong) NSMutableArray *friendRequests;
 @property (nonatomic, strong) UITableView *notificationTableView;
@@ -153,8 +152,7 @@ CAShapeLayer *closedNotifications;
 -(void)loadNotifications:(NSNotification *)notification {
     NSLog(@"Load notifications");
     
-    self.groupChat = [GroupChatManager getInstance];
-    self.notifications = self.groupChat.pending;
+    
     self.friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
     
     self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(self.view.frame.size.width*0.05, 0, self.view.frame.size.width*0.9, self.view.frame.size.height*0.5)];

@@ -41,8 +41,8 @@
         
     } else if([self isPacketWithID:PACKET_ID_REGISTER_USER packet:iq]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_REGISTER_USER object:nil];
-    } else if([self isPacketWithID:PACKET_ID_GET_LAST_TIME_ACTIVE packet:iq]) {
-        [self handleGetLastTimeActivePacket:iq];
+    //} else if([self isPacketWithID:PACKET_ID_GET_LAST_TIME_ACTIVE packet:iq]) {
+        //[self handleGetLastTimeActivePacket:iq];
     } else if([self isPacketWithID:PACKET_ID_GET_SERVER_TIME packet:iq]) {
         [self handleGetServerTimePacket:iq];
     } else if([self isPacketWithID:PACKET_ID_GET_VCARD packet:iq]) {
@@ -143,7 +143,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
 }
 
-+(void)handleGetLastTimeActivePacket:(XMPPIQ *)iq {
+/*+(void)handleGetLastTimeActivePacket:(XMPPIQ *)iq {
     NSError *error = NULL;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(.*?)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
     NSTextCheckingResult *match = [regex firstMatchInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
@@ -164,7 +164,7 @@
     GroupChatManager *gcm = [GroupChatManager getInstance];
     [gcm setTimeForHistory:[userInfo objectForKey:PACKET_ID_GET_LAST_TIME_ACTIVE]];
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil userInfo:userInfo];
-}
+}*/
 
 +(void)handleGetServerTimePacket:(XMPPIQ *)packet {
     NSError *error = NULL;

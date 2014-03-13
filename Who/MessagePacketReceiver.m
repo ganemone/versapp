@@ -9,16 +9,14 @@
 #import "MessagePacketReceiver.h"
 #import "XMPPMessage.h"
 // Chat Related Objects
-#import "GroupChat.h"
-#import "GroupChatManager.h"
-#import "OneToOneChat.h"
-#import "OneToOneChatManager.h"
 // DB
 #import "MessagesDBManager.h"
+#import "ChatDBManager.h"
 // Other
 #import "Constants.h"
 #import "ConnectionProvider.h"
-#import "Message.h"
+#import "ChatMO.h"
+#import "MessageMO.h"
 #import "IQPacketManager.h"
 #import "ChatDBManager.h"
 
@@ -90,19 +88,10 @@
                 newMessage = [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:receiverID];
             }
             NSDictionary *messageDictionary = [NSDictionary dictionaryWithObject:newMessage forKey:DICTIONARY_KEY_MESSAGE_OBJECT];
-            GroupChatManager *gcm = [GroupChatManager getInstance];
-            //GroupChat *gc = [gcm getChat:groupID];
-            //Message *messageObject = [Message createForMUCWithImage:message.body sender:senderID chatID:groupID imageLink:imageLink timestamp:timestamp];
-            //if ([senderID compare:[ConnectionProvider getUser]] == 0) {
-            //[gc updateMessage:messageObject];
-            //} else {
-            //[gc addMessage: messageObject];
             NSLog(@"Received Message! Sending notification now...");
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
             //}
             [ChatDBManager setHasNewMessageYes:groupID];
-            
-            [gcm sortChats];
         } else if([message.type compare:CHAT_TYPE_ONE_TO_ONE] == 0) {
             if (imageLink != nil) {
                 [MessagesDBManager insert:message.body groupID:message.thread time:timestamp senderID:senderID receiverID:receiverID imageLink:imageLink];
@@ -110,18 +99,11 @@
                 [MessagesDBManager insert:message.body groupID:message.thread time:timestamp senderID:senderID receiverID:receiverID];
             }
             NSDictionary *messageDictionary = [NSDictionary dictionaryWithObject:message.thread forKey:MESSAGE_PROPERTY_GROUP_ID];
-            OneToOneChatManager *cm = [OneToOneChatManager getInstance];
-            OneToOneChat *chat = [cm getChat:message.thread];
-            if (chat == nil) {
-                chat = [OneToOneChat create:message.thread inviterID:senderID invitedID:receiverID createdTimestamp:timestamp];
-                [chat setName:@"Anonymous Friend"];
-                [ChatDBManager insertChatWithID:message.thread chatName:@"Anonymous Friend" chatType:CHAT_TYPE_ONE_TO_ONE participantString:[NSString stringWithFormat:@"%@, %@", senderID, receiverID] status:STATUS_JOINED];
-                [cm addChat:chat];
+            if ([ChatDBManager hasChatWithID:message.thread] == NO) {
+                [ChatDBManager insertChatWithID:message.thread chatName:@"Anonymous Friend" chatType:CHAT_TYPE_ONE_TO_ONE participantString:senderID status:STATUS_JOINED];
             }
-            [chat addMessage:[Message createForOneToOneWithImage:message.body sender:senderID chatID:message.thread messageTo:receiverID imageLink:imageLink timestamp:timestamp]];
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
             [ChatDBManager setHasNewMessageYes:message.thread];
-            [cm sortChats];
         } else {
             NSLog(@"Received Unrecognized Message Packet Type!!");
         }
