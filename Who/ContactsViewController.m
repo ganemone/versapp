@@ -13,9 +13,15 @@
 #import "Constants.h"
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
+#import "ContactSearchManager.h"
+#import "FriendsDBManager.h"
 
 @interface ContactsViewController()
+
 @property (strong, nonatomic) ConnectionProvider* cp;
+@property (strong, nonatomic) NSArray *registeredContacts;
+@property (strong, nonatomic) NSArray *unregisteredContacts;
+
 @end
 
 @implementation ContactsViewController
@@ -24,67 +30,47 @@
     [super viewDidLoad];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
-    [self accessContacts];
-}
-
--(void) accessContacts {
-    if (ABAddressBookRequestAccessWithCompletion) {
-        CFErrorRef *error = NULL;
-        ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, error);
-        ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
-            // ABAddressBook doesn't gaurantee execution of this block on main thread, but we want our callbacks to be
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (!granted) {
-                    //failure((__bridge NSError *)error);
-                } else {
-                    NSArray *people = (__bridge NSArray *)(ABAddressBookCopyArrayOfAllPeople(addressBook));
-                    for (id person in people) {
-                        NSString *firstName = (__bridge_transfer NSString*)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonFirstNameProperty);
-                        NSString *lastName = (__bridge_transfer NSString*)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonLastNameProperty);
-                        
-                        NSMutableArray *phoneBufferArray = [[NSMutableArray alloc] init],
-                        *emailBufferArray = [[NSMutableArray alloc] init];
-                        
-                        // Get all phone numbers of a contact
-                        ABMultiValueRef phoneNumbers = ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonPhoneProperty),
-                        emailList = ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonEmailProperty);
-                        
-                        NSInteger emailCount = ABMultiValueGetCount(emailList);
-                        for (int i = 0; i < emailCount; i++) {
-                            [emailBufferArray addObject:(__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(emailList, i)];
-                        }
-                        
-                        NSInteger phoneNumberCount = ABMultiValueGetCount(phoneNumbers);
-                        NSError *regerr = NULL;
-                        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^0-9]" options:NSRegularExpressionCaseInsensitive error:&regerr];
-                        NSString *phone;
-                        for (int i = 0; i < phoneNumberCount; i++) {
-                            phone = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phoneNumbers, i);
-                            phone = [regex stringByReplacingMatchesInString:phone options:0 range:NSMakeRange(0, [phone length]) withTemplate:@""];
-                            [phoneBufferArray addObject:phone];
-                        }
-                        NSLog(@"First Name: %@", firstName);
-                        NSLog(@"Last Name: %@", lastName);
-                        for (int i = 0; i < phoneBufferArray.count; i++) {
-                            NSLog(@"Phone Number: %@", phoneBufferArray[i]);
-                        }
-                        for (int i = 0; i < emailBufferArray.count; i++) {
-                            NSLog(@"Email: %@", emailBufferArray[i]);
-                        }
-                    }
-                }
-                CFRelease(addressBook);
-            });
-        });
-    }
+    
+    self.registeredContacts = [FriendsDBManager getAllWithStatusRegistered];
+    self.unregisteredContacts = [FriendsDBManager getAllWithStatusUnregistered];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserSearchFinished) name:PACKET_ID_SEARCH_FOR_USERS object:nil];
+    ContactSearchManager *csm = [ContactSearchManager getInstance];
+    [csm accessContacts];
+    
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return nil;
+    static NSString *CellIdentifier = @"ContactsTableViewCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    FriendMO *friend;
+    if (indexPath.section == 0) {
+        friend = [self.registeredContacts objectAtIndex:indexPath.row];
+    } else {
+        friend = [self.unregisteredContacts objectAtIndex:indexPath.row];
+    }
+    [cell.textLabel setText:friend.name];
+    return cell;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return (section == 0) ? [_registeredContacts count] : [_unregisteredContacts count];
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return (section == 0) ? @"Versappers in your Contacts" : @"Invite to Versapp";
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
+-(void)handleUserSearchFinished {
+    ContactSearchManager *csm = [ContactSearchManager getInstance];
+    [csm updateContactListAfterUserSearch];
+    _registeredContacts = [FriendsDBManager getAllWithStatusRegistered];
+    _unregisteredContacts = [FriendsDBManager getAllWithStatusUnregistered];
+    [self.tableView reloadData];
 }
 
 @end

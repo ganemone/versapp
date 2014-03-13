@@ -84,7 +84,9 @@
         if ([match rangeAtIndex:3].length != 0) {
             searchedEmail = [packetXML substringWithRange:[match rangeAtIndex:3]];
         }
+        [FriendsDBManager insert:username name:nil email:searchedEmail status:[NSNumber numberWithInt:STATUS_REGISTERED] searchedPhoneNumber:searchedPhoneNumber searchedEmail:searchedEmail];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_SEARCH_FOR_USERS object:nil];
 }
 
 +(void)handleGetChatParticipantsPacket:(XMPPIQ *)iq {

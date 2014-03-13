@@ -77,6 +77,7 @@
 		3A720CB418A1C2E200423959 /* MUCCreationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A720CB318A1C2E200423959 /* MUCCreationManager.m */; };
 		3A720CB718A28DAD00423959 /* PresencePacketReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A720CB618A28DAD00423959 /* PresencePacketReceiver.m */; };
 		3A720CBA18A28ECB00423959 /* MessagePacketReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A720CB918A28ECB00423959 /* MessagePacketReceiver.m */; };
+		3A7D577318D14E47004F90B8 /* ContactSearchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A7D577218D14E47004F90B8 /* ContactSearchManager.m */; };
 		3A7D69F31896F12100E18B45 /* OneToOneConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A7D69F21896F12100E18B45 /* OneToOneConversationViewController.m */; };
 		3A81F49A188D905A0006DD5D /* GroupChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A81F499188D90590006DD5D /* GroupChatManager.m */; };
 		3A8BCF7518B5960300D4B7CE /* ConfessionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BCF7418B5960300D4B7CE /* ConfessionsViewController.m */; };
@@ -347,6 +348,8 @@
 		3A720CB618A28DAD00423959 /* PresencePacketReceiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresencePacketReceiver.m; sourceTree = "<group>"; };
 		3A720CB818A28ECB00423959 /* MessagePacketReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagePacketReceiver.h; sourceTree = "<group>"; };
 		3A720CB918A28ECB00423959 /* MessagePacketReceiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagePacketReceiver.m; sourceTree = "<group>"; };
+		3A7D577118D14E47004F90B8 /* ContactSearchManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactSearchManager.h; sourceTree = "<group>"; };
+		3A7D577218D14E47004F90B8 /* ContactSearchManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactSearchManager.m; sourceTree = "<group>"; };
 		3A7D69F11896F12100E18B45 /* OneToOneConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneToOneConversationViewController.h; sourceTree = "<group>"; };
 		3A7D69F21896F12100E18B45 /* OneToOneConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneToOneConversationViewController.m; sourceTree = "<group>"; };
 		3A81F498188D90590006DD5D /* GroupChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupChatManager.h; sourceTree = "<group>"; };
@@ -710,6 +713,8 @@
 		3A25B63C1881E03700166623 /* Who */ = {
 			isa = PBXGroup;
 			children = (
+				3A7D577118D14E47004F90B8 /* ContactSearchManager.h */,
+				3A7D577218D14E47004F90B8 /* ContactSearchManager.m */,
 				3AB8D19318C2A42B0082B77C /* Login */,
 				F751016B18ABE8A2001F1E7F /* Settings.bundle */,
 				F751013C18ABE100001F1E7F /* InAppSettingsKit */,
@@ -1843,6 +1848,7 @@
 				3A3A0AE718AB1126006FBAE4 /* JSMessageTextView.m in Sources */,
 				3A98D9D118BD1A2600B69049 /* XMPPBandwidthMonitor.m in Sources */,
 				3A98DA3918BD1A4B00B69049 /* RFImageToDataTransformer.m in Sources */,
+				3A7D577318D14E47004F90B8 /* ContactSearchManager.m in Sources */,
 				3A98D9EA18BD1A2600B69049 /* XMPPRoomHybrid.xcdatamodeld in Sources */,
 				3A98D8EA18BD19B200B69049 /* XMPPStream.m in Sources */,
 				F751016218ABE101001F1E7F /* IASKSettingsStoreFile.m in Sources */,
