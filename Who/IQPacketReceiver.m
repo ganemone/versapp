@@ -38,7 +38,7 @@
         
     } else if([self isPacketWithID:PACKET_ID_REGISTER_USER packet:iq]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_REGISTER_USER object:nil];
-    //} else if([self isPacketWithID:PACKET_ID_GET_LAST_TIME_ACTIVE packet:iq]) {
+        //} else if([self isPacketWithID:PACKET_ID_GET_LAST_TIME_ACTIVE packet:iq]) {
         //[self handleGetLastTimeActivePacket:iq];
     } else if([self isPacketWithID:PACKET_ID_GET_SERVER_TIME packet:iq]) {
         [self handleGetServerTimePacket:iq];
@@ -102,7 +102,7 @@
         }
     }
     [ChatDBManager updateChatParticipants:participants];
-    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_CHAT_PARTICIPANTS object:nil]; 
+    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_CHAT_PARTICIPANTS object:nil];
 }
 
 +(void)handleGetJoinedChatsPacket:(XMPPIQ *)iq {
@@ -124,14 +124,17 @@
         participants = [participantString componentsSeparatedByString:@", "];
         
         if ([type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
-            if ([owner isEqualToString:[ConnectionProvider getUser]]) {
-                NSString *participant = ([[participants firstObject] isEqualToString:[ConnectionProvider getUser]]) ? [participants lastObject] : [participants firstObject];
-                name = [FriendsDBManager getUserWithJID:participant].name;
-                if (name == nil) {
-                    name = @"Loading...";
+            ChatMO *chat = [ChatDBManager getChatWithID:chatId];
+            if (chat != nil) {
+                name = chat.user_defined_chat_name;
+            } else {
+                if ([owner isEqualToString:[ConnectionProvider getUser]]) {
+                    NSString *participant = ([[participants firstObject] isEqualToString:[ConnectionProvider getUser]]) ? [participants lastObject] : [participants firstObject];
+                    name = [FriendsDBManager getUserWithJID:participant].name;
+                    if (name == nil) {
+                        name = @"Loading...";
+                    }
                 }
-            } else if(![owner isEqualToString:@"confession"]) {
-                name = @"Anonymous Friend";
             }
         }
         [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_JOINED];
@@ -141,27 +144,27 @@
 }
 
 /*+(void)handleGetLastTimeActivePacket:(XMPPIQ *)iq {
-    NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(.*?)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
-    NSTextCheckingResult *match = [regex firstMatchInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
-    NSString *timestamp = [iq.XMLString substringWithRange:[match rangeAtIndex:1]];
-    NSDictionary *userInfo;
-    if([timestamp compare:@""] == 0) {
-        userInfo = [NSDictionary dictionaryWithObject:@"1970-01-01T00:00:00Z" forKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
-        [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil userInfo:userInfo];
-    } else {
-        NSTimeInterval interval= [timestamp doubleValue];
-        NSDate *gregDate = [NSDate dateWithTimeIntervalSince1970: interval];
-        NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
-        [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-        [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
-        NSString *utcStringDate =[formatter stringFromDate:gregDate];
-        userInfo = [NSDictionary dictionaryWithObject:utcStringDate forKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
-    }
-    GroupChatManager *gcm = [GroupChatManager getInstance];
-    [gcm setTimeForHistory:[userInfo objectForKey:PACKET_ID_GET_LAST_TIME_ACTIVE]];
-    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil userInfo:userInfo];
-}*/
+ NSError *error = NULL;
+ NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\"(.*?)\"\\}" options:NSRegularExpressionCaseInsensitive error:&error];
+ NSTextCheckingResult *match = [regex firstMatchInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
+ NSString *timestamp = [iq.XMLString substringWithRange:[match rangeAtIndex:1]];
+ NSDictionary *userInfo;
+ if([timestamp compare:@""] == 0) {
+ userInfo = [NSDictionary dictionaryWithObject:@"1970-01-01T00:00:00Z" forKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
+ [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil userInfo:userInfo];
+ } else {
+ NSTimeInterval interval= [timestamp doubleValue];
+ NSDate *gregDate = [NSDate dateWithTimeIntervalSince1970: interval];
+ NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+ [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+ [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+ NSString *utcStringDate =[formatter stringFromDate:gregDate];
+ userInfo = [NSDictionary dictionaryWithObject:utcStringDate forKey:PACKET_ID_GET_LAST_TIME_ACTIVE];
+ }
+ GroupChatManager *gcm = [GroupChatManager getInstance];
+ [gcm setTimeForHistory:[userInfo objectForKey:PACKET_ID_GET_LAST_TIME_ACTIVE]];
+ [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil userInfo:userInfo];
+ }*/
 
 +(void)handleGetServerTimePacket:(XMPPIQ *)packet {
     NSError *error = NULL;

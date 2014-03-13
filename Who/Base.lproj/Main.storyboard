@@ -784,6 +784,7 @@
                     <connections>
                         <outlet property="bottomView" destination="xNe-oj-gI8" id="sWY-3R-ygq"/>
                         <outlet property="tableView" destination="jZx-yj-7oZ" id="UqM-pt-QRe"/>
+                        <segue destination="iDZ-uG-Ep6" kind="push" identifier="SegueIDCreatedOneToOneChatFromConfession" id="qGQ-aw-vgl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VJW-15-iT1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -819,7 +820,7 @@
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContactsTableViewCell" textLabel="PhG-UB-B53" style="IBUITableViewCellStyleDefault" id="7aY-L3-X6w">
                                         <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7aY-L3-X6w">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7aY-L3-X6w" id="IDH-aA-4f0">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -1137,14 +1138,14 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="YCw-e7-spT"/>
+        <segue reference="qGQ-aw-vgl"/>
+        <segue reference="cCp-tS-h07"/>
+        <segue reference="fcf-HI-Tc8"/>
+        <segue reference="yvf-5p-X2z"/>
         <segue reference="hBn-y3-qKM"/>
         <segue reference="AGt-Q0-zDh"/>
-        <segue reference="Y5D-AL-CYy"/>
-        <segue reference="f5d-Ra-j3v"/>
-        <segue reference="yvf-5p-X2z"/>
-        <segue reference="fcf-HI-Tc8"/>
-        <segue reference="cCp-tS-h07"/>
-        <segue reference="YCw-e7-spT"/>
         <segue reference="GTj-hh-MDQ"/>
+        <segue reference="f5d-Ra-j3v"/>
     </inferredMetricsTieBreakers>
 </document>
