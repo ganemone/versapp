@@ -188,7 +188,7 @@
     [self.im uploadImage:image url:[NSString stringWithFormat:@"http://%@", [ConnectionProvider getServerIPAddress]]];
 }
 
--(void)didFinishDownloadingImage:(UIImage *)image fromURL:(NSString *)url forMessage:(Message *)message {
+-(void)didFinishDownloadingImage:(UIImage *)image fromURL:(NSString *)url forMessage:(MessageMO *)message {
     NSLog(@"Reached Delegate Method");
     [self.tableView reloadData];
     [self scrollToBottomAnimated:YES];
