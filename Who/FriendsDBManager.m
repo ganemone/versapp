@@ -37,7 +37,7 @@
     }
     if (status != nil) {
         [friend setValue:status forKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];
-        //NSLog(@"Setting Friend MO Status: %@", status);
+        NSLog(@"Setting %@'s MO Status: %@", friend.name, status);
     }
     if (searchedPhoneNumber != nil) {
         [friend setValue:searchedPhoneNumber forKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER];
