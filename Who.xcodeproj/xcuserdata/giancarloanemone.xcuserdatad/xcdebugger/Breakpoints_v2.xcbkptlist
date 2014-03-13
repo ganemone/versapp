@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Who/ContactsViewController.m"
-            timestampString = "415416990.305251"
+            timestampString = "416367696.311824"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
             landmarkName = "-accessContacts"
             landmarkType = "5">
          </BreakpointContent>

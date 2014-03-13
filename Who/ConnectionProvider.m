@@ -170,8 +170,7 @@ static ConnectionProvider *selfInstance;
     //[self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
     [self.xmppStream sendElement:[IQPacketManager createGetConfessionsPacket]];
     [self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];
-    [IQPacketManager createDestroyConfessionPacket:@"confession id"];
-    [IQPacketManager createToggleFavoriteConfessionPacket:@"confession id"];
+    [self.xmppStream sendElement:[IQPacketManager createUserSearchPacketWithPhoneNumbers:@[@"111111", @"fail...."] emails:@[@"", @""]]];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
 }
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error

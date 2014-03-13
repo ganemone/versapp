@@ -37,6 +37,7 @@ NSString *const PACKET_ID_POST_CONFESSION = @"packet_id_post_confession";
 NSString *const PACKET_ID_FAVORITE_CONFESSION = @"packet_id_favorite_confession";
 NSString *const PACKET_ID_GET_MY_CONFESSIONS = @"packet_id_get_my_confessions";
 NSString *const PACKET_ID_FORCE_CREATE_ROSTER_ENTRY = @"packet_id_force_create_roster";
+NSString *const PACKET_ID_SEARCH_FOR_USERS = @"packet_id_search_for_users";
 
 NSString *const VCARD_TAG_FULL_NAME = @"FN";
 NSString *const VCARD_TAG_FIRST_NAME = @"GIVEN";
@@ -98,6 +99,8 @@ NSString *const FRIENDS_TABLE_COLUMN_NAME_USERNAME = @"username";
 NSString *const FRIENDS_TABLE_COLUMN_NAME_NAME = @"name";
 NSString *const FRIENDS_TABLE_COLUMN_NAME_STATUS = @"status";
 NSString *const FRIENDS_TABLE_COLUMN_NAME_EMAIL = @"email";
+NSString *const FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER = @"searchedPhoneNumber";
+NSString *const FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL = @"searchedEmail";
 
 NSString *const CHATS_TABLE_COLUMN_NAME_CHAT_ID = @"chat_id";
 NSString *const CHATS_TABLE_COLUMN_NAME_CHAT_NAME = @"chat_name";

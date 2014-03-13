@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <AddressBookUI/AddressBookUI.h>
 
-@interface ContactsViewController : UITableViewController 
+@interface ContactsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end

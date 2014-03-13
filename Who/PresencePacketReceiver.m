@@ -58,7 +58,7 @@
         // Packet represents a friend request
         if ([presence.type compare:@"subscribe"] == 0) {
             NSLog(@"Adding Pending Friend...");
-            [FriendsDBManager insert:username name:nil email:nil status:[NSNumber numberWithInt:STATUS_PENDING]];
+            [FriendsDBManager insert:username name:nil email:nil status:[NSNumber numberWithInt:STATUS_PENDING] searchedPhoneNumber:nil searchedEmail:nil];
         }
         // Friend accepted connected users request
         // => move friend to contacts

@@ -572,6 +572,33 @@
     return iq;
 }
 
++(DDXMLElement *)createUserSearchPacketWithPhoneNumbers:(NSArray *)phoneNumbers emails:(NSArray*)emails {
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_SEARCH_FOR_USERS]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"get"]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue: [self getPacketFromString]]];
+    
+    DDXMLElement *search = [DDXMLElement elementWithName:@"search"];
+    [search addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:search"]];
+    
+    DDXMLElement *contacts = [DDXMLElement elementWithName:@"contacts"];
+    for (int i = 0; i < [phoneNumbers count]; i++) {
+        DDXMLElement *contact = [DDXMLElement elementWithName:@"contact"],
+        *phone = [DDXMLElement elementWithName:@"phone" stringValue:[phoneNumbers objectAtIndex:i]],
+        *email = [DDXMLElement elementWithName:@"email" stringValue:[emails objectAtIndex:i]];
+        [contact addChild:phone];
+        [contact addChild:email];
+        [contacts addChild:contact];
+    }
+    
+    [search addChild:contacts];
+    [iq addChild:search];
+    
+    NSLog(@"User search packet: %@", iq.XMLString);
+    return iq;
+}
+
 // ---------------------
 // Helper Packet Methods
 // ---------------------
@@ -609,4 +636,5 @@
 +(NSString *)getPacketFromString {
     return [NSString stringWithFormat:@"%@@%@",[ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]];
 }
+
 @end

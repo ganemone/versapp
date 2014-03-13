@@ -15,5 +15,7 @@
 @dynamic name;
 @dynamic status;
 @dynamic username;
+@dynamic searchedEmail;
+@dynamic searchedPhoneNumber;
 
 @end

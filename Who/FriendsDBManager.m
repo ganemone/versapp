@@ -13,7 +13,7 @@
 
 @implementation FriendsDBManager
 
-+(void)insert:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status {
++(void)insert:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status searchedPhoneNumber:(NSString*)searchedPhoneNumber searchedEmail:(NSString*)searchedEmail {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     NSLog(@"Username: %@", username);
@@ -32,6 +32,12 @@
     }
     if (status != nil) {
         [friend setValue:status forKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];
+    }
+    if (searchedPhoneNumber != nil) {
+        [friend setValue:searchedPhoneNumber forKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER];
+    }
+    if (searchedEmail != nil) {
+        [friend setValue:searchedEmail forKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL];
     }
     [delegate saveContext];
 }

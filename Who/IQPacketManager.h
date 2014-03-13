@@ -80,4 +80,6 @@
 
 +(DDXMLElement *)createDestroyConfessionPacket:(NSString*)confessionID;
 
++(DDXMLElement *)createUserSearchPacketWithPhoneNumbers:(NSArray *)phoneNumbers emails:(NSArray*)emails;
+
 @end

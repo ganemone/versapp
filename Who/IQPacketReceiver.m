@@ -67,6 +67,23 @@
         [self handleCreatedMUCPacket:iq];
     } else if([self isPacketWithID:PACKET_ID_GET_CHAT_PARTICIPANTS packet:iq]) {
         [self handleGetChatParticipantsPacket:iq];
+    } else if([self isPacketWithID:PACKET_ID_SEARCH_FOR_USERS packet:iq]) {
+        [self handleUserSearchPacket:iq];
+    }
+}
+// NOTE: this should only be run AFTER the query for the roster
++(void)handleUserSearchPacket:(XMPPIQ *)iq {
+    NSError *error = NULL;
+    NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?(?:\\[\\]|\"(.*?)\")\\]" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
+    NSString *username, *searchedPhoneNumber, *searchedEmail;
+    for (NSTextCheckingResult *match in matches) {
+        username = [packetXML substringWithRange:[match rangeAtIndex:1]],
+        searchedPhoneNumber = [packetXML substringWithRange:[match rangeAtIndex:2]];
+        if ([match rangeAtIndex:3].length != 0) {
+            searchedEmail = [packetXML substringWithRange:[match rangeAtIndex:3]];
+        }
     }
 }
 
@@ -183,7 +200,7 @@
     }
     if ([username compare:[ConnectionProvider getUser]] != 0) {
         NSString *name = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
-        [FriendsDBManager insert:username name:name email:email status:nil];
+        [FriendsDBManager insert:username name:name email:email status:nil searchedPhoneNumber:nil searchedEmail:nil];
         [ChatDBManager updateOneToOneChatNames:name username:username];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_VCARD object:nil];
@@ -250,10 +267,10 @@
         NSString *resultJid = [jid substringWithRange:[matchJid rangeAtIndex:1]];
         [conn sendElement:[IQPacketManager createGetVCardPacket:resultJid]];
         if ([subscription rangeOfString:@"none"].location == NSNotFound){
-            [FriendsDBManager insert:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_FRIENDS]];
+            [FriendsDBManager insert:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_FRIENDS]searchedPhoneNumber:nil searchedEmail:nil];
         }
         else {
-            [FriendsDBManager insert:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_PENDING]];
+            [FriendsDBManager insert:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_PENDING]searchedPhoneNumber:nil searchedEmail:nil];
         }
     }
 }

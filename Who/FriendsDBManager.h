@@ -12,7 +12,7 @@
 
 @interface FriendsDBManager : NSObject
 
-+(void)insert:(NSString*)username name:(NSString*)name email:(NSString*)email status:(NSNumber *)status;
++(void)insert:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status searchedPhoneNumber:(NSString*)searchedPhoneNumber searchedEmail:(NSString*)searchedEmail;
 
 +(NSArray*)getAll;
 
