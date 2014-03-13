@@ -16,10 +16,6 @@
 #import "IQPacketManager.h"
 #import "IQPacketManager.h"
 
-// Chat Related
-#import "GroupChat.h"
-#import "OneToOneChat.h"
-
 // Constants
 #import "Constants.h"
 
@@ -189,8 +185,7 @@
         XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
         NSString *chatID = [Chat createGroupID];
         [conn sendElement:[IQPacketManager createCreateOneToOneChatPacket:chatID invitedUser:self.invitedUser roomName:@"Anonymous Friend"]];
-        OneToOneChat *chat = [OneToOneChat create:chatID inviterID:[ConnectionProvider getUser] invitedID:self.invitedUser createdTimestamp:0];
-        _createdChat = [ChatDBManager insertChatWithID:chat.chatID chatName:[FriendsDBManager getUserWithJID:self.invitedUser].name chatType:CHAT_TYPE_ONE_TO_ONE participantString:[NSString stringWithFormat:@"%@, %@", [ConnectionProvider getUser], self.invitedUser] status:STATUS_JOINED];
+        _createdChat = [ChatDBManager insertChatWithID:chatID chatName:[FriendsDBManager getUserWithJID:self.invitedUser].name chatType:CHAT_TYPE_ONE_TO_ONE participantString:[NSString stringWithFormat:@"%@, %@", [ConnectionProvider getUser], self.invitedUser] status:STATUS_JOINED];
     }   
     self.selectedJIDs = [[NSMutableArray alloc] init];
     [self.tableView reloadData];
@@ -214,8 +209,8 @@
         ConversationViewController *dest = segue.destinationViewController;
         [dest setChatMO:_createdChat];
     } else if([segue.identifier compare:SEGUE_ID_CREATED_CHAT] == 0) {
-        //OneToOneConversationViewController *dest = segue.destinationViewController;
-        //[dest setChat:_createdOneToOneChat];
+        OneToOneConversationViewController *dest = segue.destinationViewController;
+        [dest setChatMO:_createdChat];
     }
 }
 
