@@ -11,12 +11,13 @@
 
 @interface ConfessionTableCell : UITableViewCell
 
-@property (weak, nonatomic, readonly) UIView *transparentBackgroundView;
+@property (weak, nonatomic, readonly) UIView *containerView;
+@property (weak, nonatomic, readonly) UIImageView *footerView;
 @property (weak, nonatomic, readonly) UITextView *confessionText;
 @property (weak, nonatomic, readonly) UIButton *favoriteButton;
 @property (weak, nonatomic, readonly) UIButton *chatButton;
-@property (weak, nonatomic, readonly) UILabel *favoriteCountLabel;
-@property (weak, nonatomic, readonly) UIImageView *gradLine;
+@property (weak, nonatomic, readonly) UILabel *favoriteLabel;
+@property (weak, nonatomic, readonly) UILabel *conversationLabel;
 
 @property (strong, nonatomic) Confession *confession;
 

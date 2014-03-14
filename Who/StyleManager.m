@@ -74,4 +74,21 @@
     return [UIFont fontWithName:@"MavenProBold" size:18];
 }
 
++(UIColor*)getColorOrange {
+    return [UIColor colorWithRed:244/255 green:146/255 blue:0 alpha:1];
+}
+
++(UIColor*)getColorBlue {
+    return [UIColor colorWithRed:56/255 green:167/255 blue:222/255 alpha:1];
+}
+
++(UIColor*)getColorPurple {
+    return [UIColor colorWithRed:98/255 green:44/255 blue:132/255 alpha:1];
+}
+
++(UIColor*)getColorGreen {
+    return [UIColor colorWithRed:141/255 green:193/255 blue:38/255 alpha:1];
+}
+
+
 @end

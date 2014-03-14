@@ -45,19 +45,13 @@
     [super viewDidLoad];
     self.confessionsManager = [ConfessionsManager getInstance];
     
-    /*UIImage *image = [UIImage imageNamed:@"grad-back-confessions.jpg"];
-    UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
-    [backgroundImageView setImage:image];*/
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name: PACKET_ID_GET_CONFESSIONS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOneToOneChatCreatedFromConfession) name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION object:nil];
     
     self.cellCache = [[NSMutableDictionary alloc] initWithCapacity:[_confessionsManager getNumberOfConfessions]];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
-    //[self.tableView setBackgroundView:backgroundImageView];
-    //[self.tableView setBackgroundColor:nil];
-    //[self.tableView setOpaque:YES];
+    [self.tableView setBackgroundColor:[StyleManager getColorOrange]];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
@@ -116,7 +110,6 @@
             [cell.favoriteButton setImage:self.favIcon forState:UIControlStateNormal];
         }
         [cell.chatButton setImage:self.chatIcon forState:UIControlStateNormal];
-        [cell.gradLine setImage:self.gradLineSmall];
         [_cellCache setObject:cell forKey:[confession confessionID]];
     }
     return cell;

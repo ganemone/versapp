@@ -42,4 +42,12 @@
 
 +(UIFont*)getFontStyleBoldSizeXL;
 
++(UIColor*)getColorOrange;
+
++(UIColor*)getColorBlue;
+
++(UIColor*)getColorPurple;
+
++(UIColor*)getColorGreen;
+
 @end

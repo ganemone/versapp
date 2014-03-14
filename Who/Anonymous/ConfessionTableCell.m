@@ -26,11 +26,10 @@
 }
 
 - (void)setup {
-    self.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = [UIColor whiteColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.accessoryType = UITableViewCellAccessoryNone;
     self.accessoryView = nil;
-    
     self.imageView.image = nil;
     self.imageView.hidden = YES;
     self.textLabel.text = nil;
@@ -47,25 +46,29 @@
         CGSize contentSize = self.contentView.frame.size;
         CGFloat cellHeight = [self heightForConfession:confession];
         CGRect imageFrame = CGRectMake(cellX, cellY, contentSize.width - 20.0f, cellHeight);
-        CGRect textFrame = CGRectMake(cellX + 10.0f, cellY, contentSize.width - 30.0f, cellHeight);
+        CGRect textFrame = CGRectMake(cellX + 10.0f, cellY, contentSize.width - 30.0f, cellHeight - 40);
+        CGRect footerFrame = CGRectMake(cellX, cellHeight - 40, imageFrame.size.width, imageFrame.size.width * 0.1176);
         
         // Configure Background View
         UIView *backgroundView = [[UIImageView alloc] initWithFrame:imageFrame];
-        [backgroundView setBackgroundColor:[UIColor colorWithHue:0.0f saturation:0.0f brightness:0.0f alpha:.30f]];
+        /*[backgroundView setBackgroundColor:[UIColor colorWithHue:0.0f saturation:0.0f brightness:0.0f alpha:.30f]];
         [backgroundView.layer setBorderColor:[UIColor whiteColor].CGColor];
         [backgroundView.layer setBorderWidth:1.0f];
-        [backgroundView.layer setCornerRadius:5.0f];
+        [backgroundView.layer setCornerRadius:5.0f];*/
         
         // Configure textview
         UITextView *textView = [[UITextView alloc] initWithFrame:textFrame];
         [textView setBackgroundColor:[UIColor clearColor]];
         [textView setText:[confession body]];
-        [textView setTextColor:[UIColor whiteColor]];
+        [textView setTextColor:[UIColor blackColor]];
         [textView setFont:[StyleManager getFontStyleLightSizeMed]];
         [textView setEditable:NO];
         
+        // Configure Footer View
+        UIImageView *footer = [[UIImageView alloc] initWithFrame:footerFrame];
+        [footer setImage:[UIImage imageNamed:@"confession-cell-bottom.png"]];
         
-        // Configure chat and favorite buttons
+        /*// Configure chat and favorite buttons
         CGFloat iconSize = 20.0f;
         CGFloat padding = 15.0f;
         
@@ -95,28 +98,31 @@
         [timestamp setFont:[StyleManager getFontStyleLightSizeSmall]];
         [timestamp setTextColor:[UIColor whiteColor]];
         [timestamp setBackgroundColor:[UIColor clearColor]];
-        [timestamp setTextAlignment:NSTextAlignmentCenter];
+        [timestamp setTextAlignment:NSTextAlignmentCenter];*/
         
         // Add subviews
         [self.contentView addSubview:backgroundView];
         [self.contentView addSubview:textView];
-        if ([confession isPostedByConnectedUser] == NO) {
+        [self.contentView addSubview:footer];
+        /*if ([confession isPostedByConnectedUser] == NO) {
             [self.contentView addSubview:chatBtn];
         }
         [self.contentView addSubview:favoriteBtn];
         [self.contentView addSubview:label];
         [self.contentView addSubview:underlineView];
         [self.contentView addSubview:timestamp];
-        
+        */
         // Store variables
         _confessionText = textView;
-        _transparentBackgroundView = backgroundView;
+        _containerView = backgroundView;
         _confession = confession;
+        _footerView = footer;
+        /*
         _favoriteButton = favoriteBtn;
         _chatButton = chatBtn;
         _favoriteCountLabel = label;
         _gradLine = underlineView;
-        
+        */
     }
     return self;
 }
@@ -126,7 +132,7 @@
     UIFont *cellFont = [StyleManager getFontStyleLightSizeMed];
     CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
     CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
-    return labelSize.height + 40.0f;
+    return labelSize.height + 80.0f;
 }
 
 -(void)handleConfessionFavorited:(id)sender {
@@ -139,7 +145,7 @@
     } else {
         [_favoriteButton setImage:[UIImage imageNamed:@"fav-icon.png"] forState:UIControlStateNormal];
     }
-    [_favoriteCountLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)[[_confession favoritedUsers] count]]];
+    //[_favoriteLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)[[_confession favoritedUsers] count]]];
     ConfessionsManager *confessionsManager = [ConfessionsManager getInstance];
     [confessionsManager updateConfession:_confession];
 }
