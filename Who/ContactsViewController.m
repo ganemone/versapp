@@ -27,6 +27,7 @@
 @implementation ContactsViewController
 
 -(void)viewDidLoad {
+    
     [super viewDidLoad];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
@@ -35,9 +36,6 @@
     self.unregisteredContacts = [FriendsDBManager getAllWithStatusUnregistered];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserSearchFinished) name:PACKET_ID_SEARCH_FOR_USERS object:nil];
-    ContactSearchManager *csm = [ContactSearchManager getInstance];
-    [csm accessContacts];
-    
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

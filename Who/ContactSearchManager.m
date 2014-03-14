@@ -41,7 +41,7 @@ static ContactSearchManager *selfInstance;
         ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, error);
         ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
             // ABAddressBook doesn't gaurantee execution of this block on main thread, but we want our callbacks to be
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 if (!granted) {
                     //failure((__bridge NSError *)error);
                 } else {
@@ -51,6 +51,17 @@ static ContactSearchManager *selfInstance;
                     for (id person in people) {
                         NSString *firstName = (__bridge_transfer NSString*)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonFirstNameProperty);
                         NSString *lastName = (__bridge_transfer NSString*)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonLastNameProperty);
+                        
+                        if (firstName == nil && lastName == nil) {
+                            NSLog(@"Both first name and last name are nil...");
+                            continue;
+                        } else if(firstName == nil) {
+                            firstName = [NSString stringWithFormat:@"%@", lastName];
+                            lastName = @"";
+                        } else if(lastName == nil) {
+                            lastName = @"";
+                        }
+                        NSLog(@"Found Contact: %@ %@", firstName, lastName);
                         
                         NSMutableArray *phoneBufferArray = [[NSMutableArray alloc] init],
                         *emailBufferArray = [[NSMutableArray alloc] init];
@@ -106,35 +117,37 @@ static ContactSearchManager *selfInstance;
 }
 
 -(void)updateContactListAfterUserSearch {
-    NSArray *phoneNumbers, *emailAddresses;
-    NSString *tempPhone, *tempEmail;
-    for (NSDictionary *contact in _contacts) {
-        phoneNumbers = [contact objectForKey:VCARD_TAG_USERNAME];
-        emailAddresses = [contact objectForKey:VCARD_TAG_EMAIL];
-        int i = 0;
-        FriendMO *friend;
-        while (friend == nil && i < MAX([phoneNumbers count], [emailAddresses count])) {
-            if (i < [phoneNumbers count]) {
-                tempPhone = [phoneNumbers objectAtIndex:i];
-                friend = [FriendsDBManager getUserWithJID:tempPhone];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSArray *phoneNumbers, *emailAddresses;
+        NSString *tempPhone, *tempEmail;
+        for (NSDictionary *contact in _contacts) {
+            phoneNumbers = [contact objectForKey:VCARD_TAG_USERNAME];
+            emailAddresses = [contact objectForKey:VCARD_TAG_EMAIL];
+            int i = 0;
+            FriendMO *friend;
+            while (friend == nil && i < MAX([phoneNumbers count], [emailAddresses count])) {
+                if (i < [phoneNumbers count]) {
+                    tempPhone = [phoneNumbers objectAtIndex:i];
+                    friend = [FriendsDBManager getUserWithJID:tempPhone];
+                }
+                if (i < [emailAddresses count] && friend == nil) {
+                    tempEmail = [emailAddresses objectAtIndex:i];
+                    friend = [FriendsDBManager getUserWithEmail:tempEmail];
+                }
+                i++;
             }
-            if (i < [emailAddresses count] && friend == nil) {
-                tempEmail = [emailAddresses objectAtIndex:i];
-                friend = [FriendsDBManager getUserWithEmail:tempEmail];
-            }
-            i++;
+            NSNumber *status = (friend == nil) ? [NSNumber numberWithInt:STATUS_UNREGISTERED] : friend.status;
+            NSLog(@"Status: %@", status);
+            NSString *name = [NSString stringWithFormat:@"%@ %@", [contact objectForKey:VCARD_TAG_FIRST_NAME], [contact objectForKey:VCARD_TAG_LAST_NAME]];
+            
+            [FriendsDBManager insert:tempPhone
+                                name:name
+                               email:tempEmail
+                              status:status
+                 searchedPhoneNumber:nil
+                       searchedEmail:nil];
         }
-        NSNumber *status = (friend == nil) ? [NSNumber numberWithInt:STATUS_UNREGISTERED] : friend.status;
-        NSLog(@"Status: %@", status);
-        NSString *name = [NSString stringWithFormat:@"%@ %@", [contact objectForKey:VCARD_TAG_FIRST_NAME], [contact objectForKey:VCARD_TAG_LAST_NAME]];
-        
-        [FriendsDBManager insert:tempPhone
-                            name:name
-                           email:tempEmail
-                          status:status
-             searchedPhoneNumber:nil
-                   searchedEmail:nil];
-    }
+    });
 }
 
 @end

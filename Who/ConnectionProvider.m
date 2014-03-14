@@ -28,6 +28,8 @@
 
 #import "MUCCreationManager.h"
 #import "LoginManager.h"
+
+#import "ContactSearchManager.h"
 @interface ConnectionProvider ()
 
 @property(strong, nonatomic) XMPPReconnect *xmppReconnect;
@@ -170,6 +172,8 @@ static ConnectionProvider *selfInstance;
     //[self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
     [self.xmppStream sendElement:[IQPacketManager createGetConfessionsPacket]];
     [self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];
+    ContactSearchManager *csm = [ContactSearchManager getInstance];
+    [csm accessContacts];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
 }
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error
