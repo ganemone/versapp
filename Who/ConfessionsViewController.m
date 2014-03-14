@@ -15,6 +15,9 @@
 #import "StyleManager.h"
 #import "ChatDBManager.h"
 #import "ChatMO.h"
+#import "ConnectionProvider.h"
+#import "IQPacketManager.h"
+
 @interface ConfessionsViewController ()
 
 @property ConfessionsManager *confessionsManager;
@@ -24,6 +27,7 @@
 @property (strong, nonatomic) UIImage *gradLineSmall;
 @property (strong, nonatomic) UIImage *chatIcon;
 @property (strong, nonatomic) ChatMO *createdChat;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -56,12 +60,26 @@
     //[self.tableView setOpaque:YES];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
+    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
+    [refresh setAttributedTitle:[[NSAttributedString alloc] initWithString:@"Pull to Refresh"]];
+    [refresh addTarget:self action:@selector(loadConfessions) forControlEvents:UIControlEventValueChanged];
+    [refresh setTintColor:[UIColor blackColor]];
+    
+    UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
+    [tableViewController setRefreshControl:refresh];
+    [tableViewController setTableView:_tableView];
+    
+    self.refreshControl = refresh;
     self.favIcon = [UIImage imageNamed:@"fav-icon.png"];
     self.favIconActive = [UIImage imageNamed:@"fav-icon-active.png"];
     self.gradLineSmall = [UIImage imageNamed:@"grad-line-small.png"];
     self.chatIcon = [UIImage imageNamed:@"chat-icon.png"];
     
     /*[self.bottomView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"grad-bottom-confessions.jpg"]]]; */
+}
+
+- (void)loadConfessions {
+    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacket]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -113,7 +131,11 @@
 }
 
 - (void)refreshListView {
-    [self.tableView reloadData];
+    if ([self.refreshControl isRefreshing]) {
+        [self.refreshControl endRefreshing];
+    } else {
+        [self.tableView reloadData];
+    }
 }
 
 - (void)handleOneToOneChatCreatedFromConfession {
