@@ -72,8 +72,9 @@
     
     NSEntityDescription *entity = [NSEntityDescription entityForName:CORE_DATA_TABLE_FRIENDS inManagedObjectContext:moc];
     [fetchRequest setEntity:entity];
-    
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:FRIENDS_TABLE_COLUMN_NAME_NAME ascending:YES];
     NSPredicate *predicate = [NSPredicate predicateWithFormat: [NSString stringWithFormat:@"%@ = \"%@\"", FRIENDS_TABLE_COLUMN_NAME_STATUS, status]];
+    [fetchRequest setSortDescriptors:@[sort]];
     [fetchRequest setPredicate:predicate];
     
     NSError* error;
