@@ -55,10 +55,6 @@
     [self.tableView setBackgroundView:nil];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
-    [self.header setBackgroundColor:[StyleManager getColorOrange]];
-    [self.view setBackgroundColor:[StyleManager getColorOrange]];
-    [self.bottomView setBackgroundColor:[StyleManager getColorOrange]]
-    
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     [refresh setAttributedTitle:[[NSAttributedString alloc] initWithString:@"Pull to Refresh"]];
     [refresh addTarget:self action:@selector(loadConfessions) forControlEvents:UIControlEventValueChanged];
@@ -114,6 +110,7 @@
         } else {
             [cell.favoriteButton setImage:self.favIcon forState:UIControlStateNormal];
         }
+        [cell.timestampLabel setText:[confession getTimePosted]];
         [cell.favoriteLabel setText:[confession getTextForLabel]];
         [cell.chatButton setImage:self.chatIcon forState:UIControlStateNormal];
         [_cellCache setObject:cell forKey:[confession confessionID]];
@@ -122,7 +119,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [ConfessionTableCell heightForConfession:[[self confessionsManager] getConfessionAtIndex:(int)indexPath.row]] + 50.0f;
+    return [ConfessionTableCell heightForConfession:[[self confessionsManager] getConfessionAtIndex:(int)indexPath.row]];
 }
 
 - (void)refreshListView {

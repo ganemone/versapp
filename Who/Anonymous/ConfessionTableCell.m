@@ -52,20 +52,22 @@
         
         // Configure Background View
         UIView *backgroundView = [[UIImageView alloc] initWithFrame:cellFrame];
-        /*[backgroundView setBackgroundColor:[UIColor colorWithHue:0.0f saturation:0.0f brightness:0.0f alpha:.30f]];
-        [backgroundView.layer setBorderColor:[UIColor whiteColor].CGColor];
-        [backgroundView.layer setBorderWidth:1.0f];
-        [backgroundView.layer setCornerRadius:5.0f];*/
         
         // Configure textview
         UITextView *textView = [[UITextView alloc] initWithFrame:textFrame];
-        textView.contentInset = UIEdgeInsetsMake(5.0f, 50.0f, 5.0f, 50.0f);
-        textView.textContainerInset = UIEdgeInsetsMake(5.0f, 50.0f, 5.0f, 50.0f);
+        textView.textContainerInset = UIEdgeInsetsMake(5.0f, 5.0f, 5.0f, 5.0f);
         [textView setBackgroundColor:[UIColor whiteColor]];
         [textView setText:[confession body]];
         [textView setTextColor:[UIColor blackColor]];
         [textView setFont:[StyleManager getFontStyleLightSizeMed]];
         [textView setEditable:NO];
+        
+        // Configure Timstamp
+        CGRect timestampLabelFrame = CGRectMake(cellX, textHeight - 15.0f, contentSize.width - 25.0f, 15.0f);
+        UILabel *timestampLabel = [[UILabel alloc] initWithFrame:timestampLabelFrame];
+        [timestampLabel setFont:[StyleManager getFontStyleLightSizeSmall]];
+        [timestampLabel setTextColor:[StyleManager getColorOrange]];
+        [timestampLabel setTextAlignment:NSTextAlignmentRight];
         
         // Configure Footer View
         UIImageView *footer = [[UIImageView alloc] initWithFrame:footerFrame];
@@ -78,6 +80,7 @@
         CGRect chatLabelFrame = CGRectMake(cellX + iconSize + 2 * paddingSmall, textHeight + paddingSmall, labelWidth, iconSize);
         
         UIButton *createChatButton = [[UIButton alloc] initWithFrame:chatButtonFrame];
+        [createChatButton addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
         UILabel *createChatLabel = [[UILabel alloc] initWithFrame:chatLabelFrame];
         [createChatLabel setText:@"Converse"];
         [createChatLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
@@ -87,6 +90,7 @@
         CGRect favoriteLabelFrame = CGRectMake(contentSize.width / 2 + iconSize, textHeight + paddingSmall, labelWidth, iconSize);
         
         UIButton *favoriteButton = [[UIButton alloc] initWithFrame:favoriteButtonFrame];
+        [favoriteButton addTarget:self action:@selector(handleConfessionFavorited:) forControlEvents:UIControlEventTouchUpInside];
         UILabel *favoriteLabel = [[UILabel alloc] initWithFrame:favoriteLabelFrame];
         [favoriteLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
         
@@ -98,6 +102,7 @@
         [self.contentView addSubview:createChatLabel];
         [self.contentView addSubview:favoriteLabel];
         [self.contentView addSubview:favoriteButton];
+        [self.contentView addSubview:timestampLabel];
         
         // Store variables
         _confessionText = textView;
@@ -107,6 +112,7 @@
         _chatButton = createChatButton;
         _favoriteButton = favoriteButton;
         _favoriteLabel = favoriteLabel;
+        _timestampLabel = timestampLabel;
         
         /*
         _favoriteButton = favoriteBtn;
@@ -123,7 +129,7 @@
     UIFont *cellFont = [StyleManager getFontStyleLightSizeMed];
     CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
     CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
-    return labelSize.height + 90.0f;
+    return labelSize.height + 80.0f;
 }
 
 -(void)handleConfessionFavorited:(id)sender {
