@@ -52,7 +52,10 @@
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     [self.tableView setBackgroundColor:[StyleManager getColorOrange]];
+    [self.tableView setBackgroundView:nil];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    
+    [self.view setBackgroundColor:[StyleManager getColorOrange]];
     
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     [refresh setAttributedTitle:[[NSAttributedString alloc] initWithString:@"Pull to Refresh"]];

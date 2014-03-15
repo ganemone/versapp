@@ -75,19 +75,19 @@
 }
 
 +(UIColor*)getColorOrange {
-    return [UIColor colorWithRed:244/255 green:146/255 blue:0 alpha:1];
+    return [UIColor colorWithRed:244.0f/255.0f green:146.0f/255.0f blue:0 alpha:1];
 }
 
 +(UIColor*)getColorBlue {
-    return [UIColor colorWithRed:56/255 green:167/255 blue:222/255 alpha:1];
+    return [UIColor colorWithRed:56.0f/255.0f green:167.0f/255.0f blue:222.0f/255.0f alpha:1];
 }
 
 +(UIColor*)getColorPurple {
-    return [UIColor colorWithRed:98/255 green:44/255 blue:132/255 alpha:1];
+    return [UIColor colorWithRed:98.0f/255.0f green:44.0f/255.0f blue:132.0f/255.0f alpha:1];
 }
 
 +(UIColor*)getColorGreen {
-    return [UIColor colorWithRed:141/255 green:193/255 blue:38/255 alpha:1];
+    return [UIColor colorWithRed:141.0f/255.0f green:193.0f/255.0f blue:38.0f/255.0f alpha:1];
 }
 
 
