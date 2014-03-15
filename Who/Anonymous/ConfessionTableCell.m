@@ -45,12 +45,13 @@
         CGFloat cellY = 0.0f;
         CGSize contentSize = self.contentView.frame.size;
         CGFloat cellHeight = [ConfessionTableCell heightForConfession:confession];
-        CGRect imageFrame = CGRectMake(cellX, cellY, contentSize.width - 20.0f, cellHeight);
-        CGRect textFrame = CGRectMake(cellX, cellY, contentSize.width - 20.0f, cellHeight - 40);
-        CGRect footerFrame = CGRectMake(cellX, cellHeight - 40, contentSize.width - 20.0f, imageFrame.size.width * 0.1176);
+        CGFloat textHeight = cellHeight - 50;
+        CGRect cellFrame = CGRectMake(cellX, cellY, contentSize.width - 20.0f, cellHeight);
+        CGRect textFrame = CGRectMake(cellX, cellY, contentSize.width - 20.0f, textHeight);
+        CGRect footerFrame = CGRectMake(cellX, textHeight, contentSize.width - 20.0f, cellFrame.size.width * 0.1176);
         
         // Configure Background View
-        UIView *backgroundView = [[UIImageView alloc] initWithFrame:imageFrame];
+        UIView *backgroundView = [[UIImageView alloc] initWithFrame:cellFrame];
         /*[backgroundView setBackgroundColor:[UIColor colorWithHue:0.0f saturation:0.0f brightness:0.0f alpha:.30f]];
         [backgroundView.layer setBorderColor:[UIColor whiteColor].CGColor];
         [backgroundView.layer setBorderWidth:1.0f];
@@ -58,6 +59,8 @@
         
         // Configure textview
         UITextView *textView = [[UITextView alloc] initWithFrame:textFrame];
+        textView.contentInset = UIEdgeInsetsMake(5.0f, 50.0f, 5.0f, 50.0f);
+        textView.textContainerInset = UIEdgeInsetsMake(5.0f, 50.0f, 5.0f, 50.0f);
         [textView setBackgroundColor:[UIColor whiteColor]];
         [textView setText:[confession body]];
         [textView setTextColor:[UIColor blackColor]];
@@ -71,14 +74,21 @@
         // Configuring Chat Buttons
         CGFloat iconSize = 25.0f, paddingSmall = 5.0f;
         CGFloat labelWidth = (contentSize.width - 2.0f * cellX) / 2.0f;
-        CGRect chatButtonFrame = CGRectMake(cellX + paddingSmall, cellHeight - 40 + paddingSmall, iconSize, iconSize);
-        CGRect chatLabelFrame = CGRectMake(cellX + iconSize + 2 * paddingSmall, cellHeight - 40 + paddingSmall, labelWidth, iconSize);
+        CGRect chatButtonFrame = CGRectMake(cellX + paddingSmall, textHeight + paddingSmall, iconSize, iconSize);
+        CGRect chatLabelFrame = CGRectMake(cellX + iconSize + 2 * paddingSmall, textHeight + paddingSmall, labelWidth, iconSize);
         
         UIButton *createChatButton = [[UIButton alloc] initWithFrame:chatButtonFrame];
         UILabel *createChatLabel = [[UILabel alloc] initWithFrame:chatLabelFrame];
         [createChatLabel setText:@"Converse"];
+        [createChatLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
         
         // Configure Favorites
+        CGRect favoriteButtonFrame = CGRectMake(contentSize.width - iconSize - cellX - 2 * paddingSmall, textHeight + paddingSmall, iconSize, iconSize);
+        CGRect favoriteLabelFrame = CGRectMake(contentSize.width / 2 + iconSize, textHeight + paddingSmall, labelWidth, iconSize);
+        
+        UIButton *favoriteButton = [[UIButton alloc] initWithFrame:favoriteButtonFrame];
+        UILabel *favoriteLabel = [[UILabel alloc] initWithFrame:favoriteLabelFrame];
+        [favoriteLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
         
         // Add subviews
         [self.contentView addSubview:backgroundView];
@@ -86,13 +96,18 @@
         [self.contentView addSubview:footer];
         [self.contentView addSubview:createChatButton];
         [self.contentView addSubview:createChatLabel];
-
+        [self.contentView addSubview:favoriteLabel];
+        [self.contentView addSubview:favoriteButton];
+        
         // Store variables
         _confessionText = textView;
         _containerView = backgroundView;
         _confession = confession;
         _footerView = footer;
         _chatButton = createChatButton;
+        _favoriteButton = favoriteButton;
+        _favoriteLabel = favoriteLabel;
+        
         /*
         _favoriteButton = favoriteBtn;
         _chatButton = chatBtn;
@@ -108,7 +123,7 @@
     UIFont *cellFont = [StyleManager getFontStyleLightSizeMed];
     CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
     CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
-    return labelSize.height + 100.0f;
+    return labelSize.height + 90.0f;
 }
 
 -(void)handleConfessionFavorited:(id)sender {

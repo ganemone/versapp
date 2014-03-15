@@ -35,4 +35,6 @@
 
 - (void)startChat;
 
+-(NSString *)getTextForLabel;
+
 @end

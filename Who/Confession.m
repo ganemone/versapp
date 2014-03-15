@@ -101,4 +101,8 @@
     [ChatDBManager insertChatWithID:chatID chatName:_body chatType:CHAT_TYPE_ONE_TO_ONE participantString:participants status:STATUS_JOINED];
 }
 
+-(NSString *)getTextForLabel {
+    return (_favoritedUsers.count == 1) ? @"1 Favorite" : [NSString stringWithFormat:@"%d Favorites", _favoritedUsers.count];
+}
+
 @end

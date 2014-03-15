@@ -55,7 +55,9 @@
     [self.tableView setBackgroundView:nil];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
+    [self.header setBackgroundColor:[StyleManager getColorOrange]];
     [self.view setBackgroundColor:[StyleManager getColorOrange]];
+    [self.bottomView setBackgroundColor:[StyleManager getColorOrange]]
     
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     [refresh setAttributedTitle:[[NSAttributedString alloc] initWithString:@"Pull to Refresh"]];
@@ -112,7 +114,7 @@
         } else {
             [cell.favoriteButton setImage:self.favIcon forState:UIControlStateNormal];
         }
-        NSLog(@"Setting Chat Button Image: %@ %@", self.chatIcon, cell.chatButton);
+        [cell.favoriteLabel setText:[confession getTextForLabel]];
         [cell.chatButton setImage:self.chatIcon forState:UIControlStateNormal];
         [_cellCache setObject:cell forKey:[confession confessionID]];
     }
@@ -120,7 +122,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [ConfessionTableCell heightForConfession:[[self confessionsManager] getConfessionAtIndex:(int)indexPath.row]];
+    return [ConfessionTableCell heightForConfession:[[self confessionsManager] getConfessionAtIndex:(int)indexPath.row]] + 50.0f;
 }
 
 - (void)refreshListView {
