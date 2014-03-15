@@ -112,6 +112,7 @@
         } else {
             [cell.favoriteButton setImage:self.favIcon forState:UIControlStateNormal];
         }
+        NSLog(@"Setting Chat Button Image: %@ %@", self.chatIcon, cell.chatButton);
         [cell.chatButton setImage:self.chatIcon forState:UIControlStateNormal];
         [_cellCache setObject:cell forKey:[confession confessionID]];
     }
@@ -119,11 +120,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *cellText = [[[self confessionsManager] getConfessionAtIndex:(int)indexPath.row] body];
-    UIFont *cellFont = [StyleManager getFontStyleLightSizeMed];
-    CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
-    CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
-    return labelSize.height + 60;
+    return [ConfessionTableCell heightForConfession:[[self confessionsManager] getConfessionAtIndex:(int)indexPath.row]];
 }
 
 - (void)refreshListView {

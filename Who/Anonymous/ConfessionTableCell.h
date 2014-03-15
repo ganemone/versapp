@@ -23,4 +23,6 @@
 
 - (instancetype)initWithConfession:(Confession*)confession reuseIdentifier:(NSString*)reuseIdentifier;
 
++ (CGFloat)heightForConfession:(Confession*)confession;
+
 @end
