@@ -309,6 +309,7 @@
     NSMutableArray *favoritedUsersArray;
     Confession *confession;
     ConfessionsManager *confessionsManager = [ConfessionsManager getInstance];
+    [confessionsManager clearConfessions];
     
     for(NSTextCheckingResult *match in matches) {
         NSLog(@"Number of matches: %lu", (unsigned long)[match numberOfRanges]);
@@ -342,6 +343,8 @@
         confession = [Confession create:body posterJID:jid imageURL:imageURL confessionID:confessionID createdTimestamp:timestamp favoritedUsers:favoritedUsersArray];
         [confessionsManager addConfession:confession];
     }
+    
+    [confessionsManager sortConfessions];
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_CONFESSIONS object:nil];
 }
 

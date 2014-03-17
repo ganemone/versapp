@@ -28,9 +28,7 @@ static ConfessionsManager *selfInstance;
 }
 
 -(Confession *)getConfessionAtIndex:(int)index {
-    int adjustedIndex = [self getNumberOfConfessions] - index - 1;
-    NSLog(@"Original Index: %d \n Adjusted Index: %d", index, adjustedIndex);
-    return [_confessions objectForKey:[_confessionIDValues objectAtIndex:adjustedIndex]];
+    return [_confessions objectForKey:[_confessionIDValues objectAtIndex:index]];
 }
 
 -(Confession *)getConfessionWithID:(NSString *)confessionID {
@@ -47,15 +45,24 @@ static ConfessionsManager *selfInstance;
 }
 
 -(void)updatePendingConfession:(NSString*)confessionID timestamp:(NSString*)timestamp {
-    NSLog(@"Updating Pending Confession");
-    NSLog(@"Original Size: %d", [self getNumberOfConfessions]);
     [_pendingConfession setConfessionID:confessionID];
     [_pendingConfession setCreatedTimestamp:timestamp];
     [_pendingConfession decodeBody];
     [self addConfession:_pendingConfession];
     [self setPendingConfession:nil];
-    NSLog(@"New Size: %d", [self getNumberOfConfessions]);
-    NSLog(@"New Confession: %@", [[self getConfessionAtIndex:0] body]);
+}
+
+-(void)sortConfessions {
+    _confessionIDValues = [NSMutableArray arrayWithArray:[_confessionIDValues sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        Confession *confession1 = [_confessions objectForKey:obj1];
+        Confession *confession2 = [_confessions objectForKey:obj2];
+        return [[confession2 createdTimestamp] compare:[confession1 createdTimestamp]];
+    }]];
+}
+
+-(void)clearConfessions {
+    [_confessionIDValues removeAllObjects];
+    [_confessions removeAllObjects];
 }
 
 @end

@@ -103,10 +103,11 @@
 {
     static NSString *CellIdentifier = @"BasicConfessionCell";
     Confession *confession = [_confessionsManager getConfessionAtIndex:(int)indexPath.row];
+    NSLog(@"Confession: %@", [confession body]);
     if (self.cellCache == nil) {
         self.cellCache = [[NSMutableDictionary alloc] initWithCapacity:100];
     }
-    ConfessionTableCell *cell = [_cellCache objectForKey:[confession confessionID]];
+    ConfessionTableCell *cell = nil;//[_cellCache objectForKey:[confession confessionID]];
     NSLog(@"Confession ID: %@", [confession confessionID]);
     if (cell == nil) {
         NSLog(@"Cell is nil...");
@@ -119,7 +120,7 @@
         [cell.timestampLabel setText:[confession getTimePosted]];
         [cell.favoriteLabel setText:[confession getTextForLabel]];
         [cell.chatButton setImage:self.chatIcon forState:UIControlStateNormal];
-        [_cellCache setObject:cell forKey:[confession confessionID]];
+        //[_cellCache setObject:cell forKey:[confession confessionID]];
     } else {
         NSLog(@"Cell is not nil... : %@", [cell description]);
     }
@@ -131,6 +132,7 @@
 }
 
 - (void)refreshListView {
+    [_confessionsManager sortConfessions];
     [_cellCache removeAllObjects];
     if ([self.refreshControl isRefreshing]) {
         [self.tableView reloadData];

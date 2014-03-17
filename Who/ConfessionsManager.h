@@ -29,4 +29,8 @@
 
 -(void)updatePendingConfession:(NSString*)confessionID timestamp:(NSString*)timestamp;
 
+-(void)sortConfessions;
+
+-(void)clearConfessions;
+
 @end
