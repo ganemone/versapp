@@ -534,7 +534,7 @@
 +(DDXMLElement *)createToggleFavoriteConfessionPacket:(NSString *)confessionID {
     DDXMLElement *toggleFavorite = [DDXMLElement elementWithName:@"toggle_favorite"];
     [toggleFavorite addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:confessionID]];
-    DDXMLElement *iq = [self getWhoConfessionIQElementWithType:@"set" packetID:PACKET_ID_POST_CONFESSION children:toggleFavorite];
+    DDXMLElement *iq = [self getWhoConfessionIQElementWithType:@"set" packetID:PACKET_ID_FAVORITE_CONFESSION children:toggleFavorite];
     NSLog(@"Toggle Favorite Confession Packet: %@", iq.XMLString);
     return iq;
 }
@@ -560,7 +560,7 @@
 +(DDXMLElement *)createDestroyConfessionPacket:(NSString*)confessionID {
     DDXMLElement *destroy = [DDXMLElement elementWithName:@"destroy"];
     [destroy addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:confessionID]];
-    DDXMLElement *iq = [self getWhoConfessionIQElementWithType:@"set" packetID:PACKET_ID_POST_CONFESSION children:destroy];
+    DDXMLElement *iq = [self getWhoConfessionIQElementWithType:@"set" packetID:PACKET_ID_DESTROY_CONFESSION children:destroy];
     NSLog(@"Destroy Confession Packet: %@", iq.XMLString);
     return iq;
 }

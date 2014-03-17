@@ -142,7 +142,7 @@
     } else {
         [_favoriteButton setImage:[UIImage imageNamed:@"fav-icon.png"] forState:UIControlStateNormal];
     }
-    //[_favoriteLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)[[_confession favoritedUsers] count]]];
+    [_favoriteLabel setText:[_confession getTextForLabel]];
     ConfessionsManager *confessionsManager = [ConfessionsManager getInstance];
     [confessionsManager updateConfession:_confession];
 }
