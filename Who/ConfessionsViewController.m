@@ -46,14 +46,10 @@
     self.confessionsManager = [ConfessionsManager getInstance];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name: PACKET_ID_GET_CONFESSIONS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name:PACKET_ID_POST_CONFESSION object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOneToOneChatCreatedFromConfession) name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION object:nil];
     
     self.cellCache = [[NSMutableDictionary alloc] initWithCapacity:[_confessionsManager getNumberOfConfessions]];
-    [self.tableView setDelegate:self];
-    [self.tableView setDataSource:self];
-    [self.tableView setBackgroundColor:[StyleManager getColorOrange]];
-    [self.tableView setBackgroundView:nil];
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     [refresh setAttributedTitle:[[NSAttributedString alloc] initWithString:@"Pull to Refresh"]];
@@ -63,6 +59,12 @@
     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
     [tableViewController setRefreshControl:refresh];
     [tableViewController setTableView:_tableView];
+    
+    [self.tableView setDelegate:self];
+    [self.tableView setDataSource:self];
+    [self.tableView setBackgroundColor:[StyleManager getColorOrange]];
+    [self.tableView setBackgroundView:nil];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     self.refreshControl = refresh;
     self.favIcon = [UIImage imageNamed:@"fav-icon.png"];
@@ -92,7 +94,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.confessionsManager getNumberOfConfessions];
+    NSLog(@"Number of confessions: %d", [_confessionsManager getNumberOfConfessions]);
+    
+    return [_confessionsManager getNumberOfConfessions];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -101,9 +105,11 @@
     Confession *confession = [_confessionsManager getConfessionAtIndex:(int)indexPath.row];
     if (self.cellCache == nil) {
         self.cellCache = [[NSMutableDictionary alloc] initWithCapacity:100];
-    }   
+    }
     ConfessionTableCell *cell = [_cellCache objectForKey:[confession confessionID]];
+    NSLog(@"Confession ID: %@", [confession confessionID]);
     if (cell == nil) {
+        NSLog(@"Cell is nil...");
         cell = [[ConfessionTableCell alloc] initWithConfession:confession reuseIdentifier:CellIdentifier];
         if ([confession isFavoritedByConnectedUser]) {
             [cell.favoriteButton setImage:self.favIconActive forState:UIControlStateNormal];
@@ -114,6 +120,8 @@
         [cell.favoriteLabel setText:[confession getTextForLabel]];
         [cell.chatButton setImage:self.chatIcon forState:UIControlStateNormal];
         [_cellCache setObject:cell forKey:[confession confessionID]];
+    } else {
+        NSLog(@"Cell is not nil... : %@", [cell description]);
     }
     return cell;
 }
@@ -123,7 +131,9 @@
 }
 
 - (void)refreshListView {
+    [_cellCache removeAllObjects];
     if ([self.refreshControl isRefreshing]) {
+        [self.tableView reloadData];
         [self.refreshControl endRefreshing];
     } else {
         [self.tableView reloadData];

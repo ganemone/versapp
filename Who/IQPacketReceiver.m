@@ -354,6 +354,12 @@
 }
 
 +(void)handlePostConfessionPacket:(XMPPIQ *)iq {
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<value>(.*?),(.*?)<\\/value>" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSTextCheckingResult *match = [regex firstMatchInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
+    NSString *confessionID = [iq.XMLString substringWithRange:[match rangeAtIndex:1]];
+    NSString *createdTimestamp = [iq.XMLString substringWithRange:[match rangeAtIndex:2]];
+    [[ConfessionsManager getInstance] updatePendingConfession:confessionID timestamp:createdTimestamp];
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_POST_CONFESSION object:nil];
 }
 
