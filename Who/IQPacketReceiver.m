@@ -333,13 +333,6 @@
         } else {
             favoritedUsersArray = [[NSMutableArray alloc] init];
         }
-        NSLog(@"Confession ID: %@", confessionID);
-        NSLog(@"jid: %@", jid);
-        NSLog(@"Body: %@", body);
-        NSLog(@"Image URL: %@", imageURL);
-        NSLog(@"Timestamp: %@", timestamp);
-        NSLog(@"Favorited Users: %@", favoritedUsers);
-        NSLog(@"Favorite Count: %@", favoriteCount);
         confession = [Confession create:body posterJID:jid imageURL:imageURL confessionID:confessionID createdTimestamp:timestamp favoritedUsers:favoritedUsersArray];
         [confessionsManager addConfession:confession];
     }
