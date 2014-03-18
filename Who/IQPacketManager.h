@@ -13,6 +13,14 @@
 
 @interface IQPacketManager : NSObject
 
++(DDXMLElement *)createUnsubscribedPacket:(NSString *)username;
+
++(DDXMLElement *)createSubscribePacket:(NSString*)username;
+
++(DDXMLElement *)createSubscribedPacket:(NSString*)username;
+
++(DDXMLElement *)createUnsubscribePacket:(NSString *)username;
+
 +(DDXMLElement*)createGetRosterPacket;
 
 +(DDXMLElement*)createGetJoinedChatsPacket;

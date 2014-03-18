@@ -27,6 +27,29 @@
     NSLog(@"Packet: %@", [packet XMLString]);
 }
 
++(DDXMLElement *)createPresencePacketToUser:(NSString *)username withType:(NSString *)type {
+    DDXMLElement *presence = [DDXMLElement elementWithName:@"presence"];
+    [presence addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[NSString stringWithFormat:@"%@@%@", username, [ConnectionProvider getServerIPAddress]]]];
+    [presence addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:type]];
+    return presence;
+}
+
++(DDXMLElement *)createUnsubscribedPacket:(NSString *)username {
+    return [self createPresencePacketToUser:username withType:@"unsubscribed"];
+}
+
++(DDXMLElement *)createUnsubscribePacket:(NSString *)username {
+    return [self createPresencePacketToUser:username withType:@"unsubscribe"];
+}
+
++(DDXMLElement *)createSubscribePacket:(NSString *)username {
+    return [self createPresencePacketToUser:username withType:@"subscribe"];
+}
+
++(DDXMLElement *)createSubscribedPacket:(NSString *)username {
+    return [self createPresencePacketToUser:username withType:@"subscribed"];
+}
+
 +(DDXMLElement *)createGetJoinedChatsPacket {
     DDXMLElement *query = [DDXMLElement elementWithName:@"status" stringValue:@"active"];
     DDXMLElement *iq = [self getWhoChatIQElementWithType:@"get" packetID:PACKET_ID_GET_JOINED_CHATS children:query];

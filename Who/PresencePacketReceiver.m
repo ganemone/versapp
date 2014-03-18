@@ -39,14 +39,14 @@
         NSLog(@"joined muc...");
     }
     // -----------------------
-    // Handle Friend Request
+    // Handle Friend Request (possibly...)
     // -----------------------
     // Accept
     else {
         NSString *jid = [[[presence fromStr] componentsSeparatedByString:@"/"] firstObject];
         NSString *username = [[[presence fromStr] componentsSeparatedByString:@"@"] firstObject];
         XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
-        NSLog(@"Friend Request Presence: %@", presence.XMLString);
+        NSLog(@"Possible... Friend Request Presence: %@", presence.XMLString);
         if ([FriendsDBManager hasUserWithJID:username] == NO && [username compare:[ConnectionProvider getUser]] != 0) {
             [conn sendElement:[IQPacketManager createGetVCardPacket:username]];
         }
@@ -68,7 +68,7 @@
         }
         // Return unsubscribed packet + remove friend from roster
         else if([presence.type compare:@"unsubscribe"] == 0) {
-            NSLog(@"Friend Request Type unsubscribe");
+            [conn sendElement:[IQPacketManager createUnsubscribedPacket:username]];
             [FriendsDBManager updateUserSetStatusRejected:username];
         }
     }
