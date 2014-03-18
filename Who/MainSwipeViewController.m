@@ -56,7 +56,8 @@ CAShapeLayer *closedNotifications;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePageNavigationToFriends:) name:PAGE_NAVIGATE_FROM_MESSAGES_TO_FRIENDS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePageNavigationToFriends:) name:PAGE_NAVIGATE_FROM_CONFESSIONS_TO_FRIENDS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePageNavigationToMessages:) name:PAGE_NAVIGATE_FROM_CONFESSIONS_TO_MESSAGES object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePageNavigationToConfessions:) name:PAGE_NAVIGATE_FROM_FRIENDS_TO_CONFESSIONS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePageNavigationToContacts:) name:PAGE_NAVIGATE_FROM_FRIENDS_TO_CONTACTS object:nil];
     
     [self.navigationController.navigationBar setHidden:YES];
     //[self.navigationController setDelegate:self];

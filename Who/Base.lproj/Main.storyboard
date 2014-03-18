@@ -511,27 +511,17 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="npS-m4-ngf">
-                                        <rect key="frame" x="260" y="9" width="34" height="22"/>
+                                        <rect key="frame" x="269" y="11" width="31" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="check-icon.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="beginSelectingFriendsForGroup:" destination="q0A-9I-XMY" eventType="touchUpInside" id="lwu-Qu-Iqu"/>
+                                            <action selector="createButtonClicked:" destination="q0A-9I-XMY" eventType="touchUpInside" id="lDR-bF-Gyz"/>
                                         </connections>
                                     </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mkB-QU-ThY">
-                                        <rect key="frame" x="20" y="5" width="48" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Cancel">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="cancelSelectingFriendsForGroup:" destination="q0A-9I-XMY" eventType="touchUpInside" id="2Uq-rO-Fht"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Conversation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lVS-Q3-Rub">
-                                        <rect key="frame" x="76" y="9" width="176" height="21"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Some Friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lVS-Q3-Rub">
+                                        <rect key="frame" x="21" y="9" width="232" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -584,12 +574,25 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xDh-jx-IBl">
-                                        <rect key="frame" x="20" y="28" width="46" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xDh-jx-IBl">
+                                        <rect key="frame" x="20" y="30" width="32" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal">
+                                        <state key="normal" image="confessions-icon.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="confessionsIconClicked:" destination="q0A-9I-XMY" eventType="touchUpInside" id="qA0-aA-2eJ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="iac-2V-uSw">
+                                        <rect key="frame" x="270" y="26" width="28" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="add-icon.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addIconClicked:" destination="q0A-9I-XMY" eventType="touchUpInside" id="wvx-mf-UIp"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.38431372549999998" green="0.17254901959999999" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -599,8 +602,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="AyH-7P-r1o"/>
                     <connections>
-                        <outlet property="cancelButton" destination="mkB-QU-ThY" id="rf7-S0-OOU"/>
-                        <outlet property="createButton" destination="npS-m4-ngf" id="Fqy-p1-n5t"/>
+                        <outlet property="bottomLabel" destination="lVS-Q3-Rub" id="y7x-7f-7zs"/>
                         <outlet property="searchBar" destination="G30-1u-tkr" id="C19-rP-HhO"/>
                         <outlet property="searchDisplayController" destination="xnm-H1-FA6" id="TsH-Et-elB"/>
                         <outlet property="tableView" destination="wKq-yO-HDY" id="PKP-a1-gTn"/>
@@ -1168,9 +1170,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="add-icon.png" width="250" height="250"/>
         <image name="arrow-left-icon.png" width="133" height="256"/>
         <image name="arrow-right.png" width="69" height="135"/>
         <image name="check-icon.png" width="192" height="129"/>
+        <image name="confessions-icon.png" width="244" height="222"/>
         <image name="first" width="30" height="30"/>
         <image name="friends-icon.png" width="176" height="225"/>
         <image name="message-icon.png" width="157" height="153"/>
@@ -1190,9 +1194,9 @@
         <segue reference="yvf-5p-X2z"/>
         <segue reference="hBn-y3-qKM"/>
         <segue reference="YCw-e7-spT"/>
-        <segue reference="qGQ-aw-vgl"/>
         <segue reference="GTj-hh-MDQ"/>
-        <segue reference="AGt-Q0-zDh"/>
+        <segue reference="8c7-Mw-K5g"/>
+        <segue reference="zTQ-Mf-6oX"/>
         <segue reference="f5d-Ra-j3v"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -175,6 +175,8 @@
 		3AC0BA2F18AEEFBA0061A565 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC0BA2E18AEEFBA0061A565 /* Base64.m */; };
 		3AC6D0CF18C0E17100091539 /* ChatDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6D0CE18C0E17100091539 /* ChatDBManager.m */; };
 		3AC6D0D218C22A9500091539 /* StyleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6D0D118C22A9500091539 /* StyleManager.m */; };
+		3AEE80BE18D8FD5B0098F2D1 /* FriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEE80BD18D8FD5B0098F2D1 /* FriendTableViewCell.m */; };
+		3AEE80C118D904150098F2D1 /* add-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AEE80C018D904150098F2D1 /* add-icon.png */; };
 		3AF0B00818B515E500E3D0D3 /* transparent-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF0B00718B515E500E3D0D3 /* transparent-bg.png */; };
 		3AF0B00A18B54E9000E3D0D3 /* bottom-section.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF0B00918B54E9000E3D0D3 /* bottom-section.png */; };
 		3AF19A451881EF1600F3E4D3 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF19A3C1881EF1600F3E4D3 /* DDAbstractDatabaseLogger.m */; };
@@ -521,6 +523,9 @@
 		3AC6D0CE18C0E17100091539 /* ChatDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatDBManager.m; sourceTree = "<group>"; };
 		3AC6D0D018C22A9500091539 /* StyleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleManager.h; sourceTree = "<group>"; };
 		3AC6D0D118C22A9500091539 /* StyleManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleManager.m; sourceTree = "<group>"; };
+		3AEE80BC18D8FD5B0098F2D1 /* FriendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendTableViewCell.h; sourceTree = "<group>"; };
+		3AEE80BD18D8FD5B0098F2D1 /* FriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendTableViewCell.m; sourceTree = "<group>"; };
+		3AEE80C018D904150098F2D1 /* add-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-icon.png"; sourceTree = "<group>"; };
 		3AF0B00718B515E500E3D0D3 /* transparent-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "transparent-bg.png"; sourceTree = "<group>"; };
 		3AF0B00918B54E9000E3D0D3 /* bottom-section.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bottom-section.png"; sourceTree = "<group>"; };
 		3AF19A3B1881EF1600F3E4D3 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
@@ -1017,8 +1022,7 @@
 				3AAE9B191894A049003B4560 /* ConversationViewController.m */,
 				3A7D69F11896F12100E18B45 /* OneToOneConversationViewController.h */,
 				3A7D69F21896F12100E18B45 /* OneToOneConversationViewController.m */,
-				3A25B6741881E84800166623 /* FriendsViewController.h */,
-				3A25B6751881E84800166623 /* FriendsViewController.m */,
+				3AEE80BF18D8FD620098F2D1 /* Friends */,
 				3A25B6771881E85B00166623 /* ContactsViewController.h */,
 				3A25B6781881E85B00166623 /* ContactsViewController.m */,
 				3A59D5E918B2D4C800CE7B7B /* MainSwipeViewController.h */,
@@ -1396,6 +1400,17 @@
 			path = ../base64;
 			sourceTree = "<group>";
 		};
+		3AEE80BF18D8FD620098F2D1 /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				3A25B6741881E84800166623 /* FriendsViewController.h */,
+				3A25B6751881E84800166623 /* FriendsViewController.m */,
+				3AEE80BC18D8FD5B0098F2D1 /* FriendTableViewCell.h */,
+				3AEE80BD18D8FD5B0098F2D1 /* FriendTableViewCell.m */,
+			);
+			name = Friends;
+			sourceTree = "<group>";
+		};
 		3AF19A4A1881EF5C00F3E4D3 /* CocoaLumberjack */ = {
 			isa = PBXGroup;
 			children = (
@@ -1502,6 +1517,7 @@
 		3AF86D3218B5070200033495 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3AEE80C018D904150098F2D1 /* add-icon.png */,
 				3A07F6D818D3EFDF00E82390 /* arrow-left-icon.png */,
 				3A07F6D618D3EFC200E82390 /* check-icon.png */,
 				3A07F6D418D3DB0300E82390 /* confession-cell-bottom.png */,
@@ -1731,6 +1747,7 @@
 				3A3A0B1018AB1126006FBAE4 /* input-bar-flat.png in Resources */,
 				3A07F6C518D3C21800E82390 /* cell-select-active.png in Resources */,
 				3A07F6C118D3C21800E82390 /* fav-icon.png in Resources */,
+				3AEE80C118D904150098F2D1 /* add-icon.png in Resources */,
 				3A07F6CE18D3C21800E82390 /* notification5+.png in Resources */,
 				3AB8D18A18C23DF00082B77C /* MavenProLight-300.ttf in Resources */,
 				3A07F6CC18D3C21800E82390 /* notification4.png in Resources */,
@@ -1840,6 +1857,7 @@
 				3A98DA0918BD1A2600B69049 /* XMPPDateTimeProfiles.m in Sources */,
 				3A25B6791881E85B00166623 /* ContactsViewController.m in Sources */,
 				3A98DA5F18BD1A7E00B69049 /* XMPPDeprecatedDigestAuthentication.m in Sources */,
+				3AEE80BE18D8FD5B0098F2D1 /* FriendTableViewCell.m in Sources */,
 				3A2A357E18AFC79F006402E5 /* ImageCache.m in Sources */,
 				3A98DA2118BD1A2600B69049 /* XMPPTime.m in Sources */,
 				3AF19A491881EF1600F3E4D3 /* DDTTYLogger.m in Sources */,

@@ -148,5 +148,7 @@ NSString *const STORYBOARD_ID_CONFESSIONS_VIEW_CONTROLLER = @"ConfessionsViewCon
 NSString *const PAGE_NAVIGATE_FROM_MESSAGES_TO_FRIENDS = @"page_navigate_from_messages_to_friends";
 NSString *const PAGE_NAVIGATE_FROM_CONFESSIONS_TO_MESSAGES = @"page_navigate_from_confessions_to_messages";
 NSString *const PAGE_NAVIGATE_FROM_CONFESSIONS_TO_FRIENDS = @"page_navigate_from_confessions_to_friends";
+NSString *const PAGE_NAVIGATE_FROM_FRIENDS_TO_CONFESSIONS = @"page_navigate_from_friends_to_confessions";
+NSString *const PAGE_NAVIGATE_FROM_FRIENDS_TO_CONTACTS = @"page_navigate_from_friends_to_contacts";
 
 @end

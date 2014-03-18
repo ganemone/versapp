@@ -22,12 +22,13 @@
 // Objects
 #import "MUCCreationManager.h"
 #import "LoadingDialogManager.h"
-
+#import "FriendTableViewCell.h"
 // DB
 #import "FriendMO.h"
 #import "FriendsDBManager.h"
 #import "ChatMO.h"
 #import "ChatDBManager.h"
+#import "StyleManager.h"
 
 @interface FriendsViewController()
 
@@ -40,7 +41,6 @@
 @property (strong, nonatomic) NSString *invitedUser;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
-@property BOOL isSelecting;
 @property BOOL isCreatingGroup;
 @property BOOL isSearching;
 
@@ -56,8 +56,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCreatedOneToOneChat:) name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT object:nil];
     
     /*UIImage *image = [UIImage imageNamed:@"grad-back-dark1.jpg"];
-    UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
-    [backgroundImageView setImage:image];*/
+     UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
+     [backgroundImageView setImage:image];*/
     
     [self.tableView setDataSource:self];
     [self.tableView setDelegate:self];
@@ -70,16 +70,17 @@
     [self.searchBar setSearchBarStyle:UISearchBarStyleMinimal];
     [self.searchBar setDelegate:self];
     
-    self.isSelecting = NO;
     self.isCreatingGroup = NO;
     self.selectedJIDs = [[NSMutableArray alloc] initWithCapacity:10];
     self.cp = [ConnectionProvider getInstance];
     self.ldm = [LoadingDialogManager create:self.view];
     self.allAccepted = [FriendsDBManager getAllWithStatusFriends];
     self.searchResults = _allAccepted;
+    
+    [self.bottomLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
 }
 
-- (IBAction)beginSelectingFriendsForGroup:(id)sender {
+/*- (IBAction)beginSelectingFriendsForGroup:(id)sender {
     if(self.isSelecting) {
         [self.cancelButton setHidden:YES];
         self.isSelecting = NO;
@@ -105,35 +106,23 @@
         [[self.tableView cellForRowAtIndexPath:path] setAccessoryType:UITableViewCellAccessoryNone];
     }
     [self.selectedJIDs removeAllObjects];
-}
+}*/
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_FRIENDS_PROTOTYPE];
-    
-    // Configure the cell...
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID_FRIENDS_PROTOTYPE];
-    }
-    
     FriendMO *currentItem = [self.searchResults objectAtIndex:indexPath.row];
-    
-    if ([currentItem name] != nil) {
-        [cell.textLabel setText:[currentItem name]];
-    } else {
-        [cell.textLabel setText:@"Loading..."];
-    }
+    FriendTableViewCell *cell = [[FriendTableViewCell alloc] initWithText:currentItem.name reuseIdentifier:CELL_ID_FRIENDS_PROTOTYPE];
     
     if ([self.selectedJIDs containsObject:currentItem.username]) {
-        [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+        [cell.isSelectedImageView setImage:[UIImage imageNamed:@"cell-select-active.png"]];
     } else {
-        [cell setAccessoryType:UITableViewCellAccessoryNone];
+        [cell.isSelectedImageView setImage:[UIImage imageNamed:@"cell-select.png"]];
     }
     
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    FriendTableViewCell *cell = (FriendTableViewCell*)[tableView cellForRowAtIndexPath:indexPath];
     if ([cell.textLabel.text compare:@"Loading..."] != 0) {
         NSString *jid;
         if ([self.searchResults count] > 0) {
@@ -141,23 +130,31 @@
         } else {
             jid = [[[self allAccepted] objectAtIndex:indexPath.row] username];
         }
-        if (self.isSelecting) {
-            if(cell.accessoryType == UITableViewCellAccessoryCheckmark){
-                [self.selectedJIDs removeObject:jid];
-                cell.accessoryType = UITableViewCellAccessoryNone;
-            } else {
-                [self.selectedJIDs addObject:jid];
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            }
-            [tableView deselectRowAtIndexPath:indexPath animated:NO];
+        if([self.selectedJIDs containsObject:jid]) {
+            [self.selectedJIDs removeObject:jid];
+            [cell setCellUnselected];
         } else {
-            self.invitedUser = jid;
-            UIAlertView *groupNamePrompt = [[UIAlertView alloc] initWithTitle:@"Confirmation" message:[NSString stringWithFormat:@"Would you like to start an anonymous chat with %@", cell.textLabel.text] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Create", nil];
-            groupNamePrompt.alertViewStyle = UIAlertViewStyleDefault;
-            [groupNamePrompt show];
+            [self.selectedJIDs addObject:jid];
+            [cell setCellSelected];
         }
+        [tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    if ([_selectedJIDs count] == 0) {
+        [_bottomLabel setText:@"Select Some Friends"];
+    } else if([_selectedJIDs count] == 1) {
+        [_bottomLabel setText:@"Start One to One Conversation"];
+    } else {
+        [_bottomLabel setText:@"Start Group Conversation"];
+    }
+}
+
+- (void)confirmCreateOneToOneChat:(FriendMO*)friend {
+    self.invitedUser = friend.username;
+    UIAlertView *groupNamePrompt = [[UIAlertView alloc] initWithTitle:@"Confirmation" message:[NSString stringWithFormat:@"Would you like to start an anonymous chat with %@", friend.name] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Create", nil];
+    groupNamePrompt.alertViewStyle = UIAlertViewStyleDefault;
+    [groupNamePrompt show];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -186,7 +183,7 @@
         NSString *chatID = [ChatMO createGroupID];
         [conn sendElement:[IQPacketManager createCreateOneToOneChatPacket:chatID invitedUser:self.invitedUser roomName:@"Anonymous Friend"]];
         _createdChat = [ChatDBManager insertChatWithID:chatID chatName:[FriendsDBManager getUserWithJID:self.invitedUser].name chatType:CHAT_TYPE_ONE_TO_ONE participantString:[NSString stringWithFormat:@"%@, %@", [ConnectionProvider getUser], self.invitedUser] status:STATUS_JOINED];
-    }   
+    }
     self.selectedJIDs = [[NSMutableArray alloc] init];
     [self.tableView reloadData];
 }
@@ -237,5 +234,26 @@
     [self.searchBar resignFirstResponder];
 }
 
+- (IBAction)confessionsIconClicked:(id)sender {
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [NSNumber numberWithInt:UIPageViewControllerNavigationDirectionReverse], @"direction", nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_FROM_FRIENDS_TO_CONFESSIONS
+                                                        object:nil
+                                                      userInfo:userInfo];
+}
+
+- (IBAction)addIconClicked:(id)sender {
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [NSNumber numberWithInt:UIPageViewControllerNavigationDirectionForward], @"direction", nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_FROM_FRIENDS_TO_CONTACTS
+                                                        object:nil
+                                                      userInfo:userInfo];
+}
+
+- (IBAction)createButtonClicked:(id)sender {
+    
+}
 
 @end
