@@ -41,14 +41,14 @@
 - (instancetype)initWithConfession:(Confession*)confession reuseIdentifier:(NSString *)reuseIdentifier {
     self = [self initWithStyle:UITableViewCellStyleDefault reuseIdentifier: reuseIdentifier];
     if (self) {
-        CGFloat cellX = 10.0f;
+        CGFloat cellX = 8.0f;
         CGFloat cellY = 0.0f;
         CGSize contentSize = self.contentView.frame.size;
         CGFloat cellHeight = [ConfessionTableCell heightForConfession:confession];
         CGFloat textHeight = cellHeight - 50;
-        CGRect cellFrame = CGRectMake(cellX, cellY, contentSize.width - 20.0f, cellHeight);
-        CGRect textFrame = CGRectMake(cellX, cellY, contentSize.width - 20.0f, textHeight);
-        CGRect footerFrame = CGRectMake(cellX, textHeight, contentSize.width - 20.0f, cellFrame.size.width * 0.1176);
+        CGRect cellFrame = CGRectMake(cellX, cellY, contentSize.width - 2*cellX, cellHeight);
+        CGRect textFrame = CGRectMake(cellX, cellY, contentSize.width - 2*cellX, textHeight);
+        CGRect footerFrame = CGRectMake(cellX, textHeight, contentSize.width - 2*cellX, cellFrame.size.width * 0.1176);
         
         // Configure Background View
         UIView *backgroundView = [[UIImageView alloc] initWithFrame:cellFrame];
@@ -82,7 +82,10 @@
         UIButton *createChatButton = [[UIButton alloc] initWithFrame:chatButtonFrame];
         [createChatButton addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
         UILabel *createChatLabel = [[UILabel alloc] initWithFrame:chatLabelFrame];
-        [createChatLabel setText:@"Converse"];
+        UITapGestureRecognizer *chatTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleConfessionChatStarted:)];
+        [createChatLabel setUserInteractionEnabled:YES];
+        [createChatLabel addGestureRecognizer:chatTap];
+        [createChatLabel setText:@"Chat"];
         [createChatLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
         
         // Configure Favorites
@@ -93,6 +96,9 @@
         [favoriteButton addTarget:self action:@selector(handleConfessionFavorited:) forControlEvents:UIControlEventTouchUpInside];
         UILabel *favoriteLabel = [[UILabel alloc] initWithFrame:favoriteLabelFrame];
         [favoriteLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
+        UITapGestureRecognizer *favoriteTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleConfessionFavorited:)];
+        [favoriteLabel setUserInteractionEnabled:YES];
+        [favoriteLabel addGestureRecognizer:favoriteTap];
         
         // Add subviews
         [self.contentView addSubview:backgroundView];
@@ -113,13 +119,7 @@
         _favoriteButton = favoriteButton;
         _favoriteLabel = favoriteLabel;
         _timestampLabel = timestampLabel;
-        
-        /*
-        _favoriteButton = favoriteBtn;
-        _chatButton = chatBtn;
-        _favoriteCountLabel = label;
-        _gradLine = underlineView;
-        */
+
     }
     return self;
 }

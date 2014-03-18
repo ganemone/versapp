@@ -49,7 +49,7 @@
     self.cp = [ConnectionProvider getInstance];
     
     [self.header setFont:[StyleManager getFontStyleLightSizeXL]];
-    [self.header setTextColor:[UIColor blackColor]];
+    [self.header setTextColor:[UIColor whiteColor]];
     [self.footerView setFont:[StyleManager getFontStyleLightSizeXL]];
     
     self.groupChats = [ChatDBManager getAllGroupChats];
@@ -61,7 +61,12 @@
 }
 
 - (IBAction)arrowClicked:(id)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"test" object:nil];
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [NSNumber numberWithInt:UIPageViewControllerNavigationDirectionForward], @"direction", nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_FROM_MESSAGES_TO_FRIENDS
+                                                        object:nil
+                                                      userInfo:userInfo];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

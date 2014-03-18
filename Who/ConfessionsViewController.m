@@ -54,7 +54,6 @@
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     [refresh setAttributedTitle:[[NSAttributedString alloc] initWithString:@"Pull to Refresh"]];
     [refresh addTarget:self action:@selector(loadConfessions) forControlEvents:UIControlEventValueChanged];
-    [refresh setTintColor:[UIColor blackColor]];
     
     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
     [tableViewController setRefreshControl:refresh];
@@ -62,7 +61,7 @@
     
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
-    [self.tableView setBackgroundColor:[StyleManager getColorOrange]];
+    [self.tableView setBackgroundColor:[StyleManager getColorLightOrange]];
     [self.tableView setBackgroundView:nil];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
@@ -72,7 +71,21 @@
     self.gradLineSmall = [UIImage imageNamed:@"grad-line-small.png"];
     self.chatIcon = [UIImage imageNamed:@"chat-icon.png"];
     
-    /*[self.bottomView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"grad-bottom-confessions.jpg"]]]; */
+    // Add a bottomBorder to the header view
+    CALayer *headerBottomborder = [CALayer layer];
+    headerBottomborder.frame = CGRectMake(0.0f, self.header.frame.size.height, self.header.frame.size.width, 1.0f);
+    headerBottomborder.backgroundColor = [UIColor whiteColor].CGColor;
+    [self.header.layer addSublayer:headerBottomborder];
+    // Add a top border to the footer view
+    CALayer *footerTopBorder = [CALayer layer];
+    footerTopBorder.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 1.0f);
+    footerTopBorder.backgroundColor = [UIColor whiteColor].CGColor;
+    [self.bottomView.layer addSublayer:footerTopBorder];
+
+    [self.bottomTextField setDelegate:self];
+    
+    [self.headerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+    
 }
 
 - (void)loadConfessions {
@@ -92,10 +105,16 @@
     return 1;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 10.0f;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    return [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 10.0f)];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"Number of confessions: %d", [_confessionsManager getNumberOfConfessions]);
-    
     return [_confessionsManager getNumberOfConfessions];
 }
 
@@ -128,7 +147,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [ConfessionTableCell heightForConfession:[[self confessionsManager] getConfessionAtIndex:(int)indexPath.row]];
+    return [ConfessionTableCell heightForConfession:[[self confessionsManager] getConfessionAtIndex:(int)indexPath.row]] - 8.0f;
 }
 
 - (void)refreshListView {
@@ -146,6 +165,29 @@
     _createdChat = [ChatDBManager getChatWithID:[ChatDBManager getChatIDPendingCreation]];
     [self performSegueWithIdentifier:SEGUE_ID_CREATED_ONE_TO_ONE_CHAT_FROM_CONFESSION sender:self];
     [ChatDBManager resetChatIDPendingCreation];
+}
+
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    [self performSegueWithIdentifier:SEGUE_ID_COMPOSE_CONFESSION sender:self];
+    return NO;
+}
+
+- (IBAction)messageIconClicked:(id)sender {
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [NSNumber numberWithInt:UIPageViewControllerNavigationDirectionReverse], @"direction", nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_FROM_CONFESSIONS_TO_MESSAGES
+                                                        object:nil
+                                                      userInfo:userInfo];
+}
+
+- (IBAction)friendIconClicked:(id)sender {
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [NSNumber numberWithInt:UIPageViewControllerNavigationDirectionForward], @"direction", nil];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_FROM_CONFESSIONS_TO_FRIENDS
+                                                        object:nil
+                                                      userInfo:userInfo];
 }
 
 @end

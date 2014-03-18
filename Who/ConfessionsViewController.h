@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ConfessionsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface ConfessionsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UIView *header;
+@property (weak, nonatomic) IBOutlet UIButton *messagesBtn;
+@property (weak, nonatomic) IBOutlet UIButton *friendsBtn;
+@property (weak, nonatomic) IBOutlet UITextField *bottomTextField;
+@property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 
 @end

@@ -82,6 +82,7 @@ NSString *const SEGUE_ID_CREATED_CHAT = @"SegueIdentifierCreatedChat";
 NSString *const SEGUE_ID_GROUP_VIEW_IMAGE = @"SegueIDGroupViewImage";
 NSString *const SEGUE_ID_ONE_TO_ONE_VIEW_IMAGE = @"SegueIDOneToOneViewImage";
 NSString *const SEGUE_ID_CREATED_ONE_TO_ONE_CHAT_FROM_CONFESSION = @"SegueIDCreatedOneToOneChatFromConfession";
+NSString *const SEGUE_ID_COMPOSE_CONFESSION = @"SegueIDComposeConfession";
 
 NSString *const CELL_ID_CONVERSATION_PROTOTYPE = @"ConversationCellPrototype";
 NSString *const CELL_ID_FRIENDS_PROTOTYPE = @"FriendsCellPrototype";
@@ -143,5 +144,9 @@ NSString *const STORYBOARD_ID_FRIENDS_VIEW_CONTROLLER = @"FriendsViewController"
 NSString *const STORYBOARD_ID_CONTACTS_VIEW_CONTROLLER = @"ContactsViewController";
 NSString *const STORYBOARD_ID_SWIPE_VIEW_CONTROLLER = @"MainSwipeViewController";
 NSString *const STORYBOARD_ID_CONFESSIONS_VIEW_CONTROLLER = @"ConfessionsViewController";
+
+NSString *const PAGE_NAVIGATE_FROM_MESSAGES_TO_FRIENDS = @"page_navigate_from_messages_to_friends";
+NSString *const PAGE_NAVIGATE_FROM_CONFESSIONS_TO_MESSAGES = @"page_navigate_from_confessions_to_messages";
+NSString *const PAGE_NAVIGATE_FROM_CONFESSIONS_TO_FRIENDS = @"page_navigate_from_confessions_to_friends";
 
 @end

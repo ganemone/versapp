@@ -53,8 +53,10 @@ CAShapeLayer *closedNotifications;
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadNotifications:) name:PACKET_ID_GET_PENDING_CHATS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePageNavigationToFriends:) name:PAGE_NAVIGATE_FROM_MESSAGES_TO_FRIENDS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePageNavigationToFriends:) name:PAGE_NAVIGATE_FROM_CONFESSIONS_TO_FRIENDS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePageNavigationToMessages:) name:PAGE_NAVIGATE_FROM_CONFESSIONS_TO_MESSAGES object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleMessagesRightArrowClicked) name:@"test" object:nil];
     
     [self.navigationController.navigationBar setHidden:YES];
     //[self.navigationController setDelegate:self];
@@ -86,14 +88,37 @@ CAShapeLayer *closedNotifications;
     }
 }
 
-- (void)handleMessagesRightArrowClicked {
+- (void)handlePageNavigationToMessages:(NSNotification *)notification {
+    UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
+    [self handlePageNavigationToViewController:[self viewControllerAtIndex:0]
+                                     direction:direction];
+}
+
+- (void)handlePageNavigationToConfessions:(NSNotification *)notification {
+    UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
+    [self handlePageNavigationToViewController:[self viewControllerAtIndex:1]
+                                     direction:direction];
+}
+
+- (void)handlePageNavigationToFriends:(NSNotification *)notification {
+    UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
+    [self handlePageNavigationToViewController:[self viewControllerAtIndex:2]
+                                     direction:direction];
+}
+
+- (void)handlePageNavigationToContacts:(NSNotification *)notification {
+    UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
+    [self handlePageNavigationToViewController:[self viewControllerAtIndex:3]
+                                     direction:direction];
+}
+
+- (void)handlePageNavigationToViewController:(UIViewController*)controller direction:(UIPageViewControllerNavigationDirection)direction {
     __weak UIPageViewController *pvcw = _pageViewController;
-    UIViewController *controller = [self viewControllerAtIndex:2];
-    [_pageViewController setViewControllers:@[controller] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:^(BOOL finished) {
+    [_pageViewController setViewControllers:@[controller] direction:direction animated:YES completion:^(BOOL finished) {
         UIPageViewController *pvcs = pvcw;
         if (!pvcs) return;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [pvcs setViewControllers:@[controller] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+            [pvcs setViewControllers:@[controller] direction:direction animated:NO completion:nil];
         });
     }];
 }

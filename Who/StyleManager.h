@@ -44,6 +44,8 @@
 
 +(UIColor*)getColorOrange;
 
++(UIColor*)getColorLightOrange;
+
 +(UIColor*)getColorBlue;
 
 +(UIColor*)getColorPurple;
