@@ -5,14 +5,14 @@
 #if ! __has_feature(objc_arc)
 #warning This file must be compiled with ARC. Use -fobjc-arc flag (or convert project to ARC).
 #endif
-
+/*
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
   static const int xmppLogLevel = XMPP_LOG_LEVEL_WARN;
 #else
   static const int xmppLogLevel = XMPP_LOG_LEVEL_WARN;
 #endif
-
+*/
 @implementation XMPPModule
 
 /**

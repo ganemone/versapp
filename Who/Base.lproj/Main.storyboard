@@ -115,7 +115,7 @@
         <!--Page View Controller-->
         <scene sceneID="0uv-p4-vva">
             <objects>
-                <pageViewController storyboardIdentifier="MainPageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" doubleSided="YES" id="6OU-nc-Pqi" sceneMemberID="viewController">
+                <pageViewController storyboardIdentifier="MainPageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="6OU-nc-Pqi" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <nil key="simulatedBottomBarMetrics"/>
                 </pageViewController>
@@ -1193,11 +1193,11 @@
         <segue reference="cCp-tS-h07"/>
         <segue reference="fcf-HI-Tc8"/>
         <segue reference="yvf-5p-X2z"/>
-        <segue reference="hBn-y3-qKM"/>
+        <segue reference="T8K-NQ-vMc"/>
+        <segue reference="KzQ-2I-z5y"/>
+        <segue reference="Vys-x9-fbS"/>
         <segue reference="YCw-e7-spT"/>
-        <segue reference="GTj-hh-MDQ"/>
-        <segue reference="8c7-Mw-K5g"/>
-        <segue reference="zTQ-Mf-6oX"/>
-        <segue reference="f5d-Ra-j3v"/>
+        <segue reference="Y5D-AL-CYy"/>
+        <segue reference="AGt-Q0-zDh"/>
     </inferredMetricsTieBreakers>
 </document>
