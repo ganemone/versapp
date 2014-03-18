@@ -567,8 +567,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="D8u-sU-pBy">
-                                        <rect key="frame" x="132" y="32" width="57" height="21"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friends" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="D8u-sU-pBy">
+                                        <rect key="frame" x="60" y="32" width="202" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -603,6 +603,7 @@
                     <navigationItem key="navigationItem" id="AyH-7P-r1o"/>
                     <connections>
                         <outlet property="bottomLabel" destination="lVS-Q3-Rub" id="y7x-7f-7zs"/>
+                        <outlet property="header" destination="D8u-sU-pBy" id="Yfw-F2-zzU"/>
                         <outlet property="searchBar" destination="G30-1u-tkr" id="C19-rP-HhO"/>
                         <outlet property="searchDisplayController" destination="xnm-H1-FA6" id="TsH-Et-elB"/>
                         <outlet property="tableView" destination="wKq-yO-HDY" id="PKP-a1-gTn"/>

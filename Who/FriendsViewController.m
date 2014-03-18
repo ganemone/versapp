@@ -55,17 +55,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedInvitingUsersToMUC:) name:NOTIFICATION_FINISHED_INVITING_MUC_USERS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCreatedOneToOneChat:) name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT object:nil];
     
-    /*UIImage *image = [UIImage imageNamed:@"grad-back-dark1.jpg"];
-     UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
-     [backgroundImageView setImage:image];*/
-    
     [self.tableView setDataSource:self];
     [self.tableView setDelegate:self];
     
-    //[self.tableView setBackgroundView:backgroundImageView];
-    //[self.tableView setBackgroundColor:nil];
-    //[self.tableView setOpaque:YES];
-    //[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+    [self.tableView setSeparatorColor:[StyleManager getColorPurple]];
+    [self.tableView setBackgroundColor:[StyleManager getColorPurple]];
     
     [self.searchBar setSearchBarStyle:UISearchBarStyleMinimal];
     [self.searchBar setDelegate:self];
@@ -77,6 +72,7 @@
     self.allAccepted = [FriendsDBManager getAllWithStatusFriends];
     self.searchResults = _allAccepted;
     
+    [self.header setFont:[StyleManager getFontStyleLightSizeXL]];
     [self.bottomLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
 }
 
@@ -121,6 +117,12 @@
     return cell;
 }
 
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UIView *footer = [[UIView alloc] init];
+    [footer setBackgroundColor:[UIColor clearColor]];
+    return footer;
+}
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     FriendTableViewCell *cell = (FriendTableViewCell*)[tableView cellForRowAtIndexPath:indexPath];
     if ([cell.textLabel.text compare:@"Loading..."] != 0) {
@@ -148,13 +150,6 @@
     } else {
         [_bottomLabel setText:@"Start Group Conversation"];
     }
-}
-
-- (void)confirmCreateOneToOneChat:(FriendMO*)friend {
-    self.invitedUser = friend.username;
-    UIAlertView *groupNamePrompt = [[UIAlertView alloc] initWithTitle:@"Confirmation" message:[NSString stringWithFormat:@"Would you like to start an anonymous chat with %@", friend.name] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Create", nil];
-    groupNamePrompt.alertViewStyle = UIAlertViewStyleDefault;
-    [groupNamePrompt show];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -185,6 +180,7 @@
         _createdChat = [ChatDBManager insertChatWithID:chatID chatName:[FriendsDBManager getUserWithJID:self.invitedUser].name chatType:CHAT_TYPE_ONE_TO_ONE participantString:[NSString stringWithFormat:@"%@, %@", [ConnectionProvider getUser], self.invitedUser] status:STATUS_JOINED];
     }
     self.selectedJIDs = [[NSMutableArray alloc] init];
+    [self.bottomLabel setText:@"Select Some Friends"];
     [self.tableView reloadData];
 }
 
@@ -253,7 +249,28 @@
 }
 
 - (IBAction)createButtonClicked:(id)sender {
-    
+    if ([_selectedJIDs count] == 0) {
+        UIAlertView *groupNamePrompt = [[UIAlertView alloc] initWithTitle:@"Whoops!" message:@"You must select some friends first!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [groupNamePrompt show];
+    } else if ([_selectedJIDs count] == 1) {
+        [self confirmCreateOneToOneChat:[FriendsDBManager getUserWithJID:[_selectedJIDs firstObject]]];
+    } else {
+        self.isCreatingGroup = YES;
+        [self promptForGroupName];
+    }
+}
+
+- (void)promptForGroupName {
+    UIAlertView *groupNamePrompt = [[UIAlertView alloc] initWithTitle:@"Group Name" message:@"Enter a name for the group" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Create", nil];
+    groupNamePrompt.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [groupNamePrompt show];
+}
+
+- (void)confirmCreateOneToOneChat:(FriendMO*)friend {
+    self.invitedUser = friend.username;
+    UIAlertView *groupNamePrompt = [[UIAlertView alloc] initWithTitle:@"Confirmation" message:[NSString stringWithFormat:@"Would you like to start an anonymous chat with %@", friend.name] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Create", nil];
+    groupNamePrompt.alertViewStyle = UIAlertViewStyleDefault;
+    [groupNamePrompt show];
 }
 
 @end

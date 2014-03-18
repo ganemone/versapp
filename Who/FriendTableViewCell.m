@@ -7,6 +7,7 @@
 //
 
 #import "FriendTableViewCell.h"
+#import "StyleManager.h"
 
 @implementation FriendTableViewCell
 
@@ -48,13 +49,14 @@
 }
 
 - (void)setup {
-    self.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = [UIColor whiteColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.accessoryType = UITableViewCellAccessoryNone;
     self.accessoryView = nil;
     self.imageView.image = nil;
     self.imageView.hidden = YES;
-    //self.textLabel.text = nil;
+    self.textLabel.font = [StyleManager getFontStyleLightSizeLarge];
+    self.textLabel.textColor = [StyleManager getColorPurple];
     self.textLabel.hidden = NO;
     self.detailTextLabel.text = nil;
     self.detailTextLabel.hidden = YES;

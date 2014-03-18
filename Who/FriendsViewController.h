@@ -10,6 +10,7 @@
 
 @interface FriendsViewController : UIViewController <UIAlertViewDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UILabel *header;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *bottomLabel;
 
