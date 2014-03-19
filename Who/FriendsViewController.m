@@ -234,7 +234,7 @@
     NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                               [NSNumber numberWithInt:UIPageViewControllerNavigationDirectionReverse], @"direction", nil];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_FROM_FRIENDS_TO_CONFESSIONS
+    [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_TO_CONFESSIONS
                                                         object:nil
                                                       userInfo:userInfo];
 }
@@ -243,7 +243,7 @@
     NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                               [NSNumber numberWithInt:UIPageViewControllerNavigationDirectionForward], @"direction", nil];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_FROM_FRIENDS_TO_CONTACTS
+    [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_TO_CONTACTS
                                                         object:nil
                                                       userInfo:userInfo];
 }

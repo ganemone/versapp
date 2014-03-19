@@ -64,7 +64,7 @@
     NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                               [NSNumber numberWithInt:UIPageViewControllerNavigationDirectionForward], @"direction", nil];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_FROM_MESSAGES_TO_FRIENDS
+    [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_TO_FRIENDS
                                                         object:nil
                                                       userInfo:userInfo];
 }

@@ -76,7 +76,12 @@
 }
 
 - (IBAction)backArrowClicked:(id)sender {
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [NSNumber numberWithInt:UIPageViewControllerNavigationDirectionReverse], @"direction", nil];
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_TO_FRIENDS
+                                                        object:nil
+                                                      userInfo:userInfo];
 }
 
 - (void)handleActionBtnClicked:(id)sender {
@@ -85,9 +90,13 @@
     FriendMO *friend = [self friendForIndexPath:indexPath];
     
     if ([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_REGISTERED]]) {
-        NSLog(@"Send Friend Request...");
+        [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSubscribePacket:friend.username]];
     } else {
-        NSLog(@"Send Invite SMS");
+        if (friend.username != nil) {
+            [self showSMS:@[friend.username]];
+        } else {
+            // Prompt for email...
+        }
     }
 }
 
@@ -95,6 +104,44 @@
     return (indexPath.section == 0) ? [_registeredContacts objectAtIndex:indexPath.row] : [_unregisteredContacts objectAtIndex:indexPath.row];
 }
 
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult) result
+{
+    switch (result) {
+        case MessageComposeResultCancelled:
+            break;
+            
+        case MessageComposeResultFailed:
+        {
+            UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Failed to send SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [warningAlert show];
+            break;
+        }
+            
+        case MessageComposeResultSent:
+            break;
+            
+        default:
+            break;
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
-
+- (void)showSMS:(NSArray *)recipients {
+    
+    if(![MFMessageComposeViewController canSendText]) {
+        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Your device doesn't support SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [warningAlert show];
+        return;
+    }
+    
+    NSString *message = [NSString stringWithFormat:@"Check out this cool anonymous messaging app. It's called Versapp."];
+    
+    MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
+    messageController.messageComposeDelegate = self;
+    [messageController setRecipients:recipients];
+    [messageController setBody:message];
+    
+    // Present message view controller on screen
+    [self presentViewController:messageController animated:YES completion:nil];
+}
 @end

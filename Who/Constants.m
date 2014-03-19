@@ -145,11 +145,10 @@ NSString *const STORYBOARD_ID_CONTACTS_VIEW_CONTROLLER = @"ContactsViewControlle
 NSString *const STORYBOARD_ID_SWIPE_VIEW_CONTROLLER = @"MainSwipeViewController";
 NSString *const STORYBOARD_ID_CONFESSIONS_VIEW_CONTROLLER = @"ConfessionsViewController";
 
-NSString *const PAGE_NAVIGATE_FROM_MESSAGES_TO_FRIENDS = @"page_navigate_from_messages_to_friends";
-NSString *const PAGE_NAVIGATE_FROM_CONFESSIONS_TO_MESSAGES = @"page_navigate_from_confessions_to_messages";
-NSString *const PAGE_NAVIGATE_FROM_CONFESSIONS_TO_FRIENDS = @"page_navigate_from_confessions_to_friends";
-NSString *const PAGE_NAVIGATE_FROM_FRIENDS_TO_CONFESSIONS = @"page_navigate_from_friends_to_confessions";
-NSString *const PAGE_NAVIGATE_FROM_FRIENDS_TO_CONTACTS = @"page_navigate_from_friends_to_contacts";
+NSString *const PAGE_NAVIGATE_TO_MESSAGES = @"page_navigate_to_messages";
+NSString *const PAGE_NAVIGATE_TO_CONFESSIONS = @"page_navigate_to_confessions";
+NSString *const PAGE_NAVIGATE_TO_FRIENDS = @"page_navigate_to_friends";
+NSString *const PAGE_NAVIGATE_TO_CONTACTS = @"page_navigate_to_contacts";
 
 NSString *const UPDATE_CONTACTS_VIEW = @"update_contacts_view";
 
