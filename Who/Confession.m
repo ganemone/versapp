@@ -94,11 +94,13 @@
 
 -(void)startChat {
     NSString *chatID = [NSString stringWithFormat:@"%@%ld", [ConnectionProvider getUser],(long)[[NSDate date] timeIntervalSince1970]];
+    [self encodeBody];
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createCreateOneToOneChatFromConfessionPacket:self chatID:chatID]];
     NSString *invitedID = [[_posterJID componentsSeparatedByString:@"@"] firstObject];
     NSString *participants = [NSString stringWithFormat:@"%@, %@", [ConnectionProvider getUser], invitedID];
     [ChatDBManager setChatIDPendingCreation:chatID];
     [ChatDBManager insertChatWithID:chatID chatName:_body chatType:CHAT_TYPE_ONE_TO_ONE participantString:participants status:STATUS_JOINED];
+    [self decodeBody];
 }
 
 -(NSString *)getTextForLabel {

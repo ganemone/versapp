@@ -33,6 +33,10 @@
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+    [self.tableView setSeparatorColor:[StyleManager getColorGreen]];
+    [self.tableView setBackgroundColor:[StyleManager getColorGreen]];
+    
     [self.headerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     
     // Add a bottomBorder to the header view
@@ -188,4 +192,16 @@
     [self presentViewController:messageController animated:YES completion:nil];
     
 }
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UIView *footer = [[UIView alloc] init];
+    [footer setBackgroundColor:[UIColor clearColor]];
+    return footer;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.0f;
+}
+
+
 @end
