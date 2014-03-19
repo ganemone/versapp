@@ -17,6 +17,7 @@
 @interface ContactSearchManager()
 
 @property (strong, nonatomic) NSMutableArray *contacts;
+@property (strong, nonatomic) NSArray *allFriends;
 
 @end
 
@@ -34,7 +35,18 @@ static ContactSearchManager *selfInstance;
     return selfInstance;
 }
 
+-(FriendMO *)getFriendWithEmail:(NSString *)email {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"email = \"%@\"", email]];
+    return [[_allFriends filteredArrayUsingPredicate:predicate] firstObject];
+}
+
+-(FriendMO *)getFriendWithUsername:(NSString *)username {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"username = \"%@\"", username]];
+    return [[_allFriends filteredArrayUsingPredicate:predicate] firstObject];
+}
+
 -(void)accessContacts {
+    _allFriends = [FriendsDBManager getAll];
     if (ABAddressBookRequestAccessWithCompletion) {
         CFErrorRef *error = NULL;
         ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, error);
@@ -73,8 +85,8 @@ static ContactSearchManager *selfInstance;
                             tempEmail = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(emailList, i);
                             [emailBufferArray addObject:tempEmail];
                             FriendMO* friend;
-                            if ((friend = [FriendsDBManager getUserWithEmail:tempEmail]) != nil) {
-                                shouldSearch = ([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_JOINED]] ||
+                            if ((friend = [self getFriendWithEmail:tempEmail]) != nil) {
+                                shouldSearch = ([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_REGISTERED]] ||
                                                 [friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_FRIENDS]]) ? NO : YES;
                             }
                             if (shouldSearch == NO) {
@@ -92,8 +104,8 @@ static ContactSearchManager *selfInstance;
                                 phone = [regex stringByReplacingMatchesInString:phone options:0 range:NSMakeRange(0, [phone length]) withTemplate:@""];
                                 [phoneBufferArray addObject:phone];
                                 FriendMO* friend;
-                                if ((friend = [FriendsDBManager getUserWithJID:phone]) != nil) {
-                                    shouldSearch = ([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_JOINED]] ||
+                                if ((friend = [self getFriendWithUsername:phone]) != nil) {
+                                    shouldSearch = ([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_REGISTERED]] ||
                                                     [friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_FRIENDS]]) ? NO : YES;
                                 }
                                 if (shouldSearch == NO) {

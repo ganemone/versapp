@@ -69,12 +69,12 @@
     [self.username setDelegate:self];
     [self.password setDelegate:self];
     
-    /*self.usernameText = [LoginManager loadUsername];
+    self.usernameText = [LoginManager loadUsername];
     self.passwordText = [LoginManager loadPassword];
     
     if (self.usernameText != nil && self.passwordText != nil) {
         [self login];
-    }*/
+    }
 }
 
 -(void)authenticated
