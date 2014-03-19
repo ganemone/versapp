@@ -59,8 +59,14 @@
         CGFloat btnSize = 18.0f;
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width - 50.0f, self.frame.size.height / 2 - btnSize/2, btnSize, btnSize)];
         
-        NSLog(@"Friend Status: %@", friend.status);
-        NSString *imageName = ([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_REGISTERED]]) ? @"cell-select.png" : @"cell-select-active.png";
+        NSString *imageName;
+        if([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_REGISTERED]]) {
+            imageName = @"cell-select.png";
+        } else if([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_REQUESTED]]) {
+            imageName = @"cell-select-active.png";
+        } else {
+            imageName = @"messages-icon-blue.png";
+        }
         
         [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
         [self.contentView addSubview:btn];

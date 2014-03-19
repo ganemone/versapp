@@ -175,6 +175,10 @@
     return [self updateUserStatus:username status:[NSNumber numberWithInt:STATUS_UNREGISTERED]];
 }
 
++(BOOL)updateUserSetStatusRequested:(NSString *)username {
+    return [self updateUserStatus:username status:[NSNumber numberWithInt:STATUS_REQUESTED]];
+}
+
 +(NSArray*)getAllWithStatusFriends {
     return [self getAllWithStatus:[NSNumber numberWithInt:STATUS_FRIENDS]];
 }
@@ -185,6 +189,24 @@
 
 +(NSArray*)getAllWithStatusRegistered {
     return [self getAllWithStatus:[NSNumber numberWithInt:STATUS_REGISTERED]];
+}
+
++(NSArray*)getAllWithStatusRegisteredOrRequested {
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *moc = [delegate managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:CORE_DATA_TABLE_FRIENDS inManagedObjectContext:moc];
+    [fetchRequest setEntity:entity];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:FRIENDS_TABLE_COLUMN_NAME_NAME ascending:YES];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat: [NSString stringWithFormat:@"%@ = \"%d\" || %@ = \"%d\"", FRIENDS_TABLE_COLUMN_NAME_STATUS, STATUS_REGISTERED, FRIENDS_TABLE_COLUMN_NAME_STATUS, STATUS_REQUESTED]];
+    [fetchRequest setSortDescriptors:@[sort]];
+    [fetchRequest setPredicate:predicate];
+    
+    NSError* error;
+    NSArray *fetchedRecords = [moc executeFetchRequest:fetchRequest error:&error];
+    
+    return fetchedRecords;
 }
 
 +(NSArray*)getAllWithStatusRejected {

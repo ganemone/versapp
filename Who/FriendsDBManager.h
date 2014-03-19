@@ -38,6 +38,8 @@
 
 +(BOOL)updateUserSetStatusUnregistered:(NSString*)username;
 
++(BOOL)updateUserSetStatusRequested:(NSString *)username;
+
 +(NSArray*)getAllWithStatusRegistered;
 
 +(NSArray*)getAllWithStatusFriends;
@@ -47,5 +49,7 @@
 +(NSArray*)getAllWithStatusRejected;
 
 +(NSArray*)getAllWithStatusUnregistered;
+
++(NSArray*)getAllWithStatusRegisteredOrRequested;
 
 @end

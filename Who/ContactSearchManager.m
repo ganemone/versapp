@@ -74,7 +74,6 @@ static ContactSearchManager *selfInstance;
                         
                         NSMutableArray *phoneBufferArray = [[NSMutableArray alloc] init],
                         *emailBufferArray = [[NSMutableArray alloc] init];
-                        
                         // Get all phone numbers of a contact
                         ABMultiValueRef phoneNumbers = ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonPhoneProperty),
                         emailList = ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonEmailProperty);
@@ -86,8 +85,7 @@ static ContactSearchManager *selfInstance;
                             [emailBufferArray addObject:tempEmail];
                             FriendMO* friend;
                             if ((friend = [self getFriendWithEmail:tempEmail]) != nil) {
-                                shouldSearch = ([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_REGISTERED]] ||
-                                                [friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_FRIENDS]]) ? NO : YES;
+                                shouldSearch = ([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_UNREGISTERED]]) ? YES : NO;
                             }
                             if (shouldSearch == NO) {
                                 i = emailCount;
@@ -105,8 +103,7 @@ static ContactSearchManager *selfInstance;
                                 [phoneBufferArray addObject:phone];
                                 FriendMO* friend;
                                 if ((friend = [self getFriendWithUsername:phone]) != nil) {
-                                    shouldSearch = ([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_REGISTERED]] ||
-                                                    [friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_FRIENDS]]) ? NO : YES;
+                                    shouldSearch = ([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_UNREGISTERED]]) ? YES : NO;
                                 }
                                 if (shouldSearch == NO) {
                                     i = phoneNumberCount;
@@ -155,7 +152,6 @@ static ContactSearchManager *selfInstance;
             }
             if (i < [emailAddresses count]) {
                 tempEmail = [emailAddresses objectAtIndex:i];
-                NSLog(@"Temp Email: %@", tempEmail);
                 if (friend == nil) {
                     friend = [FriendsDBManager getUserWithEmail:tempEmail];
                 }

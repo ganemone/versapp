@@ -45,7 +45,7 @@
     headerBottomborder.backgroundColor = [UIColor whiteColor].CGColor;
     [self.header.layer addSublayer:headerBottomborder];
     
-    self.registeredContacts = [FriendsDBManager getAllWithStatusRegistered];
+    self.registeredContacts = [FriendsDBManager getAllWithStatusRegisteredOrRequested];
     self.unregisteredContacts = [FriendsDBManager getAllWithStatusUnregistered];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:UPDATE_CONTACTS_VIEW object:nil];
@@ -73,7 +73,7 @@
 }
 
 - (void)refreshData {
-    _registeredContacts = [FriendsDBManager getAllWithStatusRegistered];
+    _registeredContacts = [FriendsDBManager getAllWithStatusRegisteredOrRequested];
     _unregisteredContacts = [FriendsDBManager getAllWithStatusUnregistered];
     [self.tableView reloadData];
 }
@@ -94,7 +94,9 @@
     
     if ([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_REGISTERED]]) {
         [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSubscribePacket:friend.username]];
-    } else {
+        [FriendsDBManager updateUserSetStatusRequested:friend.username];
+        [self refreshData];
+    } else if([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_UNREGISTERED]]){
         if (friend.username != nil) {
             [self showSMS:@[friend.username]];
         } else if(friend.email != nil) {
