@@ -64,6 +64,7 @@
         
         [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
         [self.contentView addSubview:btn];
+        
         _actionBtn = btn;
         _friendMO = friend;
     }

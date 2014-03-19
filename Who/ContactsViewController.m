@@ -53,6 +53,7 @@
     static NSString *CellIdentifier = @"ContactsTableViewCell";
     FriendMO *friend = (indexPath.section == 0) ? [_registeredContacts objectAtIndex:indexPath.row] : [_unregisteredContacts objectAtIndex:indexPath.row];
     ContactTableViewCell *cell = [[ContactTableViewCell alloc] initWithFriend:friend reuseIdentifier:CellIdentifier];
+    [cell.actionBtn addTarget:self action:@selector(handleActionBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 
@@ -77,5 +78,23 @@
 - (IBAction)backArrowClicked:(id)sender {
     
 }
+
+- (void)handleActionBtnClicked:(id)sender {
+    CGPoint buttonOriginInTableView = [sender convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonOriginInTableView];
+    FriendMO *friend = [self friendForIndexPath:indexPath];
+    
+    if ([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_REGISTERED]]) {
+        NSLog(@"Send Friend Request...");
+    } else {
+        NSLog(@"Send Invite SMS");
+    }
+}
+
+- (FriendMO *)friendForIndexPath:(NSIndexPath *)indexPath {
+    return (indexPath.section == 0) ? [_registeredContacts objectAtIndex:indexPath.row] : [_unregisteredContacts objectAtIndex:indexPath.row];
+}
+
+
 
 @end
