@@ -151,4 +151,6 @@ NSString *const PAGE_NAVIGATE_FROM_CONFESSIONS_TO_FRIENDS = @"page_navigate_from
 NSString *const PAGE_NAVIGATE_FROM_FRIENDS_TO_CONFESSIONS = @"page_navigate_from_friends_to_confessions";
 NSString *const PAGE_NAVIGATE_FROM_FRIENDS_TO_CONTACTS = @"page_navigate_from_friends_to_contacts";
 
+NSString *const UPDATE_CONTACTS_VIEW = @"update_contacts_view";
+
 @end

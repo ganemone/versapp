@@ -139,6 +139,7 @@ static ContactSearchManager *selfInstance;
             NSNumber *status = (friend == nil) ? [NSNumber numberWithInt:STATUS_UNREGISTERED] : friend.status;
             NSLog(@"Status: %@", status);
             NSString *name = [NSString stringWithFormat:@"%@ %@", [contact objectForKey:VCARD_TAG_FIRST_NAME], [contact objectForKey:VCARD_TAG_LAST_NAME]];
+            NSLog(@"Name: %@", name);
             
             [FriendsDBManager insert:tempPhone
                                 name:name
@@ -147,6 +148,7 @@ static ContactSearchManager *selfInstance;
                  searchedPhoneNumber:nil
                        searchedEmail:nil];
         }
+        [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_CONTACTS_VIEW object:nil];
     });
 }
 

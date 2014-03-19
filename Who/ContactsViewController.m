@@ -36,6 +36,10 @@
     self.unregisteredContacts = [FriendsDBManager getAllWithStatusUnregistered];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserSearchFinished) name:PACKET_ID_SEARCH_FOR_USERS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:UPDATE_CONTACTS_VIEW object:nil];
+    
+    ContactSearchManager *csm = [ContactSearchManager getInstance];
+    [csm accessContacts];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -67,6 +71,9 @@
     NSLog(@"Handling user search finished....");
     ContactSearchManager *csm = [ContactSearchManager getInstance];
     [csm updateContactListAfterUserSearch];
+}
+
+- (void)refreshData {
     _registeredContacts = [FriendsDBManager getAllWithStatusRegistered];
     _unregisteredContacts = [FriendsDBManager getAllWithStatusUnregistered];
     [self.tableView reloadData];

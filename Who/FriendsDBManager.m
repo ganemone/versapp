@@ -18,10 +18,10 @@
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     FriendMO *friend = [self getUserWithJID:username];
     if (friend == nil) {
-        //NSLog(@"Inserting new friend");
+        NSLog(@"Inserting new friend");
         friend = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_FRIENDS inManagedObjectContext:moc];
     } else {
-        //NSLog(@"Updating Friend");
+        NSLog(@"Updating Friend");
     }
     if (username != nil) {
         [friend setValue:username forKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME];
@@ -29,7 +29,7 @@
     }
     if (name != nil) {
         [friend setValue:name forKey:FRIENDS_TABLE_COLUMN_NAME_NAME];
-        //NSLog(@"Setting Friend MO Name: %@", name);
+        NSLog(@"Setting Friend MO Name: %@", name);
     }
     if (email != nil) {
         [friend setValue:email forKey:FRIENDS_TABLE_COLUMN_NAME_EMAIL];
