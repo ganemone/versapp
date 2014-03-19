@@ -33,7 +33,7 @@
     }
     if (email != nil) {
         [friend setValue:email forKey:FRIENDS_TABLE_COLUMN_NAME_EMAIL];
-        //NSLog(@"Setting Friend MO Email: %@", email);
+        NSLog(@"Setting Friend MO Email: %@", email);
     }
     if (status != nil) {
         [friend setValue:status forKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];

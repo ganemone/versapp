@@ -10,7 +10,7 @@
 #import <MessageUI/MessageUI.h>
 #import <AddressBookUI/AddressBookUI.h>
 
-@interface ContactsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, MFMessageComposeViewControllerDelegate>
+@interface ContactsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *header;

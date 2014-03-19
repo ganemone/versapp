@@ -1,5 +1,4 @@
 //
-//  ContactsViewController.m
 //  Who
 //
 //  Created by Giancarlo Anemone on 1/11/14.
@@ -94,8 +93,8 @@
     } else {
         if (friend.username != nil) {
             [self showSMS:@[friend.username]];
-        } else {
-            // Prompt for email...
+        } else if(friend.email != nil) {
+            [self showEmail:@[friend.email]];
         }
     }
 }
@@ -126,6 +125,50 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+-(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            NSLog(@"Mail cancelled");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"Mail saved");
+            break;
+        case MFMailComposeResultSent:
+            NSLog(@"Mail sent");
+            break;
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            break;
+        default:
+            break;
+    }
+    // Close the Mail Interface
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)showEmail:(NSArray *)recipients {
+    
+    if (![MFMailComposeViewController canSendMail]) {
+        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Your device doesn't support email!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [warningAlert show];
+        return;
+    }
+    // Email Subject
+    NSString *emailTitle = @"Versapp Invitation";
+    // Email Content
+    NSString *messageBody = @"Check out this cool anonymous messaging app. It's called Versapp."; // Change the message body to HTML
+    
+    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+    mc.mailComposeDelegate = self;
+    [mc setSubject:emailTitle];
+    [mc setMessageBody:messageBody isHTML:NO];
+    [mc setToRecipients:recipients];
+    
+    // Present mail view controller on screen
+    [self presentViewController:mc animated:YES completion:NULL];
+}
+
 - (void)showSMS:(NSArray *)recipients {
     
     if(![MFMessageComposeViewController canSendText]) {
@@ -143,5 +186,6 @@
     
     // Present message view controller on screen
     [self presentViewController:messageController animated:YES completion:nil];
+    
 }
 @end

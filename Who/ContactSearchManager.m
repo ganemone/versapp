@@ -132,11 +132,9 @@ static ContactSearchManager *selfInstance;
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createUserSearchPacketWithPhoneNumbers:allPhoneNumbers emails:allEmails]];
-                        NSLog(@"Just Sent Search Packet...");
                     });
                 }
                 CFRelease(addressBook);
-                NSLog(@"Released adress book...");
             });
         });
     }
@@ -155,9 +153,12 @@ static ContactSearchManager *selfInstance;
                 tempPhone = [phoneNumbers objectAtIndex:i];
                 friend = [FriendsDBManager getUserWithJID:tempPhone];
             }
-            if (i < [emailAddresses count] && friend == nil) {
+            if (i < [emailAddresses count]) {
                 tempEmail = [emailAddresses objectAtIndex:i];
-                friend = [FriendsDBManager getUserWithEmail:tempEmail];
+                NSLog(@"Temp Email: %@", tempEmail);
+                if (friend == nil) {
+                    friend = [FriendsDBManager getUserWithEmail:tempEmail];
+                }
             }
             i++;
         }
