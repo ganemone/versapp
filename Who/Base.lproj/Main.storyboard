@@ -721,7 +721,8 @@
                         <barButtonItem key="backBarButtonItem" title="Dashboard" id="mgi-GM-OSh"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="header" destination="Fw9-eG-ihU" id="0As-at-kN5"/>
+                        <outlet property="header" destination="vsd-42-qBE" id="Bl4-zf-2eG"/>
+                        <outlet property="headerLabel" destination="Fw9-eG-ihU" id="dIe-CO-Ve1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yd9-J6-Wir" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1023,7 +1024,8 @@
                         <barButtonItem key="backBarButtonItem" title="Dashboard" id="5Re-bn-JwE"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="header" destination="l1b-JD-9CX" id="RYF-mh-4Q1"/>
+                        <outlet property="header" destination="Cey-fd-2nt" id="VRg-3v-uPC"/>
+                        <outlet property="headerLabel" destination="l1b-JD-9CX" id="rmE-BW-DHc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g7A-1E-cma" userLabel="First Responder" sceneMemberID="firstResponder"/>

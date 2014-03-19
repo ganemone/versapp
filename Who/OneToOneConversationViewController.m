@@ -14,6 +14,7 @@
 #import "ChatDBManager.h"
 #import "MessageMO.h"
 #import "ChatMO.h"
+#import "StyleManager.h"
 
 @implementation OneToOneConversationViewController
 
@@ -22,15 +23,8 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceived:) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
     
-    /*UIImage *image = [UIImage imageNamed:@"grad-back-dark1.jpg"];
-    UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
-    [backgroundImageView setImage:image];
-    
-    [self.tableView setBackgroundView:backgroundImageView];
-    [self.tableView setBackgroundColor:nil];
-    [self.tableView setOpaque:YES];*/
+    [self.tableView setBackgroundColor:[StyleManager getColorBlue]];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    
     
     self.delegate = self;
     self.dataSource = self;
@@ -38,7 +32,15 @@
     [self.im setDelegate:self];
     self.imageCache = [ImageCache getInstance];
     self.downloadingImageURLs = [[NSMutableArray alloc] initWithCapacity:20];
-    [self.header setText:[self.chatMO user_defined_chat_name]];
+    [self.headerLabel setText:[self.chatMO user_defined_chat_name]];
+    [self.headerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+    
+    // Add a bottomBorder to the header view
+    CALayer *headerBottomborder = [CALayer layer];
+    headerBottomborder.frame = CGRectMake(0.0f, self.header.frame.size.height - 2.0f, self.view.frame.size.width, 2.0f);
+    headerBottomborder.backgroundColor = [UIColor whiteColor].CGColor;
+    [self.header.layer addSublayer:headerBottomborder];
+    
     [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
 }
 
@@ -107,10 +109,9 @@
 }
 
 -(void)configureCell:(JSBubbleMessageCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    cell.bubbleView.textView.textColor = [UIColor whiteColor];
-    
+    cell.bubbleView.textView.textColor = [UIColor blackColor];
     if (cell.timestampLabel) {
-        cell.timestampLabel.textColor = [UIColor lightGrayColor];
+        cell.timestampLabel.textColor = [UIColor whiteColor];
         cell.timestampLabel.shadowOffset = CGSizeZero;
     }
     
