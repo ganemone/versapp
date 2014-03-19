@@ -16,6 +16,7 @@
 #import "ChatDBManager.h"
 #import "Confession.h"
 #import "ConfessionsManager.h"
+#import "ContactSearchManager.h"
 
 @implementation IQPacketReceiver
 
@@ -87,6 +88,8 @@
         [FriendsDBManager insert:username name:nil email:searchedEmail status:[NSNumber numberWithInt:STATUS_REGISTERED] searchedPhoneNumber:searchedPhoneNumber searchedEmail:searchedEmail];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_SEARCH_FOR_USERS object:nil];
+    [[ContactSearchManager getInstance] updateContactListAfterUserSearch];
+    
 }
 
 +(void)handleGetChatParticipantsPacket:(XMPPIQ *)iq {
@@ -106,7 +109,6 @@
 }
 
 +(void)handleGetJoinedChatsPacket:(XMPPIQ *)iq {
-    NSLog(@"Joined Chats Packet: %@", iq.XMLString);
     NSError *error = NULL;
     
     NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
@@ -181,7 +183,6 @@
     NSArray *children = [packet children];
     for (int i = 0; i < children.count; i++) {
         NSArray *grand = [[children objectAtIndex:i] children];
-        NSLog(@"Child: %@", [[children objectAtIndex:i] XMLString]);
         for (int j = 0; j < grand.count; j++) {
             itemName = [[grand objectAtIndex:j] name];
             if([itemName compare:VCARD_TAG_NICKNAME] == 0) {
@@ -278,6 +279,7 @@
             [FriendsDBManager insert:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_PENDING]searchedPhoneNumber:nil searchedEmail:nil];
         }
     }
+    [[ContactSearchManager getInstance] accessContacts];
 }
 
 +(void)handleInviteUserToChatPacket:(XMPPIQ*)iq {
@@ -312,7 +314,6 @@
     [confessionsManager clearConfessions];
     
     for(NSTextCheckingResult *match in matches) {
-        NSLog(@"Number of matches: %lu", (unsigned long)[match numberOfRanges]);
         confessionID = [decodedPacketXML substringWithRange:[match rangeAtIndex:1]];
         jid = [decodedPacketXML substringWithRange:[match rangeAtIndex:2]];
         body = [decodedPacketXML substringWithRange:[match rangeAtIndex:3]];

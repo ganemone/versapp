@@ -78,7 +78,7 @@
     [self.header.layer addSublayer:headerBottomborder];
     // Add a top border to the footer view
     CALayer *footerTopBorder = [CALayer layer];
-    footerTopBorder.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 1.0f);
+    footerTopBorder.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 2.0f);
     footerTopBorder.backgroundColor = [UIColor whiteColor].CGColor;
     [self.bottomView.layer addSublayer:footerTopBorder];
 

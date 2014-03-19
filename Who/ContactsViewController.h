@@ -10,6 +10,9 @@
 #import <AddressBookUI/AddressBookUI.h>
 
 @interface ContactsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *header;
+@property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 
 @end

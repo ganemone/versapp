@@ -15,6 +15,8 @@
 #import "IQPacketManager.h"
 #import "ContactSearchManager.h"
 #import "FriendsDBManager.h"
+#import "StyleManager.h"
+#import "ContactTableViewCell.h"
 
 @interface ContactsViewController()
 
@@ -32,26 +34,25 @@
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     
+    [self.headerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+    
+    // Add a bottomBorder to the header view
+    CALayer *headerBottomborder = [CALayer layer];
+    headerBottomborder.frame = CGRectMake(0.0f, self.header.frame.size.height - 2.0f, self.view.frame.size.width, 2.0f);
+    headerBottomborder.backgroundColor = [UIColor whiteColor].CGColor;
+    [self.header.layer addSublayer:headerBottomborder];
+    
     self.registeredContacts = [FriendsDBManager getAllWithStatusRegistered];
     self.unregisteredContacts = [FriendsDBManager getAllWithStatusUnregistered];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserSearchFinished) name:PACKET_ID_SEARCH_FOR_USERS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:UPDATE_CONTACTS_VIEW object:nil];
-    
-    ContactSearchManager *csm = [ContactSearchManager getInstance];
-    [csm accessContacts];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:PACKET_ID_GET_VCARD object:nil];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"ContactsTableViewCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    FriendMO *friend;
-    if (indexPath.section == 0) {
-        friend = [self.registeredContacts objectAtIndex:indexPath.row];
-    } else {
-        friend = [self.unregisteredContacts objectAtIndex:indexPath.row];
-    }
-    [cell.textLabel setText:friend.name];
+    FriendMO *friend = (indexPath.section == 0) ? [_registeredContacts objectAtIndex:indexPath.row] : [_unregisteredContacts objectAtIndex:indexPath.row];
+    ContactTableViewCell *cell = [[ContactTableViewCell alloc] initWithFriend:friend reuseIdentifier:CellIdentifier];
     return cell;
 }
 
@@ -67,16 +68,14 @@
     return 2;
 }
 
--(void)handleUserSearchFinished {
-    NSLog(@"Handling user search finished....");
-    ContactSearchManager *csm = [ContactSearchManager getInstance];
-    [csm updateContactListAfterUserSearch];
-}
-
 - (void)refreshData {
     _registeredContacts = [FriendsDBManager getAllWithStatusRegistered];
     _unregisteredContacts = [FriendsDBManager getAllWithStatusUnregistered];
     [self.tableView reloadData];
+}
+
+- (IBAction)backArrowClicked:(id)sender {
+    
 }
 
 @end
