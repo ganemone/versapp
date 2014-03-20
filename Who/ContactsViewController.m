@@ -22,6 +22,8 @@
 @property (strong, nonatomic) ConnectionProvider* cp;
 @property (strong, nonatomic) NSArray *registeredContacts;
 @property (strong, nonatomic) NSArray *unregisteredContacts;
+@property (strong, nonatomic) NSMutableArray *selectedRegisteredContacts;
+@property (strong, nonatomic) NSMutableArray *selectedUnregisteredContacts;
 
 @end
 
@@ -47,6 +49,8 @@
     
     self.registeredContacts = [FriendsDBManager getAllWithStatusRegisteredOrRequested];
     self.unregisteredContacts = [FriendsDBManager getAllWithStatusUnregistered];
+    self.selectedRegisteredContacts = [[NSMutableArray alloc] initWithCapacity:[_registeredContacts count]];
+    self.selectedUnregisteredContacts = [[NSMutableArray alloc] initWithCapacity:[_unregisteredContacts count]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:UPDATE_CONTACTS_VIEW object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:PACKET_ID_GET_VCARD object:nil];
@@ -87,20 +91,36 @@
                                                       userInfo:userInfo];
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self handleRowSelectedAtIndexPath:indexPath];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
 - (void)handleActionBtnClicked:(id)sender {
     CGPoint buttonOriginInTableView = [sender convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonOriginInTableView];
+    [self handleRowSelectedAtIndexPath:indexPath];
+}
+
+- (void)handleRowSelectedAtIndexPath:(NSIndexPath *)indexPath {
+    ContactTableViewCell *cell = (ContactTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     FriendMO *friend = [self friendForIndexPath:indexPath];
     
     if ([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_REGISTERED]]) {
-        [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSubscribePacket:friend.username]];
-        [FriendsDBManager updateUserSetStatusRequested:friend.username];
-        [self refreshData];
-    } else if([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_UNREGISTERED]]){
-        if (friend.username != nil) {
-            [self showSMS:@[friend.username]];
-        } else if(friend.email != nil) {
-            [self showEmail:@[friend.email]];
+        if ([_selectedRegisteredContacts containsObject:friend.username]) {
+            [_selectedRegisteredContacts removeObject:friend.username];
+            [[cell actionBtn] setImage:[UIImage imageNamed:@"cell-select.png"] forState:UIControlStateNormal];
+        } else {
+            [_selectedRegisteredContacts addObject:friend.username];
+            [[cell actionBtn] setImage:[UIImage imageNamed:@"cell-select-active.png"] forState:UIControlStateNormal];
+        }
+    } else if([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_UNREGISTERED]]) {
+        if ([_selectedUnregisteredContacts containsObject:friend.username]) {
+            [_selectedUnregisteredContacts removeObject:friend.username];
+            [[cell actionBtn] setImage:[UIImage imageNamed:@"cell-select.png"] forState:UIControlStateNormal];
+        } else {
+            [_selectedUnregisteredContacts addObject:friend.username];
+            [[cell actionBtn] setImage:[UIImage imageNamed:@"cell-select-active.png"] forState:UIControlStateNormal];
         }
     }
 }

@@ -72,6 +72,7 @@
     }
 }
 
+// This callback is only for packets searching for a single user, adds them as a friend if the user is found.
 +(void)handleSearchForUserPacket:(XMPPIQ *)iq {
     NSLog(@"User Search Result: %@", iq.XMLString);
     NSError *error = NULL;
@@ -88,11 +89,12 @@
         }
         NSLog(@"Found User: %@", username);
         XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
-        //[conn sendElement:[IQPacketManager createSubscribePacket:username]];
-        //[conn sendElement:[IQPacketManager createGetVCardPacket:username]];
-        //[FriendsDBManager updateEntry:username name:nil email:searchedEmail status:[NSNumber numberWithInt:STATUS_REQUESTED]];
+        [conn sendElement:[IQPacketManager createSubscribePacket:username]];
+        [conn sendElement:[IQPacketManager createGetVCardPacket:username]];
+        [FriendsDBManager updateEntry:username name:nil email:searchedEmail status:[NSNumber numberWithInt:STATUS_REQUESTED]];
     }
 }
+
 // NOTE: this should only be run AFTER the query for the roster
 +(void)handleUserSearchPacket:(XMPPIQ *)iq {
     NSError *error = NULL;
