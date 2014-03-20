@@ -71,6 +71,10 @@
     
     self.usernameText = [LoginManager loadUsername];
     self.passwordText = [LoginManager loadPassword];
+    [self.username setText:_usernameText];
+    [self.password setText:_passwordText];
+    
+    NSLog(@"Trying to login with: %@ %@", self.usernameText, self.passwordText);
     
     if (self.usernameText != nil && self.passwordText != nil) {
         [self login];
@@ -124,6 +128,7 @@
     [LoginManager clearUsernameAndPassword];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your username and password could not be authenticated." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
+    [_ld hideLoadingDialogWithoutProgress];
     self.passwordText = @"";
 }
 

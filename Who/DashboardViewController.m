@@ -44,7 +44,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:PACKET_ID_GET_VCARD object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadNotifications:) name:PACKET_ID_GET_PENDING_CHATS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadNotifications) name:PACKET_ID_GET_PENDING_CHATS object:nil];
     
     /*UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
     [backgroundImageView setImage:[UIImage imageNamed:@"grad-back-messages.jpg"]];*/
@@ -61,6 +61,9 @@
     
     self.groupChats = [ChatDBManager getAllGroupChats];
     self.oneToOneChats = [ChatDBManager getAllOneToOneChats];
+    
+    [self loadNotifications];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -288,7 +291,7 @@
     }
 }
 
--(void)loadNotifications:(NSNotification *)notification {
+-(void)loadNotifications {
     NSLog(@"Load notifications");
     
     self.friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];

@@ -2090,13 +2090,13 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/users/rlundquist3/development/ios/who/who_ios,
+					/users/giancarloanemone/desktop/ios/Who/,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Who-Prefix.pch";
 				INFOPLIST_FILE = "Who/Who-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios/who;
+				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -2112,13 +2112,13 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/users/rlundquist3/development/ios/who/who_ios,
+					/users/giancarloanemone/desktop/ios/who/,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Who-Prefix.pch";
 				INFOPLIST_FILE = "Who/Who-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios/who;
+				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;

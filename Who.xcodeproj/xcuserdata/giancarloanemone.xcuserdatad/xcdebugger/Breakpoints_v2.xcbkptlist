@@ -26,13 +26,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Who/DashboardViewController.m"
-            timestampString = "416862631.944621"
+            timestampString = "417020541.205453"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "-numberOfSectionsInTableView:"
-            landmarkType = "5">
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "@implementation DashboardViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
