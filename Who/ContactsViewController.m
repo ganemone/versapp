@@ -205,5 +205,9 @@
     return 0.0f;
 }
 
+- (IBAction)addNewContact:(id)sender {
+    
+}
+
 
 @end

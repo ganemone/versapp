@@ -900,6 +900,16 @@
                                             <action selector="backArrowClicked:" destination="zuS-lS-aMT" eventType="touchUpInside" id="SJb-fl-Xze"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fc8-Ry-d1O">
+                                        <rect key="frame" x="270" y="29" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="add-icon.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addNewContact:" destination="zuS-lS-aMT" eventType="touchUpInside" id="xdB-NX-R1J"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.55294117647058827" green="0.75686274509803919" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
                             </view>

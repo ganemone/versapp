@@ -120,7 +120,7 @@
         chatId = [packetXML substringWithRange:[match rangeAtIndex:2]];
         type = [packetXML substringWithRange:[match rangeAtIndex:3]];
         owner = [packetXML substringWithRange:[match rangeAtIndex:4]];
-        name = [packetXML substringWithRange:[match rangeAtIndex:5]];
+        name = [self urlDecode:[packetXML substringWithRange:[match rangeAtIndex:5]]];
         //*createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
         participants = [participantString componentsSeparatedByString:@", "];
         
@@ -142,6 +142,30 @@
     }
     [ChatDBManager joinAllChats];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
+}
+
++ (NSString *)urlDecode:(NSString *)string {
+    return [[string stringByReplacingOccurrencesOfString:@"+" withString:@" "]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
++ (NSString *)urlencode:(NSString*)stringToEncode {
+    NSMutableString *output = [NSMutableString string];
+    const unsigned char *source = (const unsigned char *)[stringToEncode UTF8String];
+    int sourceLen = (int)strlen((const char *)source);
+    for (int i = 0; i < sourceLen; ++i) {
+        const unsigned char thisChar = source[i];
+        if (thisChar == ' '){
+            [output appendString:@"+"];
+        } else if (thisChar == '.' || thisChar == '-' || thisChar == '_' || thisChar == '~' ||
+                   (thisChar >= 'a' && thisChar <= 'z') ||
+                   (thisChar >= 'A' && thisChar <= 'Z') ||
+                   (thisChar >= '0' && thisChar <= '9')) {
+            [output appendFormat:@"%c", thisChar];
+        } else {
+            [output appendFormat:@"%%%02X", thisChar];
+        }
+    }
+    return output;
 }
 
 /*+(void)handleGetLastTimeActivePacket:(XMPPIQ *)iq {
@@ -226,7 +250,7 @@
         chatId = [packetXML substringWithRange:[match rangeAtIndex:2]];
         type = [packetXML substringWithRange:[match rangeAtIndex:3]];
         owner = [packetXML substringWithRange:[match rangeAtIndex:4]];
-        name = [packetXML substringWithRange:[match rangeAtIndex:5]];
+        name = [self urlDecode:[packetXML substringWithRange:[match rangeAtIndex:5]]];
         createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
         participants = [participantString componentsSeparatedByString:@", "];
         
