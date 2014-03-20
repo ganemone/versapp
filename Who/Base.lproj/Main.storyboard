@@ -469,7 +469,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7ln-9F-xZt">
                                         <rect key="frame" x="20" y="25" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="notification1.png">
+                                        <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1229,7 +1229,6 @@
         <image name="friends-icon.png" width="176" height="225"/>
         <image name="message-icon.png" width="157" height="153"/>
         <image name="messages-icon-white.png" width="205" height="146"/>
-        <image name="notification1.png" width="265" height="265"/>
         <image name="photo-icon.png" width="183" height="145"/>
         <image name="settings-icon-ios.png" width="68" height="66"/>
     </resources>
