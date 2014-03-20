@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SWTableViewCell.h"
 
-@interface DashboardViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@interface DashboardViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, SWTableViewCellDelegate>
 
 @end

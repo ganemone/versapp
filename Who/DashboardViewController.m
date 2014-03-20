@@ -17,6 +17,7 @@
 #import "ChatMO.h"
 #import "StyleManager.h"
 #import "FriendsDBManager.h"
+#import "SWTableViewCell.h"
 
 @interface DashboardViewController()
 
@@ -170,38 +171,44 @@
     } else {
         static NSString *cellIdentifier = @"Cell";
         
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        SWTableViewCell *cell = (SWTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-            NSLog(@"created cell when null");
+        /*if (!cell) {
+         cell = [[SWTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+         NSLog(@"created cell when null");
+         }
+         
+         UIButton *accept = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+         accept.frame = CGRectMake(200.0f, 5.0f, 30.0f, 30.0f);
+         [accept setTitle:INVITATION_ACCEPT forState:UIControlStateNormal];
+         [cell.contentView addSubview:accept];
+         
+         UIButton *decline = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+         decline.frame = CGRectMake(240.0f, 5.0f, 30.0f, 30.0f);
+         [decline setTitle:INVITATION_DECLINE forState:UIControlStateNormal];
+         [cell.contentView addSubview:decline];*/
+        
+        if (cell == nil) {
+            cell = [[SWTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier containingTableView:self.notificationTableView leftUtilityButtons:nil rightUtilityButtons:[self notificationsButtons]];
+            cell.delegate = self;
         }
-        
-        UIButton *accept = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        accept.frame = CGRectMake(200.0f, 5.0f, 30.0f, 30.0f);
-        [accept setTitle:INVITATION_ACCEPT forState:UIControlStateNormal];
-        [cell.contentView addSubview:accept];
-        
-        UIButton *decline = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        decline.frame = CGRectMake(240.0f, 5.0f, 30.0f, 30.0f);
-        [decline setTitle:INVITATION_DECLINE forState:UIControlStateNormal];
-        [cell.contentView addSubview:decline];
         
         NSLog(@"Cell: %@", [cell description]);
         
         if (indexPath.section == 0) {
             NSDictionary *notification = [self.groupInvites objectAtIndex:indexPath.row];
             cell.textLabel.text = [notification objectForKey:@"chatName"];
-            [accept addTarget:self action:@selector(acceptInvitation:) forControlEvents:UIControlEventTouchUpInside];
-            [decline addTarget:self action:@selector(declineInvitation:) forControlEvents:UIControlEventTouchUpInside];
+            //[accept addTarget:self action:@selector(acceptInvitation:) forControlEvents:UIControlEventTouchUpInside];
+            //[decline addTarget:self action:@selector(declineInvitation:) forControlEvents:UIControlEventTouchUpInside];
         } else {
             FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
             cell.textLabel.text = friendRequest.name;
-            [accept addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
-            [decline addTarget:self action:@selector(declineFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
+            //[accept addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
+            //[decline addTarget:self action:@selector(declineFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
         }
         
-        [cell.textLabel setFont:[StyleManager getFontStyleLightSizeMed]];
+        [cell.textLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
         [cell.textLabel setTextColor:[StyleManager getColorGreen]];
         
         return cell;
@@ -231,6 +238,38 @@
         } else {
             return [self.friendRequests count];
         }
+    }
+}
+                                                    
+- (NSArray *)notificationsButtons {
+    NSMutableArray *buttons = [NSMutableArray new];
+    UIImage *accept = [UIImage imageNamed:@"check-icon.png"];
+    UIImage *decline = [UIImage imageNamed:@"add-icon.png"];
+    [buttons sw_addUtilityButtonWithColor:[StyleManager getColorGreen] icon:accept];
+    [buttons sw_addUtilityButtonWithColor:[StyleManager getColorOrange] icon:decline];
+            
+    return buttons;
+}
+
+- (void) swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index {
+    NSIndexPath *indexPath = [self.notificationTableView indexPathForCell:cell];
+    switch (index) {
+        case 0:
+            NSLog(@"accept pressed");
+            if (indexPath.section == 0)
+                [self acceptInvitation:indexPath];
+            else
+                [self acceptFriendRequest:indexPath];
+            break;
+        case 1:
+            NSLog(@"decline pressed");
+            if (indexPath.section == 0)
+                [self declineInvitation:indexPath];
+            else
+                [self declineFriendRequest:indexPath];
+            break;
+        default:
+            break;
     }
 }
 
@@ -298,10 +337,16 @@
     self.groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingActiveGroupChats]];
     
     NSMutableString *imageName;
-    if ([self.friendRequests count] + [self.groupInvites count] < 6) {
-        imageName = [NSMutableString stringWithFormat:@"notification%u.png", [self.friendRequests count] + [self.groupInvites count]];
+    NSMutableString *greenImageName;
+    if ([self.friendRequests count] + [self.groupInvites count] > 0 && [self.friendRequests count] + [self.groupInvites count] < 6) {
+        imageName = [NSMutableString stringWithFormat:@"notification%lu.png", [self.friendRequests count] + [self.groupInvites count]];
+        greenImageName = [NSMutableString stringWithFormat:@"notification%lu-green.png", [self.friendRequests count] + [self.groupInvites count]];
+    } else if ([self.friendRequests count] + [self.groupInvites count] == 0) {
+        imageName = [NSMutableString stringWithString:@"notification-none.png"];
+        greenImageName = [NSMutableString stringWithString:@"notification-none-green.png"];
     } else {
         imageName = [NSMutableString stringWithString:@"notification5+.png"];
+        greenImageName = [NSMutableString stringWithString:@"notification5+-green.png"];
     }
     UIImage *notificationsCount = [UIImage imageNamed:imageName];
     [self.notificationsButton setImage:notificationsCount forState:UIControlStateNormal];
@@ -325,7 +370,7 @@
     [notificationsLabel setTextColor:[StyleManager getColorGreen]];
     [header addSubview:notificationsLabel];
     UIImageView *notificationsBadge = [[UIImageView alloc] initWithFrame:CGRectMake(20, 25, 30, 30)];
-    UIImage *notificationsImage = [UIImage imageNamed:@"notifications1.png"];
+    UIImage *notificationsImage = [UIImage imageNamed:greenImageName];
     [notificationsBadge setImage:notificationsImage];
     [header addSubview:notificationsBadge];
     
@@ -336,9 +381,9 @@
     [self hideNotifications];
 }
 
-- (IBAction)acceptInvitation:(id)sender {
-    CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
-    NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
+- (IBAction)acceptInvitation:(NSIndexPath *)indexPath {
+    //CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
+    //NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
     
     NSDictionary *notification = [self.groupInvites objectAtIndex:indexPath.row];
     [[self.cp getConnection] sendElement:[IQPacketManager createAcceptChatInvitePacket:[notification objectForKey:@"chatId"]]];
@@ -349,9 +394,9 @@
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
-- (IBAction)declineInvitation:(id)sender {
-    CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
-    NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
+- (IBAction)declineInvitation:(NSIndexPath *)indexPath {
+    //CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
+    //NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
     
     NSDictionary *notification = [self.groupInvites objectAtIndex:indexPath.row];
     [[self.cp getConnection] sendElement:[IQPacketManager createDenyChatInvitePacket:[notification objectForKey:@"chatId"]]];
@@ -362,25 +407,29 @@
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
-- (IBAction)acceptFriendRequest:(id)sender {
-    CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
-    NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
+- (IBAction)acceptFriendRequest:(NSIndexPath *)indexPath {
+    //CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
+    //NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
     
     FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
-    //Send accept request packet
+    NSMutableString *address = [NSMutableString stringWithFormat:@"%@@%@", friendRequest.username, [ConnectionProvider getServerIPAddress]];
+    [[self.cp getConnection] sendElement:[IQPacketManager createForceCreateRosterEntryPacket:address]];
+    [[self.cp getConnection] sendElement:[IQPacketManager createSubscribedPacket:friendRequest.username]];
     
-    NSLog(@"Accepted friend request: %@", friendRequest.name);
+    [FriendsDBManager updateUserSetStatusFriends:friendRequest.username];
+    
+    NSLog(@"Accepted friend request: %@, %@", address, friendRequest.username);
     
     [self.friendRequests removeObjectAtIndex:indexPath.row];
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
-- (IBAction)declineFriendRequest:(id)sender {
-    CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
-    NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
+- (IBAction)declineFriendRequest:(NSIndexPath *)indexPath {
+    //CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
+    //NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
     
     FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
-    //Send deny request packet
+    //Send deny request packet?
     
     NSLog(@"Declined friend request: %@", friendRequest.name);
     

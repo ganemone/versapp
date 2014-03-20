@@ -207,6 +207,20 @@
 		3AFF778418C415BD003277F9 /* ChatMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778318C415BD003277F9 /* ChatMO.m */; };
 		3AFF778718C415BE003277F9 /* FriendMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778618C415BE003277F9 /* FriendMO.m */; };
 		3AFFC93D18A06AE3009D7F13 /* db.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC93B18A06AE3009D7F13 /* db.xcdatamodeld */; };
+		F744856018DB61C500460FBC /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = F744854118DB61C500460FBC /* NSMutableArray+SWUtilityButtons.m */; };
+		F744856118DB61C500460FBC /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = F744854318DB61C500460FBC /* SWCellScrollView.m */; };
+		F744856218DB61C500460FBC /* SWLongPressGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = F744854618DB61C500460FBC /* SWLongPressGestureRecognizer.m */; };
+		F744856318DB61C500460FBC /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F744854818DB61C500460FBC /* SWTableViewCell.m */; };
+		F744856418DB61C500460FBC /* SWUtilityButtonTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = F744854A18DB61C500460FBC /* SWUtilityButtonTapGestureRecognizer.m */; };
+		F744856518DB61C500460FBC /* SWUtilityButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = F744854C18DB61C500460FBC /* SWUtilityButtonView.m */; };
+		F744857218DB731F00460FBC /* notification-none.png in Resources */ = {isa = PBXBuildFile; fileRef = F744856A18DB731F00460FBC /* notification-none.png */; };
+		F744857318DB731F00460FBC /* notification-none-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F744856B18DB731F00460FBC /* notification-none-green.png */; };
+		F744857418DB731F00460FBC /* notification1-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F744856C18DB731F00460FBC /* notification1-green.png */; };
+		F744857518DB731F00460FBC /* notification2-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F744856D18DB731F00460FBC /* notification2-green.png */; };
+		F744857618DB731F00460FBC /* notification3-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F744856E18DB731F00460FBC /* notification3-green.png */; };
+		F744857718DB731F00460FBC /* notification4-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F744856F18DB731F00460FBC /* notification4-green.png */; };
+		F744857818DB731F00460FBC /* notification5-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F744857018DB731F00460FBC /* notification5-green.png */; };
+		F744857918DB731F00460FBC /* notification5+-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F744857118DB731F00460FBC /* notification5+-green.png */; };
 		F751015D18ABE101001F1E7F /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751013F18ABE100001F1E7F /* IASKAppSettingsViewController.m */; };
 		F751015E18ABE101001F1E7F /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751014118ABE100001F1E7F /* IASKAppSettingsWebViewController.m */; };
 		F751015F18ABE101001F1E7F /* IASKSpecifierValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751014318ABE100001F1E7F /* IASKSpecifierValuesViewController.m */; };
@@ -581,6 +595,27 @@
 		3AFF778518C415BE003277F9 /* FriendMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendMO.h; sourceTree = "<group>"; };
 		3AFF778618C415BE003277F9 /* FriendMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendMO.m; sourceTree = "<group>"; };
 		3AFFC93C18A06AE3009D7F13 /* db.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = db.xcdatamodel; sourceTree = "<group>"; };
+		F744854018DB61C500460FBC /* NSMutableArray+SWUtilityButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+SWUtilityButtons.h"; sourceTree = "<group>"; };
+		F744854118DB61C500460FBC /* NSMutableArray+SWUtilityButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+SWUtilityButtons.m"; sourceTree = "<group>"; };
+		F744854218DB61C500460FBC /* SWCellScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWCellScrollView.h; sourceTree = "<group>"; };
+		F744854318DB61C500460FBC /* SWCellScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWCellScrollView.m; sourceTree = "<group>"; };
+		F744854418DB61C500460FBC /* SWConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWConstants.h; sourceTree = "<group>"; };
+		F744854518DB61C500460FBC /* SWLongPressGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWLongPressGestureRecognizer.h; sourceTree = "<group>"; };
+		F744854618DB61C500460FBC /* SWLongPressGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWLongPressGestureRecognizer.m; sourceTree = "<group>"; };
+		F744854718DB61C500460FBC /* SWTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWTableViewCell.h; sourceTree = "<group>"; };
+		F744854818DB61C500460FBC /* SWTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWTableViewCell.m; sourceTree = "<group>"; };
+		F744854918DB61C500460FBC /* SWUtilityButtonTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUtilityButtonTapGestureRecognizer.h; sourceTree = "<group>"; };
+		F744854A18DB61C500460FBC /* SWUtilityButtonTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUtilityButtonTapGestureRecognizer.m; sourceTree = "<group>"; };
+		F744854B18DB61C500460FBC /* SWUtilityButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUtilityButtonView.h; sourceTree = "<group>"; };
+		F744854C18DB61C500460FBC /* SWUtilityButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUtilityButtonView.m; sourceTree = "<group>"; };
+		F744856A18DB731F00460FBC /* notification-none.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification-none.png"; sourceTree = "<group>"; };
+		F744856B18DB731F00460FBC /* notification-none-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification-none-green.png"; sourceTree = "<group>"; };
+		F744856C18DB731F00460FBC /* notification1-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification1-green.png"; sourceTree = "<group>"; };
+		F744856D18DB731F00460FBC /* notification2-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification2-green.png"; sourceTree = "<group>"; };
+		F744856E18DB731F00460FBC /* notification3-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification3-green.png"; sourceTree = "<group>"; };
+		F744856F18DB731F00460FBC /* notification4-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification4-green.png"; sourceTree = "<group>"; };
+		F744857018DB731F00460FBC /* notification5-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification5-green.png"; sourceTree = "<group>"; };
+		F744857118DB731F00460FBC /* notification5+-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification5+-green.png"; sourceTree = "<group>"; };
 		F751013E18ABE100001F1E7F /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsViewController.h; sourceTree = "<group>"; };
 		F751013F18ABE100001F1E7F /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsViewController.m; sourceTree = "<group>"; };
 		F751014018ABE100001F1E7F /* IASKAppSettingsWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsWebViewController.h; sourceTree = "<group>"; };
@@ -1520,6 +1555,7 @@
 		3AF19ACE1881F86000F3E4D3 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				F744853F18DB61C500460FBC /* PodFiles */,
 				3A59D5EF18B2F30300CE7B7B /* RNBlurModalView */,
 				3AC0BA2C18AEEFBA0061A565 /* base64 */,
 				3A3A0A8018AB1126006FBAE4 /* JSMessagesViewController */,
@@ -1552,12 +1588,20 @@
 				3A07F6AD18D3C21800E82390 /* compose-icon.png */,
 				3A07F6B018D3C21800E82390 /* arrow-right-bold.png */,
 				3A07F6B618D3C21800E82390 /* More Notifications Icon.png */,
+				F744856A18DB731F00460FBC /* notification-none.png */,
 				3A07F6B718D3C21800E82390 /* notification1.png */,
 				3A07F6B818D3C21800E82390 /* notification2.png */,
 				3A07F6B918D3C21800E82390 /* notification3.png */,
 				3A07F6BA18D3C21800E82390 /* notification4.png */,
 				3A07F6BB18D3C21800E82390 /* notification5.png */,
 				3A07F6BC18D3C21800E82390 /* notification5+.png */,
+				F744856B18DB731F00460FBC /* notification-none-green.png */,
+				F744856C18DB731F00460FBC /* notification1-green.png */,
+				F744856D18DB731F00460FBC /* notification2-green.png */,
+				F744856E18DB731F00460FBC /* notification3-green.png */,
+				F744856F18DB731F00460FBC /* notification4-green.png */,
+				F744857018DB731F00460FBC /* notification5-green.png */,
+				F744857118DB731F00460FBC /* notification5+-green.png */,
 				3AB8D1B618C2C67C0082B77C /* settings-icon-ios.png */,
 				3AB8D19418C2A5840082B77C /* arrow-right.png */,
 				3A00167C18B8231000C54059 /* message-icon.png */,
@@ -1566,6 +1610,27 @@
 				3AF0B00718B515E500E3D0D3 /* transparent-bg.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		F744853F18DB61C500460FBC /* PodFiles */ = {
+			isa = PBXGroup;
+			children = (
+				F744854018DB61C500460FBC /* NSMutableArray+SWUtilityButtons.h */,
+				F744854118DB61C500460FBC /* NSMutableArray+SWUtilityButtons.m */,
+				F744854218DB61C500460FBC /* SWCellScrollView.h */,
+				F744854318DB61C500460FBC /* SWCellScrollView.m */,
+				F744854418DB61C500460FBC /* SWConstants.h */,
+				F744854518DB61C500460FBC /* SWLongPressGestureRecognizer.h */,
+				F744854618DB61C500460FBC /* SWLongPressGestureRecognizer.m */,
+				F744854718DB61C500460FBC /* SWTableViewCell.h */,
+				F744854818DB61C500460FBC /* SWTableViewCell.m */,
+				F744854918DB61C500460FBC /* SWUtilityButtonTapGestureRecognizer.h */,
+				F744854A18DB61C500460FBC /* SWUtilityButtonTapGestureRecognizer.m */,
+				F744854B18DB61C500460FBC /* SWUtilityButtonView.h */,
+				F744854C18DB61C500460FBC /* SWUtilityButtonView.m */,
+			);
+			name = PodFiles;
+			path = SWTableViewCell/PodFiles;
 			sourceTree = "<group>";
 		};
 		F751013C18ABE100001F1E7F /* InAppSettingsKit */ = {
@@ -1734,16 +1799,20 @@
 				3A07F6C418D3C21800E82390 /* friends-icon.png in Resources */,
 				3A07F6C018D3C21800E82390 /* fav-icon-active.png in Resources */,
 				3A3A0B0918AB1126006FBAE4 /* input-field-cover@2x.png in Resources */,
+				F744857318DB731F00460FBC /* notification-none-green.png in Resources */,
 				3A07F6C618D3C21800E82390 /* messages-icon-blue.png in Resources */,
 				3A07F6BE18D3C21800E82390 /* chat-icon.png in Resources */,
 				3A00167F18B8231000C54059 /* photo-icon.png in Resources */,
 				3A07F6C218D3C21800E82390 /* arrow-right-bold.png in Resources */,
 				3A07F6D518D3DB0300E82390 /* confession-cell-bottom.png in Resources */,
+				F744857518DB731F00460FBC /* notification2-green.png in Resources */,
 				3A07F6BF18D3C21800E82390 /* compose-icon.png in Resources */,
 				3A07F6C318D3C21800E82390 /* cell-select.png in Resources */,
+				F744857918DB731F00460FBC /* notification5+-green.png in Resources */,
 				3AB8D18F18C259B00082B77C /* MavenProBlack.ttf in Resources */,
 				3A3A0AE818AB1126006FBAE4 /* avatar-placeholder.png in Resources */,
 				3A25B6521881E03700166623 /* Images.xcassets in Resources */,
+				F744857618DB731F00460FBC /* notification3-green.png in Resources */,
 				3A3A0B0718AB1126006FBAE4 /* input-bar-background@2x.png in Resources */,
 				3A07F6CA18D3C21800E82390 /* notification2.png in Resources */,
 				3A07F6C718D3C21800E82390 /* messages-icon-white.png in Resources */,
@@ -1757,6 +1826,7 @@
 				3AB8D19118C259B00082B77C /* MavenProMedium.ttf in Resources */,
 				3A3A0B1218AB1126006FBAE4 /* message-received.aiff in Resources */,
 				3AB8D19518C2A5840082B77C /* arrow-right.png in Resources */,
+				F744857718DB731F00460FBC /* notification4-green.png in Resources */,
 				F751016C18ABE8A2001F1E7F /* Settings.bundle in Resources */,
 				3A07F6CD18D3C21800E82390 /* notification5.png in Resources */,
 				3AB8D19018C259B00082B77C /* MavenProBold.ttf in Resources */,
@@ -1771,6 +1841,7 @@
 				3AEE80C118D904150098F2D1 /* add-icon.png in Resources */,
 				3A07F6CE18D3C21800E82390 /* notification5+.png in Resources */,
 				3AB8D18A18C23DF00082B77C /* MavenProLight-300.ttf in Resources */,
+				F744857818DB731F00460FBC /* notification5-green.png in Resources */,
 				3A07F6CC18D3C21800E82390 /* notification4.png in Resources */,
 				3A3A0B1118AB1126006FBAE4 /* input-bar-flat@2x.png in Resources */,
 				3A3A0B0E18AB1126006FBAE4 /* button-photo.png in Resources */,
@@ -1784,7 +1855,9 @@
 				3A3A0B0C18AB1126006FBAE4 /* send-button.png in Resources */,
 				3AF86D2918B504CF00033495 /* bubble-old.png in Resources */,
 				3A07F6D718D3EFC200E82390 /* check-icon.png in Resources */,
+				F744857218DB731F00460FBC /* notification-none.png in Resources */,
 				3A00167E18B8231000C54059 /* message-icon.png in Resources */,
+				F744857418DB731F00460FBC /* notification1-green.png in Resources */,
 				3A25B64A1881E03700166623 /* Main.storyboard in Resources */,
 				3A07F6C918D3C21800E82390 /* notification1.png in Resources */,
 				3A3A0B0618AB1126006FBAE4 /* input-bar-background.png in Resources */,
@@ -1826,6 +1899,7 @@
 				3A7D69F31896F12100E18B45 /* OneToOneConversationViewController.m in Sources */,
 				3A3A0ADE18AB1126006FBAE4 /* JSBubbleImageViewFactory.m in Sources */,
 				3AAE9B1A1894A049003B4560 /* ConversationViewController.m in Sources */,
+				F744856318DB61C500460FBC /* SWTableViewCell.m in Sources */,
 				3AB9E67E18A45573001EFDB8 /* LoadingDialogManager.m in Sources */,
 				3AFF778718C415BE003277F9 /* FriendMO.m in Sources */,
 				3A98D8E318BD19B200B69049 /* XMPPElement.m in Sources */,
@@ -1855,11 +1929,13 @@
 				3A98D8E518BD19B200B69049 /* XMPPJID.m in Sources */,
 				3A98D9EC18BD1A2600B69049 /* XMPPRoomMessageHybridCoreDataStorageObject.m in Sources */,
 				3AC6D0D218C22A9500091539 /* StyleManager.m in Sources */,
+				F744856018DB61C500460FBC /* NSMutableArray+SWUtilityButtons.m in Sources */,
 				3A3A0AE718AB1126006FBAE4 /* JSMessageTextView.m in Sources */,
 				3A98D9D118BD1A2600B69049 /* XMPPBandwidthMonitor.m in Sources */,
 				3A98DA3918BD1A4B00B69049 /* RFImageToDataTransformer.m in Sources */,
 				3A7D577318D14E47004F90B8 /* ContactSearchManager.m in Sources */,
 				3A98D9EA18BD1A2600B69049 /* XMPPRoomHybrid.xcdatamodeld in Sources */,
+				F744856118DB61C500460FBC /* SWCellScrollView.m in Sources */,
 				3A98D8EA18BD19B200B69049 /* XMPPStream.m in Sources */,
 				F751016218ABE101001F1E7F /* IASKSettingsStoreFile.m in Sources */,
 				3A98D9F118BD1A2600B69049 /* XMPPMessage+XEP0045.m in Sources */,
@@ -1886,6 +1962,7 @@
 				3A98D9ED18BD1A2600B69049 /* XMPPRoomOccupantHybridMemoryStorageObject.m in Sources */,
 				3A8BCF7F18B59C5400D4B7CE /* Confession.m in Sources */,
 				3A3A0B1418AB1126006FBAE4 /* JSQSystemSoundPlayer.m in Sources */,
+				F744856418DB61C500460FBC /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				3A98D9D218BD1A2600B69049 /* XMPPCoreDataStorage.m in Sources */,
 				F751016318ABE101001F1E7F /* IASKSettingsStoreUserDefaults.m in Sources */,
 				3A59D5EE18B2F2FE00CE7B7B /* RNBlurModalView.m in Sources */,
@@ -1917,6 +1994,7 @@
 				3A98D9DB18BD1A2600B69049 /* XMPPResourceMemoryStorageObject.m in Sources */,
 				3AF19AD11882075D00F3E4D3 /* ConnectionProvider.m in Sources */,
 				3AF19A451881EF1600F3E4D3 /* DDAbstractDatabaseLogger.m in Sources */,
+				F744856518DB61C500460FBC /* SWUtilityButtonView.m in Sources */,
 				3A3A0AE518AB1126006FBAE4 /* JSMessagesViewController.m in Sources */,
 				F751016A18ABE101001F1E7F /* IASKTextField.m in Sources */,
 				3A98DA6118BD1A7E00B69049 /* XMPPDigestMD5Authentication.m in Sources */,
@@ -1952,6 +2030,7 @@
 				F751016118ABE101001F1E7F /* IASKSettingsStore.m in Sources */,
 				3A98D9F218BD1A2600B69049 /* XMPPMUC.m in Sources */,
 				F751015E18ABE101001F1E7F /* IASKAppSettingsWebViewController.m in Sources */,
+				F744856218DB61C500460FBC /* SWLongPressGestureRecognizer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2088,15 +2167,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/users/giancarloanemone/desktop/ios/Who/,
-				);
+				FRAMEWORK_SEARCH_PATHS = /Users/rlundquist3/Development/ios/who/who_ios;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Who-Prefix.pch";
 				INFOPLIST_FILE = "Who/Who-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
+				LIBRARY_SEARCH_PATHS = /Users/rlundquist3/Development/ios/who/who_ios/who;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -2110,15 +2186,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/users/giancarloanemone/desktop/ios/who/,
-				);
+				FRAMEWORK_SEARCH_PATHS = /Users/rlundquist3/Development/ios/who/who_ios;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Who-Prefix.pch";
 				INFOPLIST_FILE = "Who/Who-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
+				LIBRARY_SEARCH_PATHS = /Users/rlundquist3/Development/ios/who/who_ios/who;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
