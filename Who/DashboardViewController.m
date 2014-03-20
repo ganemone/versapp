@@ -182,8 +182,8 @@
         NSLog(@"Cell: %@", [cell description]);
         
         if (indexPath.section == 0) {
-            NSDictionary *notification = [self.groupInvites objectAtIndex:indexPath.row];
-            cell.textLabel.text = [notification objectForKey:@"chatName"];
+            ChatMO *groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
+            cell.textLabel.text = groupInvite.chat_name;
         } else {
             FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
             cell.textLabel.text = friendRequest.name;
@@ -373,10 +373,10 @@
 }
 
 - (IBAction)acceptInvitation:(NSIndexPath *)indexPath {
-    NSDictionary *notification = [self.groupInvites objectAtIndex:indexPath.row];
-    [[self.cp getConnection] sendElement:[IQPacketManager createAcceptChatInvitePacket:[notification objectForKey:@"chatId"]]];
+    ChatMO *groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
+    [[self.cp getConnection] sendElement:[IQPacketManager createAcceptChatInvitePacket:groupInvite.chat_id]];
     
-    NSLog(@"Accepted: %@", [notification objectForKey:@"chatId"]);
+    NSLog(@"Accepted: %@", groupInvite.chat_id);
     
     [self.groupInvites removeObjectAtIndex:indexPath.row];
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
@@ -384,10 +384,10 @@
 }
 
 - (IBAction)declineInvitation:(NSIndexPath *)indexPath {
-    NSDictionary *notification = [self.groupInvites objectAtIndex:indexPath.row];
-    [[self.cp getConnection] sendElement:[IQPacketManager createDenyChatInvitePacket:[notification objectForKey:@"chatId"]]];
+    ChatMO*groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
+    [[self.cp getConnection] sendElement:[IQPacketManager createDenyChatInvitePacket:groupInvite.chat_id]];
     
-    NSLog(@"Declined: %@", [notification objectForKey:@"chatId"]);
+    NSLog(@"Declined: %@", groupInvite.chat_id);
     
     [self.groupInvites removeObjectAtIndex:indexPath.row];
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
