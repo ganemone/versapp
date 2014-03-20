@@ -104,7 +104,7 @@
 }
 
 -(NSString *)getTextForLabel {
-    return (_favoritedUsers.count == 1) ? @"1 Favorite" : [NSString stringWithFormat:@"%d Favorites", _favoritedUsers.count];
+    return (_favoritedUsers.count == 1) ? @"1 Favorite" : [NSString stringWithFormat:@"%lu Favorites", (unsigned long)_favoritedUsers.count];
 }
 
 @end

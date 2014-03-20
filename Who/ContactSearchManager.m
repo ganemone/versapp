@@ -88,7 +88,7 @@ static ContactSearchManager *selfInstance;
                                 shouldSearch = ([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_UNREGISTERED]]) ? YES : NO;
                             }
                             if (shouldSearch == NO) {
-                                i = emailCount;
+                                i = (int)emailCount;
                             }
                         }
                         
@@ -106,7 +106,7 @@ static ContactSearchManager *selfInstance;
                                     shouldSearch = ([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_UNREGISTERED]]) ? YES : NO;
                                 }
                                 if (shouldSearch == NO) {
-                                    i = phoneNumberCount;
+                                    i = (int)phoneNumberCount;
                                 }
                             }
                         }
