@@ -338,6 +338,7 @@
     [notificationsLabel setTextColor:[StyleManager getColorGreen]];
     [self.notificationsHeader addSubview:notificationsLabel];
     [self.notificationsHeader addSubview:notificationsBadgeGreen];
+    [self.notificationTableView setTableHeaderView:self.notificationsHeader];
 }
 
 -(void)loadNotifications {
@@ -364,17 +365,6 @@
     self.notificationTableView.hidden = YES;
     [self.notificationTableView setDelegate:self];
     [self.notificationTableView setDataSource:self];
-    
-    /*UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 60)];
-    UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 32, 280, 21)];
-    [notificationsLabel setText:@"Notifications"];
-    [notificationsLabel setTextAlignment:NSTextAlignmentCenter];
-    [notificationsLabel setFont:[StyleManager getFontStyleLightSizeXL]];
-    [notificationsLabel setTextColor:[StyleManager getColorGreen]];
-    [header addSubview:notificationsLabel];
-    //UIImageView *notificationsBadge = [[UIImageView alloc] initWithFrame:CGRectMake(20, 25, 30, 30)];
-    //[notificationsBadge setImage:self.notificationsImageGreen];
-    [header addSubview:self.notificationsBadgeGreen];*/
     
     [self.notificationTableView setTableHeaderView:self.notificationsHeader];
     [self.notificationTableView setSeparatorColor:[StyleManager getColorGreen]];
