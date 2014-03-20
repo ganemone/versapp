@@ -31,7 +31,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *footerView;
 @property (strong, nonatomic) IBOutlet UIButton *settingsButton;
 @property (strong, nonatomic) IBOutlet UIButton *notificationsButton;
-@property (strong, nonatomic) UIImage *notificationsImageGreen;
+@property (strong, nonatomic) UIView *notificationsHeader;
 @property (strong, nonatomic) UITableView *notificationTableView;
 @property (strong, nonatomic) NSMutableArray *friendRequests;
 @property (strong, nonatomic) NSMutableArray *groupInvites;
@@ -325,8 +325,19 @@
         greenImageName = [NSMutableString stringWithString:@"notification5+-green.png"];
     }
     UIImage *notificationsImage = [UIImage imageNamed:imageName];
+    UIImageView *notificationsBadgeGreen = [[UIImageView alloc] initWithFrame:CGRectMake(20, 25, 30, 30)];
     [self.notificationsButton setImage:notificationsImage forState:UIControlStateNormal];
-    self.notificationsImageGreen = [UIImage imageNamed:greenImageName];
+    UIImage *notificationsImageGreen = [UIImage imageNamed:greenImageName];
+    [notificationsBadgeGreen setImage:notificationsImageGreen];
+    
+    self.notificationsHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 60)];
+    UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 32, 280, 21)];
+    [notificationsLabel setText:@"Notifications"];
+    [notificationsLabel setTextAlignment:NSTextAlignmentCenter];
+    [notificationsLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+    [notificationsLabel setTextColor:[StyleManager getColorGreen]];
+    [self.notificationsHeader addSubview:notificationsLabel];
+    [self.notificationsHeader addSubview:notificationsBadgeGreen];
 }
 
 -(void)loadNotifications {
@@ -354,18 +365,18 @@
     [self.notificationTableView setDelegate:self];
     [self.notificationTableView setDataSource:self];
     
-    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 60)];
+    /*UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 60)];
     UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 32, 280, 21)];
     [notificationsLabel setText:@"Notifications"];
     [notificationsLabel setTextAlignment:NSTextAlignmentCenter];
     [notificationsLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     [notificationsLabel setTextColor:[StyleManager getColorGreen]];
     [header addSubview:notificationsLabel];
-    UIImageView *notificationsBadge = [[UIImageView alloc] initWithFrame:CGRectMake(20, 25, 30, 30)];
-    [notificationsBadge setImage:self.notificationsImageGreen];
-    [header addSubview:notificationsBadge];
+    //UIImageView *notificationsBadge = [[UIImageView alloc] initWithFrame:CGRectMake(20, 25, 30, 30)];
+    //[notificationsBadge setImage:self.notificationsImageGreen];
+    [header addSubview:self.notificationsBadgeGreen];*/
     
-    [self.notificationTableView setTableHeaderView:header];
+    [self.notificationTableView setTableHeaderView:self.notificationsHeader];
     [self.notificationTableView setSeparatorColor:[StyleManager getColorGreen]];
     
     [self.view addSubview:self.notificationTableView];
