@@ -422,13 +422,13 @@
 }
 
 -(void)handleGetLastPacketReceived:(NSNotification*)notification {
-    self.groupChats = [ChatDBManager getAllGroupChats];
+    self.groupChats = [ChatDBManager getAllActiveGroupChats];
     self.oneToOneChats = [ChatDBManager getAllOneToOneChats];
     [self.tableView reloadData];
 }
 
 -(void)handleRefreshListView:(NSNotification*)notification {
-    self.groupChats = [ChatDBManager getAllGroupChats];
+    self.groupChats = [ChatDBManager getAllActiveGroupChats];
     self.oneToOneChats = [ChatDBManager getAllOneToOneChats];
     [self.tableView reloadData];
 }
