@@ -40,6 +40,8 @@
 
 +(BOOL)updateUserSetStatusRequested:(NSString *)username;
 
++(BOOL)updateUserSetStatusInvited:(NSString *)username;
+
 +(NSArray*)getAllWithStatusRegistered;
 
 +(NSArray*)getAllWithStatusFriends;

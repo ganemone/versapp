@@ -16,6 +16,7 @@
 #import "FriendsDBManager.h"
 #import "StyleManager.h"
 #import "ContactTableViewCell.h"
+#import "AppDelegate.h"
 
 @interface ContactsViewController()
 
@@ -24,6 +25,8 @@
 @property (strong, nonatomic) NSArray *unregisteredContacts;
 @property (strong, nonatomic) NSMutableArray *selectedRegisteredContacts;
 @property (strong, nonatomic) NSMutableArray *selectedUnregisteredContacts;
+@property (strong, nonatomic) NSMutableArray *smsContacts;
+@property (strong, nonatomic) NSMutableArray *emailContacts;
 
 @end
 
@@ -40,6 +43,7 @@
     [self.tableView setBackgroundColor:[StyleManager getColorGreen]];
     
     [self.headerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+    [self.footerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     
     // Add a bottomBorder to the header view
     CALayer *headerBottomborder = [CALayer layer];
@@ -107,21 +111,39 @@
     FriendMO *friend = [self friendForIndexPath:indexPath];
     
     if ([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_REGISTERED]]) {
-        if ([_selectedRegisteredContacts containsObject:friend.username]) {
-            [_selectedRegisteredContacts removeObject:friend.username];
+        if ([_selectedRegisteredContacts containsObject:friend]) {
+            [_selectedRegisteredContacts removeObject:friend];
             [[cell actionBtn] setImage:[UIImage imageNamed:@"cell-select.png"] forState:UIControlStateNormal];
         } else {
-            [_selectedRegisteredContacts addObject:friend.username];
+            [_selectedRegisteredContacts addObject:friend];
             [[cell actionBtn] setImage:[UIImage imageNamed:@"cell-select-active.png"] forState:UIControlStateNormal];
         }
     } else if([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_UNREGISTERED]]) {
-        if ([_selectedUnregisteredContacts containsObject:friend.username]) {
-            [_selectedUnregisteredContacts removeObject:friend.username];
+        if ([_selectedUnregisteredContacts containsObject:friend]) {
+            [_selectedUnregisteredContacts removeObject:friend];
             [[cell actionBtn] setImage:[UIImage imageNamed:@"cell-select.png"] forState:UIControlStateNormal];
         } else {
-            [_selectedUnregisteredContacts addObject:friend.username];
+            [_selectedUnregisteredContacts addObject:friend];
             [[cell actionBtn] setImage:[UIImage imageNamed:@"cell-select-active.png"] forState:UIControlStateNormal];
         }
+    }
+    
+    [self updateFooterText];
+}
+
+- (void)updateFooterText {
+    if ([_selectedRegisteredContacts count] > 0) {
+        if ([_selectedUnregisteredContacts count] > 0) {
+            [_footerLabel setText:@"Add and Invite"];
+        } else if([_selectedRegisteredContacts count] > 1) {
+            [_footerLabel setText:@"Add Friends"];
+        } else {
+            [_footerLabel setText:@"Add Friend"];
+        }
+    } else if([_selectedUnregisteredContacts count] > 0) {
+        [_footerLabel setText:@"Invite"];
+    } else {
+        [_footerLabel setText:@"Select Some Contacts"];
     }
 }
 
@@ -148,7 +170,13 @@
         default:
             break;
     }
+    
+    for (NSString *username in _smsContacts) {
+        [FriendsDBManager updateUserSetStatusInvited:username];
+    }
+
     [self dismissViewControllerAnimated:YES completion:nil];
+    [self showEmail:_emailContacts];
 }
 
 -(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
@@ -169,8 +197,17 @@
         default:
             break;
     }
-    // Close the Mail Interface
     [self dismissViewControllerAnimated:YES completion:NULL];
+    AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    for (NSString *email in _emailContacts) {
+        FriendMO *friend = [FriendsDBManager getUserWithEmail:email];
+        [friend setValue:[NSNumber numberWithInt:STATUS_INVITED] forKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];
+        [delegate saveContext];
+    }
+    _smsContacts = nil;
+    _emailContacts = nil;
+    
+    [self refreshData];
 }
 
 - (void)showEmail:(NSArray *)recipients {
@@ -239,5 +276,25 @@
     }
 }
 
+- (IBAction)sendInvitations:(id)sender {
+    XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
+    for (FriendMO *friend in _selectedRegisteredContacts) {
+        [conn sendElement:[IQPacketManager createSubscribePacket:friend.username]];
+        [FriendsDBManager updateUserSetStatusRequested:friend.username];
+    }
+    
+    self.smsContacts = [[NSMutableArray alloc] initWithCapacity:[_selectedUnregisteredContacts count]];
+    self.emailContacts = [[NSMutableArray alloc] initWithCapacity:[_selectedUnregisteredContacts count]];
+    
+    for (FriendMO *friend in _selectedUnregisteredContacts) {
+        if (friend.username != nil) {
+            [_smsContacts addObject:friend.username];
+        } else if(friend.email != nil) {
+            [_emailContacts addObject:friend.email];
+        }
+    }
+    
+    [self showSMS:_smsContacts];
+}
 
 @end
