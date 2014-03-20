@@ -37,6 +37,7 @@ extern NSString *const PACKET_ID_GET_MY_CONFESSIONS;
 extern NSString *const PACKET_ID_DESTROY_CONFESSION;
 extern NSString *const PACKET_ID_FORCE_CREATE_ROSTER_ENTRY;
 extern NSString *const PACKET_ID_SEARCH_FOR_USERS;
+extern NSString *const PACKET_ID_SEARCH_FOR_USER;
 
 extern NSString *const VCARD_TAG_FULL_NAME;
 extern NSString *const VCARD_TAG_FIRST_NAME;

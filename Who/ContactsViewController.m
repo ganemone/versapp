@@ -206,7 +206,17 @@
 }
 
 - (IBAction)addNewContact:(id)sender {
-    
+    UIAlertView *groupNamePrompt = [[UIAlertView alloc] initWithTitle:@"User Search" message:@"Enter a phone number, or email address.  If we can find this user, we will send them a friend request." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Add", nil];
+    groupNamePrompt.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [groupNamePrompt setDelegate:self];
+    [groupNamePrompt show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        NSString *searchValue = [alertView textFieldAtIndex:0].text;
+        [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createUserSearchPacketWithSearchParam:searchValue]];
+    }
 }
 
 

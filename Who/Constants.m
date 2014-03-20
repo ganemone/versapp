@@ -39,6 +39,7 @@ NSString *const PACKET_ID_GET_MY_CONFESSIONS = @"packet_id_get_my_confessions";
 NSString *const PACKET_ID_DESTROY_CONFESSION = @"packet_id_destroy_confession";
 NSString *const PACKET_ID_FORCE_CREATE_ROSTER_ENTRY = @"packet_id_force_create_roster";
 NSString *const PACKET_ID_SEARCH_FOR_USERS = @"packet_id_search_for_users";
+NSString *const PACKET_ID_SEARCH_FOR_USER = @"packet_id_search_for_user";
 
 NSString *const VCARD_TAG_FULL_NAME = @"FN";
 NSString *const VCARD_TAG_FIRST_NAME = @"GIVEN";

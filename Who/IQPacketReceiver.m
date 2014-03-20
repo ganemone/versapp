@@ -67,6 +67,26 @@
         [self handleGetChatParticipantsPacket:iq];
     } else if([self isPacketWithID:PACKET_ID_SEARCH_FOR_USERS packet:iq]) {
         [self handleUserSearchPacket:iq];
+    } else if([self isPacketWithID:PACKET_ID_SEARCH_FOR_USER packet:iq]) {
+        [self handleSearchForUserPacket:iq];
+    }
+}
+
++(void)handleSearchForUserPacket:(XMPPIQ *)iq {
+    NSError *error = NULL;
+    NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?(?:\\[\\]|\"(.*?)\")\\]" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSTextCheckingResult *match = [regex firstMatchInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
+    if ([match numberOfRanges] > 0) {
+        NSString *username = [packetXML substringWithRange:[match rangeAtIndex:1]];
+        NSString *searchedEmail;
+        if ([match rangeAtIndex:3].length != 0) {
+            searchedEmail = [packetXML substringWithRange:[match rangeAtIndex:3]];
+        }
+        XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
+        [conn sendElement:[IQPacketManager createSubscribePacket:username]];
+        [conn sendElement:[IQPacketManager createGetVCardPacket:username]];
+        [FriendsDBManager updateEntry:username name:nil email:searchedEmail status:[NSNumber numberWithInt:STATUS_REQUESTED]];
     }
 }
 // NOTE: this should only be run AFTER the query for the roster
@@ -77,8 +97,12 @@
     NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
     NSString *username, *searchedPhoneNumber, *searchedEmail;
     for (NSTextCheckingResult *match in matches) {
-        username = [packetXML substringWithRange:[match rangeAtIndex:1]],
-        searchedPhoneNumber = [packetXML substringWithRange:[match rangeAtIndex:2]];
+        username = [packetXML substringWithRange:[match rangeAtIndex:1]];
+        if ([match rangeAtIndex:2].length != 0) {
+            searchedPhoneNumber = [packetXML substringWithRange:[match rangeAtIndex:2]];
+        } else {
+            searchedPhoneNumber = [packetXML substringWithRange:[match rangeAtIndex:2]];
+        }
         if ([match rangeAtIndex:3].length != 0) {
             searchedEmail = [packetXML substringWithRange:[match rangeAtIndex:3]];
         } else {
@@ -88,7 +112,6 @@
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_SEARCH_FOR_USERS object:nil];
     [[ContactSearchManager getInstance] updateContactListAfterUserSearch];
-    
 }
 
 +(void)handleGetChatParticipantsPacket:(XMPPIQ *)iq {
