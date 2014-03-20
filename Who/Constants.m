@@ -131,4 +131,10 @@ NSString *const STORYBOARD_ID_CONTACTS_VIEW_CONTROLLER = @"ContactsViewControlle
 NSString *const STORYBOARD_ID_SWIPE_VIEW_CONTROLLER = @"MainSwipeViewController";
 NSString *const STORYBOARD_ID_CONFESSIONS_VIEW_CONTROLLER = @"ConfessionsViewController";
 
+NSString *const REPORT_BLOCK = @"Block Sender";
+NSString *const REPORT_ABUSE = @"Report Abuse";
+NSString *const REPORT_CONFIRM_BLOCK = @"Block sender!";
+NSString *const REPORT_CONFIRM_ABUSE = @"Report abuse!";
+
+
 @end

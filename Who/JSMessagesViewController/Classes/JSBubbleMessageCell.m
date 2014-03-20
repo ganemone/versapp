@@ -17,6 +17,7 @@
 #import "JSAvatarImageFactory.h"
 #import "UIColor+JSMessagesView.h"
 #import "StyleManager.h"
+#import "Constants.h"
 //#import <QuartzCore/QuartzCore.h>
 
 static const CGFloat kJSLabelPadding = 5.0f;
@@ -367,7 +368,7 @@ static const CGFloat kJSSubtitleLabelHeight = 15.0f;
     if (longPress.state != UIGestureRecognizerStateBegan || ![self becomeFirstResponder])
         return;
     
-    UIAlertView *reportAbuse = [[UIAlertView alloc] initWithTitle:@"report" message: @"Do you want to report for abuse?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Report",@"Block", nil];
+    UIAlertView *reportAbuse = [[UIAlertView alloc] initWithTitle:@"Report" message: @"Do you want to report abuse or block the sender?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:REPORT_ABUSE, REPORT_BLOCK,nil];
     
     reportAbuse.alertViewStyle = UIAlertViewStyleDefault;
     [reportAbuse show];
@@ -385,6 +386,30 @@ static const CGFloat kJSSubtitleLabelHeight = 15.0f;
 //                                                 name:UIMenuControllerWillShowMenuNotification
 //                                               object:nil];
 //    [menu setMenuVisible:YES animated:YES];
+}
+
+- (void)alertView:(UIAlertView *) alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+    if([title isEqualToString:REPORT_ABUSE])
+    {
+        UIAlertView *report = [[UIAlertView alloc]initWithTitle:@"Report for abuse" message:@"Do you wish to report this message and its sender for abuse?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: REPORT_CONFIRM_ABUSE, nil];
+        [report show];
+    }
+    else if ([title isEqualToString:REPORT_BLOCK])
+    {
+        UIAlertView *report = [[UIAlertView alloc]initWithTitle:@"Report for blocking" message:@"Do you wish to block this sender?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: REPORT_CONFIRM_BLOCK, nil];
+        [report show];
+    }
+    else if ([title isEqualToString:REPORT_CONFIRM_ABUSE])
+    {
+        //TODO: implement report abuse method
+    }
+    else if ([title isEqualToString:REPORT_CONFIRM_BLOCK])
+    {
+        //TODO: implement block sender method
+    }
+    
 }
 
 #pragma mark - Notifications

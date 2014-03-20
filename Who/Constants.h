@@ -131,4 +131,9 @@ extern NSString *const STORYBOARD_ID_CONTACTS_VIEW_CONTROLLER;
 extern NSString *const STORYBOARD_ID_SWIPE_VIEW_CONTROLLER;
 extern NSString *const STORYBOARD_ID_CONFESSIONS_VIEW_CONTROLLER;
 
+extern NSString *const REPORT_BLOCK;
+extern NSString *const REPORT_ABUSE;
+extern NSString *const REPORT_CONFIRM_BLOCK;
+extern NSString *const REPORT_CONFIRM_ABUSE;
+
 @end
