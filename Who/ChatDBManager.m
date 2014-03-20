@@ -103,19 +103,19 @@ static int numUninvitedParticipants;
     return [self getAllChatsWithType:CHAT_TYPE_ONE_TO_ONE];
 }
 
-+(NSArray*)getAllActiveActiveGroupChats {
++(NSArray*)getAllActiveGroupChats {
     return [self getAllChatsWithType:CHAT_TYPE_GROUP status:STATUS_JOINED];
 }
 
-+(NSArray*)getAllActiveActiveOneToOneChats {
++(NSArray*)getAllActiveOneToOneChats {
     return [self getAllChatsWithType:CHAT_TYPE_ONE_TO_ONE status:STATUS_JOINED];
 }
 
-+(NSArray*)getAllPendingActiveGroupChats {
++(NSArray*)getAllPendingGroupChats {
     return [self getAllChatsWithType:CHAT_TYPE_GROUP status:STATUS_PENDING];
 }
 
-+(NSArray*)getAllPendingActiveOneToOneChats {
++(NSArray*)getAllPendingOneToOneChats {
     return [self getAllChatsWithType:CHAT_TYPE_ONE_TO_ONE status:STATUS_PENDING];
 }
 
