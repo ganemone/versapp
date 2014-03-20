@@ -73,27 +73,31 @@
 }
 
 +(void)handleSearchForUserPacket:(XMPPIQ *)iq {
+    NSLog(@"User Search Result: %@", iq.XMLString);
     NSError *error = NULL;
     NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?(?:\\[\\]|\"(.*?)\")\\]" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?(?:\\[\\]|\"(.*?)\").*?(?:\\[\\]|\"(.*?)\")\\]" options:NSRegularExpressionCaseInsensitive error:&error];
     NSTextCheckingResult *match = [regex firstMatchInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
+    NSLog(@"Number of Ranges: %d", [match numberOfRanges]);
     if ([match numberOfRanges] > 0) {
+        NSLog(@"Found Matches...");
         NSString *username = [packetXML substringWithRange:[match rangeAtIndex:1]];
         NSString *searchedEmail;
         if ([match rangeAtIndex:3].length != 0) {
             searchedEmail = [packetXML substringWithRange:[match rangeAtIndex:3]];
         }
+        NSLog(@"Found User: %@", username);
         XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
-        [conn sendElement:[IQPacketManager createSubscribePacket:username]];
-        [conn sendElement:[IQPacketManager createGetVCardPacket:username]];
-        [FriendsDBManager updateEntry:username name:nil email:searchedEmail status:[NSNumber numberWithInt:STATUS_REQUESTED]];
+        //[conn sendElement:[IQPacketManager createSubscribePacket:username]];
+        //[conn sendElement:[IQPacketManager createGetVCardPacket:username]];
+        //[FriendsDBManager updateEntry:username name:nil email:searchedEmail status:[NSNumber numberWithInt:STATUS_REQUESTED]];
     }
 }
 // NOTE: this should only be run AFTER the query for the roster
 +(void)handleUserSearchPacket:(XMPPIQ *)iq {
     NSError *error = NULL;
     NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?(?:\\[\\]|\"(.*?)\")\\]" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\(?:\\[\\]|\"(.*?)\").*?(?:\\[\\]|\"(.*?)\")\\]" options:NSRegularExpressionCaseInsensitive error:&error];
     NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
     NSString *username, *searchedPhoneNumber, *searchedEmail;
     for (NSTextCheckingResult *match in matches) {
