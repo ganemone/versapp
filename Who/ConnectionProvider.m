@@ -27,7 +27,7 @@
 #import "XMPPAutoPing.h"
 
 #import "MUCCreationManager.h"
-#import "LoginManager.h"
+#import "UserDefaultManager.h"
 
 #import "ContactSearchManager.h"
 @interface ConnectionProvider ()
@@ -267,8 +267,8 @@ static ConnectionProvider *selfInstance;
     self.username = [self.pendingAccountInfo objectForKey:VCARD_TAG_USERNAME];
     self.password = [self.pendingAccountInfo objectForKey:USER_DEFAULTS_PASSWORD];
     
-    [LoginManager savePassword:self.username];
-    [LoginManager saveUsername:self.password];
+    [UserDefaultManager savePassword:self.username];
+    [UserDefaultManager saveUsername:self.password];
     NSError *error = nil;
     if ([[self xmppStream] authenticateWithPassword:self.password error:&error])
     {

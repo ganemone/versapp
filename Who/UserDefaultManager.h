@@ -11,7 +11,7 @@
 extern NSString *const NSDEFAULT_KEY_PASSWORD;
 extern NSString *const NSDEFAULT_KEY_USERNAME;
 
-@interface LoginManager : NSObject
+@interface UserDefaultManager : NSObject
 
 +(void)savePassword:(NSString*)password;
 +(void)saveUsername:(NSString*)username;

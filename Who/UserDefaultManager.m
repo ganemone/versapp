@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 Giancarlo Anemone. All rights reserved.
 //
 
-#import "LoginManager.h"
+#import "UserDefaultManager.h"
 
 NSString *const NSDEFAULT_KEY_PASSWORD = @"nsdefault_key_password";
 NSString *const NSDEFAULT_KEY_USERNAME = @"nsdefault_key_username";
 
-@implementation LoginManager
+@implementation UserDefaultManager
 
 +(void)savePassword:(NSString *)password {
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];

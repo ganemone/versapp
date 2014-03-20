@@ -31,7 +31,7 @@
 		3A07F6D518D3DB0300E82390 /* confession-cell-bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A07F6D418D3DB0300E82390 /* confession-cell-bottom.png */; };
 		3A07F6D718D3EFC200E82390 /* check-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A07F6D618D3EFC200E82390 /* check-icon.png */; };
 		3A07F6D918D3EFDF00E82390 /* arrow-left-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A07F6D818D3EFDF00E82390 /* arrow-left-icon.png */; };
-		3A08D1FA18BFD3BB002A7C8E /* LoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A08D1F918BFD3BB002A7C8E /* LoginManager.m */; };
+		3A08D1FA18BFD3BB002A7C8E /* UserDefaultManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A08D1F918BFD3BB002A7C8E /* UserDefaultManager.m */; };
 		3A0FE1C118A99EB2003692EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C018A99EB2003692EB /* QuartzCore.framework */; };
 		3A0FE1C518A9A4C7003692EB /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C418A9A4C7003692EB /* CoreText.framework */; };
 		3A1EACDD18D9DC41006E4CA3 /* bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A1EACDC18D9DC41006E4CA3 /* bubble.png */; };
@@ -281,8 +281,8 @@
 		3A07F6D418D3DB0300E82390 /* confession-cell-bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "confession-cell-bottom.png"; sourceTree = "<group>"; };
 		3A07F6D618D3EFC200E82390 /* check-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon.png"; sourceTree = "<group>"; };
 		3A07F6D818D3EFDF00E82390 /* arrow-left-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-left-icon.png"; sourceTree = "<group>"; };
-		3A08D1F818BFD3BB002A7C8E /* LoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginManager.h; sourceTree = "<group>"; };
-		3A08D1F918BFD3BB002A7C8E /* LoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginManager.m; sourceTree = "<group>"; };
+		3A08D1F818BFD3BB002A7C8E /* UserDefaultManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultManager.h; sourceTree = "<group>"; };
+		3A08D1F918BFD3BB002A7C8E /* UserDefaultManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultManager.m; sourceTree = "<group>"; };
 		3A0FE1C018A99EB2003692EB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3A0FE1C418A9A4C7003692EB /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		3A1EACDC18D9DC41006E4CA3 /* bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bubble.png; path = ../../../../bubble.png; sourceTree = "<group>"; };
@@ -1442,8 +1442,8 @@
 			children = (
 				3A6C3BB91884AD61003B162B /* LoginViewController.h */,
 				3A6C3BBA1884AD61003B162B /* LoginViewController.m */,
-				3A08D1F818BFD3BB002A7C8E /* LoginManager.h */,
-				3A08D1F918BFD3BB002A7C8E /* LoginManager.m */,
+				3A08D1F818BFD3BB002A7C8E /* UserDefaultManager.h */,
+				3A08D1F918BFD3BB002A7C8E /* UserDefaultManager.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -1957,7 +1957,7 @@
 				3A98DA4418BD1A6500B69049 /* NSData+XMPP.m in Sources */,
 				3ABA80DA18AE5F87002012C7 /* ImageManager.m in Sources */,
 				3A98D9D718BD1A2600B69049 /* XMPPResourceCoreDataStorageObject.m in Sources */,
-				3A08D1FA18BFD3BB002A7C8E /* LoginManager.m in Sources */,
+				3A08D1FA18BFD3BB002A7C8E /* UserDefaultManager.m in Sources */,
 				3A3A0ADB18AB1126006FBAE4 /* UIColor+JSMessagesView.m in Sources */,
 				3A98DA0918BD1A2600B69049 /* XMPPDateTimeProfiles.m in Sources */,
 				3A25B6791881E85B00166623 /* ContactsViewController.m in Sources */,

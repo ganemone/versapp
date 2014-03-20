@@ -11,7 +11,7 @@
 #import "IQPacketManager.h"
 #import "Constants.h"
 #import "LoadingDialogManager.h"
-#import "LoginManager.h"
+#import "UserDefaultManager.h"
 #import "ChatDBManager.h"
 
 @interface LoginViewController()
@@ -69,8 +69,8 @@
     [self.username setDelegate:self];
     [self.password setDelegate:self];
     
-    self.usernameText = [LoginManager loadUsername];
-    self.passwordText = [LoginManager loadPassword];
+    self.usernameText = [UserDefaultManager loadUsername];
+    self.passwordText = [UserDefaultManager loadPassword];
     [self.username setText:_usernameText];
     [self.password setText:_passwordText];
     
@@ -97,8 +97,8 @@
     self.passwordText = self.password.text;
     self.usernameText = self.username.text;
     
-    [LoginManager savePassword:self.passwordText];
-    [LoginManager saveUsername:self.usernameText];
+    [UserDefaultManager savePassword:self.passwordText];
+    [UserDefaultManager saveUsername:self.usernameText];
     
     [self login];
 }
@@ -125,7 +125,7 @@
 }
 
 - (void)didNotAuthenticate:(NSNotification *) notification{
-    [LoginManager clearUsernameAndPassword];
+    [UserDefaultManager clearUsernameAndPassword];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your username and password could not be authenticated." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     [_ld hideLoadingDialogWithoutProgress];

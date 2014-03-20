@@ -86,4 +86,8 @@
     return [NSString stringWithFormat:@"%@%d", [ConnectionProvider getUser], (int)timeStamp];
 }
 
+-(NSString *)description {
+    return [NSString stringWithFormat:@"\n Chat ID: %@ \n Chat Name: %@ \n Chat Type: %@ \n Chat Status: %@ \n", self.chat_id, self.chat_name, self.chat_type, self.status];
+}
+
 @end

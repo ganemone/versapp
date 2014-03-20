@@ -332,8 +332,11 @@
 -(void)loadNotifications {
     NSLog(@"Load notifications");
     
-    self.groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingActiveGroupChats]];
+    self.groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingGroupChats]];
     self.friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
+
+    self.friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
+    self.groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingGroupChats]];
     
     NSLog(@"group invites: %@", self.groupInvites);
     NSLog(@"friend requests: %@", self.friendRequests);
