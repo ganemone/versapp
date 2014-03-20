@@ -224,10 +224,10 @@
                                                     
 - (NSArray *)notificationsButtons {
     NSMutableArray *buttons = [NSMutableArray new];
-    UIImage *accept = [UIImage imageNamed:@"check-icon.png"];
-    UIImage *decline = [UIImage imageNamed:@"add-icon.png"];
-    [buttons sw_addUtilityButtonWithColor:[StyleManager getColorGreen] icon:accept];
-    [buttons sw_addUtilityButtonWithColor:[StyleManager getColorOrange] icon:decline];
+    UIImage *accept = [UIImage imageNamed:@"check-icon-green.png"];
+    UIImage *decline = [UIImage imageNamed:@"decline-icon-green.png"];
+    [buttons sw_addUtilityButtonWithColor:[UIColor clearColor] icon:accept];
+    [buttons sw_addUtilityButtonWithColor:[UIColor clearColor] icon:decline];
             
     return buttons;
 }
@@ -332,8 +332,11 @@
 -(void)loadNotifications {
     NSLog(@"Load notifications");
     
-    self.friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
     self.groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingActiveGroupChats]];
+    self.friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
+    
+    NSLog(@"group invites: %@", self.groupInvites);
+    NSLog(@"friend requests: %@", self.friendRequests);
     
     [self setNotificationsIcon];
     

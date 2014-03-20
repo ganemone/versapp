@@ -241,6 +241,8 @@
 		F751018D18AE8D5E001F1E7F /* PrivacyPolicyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751018C18AE8D5E001F1E7F /* PrivacyPolicyViewController.m */; };
 		F751019018AE8D6F001F1E7F /* TermsOfUseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751018F18AE8D6F001F1E7F /* TermsOfUseViewController.m */; };
 		F751019718B134DE001F1E7F /* ChangeEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751019618B134DE001F1E7F /* ChangeEmailViewController.m */; };
+		F7977B6418DBA25B000E955C /* check-icon-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F7977B6218DBA25B000E955C /* check-icon-green.png */; };
+		F7977B6518DBA25B000E955C /* decline-icon-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F7977B6318DBA25B000E955C /* decline-icon-green.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -656,6 +658,8 @@
 		F751018F18AE8D6F001F1E7F /* TermsOfUseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsOfUseViewController.m; sourceTree = "<group>"; };
 		F751019518B134DE001F1E7F /* ChangeEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeEmailViewController.h; sourceTree = "<group>"; };
 		F751019618B134DE001F1E7F /* ChangeEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeEmailViewController.m; sourceTree = "<group>"; };
+		F7977B6218DBA25B000E955C /* check-icon-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon-green.png"; sourceTree = "<group>"; };
+		F7977B6318DBA25B000E955C /* decline-icon-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "decline-icon-green.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1602,6 +1606,8 @@
 				F744856F18DB731F00460FBC /* notification4-green.png */,
 				F744857018DB731F00460FBC /* notification5-green.png */,
 				F744857118DB731F00460FBC /* notification5+-green.png */,
+				F7977B6218DBA25B000E955C /* check-icon-green.png */,
+				F7977B6318DBA25B000E955C /* decline-icon-green.png */,
 				3AB8D1B618C2C67C0082B77C /* settings-icon-ios.png */,
 				3AB8D19418C2A5840082B77C /* arrow-right.png */,
 				3A00167C18B8231000C54059 /* message-icon.png */,
@@ -1831,6 +1837,7 @@
 				3A07F6CD18D3C21800E82390 /* notification5.png in Resources */,
 				3AB8D19018C259B00082B77C /* MavenProBold.ttf in Resources */,
 				3AF19A6E1881F34A00F3E4D3 /* README.txt in Resources */,
+				F7977B6518DBA25B000E955C /* decline-icon-green.png in Resources */,
 				3A07F6CB18D3C21800E82390 /* notification3.png in Resources */,
 				3A1EACDF18D9DCF6006E4CA3 /* bubble@2x.png in Resources */,
 				3A3A0B0818AB1126006FBAE4 /* input-field-cover.png in Resources */,
@@ -1858,6 +1865,7 @@
 				F744857218DB731F00460FBC /* notification-none.png in Resources */,
 				3A00167E18B8231000C54059 /* message-icon.png in Resources */,
 				F744857418DB731F00460FBC /* notification1-green.png in Resources */,
+				F7977B6418DBA25B000E955C /* check-icon-green.png in Resources */,
 				3A25B64A1881E03700166623 /* Main.storyboard in Resources */,
 				3A07F6C918D3C21800E82390 /* notification1.png in Resources */,
 				3A3A0B0618AB1126006FBAE4 /* input-bar-background.png in Resources */,
