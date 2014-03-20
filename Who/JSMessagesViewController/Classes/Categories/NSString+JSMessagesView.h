@@ -16,7 +16,7 @@
 
 @interface NSString (JSMessagesView)
 
-/**
+/**COp
  *  Returns a copy of the receiver with all whitespaced removed from the front and back.
  *
  *  @return A copied string with all leading and trailing whitespace removed.

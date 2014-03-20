@@ -37,6 +37,7 @@ extern NSString *const PACKET_ID_GET_MY_CONFESSIONS;
 extern NSString *const PACKET_ID_DESTROY_CONFESSION;
 extern NSString *const PACKET_ID_FORCE_CREATE_ROSTER_ENTRY;
 extern NSString *const PACKET_ID_SEARCH_FOR_USERS;
+extern NSString *const PACKET_ID_SEARCH_FOR_USER;
 
 extern NSString *const VCARD_TAG_FULL_NAME;
 extern NSString *const VCARD_TAG_FIRST_NAME;
@@ -119,6 +120,7 @@ extern int const STATUS_PENDING;
 extern int const STATUS_REJECTED;
 extern int const STATUS_UNREGISTERED;
 extern int const STATUS_REQUESTED;
+extern int const STATUS_INVITED;
 
 extern int const STATUS_JOINED;
 extern int const STATUS_REQUEST_PENDING;
@@ -152,4 +154,10 @@ extern NSString *const PAGE_NAVIGATE_TO_FRIENDS;
 extern NSString *const PAGE_NAVIGATE_TO_CONTACTS;
 
 extern NSString *const UPDATE_CONTACTS_VIEW;
+
+extern NSString *const REPORT_BLOCK;
+extern NSString *const REPORT_ABUSE;
+extern NSString *const REPORT_CONFIRM_BLOCK;
+extern NSString *const REPORT_CONFIRM_ABUSE;
+
 @end

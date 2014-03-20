@@ -63,9 +63,10 @@
         if([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_REGISTERED]]) {
             imageName = @"cell-select.png";
         } else if([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_REQUESTED]]) {
-            imageName = @"cell-select-active.png";
+            imageName = @"check-icon.png";
+            [btn setBackgroundColor:[UIColor blackColor]];
         } else {
-            imageName = @"messages-icon-blue.png";
+            imageName = @"cell-select.png";
         }
         
         [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];

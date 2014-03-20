@@ -179,6 +179,10 @@
     return [self updateUserStatus:username status:[NSNumber numberWithInt:STATUS_REQUESTED]];
 }
 
++(BOOL)updateUserSetStatusInvited:(NSString *)username {
+    return [self updateUserStatus:username status:[NSNumber numberWithInt:STATUS_INVITED]];
+}
+
 +(NSArray*)getAllWithStatusFriends {
     return [self getAllWithStatus:[NSNumber numberWithInt:STATUS_FRIENDS]];
 }

@@ -16,12 +16,17 @@
 #import "FriendsDBManager.h"
 #import "StyleManager.h"
 #import "ContactTableViewCell.h"
+#import "AppDelegate.h"
 
 @interface ContactsViewController()
 
 @property (strong, nonatomic) ConnectionProvider* cp;
 @property (strong, nonatomic) NSArray *registeredContacts;
 @property (strong, nonatomic) NSArray *unregisteredContacts;
+@property (strong, nonatomic) NSMutableArray *selectedRegisteredContacts;
+@property (strong, nonatomic) NSMutableArray *selectedUnregisteredContacts;
+@property (strong, nonatomic) NSMutableArray *smsContacts;
+@property (strong, nonatomic) NSMutableArray *emailContacts;
 
 @end
 
@@ -38,6 +43,7 @@
     [self.tableView setBackgroundColor:[StyleManager getColorGreen]];
     
     [self.headerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+    [self.footerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     
     // Add a bottomBorder to the header view
     CALayer *headerBottomborder = [CALayer layer];
@@ -47,6 +53,8 @@
     
     self.registeredContacts = [FriendsDBManager getAllWithStatusRegisteredOrRequested];
     self.unregisteredContacts = [FriendsDBManager getAllWithStatusUnregistered];
+    self.selectedRegisteredContacts = [[NSMutableArray alloc] initWithCapacity:[_registeredContacts count]];
+    self.selectedUnregisteredContacts = [[NSMutableArray alloc] initWithCapacity:[_unregisteredContacts count]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:UPDATE_CONTACTS_VIEW object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:PACKET_ID_GET_VCARD object:nil];
@@ -87,21 +95,55 @@
                                                       userInfo:userInfo];
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self handleRowSelectedAtIndexPath:indexPath];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
 - (void)handleActionBtnClicked:(id)sender {
     CGPoint buttonOriginInTableView = [sender convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonOriginInTableView];
+    [self handleRowSelectedAtIndexPath:indexPath];
+}
+
+- (void)handleRowSelectedAtIndexPath:(NSIndexPath *)indexPath {
+    ContactTableViewCell *cell = (ContactTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     FriendMO *friend = [self friendForIndexPath:indexPath];
     
     if ([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_REGISTERED]]) {
-        [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSubscribePacket:friend.username]];
-        [FriendsDBManager updateUserSetStatusRequested:friend.username];
-        [self refreshData];
-    } else if([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_UNREGISTERED]]){
-        if (friend.username != nil) {
-            [self showSMS:@[friend.username]];
-        } else if(friend.email != nil) {
-            [self showEmail:@[friend.email]];
+        if ([_selectedRegisteredContacts containsObject:friend]) {
+            [_selectedRegisteredContacts removeObject:friend];
+            [[cell actionBtn] setImage:[UIImage imageNamed:@"cell-select.png"] forState:UIControlStateNormal];
+        } else {
+            [_selectedRegisteredContacts addObject:friend];
+            [[cell actionBtn] setImage:[UIImage imageNamed:@"cell-select-active.png"] forState:UIControlStateNormal];
         }
+    } else if([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_UNREGISTERED]]) {
+        if ([_selectedUnregisteredContacts containsObject:friend]) {
+            [_selectedUnregisteredContacts removeObject:friend];
+            [[cell actionBtn] setImage:[UIImage imageNamed:@"cell-select.png"] forState:UIControlStateNormal];
+        } else {
+            [_selectedUnregisteredContacts addObject:friend];
+            [[cell actionBtn] setImage:[UIImage imageNamed:@"cell-select-active.png"] forState:UIControlStateNormal];
+        }
+    }
+    
+    [self updateFooterText];
+}
+
+- (void)updateFooterText {
+    if ([_selectedRegisteredContacts count] > 0) {
+        if ([_selectedUnregisteredContacts count] > 0) {
+            [_footerLabel setText:@"Add and Invite"];
+        } else if([_selectedRegisteredContacts count] > 1) {
+            [_footerLabel setText:@"Add Friends"];
+        } else {
+            [_footerLabel setText:@"Add Friend"];
+        }
+    } else if([_selectedUnregisteredContacts count] > 0) {
+        [_footerLabel setText:@"Invite"];
+    } else {
+        [_footerLabel setText:@"Select Some Contacts"];
     }
 }
 
@@ -128,7 +170,13 @@
         default:
             break;
     }
+    
+    for (NSString *username in _smsContacts) {
+        [FriendsDBManager updateUserSetStatusInvited:username];
+    }
+
     [self dismissViewControllerAnimated:YES completion:nil];
+    [self showEmail:_emailContacts];
 }
 
 -(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
@@ -149,8 +197,17 @@
         default:
             break;
     }
-    // Close the Mail Interface
     [self dismissViewControllerAnimated:YES completion:NULL];
+    AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    for (NSString *email in _emailContacts) {
+        FriendMO *friend = [FriendsDBManager getUserWithEmail:email];
+        [friend setValue:[NSNumber numberWithInt:STATUS_INVITED] forKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];
+        [delegate saveContext];
+    }
+    _smsContacts = nil;
+    _emailContacts = nil;
+    
+    [self refreshData];
 }
 
 - (void)showEmail:(NSArray *)recipients {
@@ -205,5 +262,39 @@
     return 0.0f;
 }
 
+- (IBAction)addNewContact:(id)sender {
+    UIAlertView *groupNamePrompt = [[UIAlertView alloc] initWithTitle:@"User Search" message:@"Enter a phone number, or email address.  If we can find this user, we will send them a friend request." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Add", nil];
+    groupNamePrompt.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [groupNamePrompt setDelegate:self];
+    [groupNamePrompt show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        NSString *searchValue = [alertView textFieldAtIndex:0].text;
+        [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createUserSearchPacketWithSearchParam:searchValue]];
+    }
+}
+
+- (IBAction)sendInvitations:(id)sender {
+    XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
+    for (FriendMO *friend in _selectedRegisteredContacts) {
+        [conn sendElement:[IQPacketManager createSubscribePacket:friend.username]];
+        [FriendsDBManager updateUserSetStatusRequested:friend.username];
+    }
+    
+    self.smsContacts = [[NSMutableArray alloc] initWithCapacity:[_selectedUnregisteredContacts count]];
+    self.emailContacts = [[NSMutableArray alloc] initWithCapacity:[_selectedUnregisteredContacts count]];
+    
+    for (FriendMO *friend in _selectedUnregisteredContacts) {
+        if (friend.username != nil) {
+            [_smsContacts addObject:friend.username];
+        } else if(friend.email != nil) {
+            [_emailContacts addObject:friend.email];
+        }
+    }
+    
+    [self showSMS:_smsContacts];
+}
 
 @end

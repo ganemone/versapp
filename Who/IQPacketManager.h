@@ -87,6 +87,8 @@
 
 +(DDXMLElement *)createDestroyConfessionPacket:(NSString*)confessionID;
 
++(DDXMLElement *)createUserSearchPacketWithSearchParam:(NSString *)searchParam;
+
 +(DDXMLElement *)createUserSearchPacketWithPhoneNumbers:(NSArray *)phoneNumbers emails:(NSArray*)emails;
 
 @end

@@ -39,6 +39,7 @@ NSString *const PACKET_ID_GET_MY_CONFESSIONS = @"packet_id_get_my_confessions";
 NSString *const PACKET_ID_DESTROY_CONFESSION = @"packet_id_destroy_confession";
 NSString *const PACKET_ID_FORCE_CREATE_ROSTER_ENTRY = @"packet_id_force_create_roster";
 NSString *const PACKET_ID_SEARCH_FOR_USERS = @"packet_id_search_for_users";
+NSString *const PACKET_ID_SEARCH_FOR_USER = @"packet_id_search_for_user";
 
 NSString *const VCARD_TAG_FULL_NAME = @"FN";
 NSString *const VCARD_TAG_FIRST_NAME = @"GIVEN";
@@ -120,6 +121,7 @@ int const STATUS_PENDING = 2;
 int const STATUS_REJECTED = 3;
 int const STATUS_UNREGISTERED = 4;
 int const STATUS_REQUESTED = 5;
+int const STATUS_INVITED = 6;
 
 int const STATUS_JOINED = 0;
 int const STATUS_REQUEST_PENDING = 1;
@@ -153,5 +155,11 @@ NSString *const PAGE_NAVIGATE_TO_FRIENDS = @"page_navigate_to_friends";
 NSString *const PAGE_NAVIGATE_TO_CONTACTS = @"page_navigate_to_contacts";
 
 NSString *const UPDATE_CONTACTS_VIEW = @"update_contacts_view";
+
+NSString *const REPORT_BLOCK = @"Block Sender";
+NSString *const REPORT_ABUSE = @"Report Abuse";
+NSString *const REPORT_CONFIRM_BLOCK = @"Block sender!";
+NSString *const REPORT_CONFIRM_ABUSE = @"Report abuse!";
+
 
 @end

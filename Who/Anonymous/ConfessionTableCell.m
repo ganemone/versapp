@@ -14,6 +14,8 @@
 #import "IQPacketManager.h"
 #import "StyleManager.h"
 
+#import "Constants.h"
+
 @implementation ConfessionTableCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -36,6 +38,7 @@
     self.textLabel.hidden = YES;
     self.detailTextLabel.text = nil;
     self.detailTextLabel.hidden = YES;
+    
 }
 
 - (instancetype)initWithConfession:(Confession*)confession reuseIdentifier:(NSString *)reuseIdentifier {
@@ -119,6 +122,17 @@
         _favoriteButton = favoriteButton;
         _favoriteLabel = favoriteLabel;
         _timestampLabel = timestampLabel;
+       
+        for (UIGestureRecognizer *recognizer in self.gestureRecognizers) {
+            if ([recognizer isKindOfClass:[UILongPressGestureRecognizer class]]){
+                recognizer.enabled = NO;
+            }
+        }
+        
+        UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self                                                                                             action:@selector(handleLongPressGesture:)];
+        [recognizer setMinimumPressDuration:0.4f];
+        //    recognizer.delegate = self;
+        [self addGestureRecognizer:recognizer];
 
     }
     return self;
@@ -158,5 +172,57 @@
     // Configure the view for the selected state
 }
 
+- (void)handleLongPressGesture:(UILongPressGestureRecognizer *)longPress
+{
+    //    return;
+    
+//    NSLog(@"Long pressed!");
+    if (longPress.state == UIGestureRecognizerStateBegan)
+    {
+    
+    UIAlertView *reportAbuse = [[UIAlertView alloc] initWithTitle:@"Report" message: @"Do you want to report abuse or block the sender?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:REPORT_ABUSE, REPORT_BLOCK,nil];
+    
+    reportAbuse.alertViewStyle = UIAlertViewStyleDefault;
+    [reportAbuse show];
+    //
+    //    UIMenuController *menu = [UIMenuController sharedMenuController];
+    //    CGRect targetRect = [self convertRect:[self.bubbleView bubbleFrame]
+    //                                 fromView:self.bubbleView];
+    //
+    //    [menu setTargetRect:CGRectInset(targetRect, 0.0f, 4.0f) inView:self];
+    //
+    //    self.bubbleView.bubbleImageView.highlighted = YES;
+    //
+    //    [[NSNotificationCenter defaultCenter] addObserver:self
+    //                                             selector:@selector(handleMenuWillShowNotification:)
+    //                                                 name:UIMenuControllerWillShowMenuNotification
+    //                                               object:nil];
+    //    [menu setMenuVisible:YES animated:YES];
+    }
+}
+
+- (void)alertView:(UIAlertView *) alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+    if([title isEqualToString:REPORT_ABUSE])
+    {
+        UIAlertView *report = [[UIAlertView alloc]initWithTitle:@"Report for abuse" message:@"Do you wish to report this message and its sender for abuse?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: REPORT_CONFIRM_ABUSE, nil];
+        [report show];
+    }
+    else if ([title isEqualToString:REPORT_BLOCK])
+    {
+        UIAlertView *report = [[UIAlertView alloc]initWithTitle:@"Report for blocking" message:@"Do you wish to block this sender?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: REPORT_CONFIRM_BLOCK, nil];
+        [report show];
+    }
+    else if ([title isEqualToString:REPORT_CONFIRM_ABUSE])
+    {
+        //TODO: implement report abuse method
+    }
+    else if ([title isEqualToString:REPORT_CONFIRM_BLOCK])
+    {
+        //TODO: implement block sender method
+    }
+    
+}
 
 @end

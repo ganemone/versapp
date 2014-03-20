@@ -67,18 +67,48 @@
         [self handleGetChatParticipantsPacket:iq];
     } else if([self isPacketWithID:PACKET_ID_SEARCH_FOR_USERS packet:iq]) {
         [self handleUserSearchPacket:iq];
+    } else if([self isPacketWithID:PACKET_ID_SEARCH_FOR_USER packet:iq]) {
+        [self handleSearchForUserPacket:iq];
     }
 }
+
+// This callback is only for packets searching for a single user, adds them as a friend if the user is found.
++(void)handleSearchForUserPacket:(XMPPIQ *)iq {
+    NSLog(@"User Search Result: %@", iq.XMLString);
+    NSError *error = NULL;
+    NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?(?:\\[\\]|\"(.*?)\").*?(?:\\[\\]|\"(.*?)\")\\]" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSTextCheckingResult *match = [regex firstMatchInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
+    NSLog(@"Number of Ranges: %d", [match numberOfRanges]);
+    if ([match numberOfRanges] > 0) {
+        NSLog(@"Found Matches...");
+        NSString *username = [packetXML substringWithRange:[match rangeAtIndex:1]];
+        NSString *searchedEmail;
+        if ([match rangeAtIndex:3].length != 0) {
+            searchedEmail = [packetXML substringWithRange:[match rangeAtIndex:3]];
+        }
+        NSLog(@"Found User: %@", username);
+        XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
+        [conn sendElement:[IQPacketManager createSubscribePacket:username]];
+        [conn sendElement:[IQPacketManager createGetVCardPacket:username]];
+        [FriendsDBManager updateEntry:username name:nil email:searchedEmail status:[NSNumber numberWithInt:STATUS_REQUESTED]];
+    }
+}
+
 // NOTE: this should only be run AFTER the query for the roster
 +(void)handleUserSearchPacket:(XMPPIQ *)iq {
     NSError *error = NULL;
     NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?(?:\\[\\]|\"(.*?)\")\\]" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\(?:\\[\\]|\"(.*?)\").*?(?:\\[\\]|\"(.*?)\")\\]" options:NSRegularExpressionCaseInsensitive error:&error];
     NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
     NSString *username, *searchedPhoneNumber, *searchedEmail;
     for (NSTextCheckingResult *match in matches) {
-        username = [packetXML substringWithRange:[match rangeAtIndex:1]],
-        searchedPhoneNumber = [packetXML substringWithRange:[match rangeAtIndex:2]];
+        username = [packetXML substringWithRange:[match rangeAtIndex:1]];
+        if ([match rangeAtIndex:2].length != 0) {
+            searchedPhoneNumber = [packetXML substringWithRange:[match rangeAtIndex:2]];
+        } else {
+            searchedPhoneNumber = [packetXML substringWithRange:[match rangeAtIndex:2]];
+        }
         if ([match rangeAtIndex:3].length != 0) {
             searchedEmail = [packetXML substringWithRange:[match rangeAtIndex:3]];
         } else {
@@ -88,7 +118,6 @@
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_SEARCH_FOR_USERS object:nil];
     [[ContactSearchManager getInstance] updateContactListAfterUserSearch];
-    
 }
 
 +(void)handleGetChatParticipantsPacket:(XMPPIQ *)iq {
@@ -120,7 +149,7 @@
         chatId = [packetXML substringWithRange:[match rangeAtIndex:2]];
         type = [packetXML substringWithRange:[match rangeAtIndex:3]];
         owner = [packetXML substringWithRange:[match rangeAtIndex:4]];
-        name = [packetXML substringWithRange:[match rangeAtIndex:5]];
+        name = [self urlDecode:[packetXML substringWithRange:[match rangeAtIndex:5]]];
         //*createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
         participants = [participantString componentsSeparatedByString:@", "];
         
@@ -142,6 +171,30 @@
     }
     [ChatDBManager joinAllChats];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
+}
+
++ (NSString *)urlDecode:(NSString *)string {
+    return [[string stringByReplacingOccurrencesOfString:@"+" withString:@" "]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
++ (NSString *)urlencode:(NSString*)stringToEncode {
+    NSMutableString *output = [NSMutableString string];
+    const unsigned char *source = (const unsigned char *)[stringToEncode UTF8String];
+    int sourceLen = (int)strlen((const char *)source);
+    for (int i = 0; i < sourceLen; ++i) {
+        const unsigned char thisChar = source[i];
+        if (thisChar == ' '){
+            [output appendString:@"+"];
+        } else if (thisChar == '.' || thisChar == '-' || thisChar == '_' || thisChar == '~' ||
+                   (thisChar >= 'a' && thisChar <= 'z') ||
+                   (thisChar >= 'A' && thisChar <= 'Z') ||
+                   (thisChar >= '0' && thisChar <= '9')) {
+            [output appendFormat:@"%c", thisChar];
+        } else {
+            [output appendFormat:@"%%%02X", thisChar];
+        }
+    }
+    return output;
 }
 
 /*+(void)handleGetLastTimeActivePacket:(XMPPIQ *)iq {
@@ -226,13 +279,11 @@
         chatId = [packetXML substringWithRange:[match rangeAtIndex:2]];
         type = [packetXML substringWithRange:[match rangeAtIndex:3]];
         owner = [packetXML substringWithRange:[match rangeAtIndex:4]];
-        name = [packetXML substringWithRange:[match rangeAtIndex:5]];
+        name = [self urlDecode:[packetXML substringWithRange:[match rangeAtIndex:5]]];
         createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
         participants = [participantString componentsSeparatedByString:@", "];
         
-        if (![ChatDBManager hasChatWithID:chatId]) {
-            [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_PENDING];
-        }
+        [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_PENDING];
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_PENDING_CHATS object:nil];
