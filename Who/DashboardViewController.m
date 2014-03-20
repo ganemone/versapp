@@ -295,7 +295,7 @@
     NSLog(@"Load notifications");
     
     self.friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
-    self.groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingActiveGroupChats]];
+    self.groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingGroupChats]];
     
     NSMutableString *imageName;
     if ([self.friendRequests count] + [self.groupInvites count] < 6) {
