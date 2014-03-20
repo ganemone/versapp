@@ -154,4 +154,10 @@ extern NSString *const PAGE_NAVIGATE_TO_FRIENDS;
 extern NSString *const PAGE_NAVIGATE_TO_CONTACTS;
 
 extern NSString *const UPDATE_CONTACTS_VIEW;
+
+extern NSString *const REPORT_BLOCK;
+extern NSString *const REPORT_ABUSE;
+extern NSString *const REPORT_CONFIRM_BLOCK;
+extern NSString *const REPORT_CONFIRM_ABUSE;
+
 @end

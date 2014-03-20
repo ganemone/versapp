@@ -156,4 +156,10 @@ NSString *const PAGE_NAVIGATE_TO_CONTACTS = @"page_navigate_to_contacts";
 
 NSString *const UPDATE_CONTACTS_VIEW = @"update_contacts_view";
 
+NSString *const REPORT_BLOCK = @"Block Sender";
+NSString *const REPORT_ABUSE = @"Report Abuse";
+NSString *const REPORT_CONFIRM_BLOCK = @"Block sender!";
+NSString *const REPORT_CONFIRM_ABUSE = @"Report abuse!";
+
+
 @end
