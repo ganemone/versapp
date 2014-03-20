@@ -624,8 +624,17 @@
     
     DDXMLElement *contact = [DDXMLElement elementWithName:@"contact"];
     DDXMLElement *contacts = [DDXMLElement elementWithName:@"contacts"];
-    DDXMLElement *phone = [DDXMLElement elementWithName:@"phone" stringValue:searchParam];
-    DDXMLElement *email = [DDXMLElement elementWithName:@"email" stringValue:searchParam];
+    NSString *phoneString, *emailString;
+    if([searchParam componentsSeparatedByString:@"@"].count > 1) {
+        phoneString = @"";
+        emailString = searchParam;
+    } else {
+        phoneString = searchParam;
+        emailString = @"";
+    }
+    
+    DDXMLElement *phone = [DDXMLElement elementWithName:@"phone" stringValue:phoneString];
+    DDXMLElement *email = [DDXMLElement elementWithName:@"email" stringValue:emailString];
     
     [contact addChild:phone];
     [contact addChild:email];
