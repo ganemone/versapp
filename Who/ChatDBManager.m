@@ -42,7 +42,7 @@ static int numUninvitedParticipants;
     [chatEntry setValue:[NSNumber numberWithInt:status] forKey:CHATS_TABLE_COLUMN_NAME_STATUS];
     [chatEntry setValue:participantString forKey:CHATS_TABLE_COLUMN_NAME_PARTICIPANT_STRING];
     [delegate saveContext];
-    
+    NSLog(@"Inserting Chat: %@", [chatEntry description]);
     [chatEntry setParticipants:[[NSMutableArray alloc] initWithArray:[participantString componentsSeparatedByString:@", "]]];
     
     return chatEntry;
