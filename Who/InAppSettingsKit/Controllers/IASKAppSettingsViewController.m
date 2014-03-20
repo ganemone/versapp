@@ -154,11 +154,12 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	// if there's something selected, the value might have changed
-	// so reload that row
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
-    [self.navigationController.navigationBar setHidden:NO];
+    // IMPORTANT - shows navigation bar
+    self.navigationController.navigationBarHidden = NO;
+    self.navigationController.navigationBar.hidden = NO;
     
+    // if there's something selected, the value might have changed
+	// so reload that row
 	NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
 	if(selectedIndexPath) {
 		[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:selectedIndexPath] 
@@ -202,6 +203,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    // IMPORTANT - hides navigationbar
     self.navigationController.navigationBarHidden = YES;
     self.navigationController.navigationBar.hidden = YES;
     
