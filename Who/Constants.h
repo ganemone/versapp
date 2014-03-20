@@ -81,6 +81,7 @@ extern NSString *const SEGUE_ID_GROUP_VIEW_IMAGE;
 extern NSString *const SEGUE_ID_ONE_TO_ONE_VIEW_IMAGE;
 extern NSString *const SEGUE_ID_CREATED_ONE_TO_ONE_CHAT_FROM_CONFESSION;
 extern NSString *const SEGUE_ID_COMPOSE_CONFESSION;
+extern NSString *const SEGUE_ID_SETTINGS;
 
 extern NSString *const CELL_ID_CONVERSATION_PROTOTYPE;
 extern NSString *const CELL_ID_FRIENDS_PROTOTYPE;

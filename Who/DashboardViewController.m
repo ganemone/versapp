@@ -16,6 +16,7 @@
 #import "ChatDBManager.h"
 #import "ChatMO.h"
 #import "StyleManager.h"
+#import "FriendsDBManager.h"
 
 @interface DashboardViewController()
 
@@ -27,6 +28,11 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *header;
 @property (weak, nonatomic) IBOutlet UILabel *footerView;
+@property (strong, nonatomic) IBOutlet UIButton *settingsButton;
+@property (strong, nonatomic) IBOutlet UIButton *notificationsButton;
+@property (strong, nonatomic) UITableView *notificationTableView;
+@property (strong, nonatomic) NSMutableArray *friendRequests;
+@property (strong, nonatomic) NSMutableArray *groupInvites;
 
 @end
 
@@ -38,6 +44,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:PACKET_ID_GET_VCARD object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadNotifications:) name:PACKET_ID_GET_PENDING_CHATS object:nil];
     
     /*UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
     [backgroundImageView setImage:[UIImage imageNamed:@"grad-back-messages.jpg"]];*/
@@ -67,6 +74,14 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_TO_FRIENDS
                                                         object:nil
                                                       userInfo:userInfo];
+}
+
+- (IBAction)settingsClicked:(id)sender {
+    [self performSegueWithIdentifier:SEGUE_ID_SETTINGS sender:self];
+}
+
+- (IBAction)notificationsClicked:(id)sender {
+    [self showNotifications];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -110,37 +125,84 @@
 }*/
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return (section == 0) ? @"Groups" : @"One to One";
+    if (tableView == self.tableView) {
+        return (section == 0) ? @"Groups" : @"One to One";
+    } else {
+        if (section == 0)
+            return NOTIFICATIONS_GROUP;
+        else
+            return NOTIFICATIONS_FRIEND;
+    }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"ChatCellIdentifier";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    [cell.textLabel setTextColor:[UIColor blackColor]];
-    [cell.detailTextLabel setTextColor:[UIColor blackColor]];
-    [cell.detailTextLabel setHidden:NO];
-    
-    ChatMO *chatMo;
-    if(indexPath.section == 0) {
-        chatMo = [self.groupChats objectAtIndex:indexPath.row];
+    if (tableView == self.tableView) {
+        static NSString *CellIdentifier = @"ChatCellIdentifier";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+        [cell.textLabel setTextColor:[UIColor blackColor]];
+        [cell.detailTextLabel setTextColor:[UIColor blackColor]];
+        [cell.detailTextLabel setHidden:NO];
+        
+        ChatMO *chatMo;
+        if(indexPath.section == 0) {
+            chatMo = [self.groupChats objectAtIndex:indexPath.row];
+        } else {
+            chatMo = [self.oneToOneChats objectAtIndex:indexPath.row];
+        }
+        
+        [cell.textLabel setText:chatMo.user_defined_chat_name];
+        [cell.detailTextLabel setText:[chatMo getLastMessage]];
+        
+        if ([ChatDBManager doesChatHaveNewMessage:chatMo.chat_id]) {
+            [cell.textLabel setFont:[StyleManager getFontStyleBoldSizeLarge]];
+            [cell.detailTextLabel setFont:[StyleManager getFontStyleBoldSizeMed]];
+        } else {
+            [cell.textLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
+            [cell.detailTextLabel setFont:[StyleManager getFontStyleLightSizeMed]];
+        }
+        
+        [cell setBackgroundColor:[UIColor clearColor]];
+        return cell;
     } else {
-        chatMo = [self.oneToOneChats objectAtIndex:indexPath.row];
+        static NSString *cellIdentifier = @"Cell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            NSLog(@"created cell when null");
+        }
+        
+        UIButton *accept = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        accept.frame = CGRectMake(200.0f, 5.0f, 30.0f, 30.0f);
+        [accept setTitle:INVITATION_ACCEPT forState:UIControlStateNormal];
+        [cell.contentView addSubview:accept];
+        
+        UIButton *decline = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        decline.frame = CGRectMake(240.0f, 5.0f, 30.0f, 30.0f);
+        [decline setTitle:INVITATION_DECLINE forState:UIControlStateNormal];
+        [cell.contentView addSubview:decline];
+        
+        NSLog(@"Cell: %@", [cell description]);
+        
+        if (indexPath.section == 0) {
+            NSDictionary *notification = [self.groupInvites objectAtIndex:indexPath.row];
+            cell.textLabel.text = [notification objectForKey:@"chatName"];
+            [accept addTarget:self action:@selector(acceptInvitation:) forControlEvents:UIControlEventTouchUpInside];
+            [decline addTarget:self action:@selector(declineInvitation:) forControlEvents:UIControlEventTouchUpInside];
+        } else {
+            FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
+            cell.textLabel.text = friendRequest.name;
+            [accept addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
+            [decline addTarget:self action:@selector(declineFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        
+        [cell.textLabel setFont:[StyleManager getFontStyleLightSizeMed]];
+        [cell.textLabel setTextColor:[StyleManager getColorGreen]];
+        
+        return cell;
     }
-
-    [cell.textLabel setText:chatMo.user_defined_chat_name];
-    [cell.detailTextLabel setText:[chatMo getLastMessage]];
-    
-    if ([ChatDBManager doesChatHaveNewMessage:chatMo.chat_id]) {
-        [cell.textLabel setFont:[StyleManager getFontStyleBoldSizeLarge]];
-        [cell.detailTextLabel setFont:[StyleManager getFontStyleBoldSizeMed]];
-    } else {
-        [cell.textLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
-        [cell.detailTextLabel setFont:[StyleManager getFontStyleLightSizeMed]];
-    }
-    
-    [cell setBackgroundColor:[UIColor clearColor]];
-    return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -154,11 +216,173 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if(section == 0) {
-        return self.groupChats.count;
+    if (tableView == self.tableView) {
+        if(section == 0) {
+            return self.groupChats.count;
+        } else {
+            return self.oneToOneChats.count;
+        }
     } else {
-        return self.oneToOneChats.count;
+        if (section == 0) {
+            return [self.groupInvites count];
+        } else {
+            return [self.friendRequests count];
+        }
     }
+}
+
+- (void) showNotifications {
+    NSLog(@"Show Notifications");
+    
+    CGRect notificationFrame = self.notificationTableView.frame;
+    notificationFrame.origin.y = 0;
+    
+    self.notificationTableView.hidden = NO;
+    
+    [UIView animateWithDuration:0.5
+                          delay:0.0
+         usingSpringWithDamping:1.0
+          initialSpringVelocity:4.0
+                        options: UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         self.notificationTableView.frame = notificationFrame;
+                         self.tableView.backgroundColor = [UIColor grayColor];
+                         self.tableView.alpha = 0.5;
+                         self.footerView.alpha = 0.5;
+                     }
+                     completion:^(BOOL finished){
+                         
+                     }];
+    [UIView commitAnimations];
+}
+
+- (void) hideNotifications {
+    NSLog(@"Hide Notifications");
+    
+    CGRect notificationFrame = self.notificationTableView.frame;
+    notificationFrame.origin.y = -1*self.notificationTableView.frame.size.height;
+    //notificationFrame.origin.y = self.view.frame.size.height;
+    
+    [UIView animateWithDuration:0.5
+                          delay:0.2
+         usingSpringWithDamping:1.0
+          initialSpringVelocity:4.0
+                        options: UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         self.notificationTableView.frame = notificationFrame;
+                         self.tableView.backgroundColor = [UIColor clearColor];
+                         self.tableView.alpha = 1;
+                         self.footerView.alpha = 1;
+                     }
+                     completion:^(BOOL finished){
+                         self.notificationTableView.hidden = YES;
+                     }];
+    [UIView commitAnimations];
+}
+
+- (IBAction)tapToHideNotifications:(UITapGestureRecognizer *)recognizer {
+    CGPoint tapLocation = [recognizer locationInView:self.view];
+    
+    if (!CGRectContainsPoint(self.notificationTableView.frame, tapLocation) && !self.notificationTableView.hidden) {
+        [self hideNotifications];
+    }
+}
+
+-(void)loadNotifications:(NSNotification *)notification {
+    NSLog(@"Load notifications");
+    
+    self.friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
+    self.groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingActiveGroupChats]];
+    
+    NSMutableString *imageName;
+    if ([self.friendRequests count] + [self.groupInvites count] < 6) {
+        imageName = [NSMutableString stringWithFormat:@"notification%lu.png", [self.friendRequests count] + [self.groupInvites count]];
+    } else {
+        imageName = [NSMutableString stringWithString:@"notification5+.png"];
+    }
+    UIImage *notificationsCount = [UIImage imageNamed:imageName];
+    [self.notificationsButton setImage:notificationsCount forState:UIControlStateNormal];
+    
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToHideNotifications:)];
+    tapRecognizer.delaysTouchesEnded = YES;
+    tapRecognizer.numberOfTapsRequired = 1;
+    tapRecognizer.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapRecognizer];
+    
+    self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5)];
+    self.notificationTableView.hidden = YES;
+    [self.notificationTableView setDelegate:self];
+    [self.notificationTableView setDataSource:self];
+    
+    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 60)];
+    UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 32, 280, 21)];
+    [notificationsLabel setText:@"Notifications"];
+    [notificationsLabel setTextAlignment:NSTextAlignmentCenter];
+    [notificationsLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+    [notificationsLabel setTextColor:[StyleManager getColorGreen]];
+    [header addSubview:notificationsLabel];
+    UIImageView *notificationsBadge = [[UIImageView alloc] initWithFrame:CGRectMake(20, 25, 30, 30)];
+    UIImage *notificationsImage = [UIImage imageNamed:@"notifications1.png"];
+    [notificationsBadge setImage:notificationsImage];
+    [header addSubview:notificationsBadge];
+    
+    [self.notificationTableView setTableHeaderView:header];
+    [self.notificationTableView setSeparatorColor:[StyleManager getColorGreen]];
+    
+    [self.view addSubview:self.notificationTableView];
+    [self hideNotifications];
+}
+
+- (IBAction)acceptInvitation:(id)sender {
+    CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
+    NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
+    
+    NSDictionary *notification = [self.groupInvites objectAtIndex:indexPath.row];
+    [[self.cp getConnection] sendElement:[IQPacketManager createAcceptChatInvitePacket:[notification objectForKey:@"chatId"]]];
+    
+    NSLog(@"Accepted: %@", [notification objectForKey:@"chatId"]);
+    
+    [self.groupInvites removeObjectAtIndex:indexPath.row];
+    [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (IBAction)declineInvitation:(id)sender {
+    CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
+    NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
+    
+    NSDictionary *notification = [self.groupInvites objectAtIndex:indexPath.row];
+    [[self.cp getConnection] sendElement:[IQPacketManager createDenyChatInvitePacket:[notification objectForKey:@"chatId"]]];
+    
+    NSLog(@"Declined: %@", [notification objectForKey:@"chatId"]);
+    
+    [self.groupInvites removeObjectAtIndex:indexPath.row];
+    [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (IBAction)acceptFriendRequest:(id)sender {
+    CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
+    NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
+    
+    FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
+    //Send accept request packet
+    
+    NSLog(@"Accepted friend request: %@", friendRequest.name);
+    
+    [self.friendRequests removeObjectAtIndex:indexPath.row];
+    [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (IBAction)declineFriendRequest:(id)sender {
+    CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
+    NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
+    
+    FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
+    //Send deny request packet
+    
+    NSLog(@"Declined friend request: %@", friendRequest.name);
+    
+    [self.friendRequests removeObjectAtIndex:indexPath.row];
+    [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 -(void)handleGetLastPacketReceived:(NSNotification*)notification {

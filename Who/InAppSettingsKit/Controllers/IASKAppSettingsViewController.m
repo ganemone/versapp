@@ -111,7 +111,8 @@ CGRect IASKCGRectSwap(CGRect rect);
     if (style != UITableViewStyleGrouped) {
         NSLog(@"only UITableViewStyleGrouped style is supported, forcing it.");
     }
-    self = [super initWithStyle:UITableViewStyleGrouped];
+    //self = [super initWithStyle:UITableViewStyleGrouped];
+    self = [super init];
     if (self) {
         _showDoneButton = YES;
         // If set to YES, will display credits for InAppSettingsKit creators

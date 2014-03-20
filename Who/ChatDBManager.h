@@ -29,6 +29,8 @@
 
 +(NSArray*)getAllOneToOneChats;
 
++(NSArray*)getAllPendingActiveGroupChats;
+
 +(void)setHasNewMessageYes:(NSString*)chatID;
 
 +(void)setHasNewMessageNo:(NSString*)chatID;
