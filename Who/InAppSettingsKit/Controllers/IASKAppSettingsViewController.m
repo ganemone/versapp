@@ -156,6 +156,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (void)viewWillAppear:(BOOL)animated {
 	// if there's something selected, the value might have changed
 	// so reload that row
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    [self.navigationController.navigationBar setHidden:NO];
+    
 	NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
 	if(selectedIndexPath) {
 		[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:selectedIndexPath] 
@@ -189,8 +192,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    
 	[super viewDidAppear:animated];
-
+    
 	NSNotificationCenter *dc = [NSNotificationCenter defaultCenter];
 	[dc addObserver:self selector:@selector(synchronizeSettings) name:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];
 	[dc addObserver:self selector:@selector(reload) name:UIApplicationWillEnterForegroundNotification object:[UIApplication sharedApplication]];
@@ -198,6 +202,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    self.navigationController.navigationBarHidden = YES;
+    self.navigationController.navigationBar.hidden = YES;
+    
 	[NSObject cancelPreviousPerformRequestsWithTarget:self];
 	[super viewWillDisappear:animated];
 }

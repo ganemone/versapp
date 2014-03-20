@@ -286,7 +286,7 @@ CAShapeLayer *closedNotifications;
     CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
     NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
     
-    FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
+    FriendMO *xfriendRequest = [self.friendRequests objectAtIndex:indexPath.row];
     //Send deny request packet
     
     NSLog(@"Declined friend request");

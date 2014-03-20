@@ -299,7 +299,7 @@
     
     NSMutableString *imageName;
     if ([self.friendRequests count] + [self.groupInvites count] < 6) {
-        imageName = [NSMutableString stringWithFormat:@"notification%lu.png", [self.friendRequests count] + [self.groupInvites count]];
+        imageName = [NSMutableString stringWithFormat:@"notification%u.png", [self.friendRequests count] + [self.groupInvites count]];
     } else {
         imageName = [NSMutableString stringWithString:@"notification5+.png"];
     }
