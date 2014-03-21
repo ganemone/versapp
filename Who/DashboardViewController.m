@@ -187,7 +187,7 @@
         
         if (indexPath.section == 0) {
             ChatMO *groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
-            cell.textLabel.text = groupInvite.chat_name;
+            cell.textLabel.text = [NSMutableString stringWithFormat:@"%@ - %@", groupInvite.chat_name, groupInvite.participant_string];
         } else {
             FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
             cell.textLabel.text = friendRequest.name;
@@ -288,7 +288,6 @@
     
     CGRect notificationFrame = self.notificationTableView.frame;
     notificationFrame.origin.y = -1*self.notificationTableView.frame.size.height;
-    //notificationFrame.origin.y = self.view.frame.size.height;
     
     [UIView animateWithDuration:0.5
                           delay:0.2
@@ -363,7 +362,8 @@
     [self.view addGestureRecognizer:tapRecognizer];
     
     if ([self.friendRequests count] + [self.groupInvites count] > 0 && [self.friendRequests count] + [self.groupInvites count] < 4) {
-        self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, [self.notificationTableView rowHeight]*([self.friendRequests count] + [self.groupInvites count]))];
+        self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, [self.notificationTableView rowHeight]*([self.friendRequests count] + [self.groupInvites count]) + 110)];
+        NSLog(@"row height: %f", [self.notificationTableView rowHeight]);
     } else if ([self.friendRequests count] + [self.groupInvites count] == 0) {
         self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 66)];
     } else {
