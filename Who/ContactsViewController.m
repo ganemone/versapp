@@ -293,8 +293,12 @@
             [_emailContacts addObject:friend.email];
         }
     }
-    
-    [self showSMS:_smsContacts];
+    if ([_smsContacts count] > 0) {
+        [self showSMS:_smsContacts];
+    } else {
+        [self showEmail:_emailContacts];
+    }
+
 }
 
 @end
