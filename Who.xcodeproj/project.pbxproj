@@ -178,6 +178,9 @@
 		3AC0BA2F18AEEFBA0061A565 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC0BA2E18AEEFBA0061A565 /* Base64.m */; };
 		3AC6D0CF18C0E17100091539 /* ChatDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6D0CE18C0E17100091539 /* ChatDBManager.m */; };
 		3AC6D0D218C22A9500091539 /* StyleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6D0D118C22A9500091539 /* StyleManager.m */; };
+		3AD8F47C18DC974B002C399C /* AppInitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD8F47B18DC974B002C399C /* AppInitViewController.m */; };
+		3AD8F47E18DC97F3002C399C /* loading-screen.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3AD8F47D18DC97F3002C399C /* loading-screen.jpg */; };
+		3AD8F48118DC9DD8002C399C /* UserRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD8F48018DC9DD8002C399C /* UserRegistrationViewController.m */; };
 		3AEE80BE18D8FD5B0098F2D1 /* FriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEE80BD18D8FD5B0098F2D1 /* FriendTableViewCell.m */; };
 		3AEE80C118D904150098F2D1 /* add-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AEE80C018D904150098F2D1 /* add-icon.png */; };
 		3AF0B00818B515E500E3D0D3 /* transparent-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF0B00718B515E500E3D0D3 /* transparent-bg.png */; };
@@ -546,6 +549,11 @@
 		3AC6D0CE18C0E17100091539 /* ChatDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatDBManager.m; sourceTree = "<group>"; };
 		3AC6D0D018C22A9500091539 /* StyleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleManager.h; sourceTree = "<group>"; };
 		3AC6D0D118C22A9500091539 /* StyleManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleManager.m; sourceTree = "<group>"; };
+		3AD8F47A18DC974B002C399C /* AppInitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInitViewController.h; sourceTree = "<group>"; };
+		3AD8F47B18DC974B002C399C /* AppInitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppInitViewController.m; sourceTree = "<group>"; };
+		3AD8F47D18DC97F3002C399C /* loading-screen.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "loading-screen.jpg"; sourceTree = "<group>"; };
+		3AD8F47F18DC9DD8002C399C /* UserRegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserRegistrationViewController.h; sourceTree = "<group>"; };
+		3AD8F48018DC9DD8002C399C /* UserRegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserRegistrationViewController.m; sourceTree = "<group>"; };
 		3AEE80BC18D8FD5B0098F2D1 /* FriendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendTableViewCell.h; sourceTree = "<group>"; };
 		3AEE80BD18D8FD5B0098F2D1 /* FriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendTableViewCell.m; sourceTree = "<group>"; };
 		3AEE80C018D904150098F2D1 /* add-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-icon.png"; sourceTree = "<group>"; };
@@ -1071,6 +1079,8 @@
 		3A939630189B3543004B01CE /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				3AD8F47F18DC9DD8002C399C /* UserRegistrationViewController.h */,
+				3AD8F48018DC9DD8002C399C /* UserRegistrationViewController.m */,
 				3AB9E67C18A45573001EFDB8 /* LoadingDialogManager.h */,
 				3AB9E67D18A45573001EFDB8 /* LoadingDialogManager.m */,
 				3AC6D0D018C22A9500091539 /* StyleManager.h */,
@@ -1085,6 +1095,8 @@
 				3A1EACE318D9E7A8006E4CA3 /* Contacts */,
 				3A59D5E918B2D4C800CE7B7B /* MainSwipeViewController.h */,
 				3A59D5EA18B2D4C800CE7B7B /* MainSwipeViewController.m */,
+				3AD8F47A18DC974B002C399C /* AppInitViewController.h */,
+				3AD8F47B18DC974B002C399C /* AppInitViewController.m */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -1576,6 +1588,7 @@
 		3AF86D3218B5070200033495 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3AD8F47D18DC97F3002C399C /* loading-screen.jpg */,
 				3AEE80C018D904150098F2D1 /* add-icon.png */,
 				3A07F6D818D3EFDF00E82390 /* arrow-left-icon.png */,
 				3A07F6D618D3EFC200E82390 /* check-icon.png */,
@@ -1808,6 +1821,7 @@
 				F744857318DB731F00460FBC /* notification-none-green.png in Resources */,
 				3A07F6C618D3C21800E82390 /* messages-icon-blue.png in Resources */,
 				3A07F6BE18D3C21800E82390 /* chat-icon.png in Resources */,
+				3AD8F47E18DC97F3002C399C /* loading-screen.jpg in Resources */,
 				3A00167F18B8231000C54059 /* photo-icon.png in Resources */,
 				3A07F6C218D3C21800E82390 /* arrow-right-bold.png in Resources */,
 				3A07F6D518D3DB0300E82390 /* confession-cell-bottom.png in Resources */,
@@ -1892,6 +1906,7 @@
 			files = (
 				3A3A0ADC18AB1126006FBAE4 /* UIImage+JSMessagesView.m in Sources */,
 				3A98DA3718BD1A4B00B69049 /* DDList.m in Sources */,
+				3AD8F48118DC9DD8002C399C /* UserRegistrationViewController.m in Sources */,
 				3A98D9F318BD1A2600B69049 /* XMPPRoom.m in Sources */,
 				3A3A0AE618AB1126006FBAE4 /* JSMessageTableView.m in Sources */,
 				3A3A0ADD18AB1126006FBAE4 /* JSAvatarImageFactory.m in Sources */,
@@ -2002,6 +2017,7 @@
 				3A98D9DB18BD1A2600B69049 /* XMPPResourceMemoryStorageObject.m in Sources */,
 				3AF19AD11882075D00F3E4D3 /* ConnectionProvider.m in Sources */,
 				3AF19A451881EF1600F3E4D3 /* DDAbstractDatabaseLogger.m in Sources */,
+				3AD8F47C18DC974B002C399C /* AppInitViewController.m in Sources */,
 				F744856518DB61C500460FBC /* SWUtilityButtonView.m in Sources */,
 				3A3A0AE518AB1126006FBAE4 /* JSMessagesViewController.m in Sources */,
 				F751016A18ABE101001F1E7F /* IASKTextField.m in Sources */,

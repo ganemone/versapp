@@ -16,6 +16,6 @@
 @property (weak, nonatomic) IBOutlet UIView *header;
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 @property (weak, nonatomic) IBOutlet UILabel *footerLabel;
-
+@property (weak, nonatomic) IBOutlet UIView *footer;
 
 @end

@@ -83,6 +83,7 @@ extern NSString *const SEGUE_ID_ONE_TO_ONE_VIEW_IMAGE;
 extern NSString *const SEGUE_ID_CREATED_ONE_TO_ONE_CHAT_FROM_CONFESSION;
 extern NSString *const SEGUE_ID_COMPOSE_CONFESSION;
 extern NSString *const SEGUE_ID_SETTINGS;
+extern NSString *const SEGUE_ID_GO_TO_LOGIN_PAGE;
 
 extern NSString *const CELL_ID_CONVERSATION_PROTOTYPE;
 extern NSString *const CELL_ID_FRIENDS_PROTOTYPE;
@@ -93,7 +94,6 @@ extern NSString *const USER_STATUS_REGISTERED;
 extern NSString *const USER_STATUS_REJECTED;
 extern NSString *const USER_STATUS_UNREGISTERED;
 extern NSString *const PACKET_ID_ROSTER;
-
 
 extern NSString *const CORE_DATA_TABLE_MESSAGES;
 extern NSString *const CORE_DATA_TABLE_FRIENDS;
