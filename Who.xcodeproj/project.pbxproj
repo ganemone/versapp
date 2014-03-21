@@ -181,6 +181,7 @@
 		3AD8F47C18DC974B002C399C /* AppInitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD8F47B18DC974B002C399C /* AppInitViewController.m */; };
 		3AD8F47E18DC97F3002C399C /* loading-screen.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3AD8F47D18DC97F3002C399C /* loading-screen.jpg */; };
 		3AD8F48118DC9DD8002C399C /* UserRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD8F48018DC9DD8002C399C /* UserRegistrationViewController.m */; };
+		3AD8F48318DCCB7D002C399C /* Countries.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3AD8F48218DCCB7D002C399C /* Countries.plist */; };
 		3AEE80BE18D8FD5B0098F2D1 /* FriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEE80BD18D8FD5B0098F2D1 /* FriendTableViewCell.m */; };
 		3AEE80C118D904150098F2D1 /* add-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AEE80C018D904150098F2D1 /* add-icon.png */; };
 		3AF0B00818B515E500E3D0D3 /* transparent-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF0B00718B515E500E3D0D3 /* transparent-bg.png */; };
@@ -554,6 +555,7 @@
 		3AD8F47D18DC97F3002C399C /* loading-screen.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "loading-screen.jpg"; sourceTree = "<group>"; };
 		3AD8F47F18DC9DD8002C399C /* UserRegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserRegistrationViewController.h; sourceTree = "<group>"; };
 		3AD8F48018DC9DD8002C399C /* UserRegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserRegistrationViewController.m; sourceTree = "<group>"; };
+		3AD8F48218DCCB7D002C399C /* Countries.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Countries.plist; sourceTree = "<group>"; };
 		3AEE80BC18D8FD5B0098F2D1 /* FriendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendTableViewCell.h; sourceTree = "<group>"; };
 		3AEE80BD18D8FD5B0098F2D1 /* FriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendTableViewCell.m; sourceTree = "<group>"; };
 		3AEE80C018D904150098F2D1 /* add-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-icon.png"; sourceTree = "<group>"; };
@@ -797,6 +799,7 @@
 		3A25B63D1881E03700166623 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3AD8F48218DCCB7D002C399C /* Countries.plist */,
 				3A25B63E1881E03700166623 /* Who-Info.plist */,
 				3A25B63F1881E03700166623 /* InfoPlist.strings */,
 				3A25B6421881E03700166623 /* main.m */,
@@ -1828,6 +1831,7 @@
 				F744857518DB731F00460FBC /* notification2-green.png in Resources */,
 				3A07F6BF18D3C21800E82390 /* compose-icon.png in Resources */,
 				3A07F6C318D3C21800E82390 /* cell-select.png in Resources */,
+				3AD8F48318DCCB7D002C399C /* Countries.plist in Resources */,
 				F744857918DB731F00460FBC /* notification5+-green.png in Resources */,
 				3AB8D18F18C259B00082B77C /* MavenProBlack.ttf in Resources */,
 				3A3A0AE818AB1126006FBAE4 /* avatar-placeholder.png in Resources */,
@@ -2191,12 +2195,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios;
+				FRAMEWORK_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Who-Prefix.pch";
 				INFOPLIST_FILE = "Who/Who-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios/who;
+				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -2210,12 +2214,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios;
+				FRAMEWORK_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Who-Prefix.pch";
 				INFOPLIST_FILE = "Who/Who-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios/who;
+				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
