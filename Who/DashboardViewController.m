@@ -31,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *footerView;
 @property (strong, nonatomic) IBOutlet UIButton *settingsButton;
 @property (strong, nonatomic) IBOutlet UIButton *notificationsButton;
+@property (strong, nonatomic) IBOutlet UIButton *notificationsButtonGreen;
 @property (strong, nonatomic) UIView *notificationsHeader;
 @property (strong, nonatomic) UITableView *notificationTableView;
 @property (strong, nonatomic) NSMutableArray *friendRequests;
@@ -65,7 +66,6 @@
     self.oneToOneChats = [ChatDBManager getAllOneToOneChats];
     
     [self loadNotifications];
-
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -87,6 +87,10 @@
 
 - (IBAction)notificationsClicked:(id)sender {
     [self showNotifications];
+}
+     
+- (IBAction)notificationsGreenClicked:(id)sender {
+    [self hideNotifications];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -184,6 +188,7 @@
         if (indexPath.section == 0) {
             ChatMO *groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
             cell.textLabel.text = groupInvite.chat_name;
+            //cell.textLabel.text = [NSMutableString stringWithFormat:@"%@ - %@", groupInvite.chat_name, groupInvite.participant_string];
         } else {
             FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
             cell.textLabel.text = friendRequest.name;
@@ -284,7 +289,6 @@
     
     CGRect notificationFrame = self.notificationTableView.frame;
     notificationFrame.origin.y = -1*self.notificationTableView.frame.size.height;
-    //notificationFrame.origin.y = self.view.frame.size.height;
     
     [UIView animateWithDuration:0.5
                           delay:0.2
@@ -329,15 +333,19 @@
     [self.notificationsButton setImage:notificationsImage forState:UIControlStateNormal];
     UIImage *notificationsImageGreen = [UIImage imageNamed:greenImageName];
     [notificationsBadgeGreen setImage:notificationsImageGreen];
+    self.notificationsButtonGreen = [[UIButton alloc] initWithFrame:CGRectMake(20, 25, 30, 30)];
+    [self.notificationsButtonGreen setImage:notificationsImageGreen forState:UIControlStateNormal];
+    [self.notificationsButtonGreen addTarget:self action:@selector(notificationsGreenClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.notificationsHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 60)];
+    self.notificationsHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 66)];
     UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 32, 280, 21)];
     [notificationsLabel setText:@"Notifications"];
     [notificationsLabel setTextAlignment:NSTextAlignmentCenter];
     [notificationsLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     [notificationsLabel setTextColor:[StyleManager getColorGreen]];
     [self.notificationsHeader addSubview:notificationsLabel];
-    [self.notificationsHeader addSubview:notificationsBadgeGreen];
+    [self.notificationsHeader addSubview:self.notificationsButtonGreen];
+    [self.notificationTableView setTableHeaderView:self.notificationsHeader];
 }
 
 -(void)loadNotifications {
@@ -345,12 +353,6 @@
     
     self.groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingGroupChats]];
     self.friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
-
-    self.friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
-    self.groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingGroupChats]];
-    
-    NSLog(@"group invites: %@", self.groupInvites);
-    NSLog(@"friend requests: %@", self.friendRequests);
     
     [self setNotificationsIcon];
     
@@ -360,21 +362,17 @@
     tapRecognizer.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapRecognizer];
     
-    self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5)];
+    if ([self.friendRequests count] + [self.groupInvites count] > 0 && [self.friendRequests count] + [self.groupInvites count] < 4) {
+        self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, [self.notificationTableView rowHeight]*([self.friendRequests count] + [self.groupInvites count]) + 110)];
+        NSLog(@"row height: %f", [self.notificationTableView rowHeight]);
+    } else if ([self.friendRequests count] + [self.groupInvites count] == 0) {
+        self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 66)];
+    } else {
+        self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5)];
+    }
     self.notificationTableView.hidden = YES;
     [self.notificationTableView setDelegate:self];
     [self.notificationTableView setDataSource:self];
-    
-    /*UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 60)];
-    UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 32, 280, 21)];
-    [notificationsLabel setText:@"Notifications"];
-    [notificationsLabel setTextAlignment:NSTextAlignmentCenter];
-    [notificationsLabel setFont:[StyleManager getFontStyleLightSizeXL]];
-    [notificationsLabel setTextColor:[StyleManager getColorGreen]];
-    [header addSubview:notificationsLabel];
-    //UIImageView *notificationsBadge = [[UIImageView alloc] initWithFrame:CGRectMake(20, 25, 30, 30)];
-    //[notificationsBadge setImage:self.notificationsImageGreen];
-    [header addSubview:self.notificationsBadgeGreen];*/
     
     [self.notificationTableView setTableHeaderView:self.notificationsHeader];
     [self.notificationTableView setSeparatorColor:[StyleManager getColorGreen]];
