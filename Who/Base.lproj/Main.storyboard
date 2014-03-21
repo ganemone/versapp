@@ -900,6 +900,16 @@
                                             <action selector="backArrowClicked:" destination="zuS-lS-aMT" eventType="touchUpInside" id="SJb-fl-Xze"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zGI-gc-jJq">
+                                        <rect key="frame" x="272" y="30" width="28" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="add-icon.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addNewContact:" destination="zuS-lS-aMT" eventType="touchUpInside" id="xUa-qM-fJj"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.55294117647058827" green="0.75686274509803919" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -1264,13 +1274,13 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="w9h-vV-2BF"/>
-        <segue reference="AGt-Q0-zDh"/>
         <segue reference="yvf-5p-X2z"/>
         <segue reference="Vys-x9-fbS"/>
         <segue reference="KzQ-2I-z5y"/>
         <segue reference="T8K-NQ-vMc"/>
         <segue reference="cCp-tS-h07"/>
-        <segue reference="qGQ-aw-vgl"/>
+        <segue reference="8c7-Mw-K5g"/>
+        <segue reference="zTQ-Mf-6oX"/>
         <segue reference="YCw-e7-spT"/>
     </inferredMetricsTieBreakers>
 </document>
