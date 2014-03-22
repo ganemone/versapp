@@ -9,6 +9,7 @@
 #import "TermsOfUseViewController.h"
 
 @interface TermsOfUseViewController ()
+@property (strong, nonatomic) IBOutlet UIButton *backButton;
 
 @end
 
@@ -27,6 +28,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+}
+
+- (IBAction)backButtonClicked:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning
