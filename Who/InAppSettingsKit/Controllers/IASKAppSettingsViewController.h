@@ -59,7 +59,7 @@
 @end
 
 
-@interface IASKAppSettingsViewController : UIViewController <IASKViewController, UITextFieldDelegate, MFMailComposeViewControllerDelegate, IASKSettingsDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface IASKAppSettingsViewController : UITableViewController <IASKViewController, UITextFieldDelegate, MFMailComposeViewControllerDelegate, IASKSettingsDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, assign) IBOutlet id delegate;
 @property (nonatomic, copy) NSString *file;
