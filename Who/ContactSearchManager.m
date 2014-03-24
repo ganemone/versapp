@@ -138,27 +138,34 @@ static ContactSearchManager *selfInstance;
 }
 
 -(void)updateContactListAfterUserSearch {
+    NSLog(@"Has user... %d", [FriendsDBManager hasUserWithEmail:@"ganemone@gmail.com"]);
+    NSLog(@"User Status: %@", [FriendsDBManager getUserWithEmail:@"ganemone@gmail.com"]);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSLog(@"Updating Contact List After Search!!!!");
         NSArray *phoneNumbers, *emailAddresses;
         NSString *tempPhone, *tempEmail;
         for (NSDictionary *contact in _contacts) {
             phoneNumbers = [contact objectForKey:VCARD_TAG_USERNAME];
             emailAddresses = [contact objectForKey:VCARD_TAG_EMAIL];
-            int i = 0;
-            FriendMO *friend;
-            while (friend == nil && i < MAX([phoneNumbers count], [emailAddresses count])) {
+            tempEmail = nil, tempPhone = nil;
+            //int i = 0;
+            FriendMO *friend = [FriendsDBManager getUserWithJIDS:phoneNumbers searchedEmails:emailAddresses];
+            /*while (friend == nil && i < MAX([phoneNumbers count], [emailAddresses count])) {
                 if (i < [phoneNumbers count]) {
                     tempPhone = [phoneNumbers objectAtIndex:i];
+                    NSLog(@"Temp Phone: %@", tempPhone);
                     friend = [FriendsDBManager getUserWithJID:tempPhone];
                 }
                 if (i < [emailAddresses count]) {
                     tempEmail = [emailAddresses objectAtIndex:i];
+                    NSLog(@"Temp Email: %@", tempEmail);
                     if (friend == nil) {
                         friend = [FriendsDBManager getUserWithEmail:tempEmail];
                     }
                 }
                 i++;
-            }
+            }*/
+            NSLog(@"Found Friend? : %d", (friend == nil));
             NSNumber *status = (friend == nil) ? [NSNumber numberWithInt:STATUS_UNREGISTERED] : friend.status;
             NSString *name = [NSString stringWithFormat:@"%@ %@", [contact objectForKey:VCARD_TAG_FIRST_NAME], [contact objectForKey:VCARD_TAG_LAST_NAME]];
             [FriendsDBManager insert:tempPhone

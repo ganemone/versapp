@@ -14,6 +14,10 @@
 
 +(void)insert:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status searchedPhoneNumber:(NSString*)searchedPhoneNumber searchedEmail:(NSString*)searchedEmail;
 
++(void)updateFriendAfterSearch:(NSArray *)searchedPhoneNumbers searchedEmails:(NSString *)emails;
+
++ (FriendMO *)getUserWithJIDS:(NSArray *)phoneNumbers searchedEmails:(NSArray *)emails;
+
 +(NSArray*)getAll;
 
 +(NSArray*)getAllWithStatus:(NSNumber*)status;

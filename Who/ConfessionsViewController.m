@@ -52,8 +52,11 @@
     self.cellCache = [[NSMutableDictionary alloc] initWithCapacity:[_confessionsManager getNumberOfConfessions]];
     
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
-    [refresh setAttributedTitle:[[NSAttributedString alloc] initWithString:@"Pull to Refresh"]];
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:@"Pull to Refresh"];
+    [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, 15)];
+    [refresh setAttributedTitle:attrString];
     [refresh addTarget:self action:@selector(loadConfessions) forControlEvents:UIControlEventValueChanged];
+    [refresh setTintColor:[UIColor whiteColor]];
     
     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
     [tableViewController setRefreshControl:refresh];
@@ -126,8 +129,7 @@
     if (self.cellCache == nil) {
         self.cellCache = [[NSMutableDictionary alloc] initWithCapacity:100];
     }
-    ConfessionTableCell *cell = nil;//[_cellCache objectForKey:[confession confessionID]];
-    NSLog(@"Confession ID: %@", [confession confessionID]);
+    ConfessionTableCell *cell = [_cellCache objectForKey:[confession confessionID]];
     if (cell == nil) {
         NSLog(@"Cell is nil...");
         cell = [[ConfessionTableCell alloc] initWithConfession:confession reuseIdentifier:CellIdentifier];
@@ -139,7 +141,7 @@
         [cell.timestampLabel setText:[confession getTimePosted]];
         [cell.favoriteLabel setText:[confession getTextForLabel]];
         [cell.chatButton setImage:self.chatIcon forState:UIControlStateNormal];
-        //[_cellCache setObject:cell forKey:[confession confessionID]];
+        [_cellCache setObject:cell forKey:[confession confessionID]];
     } else {
         NSLog(@"Cell is not nil... : %@", [cell description]);
     }
