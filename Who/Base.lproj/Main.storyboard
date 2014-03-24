@@ -177,8 +177,11 @@
                                 <state key="normal" title="Submit">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="submitClicked:" destination="CQO-a2-bzL" eventType="touchUpInside" id="YHP-VG-kcX"/>
+                                </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Current Email)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="h9g-Im-ART">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="h9g-Im-ART">
                                 <rect key="frame" x="25" y="117" width="275" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -213,6 +216,9 @@
                     <navigationItem key="navigationItem" id="jF4-T6-pHZ"/>
                     <connections>
                         <outlet property="backButton" destination="ba9-on-hdi" id="9T0-AH-VDM"/>
+                        <outlet property="currentEmail" destination="h9g-Im-ART" id="Rcr-ah-n0G"/>
+                        <outlet property="newEmail" destination="Xdo-ba-v4L" id="Tqt-wa-CsT"/>
+                        <outlet property="submitButton" destination="top-Yo-Lz9" id="SwV-z6-FxF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ruK-x7-mOV" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -7,9 +7,15 @@
 //
 
 #import "ChangeEmailViewController.h"
+#import "ConnectionProvider.h"
+#import "IQPacketManager.h"
 
 @interface ChangeEmailViewController ()
 @property (strong, nonatomic) IBOutlet UIButton *backButton;
+@property (strong, nonatomic) IBOutlet UIButton *submitButton;
+@property (strong, nonatomic) IBOutlet UITextField *newEmail;
+@property (strong, nonatomic) IBOutlet UILabel *currentEmail;
+@property (strong, nonatomic) ConnectionProvider *cp;
 
 @end
 
@@ -24,10 +30,15 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [self.currentEmail setText:@"Current Email"/*get current email address*/];
+}
+
+- (IBAction)submitClicked:(id)sender {
+    //Send update packet with all current info and new email
+    //[[self.cp getConnection] sendElement:[IQPacketManager createUpdateVCardPacket:<#(NSString *)#> lastname:<#(NSString *)#> phone:<#(NSString *)#> email:<#(NSString *)#>]];
 }
 
 - (IBAction)backButtonClicked:(id)sender {
