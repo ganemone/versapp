@@ -190,7 +190,7 @@
 
 -(void)didSelectImage:(UIImage *)image {
     self.isUploadingImage = YES;
-    [self.im uploadImage:image url:[NSString stringWithFormat:@"http://%@", [ConnectionProvider getServerIPAddress]]];
+    [self.im uploadImage:image url:@"http://media.versapp.co"];
 }
 
 -(void)didFinishDownloadingImage:(UIImage *)image fromURL:(NSString *)url forMessage:(MessageMO *)message {

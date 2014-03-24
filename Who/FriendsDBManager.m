@@ -52,9 +52,7 @@
     [delegate saveContext];
 }
 
-+ (void)updateFriendAfterSearch:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status searchedPhoneNumber:(NSString*)searchedPhoneNumber searchedEmail:(NSString*)searchedEmail {
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-    NSManagedObjectContext *moc = [delegate managedObjectContext];
++ (void)updateFriendAfterSearch:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status searchedPhoneNumber:(NSString*)searchedPhoneNumber searchedEmail:(NSString*)searchedEmail moc:(NSManagedObjectContext *)moc {
     FriendMO *friend = (email == nil) ? [self getUserWithJID:username] : [self getUserWithJID:username email:email];
     if (friend == nil) {
         NSLog(@"Inserting new friend");
@@ -88,7 +86,7 @@
     }
     
     //NSLog(@"Friend: %@", [friend description]);
-    [delegate saveContext];
+    //[delegate saveContextWithMOC:moc];
 }
 
 + (FriendMO *)getUserWithJIDS:(NSArray *)phoneNumbers searchedEmails:(NSArray *)emails {

@@ -59,6 +59,8 @@
     
     self.registeredContacts = [FriendsDBManager getAllWithStatusRegisteredOrRequested];
     self.unregisteredContacts = [FriendsDBManager getAllWithStatusUnregistered];
+    NSLog(@"Num Registered Contacts: %d", [self.registeredContacts count]);
+    NSLog(@"Num Unregistered Contacts %d", [self.unregisteredContacts count]);
     self.selectedRegisteredContacts = [[NSMutableArray alloc] initWithCapacity:[_registeredContacts count]];
     self.selectedUnregisteredContacts = [[NSMutableArray alloc] initWithCapacity:[_unregisteredContacts count]];
     

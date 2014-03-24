@@ -142,13 +142,16 @@ static ContactSearchManager *selfInstance;
     NSLog(@"Has user... %d", [FriendsDBManager hasUserWithEmail:@"ganemone@gmail.com"]);
     NSLog(@"User Status: %@", [FriendsDBManager getUserWithEmail:@"ganemone@gmail.com"]);
     NSMutableArray *contactsWithStatus = [[NSMutableArray alloc] initWithCapacity:[_contacts count]];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *mainMoc = [delegate managedObjectContext];
+    NSManagedObjectContext *moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    [moc setParentContext:mainMoc];
+    [moc performBlock:^{
+        
+        //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSLog(@"Updating Contact List After Search!!!!");
         NSArray *phoneNumbers, *emailAddresses;
         NSString *tempPhone, *tempEmail;
-        AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-        NSManagedObjectContext *moc = [[NSManagedObjectContext alloc] init];
-        [moc setPersistentStoreCoordinator:[delegate persistentStoreCoordinator]];
         for (NSDictionary *contact in _contacts) {
             phoneNumbers = [contact objectForKey:VCARD_TAG_USERNAME];
             emailAddresses = [contact objectForKey:VCARD_TAG_EMAIL];
@@ -186,18 +189,33 @@ static ContactSearchManager *selfInstance;
             NSDictionary *newContact = [NSDictionary dictionaryWithObjectsAndKeys:status, FRIENDS_TABLE_COLUMN_NAME_STATUS, name, FRIENDS_TABLE_COLUMN_NAME_NAME, tempPhone, FRIENDS_TABLE_COLUMN_NAME_USERNAME, tempEmail, FRIENDS_TABLE_COLUMN_NAME_EMAIL, nil];
             [contactsWithStatus addObject:newContact];
         }
+        
+        for (NSDictionary *contact in contactsWithStatus) {
+            [FriendsDBManager updateFriendAfterSearch:[contact objectForKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME]
+                                                 name:[contact objectForKey:FRIENDS_TABLE_COLUMN_NAME_NAME]
+                                                email:[contact objectForKey:FRIENDS_TABLE_COLUMN_NAME_EMAIL]
+                                               status:[contact objectForKey:FRIENDS_TABLE_COLUMN_NAME_STATUS]
+                                  searchedPhoneNumber:nil
+                                        searchedEmail:nil
+                                                  moc:moc];
+        }
+        
+        NSError *err = nil;
+        if(![moc save:&err]) {
+            NSLog(@"Failed to push data to parent...");
+        }
+        
+        [mainMoc performBlock:^{
+            NSError *error = nil;
+            if (![mainMoc save:&error]) {
+                NSLog(@"Failed to save data...");
+            }
+        }];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_CONTACTS_VIEW object:nil];
-            for (NSDictionary *contact in contactsWithStatus) {
-                [FriendsDBManager updateFriendAfterSearch:[contact objectForKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME]
-                                    name:[contact objectForKey:FRIENDS_TABLE_COLUMN_NAME_NAME]
-                                   email:[contact objectForKey:FRIENDS_TABLE_COLUMN_NAME_EMAIL]
-                                  status:[contact objectForKey:FRIENDS_TABLE_COLUMN_NAME_STATUS]
-                     searchedPhoneNumber:nil
-                           searchedEmail:nil];
-            }
         });
-    });
+    }];
 }
 
 @end
