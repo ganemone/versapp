@@ -402,9 +402,8 @@
 - (void)acceptFriendRequest:(NSIndexPath *)indexPath {
     FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
     NSMutableString *address = [NSMutableString stringWithFormat:@"%@@%@", friendRequest.username, [ConnectionProvider getServerIPAddress]];
-    [[self.cp getConnection] sendElement:[IQPacketManager createForceCreateRosterEntryPacket:address]];
     [[self.cp getConnection] sendElement:[IQPacketManager createSubscribedPacket:friendRequest.username]];
-    
+    [[self.cp getConnection] sendElement:[IQPacketManager createForceCreateRosterEntryPacket:address]];
     [FriendsDBManager updateUserSetStatusFriends:friendRequest.username];
     
     NSLog(@"Accepted friend request: %@, %@", address, friendRequest.username);

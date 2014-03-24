@@ -321,11 +321,13 @@
         NSTextCheckingResult *matchJid = [regexJid firstMatchInString:jid options:0 range:NSMakeRange(0,jid.length)];
         NSString *resultJid = [jid substringWithRange:[matchJid rangeAtIndex:1]];
         [conn sendElement:[IQPacketManager createGetVCardPacket:resultJid]];
-        if ([subscription rangeOfString:@"none"].location == NSNotFound){
+        if ([subscription rangeOfString:@"none"].location != NSNotFound){
+            [FriendsDBManager insert:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_REQUESTED]searchedPhoneNumber:nil searchedEmail:nil];
+        } else {
+            if([subscription rangeOfString:@"to"].location != NSNotFound) {
+                [conn sendElement:[IQPacketManager createSubscribedPacket:resultJid]];
+            }
             [FriendsDBManager insert:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_FRIENDS]searchedPhoneNumber:nil searchedEmail:nil];
-        }
-        else {
-            [FriendsDBManager insert:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_PENDING]searchedPhoneNumber:nil searchedEmail:nil];
         }
     }
     [[ContactSearchManager getInstance] accessContacts];
