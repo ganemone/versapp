@@ -49,12 +49,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:PACKET_ID_GET_VCARD object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadNotifications) name:PACKET_ID_GET_PENDING_CHATS object:nil];
     
-    /*UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
-    [backgroundImageView setImage:[UIImage imageNamed:@"grad-back-messages.jpg"]];*/
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
-    //[self.tableView setBackgroundView:backgroundImageView];
-    //[self.tableView setBackgroundColor:[UIColor clearColor]];
     
     self.cp = [ConnectionProvider getInstance];
     
@@ -214,9 +210,9 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == self.tableView) {
         if(section == 0) {
-            return self.groupChats.count;
+            return [self.groupChats count];
         } else {
-            return self.oneToOneChats.count;
+            return [self.oneToOneChats count];
         }
     } else {
         if (section == 0) {
