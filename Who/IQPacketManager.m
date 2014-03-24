@@ -712,4 +712,10 @@
     return [NSString stringWithFormat:@"%@@%@",[ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]];
 }
 
++(NSString *)getPacketFromStringWithResource {
+    return [NSString stringWithFormat:@"%@@%@/who",[ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]];
+}
+
+
+
 @end

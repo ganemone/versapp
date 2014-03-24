@@ -58,6 +58,7 @@
         // Friend accepted connected users request
         // => move friend to contacts
         else if([presence.type compare:@"subscribed"] == 0) {
+            [conn sendElement:[IQPacketManager createSubscribedPacket:username]];
             [conn sendElement:[IQPacketManager createForceCreateRosterEntryPacket:jid]];
             [FriendsDBManager updateUserSetStatusFriends:username];
         }
