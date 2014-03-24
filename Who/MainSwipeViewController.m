@@ -49,6 +49,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePageNavigationToMessages:) name:PAGE_NAVIGATE_TO_MESSAGES object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePageNavigationToConfessions:) name:PAGE_NAVIGATE_TO_CONFESSIONS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePageNavigationToContacts:) name:PAGE_NAVIGATE_TO_CONTACTS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableInteraction) name:NOTIFICATION_DISABLE_SWIPE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enableInteraction) name:NOTIFICATION_ENABLE_SWIPE object:nil];
     
     [self.navigationController.navigationBar setHidden:YES];
     
@@ -71,26 +73,26 @@
 }
 
 - (void)handlePageNavigationToMessages:(NSNotification *)notification {
-    UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
-    [self handlePageNavigationToViewController:[self viewControllerAtIndex:0]
+        UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
+        [self handlePageNavigationToViewController:[self viewControllerAtIndex:0]
                                      direction:direction];
 }
 
 - (void)handlePageNavigationToConfessions:(NSNotification *)notification {
-    UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
-    [self handlePageNavigationToViewController:[self viewControllerAtIndex:1]
+        UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
+        [self handlePageNavigationToViewController:[self viewControllerAtIndex:1]
                                      direction:direction];
 }
 
 - (void)handlePageNavigationToFriends:(NSNotification *)notification {
-    UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
-    [self handlePageNavigationToViewController:[self viewControllerAtIndex:2]
+        UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
+        [self handlePageNavigationToViewController:[self viewControllerAtIndex:2]
                                      direction:direction];
 }
 
 - (void)handlePageNavigationToContacts:(NSNotification *)notification {
-    UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
-    [self handlePageNavigationToViewController:[self viewControllerAtIndex:3]
+        UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
+        [self handlePageNavigationToViewController:[self viewControllerAtIndex:3]
                                      direction:direction];
 }
 
@@ -149,6 +151,24 @@
         index = 3;
     }
     return index;
+}
+
+-(void)disableInteraction {
+    for (UIView *view in self.pageViewController.view.subviews) {
+        if ([view isKindOfClass:[UIScrollView class]]) {
+            UIScrollView *scroll = (UIScrollView *)view;
+            [scroll setScrollEnabled:NO];
+        }
+    }
+}
+
+-(void)enableInteraction {
+    for (UIView *view in self.pageViewController.view.subviews) {
+        if ([view isKindOfClass:[UIScrollView class]]) {
+            UIScrollView *scroll = (UIScrollView *)view;
+            [scroll setScrollEnabled:YES];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning
