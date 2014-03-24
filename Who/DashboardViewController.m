@@ -279,13 +279,16 @@
                          self.footerView.alpha = 0.5;
                      }
                      completion:^(BOOL finished){
-                         
+                         [self.tableView setUserInteractionEnabled:NO];
                      }];
     [UIView commitAnimations];
 }
 
 - (void) hideNotifications {
     NSLog(@"Hide Notifications");
+    
+    self.groupChats = [ChatDBManager getAllActiveGroupChats];
+    [self.tableView reloadData];
     
     CGRect notificationFrame = self.notificationTableView.frame;
     notificationFrame.origin.y = -1*self.notificationTableView.frame.size.height;
@@ -303,34 +306,36 @@
                      }
                      completion:^(BOOL finished){
                          self.notificationTableView.hidden = YES;
+                         [self.tableView setUserInteractionEnabled:YES];
                      }];
     [UIView commitAnimations];
 }
 
-- (IBAction)tapToHideNotifications:(UITapGestureRecognizer *)recognizer {
+/*- (IBAction)tapToHideNotifications:(UITapGestureRecognizer *)recognizer {
     CGPoint tapLocation = [recognizer locationInView:self.view];
     
     if (!CGRectContainsPoint(self.notificationTableView.frame, tapLocation) && !self.notificationTableView.hidden) {
         [self hideNotifications];
     }
-}
+}*/
 
 -(void)setNotificationsIcon {
     NSMutableString *imageName;
     NSMutableString *greenImageName;
     if ([self.friendRequests count] + [self.groupInvites count] > 0 && [self.friendRequests count] + [self.groupInvites count] < 6) {
-        imageName = [NSMutableString stringWithFormat:@"notification%u.png", [self.friendRequests count] + [self.groupInvites count]];
-        greenImageName = [NSMutableString stringWithFormat:@"notification%u-green.png", [self.friendRequests count] + [self.groupInvites count]];
+        imageName = [NSMutableString stringWithFormat:@"notification%lu.png", [self.friendRequests count] + [self.groupInvites count]];
+        //greenImageName = [NSMutableString stringWithFormat:@"notification%lu-green.png", [self.friendRequests count] + [self.groupInvites count]];
     } else if ([self.friendRequests count] + [self.groupInvites count] == 0) {
         imageName = [NSMutableString stringWithString:@"notification-none.png"];
-        greenImageName = [NSMutableString stringWithString:@"notification-none-green.png"];
+        //greenImageName = [NSMutableString stringWithString:@"notification-none-green.png"];
     } else {
         imageName = [NSMutableString stringWithString:@"notification5+.png"];
-        greenImageName = [NSMutableString stringWithString:@"notification5+-green.png"];
+        //greenImageName = [NSMutableString stringWithString:@"notification5+-green.png"];
     }
     UIImage *notificationsImage = [UIImage imageNamed:imageName];
     UIImageView *notificationsBadgeGreen = [[UIImageView alloc] initWithFrame:CGRectMake(20, 25, 30, 30)];
     [self.notificationsButton setImage:notificationsImage forState:UIControlStateNormal];
+    greenImageName = [NSMutableString stringWithString:@"notification-none-green.png"];
     UIImage *notificationsImageGreen = [UIImage imageNamed:greenImageName];
     [notificationsBadgeGreen setImage:notificationsImageGreen];
     self.notificationsButtonGreen = [[UIButton alloc] initWithFrame:CGRectMake(20, 25, 30, 30)];
@@ -356,16 +361,14 @@
     
     [self setNotificationsIcon];
     
-    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToHideNotifications:)];
+    /*UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToHideNotifications:)];
     tapRecognizer.delaysTouchesEnded = YES;
     tapRecognizer.numberOfTapsRequired = 1;
     tapRecognizer.cancelsTouchesInView = NO;
-    [self.view addGestureRecognizer:tapRecognizer];
+    [self.view addGestureRecognizer:tapRecognizer];*/
     
-    if ([self.friendRequests count] + [self.groupInvites count] > 0 && [self.friendRequests count] + [self.groupInvites count] < 4) {
-        self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, [self.notificationTableView rowHeight]*([self.friendRequests count] + [self.groupInvites count]) + 110)];
-        NSLog(@"row height: %f", [self.notificationTableView rowHeight]);
-    } else if ([self.friendRequests count] + [self.groupInvites count] == 0) {
+    //Add dynamic sizing of table?
+    if ([self.friendRequests count] + [self.groupInvites count] == 0) {
         self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 66)];
     } else {
         self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5)];
