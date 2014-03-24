@@ -27,6 +27,13 @@
     return _managedObjectContext;
 }
 
+- (NSManagedObjectContext *) newManagedObjectContext {
+    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+    NSManagedObjectContext *moc = [[NSManagedObjectContext alloc] init];
+    [moc setPersistentStoreCoordinator:coordinator];
+    return moc;
+}
+
 - (NSManagedObjectModel *)managedObjectModel {
     @synchronized(self) {
         if (_managedObjectModel != nil) {
@@ -62,6 +69,14 @@
         {
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         }
+    }
+}
+
+- (void)saveContextWithMOC:(NSManagedObjectContext *)moc {
+    NSError *error = nil;
+    if ([moc hasChanges] && ![moc save:&error])
+    {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     }
 }
 

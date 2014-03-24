@@ -138,37 +138,40 @@ static ContactSearchManager *selfInstance;
 }
 
 -(void)updateContactListAfterUserSearch {
-    NSArray *phoneNumbers, *emailAddresses;
-    NSString *tempPhone, *tempEmail;
-    for (NSDictionary *contact in _contacts) {
-        phoneNumbers = [contact objectForKey:VCARD_TAG_USERNAME];
-        emailAddresses = [contact objectForKey:VCARD_TAG_EMAIL];
-        int i = 0;
-        FriendMO *friend;
-        while (friend == nil && i < MAX([phoneNumbers count], [emailAddresses count])) {
-            if (i < [phoneNumbers count]) {
-                tempPhone = [phoneNumbers objectAtIndex:i];
-                friend = [FriendsDBManager getUserWithJID:tempPhone];
-            }
-            if (i < [emailAddresses count]) {
-                tempEmail = [emailAddresses objectAtIndex:i];
-                if (friend == nil) {
-                    friend = [FriendsDBManager getUserWithEmail:tempEmail];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSArray *phoneNumbers, *emailAddresses;
+        NSString *tempPhone, *tempEmail;
+        for (NSDictionary *contact in _contacts) {
+            phoneNumbers = [contact objectForKey:VCARD_TAG_USERNAME];
+            emailAddresses = [contact objectForKey:VCARD_TAG_EMAIL];
+            int i = 0;
+            FriendMO *friend;
+            while (friend == nil && i < MAX([phoneNumbers count], [emailAddresses count])) {
+                if (i < [phoneNumbers count]) {
+                    tempPhone = [phoneNumbers objectAtIndex:i];
+                    friend = [FriendsDBManager getUserWithJID:tempPhone];
                 }
+                if (i < [emailAddresses count]) {
+                    tempEmail = [emailAddresses objectAtIndex:i];
+                    if (friend == nil) {
+                        friend = [FriendsDBManager getUserWithEmail:tempEmail];
+                    }
+                }
+                i++;
             }
-            i++;
+            NSNumber *status = (friend == nil) ? [NSNumber numberWithInt:STATUS_UNREGISTERED] : friend.status;
+            NSString *name = [NSString stringWithFormat:@"%@ %@", [contact objectForKey:VCARD_TAG_FIRST_NAME], [contact objectForKey:VCARD_TAG_LAST_NAME]];
+            [FriendsDBManager insert:tempPhone
+                                name:name
+                               email:tempEmail
+                              status:status
+                 searchedPhoneNumber:nil
+                       searchedEmail:nil];
         }
-        NSNumber *status = (friend == nil) ? [NSNumber numberWithInt:STATUS_UNREGISTERED] : friend.status;
-        NSString *name = [NSString stringWithFormat:@"%@ %@", [contact objectForKey:VCARD_TAG_FIRST_NAME], [contact objectForKey:VCARD_TAG_LAST_NAME]];
-        [FriendsDBManager insert:tempPhone
-                            name:name
-                           email:tempEmail
-                          status:status
-             searchedPhoneNumber:nil
-                   searchedEmail:nil];
-    }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_CONTACTS_VIEW object:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_CONTACTS_VIEW object:nil];
+        });
+    });
 }
 
 @end
