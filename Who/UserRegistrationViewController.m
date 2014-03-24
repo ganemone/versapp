@@ -7,6 +7,9 @@
 //
 
 #import "UserRegistrationViewController.h"
+#import "ConnectionProvider.h"
+#import "IQPacketManager.h"
+#import "Constants.h"
 
 @interface UserRegistrationViewController ()
 
@@ -15,6 +18,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak, nonatomic) IBOutlet UITextField *confirmPasswordField;
+@property (weak, nonatomic) IBOutlet UIPickerView *countryPicker;
+@property (strong, nonatomic) ConnectionProvider *cp;
+@property (strong, nonatomic) NSString *countryCode;
+@property (strong, nonatomic) NSArray *countries;
 
 @end
 
@@ -31,6 +38,10 @@
 
 - (void)viewDidLoad
 {
+    self.navigationController.navigationBarHidden = NO;
+    self.navigationController.navigationBar.hidden = NO;
+    [self setTitle:@"Registration"];
+    
     [super viewDidLoad];
     [_nameField setTag:0];
     [_phoneField setTag:1];
@@ -44,6 +55,14 @@
     [_passwordField setDelegate:self];
     [_confirmPasswordField setDelegate:self];
     
+    NSString *file = [[NSBundle mainBundle] pathForResource:@"Countries" ofType:@"plist"];
+    _countries = [NSArray arrayWithContentsOfFile:file];
+    
+    [self.countryPicker setDataSource:self];
+    [self.countryPicker setDelegate:self];
+    [self.countryPicker selectRow:218 inComponent:0 animated:NO];
+    
+    self.cp = [ConnectionProvider getInstance];
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,12 +83,21 @@
  */
 
 - (IBAction)handleWhyClicked:(id)sender {
-    /*
-     [[self.cp getConnection] sendElement:[IQPacketManager createCreateVCardPacket:self.firstNameText lastname:self.lastNameText phone:self.usernameText email:self.emailText]];
-     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^a-zA-Z\\s\\'-]" options:NSRegularExpressionCaseInsensitive error:&error];
-     NSArray *matches = [regex matchesInString:name options:0 range:NSMakeRange(0, name.length)];
-     NSDictionary *accountInfo = [NSDictionary dictionaryWithObjectsAndKeys:username, VCARD_TAG_USERNAME, password, USER_DEFAULTS_PASSWORD, firstName, VCARD_TAG_FIRST_NAME, lastName, VCARD_TAG_LAST_NAME, email, VCARD_TAG_EMAIL, nil];
-     [self.cp createAccount:accountInfo];*/
+
+}
+
+- (IBAction)register:(id)sender {
+    NSArray *components = [_phoneField.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
+    NSString *username = [components componentsJoinedByString:@""];
+    NSArray *name = [_nameField.text componentsSeparatedByString:@" "];
+    if (name.count < 2) {
+        // Handle failed name validation
+    }
+    NSString *firstName = [name firstObject];
+    NSString *lastName = [name lastObject];
+    
+    NSDictionary *accountInfo = [NSDictionary dictionaryWithObjectsAndKeys:username, VCARD_TAG_USERNAME, _passwordField.text, USER_DEFAULTS_PASSWORD, firstName, VCARD_TAG_FIRST_NAME, lastName, VCARD_TAG_LAST_NAME, _emailField.text, VCARD_TAG_EMAIL, nil];
+    [self.cp createAccount:accountInfo];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -88,8 +116,6 @@
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     NSString *originalString = [textField.text substringWithRange:range];
-    NSLog(@"Original String: %@", originalString);
-    NSLog(@"Replacement String: %@", string);
     
     if (textField.tag == _nameField.tag) {
         return [self validateNameFieldChangeFromString:originalString toString:string];
@@ -164,6 +190,22 @@
 
 -(BOOL)validateConfirmPasswordFieldChangeFromString:(NSString*)originalString toString:(NSString*)newString {
     return YES;
+}
+
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return [_countries count];
+}
+
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return [[_countries objectAtIndex:row] objectForKey:@"country"];
+}
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    _countryCode = [[_countries objectAtIndex:row] objectForKey:@"code"];
 }
 
 @end

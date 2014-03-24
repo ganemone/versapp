@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UserRegistrationViewController : UIViewController<UITextFieldDelegate>
+@interface UserRegistrationViewController : UIViewController<UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 
 @end
