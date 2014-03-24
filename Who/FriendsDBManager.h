@@ -14,7 +14,9 @@
 
 +(void)insert:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status searchedPhoneNumber:(NSString*)searchedPhoneNumber searchedEmail:(NSString*)searchedEmail;
 
-+(void)updateFriendAfterSearch:(NSArray *)searchedPhoneNumbers searchedEmails:(NSString *)emails;
++ (void)insertWithMOC:(NSManagedObjectContext *)moc username:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status searchedPhoneNumber:(NSString*)searchedPhoneNumber searchedEmail:(NSString*)searchedEmail;
+
++ (void)updateFriendAfterSearch:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status searchedPhoneNumber:(NSString*)searchedPhoneNumber searchedEmail:(NSString*)searchedEmail;
 
 + (FriendMO *)getUserWithJIDS:(NSArray *)phoneNumbers searchedEmails:(NSArray *)emails;
 
@@ -25,6 +27,10 @@
 +(FriendMO*)getUserWithJID:(NSString*)jid;
 
 +(FriendMO*)getUserWithEmail:(NSString*)email;
+
++(FriendMO *)getUserWithJID:(NSString *)jid moc:(NSManagedObjectContext *)moc;
+
++(FriendMO*)getUserWithEmail:(NSString*)email moc:(NSManagedObjectContext *)moc;
 
 +(BOOL)hasUserWithJID:(NSString*)jid;
 

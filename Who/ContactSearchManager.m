@@ -13,6 +13,7 @@
 #import "Constants.h"
 #import "FriendsDBManager.h"
 #import "FriendMO.h"
+#import "AppDelegate.h"
 
 @interface ContactSearchManager()
 
@@ -140,43 +141,61 @@ static ContactSearchManager *selfInstance;
 -(void)updateContactListAfterUserSearch {
     NSLog(@"Has user... %d", [FriendsDBManager hasUserWithEmail:@"ganemone@gmail.com"]);
     NSLog(@"User Status: %@", [FriendsDBManager getUserWithEmail:@"ganemone@gmail.com"]);
+    NSMutableArray *contactsWithStatus = [[NSMutableArray alloc] initWithCapacity:[_contacts count]];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSLog(@"Updating Contact List After Search!!!!");
         NSArray *phoneNumbers, *emailAddresses;
         NSString *tempPhone, *tempEmail;
+        AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+        NSManagedObjectContext *moc = [[NSManagedObjectContext alloc] init];
+        [moc setPersistentStoreCoordinator:[delegate persistentStoreCoordinator]];
         for (NSDictionary *contact in _contacts) {
             phoneNumbers = [contact objectForKey:VCARD_TAG_USERNAME];
             emailAddresses = [contact objectForKey:VCARD_TAG_EMAIL];
             tempEmail = nil, tempPhone = nil;
-            //int i = 0;
-            FriendMO *friend = [FriendsDBManager getUserWithJIDS:phoneNumbers searchedEmails:emailAddresses];
-            /*while (friend == nil && i < MAX([phoneNumbers count], [emailAddresses count])) {
+            FriendMO *friend = nil;
+            int i = 0;
+            while (friend == nil && i < MAX([phoneNumbers count], [emailAddresses count])) {
                 if (i < [phoneNumbers count]) {
                     tempPhone = [phoneNumbers objectAtIndex:i];
                     NSLog(@"Temp Phone: %@", tempPhone);
-                    friend = [FriendsDBManager getUserWithJID:tempPhone];
+                    friend = [FriendsDBManager getUserWithJID:tempPhone moc:moc];
                 }
                 if (i < [emailAddresses count]) {
                     tempEmail = [emailAddresses objectAtIndex:i];
                     NSLog(@"Temp Email: %@", tempEmail);
                     if (friend == nil) {
-                        friend = [FriendsDBManager getUserWithEmail:tempEmail];
+                        friend = [FriendsDBManager getUserWithEmail:tempEmail moc:moc];
                     }
                 }
                 i++;
-            }*/
-            NSLog(@"Found Friend? : %d", (friend == nil));
+            }
+            
             NSNumber *status = (friend == nil) ? [NSNumber numberWithInt:STATUS_UNREGISTERED] : friend.status;
             NSString *name = [NSString stringWithFormat:@"%@ %@", [contact objectForKey:VCARD_TAG_FIRST_NAME], [contact objectForKey:VCARD_TAG_LAST_NAME]];
-            [FriendsDBManager insert:tempPhone
-                                name:name
-                               email:tempEmail
-                              status:status
-                 searchedPhoneNumber:nil
-                       searchedEmail:nil];
+            NSLog(@"Found Friend %@? : %d", name, (friend != nil));
+            if (tempPhone == nil) {
+                tempPhone = @"";
+            }
+            if (tempEmail == nil) {
+                tempEmail = @"";
+            }
+            if (name == nil) {
+                name = @";";
+            }
+            NSDictionary *newContact = [NSDictionary dictionaryWithObjectsAndKeys:status, FRIENDS_TABLE_COLUMN_NAME_STATUS, name, FRIENDS_TABLE_COLUMN_NAME_NAME, tempPhone, FRIENDS_TABLE_COLUMN_NAME_USERNAME, tempEmail, FRIENDS_TABLE_COLUMN_NAME_EMAIL, nil];
+            [contactsWithStatus addObject:newContact];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_CONTACTS_VIEW object:nil];
+            for (NSDictionary *contact in contactsWithStatus) {
+                [FriendsDBManager updateFriendAfterSearch:[contact objectForKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME]
+                                    name:[contact objectForKey:FRIENDS_TABLE_COLUMN_NAME_NAME]
+                                   email:[contact objectForKey:FRIENDS_TABLE_COLUMN_NAME_EMAIL]
+                                  status:[contact objectForKey:FRIENDS_TABLE_COLUMN_NAME_STATUS]
+                     searchedPhoneNumber:nil
+                           searchedEmail:nil];
+            }
         });
     });
 }
