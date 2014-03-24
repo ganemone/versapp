@@ -32,6 +32,8 @@
 
 @implementation MainSwipeViewController
 
+static BOOL enabled = YES;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -71,26 +73,26 @@
 }
 
 - (void)handlePageNavigationToMessages:(NSNotification *)notification {
-    UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
-    [self handlePageNavigationToViewController:[self viewControllerAtIndex:0]
+        UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
+        [self handlePageNavigationToViewController:[self viewControllerAtIndex:0]
                                      direction:direction];
 }
 
 - (void)handlePageNavigationToConfessions:(NSNotification *)notification {
-    UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
-    [self handlePageNavigationToViewController:[self viewControllerAtIndex:1]
+        UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
+        [self handlePageNavigationToViewController:[self viewControllerAtIndex:1]
                                      direction:direction];
 }
 
 - (void)handlePageNavigationToFriends:(NSNotification *)notification {
-    UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
-    [self handlePageNavigationToViewController:[self viewControllerAtIndex:2]
+        UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
+        [self handlePageNavigationToViewController:[self viewControllerAtIndex:2]
                                      direction:direction];
 }
 
 - (void)handlePageNavigationToContacts:(NSNotification *)notification {
-    UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
-    [self handlePageNavigationToViewController:[self viewControllerAtIndex:3]
+        UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
+        [self handlePageNavigationToViewController:[self viewControllerAtIndex:3]
                                      direction:direction];
 }
 
