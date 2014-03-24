@@ -62,8 +62,8 @@
     [self.header setTextColor:[UIColor whiteColor]];
     [self.footerView setFont:[StyleManager getFontStyleLightSizeXL]];
     
-    self.groupChats = [ChatDBManager getAllGroupChats];
-    self.oneToOneChats = [ChatDBManager getAllOneToOneChats];
+    self.groupChats = [ChatDBManager getAllActiveGroupChats];
+    self.oneToOneChats = [ChatDBManager getAllActiveOneToOneChats];
     
     [self loadNotifications];
 }
@@ -381,29 +381,31 @@
     [self hideNotifications];
 }
 
-- (IBAction)acceptInvitation:(NSIndexPath *)indexPath {
+- (void)acceptInvitation:(NSIndexPath *)indexPath {
     ChatMO *groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
     [[self.cp getConnection] sendElement:[IQPacketManager createAcceptChatInvitePacket:groupInvite.chat_id]];
     
     NSLog(@"Accepted: %@", groupInvite.chat_id);
     
     [self.groupInvites removeObjectAtIndex:indexPath.row];
+    [ChatDBManager setChatStatus:STATUS_JOINED chatID:groupInvite.chat_id];
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     [self setNotificationsIcon];
 }
 
-- (IBAction)declineInvitation:(NSIndexPath *)indexPath {
+- (void)declineInvitation:(NSIndexPath *)indexPath {
     ChatMO*groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
     [[self.cp getConnection] sendElement:[IQPacketManager createDenyChatInvitePacket:groupInvite.chat_id]];
     
     NSLog(@"Declined: %@", groupInvite.chat_id);
     
     [self.groupInvites removeObjectAtIndex:indexPath.row];
+    [ChatDBManager setChatStatus:STATUS_REQUEST_REJECTED chatID:groupInvite.chat_id];
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     [self setNotificationsIcon];
 }
 
-- (IBAction)acceptFriendRequest:(NSIndexPath *)indexPath {
+- (void)acceptFriendRequest:(NSIndexPath *)indexPath {
     FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
     NSMutableString *address = [NSMutableString stringWithFormat:@"%@@%@", friendRequest.username, [ConnectionProvider getServerIPAddress]];
     [[self.cp getConnection] sendElement:[IQPacketManager createForceCreateRosterEntryPacket:address]];
@@ -418,7 +420,7 @@
     [self setNotificationsIcon];
 }
 
-- (IBAction)declineFriendRequest:(NSIndexPath *)indexPath {
+- (void)declineFriendRequest:(NSIndexPath *)indexPath {
     FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
     [FriendsDBManager updateUserSetStatusRejected:friendRequest.username];
     
