@@ -381,7 +381,7 @@
     [self hideNotifications];
 }
 
-- (IBAction)acceptInvitation:(NSIndexPath *)indexPath {
+- (void)acceptInvitation:(NSIndexPath *)indexPath {
     ChatMO *groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
     [[self.cp getConnection] sendElement:[IQPacketManager createAcceptChatInvitePacket:groupInvite.chat_id]];
     
@@ -392,7 +392,7 @@
     [self setNotificationsIcon];
 }
 
-- (IBAction)declineInvitation:(NSIndexPath *)indexPath {
+- (void)declineInvitation:(NSIndexPath *)indexPath {
     ChatMO*groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
     [[self.cp getConnection] sendElement:[IQPacketManager createDenyChatInvitePacket:groupInvite.chat_id]];
     
@@ -403,7 +403,7 @@
     [self setNotificationsIcon];
 }
 
-- (IBAction)acceptFriendRequest:(NSIndexPath *)indexPath {
+- (void)acceptFriendRequest:(NSIndexPath *)indexPath {
     FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
     NSMutableString *address = [NSMutableString stringWithFormat:@"%@@%@", friendRequest.username, [ConnectionProvider getServerIPAddress]];
     [[self.cp getConnection] sendElement:[IQPacketManager createForceCreateRosterEntryPacket:address]];
@@ -418,7 +418,7 @@
     [self setNotificationsIcon];
 }
 
-- (IBAction)declineFriendRequest:(NSIndexPath *)indexPath {
+- (void)declineFriendRequest:(NSIndexPath *)indexPath {
     FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
     [FriendsDBManager updateUserSetStatusRejected:friendRequest.username];
     
