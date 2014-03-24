@@ -32,8 +32,6 @@
 
 @implementation MainSwipeViewController
 
-static BOOL enabled = YES;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -51,6 +49,8 @@ static BOOL enabled = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePageNavigationToMessages:) name:PAGE_NAVIGATE_TO_MESSAGES object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePageNavigationToConfessions:) name:PAGE_NAVIGATE_TO_CONFESSIONS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePageNavigationToContacts:) name:PAGE_NAVIGATE_TO_CONTACTS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableInteraction) name:NOTIFICATION_DISABLE_SWIPE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enableInteraction) name:NOTIFICATION_ENABLE_SWIPE object:nil];
     
     [self.navigationController.navigationBar setHidden:YES];
     
@@ -151,6 +151,24 @@ static BOOL enabled = YES;
         index = 3;
     }
     return index;
+}
+
+-(void)disableInteraction {
+    for (UIView *view in self.pageViewController.view.subviews) {
+        if ([view isKindOfClass:[UIScrollView class]]) {
+            UIScrollView *scroll = (UIScrollView *)view;
+            [scroll setScrollEnabled:NO];
+        }
+    }
+}
+
+-(void)enableInteraction {
+    for (UIView *view in self.pageViewController.view.subviews) {
+        if ([view isKindOfClass:[UIScrollView class]]) {
+            UIScrollView *scroll = (UIScrollView *)view;
+            [scroll setScrollEnabled:YES];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning

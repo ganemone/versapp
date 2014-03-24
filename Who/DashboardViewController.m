@@ -259,6 +259,8 @@
 - (void) showNotifications {
     NSLog(@"Show Notifications");
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DISABLE_SWIPE object:nil];
+    
     CGRect notificationFrame = self.notificationTableView.frame;
     notificationFrame.origin.y = 0;
     
@@ -283,6 +285,8 @@
 
 - (void) hideNotifications {
     NSLog(@"Hide Notifications");
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ENABLE_SWIPE object:nil];
     
     self.groupChats = [ChatDBManager getAllActiveGroupChats];
     [self.tableView reloadData];
