@@ -785,8 +785,8 @@
 				3AF19ACE1881F86000F3E4D3 /* Dependencies */,
 				3A939630189B3543004B01CE /* Main */,
 				3A2A357F18AFC7AD006402E5 /* Image Handling */,
-				3A25B6461881E03700166623 /* AppDelegate.m */,
 				3A25B6451881E03700166623 /* AppDelegate.h */,
+				3A25B6461881E03700166623 /* AppDelegate.m */,
 				3A25B6481881E03700166623 /* Main.storyboard */,
 				3A8BCF7618B5961F00D4B7CE /* Confessions */,
 				3A81F49B188DB2190006DD5D /* Connection */,
@@ -2201,12 +2201,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who;
+				FRAMEWORK_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Who-Prefix.pch";
 				INFOPLIST_FILE = "Who/Who-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
+				LIBRARY_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios/who;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -2220,12 +2220,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who;
+				FRAMEWORK_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Who-Prefix.pch";
 				INFOPLIST_FILE = "Who/Who-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
+				LIBRARY_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios/who;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;

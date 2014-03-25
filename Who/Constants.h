@@ -87,6 +87,7 @@ extern NSString *const SEGUE_ID_CREATED_ONE_TO_ONE_CHAT_FROM_CONFESSION;
 extern NSString *const SEGUE_ID_COMPOSE_CONFESSION;
 extern NSString *const SEGUE_ID_SETTINGS;
 extern NSString *const SEGUE_ID_GO_TO_LOGIN_PAGE;
+extern NSString *const SEGUE_ID_GO_TO_REGISTER_PAGE;
 extern NSString *const SEGUE_ID_FROM_REGISTER_TO_LOGIN;
 
 extern NSString *const CELL_ID_CONVERSATION_PROTOTYPE;

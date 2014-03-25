@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "ConnectionProvider.h"
 #import "UserDefaultManager.h"
+#import "Constants.h"
 
 @implementation AppDelegate
 
@@ -121,8 +122,11 @@
     if ([stream isDisconnected]) {
         NSString *username = [UserDefaultManager loadUsername];
         NSString *password = [UserDefaultManager loadPassword];
+        NSLog(@"User: %@", username);
         if (username != nil && password != nil) {
             [cp connect:username password:password];
+        } else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"needToRegister" object:nil];
         }
     }
 }

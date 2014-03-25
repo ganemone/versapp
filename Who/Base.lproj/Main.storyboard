@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="vkc-le-IcM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="emE-SZ-5gQ">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -10,17 +10,17 @@
             <objects>
                 <viewController storyboardIdentifier="LoginViewController" title="LoginViewController" id="Dcg-Mp-WjV" customClass="LoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5RH-4f-tUs">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone Number" minimumFontSize="17" id="NHs-F6-AKY">
-                                <rect key="frame" x="23" y="69" width="280" height="30"/>
+                                <rect key="frame" x="23" y="80" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="X1a-tq-Qp4">
-                                <rect key="frame" x="23" y="135" width="55" height="30"/>
+                                <rect key="frame" x="23" y="157" width="55" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="Login"/>
@@ -29,13 +29,13 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" id="hBY-Bd-80i">
-                                <rect key="frame" x="23" y="101" width="280" height="30"/>
+                                <rect key="frame" x="23" y="118" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FPX-LT-128">
-                                <rect key="frame" x="235" y="127" width="68" height="43"/>
+                                <rect key="frame" x="235" y="149" width="68" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Sign Up">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -60,7 +60,6 @@
                         <outlet property="loginButton" destination="X1a-tq-Qp4" id="EEQ-pw-DRM"/>
                         <outlet property="password" destination="hBY-Bd-80i" id="O64-Ha-hx1"/>
                         <outlet property="username" destination="NHs-F6-AKY" id="PM9-H3-tti"/>
-                        <segue destination="Dwh-Bp-3UK" kind="modal" identifier="SegueIDAuthenticated" id="z0p-MQ-MuO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ys-sZ-kKc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1340,6 +1339,7 @@
                     <connections>
                         <segue destination="Dcg-Mp-WjV" kind="modal" identifier="SegueIDGoToLoginPage" id="qfK-fI-9jJ"/>
                         <segue destination="kgq-y5-19V" kind="modal" identifier="SegueIDGoToRegisterPage" id="MZe-6y-bxh"/>
+                        <segue destination="Dwh-Bp-3UK" kind="modal" identifier="SegueIDAuthenticated" id="coR-TY-KOd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h3J-vU-tan" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1507,16 +1507,16 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="fSF-xn-2Ew"/>
+        <segue reference="KaQ-Sp-Fgh"/>
+        <segue reference="qfK-fI-9jJ"/>
+        <segue reference="YCw-e7-spT"/>
         <segue reference="pHb-Kf-4qo"/>
         <segue reference="Y5D-AL-CYy"/>
         <segue reference="hVX-XL-lBE"/>
         <segue reference="z6h-qs-HbB"/>
         <segue reference="BCc-dv-kG7"/>
-        <segue reference="Flt-TH-Hba"/>
-        <segue reference="fSF-xn-2Ew"/>
-        <segue reference="fah-BG-Sut"/>
         <segue reference="X5v-Jd-Ml1"/>
-        <segue reference="YCw-e7-spT"/>
         <segue reference="v72-9M-1Zf"/>
     </inferredMetricsTieBreakers>
 </document>
