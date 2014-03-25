@@ -175,6 +175,7 @@
 
 
 -(void)didSelectImage:(UIImage *)image {
+    NSLog(@"Image: %@", [image description]);
     self.isUploadingImage = YES;
     [self.im uploadImage:image url:@"http://media.versapp.co"];
 }
@@ -188,10 +189,25 @@
     self.messageImage = image;
     self.messageImageLink = url;
 }
+
 - (IBAction)onBackClicked:(id)sender {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    //[self.navigationController popToRootViewControllerAnimated:YES];
+    [self viewDidAppear:YES];
+    NSLog(@"Going to present picker...");
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    [picker setDelegate:self];
+    [picker setAllowsEditing:YES];
+    [picker setSourceType:UIImagePickerControllerSourceTypeCamera];
+    [self.navigationController presentViewController:picker animated:YES completion:nil];
 }
 
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
 /*
  // Override to support conditional editing of the table view.
  - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

@@ -7,13 +7,10 @@
 //
 
 #import "AppDelegate.h"
+#import "ConnectionProvider.h"
+#import "UserDefaultManager.h"
 
 @implementation AppDelegate
-
-/*@synthesize managedObjectContext = _managedObjectContext;
-@synthesize managedObjectModel = _managedObjectModel;
-@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
-@synthesize sessionID = _sessionID;*/
 
 - (NSManagedObjectContext *) managedObjectContext {
     @synchronized(self) {
@@ -113,6 +110,21 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    ConnectionProvider *cp = [ConnectionProvider getInstance];
+    XMPPStream *stream = [cp getConnection];
+    NSLog(@"Is Connected? %d", [stream isConnected]);
+    NSLog(@"Is Authenticated? %d", [stream isAuthenticated]);
+    NSLog(@"Is Authenticating? %d", [stream isAuthenticating]);
+    NSLog(@"Is Connecting? %d", [stream isConnecting]);
+    NSLog(@"Is Disconnected? %d", [stream isDisconnected]);
+    
+    if ([stream isDisconnected]) {
+        NSString *username = [UserDefaultManager loadUsername];
+        NSString *password = [UserDefaultManager loadPassword];
+        if (username != nil && password != nil) {
+            [cp connect:username password:password];
+        }
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

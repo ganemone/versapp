@@ -12,7 +12,7 @@
 #import "ImageManager.h"
 #import "ChatMO.h"
 
-@interface OneToOneConversationViewController : JSMessagesViewController <JSMessagesViewDelegate, JSMessagesViewDataSource, ImageManagerDelegate>
+@interface OneToOneConversationViewController : JSMessagesViewController <JSMessagesViewDelegate, JSMessagesViewDataSource, ImageManagerDelegate, UIImagePickerControllerDelegate>
 
 @property (strong, nonatomic) ImageManager *im;
 @property (strong, nonatomic) NSMutableArray *downloadingImageURLs;

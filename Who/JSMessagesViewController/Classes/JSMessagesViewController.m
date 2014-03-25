@@ -114,11 +114,7 @@
     
     [self.view addSubview:inputView];
     _messageInputView = inputView;
-    
-    [_messageInputView.textView addObserver:self
-                                 forKeyPath:@"contentSize"
-                                    options:NSKeyValueObservingOptionNew
-                                    context:nil];
+
 }
 
 #pragma mark - View lifecycle
@@ -143,12 +139,14 @@
 											 selector:@selector(handleWillHideKeyboardNotification:)
 												 name:UIKeyboardWillHideNotification
                                                object:nil];
+    
     [self.tableView setContentOffset:CGPointMake(0, CGFLOAT_MAX)];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
+    
+    
+    [_messageInputView.textView addObserver:self
+                                 forKeyPath:@"contentSize"
+                                    options:NSKeyValueObservingOptionNew
+                                    context:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -160,6 +158,8 @@
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    
+    [self.messageInputView.textView removeObserver:self forKeyPath:@"contentSize"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -170,7 +170,6 @@
 
 - (void)dealloc
 {
-    [_messageInputView.textView removeObserver:self forKeyPath:@"contentSize"];
     _delegate = nil;
     _dataSource = nil;
     _tableView = nil;
@@ -276,11 +275,11 @@
     [cell setAvatarImageView:avatar];
     //[cell setBackgroundColor:tableView.backgroundColor];
     
-#if TARGET_IPHONE_SIMULATOR
+/*#if TARGET_IPHONE_SIMULATOR
     cell.bubbleView.textView.dataDetectorTypes = UIDataDetectorTypeNone;
 #else
     cell.bubbleView.textView.dataDetectorTypes = UIDataDetectorTypeAll;
-#endif
+#endif*/
 	
     if ([self.delegate respondsToSelector:@selector(configureCell:atIndexPath:)]) {
         [self.delegate configureCell:cell atIndexPath:indexPath];                       
@@ -288,7 +287,7 @@
     
  
     
-    [self.cellCache setObject:cell forKey:[NSNumber numberWithInt:(int)indexPath.row]];
+    //[self.cellCache setObject:cell forKey:[NSNumber numberWithInt:(int)indexPath.row]];
     
     return cell;
 }
@@ -580,16 +579,22 @@
 }
 
 #pragma mark - Camera
-
+/*
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    UIImage *image = info[UIImagePickerControllerEditedImage];
+    /*UIImage *image = info[UIImagePickerControllerEditedImage];
     self.messageImage = image;
     [self.delegate didSelectImage:image];
-    [picker dismissViewControllerAnimated:YES completion:NULL];
+    [picker dismissViewControllerAnimated:NO completion:nil];
+    [picker.view.superview removeFromSuperview];
+    [picker.view removeFromSuperview];
+    [self viewDidLoad];
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [picker dismissViewControllerAnimated:YES completion:NULL];
+    [picker dismissViewControllerAnimated:NO completion:nil];
+    [picker.view.superview removeFromSuperview];
+    [picker.view removeFromSuperview];
+    [self viewDidLoad];
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -602,8 +607,8 @@
         } else {
             picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         }
-        [self presentViewController:picker animated:YES completion:NULL];
+        [self presentViewController:picker animated:YES completion:nil];
     }
-}
+}*/
 
 @end

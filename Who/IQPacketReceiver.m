@@ -20,6 +20,8 @@
 
 @implementation IQPacketReceiver
 
+static int numRequestsWaitingAtLogin;
+
 +(bool)isPacketWithID:(NSString *)packetID packet:(XMPPIQ *)packet {
     return ([packet.elementID compare:packetID] == 0 && packet.elementID != nil);
 }
@@ -329,8 +331,7 @@
             }
             [FriendsDBManager insert:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_FRIENDS] searchedPhoneNumber:nil searchedEmail:nil];
         }
-    }
-    [[ContactSearchManager getInstance] accessContacts];
+   }
 }
 
 +(void)handleInviteUserToChatPacket:(XMPPIQ*)iq {
