@@ -65,7 +65,7 @@
     JSMessageInputViewStyle inputViewStyle = [self.delegate inputViewStyle];
     CGFloat inputViewHeight = (inputViewStyle == JSMessageInputViewStyleFlat) ? 45.0f : 40.0f;
     
-    CGRect tableFrame = CGRectMake(0.0f, 64.0f, size.width, size.height - inputViewHeight);
+    CGRect tableFrame = CGRectMake(0.0f, 64.0f, size.width, size.height - inputViewHeight - 64.0f);
 	JSMessageTableView *tableView = [[JSMessageTableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
 	tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	tableView.dataSource = self;
@@ -139,9 +139,6 @@
 											 selector:@selector(handleWillHideKeyboardNotification:)
 												 name:UIKeyboardWillHideNotification
                                                object:nil];
-    
-    [self.tableView setContentOffset:CGPointMake(0, CGFLOAT_MAX)];
-    
     
     [_messageInputView.textView addObserver:self
                                  forKeyPath:@"contentSize"
@@ -353,7 +350,6 @@
             return NO;
         }
     }
-    
     return YES;
 }
 
@@ -579,22 +575,17 @@
 }
 
 #pragma mark - Camera
-/*
+
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    /*UIImage *image = info[UIImagePickerControllerEditedImage];
-    self.messageImage = image;
-    [self.delegate didSelectImage:image];
-    [picker dismissViewControllerAnimated:NO completion:nil];
-    [picker.view.superview removeFromSuperview];
-    [picker.view removeFromSuperview];
-    [self viewDidLoad];
+    UIImage *image = info[UIImagePickerControllerEditedImage];
+    [picker dismissViewControllerAnimated:YES completion:^{
+        self.messageImage = image;
+        [self.delegate didSelectImage:image];
+    }];
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [picker dismissViewControllerAnimated:NO completion:nil];
-    [picker.view.superview removeFromSuperview];
-    [picker.view removeFromSuperview];
-    [self viewDidLoad];
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -609,6 +600,6 @@
         }
         [self presentViewController:picker animated:YES completion:nil];
     }
-}*/
+}
 
 @end

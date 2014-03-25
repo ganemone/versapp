@@ -56,6 +56,11 @@
     }
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self scrollToBottomAnimated:NO];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -185,28 +190,14 @@
 }
 
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {
+    NSLog(@"Did finish Uploading Image: %@ to url %@", [image description], url);
     self.isUploadingImage = NO;
     self.messageImage = image;
     self.messageImageLink = url;
 }
 
 - (IBAction)onBackClicked:(id)sender {
-    //[self.navigationController popToRootViewControllerAnimated:YES];
-    [self viewDidAppear:YES];
-    NSLog(@"Going to present picker...");
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    [picker setDelegate:self];
-    [picker setAllowsEditing:YES];
-    [picker setSourceType:UIImagePickerControllerSourceTypeCamera];
-    [self.navigationController presentViewController:picker animated:YES completion:nil];
-}
-
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-}
-
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 /*
  // Override to support conditional editing of the table view.
