@@ -10,17 +10,17 @@
             <objects>
                 <viewController storyboardIdentifier="LoginViewController" title="LoginViewController" id="Dcg-Mp-WjV" customClass="LoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5RH-4f-tUs">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone Number" minimumFontSize="17" id="NHs-F6-AKY">
-                                <rect key="frame" x="20" y="80" width="280" height="30"/>
+                                <rect key="frame" x="23" y="69" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="X1a-tq-Qp4">
-                                <rect key="frame" x="20" y="157" width="55" height="30"/>
+                                <rect key="frame" x="23" y="135" width="55" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="Login"/>
@@ -29,19 +29,19 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" id="hBY-Bd-80i">
-                                <rect key="frame" x="20" y="118" width="280" height="30"/>
+                                <rect key="frame" x="23" y="101" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FPX-LT-128">
-                                <rect key="frame" x="232" y="149" width="68" height="43"/>
+                                <rect key="frame" x="235" y="127" width="68" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Sign Up">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="kgq-y5-19V" kind="push" id="QB6-lA-NsR"/>
+                                    <segue destination="3NC-br-CK7" kind="push" id="KaQ-Sp-Fgh"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incorrect username/password combination" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="d9c-vz-9Ph">
@@ -134,6 +134,7 @@
                                 </state>
                                 <connections>
                                     <action selector="register:" destination="3NC-br-CK7" eventType="touchUpInside" id="9ql-cY-dCC"/>
+                                    <segue destination="Q25-m7-OeU" kind="push" id="fSF-xn-2Ew"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Y4N-fF-hP2">
@@ -149,7 +150,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Dcg-Mp-WjV" kind="push" id="GBT-U2-WcQ"/>
+                                    <action selector="backToLogin:" destination="3NC-br-CK7" eventType="touchUpInside" id="Et0-Jf-9Ia"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -168,6 +169,51 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UX8-eA-Agf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="762" y="781"/>
+        </scene>
+        <!--Enter Confirmation View Controller-->
+        <scene sceneID="uBF-HU-jkh">
+            <objects>
+                <viewController id="Q25-m7-OeU" customClass="EnterConfirmationViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Fpt-xZ-QWf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="You will be sent a confirmation code via text message. Enter it here, and you'll be a Versapper!" id="XgG-wG-F6S">
+                                <rect key="frame" x="20" y="69" width="275" height="134"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirmation Code" minimumFontSize="17" id="oBJ-CQ-Aae">
+                                <rect key="frame" x="20" y="211" width="275" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3tn-Ar-9WC">
+                                <rect key="frame" x="244" y="249" width="51" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Submit">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="submitClicked:" destination="Q25-m7-OeU" eventType="touchUpInside" id="Hlm-DM-2a2"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="W9w-nW-UaK"/>
+                    <connections>
+                        <outlet property="confirmationCodeField" destination="oBJ-CQ-Aae" id="JZB-eZ-Zl3"/>
+                        <outlet property="submitButton" destination="3tn-Ar-9WC" id="dNz-Hj-Pyp"/>
+                        <segue destination="Dcg-Mp-WjV" kind="push" identifier="SegueIDConfirmed" id="fah-BG-Sut"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FxL-m8-eCE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="762" y="1381"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="0uv-p4-vva">
@@ -1421,6 +1467,25 @@
             </objects>
             <point key="canvasLocation" x="2279" y="-4724"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="9sh-aC-CYA">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9Ij-CV-qQ7" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="zbc-mU-32g"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rdI-AU-StD">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Q25-m7-OeU" kind="relationship" relationship="rootViewController" id="MVk-Gh-6Am"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Gg-ck-cz1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="236" y="1381"/>
+        </scene>
     </scenes>
     <resources>
         <image name="add-icon.png" width="250" height="250"/>
@@ -1442,15 +1507,16 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Y5D-AL-CYy"/>
-        <segue reference="z6h-qs-HbB"/>
         <segue reference="pHb-Kf-4qo"/>
+        <segue reference="Y5D-AL-CYy"/>
         <segue reference="hVX-XL-lBE"/>
+        <segue reference="z6h-qs-HbB"/>
         <segue reference="BCc-dv-kG7"/>
-        <segue reference="v72-9M-1Zf"/>
-        <segue reference="YCw-e7-spT"/>
-        <segue reference="MZe-6y-bxh"/>
-        <segue reference="qfK-fI-9jJ"/>
+        <segue reference="Flt-TH-Hba"/>
+        <segue reference="fSF-xn-2Ew"/>
+        <segue reference="fah-BG-Sut"/>
         <segue reference="X5v-Jd-Ml1"/>
+        <segue reference="YCw-e7-spT"/>
+        <segue reference="v72-9M-1Zf"/>
     </inferredMetricsTieBreakers>
 </document>

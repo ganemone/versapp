@@ -76,6 +76,7 @@ extern NSString *const NOTIFICATION_ENABLE_SWIPE;
 extern NSString *const APPLICATION_RESOURCE;
 
 extern NSString *const SEGUE_ID_AUTHENTICATED;
+extern NSString *const SEGUE_ID_CONFIRMED;
 extern NSString *const SEGUE_ID_GROUP_CONVERSATION;
 extern NSString *const SEGUE_ID_ONE_TO_ONE_CONVERSATION;
 extern NSString *const SEGUE_ID_CREATED_MUC;

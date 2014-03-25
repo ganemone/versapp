@@ -208,4 +208,8 @@
     _countryCode = [[_countries objectAtIndex:row] objectForKey:@"code"];
 }
 
+- (IBAction)backToLogin:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 @end

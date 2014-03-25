@@ -78,6 +78,7 @@ NSString *const NOTIFICATION_ENABLE_SWIPE = @"notification_enable_swipe";
 NSString *const APPLICATION_RESOURCE = @"who";
 
 NSString *const SEGUE_ID_AUTHENTICATED = @"SegueIDAuthenticated";
+NSString *const SEGUE_ID_CONFIRMED = @"SegueIDConfirmed";
 NSString *const SEGUE_ID_GROUP_CONVERSATION = @"SegueGroupConversation";
 NSString *const SEGUE_ID_ONE_TO_ONE_CONVERSATION = @"SegueOneToOneConversation";
 NSString *const SEGUE_ID_CREATED_MUC = @"SegueIdentifierCreatedMUC";
