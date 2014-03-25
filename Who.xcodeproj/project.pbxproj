@@ -225,6 +225,7 @@
 		F744857718DB731F00460FBC /* notification4-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F744856F18DB731F00460FBC /* notification4-green.png */; };
 		F744857818DB731F00460FBC /* notification5-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F744857018DB731F00460FBC /* notification5-green.png */; };
 		F744857918DB731F00460FBC /* notification5+-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F744857118DB731F00460FBC /* notification5+-green.png */; };
+		F7460CD618E100F000BD8F60 /* EnterConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7460CD518E100F000BD8F60 /* EnterConfirmationViewController.m */; };
 		F751015D18ABE101001F1E7F /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751013F18ABE100001F1E7F /* IASKAppSettingsViewController.m */; };
 		F751015E18ABE101001F1E7F /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751014118ABE100001F1E7F /* IASKAppSettingsWebViewController.m */; };
 		F751015F18ABE101001F1E7F /* IASKSpecifierValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751014318ABE100001F1E7F /* IASKSpecifierValuesViewController.m */; };
@@ -628,6 +629,8 @@
 		F744856F18DB731F00460FBC /* notification4-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification4-green.png"; sourceTree = "<group>"; };
 		F744857018DB731F00460FBC /* notification5-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification5-green.png"; sourceTree = "<group>"; };
 		F744857118DB731F00460FBC /* notification5+-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification5+-green.png"; sourceTree = "<group>"; };
+		F7460CD418E100F000BD8F60 /* EnterConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnterConfirmationViewController.h; sourceTree = "<group>"; };
+		F7460CD518E100F000BD8F60 /* EnterConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnterConfirmationViewController.m; sourceTree = "<group>"; };
 		F751013E18ABE100001F1E7F /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsViewController.h; sourceTree = "<group>"; };
 		F751013F18ABE100001F1E7F /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsViewController.m; sourceTree = "<group>"; };
 		F751014018ABE100001F1E7F /* IASKAppSettingsWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsWebViewController.h; sourceTree = "<group>"; };
@@ -1084,6 +1087,8 @@
 			children = (
 				3AD8F47F18DC9DD8002C399C /* UserRegistrationViewController.h */,
 				3AD8F48018DC9DD8002C399C /* UserRegistrationViewController.m */,
+				F7460CD418E100F000BD8F60 /* EnterConfirmationViewController.h */,
+				F7460CD518E100F000BD8F60 /* EnterConfirmationViewController.m */,
 				3AB9E67C18A45573001EFDB8 /* LoadingDialogManager.h */,
 				3AB9E67D18A45573001EFDB8 /* LoadingDialogManager.m */,
 				3AC6D0D018C22A9500091539 /* StyleManager.h */,
@@ -2010,6 +2015,7 @@
 				F751015D18ABE101001F1E7F /* IASKAppSettingsViewController.m in Sources */,
 				3AF19A6D1881F34A00F3E4D3 /* DispatchQueueLogFormatter.m in Sources */,
 				3AC6D0CF18C0E17100091539 /* ChatDBManager.m in Sources */,
+				F7460CD618E100F000BD8F60 /* EnterConfirmationViewController.m in Sources */,
 				3A98DA3A18BD1A4B00B69049 /* XMPPIDTracker.m in Sources */,
 				3A59D5EB18B2D4C800CE7B7B /* MainSwipeViewController.m in Sources */,
 				3A98DA4618BD1A6500B69049 /* NSXMLElement+XMPP.m in Sources */,
