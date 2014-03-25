@@ -138,6 +138,8 @@ NSString *const INVITATION_DECLINE = @"d";
 NSString *const NOTIFICATIONS_GROUP = @"Group Invitations";
 NSString *const NOTIFICATIONS_FRIEND = @"Friend Requests";
 
+NSString *const BEGINNING_OF_TIME = @"1970-01-01T00:00:00Z";
+
 NSString *const SETTING_CHANGE_EMAIL = @"change_email";
 NSString *const SETTING_CHANGE_PASSWORD = @"change_password";
 NSString *const SETTING_LEAVE_GROUPS = @"leave_groups";

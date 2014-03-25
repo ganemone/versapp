@@ -388,6 +388,7 @@
 - (void)acceptInvitation:(NSIndexPath *)indexPath {
     ChatMO *groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
     [[self.cp getConnection] sendElement:[IQPacketManager createAcceptChatInvitePacket:groupInvite.chat_id]];
+    [[self.cp getConnection] sendElement:[IQPacketManager createJoinMUCPacket:groupInvite.chat_id lastTimeActive:BEGINNING_OF_TIME]];
     
     NSLog(@"Accepted: %@", groupInvite.chat_id);
     

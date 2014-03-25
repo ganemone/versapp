@@ -137,6 +137,8 @@ extern NSString *const INVITATION_DECLINE;
 extern NSString *const NOTIFICATIONS_GROUP;
 extern NSString *const NOTIFICATIONS_FRIEND;
 
+extern NSString *const BEGINNING_OF_TIME;
+
 extern NSString *const SETTING_CHANGE_EMAIL;
 extern NSString *const SETTING_CHANGE_PASSWORD;
 extern NSString *const SETTING_LEAVE_GROUPS;
