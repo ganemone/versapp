@@ -48,7 +48,7 @@
 }
 
 - (void)handleAuthenticated {
-    [self performSegueWithIdentifier:SEGUE_ID_AUTHENTICATED sender:self];
+    [self performSegueWithIdentifier:SEGUE_ID_AUTHENTICATED_FROM_APP_INIT sender:self];
 }
 
 - (void)handleFailedToAuthenticate {
