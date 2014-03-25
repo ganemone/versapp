@@ -10,17 +10,17 @@
             <objects>
                 <viewController storyboardIdentifier="LoginViewController" title="LoginViewController" id="Dcg-Mp-WjV" customClass="LoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5RH-4f-tUs">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone Number" minimumFontSize="17" id="NHs-F6-AKY">
-                                <rect key="frame" x="23" y="69" width="280" height="30"/>
+                                <rect key="frame" x="23" y="80" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="X1a-tq-Qp4">
-                                <rect key="frame" x="248" y="134" width="55" height="30"/>
+                                <rect key="frame" x="248" y="156" width="55" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="Login"/>
@@ -29,7 +29,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" id="hBY-Bd-80i">
-                                <rect key="frame" x="23" y="101" width="280" height="30"/>
+                                <rect key="frame" x="23" y="118" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -50,12 +50,12 @@
                         <outlet property="loginButton" destination="X1a-tq-Qp4" id="EEQ-pw-DRM"/>
                         <outlet property="password" destination="hBY-Bd-80i" id="O64-Ha-hx1"/>
                         <outlet property="username" destination="NHs-F6-AKY" id="PM9-H3-tti"/>
-                        <segue destination="FvA-Qe-GrR" kind="modal" identifier="SegueIDAuthenticated" id="QMt-WW-ujz"/>
+                        <segue destination="Dwh-Bp-3UK" kind="modal" identifier="SegueIDAuthenticated" id="MOh-Ya-0vX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ys-sZ-kKc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="762" y="180"/>
+            <point key="canvasLocation" x="762" y="-144"/>
         </scene>
         <!--User Registration View Controller - Registration-->
         <scene sceneID="OkA-Ea-htW">
@@ -222,7 +222,7 @@
             <objects>
                 <viewController storyboardIdentifier="MainSwipeViewController" id="FvA-Qe-GrR" customClass="MainSwipeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qgn-rc-9ur">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -482,6 +482,7 @@
                         <segue destination="Esf-15-Cfa" kind="push" identifier="info_support" id="pHb-Kf-4qo"/>
                         <segue destination="SQz-m3-CKD" kind="push" identifier="info_privacy" id="z6h-qs-HbB"/>
                         <segue destination="Oo2-cH-7OJ" kind="push" identifier="info_terms" id="tVn-SP-Hc9"/>
+                        <segue destination="vkc-le-IcM" kind="modal" identifier="SegueIDLogout" id="gej-Lh-kg9"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bVc-RM-2zP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1499,16 +1500,16 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="YCw-e7-spT"/>
-        <segue reference="bRX-TH-pHe"/>
-        <segue reference="QMt-WW-ujz"/>
         <segue reference="v72-9M-1Zf"/>
-        <segue reference="Y5D-AL-CYy"/>
-        <segue reference="pHb-Kf-4qo"/>
-        <segue reference="BCc-dv-kG7"/>
-        <segue reference="hVX-XL-lBE"/>
-        <segue reference="z6h-qs-HbB"/>
+        <segue reference="YCw-e7-spT"/>
+        <segue reference="MOh-Ya-0vX"/>
+        <segue reference="qfK-fI-9jJ"/>
         <segue reference="fSF-xn-2Ew"/>
-        <segue reference="X5v-Jd-Ml1"/>
+        <segue reference="z6h-qs-HbB"/>
+        <segue reference="Y5D-AL-CYy"/>
+        <segue reference="BCc-dv-kG7"/>
+        <segue reference="pHb-Kf-4qo"/>
+        <segue reference="tVn-SP-Hc9"/>
+        <segue reference="hVX-XL-lBE"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -91,6 +91,7 @@ NSString *const SEGUE_ID_SETTINGS = @"SegueIDSettings";
 NSString *const SEGUE_ID_GO_TO_LOGIN_PAGE = @"SegueIDGoToLoginPage";
 NSString *const SEGUE_ID_GO_TO_REGISTER_PAGE = @"SegueIDGoToRegisterPage";
 NSString *const SEGUE_ID_FROM_REGISTER_TO_LOGIN = @"SegueIDFromRegisterToLogin";
+NSString *const SEGUE_ID_LOGOUT = @"SegueIDLogout";
 
 NSString *const CELL_ID_CONVERSATION_PROTOTYPE = @"ConversationCellPrototype";
 NSString *const CELL_ID_FRIENDS_PROTOTYPE = @"FriendsCellPrototype";
@@ -137,6 +138,7 @@ NSString *const INVITATION_ACCEPT = @"a";
 NSString *const INVITATION_DECLINE = @"d";
 NSString *const NOTIFICATIONS_GROUP = @"Group Invitations";
 NSString *const NOTIFICATIONS_FRIEND = @"Friend Requests";
+NSString *const ANONYMOUS_FRIEND = @"Anonymous Friend";
 
 NSString *const BEGINNING_OF_TIME = @"1970-01-01T00:00:00Z";
 

@@ -27,6 +27,8 @@
 #import "IASKSpecifierValuesViewController.h"
 #import "IASKTextField.h"
 #import "Constants.h"
+#import "UserDefaultManager.h"
+#import "XMPPStream.h"
 
 #if !__has_feature(objc_arc)
 #error "IASK needs ARC"
@@ -769,8 +771,8 @@ CGRect IASKCGRectSwap(CGRect rect);
         //To be implemented
         NSLog(@"Leave Groups Pressed");
     } else if ([[specifier key] isEqualToString:SETTING_LOGOUT]) {
-        //To be implemented
         NSLog(@"Logout Pressed");
+        [self logout];
     } else if ([[specifier key] isEqualToString:SETTING_SUPPORT]) {
         [self performSegueWithIdentifier:SETTING_SUPPORT sender:self];
     } else if ([[specifier key] isEqualToString:SETTING_PRIVACY]) {
@@ -778,6 +780,12 @@ CGRect IASKCGRectSwap(CGRect rect);
     } else if ([[specifier key] isEqualToString:SETTING_TERMS]) {
         [self performSegueWithIdentifier:SETTING_TERMS sender:self];
     }
+}
+
+-(void)logout {
+    [UserDefaultManager saveUsername:nil];
+    [UserDefaultManager savePassword:nil];
+    [self performSegueWithIdentifier:SEGUE_ID_LOGOUT sender:self];
 }
 
 #pragma mark -

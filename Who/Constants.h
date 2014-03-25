@@ -89,6 +89,7 @@ extern NSString *const SEGUE_ID_SETTINGS;
 extern NSString *const SEGUE_ID_GO_TO_LOGIN_PAGE;
 extern NSString *const SEGUE_ID_GO_TO_REGISTER_PAGE;
 extern NSString *const SEGUE_ID_FROM_REGISTER_TO_LOGIN;
+extern NSString *const SEGUE_ID_LOGOUT;
 
 extern NSString *const CELL_ID_CONVERSATION_PROTOTYPE;
 extern NSString *const CELL_ID_FRIENDS_PROTOTYPE;
@@ -136,6 +137,7 @@ extern NSString *const INVITATION_ACCEPT;
 extern NSString *const INVITATION_DECLINE;
 extern NSString *const NOTIFICATIONS_GROUP;
 extern NSString *const NOTIFICATIONS_FRIEND;
+extern NSString *const ANONYMOUS_FRIEND;
 
 extern NSString *const BEGINNING_OF_TIME;
 

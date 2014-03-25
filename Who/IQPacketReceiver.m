@@ -258,6 +258,7 @@ static int numRequestsWaitingAtLogin;
             }
         }
     }
+    NSLog(@"Name compare: %@ %@", username, [ConnectionProvider getUser]);
     if ([username compare:[ConnectionProvider getUser]] != 0) {
         NSString *name = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
         [FriendsDBManager insert:username name:name email:email status:nil searchedPhoneNumber:nil searchedEmail:nil];
