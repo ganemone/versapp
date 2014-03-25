@@ -180,7 +180,6 @@
 
 
 -(void)didSelectImage:(UIImage *)image {
-    NSLog(@"Image: %@", [image description]);
     self.isUploadingImage = YES;
     [self.im uploadImage:image url:@"http://media.versapp.co"];
 }
@@ -190,7 +189,6 @@
 }
 
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {
-    NSLog(@"Did finish Uploading Image: %@ to url %@", [image description], url);
     self.isUploadingImage = NO;
     self.messageImage = image;
     self.messageImageLink = url;

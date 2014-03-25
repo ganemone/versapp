@@ -79,6 +79,10 @@
         }
     }
     
+    if ([senderID isEqualToString:[ConnectionProvider getUser]]) {
+        return;
+    }
+    
     if (inviteFlag == nil) {
         if ([message.type compare:CHAT_TYPE_GROUP] == 0) {
             MessageMO *newMessage;

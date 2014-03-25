@@ -202,11 +202,20 @@
 }
 
 - (void)cameraPressed:(UIButton *)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Add a Picture"
+    UIAlertView *alert;
+    if (self.messageImage == nil) {
+    alert = [[UIAlertView alloc] initWithTitle:@"Add a Picture"
                                                     message:@""
                                                    delegate:self
                                           cancelButtonTitle:@"Cancel"
                                           otherButtonTitles:@"Take New", @"Select Existing", nil];
+    } else {
+        alert = [[UIAlertView alloc] initWithTitle:@"Add a Picture"
+                                           message:@""
+                                          delegate:self
+                                 cancelButtonTitle:@"Cancel"
+                                 otherButtonTitles:@"Take New", @"Select Existing", "Remove Selected Picture", nil];
+    }
     [alert show];
 }
 
@@ -580,6 +589,7 @@
     UIImage *image = info[UIImagePickerControllerEditedImage];
     [picker dismissViewControllerAnimated:YES completion:^{
         self.messageImage = image;
+        [self setCameraButtonImage:image];
         [self.delegate didSelectImage:image];
     }];
 }
@@ -589,7 +599,11 @@
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex > 0) {
+    if (buttonIndex == 3) {
+        self.messageImage = nil;
+        [self resetCameraButtonImage];
+    }
+    else if (buttonIndex > 0) {
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
         picker.delegate = self;
         picker.allowsEditing = YES;
@@ -600,6 +614,14 @@
         }
         [self presentViewController:picker animated:YES completion:nil];
     }
+}
+
+- (void)setCameraButtonImage:(UIImage *)image {
+    [_messageInputView.cameraButton setImage:image forState:UIControlStateNormal];
+}
+
+- (void)resetCameraButtonImage {
+    [_messageInputView.cameraButton setImage:[UIImage imageNamed:@"photo-icon.png"] forState:UIControlStateNormal];
 }
 
 @end

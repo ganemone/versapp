@@ -32,7 +32,6 @@
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     MessageMO *message = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_MESSAGES inManagedObjectContext:moc];
-    
     [message setValue:messageBody forKey:MESSAGE_PROPERTY_BODY];
     [message setValue:groupID forKey:MESSAGE_PROPERTY_GROUP_ID];
     [message setValue:time forKey:MESSAGE_PROPERTY_TIMESTAMP];
@@ -101,6 +100,26 @@
     } else {
         return @"1970-01-01T00:00:00Z";
     }
+}
+
++(NSArray*)makeFetchRequest:(NSString*)predicateString {
+    return [self makeFetchRequestWithPredicate:[NSPredicate predicateWithFormat:predicateString]];
+}
+
++(NSArray*)makeFetchRequestWithPredicate:(NSPredicate*)predicate {
+    
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *moc = [delegate managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:CORE_DATA_TABLE_MESSAGES inManagedObjectContext:moc];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setPredicate:predicate];
+    
+    NSError* error;
+    NSArray *fetchedRecords = [moc executeFetchRequest:fetchRequest error:&error];
+    
+    return fetchedRecords;
 }
 
 @end

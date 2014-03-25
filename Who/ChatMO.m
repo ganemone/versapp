@@ -30,7 +30,8 @@
 }
 
 -(void)sendMUCMessageWithBody:(NSString *)messageText imageLink:(NSString*)imageLink {
-    MessageMO *newMessage = [MessagesDBManager insert:messageText groupID:self.chat_id time:nil senderID:[ConnectionProvider getUser] receiverID:self.chat_id imageLink:imageLink];
+    NSString * timeStampValue = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
+    MessageMO *newMessage = [MessagesDBManager insert:messageText groupID:self.chat_id time:timeStampValue senderID:[ConnectionProvider getUser] receiverID:self.chat_id imageLink:imageLink];
     [self addMessage:newMessage];
     DDXMLElement *packet = [IQPacketManager createSendMUCMessagePacket:newMessage];
     [[[ConnectionProvider getInstance] getConnection] sendElement:packet];
