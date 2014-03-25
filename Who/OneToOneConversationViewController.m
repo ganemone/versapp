@@ -32,7 +32,13 @@
     [self.im setDelegate:self];
     self.imageCache = [ImageCache getInstance];
     self.downloadingImageURLs = [[NSMutableArray alloc] initWithCapacity:20];
-    [self.headerLabel setText:[self.chatMO user_defined_chat_name]];
+    
+    if ([[ConnectionProvider getUser] compare:[self.chatMO.chat_id substringToIndex:[[ConnectionProvider getUser] length]]] != 0) {
+        [self.headerLabel setText:ANONYMOUS_FRIEND];
+    } else {
+        [self.headerLabel setText:[self.chatMO user_defined_chat_name]];
+    }
+    
     [self.headerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     
     // Add a bottomBorder to the header view
