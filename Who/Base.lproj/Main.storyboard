@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="emE-SZ-5gQ">
     <dependencies>
-        <deployment defaultVersion="1536" identifier="iOS"/>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
@@ -10,17 +10,17 @@
             <objects>
                 <viewController storyboardIdentifier="LoginViewController" title="LoginViewController" id="Dcg-Mp-WjV" customClass="LoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5RH-4f-tUs">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone Number" minimumFontSize="17" id="NHs-F6-AKY">
-                                <rect key="frame" x="23" y="80" width="280" height="30"/>
+                                <rect key="frame" x="23" y="69" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="X1a-tq-Qp4">
-                                <rect key="frame" x="248" y="156" width="55" height="30"/>
+                                <rect key="frame" x="248" y="134" width="55" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="Login"/>
@@ -29,7 +29,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" id="hBY-Bd-80i">
-                                <rect key="frame" x="23" y="118" width="280" height="30"/>
+                                <rect key="frame" x="23" y="101" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -50,12 +50,12 @@
                         <outlet property="loginButton" destination="X1a-tq-Qp4" id="EEQ-pw-DRM"/>
                         <outlet property="password" destination="hBY-Bd-80i" id="O64-Ha-hx1"/>
                         <outlet property="username" destination="NHs-F6-AKY" id="PM9-H3-tti"/>
-                        <segue destination="Dwh-Bp-3UK" kind="modal" identifier="SegueIDAuthenticated" id="MOh-Ya-0vX"/>
+                        <segue destination="Gcr-Xy-TFT" kind="modal" identifier="SegueIDAuthenticated" id="QMt-WW-ujz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ys-sZ-kKc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="762" y="-144"/>
+            <point key="canvasLocation" x="762" y="180"/>
         </scene>
         <!--User Registration View Controller - Registration-->
         <scene sceneID="OkA-Ea-htW">
@@ -231,7 +231,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iUp-KR-8dx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1789" y="180"/>
+            <point key="canvasLocation" x="1789" y="204"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ytD-Qm-JKC">
@@ -482,7 +482,6 @@
                         <segue destination="Esf-15-Cfa" kind="push" identifier="info_support" id="pHb-Kf-4qo"/>
                         <segue destination="SQz-m3-CKD" kind="push" identifier="info_privacy" id="z6h-qs-HbB"/>
                         <segue destination="Oo2-cH-7OJ" kind="push" identifier="info_terms" id="tVn-SP-Hc9"/>
-                        <segue destination="vkc-le-IcM" kind="modal" identifier="SegueIDLogout" id="gej-Lh-kg9"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bVc-RM-2zP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -790,7 +789,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="2279" y="180"/>
+            <point key="canvasLocation" x="2279" y="204"/>
         </scene>
         <!--Navigation Controller - Notifications-->
         <scene sceneID="22y-RF-Gaz">
@@ -872,7 +871,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yd9-J6-Wir" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4045" y="154"/>
+            <point key="canvasLocation" x="4045" y="180"/>
         </scene>
         <!--Confessions View Controller - Confessions-->
         <scene sceneID="g8k-18-lyM">
@@ -980,7 +979,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VJW-15-iT1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2805" y="771"/>
+            <point key="canvasLocation" x="2279" y="781"/>
         </scene>
         <!--Contacts View Controller-->
         <scene sceneID="xh4-Dp-XWl">
@@ -1176,7 +1175,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j9h-0E-rVD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3589" y="154"/>
+            <point key="canvasLocation" x="3589" y="180"/>
         </scene>
         <!--One To One Conversation View Controller-->
         <scene sceneID="3FC-Hw-v7z">
@@ -1295,24 +1294,6 @@
             </objects>
             <point key="canvasLocation" x="4109" y="771"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="t1m-dM-6jS">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Dwh-Bp-3UK" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="f6e-tz-9CN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="FvA-Qe-GrR" kind="relationship" relationship="rootViewController" id="szA-BG-9FW"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4qU-Ra-GLj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1263" y="180"/>
-        </scene>
         <!--App Init View Controller-->
         <scene sceneID="HoD-1Q-AHL">
             <objects>
@@ -1332,7 +1313,7 @@
                     <connections>
                         <segue destination="Dcg-Mp-WjV" kind="modal" identifier="SegueIDGoToLoginPage" id="qfK-fI-9jJ"/>
                         <segue destination="kgq-y5-19V" kind="modal" identifier="SegueIDGoToRegisterPage" id="MZe-6y-bxh"/>
-                        <segue destination="Dwh-Bp-3UK" kind="modal" identifier="SegueIDAuthenticated" id="coR-TY-KOd"/>
+                        <segue destination="Gcr-Xy-TFT" kind="modal" identifier="SegueIDAuthenticatedFromAppInit" id="3yg-rT-qjq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h3J-vU-tan" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1479,6 +1460,25 @@
             </objects>
             <point key="canvasLocation" x="236" y="1381"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="UN7-TX-c4V">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Gcr-Xy-TFT" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="a5I-3V-fw1"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="h0x-VU-Iaa">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="FvA-Qe-GrR" kind="relationship" relationship="rootViewController" id="Bww-U8-ifc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="41o-ac-xq9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1339" y="66"/>
+        </scene>
     </scenes>
     <resources>
         <image name="add-icon.png" width="250" height="250"/>
@@ -1500,16 +1500,16 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="v72-9M-1Zf"/>
-        <segue reference="YCw-e7-spT"/>
-        <segue reference="MOh-Ya-0vX"/>
-        <segue reference="qfK-fI-9jJ"/>
-        <segue reference="fSF-xn-2Ew"/>
         <segue reference="z6h-qs-HbB"/>
-        <segue reference="Y5D-AL-CYy"/>
-        <segue reference="BCc-dv-kG7"/>
         <segue reference="pHb-Kf-4qo"/>
-        <segue reference="tVn-SP-Hc9"/>
+        <segue reference="BCc-dv-kG7"/>
         <segue reference="hVX-XL-lBE"/>
+        <segue reference="v72-9M-1Zf"/>
+        <segue reference="X5v-Jd-Ml1"/>
+        <segue reference="bRX-TH-pHe"/>
+        <segue reference="fSF-xn-2Ew"/>
+        <segue reference="3yg-rT-qjq"/>
+        <segue reference="YCw-e7-spT"/>
+        <segue reference="qGQ-aw-vgl"/>
     </inferredMetricsTieBreakers>
 </document>

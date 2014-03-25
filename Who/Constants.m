@@ -92,6 +92,7 @@ NSString *const SEGUE_ID_GO_TO_LOGIN_PAGE = @"SegueIDGoToLoginPage";
 NSString *const SEGUE_ID_GO_TO_REGISTER_PAGE = @"SegueIDGoToRegisterPage";
 NSString *const SEGUE_ID_FROM_REGISTER_TO_LOGIN = @"SegueIDFromRegisterToLogin";
 NSString *const SEGUE_ID_LOGOUT = @"SegueIDLogout";
+NSString *const SEGUE_ID_AUTHENTICATED_FROM_APP_INIT = @"SegueIDAuthenticatedFromAppInit";
 
 NSString *const CELL_ID_CONVERSATION_PROTOTYPE = @"ConversationCellPrototype";
 NSString *const CELL_ID_FRIENDS_PROTOTYPE = @"FriendsCellPrototype";
