@@ -10,17 +10,17 @@
             <objects>
                 <viewController storyboardIdentifier="LoginViewController" title="LoginViewController" id="Dcg-Mp-WjV" customClass="LoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5RH-4f-tUs">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone Number" minimumFontSize="17" id="NHs-F6-AKY">
-                                <rect key="frame" x="23" y="80" width="280" height="30"/>
+                                <rect key="frame" x="23" y="69" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="X1a-tq-Qp4">
-                                <rect key="frame" x="23" y="157" width="55" height="30"/>
+                                <rect key="frame" x="248" y="134" width="55" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="Login"/>
@@ -29,21 +29,11 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" id="hBY-Bd-80i">
-                                <rect key="frame" x="23" y="118" width="280" height="30"/>
+                                <rect key="frame" x="23" y="101" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FPX-LT-128">
-                                <rect key="frame" x="235" y="149" width="68" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Sign Up">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="3NC-br-CK7" kind="push" id="KaQ-Sp-Fgh"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incorrect username/password combination" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="d9c-vz-9Ph">
                                 <rect key="frame" x="20" y="195" width="280" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -60,6 +50,7 @@
                         <outlet property="loginButton" destination="X1a-tq-Qp4" id="EEQ-pw-DRM"/>
                         <outlet property="password" destination="hBY-Bd-80i" id="O64-Ha-hx1"/>
                         <outlet property="username" destination="NHs-F6-AKY" id="PM9-H3-tti"/>
+                        <segue destination="FvA-Qe-GrR" kind="modal" identifier="SegueIDAuthenticated" id="QMt-WW-ujz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ys-sZ-kKc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -150,6 +141,7 @@
                                 </state>
                                 <connections>
                                     <action selector="backToLogin:" destination="3NC-br-CK7" eventType="touchUpInside" id="Et0-Jf-9Ia"/>
+                                    <segue destination="Dcg-Mp-WjV" kind="push" id="nPX-Ed-w2T"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -230,7 +222,7 @@
             <objects>
                 <viewController storyboardIdentifier="MainSwipeViewController" id="FvA-Qe-GrR" customClass="MainSwipeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qgn-rc-9ur">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -1507,16 +1499,16 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="fSF-xn-2Ew"/>
-        <segue reference="KaQ-Sp-Fgh"/>
-        <segue reference="qfK-fI-9jJ"/>
         <segue reference="YCw-e7-spT"/>
-        <segue reference="pHb-Kf-4qo"/>
+        <segue reference="bRX-TH-pHe"/>
+        <segue reference="QMt-WW-ujz"/>
+        <segue reference="v72-9M-1Zf"/>
         <segue reference="Y5D-AL-CYy"/>
+        <segue reference="pHb-Kf-4qo"/>
+        <segue reference="BCc-dv-kG7"/>
         <segue reference="hVX-XL-lBE"/>
         <segue reference="z6h-qs-HbB"/>
-        <segue reference="BCc-dv-kG7"/>
+        <segue reference="fSF-xn-2Ew"/>
         <segue reference="X5v-Jd-Ml1"/>
-        <segue reference="v72-9M-1Zf"/>
     </inferredMetricsTieBreakers>
 </document>
