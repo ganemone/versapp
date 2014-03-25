@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3A25B6321881E03700166623"
                BuildableName = "Who.app"
-               BlueprintName = "Who"
-               ReferencedContainer = "container:Who.xcodeproj">
+               BlueprintName = "versapp"
+               ReferencedContainer = "container:versapp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,8 +34,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3A25B6561881E03700166623"
                BuildableName = "WhoTests.xctest"
-               BlueprintName = "WhoTests"
-               ReferencedContainer = "container:Who.xcodeproj">
+               BlueprintName = "versappTests"
+               ReferencedContainer = "container:versapp.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -44,8 +44,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3A25B6321881E03700166623"
             BuildableName = "Who.app"
-            BlueprintName = "Who"
-            ReferencedContainer = "container:Who.xcodeproj">
+            BlueprintName = "versapp"
+            ReferencedContainer = "container:versapp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -63,8 +63,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3A25B6321881E03700166623"
             BuildableName = "Who.app"
-            BlueprintName = "Who"
-            ReferencedContainer = "container:Who.xcodeproj">
+            BlueprintName = "versapp"
+            ReferencedContainer = "container:versapp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -81,8 +81,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3A25B6321881E03700166623"
             BuildableName = "Who.app"
-            BlueprintName = "Who"
-            ReferencedContainer = "container:Who.xcodeproj">
+            BlueprintName = "versapp"
+            ReferencedContainer = "container:versapp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
