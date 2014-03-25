@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3A25B6321881E03700166623"
-               BuildableName = "Who.app"
+               BuildableName = "versapp.app"
                BlueprintName = "versapp"
                ReferencedContainer = "container:versapp.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3A25B6561881E03700166623"
-               BuildableName = "WhoTests.xctest"
+               BuildableName = "versappTests.xctest"
                BlueprintName = "versappTests"
                ReferencedContainer = "container:versapp.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3A25B6321881E03700166623"
-            BuildableName = "Who.app"
+            BuildableName = "versapp.app"
             BlueprintName = "versapp"
             ReferencedContainer = "container:versapp.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3A25B6321881E03700166623"
-            BuildableName = "Who.app"
+            BuildableName = "versapp.app"
             BlueprintName = "versapp"
             ReferencedContainer = "container:versapp.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3A25B6321881E03700166623"
-            BuildableName = "Who.app"
+            BuildableName = "versapp.app"
             BlueprintName = "versapp"
             ReferencedContainer = "container:versapp.xcodeproj">
          </BuildableReference>
