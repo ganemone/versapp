@@ -409,8 +409,8 @@ typedef void (^RNBlurCompletion)(void);
 
 - (void)autoHeight {
     CGRect frame = self.frame;
-    CGSize maxSize = CGSizeMake(frame.size.width, 9999);
-    CGSize expectedSize = [self.text sizeWithFont:self.font constrainedToSize:maxSize lineBreakMode:self.lineBreakMode];
+    //CGSize maxSize = CGSizeMake(frame.size.width, 9999);
+    CGSize expectedSize = [self.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:17.0f], NSFontAttributeName, nil]];
     frame.size.height = expectedSize.height;
     [self setFrame:frame];
 }

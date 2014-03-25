@@ -175,26 +175,27 @@
         CGRect placeHolderRect = CGRectMake(10.0f,
                                             7.0f,
                                             rect.size.width,
-                                            rect.size.height);
+                                            rect.size.height + 10.0f);
         
         [self.placeHolderTextColor set];
         
-        if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_0) {
-            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-            paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
-            paragraphStyle.alignment = self.textAlignment;
-            
-            [self.placeHolder drawInRect:placeHolderRect
-                          withAttributes:@{ NSFontAttributeName : self.font,
-                                            NSForegroundColorAttributeName : self.placeHolderTextColor,
-                                            NSParagraphStyleAttributeName : paragraphStyle }];
-        }
-        else {
-            [self.placeHolder drawInRect:placeHolderRect
-                                withFont:self.font
-                           lineBreakMode:NSLineBreakByTruncatingTail
-                               alignment:self.textAlignment];
-        }
+        //if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_0) {
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
+        paragraphStyle.alignment = self.textAlignment;
+        
+        [self.placeHolder drawInRect:placeHolderRect
+                      withAttributes:@{ NSFontAttributeName : self.font,
+                                        NSForegroundColorAttributeName : self.placeHolderTextColor,
+                                        NSParagraphStyleAttributeName : paragraphStyle }];
+        //}
+        /*
+         else {
+         [self.placeHolder drawInRect:placeHolderRect
+         withFont:self.font
+         lineBreakMode:NSLineBreakByWordWrapping
+         alignment:self.textAlignment];
+         }*/
     }
 }
 
