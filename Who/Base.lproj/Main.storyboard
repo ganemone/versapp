@@ -832,11 +832,11 @@
             <objects>
                 <viewController storyboardIdentifier="ConversationViewController" hidesBottomBarWhenPushed="YES" id="LSk-rM-HTJ" customClass="ConversationViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0UM-Gi-lHb">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="vsd-42-qBE">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Fw9-eG-ihU">
@@ -1500,16 +1500,16 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="z6h-qs-HbB"/>
         <segue reference="pHb-Kf-4qo"/>
-        <segue reference="BCc-dv-kG7"/>
         <segue reference="hVX-XL-lBE"/>
-        <segue reference="v72-9M-1Zf"/>
-        <segue reference="X5v-Jd-Ml1"/>
-        <segue reference="bRX-TH-pHe"/>
-        <segue reference="fSF-xn-2Ew"/>
+        <segue reference="BCc-dv-kG7"/>
+        <segue reference="z6h-qs-HbB"/>
         <segue reference="3yg-rT-qjq"/>
+        <segue reference="fSF-xn-2Ew"/>
         <segue reference="YCw-e7-spT"/>
         <segue reference="qGQ-aw-vgl"/>
+        <segue reference="X5v-Jd-Ml1"/>
+        <segue reference="zTQ-Mf-6oX"/>
+        <segue reference="bRX-TH-pHe"/>
     </inferredMetricsTieBreakers>
 </document>
