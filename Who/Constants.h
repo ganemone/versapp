@@ -72,6 +72,7 @@ extern NSString *const NOTIFICATION_FINISHED_INVITING_MUC_USERS;
 extern NSString *const NOTIFICATION_FINISHED_INVITING_ONE_TO_ONE_USERS;
 extern NSString *const NOTIFICATION_DISABLE_SWIPE;
 extern NSString *const NOTIFICATION_ENABLE_SWIPE;
+extern NSString *const NOTIFICATION_LOGOUT;
 
 extern NSString *const APPLICATION_RESOURCE;
 
@@ -149,6 +150,9 @@ extern NSString *const SETTING_LOGOUT;
 extern NSString *const SETTING_SUPPORT;
 extern NSString *const SETTING_PRIVACY;
 extern NSString *const SETTING_TERMS;
+extern NSString *const EMAIL_CHANGED;
+extern NSString *const PASSWORD_CHANGED;
+extern NSString *const LOGIN_AGAIN;
 
 extern NSString *const STORYBOARD_ID_PAGE_VIEW_CONTROLLER;
 extern NSString *const STORYBOARD_ID_NOTIFICATIONS_VIEW_CONTROLLER;

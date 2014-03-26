@@ -33,7 +33,7 @@
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
 			<key>Title</key>
-			<string>Email</string>
+			<string>Change Email</string>
 			<key>Key</key>
 			<string>change_email</string>
 		</dict>
@@ -47,33 +47,7 @@
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>Privacy</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<true/>
-			<key>Key</key>
-			<string>one_to_one_preference</string>
-			<key>Title</key>
-			<string>One to One Chat</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<true/>
-			<key>Key</key>
-			<string>searchable_preference</string>
-			<key>Title</key>
-			<string>Searchable</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
-			<key>Title</key>
-			<string>Advanced</string>
+			<string>Notifications</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
@@ -112,14 +86,6 @@
 			<string>Actions</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>IASKButtonSpecifier</string>
-			<key>Title</key>
-			<string>Leave all groups</string>
-			<key>Key</key>
-			<string>leave_groups</string>
 		</dict>
 		<dict>
 			<key>Type</key>

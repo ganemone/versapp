@@ -304,6 +304,13 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.21960784310000001" green="0.65490196079999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0TA-M9-q7L">
+                                <rect key="frame" x="20" y="214" width="280" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -312,6 +319,7 @@
                         <outlet property="backButton" destination="ba9-on-hdi" id="9T0-AH-VDM"/>
                         <outlet property="currentEmail" destination="h9g-Im-ART" id="Rcr-ah-n0G"/>
                         <outlet property="submitButton" destination="top-Yo-Lz9" id="SwV-z6-FxF"/>
+                        <outlet property="success" destination="0TA-M9-q7L" id="EYa-Ha-4uA"/>
                         <outlet property="updatedEmail" destination="Xdo-ba-v4L" id="GXE-rV-gFG"/>
                     </connections>
                 </viewController>
@@ -333,12 +341,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New" minimumFontSize="17" id="28N-mj-pO3">
-                                <rect key="frame" x="20" y="146" width="280" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm" minimumFontSize="17" id="rQn-n8-FmO">
                                 <rect key="frame" x="20" y="184" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -351,6 +353,9 @@
                                 <state key="normal" title="Submit">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="submitClicked:" destination="ykg-f5-qGG" eventType="touchUpInside" id="b6d-aZ-YMN"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" id="EuY-1B-3oF">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
@@ -375,12 +380,29 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.21960784310000001" green="0.65490196079999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WaY-Th-th2">
+                                <rect key="frame" x="20" y="245" width="280" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New" minimumFontSize="17" id="2Kh-Cn-iRp">
+                                <rect key="frame" x="20" y="146" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="S3K-Ae-bKa"/>
                     <connections>
                         <outlet property="backButton" destination="8rZ-DU-jy2" id="sqv-y6-6g3"/>
+                        <outlet property="confirmPassword" destination="rQn-n8-FmO" id="JaH-ia-Hf5"/>
+                        <outlet property="currentPassword" destination="6p5-g4-4aP" id="b07-GY-fcr"/>
+                        <outlet property="submitClicked" destination="fgz-p7-Lgp" id="ri7-Vy-91p"/>
+                        <outlet property="success" destination="WaY-Th-th2" id="OMu-X1-yxb"/>
+                        <outlet property="updatedPassword" destination="2Kh-Cn-iRp" id="nQP-f4-5f5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xSS-zl-JfY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -482,6 +504,7 @@
                         <segue destination="Esf-15-Cfa" kind="push" identifier="info_support" id="pHb-Kf-4qo"/>
                         <segue destination="SQz-m3-CKD" kind="push" identifier="info_privacy" id="z6h-qs-HbB"/>
                         <segue destination="Oo2-cH-7OJ" kind="push" identifier="info_terms" id="tVn-SP-Hc9"/>
+                        <segue destination="vkc-le-IcM" kind="modal" identifier="SegueIDLogout" id="2Ce-cp-tgE"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bVc-RM-2zP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1311,9 +1334,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="kwU-gs-Spj"/>
                     <connections>
-                        <segue destination="Dcg-Mp-WjV" kind="modal" identifier="SegueIDGoToLoginPage" id="qfK-fI-9jJ"/>
                         <segue destination="kgq-y5-19V" kind="modal" identifier="SegueIDGoToRegisterPage" id="MZe-6y-bxh"/>
                         <segue destination="Gcr-Xy-TFT" kind="modal" identifier="SegueIDAuthenticatedFromAppInit" id="3yg-rT-qjq"/>
+                        <segue destination="vkc-le-IcM" kind="modal" identifier="SegueIDGoToLoginPage" id="hZu-Kl-BbB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h3J-vU-tan" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1501,15 +1524,16 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="pHb-Kf-4qo"/>
+        <segue reference="2Ce-cp-tgE"/>
         <segue reference="hVX-XL-lBE"/>
+        <segue reference="tVn-SP-Hc9"/>
         <segue reference="BCc-dv-kG7"/>
         <segue reference="z6h-qs-HbB"/>
+        <segue reference="bRX-TH-pHe"/>
         <segue reference="3yg-rT-qjq"/>
         <segue reference="fSF-xn-2Ew"/>
         <segue reference="YCw-e7-spT"/>
-        <segue reference="qGQ-aw-vgl"/>
-        <segue reference="X5v-Jd-Ml1"/>
         <segue reference="zTQ-Mf-6oX"/>
-        <segue reference="bRX-TH-pHe"/>
+        <segue reference="8c7-Mw-K5g"/>
     </inferredMetricsTieBreakers>
 </document>

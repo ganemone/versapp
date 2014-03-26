@@ -29,6 +29,7 @@
 #import "Constants.h"
 #import "UserDefaultManager.h"
 #import "XMPPStream.h"
+#import "AppInitViewController.h"
 
 #if !__has_feature(objc_arc)
 #error "IASK needs ARC"
@@ -579,7 +580,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	} else if ([specifier.type isEqualToString:kIASKButtonSpecifier]) {
 		NSString *value = [self.settingsStore objectForKey:specifier.key];
 		cell.textLabel.text = [value isKindOfClass:[NSString class]] ? [self.settingsReader titleForStringId:value] : specifier.title;
-        if ([[specifier key] isEqualToString:SETTING_CHANGE_PASSWORD] || [[specifier key] isEqualToString:SETTING_SUPPORT] || [[specifier key] isEqualToString:SETTING_PRIVACY] || [[specifier key] isEqualToString:SETTING_TERMS]) {
+        if ([[specifier key] isEqualToString:SETTING_CHANGE_EMAIL] ||[[specifier key] isEqualToString:SETTING_CHANGE_PASSWORD] || [[specifier key] isEqualToString:SETTING_SUPPORT] || [[specifier key] isEqualToString:SETTING_PRIVACY] || [[specifier key] isEqualToString:SETTING_TERMS]) {
             [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         }
 	} else {
@@ -785,6 +786,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 -(void)logout {
     [UserDefaultManager saveUsername:nil];
     [UserDefaultManager savePassword:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_LOGOUT object:nil];
     [self performSegueWithIdentifier:SEGUE_ID_LOGOUT sender:self];
 }
 
