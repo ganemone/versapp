@@ -371,16 +371,17 @@
     tapRecognizer.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapRecognizer];
     
-    //Add dynamic sizing of table?
     if ([self.friendRequests count] + [self.groupInvites count] == 0) {
-        self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 66)];
-        for (UIView *view in self.notificationsHeader.subviews) {
-            if ([view isKindOfClass:[UILabel class]]) {
-                UILabel *label = (UILabel *)view;
-                [label setTextColor:[StyleManager getColorBlue]];
-                [label setText:NO_NOTIFICATIONS];
-            }
-        }
+        self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5)];
+        self.notificationsHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5)];
+        UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height*0.25, 280, 21)];
+        [notificationsLabel setText:@"You have no notifications"];
+        [notificationsLabel setTextAlignment:NSTextAlignmentCenter];
+        [notificationsLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+        [notificationsLabel setTextColor:[StyleManager getColorBlue]];
+        [self.notificationsHeader addSubview:notificationsLabel];
+        [self.notificationsHeader addSubview:self.notificationsButtonGreen];
+        [self.notificationTableView setTableHeaderView:self.notificationsHeader];
     } else {
         self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5)];
     }
@@ -416,7 +417,7 @@
     
     [self.groupInvites removeObjectAtIndex:indexPath.row];
     [ChatDBManager setChatStatus:STATUS_REQUEST_REJECTED chatID:groupInvite.chat_id];
-    [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];\
     [self setNotificationsIcon];
 }
 
@@ -430,7 +431,7 @@
     NSLog(@"Accepted friend request: %@, %@", address, friendRequest.username);
     
     [self.friendRequests removeObjectAtIndex:indexPath.row];
-    [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];\
     [self setNotificationsIcon];
 }
 

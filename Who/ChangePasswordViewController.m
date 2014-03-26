@@ -9,6 +9,7 @@
 #import "ChangePasswordViewController.h"
 #import "Constants.h"
 #import "StyleManager.h"
+#import "UserDefaultManager.h"
 
 @interface ChangePasswordViewController ()
 @property (strong, nonatomic) IBOutlet UIButton *backButton;
@@ -39,7 +40,7 @@
 
 - (IBAction)submitClicked:(id)sender {
     if ([self.updatedPassword.text compare:self.confirmPassword.text] == 0) {
-        //Change password
+        [UserDefaultManager savePassword:self.updatedPassword.text];
         
         [self.success setTextColor:[StyleManager getColorGreen]];
         [self.success setFont:[StyleManager getFontStyleBoldSizeMed]];
