@@ -20,7 +20,7 @@
     [instance setBody:body];
     [instance setImageURL:imageURL];
     [instance setFavoritedUsers:[[NSMutableArray alloc] init]];
-
+    [instance setHasCalculatedFrames:NO];
     return instance;
 }
 
@@ -32,6 +32,7 @@
     [instance setConfessionID:confessionID];
     [instance setCreatedTimestamp:createdTimestamp];
     [instance setFavoritedUsers:favoritedUsers];
+    [instance setHasCalculatedFrames:NO];
     return instance;
 }
 
@@ -53,14 +54,17 @@
     // Configure Favorites
     _favoriteButtonFrame = CGRectMake(contentSize.width - iconSize - cellX - 2 * paddingSmall, textHeight + paddingSmall, iconSize, iconSize);
     _favoriteLabelFrame = CGRectMake(contentSize.width / 2 + iconSize, textHeight + paddingSmall, labelWidth, iconSize);
+    _hasCalculatedFrames = YES;
 }
 
 - (CGFloat)heightForConfession {
     UIFont *cellFont = [StyleManager getFontStyleLightSizeMed];
-    //CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
+    CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
     //    CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
-    CGSize labelSize = [_body sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:cellFont, NSFontAttributeName, nil]];
-    return labelSize.height + 80.0f;
+    //CGSize labelSize = [_body sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:cellFont, NSFontAttributeName, nil]];
+    NSStringDrawingContext *ctx = [NSStringDrawingContext new];
+    CGRect textRect = [_body boundingRectWithSize:constraintSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:ctx];
+    return textRect.size.height + 80.0f;
 }
 
 -(void)encodeBody {

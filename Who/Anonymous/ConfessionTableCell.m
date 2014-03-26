@@ -44,6 +44,10 @@
 - (instancetype)initWithConfession:(Confession*)confession reuseIdentifier:(NSString *)reuseIdentifier {
     self = [self initWithStyle:UITableViewCellStyleDefault reuseIdentifier: reuseIdentifier];
     if (self) {
+        if ([confession hasCalculatedFrames] == NO) {
+            NSLog(@"Calculating Frames on Main Thread... :(");
+            [confession calculateFramesForTableViewCell:self.contentView.frame.size];
+        }
         // Configure Background View
         UIView *backgroundView = [[UIImageView alloc] initWithFrame:confession.cellFrame];
         
@@ -106,27 +110,22 @@
         _timestampLabel = timestampLabel;
         
         /*for (UIGestureRecognizer *recognizer in self.gestureRecognizers) {
-            if ([recognizer isKindOfClass:[UILongPressGestureRecognizer class]]){
-                recognizer.enabled = NO;
-            }
-        }
-        
-        UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self                                                                                             action:@selector(handleLongPressGesture:)];
-        [recognizer setMinimumPressDuration:0.4f];
-        //    recognizer.delegate = self;
-        [self addGestureRecognizer:recognizer];*/
+         if ([recognizer isKindOfClass:[UILongPressGestureRecognizer class]]){
+         recognizer.enabled = NO;
+         }
+         }
+         
+         UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self                                                                                             action:@selector(handleLongPressGesture:)];
+         [recognizer setMinimumPressDuration:0.4f];
+         //    recognizer.delegate = self;
+         [self addGestureRecognizer:recognizer];*/
         
     }
     return self;
 }
 
 + (CGFloat)heightForConfession:(Confession*)confession {
-    NSString *cellText = [confession body];
-    UIFont *cellFont = [StyleManager getFontStyleLightSizeMed];
-    //CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
-    //    CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
-    CGSize labelSize = [cellText sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:cellFont, NSFontAttributeName, nil]];
-    return labelSize.height + 80.0f;
+    return [confession heightForConfession];
 }
 
 -(void)handleConfessionFavorited:(id)sender {

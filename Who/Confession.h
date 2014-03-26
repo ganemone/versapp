@@ -24,6 +24,7 @@
 @property CGRect favoriteButtonFrame;
 @property CGRect favoriteLabelFrame;
 @property CGRect timestampLabelFrame;
+@property BOOL hasCalculatedFrames;
 
 +(instancetype)create:(NSString*)body imageURL:(NSString*)imageURL;
 
@@ -46,5 +47,7 @@
 - (void)startChat;
 
 -(NSString *)getTextForLabel;
+
+- (CGFloat)heightForConfession;
 
 @end
