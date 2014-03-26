@@ -78,7 +78,7 @@
     
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
-    [self.tableView setBackgroundColor:[StyleManager getColorLightOrange]];
+    [self.tableView setBackgroundColor:[StyleManager getColorOrange]];
     [self.tableView setBackgroundView:nil];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     

@@ -30,6 +30,7 @@
 @property UIPageViewController *pageViewController;
 @property(nonatomic, strong) ConnectionProvider *connectionProvider;
 @property(nonatomic, strong) NSArray *viewControllers;
+@property(nonatomic, strong) UIView *confessionView;
 
 @end
 
@@ -65,16 +66,12 @@
     
     self.viewControllers = @[[self viewControllerAtIndex:0], [self viewControllerAtIndex:1], [self viewControllerAtIndex:2], [self viewControllerAtIndex:3]];
     // Set the first controller to be shown
-    UIViewController *initialViewController = [self viewControllerAtIndex:0];
-    NSArray *viewControllers = @[initialViewController];
-    [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:nil];
+    [self.pageViewController setViewControllers:@[[_viewControllers objectAtIndex:0]] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:nil];
     [self addChildViewController:_pageViewController];
-    
     // Add the page view controller frame to the current view controller
     [_pageViewController.view setFrame:self.view.frame];
     [self.view addSubview:_pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];
-    
 }
 
 - (void)setUpInBackground {
@@ -90,26 +87,26 @@
 }
 
 - (void)handlePageNavigationToMessages:(NSNotification *)notification {
-        UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
-        [self handlePageNavigationToViewController:[self viewControllerAtIndex:0]
+    UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
+    [self handlePageNavigationToViewController:[self viewControllerAtIndex:0]
                                      direction:direction];
 }
 
 - (void)handlePageNavigationToConfessions:(NSNotification *)notification {
-        UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
-        [self handlePageNavigationToViewController:[self viewControllerAtIndex:1]
+    UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
+    [self handlePageNavigationToViewController:[self viewControllerAtIndex:1]
                                      direction:direction];
 }
 
 - (void)handlePageNavigationToFriends:(NSNotification *)notification {
-        UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
-        [self handlePageNavigationToViewController:[self viewControllerAtIndex:2]
+    UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
+    [self handlePageNavigationToViewController:[self viewControllerAtIndex:2]
                                      direction:direction];
 }
 
 - (void)handlePageNavigationToContacts:(NSNotification *)notification {
-        UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
-        [self handlePageNavigationToViewController:[self viewControllerAtIndex:3]
+    UIPageViewControllerNavigationDirection direction = ((UIPageViewControllerNavigationDirection)[[notification.userInfo objectForKey:@"direction"] intValue]);
+    [self handlePageNavigationToViewController:[self viewControllerAtIndex:3]
                                      direction:direction];
 }
 
@@ -149,6 +146,9 @@
     }
     NSLog(@"Instantiating View Controller: %@", storyboardID);
     UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:storyboardID];
+    if ([viewController isKindOfClass:[ConfessionsViewController class]]) {
+        self.confessionView = [viewController view];
+    }
     return viewController;
 }
 

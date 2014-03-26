@@ -18,8 +18,13 @@
 
 @implementation ConfessionTableCell
 
+static UIImage *footerImage;
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
+    if (footerImage == nil) {
+        footerImage = [UIImage imageNamed:@"confession-cell-bottom.png"];
+    }
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self setup];
@@ -68,7 +73,7 @@
         
         // Configure Footer View
         UIImageView *footer = [[UIImageView alloc] initWithFrame:confession.footerFrame];
-        [footer setImage:[UIImage imageNamed:@"confession-cell-bottom.png"]];
+        [footer setImage: footerImage];
         
         // Configuring Chat Buttons
         UIButton *createChatButton = [[UIButton alloc] initWithFrame:confession.chatButtonFrame];
