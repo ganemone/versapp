@@ -1817,7 +1817,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3A25B62E1881E03700166623 /* Build configuration list for PBXProject "versapp" */;
+			buildConfigurationList = 3A25B62E1881E03700166623 /* Build configuration list for PBXProject "Versapp" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -2223,12 +2223,12 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios;
+				FRAMEWORK_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios/who;
+				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
 				PRODUCT_NAME = Versapp;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -2240,12 +2240,12 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios;
+				FRAMEWORK_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios/who;
+				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
 				PRODUCT_NAME = Versapp;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -2295,7 +2295,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3A25B62E1881E03700166623 /* Build configuration list for PBXProject "versapp" */ = {
+		3A25B62E1881E03700166623 /* Build configuration list for PBXProject "Versapp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3A25B6661881E03700166623 /* Debug */,
