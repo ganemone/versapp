@@ -328,8 +328,8 @@
     NSMutableString *imageName;
     NSMutableString *greenImageName;
     if ([self.friendRequests count] + [self.groupInvites count] > 0 && [self.friendRequests count] + [self.groupInvites count] < 6) {
-        imageName = [NSMutableString stringWithFormat:@"notification%u.png", [self.friendRequests count] + [self.groupInvites count]];
-        greenImageName = [NSMutableString stringWithFormat:@"notification%u-green.png", [self.friendRequests count] + [self.groupInvites count]];
+        imageName = [NSMutableString stringWithFormat:@"notification%lu.png", [self.friendRequests count] + [self.groupInvites count]];
+        greenImageName = [NSMutableString stringWithFormat:@"notification%lu-green.png", [self.friendRequests count] + [self.groupInvites count]];
     } else if ([self.friendRequests count] + [self.groupInvites count] == 0) {
         imageName = [NSMutableString stringWithString:@"notification-none.png"];
         greenImageName = [NSMutableString stringWithString:@"notification-none-green.png"];

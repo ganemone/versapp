@@ -44,47 +44,36 @@
 - (instancetype)initWithConfession:(Confession*)confession reuseIdentifier:(NSString *)reuseIdentifier {
     self = [self initWithStyle:UITableViewCellStyleDefault reuseIdentifier: reuseIdentifier];
     if (self) {
-        CGFloat cellX = 8.0f;
-        CGFloat cellY = 0.0f;
-        CGSize contentSize = self.contentView.frame.size;
-        CGFloat cellHeight = [ConfessionTableCell heightForConfession:confession];
-        CGFloat textHeight = cellHeight - 50;
-        CGRect cellFrame = CGRectMake(cellX, cellY, contentSize.width - 2*cellX, cellHeight);
-        CGRect textFrame = CGRectMake(cellX, cellY, contentSize.width - 2*cellX, textHeight);
-        CGRect footerFrame = CGRectMake(cellX, textHeight, contentSize.width - 2*cellX, cellFrame.size.width * 0.1176);
-        
+        if ([confession hasCalculatedFrames] == NO) {
+            NSLog(@"Calculating Frames on Main Thread... :(");
+            [confession calculateFramesForTableViewCell:self.contentView.frame.size];
+        }
         // Configure Background View
-        UIView *backgroundView = [[UIImageView alloc] initWithFrame:cellFrame];
+        UIView *backgroundView = [[UIImageView alloc] initWithFrame:confession.cellFrame];
         
         // Configure textview
-        UITextView *textView = [[UITextView alloc] initWithFrame:textFrame];
+        UITextView *textView = [[UITextView alloc] initWithFrame:confession.textFrame];
         textView.textContainerInset = UIEdgeInsetsMake(5.0f, 5.0f, 5.0f, 5.0f);
-        [textView setBackgroundColor:[UIColor whiteColor]];
         [textView setText:[confession body]];
         [textView setTextColor:[UIColor blackColor]];
         [textView setFont:[StyleManager getFontStyleLightSizeMed]];
+        [textView setBackgroundColor:[UIColor whiteColor]];
         [textView setEditable:NO];
         
         // Configure Timstamp
-        CGRect timestampLabelFrame = CGRectMake(cellX, textHeight - 15.0f, contentSize.width - 25.0f, 15.0f);
-        UILabel *timestampLabel = [[UILabel alloc] initWithFrame:timestampLabelFrame];
+        UILabel *timestampLabel = [[UILabel alloc] initWithFrame:confession.timestampLabelFrame];
         [timestampLabel setFont:[StyleManager getFontStyleLightSizeSmall]];
         [timestampLabel setTextColor:[StyleManager getColorOrange]];
         [timestampLabel setTextAlignment:NSTextAlignmentRight];
         
         // Configure Footer View
-        UIImageView *footer = [[UIImageView alloc] initWithFrame:footerFrame];
+        UIImageView *footer = [[UIImageView alloc] initWithFrame:confession.footerFrame];
         [footer setImage:[UIImage imageNamed:@"confession-cell-bottom.png"]];
         
         // Configuring Chat Buttons
-        CGFloat iconSize = 25.0f, paddingSmall = 5.0f;
-        CGFloat labelWidth = (contentSize.width - 2.0f * cellX) / 2.0f;
-        CGRect chatButtonFrame = CGRectMake(cellX + paddingSmall, textHeight + paddingSmall, iconSize, iconSize);
-        CGRect chatLabelFrame = CGRectMake(cellX + iconSize + 2 * paddingSmall, textHeight + paddingSmall, labelWidth, iconSize);
-        
-        UIButton *createChatButton = [[UIButton alloc] initWithFrame:chatButtonFrame];
+        UIButton *createChatButton = [[UIButton alloc] initWithFrame:confession.chatButtonFrame];
         [createChatButton addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
-        UILabel *createChatLabel = [[UILabel alloc] initWithFrame:chatLabelFrame];
+        UILabel *createChatLabel = [[UILabel alloc] initWithFrame:confession.chatLabelFrame];
         UITapGestureRecognizer *chatTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleConfessionChatStarted:)];
         [createChatLabel setUserInteractionEnabled:YES];
         [createChatLabel addGestureRecognizer:chatTap];
@@ -92,12 +81,9 @@
         [createChatLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
         
         // Configure Favorites
-        CGRect favoriteButtonFrame = CGRectMake(contentSize.width - iconSize - cellX - 2 * paddingSmall, textHeight + paddingSmall, iconSize, iconSize);
-        CGRect favoriteLabelFrame = CGRectMake(contentSize.width / 2 + iconSize, textHeight + paddingSmall, labelWidth, iconSize);
-        
-        UIButton *favoriteButton = [[UIButton alloc] initWithFrame:favoriteButtonFrame];
+        UIButton *favoriteButton = [[UIButton alloc] initWithFrame:confession.favoriteButtonFrame];
         [favoriteButton addTarget:self action:@selector(handleConfessionFavorited:) forControlEvents:UIControlEventTouchUpInside];
-        UILabel *favoriteLabel = [[UILabel alloc] initWithFrame:favoriteLabelFrame];
+        UILabel *favoriteLabel = [[UILabel alloc] initWithFrame:confession.favoriteLabelFrame];
         [favoriteLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
         UITapGestureRecognizer *favoriteTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleConfessionFavorited:)];
         [favoriteLabel setUserInteractionEnabled:YES];
@@ -122,29 +108,24 @@
         _favoriteButton = favoriteButton;
         _favoriteLabel = favoriteLabel;
         _timestampLabel = timestampLabel;
-       
-        for (UIGestureRecognizer *recognizer in self.gestureRecognizers) {
-            if ([recognizer isKindOfClass:[UILongPressGestureRecognizer class]]){
-                recognizer.enabled = NO;
-            }
-        }
         
-        UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self                                                                                             action:@selector(handleLongPressGesture:)];
-        [recognizer setMinimumPressDuration:0.4f];
-        //    recognizer.delegate = self;
-        [self addGestureRecognizer:recognizer];
-
+        /*for (UIGestureRecognizer *recognizer in self.gestureRecognizers) {
+         if ([recognizer isKindOfClass:[UILongPressGestureRecognizer class]]){
+         recognizer.enabled = NO;
+         }
+         }
+         
+         UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self                                                                                             action:@selector(handleLongPressGesture:)];
+         [recognizer setMinimumPressDuration:0.4f];
+         //    recognizer.delegate = self;
+         [self addGestureRecognizer:recognizer];*/
+        
     }
     return self;
 }
 
 + (CGFloat)heightForConfession:(Confession*)confession {
-    NSString *cellText = [confession body];
-    UIFont *cellFont = [StyleManager getFontStyleLightSizeMed];
-    //CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
-//    CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
-    CGSize labelSize = [cellText sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:cellFont, NSFontAttributeName, nil]];
-    return labelSize.height + 80.0f;
+    return [confession heightForConfession];
 }
 
 -(void)handleConfessionFavorited:(id)sender {
@@ -169,7 +150,7 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 
@@ -177,28 +158,28 @@
 {
     //    return;
     
-//    NSLog(@"Long pressed!");
+    //    NSLog(@"Long pressed!");
     if (longPress.state == UIGestureRecognizerStateBegan)
     {
-    
-    UIAlertView *reportAbuse = [[UIAlertView alloc] initWithTitle:@"Report" message: @"Do you want to report abuse or block the sender?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:REPORT_ABUSE, REPORT_BLOCK,nil];
-    
-    reportAbuse.alertViewStyle = UIAlertViewStyleDefault;
-    [reportAbuse show];
-    //
-    //    UIMenuController *menu = [UIMenuController sharedMenuController];
-    //    CGRect targetRect = [self convertRect:[self.bubbleView bubbleFrame]
-    //                                 fromView:self.bubbleView];
-    //
-    //    [menu setTargetRect:CGRectInset(targetRect, 0.0f, 4.0f) inView:self];
-    //
-    //    self.bubbleView.bubbleImageView.highlighted = YES;
-    //
-    //    [[NSNotificationCenter defaultCenter] addObserver:self
-    //                                             selector:@selector(handleMenuWillShowNotification:)
-    //                                                 name:UIMenuControllerWillShowMenuNotification
-    //                                               object:nil];
-    //    [menu setMenuVisible:YES animated:YES];
+        
+        UIAlertView *reportAbuse = [[UIAlertView alloc] initWithTitle:@"Report" message: @"Do you want to report abuse or block the sender?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:REPORT_ABUSE, REPORT_BLOCK,nil];
+        
+        reportAbuse.alertViewStyle = UIAlertViewStyleDefault;
+        [reportAbuse show];
+        //
+        //    UIMenuController *menu = [UIMenuController sharedMenuController];
+        //    CGRect targetRect = [self convertRect:[self.bubbleView bubbleFrame]
+        //                                 fromView:self.bubbleView];
+        //
+        //    [menu setTargetRect:CGRectInset(targetRect, 0.0f, 4.0f) inView:self];
+        //
+        //    self.bubbleView.bubbleImageView.highlighted = YES;
+        //
+        //    [[NSNotificationCenter defaultCenter] addObserver:self
+        //                                             selector:@selector(handleMenuWillShowNotification:)
+        //                                                 name:UIMenuControllerWillShowMenuNotification
+        //                                               object:nil];
+        //    [menu setMenuVisible:YES animated:YES];
     }
 }
 

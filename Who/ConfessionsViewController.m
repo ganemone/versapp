@@ -49,7 +49,20 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name:PACKET_ID_POST_CONFESSION object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOneToOneChatCreatedFromConfession) name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION object:nil];
     
-    self.cellCache = [[NSMutableDictionary alloc] initWithCapacity:[_confessionsManager getNumberOfConfessions]];
+    // Add a bottomBorder to the header view
+    CALayer *headerBottomborder = [CALayer layer];
+    headerBottomborder.frame = CGRectMake(0.0f, self.header.frame.size.height, self.header.frame.size.width, 2.0f);
+    headerBottomborder.backgroundColor = [UIColor whiteColor].CGColor;
+    [self.header.layer addSublayer:headerBottomborder];
+    // Add a top border to the footer view
+    CALayer *footerTopBorder = [CALayer layer];
+    footerTopBorder.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 2.0f);
+    footerTopBorder.backgroundColor = [UIColor whiteColor].CGColor;
+    [self.bottomView.layer addSublayer:footerTopBorder];
+    
+    [self.bottomTextField setDelegate:self];
+    
+    [self.headerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:@"Pull to Refresh"];
@@ -61,6 +74,7 @@
     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
     [tableViewController setRefreshControl:refresh];
     [tableViewController setTableView:_tableView];
+    self.refreshControl = refresh;
     
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
@@ -68,27 +82,70 @@
     [self.tableView setBackgroundView:nil];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
-    self.refreshControl = refresh;
     self.favIcon = [UIImage imageNamed:@"fav-icon.png"];
     self.favIconActive = [UIImage imageNamed:@"fav-icon-active.png"];
     self.gradLineSmall = [UIImage imageNamed:@"grad-line-small.png"];
     self.chatIcon = [UIImage imageNamed:@"chat-icon.png"];
     
-    // Add a bottomBorder to the header view
-    CALayer *headerBottomborder = [CALayer layer];
-    headerBottomborder.frame = CGRectMake(0.0f, self.header.frame.size.height, self.header.frame.size.width, 2.0f);
-    headerBottomborder.backgroundColor = [UIColor whiteColor].CGColor;
-    [self.header.layer addSublayer:headerBottomborder];
-    // Add a top border to the footer view
-    CALayer *footerTopBorder = [CALayer layer];
-    footerTopBorder.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 2.0f);
-    footerTopBorder.backgroundColor = [UIColor whiteColor].CGColor;
-    [self.bottomView.layer addSublayer:footerTopBorder];
+    //[self setUpInBackground];
+    /*
+     self.cellCache = [[NSMutableDictionary alloc] initWithCapacity:[_confessionsManager getNumberOfConfessions]];
+     
+     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
+     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:@"Pull to Refresh"];
+     [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, 15)];
+     [refresh setAttributedTitle:attrString];
+     [refresh addTarget:self action:@selector(loadConfessions) forControlEvents:UIControlEventValueChanged];
+     [refresh setTintColor:[UIColor whiteColor]];
+     
+     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
+     [tableViewController setRefreshControl:refresh];
+     [tableViewController setTableView:_tableView];
+     
+     [self.tableView setDelegate:self];
+     [self.tableView setDataSource:self];
+     [self.tableView setBackgroundColor:[StyleManager getColorLightOrange]];
+     [self.tableView setBackgroundView:nil];
+     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+     
+     self.refreshControl = refresh;
+     self.favIcon = [UIImage imageNamed:@"fav-icon.png"];
+     self.favIconActive = [UIImage imageNamed:@"fav-icon-active.png"];
+     self.gradLineSmall = [UIImage imageNamed:@"grad-line-small.png"];
+     self.chatIcon = [UIImage imageNamed:@"chat-icon.png"];
+     
+     // Add a bottomBorder to the header view
+     CALayer *headerBottomborder = [CALayer layer];
+     headerBottomborder.frame = CGRectMake(0.0f, self.header.frame.size.height, self.header.frame.size.width, 2.0f);
+     headerBottomborder.backgroundColor = [UIColor whiteColor].CGColor;
+     [self.header.layer addSublayer:headerBottomborder];
+     // Add a top border to the footer view
+     CALayer *footerTopBorder = [CALayer layer];
+     footerTopBorder.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 2.0f);
+     footerTopBorder.backgroundColor = [UIColor whiteColor].CGColor;
+     [self.bottomView.layer addSublayer:footerTopBorder];
+     
+     [self.bottomTextField setDelegate:self];
+     
+     [self.headerLabel setFont:[StyleManager getFontStyleLightSizeXL]]; */
+    
+}
 
-    [self.bottomTextField setDelegate:self];
+- (void)setUpInBackground {
+    NSLog(@"Setting up In Background...");
     
-    [self.headerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
-    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        self.confessionsManager = [ConfessionsManager getInstance];
+        
+        self.cellCache = [[NSMutableDictionary alloc] initWithCapacity:[_confessionsManager getNumberOfConfessions]];
+        NSEnumerator *confessionEnumerator = [[_confessionsManager confessions] objectEnumerator];
+        Confession *confession;
+        
+        while ((confession = [confessionEnumerator nextObject]) != nil) {
+            NSLog(@"Setting up Confession...");
+            [self.cellCache setObject:[self confessionTableCellForConfession:confession] forKey:confession.confessionID];
+        }
+    });
 }
 
 - (void)loadConfessions {
@@ -123,7 +180,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"BasicConfessionCell";
+    static NSString *CellIdentifier = @"ConfessionCellIdentifier";
     Confession *confession = [_confessionsManager getConfessionAtIndex:(int)indexPath.row];
     NSLog(@"Confession: %@", [confession body]);
     if (self.cellCache == nil) {
@@ -145,6 +202,20 @@
     } else {
         NSLog(@"Cell is not nil... : %@", [cell description]);
     }
+    return cell;
+}
+
+- (ConfessionTableCell *)confessionTableCellForConfession:(Confession *)confession {
+    static NSString *CellIdentifier = @"ConfessionCellIdentifier";
+    ConfessionTableCell *cell = [[ConfessionTableCell alloc] initWithConfession:confession reuseIdentifier:CellIdentifier];
+    if ([confession isFavoritedByConnectedUser]) {
+        [cell.favoriteButton setImage:self.favIconActive forState:UIControlStateNormal];
+    } else {
+        [cell.favoriteButton setImage:self.favIcon forState:UIControlStateNormal];
+    }
+    [cell.timestampLabel setText:[confession getTimePosted]];
+    [cell.favoriteLabel setText:[confession getTextForLabel]];
+    [cell.chatButton setImage:self.chatIcon forState:UIControlStateNormal];
     return cell;
 }
 
@@ -186,7 +257,7 @@
 - (IBAction)friendIconClicked:(id)sender {
     NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                               [NSNumber numberWithInt:UIPageViewControllerNavigationDirectionForward], @"direction", nil];
-
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_TO_FRIENDS
                                                         object:nil
                                                       userInfo:userInfo];

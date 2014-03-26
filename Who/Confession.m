@@ -11,6 +11,7 @@
 #import "IQPacketManager.h"
 #import "ChatDBManager.h"
 #import "Constants.h"
+#import "StyleManager.h"
 
 @implementation Confession
 
@@ -19,6 +20,7 @@
     [instance setBody:body];
     [instance setImageURL:imageURL];
     [instance setFavoritedUsers:[[NSMutableArray alloc] init]];
+    [instance setHasCalculatedFrames:NO];
     return instance;
 }
 
@@ -30,7 +32,39 @@
     [instance setConfessionID:confessionID];
     [instance setCreatedTimestamp:createdTimestamp];
     [instance setFavoritedUsers:favoritedUsers];
+    [instance setHasCalculatedFrames:NO];
     return instance;
+}
+
+-(void)calculateFramesForTableViewCell:(CGSize)contentSize {
+    CGFloat cellX = 8.0f;
+    CGFloat cellY = 0.0f;
+    CGFloat cellHeight = [self heightForConfession];
+    CGFloat textHeight = cellHeight - 50;
+    _cellFrame = CGRectMake(cellX, cellY, contentSize.width - 2*cellX, cellHeight);
+    _textFrame = CGRectMake(cellX, cellY, contentSize.width - 2*cellX, textHeight);
+    _footerFrame = CGRectMake(cellX, textHeight, contentSize.width - 2*cellX, _cellFrame.size.width * 0.1176);
+    _timestampLabelFrame = CGRectMake(cellX, textHeight - 15.0f, contentSize.width - 25.0f, 15.0f);
+    // Configuring Chat Buttons
+    CGFloat iconSize = 25.0f, paddingSmall = 5.0f;
+    CGFloat labelWidth = (contentSize.width - 2.0f * cellX) / 2.0f;
+    _chatButtonFrame = CGRectMake(cellX + paddingSmall, textHeight + paddingSmall, iconSize, iconSize);
+    _chatLabelFrame = CGRectMake(cellX + iconSize + 2 * paddingSmall, textHeight + paddingSmall, labelWidth, iconSize);
+
+    // Configure Favorites
+    _favoriteButtonFrame = CGRectMake(contentSize.width - iconSize - cellX - 2 * paddingSmall, textHeight + paddingSmall, iconSize, iconSize);
+    _favoriteLabelFrame = CGRectMake(contentSize.width / 2 + iconSize, textHeight + paddingSmall, labelWidth, iconSize);
+    _hasCalculatedFrames = YES;
+}
+
+- (CGFloat)heightForConfession {
+    UIFont *cellFont = [StyleManager getFontStyleLightSizeMed];
+    CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
+    //    CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
+    //CGSize labelSize = [_body sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:cellFont, NSFontAttributeName, nil]];
+    NSStringDrawingContext *ctx = [NSStringDrawingContext new];
+    CGRect textRect = [_body boundingRectWithSize:constraintSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:ctx];
+    return textRect.size.height + 80.0f;
 }
 
 -(void)encodeBody {

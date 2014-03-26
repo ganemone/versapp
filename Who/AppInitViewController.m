@@ -75,24 +75,24 @@
 }
 
 - (void)handleAuthenticated {
-    _shouldTransition = YES;
     _transitionTo = SEGUE_ID_AUTHENTICATED_FROM_APP_INIT;
+    _shouldTransition = YES;
     if (_viewDidShow) {
         [self performSegueWithIdentifier:SEGUE_ID_AUTHENTICATED_FROM_APP_INIT sender:self];
     }
 }
 
 - (void)handleFailedToAuthenticate {
-    _shouldTransition = YES;
     _transitionTo = SEGUE_ID_GO_TO_LOGIN_PAGE;
+    _shouldTransition = YES;
     if (_viewDidShow) {
         [self performSegueWithIdentifier:SEGUE_ID_GO_TO_LOGIN_PAGE sender:self];
     }
 }
 
 - (void)handleNoDefaultsStored {
-    _shouldTransition = YES;
     _transitionTo = SEGUE_ID_GO_TO_REGISTER_PAGE;
+    _shouldTransition = YES;
     if (_viewDidShow) {
         [self performSegueWithIdentifier:SEGUE_ID_GO_TO_REGISTER_PAGE sender:self];
     }

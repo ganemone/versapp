@@ -81,7 +81,7 @@ static int numRequestsWaitingAtLogin;
     NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?(?:\\[\\]|\"(.*?)\").*?(?:\\[\\]|\"(.*?)\")\\]" options:NSRegularExpressionCaseInsensitive error:&error];
     NSTextCheckingResult *match = [regex firstMatchInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
-    NSLog(@"Number of Ranges: %d", [match numberOfRanges]);
+    NSLog(@"Number of Ranges: %lu", (unsigned long)[match numberOfRanges]);
     if ([match numberOfRanges] > 0) {
         NSLog(@"Found Matches...");
         NSString *username = [packetXML substringWithRange:[match rangeAtIndex:1]];
