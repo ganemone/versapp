@@ -74,6 +74,7 @@ NSString *const NOTIFICATION_FINISHED_INVITING_MUC_USERS = @"notification_finish
 NSString *const NOTIFICATION_FINISHED_INVITING_ONE_TO_ONE_USERS = @"notification_finished_inviting_one_to_one_users";
 NSString *const NOTIFICATION_DISABLE_SWIPE = @"notification_disable_swipe";
 NSString *const NOTIFICATION_ENABLE_SWIPE = @"notification_enable_swipe";
+NSString *const NOTIFICATION_LOGOUT = @"notification_logout";
 
 NSString *const APPLICATION_RESOURCE = @"who";
 
@@ -135,8 +136,8 @@ int const STATUS_REQUEST_PENDING = 1;
 int const STATUS_INACTIVE = 2;
 int const STATUS_REQUEST_REJECTED = 3;
 
-NSString *const INVITATION_ACCEPT = @"a";
-NSString *const INVITATION_DECLINE = @"d";
+NSString *const NOTIFICATIONS = @"Notifications";
+NSString *const NO_NOTIFICATIONS = @"No Notifications";
 NSString *const NOTIFICATIONS_GROUP = @"Group Invitations";
 NSString *const NOTIFICATIONS_FRIEND = @"Friend Requests";
 NSString *const ANONYMOUS_FRIEND = @"Anonymous Friend";
@@ -150,6 +151,9 @@ NSString *const SETTING_LOGOUT = @"logout";
 NSString *const SETTING_SUPPORT = @"info_support";
 NSString *const SETTING_PRIVACY = @"info_privacy";
 NSString *const SETTING_TERMS = @"info_terms";
+NSString *const EMAIL_CHANGED = @"Email Address Changed";
+NSString *const PASSWORD_CHANGED = @"Password Changed";
+NSString *const LOGIN_AGAIN = @"Login Again";
 
 NSString *const STORYBOARD_ID_PAGE_VIEW_CONTROLLER = @"MainPageViewController";
 NSString *const STORYBOARD_ID_NOTIFICATIONS_VIEW_CONTROLLER = @"NotificationsViewController";

@@ -10,17 +10,17 @@
             <objects>
                 <viewController storyboardIdentifier="LoginViewController" title="LoginViewController" id="Dcg-Mp-WjV" customClass="LoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5RH-4f-tUs">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone Number" minimumFontSize="17" id="NHs-F6-AKY">
-                                <rect key="frame" x="23" y="80" width="280" height="30"/>
+                                <rect key="frame" x="23" y="69" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="X1a-tq-Qp4">
-                                <rect key="frame" x="248" y="156" width="55" height="30"/>
+                                <rect key="frame" x="248" y="134" width="55" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="Login"/>
@@ -29,7 +29,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" id="hBY-Bd-80i">
-                                <rect key="frame" x="23" y="118" width="280" height="30"/>
+                                <rect key="frame" x="23" y="101" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -55,7 +55,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ys-sZ-kKc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="762" y="180"/>
+            <point key="canvasLocation" x="762" y="-28"/>
         </scene>
         <!--User Registration View Controller - Registration-->
         <scene sceneID="OkA-Ea-htW">
@@ -304,6 +304,13 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.21960784310000001" green="0.65490196079999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gDr-Ba-XGM">
+                                <rect key="frame" x="20" y="212" width="280" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -312,6 +319,7 @@
                         <outlet property="backButton" destination="ba9-on-hdi" id="9T0-AH-VDM"/>
                         <outlet property="currentEmail" destination="h9g-Im-ART" id="Rcr-ah-n0G"/>
                         <outlet property="submitButton" destination="top-Yo-Lz9" id="SwV-z6-FxF"/>
+                        <outlet property="success" destination="gDr-Ba-XGM" id="bg1-M3-t3C"/>
                         <outlet property="updatedEmail" destination="Xdo-ba-v4L" id="GXE-rV-gFG"/>
                     </connections>
                 </viewController>
@@ -351,6 +359,9 @@
                                 <state key="normal" title="Submit">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="submitClicked:" destination="ykg-f5-qGG" eventType="touchUpInside" id="1W1-VY-YmB"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" id="EuY-1B-3oF">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
@@ -375,12 +386,23 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.21960784310000001" green="0.65490196079999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2Fo-my-D1r">
+                                <rect key="frame" x="20" y="245" width="280" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="S3K-Ae-bKa"/>
                     <connections>
                         <outlet property="backButton" destination="8rZ-DU-jy2" id="sqv-y6-6g3"/>
+                        <outlet property="confirmPassword" destination="rQn-n8-FmO" id="Xsc-wd-YHp"/>
+                        <outlet property="currentPassword" destination="6p5-g4-4aP" id="z5U-sa-GGa"/>
+                        <outlet property="submit" destination="fgz-p7-Lgp" id="fm4-Ez-CEe"/>
+                        <outlet property="updatedPassword" destination="28N-mj-pO3" id="dHy-Sa-V6o"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xSS-zl-JfY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -482,6 +504,7 @@
                         <segue destination="Esf-15-Cfa" kind="push" identifier="info_support" id="pHb-Kf-4qo"/>
                         <segue destination="SQz-m3-CKD" kind="push" identifier="info_privacy" id="z6h-qs-HbB"/>
                         <segue destination="Oo2-cH-7OJ" kind="push" identifier="info_terms" id="tVn-SP-Hc9"/>
+                        <segue destination="vkc-le-IcM" kind="modal" identifier="SegueIDLogout" id="LFT-Wz-IaK"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bVc-RM-2zP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1311,9 +1334,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="kwU-gs-Spj"/>
                     <connections>
-                        <segue destination="Dcg-Mp-WjV" kind="modal" identifier="SegueIDGoToLoginPage" id="qfK-fI-9jJ"/>
                         <segue destination="kgq-y5-19V" kind="modal" identifier="SegueIDGoToRegisterPage" id="MZe-6y-bxh"/>
                         <segue destination="Gcr-Xy-TFT" kind="modal" identifier="SegueIDAuthenticatedFromAppInit" id="3yg-rT-qjq"/>
+                        <segue destination="vkc-le-IcM" kind="modal" identifier="SegueIDGoToLoginPage" id="Ve6-mS-bkp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h3J-vU-tan" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1501,16 +1524,17 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="Ve6-mS-bkp"/>
         <segue reference="3yg-rT-qjq"/>
-        <segue reference="qfK-fI-9jJ"/>
         <segue reference="fSF-xn-2Ew"/>
-        <segue reference="zTQ-Mf-6oX"/>
-        <segue reference="YCw-e7-spT"/>
-        <segue reference="qGQ-aw-vgl"/>
-        <segue reference="hVX-XL-lBE"/>
-        <segue reference="z6h-qs-HbB"/>
+        <segue reference="nPX-Ed-w2T"/>
         <segue reference="BCc-dv-kG7"/>
+        <segue reference="z6h-qs-HbB"/>
         <segue reference="pHb-Kf-4qo"/>
-        <segue reference="X5v-Jd-Ml1"/>
+        <segue reference="hVX-XL-lBE"/>
+        <segue reference="tVn-SP-Hc9"/>
+        <segue reference="qGQ-aw-vgl"/>
+        <segue reference="YCw-e7-spT"/>
+        <segue reference="zTQ-Mf-6oX"/>
     </inferredMetricsTieBreakers>
 </document>

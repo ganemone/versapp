@@ -7,9 +7,17 @@
 //
 
 #import "ChangePasswordViewController.h"
+#import "Constants.h"
+#import "StyleManager.h"
+#import "UserDefaultManager.h"
 
 @interface ChangePasswordViewController ()
 @property (strong, nonatomic) IBOutlet UIButton *backButton;
+@property (strong, nonatomic) IBOutlet UITextField *currentPassword;
+@property (strong, nonatomic) IBOutlet UITextField *updatedPassword;
+@property (strong, nonatomic) IBOutlet UITextField *confirmPassword;
+@property (strong, nonatomic) IBOutlet UIButton *submit;
+@property (strong, nonatomic) IBOutlet UILabel *success;
 
 @end
 
@@ -28,6 +36,16 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+}
+
+- (IBAction)submitClicked:(id)sender {
+    if ([self.updatedPassword.text compare:self.confirmPassword.text] == 0) {
+        [UserDefaultManager savePassword:self.updatedPassword.text];
+        
+        [self.success setTextColor:[StyleManager getColorGreen]];
+        [self.success setFont:[StyleManager getFontStyleBoldSizeMed]];
+        [self.success setText:PASSWORD_CHANGED];
+    }
 }
 
 - (IBAction)backButtonClicked:(id)sender {
