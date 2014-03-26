@@ -13,6 +13,10 @@
 
 @interface AppInitViewController ()
 
+@property BOOL viewDidShow;
+@property BOOL shouldTransition;
+@property (nonatomic, strong) NSString *transitionTo;
+
 @end
 
 @implementation AppInitViewController
@@ -28,17 +32,20 @@
 
 - (void)viewDidLoad
 {
+    self.viewDidShow = NO;
+    self.shouldTransition = YES;
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAuthenticated) name:@"authenticated" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailedToAuthenticate) name:@"didNotAuthenticate" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNoDefaultsStored) name:@"needToRegister" object:nil];
-    /*NSString *username = [UserDefaultManager loadUsername];
-    NSString *password = [UserDefaultManager loadPassword];
-    if (username != nil && password != nil) {
-        [[ConnectionProvider getInstance] connect:username password:password];
-    } else {
-        [self handleNoDefaultsStored];
-    }*/
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    _viewDidShow = YES;
+    if (_shouldTransition) {
+        [self performSegueWithIdentifier:SEGUE_ID_AUTHENTICATED_FROM_APP_INIT sender:self];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,15 +55,27 @@
 }
 
 - (void)handleAuthenticated {
-    [self performSegueWithIdentifier:SEGUE_ID_AUTHENTICATED_FROM_APP_INIT sender:self];
+    _shouldTransition = YES;
+    _transitionTo = SEGUE_ID_AUTHENTICATED_FROM_APP_INIT;
+    if (_viewDidShow) {
+        [self performSegueWithIdentifier:SEGUE_ID_AUTHENTICATED_FROM_APP_INIT sender:self];
+    }
 }
 
 - (void)handleFailedToAuthenticate {
-    [self performSegueWithIdentifier:SEGUE_ID_GO_TO_LOGIN_PAGE sender:self];
+    _shouldTransition = YES;
+    _transitionTo = SEGUE_ID_GO_TO_LOGIN_PAGE;
+    if (_viewDidShow) {
+        [self performSegueWithIdentifier:SEGUE_ID_GO_TO_LOGIN_PAGE sender:self];
+    }
 }
 
 - (void)handleNoDefaultsStored {
-    [self performSegueWithIdentifier:SEGUE_ID_GO_TO_REGISTER_PAGE sender:self];
+    _shouldTransition = YES;
+    _transitionTo = SEGUE_ID_GO_TO_REGISTER_PAGE;
+    if (_viewDidShow) {
+        [self performSegueWithIdentifier:SEGUE_ID_GO_TO_REGISTER_PAGE sender:self];
+    }
 }
 
 @end

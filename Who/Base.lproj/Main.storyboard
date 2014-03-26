@@ -10,17 +10,17 @@
             <objects>
                 <viewController storyboardIdentifier="LoginViewController" title="LoginViewController" id="Dcg-Mp-WjV" customClass="LoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5RH-4f-tUs">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone Number" minimumFontSize="17" id="NHs-F6-AKY">
-                                <rect key="frame" x="23" y="69" width="280" height="30"/>
+                                <rect key="frame" x="23" y="80" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="X1a-tq-Qp4">
-                                <rect key="frame" x="248" y="134" width="55" height="30"/>
+                                <rect key="frame" x="248" y="156" width="55" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="Login"/>
@@ -29,7 +29,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" id="hBY-Bd-80i">
-                                <rect key="frame" x="23" y="101" width="280" height="30"/>
+                                <rect key="frame" x="23" y="118" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -1302,7 +1302,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading-screen.jpg" id="e9N-vB-hZ5">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading640x960.png" id="e9N-vB-hZ5">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
@@ -1488,7 +1488,7 @@
         <image name="confessions-icon.png" width="244" height="222"/>
         <image name="first" width="30" height="30"/>
         <image name="friends-icon.png" width="80" height="80"/>
-        <image name="loading-screen.jpg" width="2667" height="4733"/>
+        <image name="loading640x960.png" width="640" height="960"/>
         <image name="message-icon.png" width="157" height="153"/>
         <image name="messages-icon-white.png" width="80" height="80"/>
         <image name="notification-none.png" width="265" height="265"/>
@@ -1501,20 +1501,16 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="pHb-Kf-4qo"/>
-        <segue reference="hVX-XL-lBE"/>
-        <segue reference="zTQ-Mf-6oX"/>
-        <segue reference="X5v-Jd-Ml1"/>
-        <segue reference="bRX-TH-pHe"/>
-        <segue reference="fSF-xn-2Ew"/>
-        <segue reference="BCc-dv-kG7"/>
-        <segue reference="z6h-qs-HbB"/>
         <segue reference="3yg-rT-qjq"/>
+        <segue reference="qfK-fI-9jJ"/>
         <segue reference="fSF-xn-2Ew"/>
+        <segue reference="zTQ-Mf-6oX"/>
         <segue reference="YCw-e7-spT"/>
         <segue reference="qGQ-aw-vgl"/>
+        <segue reference="hVX-XL-lBE"/>
+        <segue reference="z6h-qs-HbB"/>
+        <segue reference="BCc-dv-kG7"/>
+        <segue reference="pHb-Kf-4qo"/>
         <segue reference="X5v-Jd-Ml1"/>
-        <segue reference="zTQ-Mf-6oX"/>
-        <segue reference="bRX-TH-pHe"/>
     </inferredMetricsTieBreakers>
 </document>

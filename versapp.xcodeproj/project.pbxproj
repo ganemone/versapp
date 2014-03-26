@@ -179,9 +179,12 @@
 		3AC0BA2F18AEEFBA0061A565 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC0BA2E18AEEFBA0061A565 /* Base64.m */; };
 		3AC6D0CF18C0E17100091539 /* ChatDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6D0CE18C0E17100091539 /* ChatDBManager.m */; };
 		3AC6D0D218C22A9500091539 /* StyleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6D0D118C22A9500091539 /* StyleManager.m */; };
-		3AD19AB218E25AF6001B3B88 /* AppIcon58.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD19AAF18E25AF6001B3B88 /* AppIcon58.png */; };
-		3AD19AB318E25AF6001B3B88 /* AppIcon80.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD19AB018E25AF6001B3B88 /* AppIcon80.png */; };
-		3AD19AB418E25AF6001B3B88 /* AppIcon120.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD19AB118E25AF6001B3B88 /* AppIcon120.png */; };
+		3AD19AB818E26298001B3B88 /* AppIcon58.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD19AB518E26298001B3B88 /* AppIcon58.png */; };
+		3AD19AB918E26298001B3B88 /* AppIcon80.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD19AB618E26298001B3B88 /* AppIcon80.png */; };
+		3AD19ABA18E26298001B3B88 /* AppIcon120.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD19AB718E26298001B3B88 /* AppIcon120.png */; };
+		3AD19AC218E26356001B3B88 /* loading640x960.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD19AC018E26356001B3B88 /* loading640x960.png */; };
+		3AD19AC318E26356001B3B88 /* loading640x1136.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD19AC118E26356001B3B88 /* loading640x1136.png */; };
+		3AD19AC518E266F0001B3B88 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD19AC418E266F0001B3B88 /* Default-568h@2x.png */; };
 		3AD8F47C18DC974B002C399C /* AppInitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD8F47B18DC974B002C399C /* AppInitViewController.m */; };
 		3AD8F47E18DC97F3002C399C /* loading-screen.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3AD8F47D18DC97F3002C399C /* loading-screen.jpg */; };
 		3AD8F48118DC9DD8002C399C /* UserRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD8F48018DC9DD8002C399C /* UserRegistrationViewController.m */; };
@@ -555,9 +558,12 @@
 		3AC6D0CE18C0E17100091539 /* ChatDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatDBManager.m; sourceTree = "<group>"; };
 		3AC6D0D018C22A9500091539 /* StyleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleManager.h; sourceTree = "<group>"; };
 		3AC6D0D118C22A9500091539 /* StyleManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleManager.m; sourceTree = "<group>"; };
-		3AD19AAF18E25AF6001B3B88 /* AppIcon58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon58.png; sourceTree = "<group>"; };
-		3AD19AB018E25AF6001B3B88 /* AppIcon80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon80.png; sourceTree = "<group>"; };
-		3AD19AB118E25AF6001B3B88 /* AppIcon120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon120.png; sourceTree = "<group>"; };
+		3AD19AB518E26298001B3B88 /* AppIcon58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon58.png; sourceTree = "<group>"; };
+		3AD19AB618E26298001B3B88 /* AppIcon80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon80.png; sourceTree = "<group>"; };
+		3AD19AB718E26298001B3B88 /* AppIcon120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon120.png; sourceTree = "<group>"; };
+		3AD19AC018E26356001B3B88 /* loading640x960.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading640x960.png; sourceTree = "<group>"; };
+		3AD19AC118E26356001B3B88 /* loading640x1136.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading640x1136.png; sourceTree = "<group>"; };
+		3AD19AC418E266F0001B3B88 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		3AD8F47A18DC974B002C399C /* AppInitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInitViewController.h; sourceTree = "<group>"; };
 		3AD8F47B18DC974B002C399C /* AppInitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppInitViewController.m; sourceTree = "<group>"; };
 		3AD8F47D18DC97F3002C399C /* loading-screen.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "loading-screen.jpg"; sourceTree = "<group>"; };
@@ -743,6 +749,7 @@
 		3A25B62A1881E03700166623 = {
 			isa = PBXGroup;
 			children = (
+				3AD19AC418E266F0001B3B88 /* Default-568h@2x.png */,
 				3A720CB118A1C1D400423959 /* XMPPFramework.h */,
 				3A25B63C1881E03700166623 /* Who */,
 				3A25B65E1881E03700166623 /* WhoTests */,
@@ -1602,9 +1609,11 @@
 		3AF86D3218B5070200033495 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				3AD19AAF18E25AF6001B3B88 /* AppIcon58.png */,
-				3AD19AB018E25AF6001B3B88 /* AppIcon80.png */,
-				3AD19AB118E25AF6001B3B88 /* AppIcon120.png */,
+				3AD19AC018E26356001B3B88 /* loading640x960.png */,
+				3AD19AC118E26356001B3B88 /* loading640x1136.png */,
+				3AD19AB518E26298001B3B88 /* AppIcon58.png */,
+				3AD19AB618E26298001B3B88 /* AppIcon80.png */,
+				3AD19AB718E26298001B3B88 /* AppIcon120.png */,
 				3A7D535B18E237DB00BFF569 /* arrow-left-icon.png */,
 				3A7D535C18E237DB00BFF569 /* arrow-up-icon.png */,
 				3A7D535D18E237DB00BFF569 /* friends-icon.png */,
@@ -1845,7 +1854,7 @@
 				3A07F6D518D3DB0300E82390 /* confession-cell-bottom.png in Resources */,
 				F744857518DB731F00460FBC /* notification2-green.png in Resources */,
 				3A07F6BF18D3C21800E82390 /* compose-icon.png in Resources */,
-				3AD19AB218E25AF6001B3B88 /* AppIcon58.png in Resources */,
+				3AD19AB818E26298001B3B88 /* AppIcon58.png in Resources */,
 				3A07F6C318D3C21800E82390 /* cell-select.png in Resources */,
 				3AD8F48318DCCB7D002C399C /* Countries.plist in Resources */,
 				F744857918DB731F00460FBC /* notification5+-green.png in Resources */,
@@ -1854,12 +1863,12 @@
 				3A25B6521881E03700166623 /* Images.xcassets in Resources */,
 				3A7D537018E237DB00BFF569 /* settings-icon.png in Resources */,
 				F744857618DB731F00460FBC /* notification3-green.png in Resources */,
-				3AD19AB418E25AF6001B3B88 /* AppIcon120.png in Resources */,
+				3AD19ABA18E26298001B3B88 /* AppIcon120.png in Resources */,
 				3A7D536E18E237DB00BFF569 /* notification5.png in Resources */,
 				3A3A0B0718AB1126006FBAE4 /* input-bar-background@2x.png in Resources */,
 				3A7D536618E237DB00BFF569 /* arrow-left-icon.png in Resources */,
 				3A3A0AE918AB1126006FBAE4 /* avatar-placeholder@2x.png in Resources */,
-				3AD19AB318E25AF6001B3B88 /* AppIcon80.png in Resources */,
+				3AD19AB918E26298001B3B88 /* AppIcon80.png in Resources */,
 				3A1EACDD18D9DC41006E4CA3 /* bubble.png in Resources */,
 				3A25B6411881E03700166623 /* InfoPlist.strings in Resources */,
 				3A3A0B0B18AB1126006FBAE4 /* send-button-pressed@2x.png in Resources */,
@@ -1867,13 +1876,16 @@
 				3A3A0B0A18AB1126006FBAE4 /* send-button-pressed.png in Resources */,
 				3AB8D18818C23DF00082B77C /* MavenProLight-100.ttf in Resources */,
 				3AB8D19118C259B00082B77C /* MavenProMedium.ttf in Resources */,
+				3AD19AC518E266F0001B3B88 /* Default-568h@2x.png in Resources */,
 				3A3A0B1218AB1126006FBAE4 /* message-received.aiff in Resources */,
 				F744857718DB731F00460FBC /* notification4-green.png in Resources */,
 				F751016C18ABE8A2001F1E7F /* Settings.bundle in Resources */,
 				3AB8D19018C259B00082B77C /* MavenProBold.ttf in Resources */,
 				3AF19A6E1881F34A00F3E4D3 /* README.txt in Resources */,
+				3AD19AC218E26356001B3B88 /* loading640x960.png in Resources */,
 				3A7D536718E237DB00BFF569 /* arrow-up-icon.png in Resources */,
 				F7977B6518DBA25B000E955C /* decline-icon-green.png in Resources */,
+				3AD19AC318E26356001B3B88 /* loading640x1136.png in Resources */,
 				3A7D535A18E2376E00BFF569 /* add-icon.png in Resources */,
 				3A1EACDF18D9DCF6006E4CA3 /* bubble@2x.png in Resources */,
 				3A3A0B0818AB1126006FBAE4 /* input-field-cover.png in Resources */,
