@@ -135,8 +135,8 @@ extern int const STATUS_REQUEST_PENDING;
 extern int const STATUS_INACTIVE;
 extern int const STATUS_REQUEST_REJECTED;
 
-extern NSString *const INVITATION_ACCEPT;
-extern NSString *const INVITATION_DECLINE;
+extern NSString *const NOTIFICATIONS;
+extern NSString *const NO_NOTIFICATIONS;
 extern NSString *const NOTIFICATIONS_GROUP;
 extern NSString *const NOTIFICATIONS_FRIEND;
 extern NSString *const ANONYMOUS_FRIEND;

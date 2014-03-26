@@ -340,7 +340,6 @@
     UIImage *notificationsImage = [UIImage imageNamed:imageName];
     UIImageView *notificationsBadgeGreen = [[UIImageView alloc] initWithFrame:CGRectMake(20, 25, 30, 30)];
     [self.notificationsButton setImage:notificationsImage forState:UIControlStateNormal];
-    //greenImageName = [NSMutableString stringWithString:@"notification-none-green.png"];
     UIImage *notificationsImageGreen = [UIImage imageNamed:greenImageName];
     [notificationsBadgeGreen setImage:notificationsImageGreen];
     self.notificationsButtonGreen = [[UIButton alloc] initWithFrame:CGRectMake(20, 25, 30, 30)];
@@ -349,7 +348,7 @@
     
     self.notificationsHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 66)];
     UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 32, 280, 21)];
-    [notificationsLabel setText:@"Notifications"];
+    [notificationsLabel setText:NOTIFICATIONS];
     [notificationsLabel setTextAlignment:NSTextAlignmentCenter];
     [notificationsLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     [notificationsLabel setTextColor:[StyleManager getColorGreen]];
@@ -375,6 +374,13 @@
     //Add dynamic sizing of table?
     if ([self.friendRequests count] + [self.groupInvites count] == 0) {
         self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 66)];
+        for (UIView *view in self.notificationsHeader.subviews) {
+            if ([view isKindOfClass:[UILabel class]]) {
+                UILabel *label = (UILabel *)view;
+                [label setTextColor:[StyleManager getColorBlue]];
+                [label setText:NO_NOTIFICATIONS];
+            }
+        }
     } else {
         self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5)];
     }
