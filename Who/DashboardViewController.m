@@ -346,14 +346,26 @@
     [self.notificationsButtonGreen setImage:notificationsImageGreen forState:UIControlStateNormal];
     [self.notificationsButtonGreen addTarget:self action:@selector(notificationsGreenClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.notificationsHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 66)];
-    UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 32, 280, 21)];
-    [notificationsLabel setText:NOTIFICATIONS];
-    [notificationsLabel setTextAlignment:NSTextAlignmentCenter];
-    [notificationsLabel setFont:[StyleManager getFontStyleLightSizeXL]];
-    [notificationsLabel setTextColor:[StyleManager getColorGreen]];
-    [self.notificationsHeader addSubview:notificationsLabel];
-    [self.notificationsHeader addSubview:self.notificationsButtonGreen];
+    if ([self.friendRequests count] + [self.groupInvites count] == 0) {
+        self.notificationsHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5)];
+        UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height*0.25, 280, 21)];
+        [notificationsLabel setText:@"You have no notifications"];
+        [notificationsLabel setTextAlignment:NSTextAlignmentCenter];
+        [notificationsLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+        [notificationsLabel setTextColor:[StyleManager getColorBlue]];
+        [self.notificationsHeader addSubview:notificationsLabel];
+        [self.notificationsHeader addSubview:self.notificationsButtonGreen];
+        [self.notificationTableView setTableHeaderView:self.notificationsHeader];
+    } else {
+        self.notificationsHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 66)];
+        UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 32, 280, 21)];
+        [notificationsLabel setText:NOTIFICATIONS];
+        [notificationsLabel setTextAlignment:NSTextAlignmentCenter];
+        [notificationsLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+        [notificationsLabel setTextColor:[StyleManager getColorGreen]];
+        [self.notificationsHeader addSubview:notificationsLabel];
+        [self.notificationsHeader addSubview:self.notificationsButtonGreen];
+    }
     [self.notificationTableView setTableHeaderView:self.notificationsHeader];
 }
 
@@ -371,7 +383,9 @@
     tapRecognizer.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapRecognizer];
     
-    if ([self.friendRequests count] + [self.groupInvites count] == 0) {
+    self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5)];
+    
+    /*if ([self.friendRequests count] + [self.groupInvites count] == 0) {
         self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5)];
         self.notificationsHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5)];
         UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height*0.25, 280, 21)];
@@ -384,7 +398,7 @@
         [self.notificationTableView setTableHeaderView:self.notificationsHeader];
     } else {
         self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5)];
-    }
+    }*/
     self.notificationTableView.hidden = YES;
     [self.notificationTableView setDelegate:self];
     [self.notificationTableView setDataSource:self];
