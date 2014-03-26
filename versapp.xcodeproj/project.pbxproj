@@ -1799,7 +1799,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3A25B62E1881E03700166623 /* Build configuration list for PBXProject "versapp" */;
+			buildConfigurationList = 3A25B62E1881E03700166623 /* Build configuration list for PBXProject "Versapp" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -2275,7 +2275,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3A25B62E1881E03700166623 /* Build configuration list for PBXProject "versapp" */ = {
+		3A25B62E1881E03700166623 /* Build configuration list for PBXProject "Versapp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3A25B6661881E03700166623 /* Debug */,
