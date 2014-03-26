@@ -44,7 +44,7 @@
     [super viewDidAppear:animated];
     _viewDidShow = YES;
     if (_shouldTransition) {
-        [self performSegueWithIdentifier:SEGUE_ID_AUTHENTICATED_FROM_APP_INIT sender:self];
+        [self performSegueWithIdentifier:_transitionTo sender:self];
     }
 }
 

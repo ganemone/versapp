@@ -54,12 +54,14 @@ NSString *const NSDEFAULT_KEY_USERNAME = @"nsdefault_key_username";
 }
 
 +(void)saveName:(NSString *)name {
+    NSLog(@"Saving Name: %@", name);
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
     [preferences setObject:name forKey:VCARD_TAG_FULL_NAME];
     [preferences synchronize];
 }
 
 +(void)saveEmail:(NSString *)email {
+    NSLog(@"Saving Email: %@", email);
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
     [preferences setObject:email forKey:VCARD_TAG_EMAIL];
     [preferences synchronize];

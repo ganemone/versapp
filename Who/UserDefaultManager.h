@@ -23,5 +23,4 @@ extern NSString *const NSDEFAULT_KEY_USERNAME;
 +(void)saveName:(NSString *)name;
 +(void)saveEmail:(NSString *)email;
 
-
 @end
