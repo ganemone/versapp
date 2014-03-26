@@ -58,11 +58,13 @@
         
         // Configure textview
         UITextView *textView = [[UITextView alloc] initWithFrame:textFrame];
+        
         textView.textContainerInset = UIEdgeInsetsMake(5.0f, 5.0f, 5.0f, 5.0f);
-        [textView setBackgroundColor:[UIColor whiteColor]];
         [textView setText:[confession body]];
         [textView setTextColor:[UIColor blackColor]];
         [textView setFont:[StyleManager getFontStyleLightSizeMed]];
+        [textView setBackgroundColor:[UIColor whiteColor]];
+        
         [textView setEditable:NO];
         
         // Configure Timstamp
@@ -122,7 +124,7 @@
         _favoriteButton = favoriteButton;
         _favoriteLabel = favoriteLabel;
         _timestampLabel = timestampLabel;
-       
+        
         for (UIGestureRecognizer *recognizer in self.gestureRecognizers) {
             if ([recognizer isKindOfClass:[UILongPressGestureRecognizer class]]){
                 recognizer.enabled = NO;
@@ -133,7 +135,7 @@
         [recognizer setMinimumPressDuration:0.4f];
         //    recognizer.delegate = self;
         [self addGestureRecognizer:recognizer];
-
+        
     }
     return self;
 }
@@ -142,7 +144,7 @@
     NSString *cellText = [confession body];
     UIFont *cellFont = [StyleManager getFontStyleLightSizeMed];
     //CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
-//    CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
+    //    CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
     CGSize labelSize = [cellText sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:cellFont, NSFontAttributeName, nil]];
     return labelSize.height + 80.0f;
 }
@@ -169,7 +171,7 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 
@@ -177,28 +179,28 @@
 {
     //    return;
     
-//    NSLog(@"Long pressed!");
+    //    NSLog(@"Long pressed!");
     if (longPress.state == UIGestureRecognizerStateBegan)
     {
-    
-    UIAlertView *reportAbuse = [[UIAlertView alloc] initWithTitle:@"Report" message: @"Do you want to report abuse or block the sender?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:REPORT_ABUSE, REPORT_BLOCK,nil];
-    
-    reportAbuse.alertViewStyle = UIAlertViewStyleDefault;
-    [reportAbuse show];
-    //
-    //    UIMenuController *menu = [UIMenuController sharedMenuController];
-    //    CGRect targetRect = [self convertRect:[self.bubbleView bubbleFrame]
-    //                                 fromView:self.bubbleView];
-    //
-    //    [menu setTargetRect:CGRectInset(targetRect, 0.0f, 4.0f) inView:self];
-    //
-    //    self.bubbleView.bubbleImageView.highlighted = YES;
-    //
-    //    [[NSNotificationCenter defaultCenter] addObserver:self
-    //                                             selector:@selector(handleMenuWillShowNotification:)
-    //                                                 name:UIMenuControllerWillShowMenuNotification
-    //                                               object:nil];
-    //    [menu setMenuVisible:YES animated:YES];
+        
+        UIAlertView *reportAbuse = [[UIAlertView alloc] initWithTitle:@"Report" message: @"Do you want to report abuse or block the sender?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:REPORT_ABUSE, REPORT_BLOCK,nil];
+        
+        reportAbuse.alertViewStyle = UIAlertViewStyleDefault;
+        [reportAbuse show];
+        //
+        //    UIMenuController *menu = [UIMenuController sharedMenuController];
+        //    CGRect targetRect = [self convertRect:[self.bubbleView bubbleFrame]
+        //                                 fromView:self.bubbleView];
+        //
+        //    [menu setTargetRect:CGRectInset(targetRect, 0.0f, 4.0f) inView:self];
+        //
+        //    self.bubbleView.bubbleImageView.highlighted = YES;
+        //
+        //    [[NSNotificationCenter defaultCenter] addObserver:self
+        //                                             selector:@selector(handleMenuWillShowNotification:)
+        //                                                 name:UIMenuControllerWillShowMenuNotification
+        //                                               object:nil];
+        //    [menu setMenuVisible:YES animated:YES];
     }
 }
 

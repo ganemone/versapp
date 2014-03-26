@@ -18,4 +18,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *bottomTextField;
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 
+- (void)setUpInBackground;
+
 @end
