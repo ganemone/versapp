@@ -52,7 +52,7 @@
     [super viewDidLoad];
     NSLog(@"View did load");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData:) name:PACKET_ID_GET_VCARD object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedInvitingUsersToMUC:) name:NOTIFICATION_FINISHED_INVITING_MUC_USERS object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedInvitingUsersToMUC:) name:NOTIFICATION_FINISHED_INVITING_MUC_USERS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCreatedOneToOneChat:) name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT object:nil];
     
     [self.tableView setDataSource:self];
@@ -171,6 +171,7 @@
             [self.ldm showLoadingDialogWithoutProgress];
             ChatMO *gc = [MUCCreationManager createMUC:groupName participants:self.selectedJIDs];
             _createdChat = [ChatDBManager insertChatWithID:gc.chat_id chatName:groupName chatType:CHAT_TYPE_GROUP participantString:[self.selectedJIDs componentsJoinedByString:@", "] status:STATUS_JOINED];
+            [self handleFinishedInvitingUsersToMUC];
         }
         self.isCreatingGroup = NO;
     } else if (buttonIndex == 1) {
@@ -184,7 +185,7 @@
     [self.tableView reloadData];
 }
 
--(void)handleFinishedInvitingUsersToMUC:(NSNotification*)notification {
+-(void)handleFinishedInvitingUsersToMUC {
     [self.ldm hideLoadingDialogWithoutProgress];
     [self performSegueWithIdentifier:SEGUE_ID_CREATED_MUC sender:self];
 }

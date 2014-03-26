@@ -1501,16 +1501,20 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="z6h-qs-HbB"/>
         <segue reference="pHb-Kf-4qo"/>
-        <segue reference="BCc-dv-kG7"/>
         <segue reference="hVX-XL-lBE"/>
         <segue reference="zTQ-Mf-6oX"/>
         <segue reference="X5v-Jd-Ml1"/>
         <segue reference="bRX-TH-pHe"/>
         <segue reference="fSF-xn-2Ew"/>
+        <segue reference="BCc-dv-kG7"/>
+        <segue reference="z6h-qs-HbB"/>
         <segue reference="3yg-rT-qjq"/>
+        <segue reference="fSF-xn-2Ew"/>
         <segue reference="YCw-e7-spT"/>
         <segue reference="qGQ-aw-vgl"/>
+        <segue reference="X5v-Jd-Ml1"/>
+        <segue reference="zTQ-Mf-6oX"/>
+        <segue reference="bRX-TH-pHe"/>
     </inferredMetricsTieBreakers>
 </document>
