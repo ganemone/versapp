@@ -877,6 +877,17 @@
                                             <action selector="onBackClicked:" destination="LSk-rM-HTJ" eventType="touchUpInside" id="0ds-Bj-FaE"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vGo-i9-aRA">
+                                        <rect key="frame" x="280" y="32" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="friends-icon.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="friendIconClicked:" destination="jpr-Ku-F24" eventType="touchUpInside" id="QO1-ag-Hkn"/>
+                                            <action selector="showGroupMembers:" destination="LSk-rM-HTJ" eventType="touchUpInside" id="mwm-Fn-iEP"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.21960784310000001" green="0.65490196079999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -1525,16 +1536,16 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Ve6-mS-bkp"/>
-        <segue reference="3yg-rT-qjq"/>
         <segue reference="fSF-xn-2Ew"/>
         <segue reference="nPX-Ed-w2T"/>
-        <segue reference="BCc-dv-kG7"/>
-        <segue reference="z6h-qs-HbB"/>
-        <segue reference="pHb-Kf-4qo"/>
+        <segue reference="QMt-WW-ujz"/>
         <segue reference="hVX-XL-lBE"/>
+        <segue reference="z6h-qs-HbB"/>
+        <segue reference="BCc-dv-kG7"/>
         <segue reference="tVn-SP-Hc9"/>
+        <segue reference="pHb-Kf-4qo"/>
+        <segue reference="zTQ-Mf-6oX"/>
         <segue reference="qGQ-aw-vgl"/>
         <segue reference="YCw-e7-spT"/>
-        <segue reference="zTQ-Mf-6oX"/>
     </inferredMetricsTieBreakers>
 </document>

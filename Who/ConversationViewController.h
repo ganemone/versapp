@@ -12,7 +12,7 @@
 #import "ImageCache.h"
 #import "ChatMO.h"
 
-@interface ConversationViewController : JSMessagesViewController <JSMessagesViewDelegate, JSMessagesViewDataSource, ImageManagerDelegate>
+@interface ConversationViewController : JSMessagesViewController <JSMessagesViewDelegate, JSMessagesViewDataSource, ImageManagerDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) ChatMO *chatMO;
 @property (strong, nonatomic) ImageManager *im;
