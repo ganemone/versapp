@@ -10,20 +10,42 @@
 
 @implementation StyleManager
 
+static UIFont *lightSmall;
+static UIFont *lightMed;
+static UIFont *lightLarge;
+static UIFont *lightXL;
+
+static UIColor *colorOrange;
+static UIColor *colorPurple;
+static UIColor *colorGreen;
+static UIColor *colorBlue;
+
 +(UIFont*)getFontStyleLightSizeSmall {
-    return [UIFont fontWithName:@"MavenProLight300-Regular" size:12];
+    if (lightSmall == nil) {
+        lightSmall = [UIFont fontWithName:@"MavenProLight300-Regular" size:12];
+    }
+    return lightSmall;
 }
 
 +(UIFont*)getFontStyleLightSizeMed {
-    return [UIFont fontWithName:@"MavenProLight300-Regular" size:14];
+    if (lightMed == nil) {
+        lightMed = [UIFont fontWithName:@"MavenProLight300-Regular" size:14];
+    }
+    return lightMed;
 }
 
 +(UIFont*)getFontStyleLightSizeLarge {
-    return [UIFont fontWithName:@"MavenProLight300-Regular" size:16];
+    if (lightLarge == nil) {
+        lightLarge = [UIFont fontWithName:@"MavenProLight300-Regular" size:16];
+    }
+    return lightLarge;
 }
 
 +(UIFont*)getFontStyleLightSizeXL {
-    return [UIFont fontWithName:@"MavenProLight300-Regular" size:22];
+    if (lightXL == nil) {
+        lightXL = [UIFont fontWithName:@"MavenProLight300-Regular" size:22];
+    }
+    return lightXL;
 }
 
 +(UIFont*)getFontStyleRegularSizeSmall {
@@ -75,23 +97,31 @@
 }
 
 +(UIColor*)getColorOrange {
-    return [UIColor colorWithRed:244.0f/255.0f green:146.0f/255.0f blue:0 alpha:1];
-}
-
-+(UIColor*)getColorLightOrange {
-    return [self getColorOrange];//[UIColor colorWithRed:255.0f/255.0f green:242.0f/255.0f blue:158.0f/255.0f alpha:1];
+    if (colorOrange == nil) {
+        colorOrange = [UIColor colorWithRed:244.0f/255.0f green:146.0f/255.0f blue:0 alpha:1];
+    }
+    return colorOrange;
 }
 
 +(UIColor*)getColorBlue {
-    return [UIColor colorWithRed:56.0f/255.0f green:167.0f/255.0f blue:222.0f/255.0f alpha:1];
+    if (colorBlue == nil) {
+        colorBlue = [UIColor colorWithRed:56.0f/255.0f green:167.0f/255.0f blue:222.0f/255.0f alpha:1];
+    }
+    return colorBlue;
 }
 
 +(UIColor*)getColorPurple {
-    return [UIColor colorWithRed:98.0f/255.0f green:44.0f/255.0f blue:132.0f/255.0f alpha:1];
+    if (colorPurple == nil) {
+        colorPurple = [UIColor colorWithRed:98.0f/255.0f green:44.0f/255.0f blue:132.0f/255.0f alpha:1];
+    }
+    return colorPurple;
 }
 
 +(UIColor*)getColorGreen {
-    return [UIColor colorWithRed:141.0f/255.0f green:193.0f/255.0f blue:38.0f/255.0f alpha:1];
+    if (colorGreen == nil) {
+        colorGreen = [UIColor colorWithRed:141.0f/255.0f green:193.0f/255.0f blue:38.0f/255.0f alpha:1];
+    }
+    return colorGreen;
 }
 
 

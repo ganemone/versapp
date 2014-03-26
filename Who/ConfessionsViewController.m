@@ -182,7 +182,6 @@
 {
     static NSString *CellIdentifier = @"ConfessionCellIdentifier";
     Confession *confession = [_confessionsManager getConfessionAtIndex:(int)indexPath.row];
-    NSLog(@"Confession: %@", [confession body]);
     if (self.cellCache == nil) {
         self.cellCache = [[NSMutableDictionary alloc] initWithCapacity:100];
     }
@@ -199,8 +198,6 @@
         [cell.favoriteLabel setText:[confession getTextForLabel]];
         [cell.chatButton setImage:self.chatIcon forState:UIControlStateNormal];
         [_cellCache setObject:cell forKey:[confession confessionID]];
-    } else {
-        NSLog(@"Cell is not nil... : %@", [cell description]);
     }
     return cell;
 }
@@ -220,7 +217,13 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [ConfessionTableCell heightForConfession:[[self confessionsManager] getConfessionAtIndex:(int)indexPath.row]] - 8.0f;
+    Confession *confession = [[self confessionsManager] getConfessionAtIndex:(int)indexPath.row];
+    return [confession heightForConfession] - 8.0f;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    Confession *confession = [[self confessionsManager] getConfessionAtIndex:(int)indexPath.row];
+    return [confession heightForConfession] - 8.0f;
 }
 
 - (void)refreshListView {

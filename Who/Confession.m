@@ -58,13 +58,17 @@
 }
 
 - (CGFloat)heightForConfession {
+    if (_height > 0.0f) {
+        return _height;
+    }
     UIFont *cellFont = [StyleManager getFontStyleLightSizeMed];
     CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
     //    CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
     //CGSize labelSize = [_body sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:cellFont, NSFontAttributeName, nil]];
     NSStringDrawingContext *ctx = [NSStringDrawingContext new];
     CGRect textRect = [_body boundingRectWithSize:constraintSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:ctx];
-    return textRect.size.height + 80.0f;
+    _height = textRect.size.height + 80.0f;
+    return _height;
 }
 
 -(void)encodeBody {

@@ -16,6 +16,7 @@
 @property (strong, nonatomic) NSString *imageURL;
 @property (strong, nonatomic) NSString *createdTimestamp;
 @property (strong, nonatomic) NSMutableArray *favoritedUsers;
+@property CGFloat height;
 @property CGRect cellFrame;
 @property CGRect textFrame;
 @property CGRect footerFrame;

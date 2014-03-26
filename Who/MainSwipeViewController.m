@@ -20,6 +20,8 @@
 #import "FriendsDBManager.h"
 #import "ChatDBManager.h"
 #import "FriendMO.h"
+#import "ConfessionsManager.h"
+#import "Confession.h"
 
 #define NumViewPages 4
 
@@ -52,7 +54,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePageNavigationToContacts:) name:PAGE_NAVIGATE_TO_CONTACTS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableInteraction) name:NOTIFICATION_DISABLE_SWIPE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enableInteraction) name:NOTIFICATION_ENABLE_SWIPE object:nil];
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setUpInBackground) name:PACKET_ID_GET_CONFESSIONS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setUpInBackground) name:PACKET_ID_GET_CONFESSIONS object:nil];
     
     [self.navigationController.navigationBar setHidden:YES];
     
@@ -76,7 +78,15 @@
 }
 
 - (void)setUpInBackground {
-    [(ConfessionsViewController *)[self viewControllerAtIndex:1] setUpInBackground];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        ConfessionsManager *cm = [ConfessionsManager getInstance];
+        NSEnumerator *objectEnumerator = [[cm confessions] objectEnumerator];
+        Confession *currentConfession;
+        CGSize contentSize = self.view.frame.size;
+        while ((currentConfession = objectEnumerator.nextObject) != nil) {
+            [currentConfession calculateFramesForTableViewCell:contentSize];
+        }
+    });
 }
 
 - (void)handlePageNavigationToMessages:(NSNotification *)notification {
