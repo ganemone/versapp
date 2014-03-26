@@ -17,6 +17,7 @@
 @property BOOL viewDidShow;
 @property BOOL shouldTransition;
 @property (nonatomic, strong) NSString *transitionTo;
+@property (strong, nonatomic) IBOutlet UIImageView *loadingImage;
 
 @end
 
@@ -33,6 +34,16 @@
 
 - (void)viewDidLoad
 {
+    CGRect screen = [[UIScreen mainScreen] bounds];
+    NSLog(@"bounds: %f %f", screen.size.height, screen.size.width);
+    UIImage *image = [[UIImage alloc] init];
+    if (screen.size.height < 500) {
+        image = [UIImage imageNamed:@"loading640x960.png"];
+    } else {
+        image = [UIImage imageNamed:@"loading640x1136.png"];
+    }
+    [self.loadingImage setImage:image];
+    
     self.viewDidShow = NO;
     self.shouldTransition = NO;
     [super viewDidLoad];

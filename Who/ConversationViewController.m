@@ -17,6 +17,8 @@
 #import "RNBlurModalView.h"
 #import "ChatDBManager.h"
 #import "StyleManager.h"
+#import "FriendsDBManager.h"
+#import "FriendMO.h"
 
 @interface ConversationViewController ()
 
@@ -206,6 +208,20 @@
 }
 - (IBAction)onBackClicked:(id)sender {
     [self.navigationController popToRootViewControllerAnimated:YES];
+}
+- (IBAction)showGroupMembers:(id)sender {
+    NSString *title = [NSString stringWithFormat:@"Members of %@", [self.chatMO user_defined_chat_name]];
+    UIAlertView *groupMemberList = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil, nil];
+    NSArray *members = [self.chatMO participants];
+    NSMutableString *list = [[NSMutableString alloc] init];
+    for (NSString *member in members) {
+        FriendMO *friend = [FriendsDBManager getUserWithJID:[NSString stringWithFormat:@"%@", member]];
+        NSLog(@"Name: %@ %@", friend.name, [NSString stringWithFormat:@"%@", member]);
+        [list appendString:[NSString stringWithFormat:@"%@\n", friend.name]];
+    }
+    [groupMemberList setMessage:list];
+    groupMemberList.alertViewStyle = UIAlertViewStyleDefault;
+    [groupMemberList show];
 }
 
 @end

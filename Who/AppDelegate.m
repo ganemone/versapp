@@ -10,6 +10,8 @@
 #import "ConnectionProvider.h"
 #import "UserDefaultManager.h"
 #import "Constants.h"
+#import "UserRegistrationViewController.h"
+#import "DashboardViewController.h"
 
 @implementation AppDelegate
 
@@ -138,8 +140,12 @@
         NSString *password = [UserDefaultManager loadPassword];
         NSLog(@"User: %@", username);
         if (username != nil && password != nil) {
+            //DashboardViewController *dashboard = [[DashboardViewController alloc] init];
+            //[self.window setRootViewController:dashboard];
             [cp connect:username password:password];
         } else {
+            //UserRegistrationViewController *registration = [[UserRegistrationViewController alloc] init];
+            //[self.window setRootViewController:registration];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"needToRegister" object:nil];
         }
     }
