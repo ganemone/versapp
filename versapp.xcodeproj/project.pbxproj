@@ -285,7 +285,7 @@
 		3A1EACDE18D9DCF6006E4CA3 /* bubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble@2x.png"; sourceTree = "<group>"; };
 		3A1EACE018D9E7A0006E4CA3 /* ContactTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactTableViewCell.h; sourceTree = "<group>"; };
 		3A1EACE118D9E7A0006E4CA3 /* ContactTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactTableViewCell.m; sourceTree = "<group>"; };
-		3A25B6331881E03700166623 /* versapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = versapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A25B6331881E03700166623 /* Versapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Versapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A25B6361881E03700166623 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3A25B6381881E03700166623 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		3A25B63A1881E03700166623 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -748,7 +748,7 @@
 		3A25B6341881E03700166623 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3A25B6331881E03700166623 /* versapp.app */,
+				3A25B6331881E03700166623 /* Versapp.app */,
 				3A25B6571881E03700166623 /* versappTests.xctest */,
 			);
 			name = Products;
@@ -1742,9 +1742,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3A25B6321881E03700166623 /* versapp */ = {
+		3A25B6321881E03700166623 /* Versapp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3A25B6681881E03700166623 /* Build configuration list for PBXNativeTarget "versapp" */;
+			buildConfigurationList = 3A25B6681881E03700166623 /* Build configuration list for PBXNativeTarget "Versapp" */;
 			buildPhases = (
 				3A25B62F1881E03700166623 /* Sources */,
 				3A25B6301881E03700166623 /* Frameworks */,
@@ -1754,9 +1754,9 @@
 			);
 			dependencies = (
 			);
-			name = versapp;
+			name = Versapp;
 			productName = Who;
-			productReference = 3A25B6331881E03700166623 /* versapp.app */;
+			productReference = 3A25B6331881E03700166623 /* Versapp.app */;
 			productType = "com.apple.product-type.application";
 		};
 		3A25B6561881E03700166623 /* versappTests */ = {
@@ -1812,7 +1812,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3A25B6321881E03700166623 /* versapp */,
+				3A25B6321881E03700166623 /* Versapp */,
 				3A25B6561881E03700166623 /* versappTests */,
 			);
 		};
@@ -2081,7 +2081,7 @@
 /* Begin PBXTargetDependency section */
 		3A25B65D1881E03700166623 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3A25B6321881E03700166623 /* versapp */;
+			target = 3A25B6321881E03700166623 /* Versapp */;
 			targetProxy = 3A25B65C1881E03700166623 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -2207,7 +2207,7 @@
 				INFOPLIST_FILE = "Who/versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
-				PRODUCT_NAME = versapp;
+				PRODUCT_NAME = Versapp;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2226,7 +2226,7 @@
 				INFOPLIST_FILE = "Who/versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
-				PRODUCT_NAME = versapp;
+				PRODUCT_NAME = Versapp;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2284,7 +2284,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3A25B6681881E03700166623 /* Build configuration list for PBXNativeTarget "versapp" */ = {
+		3A25B6681881E03700166623 /* Build configuration list for PBXNativeTarget "Versapp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3A25B6691881E03700166623 /* Debug */,
