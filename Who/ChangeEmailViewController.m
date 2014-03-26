@@ -11,6 +11,7 @@
 #import "IQPacketManager.h"
 #import "Constants.h"
 #import "StyleManager.h"
+#import "UserDefaultManager.h"
 
 @interface ChangeEmailViewController ()
 @property (strong, nonatomic) IBOutlet UIButton *backButton;
@@ -37,16 +38,20 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self.currentEmail setFont:[StyleManager getFontStyleBoldSizeMed]];
-    [self.currentEmail setText:@"Current Email"/*get current email address*/];
+    [self.currentEmail setText:[UserDefaultManager loadEmail]];
 }
 
 - (IBAction)submitClicked:(id)sender {
     //Send update packet with all current info and new email
     NSLog(@"New Email: %@", self.updatedEmail.text);
-    [[self.cp getConnection] sendElement:[IQPacketManager createUpdateVCardPacket:@"Bart" lastname:@"Simpson" phone:@"373737" email:self.updatedEmail.text]];
+    NSArray *names = [[UserDefaultManager loadName] componentsSeparatedByString:@" "];
+    NSLog(@"Info: %@ %@ %@ %@", [names objectAtIndex:0], [names objectAtIndex:1], [UserDefaultManager loadUsername], [UserDefaultManager loadEmail]);
+    //[[self.cp getConnection] sendElement:[IQPacketManager createUpdateVCardPacket:[names objectAtIndex:0] lastname:[names objectAtIndex:1] phone:[UserDefaultManager loadUsername] email:self.updatedEmail.text]];
+    [UserDefaultManager saveEmail:self.updatedEmail.text];
     [self.success setTextColor:[StyleManager getColorGreen]];
     [self.success setFont:[StyleManager getFontStyleBoldSizeMed]];
     [self.success setText:EMAIL_CHANGED];
+    NSLog(@"Info: %@ %@ %@ %@", [names objectAtIndex:0], [names objectAtIndex:1], [UserDefaultManager loadUsername], [UserDefaultManager loadEmail]);
 }
 
 - (IBAction)backButtonClicked:(id)sender {

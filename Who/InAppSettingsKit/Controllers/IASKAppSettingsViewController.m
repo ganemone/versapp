@@ -30,6 +30,7 @@
 #import "UserDefaultManager.h"
 #import "XMPPStream.h"
 #import "AppInitViewController.h"
+#import "ConnectionProvider.h"
 
 #if !__has_feature(objc_arc)
 #error "IASK needs ARC"
@@ -784,9 +785,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 -(void)logout {
-    [UserDefaultManager saveUsername:nil];
-    [UserDefaultManager savePassword:nil];
+    [UserDefaultManager clearUsernameAndPassword];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_LOGOUT object:nil];
+    ConnectionProvider *cp = [ConnectionProvider getInstance];
+    [cp disconnect];
     [self performSegueWithIdentifier:SEGUE_ID_LOGOUT sender:self];
 }
 
