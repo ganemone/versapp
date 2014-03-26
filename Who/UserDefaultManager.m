@@ -7,6 +7,7 @@
 //
 
 #import "UserDefaultManager.h"
+#import "Constants.h"
 
 NSString *const NSDEFAULT_KEY_PASSWORD = @"nsdefault_key_password";
 NSString *const NSDEFAULT_KEY_USERNAME = @"nsdefault_key_username";
@@ -41,5 +42,28 @@ NSString *const NSDEFAULT_KEY_USERNAME = @"nsdefault_key_username";
     [preferences removeObjectForKey:NSDEFAULT_KEY_PASSWORD];
     [preferences synchronize];
 }
+
++(NSString *)loadName {
+    NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
+    return [preferences stringForKey:VCARD_TAG_FULL_NAME];
+}
+
++(NSString *)loadEmail {
+    NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
+    return [preferences stringForKey:VCARD_TAG_EMAIL];
+}
+
++(void)saveName:(NSString *)name {
+    NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setObject:name forKey:VCARD_TAG_FULL_NAME];
+    [preferences synchronize];
+}
+
++(void)saveEmail:(NSString *)email {
+    NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setObject:email forKey:VCARD_TAG_EMAIL];
+    [preferences synchronize];
+}
+
 
 @end
