@@ -37,6 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.cp = [ConnectionProvider getInstance];
     [self.currentEmail setFont:[StyleManager getFontStyleBoldSizeMed]];
     [self.currentEmail setText:[UserDefaultManager loadEmail]];
 }
@@ -48,6 +49,8 @@
     NSLog(@"Info: %@ %@ %@ %@", [names objectAtIndex:0], [names objectAtIndex:1], [UserDefaultManager loadUsername], [UserDefaultManager loadEmail]);
     [[self.cp getConnection] sendElement:[IQPacketManager createUpdateVCardPacket:[names objectAtIndex:0] lastname:[names objectAtIndex:1] phone:[UserDefaultManager loadUsername] email:self.updatedEmail.text]];
     [UserDefaultManager saveEmail:self.updatedEmail.text];
+    [self.currentEmail setTextColor:[StyleManager getColorGreen]];
+    [self.currentEmail setText:self.updatedEmail.text];
     [self.success setTextColor:[StyleManager getColorGreen]];
     [self.success setFont:[StyleManager getFontStyleBoldSizeMed]];
     [self.success setText:EMAIL_CHANGED];
