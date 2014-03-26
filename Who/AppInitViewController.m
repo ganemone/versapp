@@ -33,7 +33,7 @@
 - (void)viewDidLoad
 {
     self.viewDidShow = NO;
-    self.shouldTransition = YES;
+    self.shouldTransition = NO;
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAuthenticated) name:@"authenticated" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailedToAuthenticate) name:@"didNotAuthenticate" object:nil];
@@ -55,24 +55,24 @@
 }
 
 - (void)handleAuthenticated {
-    _shouldTransition = YES;
     _transitionTo = SEGUE_ID_AUTHENTICATED_FROM_APP_INIT;
+    _shouldTransition = YES;
     if (_viewDidShow) {
         [self performSegueWithIdentifier:SEGUE_ID_AUTHENTICATED_FROM_APP_INIT sender:self];
     }
 }
 
 - (void)handleFailedToAuthenticate {
-    _shouldTransition = YES;
     _transitionTo = SEGUE_ID_GO_TO_LOGIN_PAGE;
+    _shouldTransition = YES;
     if (_viewDidShow) {
         [self performSegueWithIdentifier:SEGUE_ID_GO_TO_LOGIN_PAGE sender:self];
     }
 }
 
 - (void)handleNoDefaultsStored {
-    _shouldTransition = YES;
     _transitionTo = SEGUE_ID_GO_TO_REGISTER_PAGE;
+    _shouldTransition = YES;
     if (_viewDidShow) {
         [self performSegueWithIdentifier:SEGUE_ID_GO_TO_REGISTER_PAGE sender:self];
     }

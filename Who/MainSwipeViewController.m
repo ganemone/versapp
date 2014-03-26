@@ -27,6 +27,7 @@
 
 @property UIPageViewController *pageViewController;
 @property(nonatomic, strong) ConnectionProvider *connectionProvider;
+@property(nonatomic, strong) NSArray *viewControllers;
 
 @end
 
@@ -59,6 +60,7 @@
     self.pageViewController.dataSource = self;
     self.pageViewController.delegate = self;
     
+    self.viewControllers = @[[self viewControllerAtIndex:0], [self viewControllerAtIndex:1], [self viewControllerAtIndex:2], [self viewControllerAtIndex:3]];
     // Set the first controller to be shown
     UIViewController *initialViewController = [self viewControllerAtIndex:0];
     NSArray *viewControllers = @[initialViewController];
@@ -114,6 +116,10 @@
         return nil;
     }
     
+    if (_viewControllers != nil && [_viewControllers count] > index) {
+        return [_viewControllers objectAtIndex:index];
+    }
+    
     switch (index) {
         case 0:
             storyboardID = STORYBOARD_ID_DASHBOARD_VIEW_CONTROLLER; break;
@@ -126,7 +132,6 @@
         default:
             return nil;
     }
-    
     UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:storyboardID];
     return viewController;
 }
