@@ -34,7 +34,7 @@ static int numUninvitedParticipants;
     if (chatEntry == nil) {
         chatEntry = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_CHATS inManagedObjectContext:moc];
     }
-    
+    NSLog(@"Setting Chat Name from %@ to %@",chatEntry.user_defined_chat_name, chatName);
     [chatEntry setValue:chatID forKey:CHATS_TABLE_COLUMN_NAME_CHAT_ID];
     [chatEntry setValue:chatName forKey:CHATS_TABLE_COLUMN_NAME_CHAT_NAME];
     [chatEntry setValue:chatName forKey:CHATS_TABLE_COLUMN_NAME_USER_DEFINED_CHAT_NAME];

@@ -141,8 +141,9 @@
 + (CGFloat)heightForConfession:(Confession*)confession {
     NSString *cellText = [confession body];
     UIFont *cellFont = [StyleManager getFontStyleLightSizeMed];
-    CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
-    CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
+    //CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
+//    CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
+    CGSize labelSize = [cellText sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:cellFont, NSFontAttributeName, nil]];
     return labelSize.height + 80.0f;
 }
 

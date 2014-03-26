@@ -5,7 +5,7 @@
 //  Created by Giancarlo Anemone on 1/15/14.
 //  Copyright (c) 2014 Giancarlo Anemone. All rights reserved.
 //
-
+#import "UserDefaultManager.h"
 #import "IQPacketReceiver.h"
 #import "Constants.h"
 #import "ConnectionProvider.h"
@@ -258,11 +258,13 @@ static int numRequestsWaitingAtLogin;
             }
         }
     }
-    NSLog(@"Name compare: %@ %@", username, [ConnectionProvider getUser]);
     if ([username compare:[ConnectionProvider getUser]] != 0) {
         NSString *name = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
         [FriendsDBManager insert:username name:name email:email status:nil searchedPhoneNumber:nil searchedEmail:nil];
         [ChatDBManager updateOneToOneChatNames:name username:username];
+    } else {
+        [UserDefaultManager saveEmail:email];
+        [UserDefaultManager saveName:[NSString stringWithFormat:@"%@ %@", firstName, lastName]];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_VCARD object:nil];
 }

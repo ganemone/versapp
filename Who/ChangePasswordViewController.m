@@ -15,7 +15,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *currentPassword;
 @property (strong, nonatomic) IBOutlet UITextField *updatedPassword;
 @property (strong, nonatomic) IBOutlet UITextField *confirmPassword;
-@property (strong, nonatomic) IBOutlet UIButton *submitClicked;
+@property (strong, nonatomic) IBOutlet UIButton *submit;
 @property (strong, nonatomic) IBOutlet UILabel *success;
 
 @end
