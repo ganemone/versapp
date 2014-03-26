@@ -34,7 +34,7 @@
 - (void)viewDidLoad
 {
     self.viewDidShow = NO;
-    self.shouldTransition = YES;
+    self.shouldTransition = NO;
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAuthenticated) name:@"authenticated" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailedToAuthenticate) name:@"didNotAuthenticate" object:nil];
