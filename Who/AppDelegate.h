@@ -22,6 +22,5 @@
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator;
 - (void)saveContext;
 - (void)saveContextWithMOC:(NSManagedObjectContext *)moc;
-- (void)handleConnectionLost;
 
 @end
