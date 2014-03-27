@@ -36,6 +36,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    self.currentPassword.secureTextEntry = YES;
+    self.updatedPassword.secureTextEntry = YES;
+    self.confirmPassword.secureTextEntry = YES;
 }
 
 - (IBAction)submitClicked:(id)sender {
