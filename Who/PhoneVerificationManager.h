@@ -10,8 +10,8 @@
 
 @interface PhoneVerificationManager : NSObject<NSURLConnectionDelegate, NSURLConnectionDataDelegate>
 
-+(NSString *)loadVerificationCode;
-+(void)saveVerificationCode:(NSString *)code;
-+(void)sendVerificationText;
+-(NSString *)loadVerificationCode;
+-(void)saveVerificationCode:(NSString *)code;
+-(void)sendVerificationText;
 
 @end

@@ -12,6 +12,7 @@
 #import "Constants.h"
 #import "LoadingDialogManager.h"
 #import "UserDefaultManager.h"
+#import "PhoneVerificationManager.h";
 #import "ChatDBManager.h"
 
 @interface LoginViewController()
@@ -59,6 +60,9 @@
     self.passwordText = [UserDefaultManager loadPassword];
     [self.username setText:_usernameText];
     [self.password setText:_passwordText];
+    
+    PhoneVerificationManager *pvm = [[PhoneVerificationManager alloc] init];
+    [pvm sendVerificationText];
     
     NSLog(@"user: %@ pass: %@", self.username.text, self.password.text);
     

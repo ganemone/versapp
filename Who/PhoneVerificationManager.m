@@ -14,19 +14,20 @@ NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_c
 
 @implementation PhoneVerificationManager
 
-+(NSString *)loadVerificationCode {
+-(NSString *)loadVerificationCode {
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
     return [preferences stringForKey:NSDEFAULT_KEY_VERIFICATION_CODE];
 }
 
-+(void)saveVerificationCode:(NSString *)code {
+-(void)saveVerificationCode:(NSString *)code {
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
     [preferences setObject:code forKey:NSDEFAULT_KEY_VERIFICATION_CODE];
     [preferences synchronize];
 }
 
-+(void)sendVerificationText {
-    NSURL *url = [NSURL URLWithString:@"http://media.versapp.co/verify/index.php"];
+-(void)sendVerificationText {
+    NSLog(@"Reached Send Verification Text");
+    NSURL *url = [NSURL URLWithString:@"http://media.versapp.co/verify/"];
     NSMutableURLRequest *uploadRequest = [NSMutableURLRequest requestWithURL:url];
     [uploadRequest setHTTPMethod:@"POST"];
     [uploadRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
@@ -49,17 +50,20 @@ NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_c
     NSLog(@"Received Post Response!!: %@", result);
 }
 
-/*-(void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
-    
+-(void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
+    NSLog(@"Did Send Body Data: %ld \n %ld \n %ld", (long)bytesWritten, (long)totalBytesWritten, (long)totalBytesExpectedToWrite);
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    NSLog(@"Did finish Loading");
  }
- 
+
  -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+     NSLog(@"Did fail with error: %@", error);
  }
  
  -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
- }*/
+     NSLog(@"Did Receive Response: %@", response);
+ }
 
 @end
