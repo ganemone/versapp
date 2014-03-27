@@ -53,6 +53,7 @@
     self.ld = [LoadingDialogManager create:self.view];
     [self.username setDelegate:self];
     [self.password setDelegate:self];
+    self.password.secureTextEntry = YES;
     
     self.usernameText = [UserDefaultManager loadUsername];
     self.passwordText = [UserDefaultManager loadPassword];
