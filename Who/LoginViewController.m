@@ -12,7 +12,6 @@
 #import "Constants.h"
 #import "LoadingDialogManager.h"
 #import "UserDefaultManager.h"
-#import "PhoneVerificationManager.h"
 #import "ChatDBManager.h"
 
 @interface LoginViewController()
@@ -67,9 +66,6 @@
     }
     self.passwordText = [UserDefaultManager loadPassword];
     [self.password setText:_passwordText];
-    
-    PhoneVerificationManager *pvm = [[PhoneVerificationManager alloc] init];
-    [pvm sendVerificationText];
     
     NSString *file = [[NSBundle mainBundle] pathForResource:@"Countries" ofType:@"plist"];
     _countries = [NSArray arrayWithContentsOfFile:file];
