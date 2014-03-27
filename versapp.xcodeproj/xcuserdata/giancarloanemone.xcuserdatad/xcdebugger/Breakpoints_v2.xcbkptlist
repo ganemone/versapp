@@ -63,8 +63,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "191"
             endingLineNumber = "191"
-            landmarkName = "@implementation FriendsViewController"
-            landmarkType = "3">
+            landmarkName = "-handleFinishedInvitingUsersToMUC"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -95,8 +95,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "192"
             endingLineNumber = "192"
-            landmarkName = "-handleCreatedOneToOneChat:"
-            landmarkType = "5">
+            landmarkName = "@implementation FriendsViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -111,7 +111,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "190"
             endingLineNumber = "190"
-            landmarkName = "-handleFinishedInvitingUsersToMUC:"
+            landmarkName = "-handleFinishedInvitingUsersToMUC"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -32,7 +32,7 @@
     self.loadingDialogWithoutProgress.center = self.view.center;
     [self.view addSubview:self.loadingDialogWithoutProgress];
     [self.loadingDialogWithoutProgress bringSubviewToFront:self.view];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
+    //[UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
     self.didInitLoadingDialog = YES;
 }
 
@@ -45,7 +45,7 @@
 
 -(void)hideLoadingDialogWithoutProgress {
     [self.loadingDialogWithoutProgress stopAnimating];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
+//    [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
 }
 
 @end
