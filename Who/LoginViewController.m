@@ -51,13 +51,20 @@
     self.createVCardWhenAuthenticated = NO;
     self.cp = [ConnectionProvider getInstance];
     self.ld = [LoadingDialogManager create:self.view];
+    [_username setTag:0];
+    [_password setTag:1];
     [self.username setDelegate:self];
     [self.password setDelegate:self];
     self.password.secureTextEntry = YES;
     
     self.usernameText = [UserDefaultManager loadUsername];
+    NSRange range = [self.usernameText rangeOfString:@"-"];
+    if (range.location != NSNotFound) {
+        [self.username setText:[self.usernameText substringFromIndex:range.location+1]];
+    } else {
+        [self.username setText:_usernameText];
+    }
     self.passwordText = [UserDefaultManager loadPassword];
-    [self.username setText:_usernameText];
     [self.password setText:_passwordText];
     
     NSString *file = [[NSBundle mainBundle] pathForResource:@"Countries" ofType:@"plist"];
@@ -72,7 +79,6 @@
     if ([[UserDefaultManager loadCountry] length] != 0) {
         NSString *check = @"";
         for (NSDictionary *dict in _countries) {
-            NSLog(@"%@", [dict objectForKey:@"country"]);
             check = [dict objectForKey:@"country"];
             if ([check compare:[UserDefaultManager loadCountry]] == 0) {
                 row = [_countries indexOfObject:dict];
@@ -108,12 +114,10 @@
 
 - (void)login {
     [self.ld showLoadingDialogWithoutProgress];
-    if ([self.username.text rangeOfString:@"-"].location == NSNotFound) {
-        NSString *userWithCountryCode = [NSString stringWithFormat:@"%@-%@", _countryCode, self.username.text];
-        [self.cp connect:userWithCountryCode password:self.password.text];
-    } else {
-        [self.cp connect:self.username.text password:self.password.text];
-    }
+    NSArray *components = [_username.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
+    NSString *userWithCountryCode = [NSString stringWithFormat:@"%@-%@", _countryCode, [components componentsJoinedByString:@""]];
+    NSLog(@"%@", userWithCountryCode);
+    [self.cp connect:userWithCountryCode password:self.password.text];
 }
 
 - (void)createdVCard:(NSNotification *)notification {
@@ -154,6 +158,61 @@
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     _countryCode = [[_countries objectAtIndex:row] objectForKey:@"code"];
+}
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSString *originalString = [textField.text substringWithRange:range];
+    if (textField.tag == _username.tag) {
+        return [self validatePhoneFieldChangeFromString:originalString toString:string textField:textField range:range];
+    } else if (textField.tag == _password.tag) {
+        return [self validatePasswordFieldChangeFromString:originalString toString:string];
+    }
+    
+    return YES;
+}
+
+-(BOOL)validatePhoneFieldChangeFromString:(NSString*)originalString toString:(NSString*)string textField:(UITextField *)textField range:(NSRange)range {
+    
+    if (string.length == 0) {
+        return YES;
+    }
+    
+    NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    NSArray *components = [newString componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
+    NSString *decimalString = [components componentsJoinedByString:@""];
+    
+    NSUInteger length = decimalString.length;
+    
+    if (length == 0 || length > 10) {
+        textField.text = decimalString;
+        return NO;
+    }
+    
+    NSUInteger index = 0;
+    NSMutableString *formattedString = [NSMutableString string];
+    
+    if (length - index > 3) {
+        NSString *areaCode = [decimalString substringWithRange:NSMakeRange(index, 3)];
+        [formattedString appendFormat:@"(%@) ",areaCode];
+        index += 3;
+    }
+    
+    if (length - index > 3) {
+        NSString *prefix = [decimalString substringWithRange:NSMakeRange(index, 3)];
+        [formattedString appendFormat:@"%@-",prefix];
+        index += 3;
+    }
+    
+    NSString *remainder = [decimalString substringFromIndex:index];
+    [formattedString appendString:remainder];
+    
+    textField.text = formattedString;
+    
+    return NO;
+}
+
+-(BOOL)validatePasswordFieldChangeFromString:(NSString*)originalString toString:(NSString*)newString {
+    return YES;
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
