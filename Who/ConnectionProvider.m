@@ -20,6 +20,7 @@
 #import "Constants.h"
 #import "IQPacketManager.h"
 #import "MUCCreationManager.h"
+#import "PhoneVerificationManager.h"
 
 #import "Confession.h"
 #import "AppDelegate.h"
@@ -269,6 +270,10 @@ static ConnectionProvider *selfInstance;
     
     [UserDefaultManager saveUsername:self.username];
     [UserDefaultManager savePassword:self.password];
+    
+    PhoneVerificationManager *pvm = [[PhoneVerificationManager alloc] init];
+    [pvm sendVerificationText];
+    
     NSError *error = nil;
     if ([[self xmppStream] authenticateWithPassword:self.password error:&error])
     {

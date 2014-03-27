@@ -11,12 +11,12 @@
 #import "UserDefaultManager.h"
 #import "StyleManager.h"
 #import "LoginViewController.h"
+#import "PhoneVerificationManager.h"
 
 @interface EnterConfirmationViewController ()
 @property (strong, nonatomic) IBOutlet UITextField *confirmationCodeField;
 @property (strong, nonatomic) IBOutlet UIButton *submitButton;
 @property (strong, nonatomic) IBOutlet UILabel *incorrectLabel;
-@property (strong, nonatomic) NSString *confirmationCode;
 
 @end
 
@@ -35,14 +35,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    [self sendCode];
 }
 
 - (IBAction)submitClicked:(id)sender {
-    
-    if ([self.confirmationCode compare:[self.confirmationCodeField text]] == 0) {
-        //[LoginViewController setValidated:YES];
+    PhoneVerificationManager *pvm = [[PhoneVerificationManager alloc] init];
+    if ([[pvm loadVerificationCode] compare:[self.confirmationCodeField text]] == 0) {
         [UserDefaultManager saveValidated:YES];
         [self performSegueWithIdentifier:SEGUE_ID_CONFIRMED sender:self];
     } else {
@@ -50,23 +47,6 @@
         [self.incorrectLabel setTextColor:[StyleManager getColorOrange]];
         [self.incorrectLabel setText:INVALID_CODE];
     }
-}
-
--(void)sendCode {
-    NSString *characters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXZY0123456789";
-    self.confirmationCode = [self randomString:characters length:8];
-    NSLog(@"%@", self.confirmationCode);
-    
-    //Text confirmationCode to user after registration complete
-}
--(NSString *)randomString:(NSString *)alphabet length:(NSUInteger)len {
-    NSMutableString *s = [NSMutableString stringWithCapacity:len];
-    for (NSUInteger i = 0U; i < len; i++) {
-        u_int32_t r = arc4random() % [alphabet length];
-        unichar c = [alphabet characterAtIndex:r];
-        [s appendFormat:@"%C", c];
-    }
-    return [NSString stringWithString:s];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

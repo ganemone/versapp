@@ -12,7 +12,6 @@
 #import "Constants.h"
 #import "LoadingDialogManager.h"
 #import "UserDefaultManager.h"
-#import "PhoneVerificationManager.h"
 #import "ChatDBManager.h"
 
 @interface LoginViewController()

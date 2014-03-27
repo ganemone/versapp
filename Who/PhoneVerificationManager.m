@@ -34,6 +34,7 @@ NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_c
     NSString *phone = [UserDefaultManager loadUsername];
     NSString *country = [UserDefaultManager loadCountryCode];
     NSString *code = [NSString stringWithFormat:@"%d%d%d%d", arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9)];
+    [self saveVerificationCode:code];
     NSString *postString = [NSString stringWithFormat:@"phone=%@&country=%@&code=%@",phone, country, code];
     postString = [postString stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
     NSData *postData = [NSData dataWithBytes:[postString UTF8String] length:[postString length]];
