@@ -11,6 +11,9 @@
 
 @interface LoginViewController : UIViewController <XMPPStreamDelegate, UITextFieldDelegate>
 
++(BOOL)validated;
++(void)setValidated:(BOOL)valid;
+
 -(void)authenticated;
 
 @end

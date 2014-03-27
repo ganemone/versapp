@@ -22,5 +22,7 @@ extern NSString *const NSDEFAULT_KEY_USERNAME;
 +(NSString *)loadEmail;
 +(void)saveName:(NSString *)name;
 +(void)saveEmail:(NSString *)email;
+//+(void)saveValidated:(BOOL)valid;
+//+(BOOL)isValidated;
 
 @end

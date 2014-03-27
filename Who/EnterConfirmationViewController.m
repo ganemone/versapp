@@ -8,10 +8,15 @@
 
 #import "EnterConfirmationViewController.h"
 #import "Constants.h"
+#import "UserDefaultManager.h"
+#import "StyleManager.h"
+#import "LoginViewController.h"
 
 @interface EnterConfirmationViewController ()
 @property (strong, nonatomic) IBOutlet UITextField *confirmationCodeField;
 @property (strong, nonatomic) IBOutlet UIButton *submitButton;
+@property (strong, nonatomic) IBOutlet UILabel *incorrectLabel;
+@property (strong, nonatomic) NSString *confirmationCode;
 
 @end
 
@@ -30,13 +35,38 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self sendCode];
 }
 
 - (IBAction)submitClicked:(id)sender {
     
-    //VERIFY THAT CODES MATCH
-     
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    if ([self.confirmationCode compare:[self.confirmationCodeField text]] == 0) {
+        //[UserDefaultManager saveValidated:YES];
+        [LoginViewController setValidated:YES];
+        [self performSegueWithIdentifier:SEGUE_ID_CONFIRMED sender:self];
+    } else {
+        [self.incorrectLabel setFont:[StyleManager getFontStyleBoldSizeMed]];
+        [self.incorrectLabel setTextColor:[StyleManager getColorOrange]];
+        [self.incorrectLabel setText:INVALID_CODE];
+    }
+}
+
+-(void)sendCode {
+    NSString *characters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXZY0123456789";
+    self.confirmationCode = [self randomString:characters length:8];
+    NSLog(@"%@", self.confirmationCode);
+    
+    //Text confirmationCode to user
+}
+-(NSString *)randomString:(NSString *)alphabet length:(NSUInteger)len {
+    NSMutableString *s = [NSMutableString stringWithCapacity:len];
+    for (NSUInteger i = 0U; i < len; i++) {
+        u_int32_t r = arc4random() % [alphabet length];
+        unichar c = [alphabet characterAtIndex:r];
+        [s appendFormat:@"%C", c];
+    }
+    return [NSString stringWithString:s];
 }
 
 - (void)didReceiveMemoryWarning

@@ -48,6 +48,7 @@ NSString *const VCARD_TAG_USERNAME = @"USERNAME";
 NSString *const VCARD_TAG_NICKNAME = @"NICKNAME";
 NSString *const VCARD_TAG_EMAIL = @"EMAIL";
 NSString *const USER_DEFAULTS_PASSWORD = @"password";
+NSString *const USER_DEFAULTS_VALID = @"validated";
 
 NSString *const CHAT_TYPE_GROUP = @"groupchat";
 NSString *const CHAT_TYPE_ONE_TO_ONE = @"chat";
@@ -175,5 +176,7 @@ NSString *const REPORT_ABUSE = @"Report Abuse";
 NSString *const REPORT_CONFIRM_BLOCK = @"Block sender!";
 NSString *const REPORT_CONFIRM_ABUSE = @"Report abuse!";
 
+NSString *const INVALID_CODE = @"Incorrect Code...try again.";
+NSString *const NOT_VALIDATED = @"Phone number not yet confirmed.";
 
 @end
