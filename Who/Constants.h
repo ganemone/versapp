@@ -47,6 +47,7 @@ extern NSString *const VCARD_TAG_NICKNAME;
 extern NSString *const VCARD_TAG_EMAIL;
 extern NSString *const USER_DEFAULTS_PASSWORD;
 extern NSString *const USER_DEFAULTS_VALID;
+extern NSString *const USER_DEFAULTS_COUNTRY;
 
 extern NSString *const CHAT_TYPE_GROUP;
 extern NSString *const CHAT_TYPE_ONE_TO_ONE;

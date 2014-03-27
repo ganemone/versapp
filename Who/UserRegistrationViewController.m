@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIPickerView *countryPicker;
 @property (strong, nonatomic) ConnectionProvider *cp;
 @property (strong, nonatomic) NSString *countryCode;
+@property (strong, nonatomic) NSString *country;
 @property (strong, nonatomic) NSArray *countries;
 
 @end
@@ -95,6 +96,7 @@
     
     NSArray *components = [_phoneField.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
     [UserDefaultManager saveCountryCode:_countryCode];
+    [UserDefaultManager saveCountry:_country];
     NSString *username = [NSString stringWithFormat:@"%@-%@", _countryCode, [components componentsJoinedByString:@""]];
     NSArray *name = [_nameField.text componentsSeparatedByString:@" "];
     if (name.count < 2) {
@@ -213,6 +215,7 @@
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     _countryCode = [[_countries objectAtIndex:row] objectForKey:@"code"];
+    _country = [[_countries objectAtIndex:row] objectForKey:@"country"];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

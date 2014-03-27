@@ -98,5 +98,16 @@ NSString *const NSDEFAULT_KEY_COUNTRY_CODE = @"nsdefault_key_country_code";
     }
 }
 
++(void)saveCountry:(NSString *)country {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setObject:country forKey:USER_DEFAULTS_COUNTRY];
+    [preferences synchronize];
+}
+
++(NSString *)loadCountry {
+    NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
+    return [preferences stringForKey:USER_DEFAULTS_COUNTRY];
+}
+
 
 @end

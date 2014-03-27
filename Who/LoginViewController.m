@@ -60,8 +60,6 @@
     [self.username setText:_usernameText];
     [self.password setText:_passwordText];
     
-    NSLog(@"user: %@ pass: %@", self.username.text, self.password.text);
-    
     NSString *file = [[NSBundle mainBundle] pathForResource:@"Countries" ofType:@"plist"];
     _countries = [NSArray arrayWithContentsOfFile:file];
     
@@ -71,12 +69,14 @@
     _countryCode = @"1";
     NSInteger row = 218;
     
-    if ([UserDefaultManager loadCountryCode] != nil) {
-        NSNumber  *storedCode = [NSNumber numberWithInteger:[[UserDefaultManager loadCountryCode] integerValue]];
+    if ([[UserDefaultManager loadCountry] length] != 0) {
+        NSString *check = @"";
         for (NSDictionary *dict in _countries) {
-            if ([dict objectForKey:@"code"] == storedCode) {
-                _countryCode = [dict objectForKey:@"code"];
+            NSLog(@"%@", [dict objectForKey:@"country"]);
+            check = [dict objectForKey:@"country"];
+            if ([check compare:[UserDefaultManager loadCountry]] == 0) {
                 row = [_countries indexOfObject:dict];
+                _countryCode = [dict objectForKey:@"code"];
                 break;
             }
         }
