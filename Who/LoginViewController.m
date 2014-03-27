@@ -24,6 +24,9 @@
 @property (strong, nonatomic) NSString *usernameText;
 @property (strong, nonatomic) NSString *passwordText;
 @property (strong, nonatomic) IBOutlet UILabel *message;
+@property (weak, nonatomic) IBOutlet UIPickerView *countryPicker;
+@property (strong, nonatomic) NSString *countryCode;
+@property (strong, nonatomic) NSArray *countries;
 
 @property BOOL createVCardWhenAuthenticated;
 @property (strong, nonatomic) ConnectionProvider *cp;
@@ -58,6 +61,27 @@ static BOOL validated;
     [self.username setText:_usernameText];
     [self.password setText:_passwordText];
     
+    NSString *file = [[NSBundle mainBundle] pathForResource:@"Countries" ofType:@"plist"];
+    _countries = [NSArray arrayWithContentsOfFile:file];
+    
+    [self.countryPicker setDataSource:self];
+    [self.countryPicker setDelegate:self];
+    
+    _countryCode = @"1";
+    NSInteger row = 218;
+    
+    if ([UserDefaultManager loadCountryCode] != nil) {
+        NSNumber  *storedCode = [NSNumber numberWithInteger:[[UserDefaultManager loadCountryCode] integerValue]];
+        for (NSDictionary *dict in _countries) {
+            if ([dict objectForKey:@"code"] == storedCode) {
+                _countryCode = [dict objectForKey:@"code"];
+                row = [_countries indexOfObject:dict];
+                break;
+            }
+        }
+    }
+    
+    [self.countryPicker selectRow:row inComponent:0 animated:NO];
 }
 
 -(void)authenticated
@@ -83,7 +107,12 @@ static BOOL validated;
 
 - (void)login {
     [self.ld showLoadingDialogWithoutProgress];
-    [self.cp connect:self.username.text password:self.password.text];
+    if ([self.username.text rangeOfString:@"-"].location == NSNotFound) {
+        NSString *userWithCountryCode = [NSString stringWithFormat:@"%@-%@", _countryCode, self.username.text];
+        [self.cp connect:userWithCountryCode password:self.password.text];
+    } else {
+        [self.cp connect:self.username.text password:self.password.text];
+    }
 }
 
 - (void)createdVCard:(NSNotification *)notification {
@@ -116,6 +145,26 @@ static BOOL validated;
 
 +(void)setValidated:(BOOL)valid {
     validated = valid;
+}
+
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return [_countries count];
+}
+
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return [[_countries objectAtIndex:row] objectForKey:@"country"];
+}
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    _countryCode = [[_countries objectAtIndex:row] objectForKey:@"code"];
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
 }
 
 @end

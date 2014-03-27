@@ -138,7 +138,7 @@ int const STATUS_INACTIVE = 2;
 int const STATUS_REQUEST_REJECTED = 3;
 
 NSString *const NOTIFICATIONS = @"Notifications";
-NSString *const NO_NOTIFICATIONS = @"No Notifications";
+NSString *const NO_NOTIFICATIONS = @"You have no notifications";
 NSString *const NOTIFICATIONS_GROUP = @"Group Invitations";
 NSString *const NOTIFICATIONS_FRIEND = @"Friend Requests";
 NSString *const ANONYMOUS_FRIEND = @"Anonymous Friend";

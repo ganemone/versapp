@@ -63,6 +63,7 @@
     [self.countryPicker setDataSource:self];
     [self.countryPicker setDelegate:self];
     [self.countryPicker selectRow:218 inComponent:0 animated:NO];
+    _countryCode = @"1";
     
     self.cp = [ConnectionProvider getInstance];
 }
@@ -92,7 +93,8 @@
     [LoginViewController setValidated:NO];
     
     NSArray *components = [_phoneField.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
-    NSString *username = [components componentsJoinedByString:@""];
+    [UserDefaultManager saveCountryCode:_countryCode];
+    NSString *username = [NSString stringWithFormat:@"%@-%@", _countryCode, [components componentsJoinedByString:@""]];
     NSArray *name = [_nameField.text componentsSeparatedByString:@" "];
     if (name.count < 2) {
         // Handle failed name validation
@@ -210,6 +212,10 @@
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     _countryCode = [[_countries objectAtIndex:row] objectForKey:@"code"];
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
 }
 
 - (IBAction)backToLogin:(id)sender {

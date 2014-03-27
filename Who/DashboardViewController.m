@@ -349,7 +349,7 @@
     if ([self.friendRequests count] + [self.groupInvites count] == 0) {
         self.notificationsHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5)];
         UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height*0.25, 280, 21)];
-        [notificationsLabel setText:@"You have no notifications"];
+        [notificationsLabel setText:NO_NOTIFICATIONS];
         [notificationsLabel setTextAlignment:NSTextAlignmentCenter];
         [notificationsLabel setFont:[StyleManager getFontStyleLightSizeXL]];
         [notificationsLabel setTextColor:[StyleManager getColorBlue]];
