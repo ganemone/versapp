@@ -16,14 +16,16 @@
 @property (strong, nonatomic) NSString *imageURL;
 @property (strong, nonatomic) NSString *createdTimestamp;
 @property (strong, nonatomic) NSMutableArray *favoritedUsers;
+@property CGFloat height;
 @property CGRect cellFrame;
-@property CGRect textFrame;
-@property CGRect footerFrame;
-@property CGRect chatButtonFrame;
-@property CGRect chatLabelFrame;
-@property CGRect favoriteButtonFrame;
-@property CGRect favoriteLabelFrame;
-@property CGRect timestampLabelFrame;
+@property (strong, nonatomic) UITextView *textView;
+@property (strong, nonatomic) UIImageView *footerView;
+@property (strong, nonatomic) UIButton *chatButton;
+@property (strong, nonatomic) UIButton *favoriteButton;
+@property (strong, nonatomic) UILabel *chatLabel;
+@property (strong, nonatomic) UILabel *favoriteLabel;
+@property (strong, nonatomic) UILabel *timestampLabel;
+
 @property BOOL hasCalculatedFrames;
 
 +(instancetype)create:(NSString*)body imageURL:(NSString*)imageURL;

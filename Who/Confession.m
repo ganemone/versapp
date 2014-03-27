@@ -42,29 +42,44 @@
     CGFloat cellHeight = [self heightForConfession];
     CGFloat textHeight = cellHeight - 50;
     _cellFrame = CGRectMake(cellX, cellY, contentSize.width - 2*cellX, cellHeight);
-    _textFrame = CGRectMake(cellX, cellY, contentSize.width - 2*cellX, textHeight);
-    _footerFrame = CGRectMake(cellX, textHeight, contentSize.width - 2*cellX, _cellFrame.size.width * 0.1176);
-    _timestampLabelFrame = CGRectMake(cellX, textHeight - 15.0f, contentSize.width - 25.0f, 15.0f);
+    CGRect textFrame = CGRectMake(cellX, cellY, contentSize.width - 2*cellX, textHeight);
+    _textView = [[UITextView alloc] initWithFrame:textFrame];
+    
+    CGRect footerFrame = CGRectMake(cellX, textHeight, contentSize.width - 2*cellX, _cellFrame.size.width * 0.1176);
+    _footerView = [[UIImageView alloc] initWithFrame:footerFrame];
+    CGRect timestampLabelFrame = CGRectMake(cellX, textHeight - 15.0f, contentSize.width - 25.0f, 15.0f);
+    _timestampLabel = [[UILabel alloc] initWithFrame:timestampLabelFrame];
     // Configuring Chat Buttons
     CGFloat iconSize = 25.0f, paddingSmall = 5.0f;
     CGFloat labelWidth = (contentSize.width - 2.0f * cellX) / 2.0f;
-    _chatButtonFrame = CGRectMake(cellX + paddingSmall, textHeight + paddingSmall, iconSize, iconSize);
-    _chatLabelFrame = CGRectMake(cellX + iconSize + 2 * paddingSmall, textHeight + paddingSmall, labelWidth, iconSize);
 
+    CGRect chatButtonFrame = CGRectMake(cellX + paddingSmall, textHeight + paddingSmall, iconSize, iconSize);
+    CGRect chatLabelFrame = CGRectMake(cellX + iconSize + 2 * paddingSmall, textHeight + paddingSmall, labelWidth, iconSize);
+    _chatButton = [[UIButton alloc] initWithFrame:chatButtonFrame];
+    _chatLabel = [[UILabel alloc] initWithFrame:chatLabelFrame];
+
+    
     // Configure Favorites
-    _favoriteButtonFrame = CGRectMake(contentSize.width - iconSize - cellX - 2 * paddingSmall, textHeight + paddingSmall, iconSize, iconSize);
-    _favoriteLabelFrame = CGRectMake(contentSize.width / 2 + iconSize, textHeight + paddingSmall, labelWidth, iconSize);
+    CGRect favoriteButtonFrame = CGRectMake(contentSize.width - iconSize - cellX - 2 * paddingSmall, textHeight + paddingSmall, iconSize, iconSize);
+    CGRect favoriteLabelFrame = CGRectMake(contentSize.width / 2 + iconSize, textHeight + paddingSmall, labelWidth, iconSize);
+    _favoriteButton = [[UIButton alloc] initWithFrame:favoriteButtonFrame];
+    _favoriteLabel = [[UILabel alloc] initWithFrame:favoriteLabelFrame];
+    
+    UITapGestureRecognizer *chatTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startChat)];
+    [_chatLabel addGestureRecognizer:chatTap];
     _hasCalculatedFrames = YES;
 }
 
 - (CGFloat)heightForConfession {
+    if (_height > 0.0f) {
+        return _height;
+    }
     UIFont *cellFont = [StyleManager getFontStyleLightSizeMed];
     CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
-    //    CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
-    //CGSize labelSize = [_body sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:cellFont, NSFontAttributeName, nil]];
     NSStringDrawingContext *ctx = [NSStringDrawingContext new];
     CGRect textRect = [_body boundingRectWithSize:constraintSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:ctx];
-    return textRect.size.height + 80.0f;
+    _height = textRect.size.height + 80.0f;
+    return _height;
 }
 
 -(void)encodeBody {

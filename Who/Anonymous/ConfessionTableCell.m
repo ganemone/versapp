@@ -18,8 +18,17 @@
 
 @implementation ConfessionTableCell
 
+static UIImage *footerImage;
+static UIEdgeInsets insets;
+static UITapGestureRecognizer *favoriteTap;
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
+    if (footerImage == nil) {
+        footerImage = [UIImage imageNamed:@"confession-cell-bottom.png"];
+        insets = UIEdgeInsetsMake(5.0f, 5.0f, 5.0f, 5.0f);
+        favoriteTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleConfessionFavorited:)];
+    }
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self setup];
@@ -52,8 +61,8 @@
         UIView *backgroundView = [[UIImageView alloc] initWithFrame:confession.cellFrame];
         
         // Configure textview
-        UITextView *textView = [[UITextView alloc] initWithFrame:confession.textFrame];
-        textView.textContainerInset = UIEdgeInsetsMake(5.0f, 5.0f, 5.0f, 5.0f);
+        UITextView *textView = confession.textView;
+        [textView setTextContainerInset:insets];
         [textView setText:[confession body]];
         [textView setTextColor:[UIColor blackColor]];
         [textView setFont:[StyleManager getFontStyleLightSizeMed]];
@@ -61,31 +70,29 @@
         [textView setEditable:NO];
         
         // Configure Timstamp
-        UILabel *timestampLabel = [[UILabel alloc] initWithFrame:confession.timestampLabelFrame];
+        UILabel *timestampLabel = confession.timestampLabel;
         [timestampLabel setFont:[StyleManager getFontStyleLightSizeSmall]];
         [timestampLabel setTextColor:[StyleManager getColorOrange]];
         [timestampLabel setTextAlignment:NSTextAlignmentRight];
         
         // Configure Footer View
-        UIImageView *footer = [[UIImageView alloc] initWithFrame:confession.footerFrame];
-        [footer setImage:[UIImage imageNamed:@"confession-cell-bottom.png"]];
+        UIImageView *footer = confession.footerView;
+        [footer setImage: footerImage];
         
         // Configuring Chat Buttons
-        UIButton *createChatButton = [[UIButton alloc] initWithFrame:confession.chatButtonFrame];
-        [createChatButton addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
-        UILabel *createChatLabel = [[UILabel alloc] initWithFrame:confession.chatLabelFrame];
-        UITapGestureRecognizer *chatTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleConfessionChatStarted:)];
+        UIButton *createChatButton = confession.chatButton;
+        //[createChatButton addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
+        UILabel *createChatLabel = confession.chatLabel;
         [createChatLabel setUserInteractionEnabled:YES];
-        [createChatLabel addGestureRecognizer:chatTap];
         [createChatLabel setText:@"Chat"];
         [createChatLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
         
         // Configure Favorites
-        UIButton *favoriteButton = [[UIButton alloc] initWithFrame:confession.favoriteButtonFrame];
+        UIButton *favoriteButton = confession.favoriteButton;
         [favoriteButton addTarget:self action:@selector(handleConfessionFavorited:) forControlEvents:UIControlEventTouchUpInside];
-        UILabel *favoriteLabel = [[UILabel alloc] initWithFrame:confession.favoriteLabelFrame];
+        UILabel *favoriteLabel = confession.favoriteLabel;
         [favoriteLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
-        UITapGestureRecognizer *favoriteTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleConfessionFavorited:)];
+        
         [favoriteLabel setUserInteractionEnabled:YES];
         [favoriteLabel addGestureRecognizer:favoriteTap];
         
