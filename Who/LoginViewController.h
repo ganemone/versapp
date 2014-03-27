@@ -11,9 +11,6 @@
 
 @interface LoginViewController : UIViewController <XMPPStreamDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 
-+(BOOL)validated;
-+(void)setValidated:(BOOL)valid;
-
 -(void)authenticated;
 
 @end

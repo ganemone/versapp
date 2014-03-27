@@ -36,8 +36,6 @@
 
 @end
 
-static BOOL validated;
-
 @implementation LoginViewController
 
 - (void)viewDidLoad
@@ -60,6 +58,8 @@ static BOOL validated;
     self.passwordText = [UserDefaultManager loadPassword];
     [self.username setText:_usernameText];
     [self.password setText:_passwordText];
+    
+    NSLog(@"user: %@ pass: %@", self.username.text, self.password.text);
     
     NSString *file = [[NSBundle mainBundle] pathForResource:@"Countries" ofType:@"plist"];
     _countries = [NSArray arrayWithContentsOfFile:file];
@@ -91,7 +91,7 @@ static BOOL validated;
 }
 
 - (IBAction)loginClick:(id)sender {
-    if (validated) {
+    if ([UserDefaultManager isValidated]) {
         self.passwordText = self.password.text;
         self.usernameText = self.username.text;
         
@@ -137,14 +137,6 @@ static BOOL validated;
     [alert show];
     [_ld hideLoadingDialogWithoutProgress];
     self.passwordText = @"";
-}
-
-+(BOOL)validated {
-    return validated;
-}
-
-+(void)setValidated:(BOOL)valid {
-    validated = valid;
 }
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {

@@ -42,8 +42,8 @@
 - (IBAction)submitClicked:(id)sender {
     
     if ([self.confirmationCode compare:[self.confirmationCodeField text]] == 0) {
-        //[UserDefaultManager saveValidated:YES];
-        [LoginViewController setValidated:YES];
+        //[LoginViewController setValidated:YES];
+        [UserDefaultManager saveValidated:YES];
         [self performSegueWithIdentifier:SEGUE_ID_CONFIRMED sender:self];
     } else {
         [self.incorrectLabel setFont:[StyleManager getFontStyleBoldSizeMed]];

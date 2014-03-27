@@ -90,7 +90,8 @@
 }
 
 - (IBAction)register:(id)sender {
-    [LoginViewController setValidated:NO];
+    //[LoginViewController setValidated:NO];
+    [UserDefaultManager saveValidated:NO];
     
     NSArray *components = [_phoneField.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
     [UserDefaultManager saveCountryCode:_countryCode];
