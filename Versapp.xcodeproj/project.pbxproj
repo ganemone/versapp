@@ -85,6 +85,8 @@
 		3A59D5EE18B2F2FE00CE7B7B /* RNBlurModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A59D5ED18B2F2FE00CE7B7B /* RNBlurModalView.m */; };
 		3A59D5F118B2F32200CE7B7B /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A59D5F018B2F32200CE7B7B /* Accelerate.framework */; };
 		3A67DB4C18E4AA4100DA6691 /* PhoneVerificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A67DB4B18E4AA4100DA6691 /* PhoneVerificationManager.m */; };
+		3A67DB4F18E4D08200DA6691 /* ConnectionHandlingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A67DB4E18E4D08200DA6691 /* ConnectionHandlingViewController.m */; };
+		3A67DB5218E4D64700DA6691 /* ConnectionLostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A67DB5118E4D64700DA6691 /* ConnectionLostViewController.m */; };
 		3A6C3BBB1884AD61003B162B /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6C3BBA1884AD61003B162B /* LoginViewController.m */; };
 		3A720CB418A1C2E200423959 /* MUCCreationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A720CB318A1C2E200423959 /* MUCCreationManager.m */; };
 		3A720CB718A28DAD00423959 /* PresencePacketReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A720CB618A28DAD00423959 /* PresencePacketReceiver.m */; };
@@ -379,6 +381,10 @@
 		3A59D5F018B2F32200CE7B7B /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		3A67DB4A18E4AA4100DA6691 /* PhoneVerificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhoneVerificationManager.h; sourceTree = "<group>"; };
 		3A67DB4B18E4AA4100DA6691 /* PhoneVerificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhoneVerificationManager.m; sourceTree = "<group>"; };
+		3A67DB4D18E4D08200DA6691 /* ConnectionHandlingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionHandlingViewController.h; sourceTree = "<group>"; };
+		3A67DB4E18E4D08200DA6691 /* ConnectionHandlingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionHandlingViewController.m; sourceTree = "<group>"; };
+		3A67DB5018E4D64700DA6691 /* ConnectionLostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionLostViewController.h; sourceTree = "<group>"; };
+		3A67DB5118E4D64700DA6691 /* ConnectionLostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionLostViewController.m; sourceTree = "<group>"; };
 		3A6C3BB91884AD61003B162B /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		3A6C3BBA1884AD61003B162B /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		3A720CB118A1C1D400423959 /* XMPPFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPFramework.h; path = Who/XMPPFramework.h; sourceTree = "<group>"; };
@@ -813,6 +819,10 @@
 				3A0FE1CC18A9B6DA003692EB /* Resources */,
 				3A67DB4A18E4AA4100DA6691 /* PhoneVerificationManager.h */,
 				3A67DB4B18E4AA4100DA6691 /* PhoneVerificationManager.m */,
+				3A67DB5018E4D64700DA6691 /* ConnectionLostViewController.h */,
+				3A67DB5118E4D64700DA6691 /* ConnectionLostViewController.m */,
+				3A67DB4D18E4D08200DA6691 /* ConnectionHandlingViewController.h */,
+				3A67DB4E18E4D08200DA6691 /* ConnectionHandlingViewController.m */,
 			);
 			path = Who;
 			sourceTree = "<group>";
@@ -1961,6 +1971,7 @@
 				3A7D69F31896F12100E18B45 /* OneToOneConversationViewController.m in Sources */,
 				3A3A0ADE18AB1126006FBAE4 /* JSBubbleImageViewFactory.m in Sources */,
 				3AAE9B1A1894A049003B4560 /* ConversationViewController.m in Sources */,
+				3A67DB4F18E4D08200DA6691 /* ConnectionHandlingViewController.m in Sources */,
 				F744856318DB61C500460FBC /* SWTableViewCell.m in Sources */,
 				3AB9E67E18A45573001EFDB8 /* LoadingDialogManager.m in Sources */,
 				3AFF778718C415BE003277F9 /* FriendMO.m in Sources */,
@@ -2080,6 +2091,7 @@
 				3A98D9E818BD1A2600B69049 /* XMPPRoomMessageCoreDataStorageObject.m in Sources */,
 				3A98DA6418BD1A7E00B69049 /* XMPPXOAuth2Google.m in Sources */,
 				3A98DA6318BD1A7E00B69049 /* XMPPXFacebookPlatformAuthentication.m in Sources */,
+				3A67DB5218E4D64700DA6691 /* ConnectionLostViewController.m in Sources */,
 				3AF19A6A1881F34A00F3E4D3 /* DDXMLElement.m in Sources */,
 				F751016818ABE101001F1E7F /* IASKSlider.m in Sources */,
 				3A98DA1F18BD1A2600B69049 /* XMPPPing.m in Sources */,
@@ -2229,12 +2241,12 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios;
+				FRAMEWORK_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/Versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios/who;
+				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
 				PRODUCT_NAME = Versapp;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -2246,12 +2258,12 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios;
+				FRAMEWORK_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/Versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios/who;
+				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
 				PRODUCT_NAME = Versapp;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;

@@ -22,6 +22,7 @@ NSString *const NSDEFAULT_KEY_COUNTRY_CODE = @"nsdefault_key_country_code";
 }
 
 +(void)saveUsername:(NSString *)username {
+    
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
     [preferences setObject:username forKey:NSDEFAULT_KEY_USERNAME];
     [preferences synchronize];

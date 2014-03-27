@@ -69,6 +69,10 @@
     [self.tableView reloadData];
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
 - (IBAction)arrowClicked:(id)sender {
     NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                               [NSNumber numberWithInt:UIPageViewControllerNavigationDirectionForward], @"direction", nil];

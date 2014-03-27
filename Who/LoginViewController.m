@@ -68,9 +68,6 @@
     self.passwordText = [UserDefaultManager loadPassword];
     [self.password setText:_passwordText];
     
-    PhoneVerificationManager *pvm = [[PhoneVerificationManager alloc] init];
-    [pvm sendVerificationText];
-    
     NSString *file = [[NSBundle mainBundle] pathForResource:@"Countries" ofType:@"plist"];
     _countries = [NSArray arrayWithContentsOfFile:file];
     
@@ -105,10 +102,6 @@
     if ([UserDefaultManager isValidated]) {
         self.passwordText = self.password.text;
         self.usernameText = self.username.text;
-        
-        [UserDefaultManager savePassword:self.passwordText];
-        [UserDefaultManager saveUsername:self.usernameText];
-        
         [self login];
     } else {
         [self.message setText:NOT_VALIDATED];
@@ -120,6 +113,10 @@
     [self.ld showLoadingDialogWithoutProgress];
     NSArray *components = [_username.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
     NSString *userWithCountryCode = [NSString stringWithFormat:@"%@-%@", _countryCode, [components componentsJoinedByString:@""]];
+    
+    [UserDefaultManager savePassword:self.passwordText];
+    [UserDefaultManager saveUsername:userWithCountryCode];
+    
     NSLog(@"%@", userWithCountryCode);
     [self.cp connect:userWithCountryCode password:self.password.text];
 }
