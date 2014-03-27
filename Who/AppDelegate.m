@@ -87,13 +87,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Let the device know we want to receive push notifications
-	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+	//[[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+    // (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
     return YES;
 }
 
-- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+/*- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
 	NSLog(@"My token is: %@", deviceToken);
 }
@@ -102,10 +102,7 @@
 {
 	NSLog(@"Failed to get token, error: %@", error);
 }
-
-- (void)handleConnectionLost {
-    NSLog(@"Current Root View Controller: %@", [[self.window.rootViewController class] description]);
-}
+*/
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -156,13 +153,13 @@
     [self saveContext];
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+/*- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     NSLog(@"didReceiveRemoteNotification");
     
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.alertBody = @"Test Notification";
     [application presentLocalNotificationNow:notification];
     completionHandler(UIBackgroundFetchResultNewData);
-}
+}*/
 
 @end

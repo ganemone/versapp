@@ -150,43 +150,15 @@
 }
 
 -(BOOL)validatePhoneFieldChangeFromString:(NSString*)originalString toString:(NSString*)string textField:(UITextField *)textField range:(NSRange)range {
-    
     if (string.length == 0) {
         return YES;
     }
-    
-    NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
-    NSArray *components = [newString componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
-    NSString *decimalString = [components componentsJoinedByString:@""];
-    
-    NSUInteger length = decimalString.length;
-    
-    if (length == 0 || length > 10) {
-        textField.text = decimalString;
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^0-9]" options:NSRegularExpressionCaseInsensitive error:&error];
+    if ([regex matchesInString:string options:0 range:NSMakeRange(0, string.length)].count > 0) {
         return NO;
     }
-    
-    NSUInteger index = 0;
-    NSMutableString *formattedString = [NSMutableString string];
-    
-    if (length - index > 3) {
-        NSString *areaCode = [decimalString substringWithRange:NSMakeRange(index, 3)];
-        [formattedString appendFormat:@"(%@) ",areaCode];
-        index += 3;
-    }
-    
-    if (length - index > 3) {
-        NSString *prefix = [decimalString substringWithRange:NSMakeRange(index, 3)];
-        [formattedString appendFormat:@"%@-",prefix];
-        index += 3;
-    }
-    
-    NSString *remainder = [decimalString substringFromIndex:index];
-    [formattedString appendString:remainder];
-    
-    textField.text = formattedString;
-    
-    return NO;
+    return YES;
 }
 
 -(BOOL)validateEmailFieldChangeFromString:(NSString*)originalString toString:(NSString*)newString {

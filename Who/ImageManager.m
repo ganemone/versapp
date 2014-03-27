@@ -90,7 +90,7 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
     [self.delegate didFinishUploadingImage:self.uploadingImage toURL:imageURL];
 }
 
--(void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
+/*-(void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection {
@@ -100,6 +100,6 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-}
+}*/
 
 @end
