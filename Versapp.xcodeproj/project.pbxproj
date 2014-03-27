@@ -295,7 +295,7 @@
 		3A25B6361881E03700166623 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3A25B6381881E03700166623 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		3A25B63A1881E03700166623 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		3A25B63E1881E03700166623 /* versapp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "versapp-Info.plist"; sourceTree = "<group>"; };
+		3A25B63E1881E03700166623 /* Versapp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Versapp-Info.plist"; sourceTree = "<group>"; };
 		3A25B6401881E03700166623 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3A25B6421881E03700166623 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3A25B6441881E03700166623 /* Who-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Who-Prefix.pch"; sourceTree = "<group>"; };
@@ -303,9 +303,9 @@
 		3A25B6461881E03700166623 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		3A25B6491881E03700166623 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3A25B6511881E03700166623 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		3A25B6571881E03700166623 /* versappTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = versappTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A25B6571881E03700166623 /* VersappTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VersappTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A25B6581881E03700166623 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		3A25B6601881E03700166623 /* versappTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "versappTests-Info.plist"; sourceTree = "<group>"; };
+		3A25B6601881E03700166623 /* VersappTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VersappTests-Info.plist"; sourceTree = "<group>"; };
 		3A25B6621881E03700166623 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3A25B6641881E03700166623 /* WhoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WhoTests.m; sourceTree = "<group>"; };
 		3A25B6711881E83500166623 /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
@@ -762,7 +762,7 @@
 			isa = PBXGroup;
 			children = (
 				3A25B6331881E03700166623 /* Versapp.app */,
-				3A25B6571881E03700166623 /* versappTests.xctest */,
+				3A25B6571881E03700166623 /* VersappTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -816,7 +816,7 @@
 			isa = PBXGroup;
 			children = (
 				3AD8F48218DCCB7D002C399C /* Countries.plist */,
-				3A25B63E1881E03700166623 /* versapp-Info.plist */,
+				3A25B63E1881E03700166623 /* Versapp-Info.plist */,
 				3A25B63F1881E03700166623 /* InfoPlist.strings */,
 				3A25B6421881E03700166623 /* main.m */,
 				3A25B6441881E03700166623 /* Who-Prefix.pch */,
@@ -836,7 +836,7 @@
 		3A25B65F1881E03700166623 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				3A25B6601881E03700166623 /* versappTests-Info.plist */,
+				3A25B6601881E03700166623 /* VersappTests-Info.plist */,
 				3A25B6611881E03700166623 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -1777,9 +1777,9 @@
 			productReference = 3A25B6331881E03700166623 /* Versapp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		3A25B6561881E03700166623 /* versappTests */ = {
+		3A25B6561881E03700166623 /* VersappTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3A25B66B1881E03700166623 /* Build configuration list for PBXNativeTarget "versappTests" */;
+			buildConfigurationList = 3A25B66B1881E03700166623 /* Build configuration list for PBXNativeTarget "VersappTests" */;
 			buildPhases = (
 				3A25B6531881E03700166623 /* Sources */,
 				3A25B6541881E03700166623 /* Frameworks */,
@@ -1790,9 +1790,9 @@
 			dependencies = (
 				3A25B65D1881E03700166623 /* PBXTargetDependency */,
 			);
-			name = versappTests;
+			name = VersappTests;
 			productName = WhoTests;
-			productReference = 3A25B6571881E03700166623 /* versappTests.xctest */;
+			productReference = 3A25B6571881E03700166623 /* VersappTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -1831,7 +1831,7 @@
 			projectRoot = "";
 			targets = (
 				3A25B6321881E03700166623 /* Versapp */,
-				3A25B6561881E03700166623 /* versappTests */,
+				3A25B6561881E03700166623 /* VersappTests */,
 			);
 		};
 /* End PBXProject section */
@@ -2223,10 +2223,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/;
+				FRAMEWORK_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Who/versapp-Prefix.pch";
-				INFOPLIST_FILE = "Who/versapp-Info.plist";
+				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
+				INFOPLIST_FILE = "Who/Versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
 				PRODUCT_NAME = Versapp;
@@ -2240,10 +2240,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/;
+				FRAMEWORK_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Who/versapp-Prefix.pch";
-				INFOPLIST_FILE = "Who/versapp-Info.plist";
+				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
+				INFOPLIST_FILE = "Who/Versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
 				PRODUCT_NAME = Versapp;
@@ -2267,8 +2267,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "WhoTests/versappTests-Info.plist";
-				PRODUCT_NAME = versappTests;
+				INFOPLIST_FILE = "WhoTests/VersappTests-Info.plist";
+				PRODUCT_NAME = VersappTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -2285,8 +2285,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Who-Prefix.pch";
-				INFOPLIST_FILE = "WhoTests/versappTests-Info.plist";
-				PRODUCT_NAME = versappTests;
+				INFOPLIST_FILE = "WhoTests/VersappTests-Info.plist";
+				PRODUCT_NAME = VersappTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -2313,7 +2313,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3A25B66B1881E03700166623 /* Build configuration list for PBXNativeTarget "versappTests" */ = {
+		3A25B66B1881E03700166623 /* Build configuration list for PBXNativeTarget "VersappTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3A25B66C1881E03700166623 /* Debug */,

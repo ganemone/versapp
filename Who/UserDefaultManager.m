@@ -77,4 +77,26 @@ NSString *const NSDEFAULT_KEY_COUNTRY_CODE = @"nsdefault_key_country_code";
     [preferences synchronize];
 }
 
++(void)saveValidated:(BOOL)valid {
+    NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
+    NSString *validString = [[NSString alloc] init];
+    if (valid) {
+        validString = @"valid";
+    } else {
+        validString = @"invalid";
+    }
+    [preferences setObject:validString forKey:USER_DEFAULTS_VALID];
+    [preferences synchronize];
+}
+
++(BOOL)isValidated {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([[preferences stringForKey:USER_DEFAULTS_VALID] compare:@"valid"] == 0) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+
 @end

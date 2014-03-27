@@ -16,10 +16,14 @@
 +(void)saveName:(NSString *)name;
 +(void)saveEmail:(NSString *)email;
 +(void)saveCountryCode:(NSString *)code;
++(void)saveName:(NSString *)name;
++(void)saveEmail:(NSString *)email;
++(void)saveValidated:(BOOL)valid;
 +(NSString*)loadPassword;
 +(NSString*)loadUsername;
 +(NSString *)loadName;
 +(NSString *)loadEmail;
 +(NSString *)loadCountryCode;
++(BOOL)isValidated;
 
 @end

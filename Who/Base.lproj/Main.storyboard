@@ -34,8 +34,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incorrect username/password combination" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="d9c-vz-9Ph">
-                                <rect key="frame" x="20" y="195" width="280" height="34"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="d9c-vz-9Ph">
+                                <rect key="frame" x="20" y="172" width="280" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -48,6 +48,7 @@
                     <navigationItem key="navigationItem" title="who" id="6QJ-5W-nS7"/>
                     <connections>
                         <outlet property="loginButton" destination="X1a-tq-Qp4" id="EEQ-pw-DRM"/>
+                        <outlet property="message" destination="d9c-vz-9Ph" id="VUq-9J-6Pk"/>
                         <outlet property="password" destination="hBY-Bd-80i" id="O64-Ha-hx1"/>
                         <outlet property="username" destination="NHs-F6-AKY" id="PM9-H3-tti"/>
                         <segue destination="Gcr-Xy-TFT" kind="modal" identifier="SegueIDAuthenticated" id="QMt-WW-ujz"/>
@@ -192,12 +193,19 @@
                                     <action selector="submitClicked:" destination="Q25-m7-OeU" eventType="touchUpInside" id="Hlm-DM-2a2"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="K3B-8q-Q1k">
+                                <rect key="frame" x="20" y="275" width="275" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="W9w-nW-UaK"/>
                     <connections>
                         <outlet property="confirmationCodeField" destination="oBJ-CQ-Aae" id="JZB-eZ-Zl3"/>
+                        <outlet property="incorrectLabel" destination="K3B-8q-Q1k" id="XLy-BJ-RNG"/>
                         <outlet property="submitButton" destination="3tn-Ar-9WC" id="dNz-Hj-Pyp"/>
                         <segue destination="Dcg-Mp-WjV" kind="push" identifier="SegueIDConfirmed" id="fah-BG-Sut"/>
                     </connections>
@@ -1535,17 +1543,17 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Ve6-mS-bkp"/>
         <segue reference="fSF-xn-2Ew"/>
-        <segue reference="nPX-Ed-w2T"/>
+        <segue reference="Ve6-mS-bkp"/>
+        <segue reference="fah-BG-Sut"/>
         <segue reference="QMt-WW-ujz"/>
-        <segue reference="hVX-XL-lBE"/>
-        <segue reference="z6h-qs-HbB"/>
-        <segue reference="BCc-dv-kG7"/>
-        <segue reference="tVn-SP-Hc9"/>
         <segue reference="pHb-Kf-4qo"/>
+        <segue reference="hVX-XL-lBE"/>
+        <segue reference="tVn-SP-Hc9"/>
+        <segue reference="BCc-dv-kG7"/>
+        <segue reference="z6h-qs-HbB"/>
         <segue reference="zTQ-Mf-6oX"/>
-        <segue reference="qGQ-aw-vgl"/>
         <segue reference="YCw-e7-spT"/>
+        <segue reference="qGQ-aw-vgl"/>
     </inferredMetricsTieBreakers>
 </document>

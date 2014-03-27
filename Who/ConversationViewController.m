@@ -216,7 +216,6 @@
     NSMutableString *list = [[NSMutableString alloc] init];
     for (NSString *member in members) {
         FriendMO *friend = [FriendsDBManager getUserWithJID:[NSString stringWithFormat:@"%@", member]];
-        NSLog(@"Name: %@ %@", friend.name, [NSString stringWithFormat:@"%@", member]);
         [list appendString:[NSString stringWithFormat:@"%@\n", friend.name]];
     }
     [groupMemberList setMessage:list];

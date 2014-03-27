@@ -46,6 +46,7 @@ extern NSString *const VCARD_TAG_USERNAME;
 extern NSString *const VCARD_TAG_NICKNAME;
 extern NSString *const VCARD_TAG_EMAIL;
 extern NSString *const USER_DEFAULTS_PASSWORD;
+extern NSString *const USER_DEFAULTS_VALID;
 
 extern NSString *const CHAT_TYPE_GROUP;
 extern NSString *const CHAT_TYPE_ONE_TO_ONE;
@@ -173,5 +174,8 @@ extern NSString *const REPORT_BLOCK;
 extern NSString *const REPORT_ABUSE;
 extern NSString *const REPORT_CONFIRM_BLOCK;
 extern NSString *const REPORT_CONFIRM_ABUSE;
+
+extern NSString *const INVALID_CODE;
+extern NSString *const NOT_VALIDATED;
 
 @end

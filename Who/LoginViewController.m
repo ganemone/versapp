@@ -23,6 +23,7 @@
 
 @property (strong, nonatomic) NSString *usernameText;
 @property (strong, nonatomic) NSString *passwordText;
+@property (strong, nonatomic) IBOutlet UILabel *message;
 
 @property BOOL createVCardWhenAuthenticated;
 @property (strong, nonatomic) ConnectionProvider *cp;
@@ -32,6 +33,7 @@
 
 @end
 
+static BOOL validated;
 
 @implementation LoginViewController
 
@@ -65,13 +67,18 @@
 }
 
 - (IBAction)loginClick:(id)sender {
-    self.passwordText = self.password.text;
-    self.usernameText = self.username.text;
-    
-    [UserDefaultManager savePassword:self.passwordText];
-    [UserDefaultManager saveUsername:self.usernameText];
-    
-    [self login];
+    if (validated) {
+        self.passwordText = self.password.text;
+        self.usernameText = self.username.text;
+        
+        [UserDefaultManager savePassword:self.passwordText];
+        [UserDefaultManager saveUsername:self.usernameText];
+        
+        [self login];
+    } else {
+        [self.message setText:NOT_VALIDATED];
+        //Need to navigate somewhere?
+    }
 }
 
 - (void)login {
@@ -102,4 +109,13 @@
     [_ld hideLoadingDialogWithoutProgress];
     self.passwordText = @"";
 }
+
++(BOOL)validated {
+    return validated;
+}
+
++(void)setValidated:(BOOL)valid {
+    validated = valid;
+}
+
 @end

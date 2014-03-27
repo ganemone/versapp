@@ -10,6 +10,8 @@
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
 #import "Constants.h"
+#import "UserDefaultManager.h"
+#import "LoginViewController.h"
 
 @interface UserRegistrationViewController ()
 
@@ -87,6 +89,8 @@
 }
 
 - (IBAction)register:(id)sender {
+    [LoginViewController setValidated:NO];
+    
     NSArray *components = [_phoneField.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
     NSString *username = [components componentsJoinedByString:@""];
     NSArray *name = [_nameField.text componentsSeparatedByString:@" "];
