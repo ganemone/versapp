@@ -147,8 +147,6 @@ static ContactSearchManager *selfInstance;
     NSManagedObjectContext *moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     [moc setParentContext:mainMoc];
     [moc performBlock:^{
-        
-        //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSLog(@"Updating Contact List After Search!!!!");
         NSArray *phoneNumbers, *emailAddresses;
         NSString *tempPhone, *tempEmail;

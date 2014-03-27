@@ -8,19 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString *const NSDEFAULT_KEY_PASSWORD;
-extern NSString *const NSDEFAULT_KEY_USERNAME;
-
 @interface UserDefaultManager : NSObject
 
 +(void)savePassword:(NSString*)password;
 +(void)saveUsername:(NSString*)username;
 +(void)clearUsernameAndPassword;
++(void)saveName:(NSString *)name;
++(void)saveEmail:(NSString *)email;
++(void)saveCountryCode:(NSString *)code;
 +(NSString*)loadPassword;
 +(NSString*)loadUsername;
 +(NSString *)loadName;
 +(NSString *)loadEmail;
-+(void)saveName:(NSString *)name;
-+(void)saveEmail:(NSString *)email;
++(NSString *)loadCountryCode;
 
 @end

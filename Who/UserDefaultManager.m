@@ -11,6 +11,7 @@
 
 NSString *const NSDEFAULT_KEY_PASSWORD = @"nsdefault_key_password";
 NSString *const NSDEFAULT_KEY_USERNAME = @"nsdefault_key_username";
+NSString *const NSDEFAULT_KEY_COUNTRY_CODE = @"nsdefault_key_country_code";
 
 @implementation UserDefaultManager
 
@@ -54,18 +55,26 @@ NSString *const NSDEFAULT_KEY_USERNAME = @"nsdefault_key_username";
 }
 
 +(void)saveName:(NSString *)name {
-    NSLog(@"Saving Name: %@", name);
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
     [preferences setObject:name forKey:VCARD_TAG_FULL_NAME];
     [preferences synchronize];
 }
 
 +(void)saveEmail:(NSString *)email {
-    NSLog(@"Saving Email: %@", email);
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
     [preferences setObject:email forKey:VCARD_TAG_EMAIL];
     [preferences synchronize];
 }
 
++(NSString *)loadCountryCode {
+    NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
+    return [preferences stringForKey:NSDEFAULT_KEY_COUNTRY_CODE];
+}
+
++(void)saveCountryCode:(NSString *)code {
+    NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setObject:code forKey:NSDEFAULT_KEY_COUNTRY_CODE];
+    [preferences synchronize];
+}
 
 @end
