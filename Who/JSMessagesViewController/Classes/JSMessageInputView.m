@@ -88,13 +88,15 @@
     cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
     cameraButton.backgroundColor = [UIColor clearColor];
     
-    /*[cameraButton setTitleColor:[UIColor js_bubbleBlueColor] forState:UIControlStateNormal];
+    [cameraButton setTitleColor:[UIColor js_bubbleBlueColor] forState:UIControlStateNormal];
     [cameraButton setTitleColor:[UIColor js_bubbleBlueColor] forState:UIControlStateHighlighted];
-    [cameraButton setTitleColor:[UIColor js_bubbleLightGrayColor] forState:UIControlStateDisabled];*/
-    
+    [cameraButton setTitleColor:[UIColor js_bubbleLightGrayColor] forState:UIControlStateDisabled];
+    [cameraButton setTitle:@"Pic" forState:UIControlStateNormal];
+    [cameraButton.titleLabel setFont:[StyleManager getFontStyleLightSizeMed]];
+    /*
     [cameraButton setImage:[UIImage imageNamed:@"photo-icon"] forState:UIControlStateNormal];
     [cameraButton setImage:[UIImage imageNamed:@"photo-icon"] forState:UIControlStateHighlighted];
-    [cameraButton setImage:[UIImage imageNamed:@"photo-icon"] forState:UIControlStateDisabled];
+    [cameraButton setImage:[UIImage imageNamed:@"photo-icon"] forState:UIControlStateDisabled];*/
     
     cameraButton.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin);
     [cameraButton setEnabled:YES];

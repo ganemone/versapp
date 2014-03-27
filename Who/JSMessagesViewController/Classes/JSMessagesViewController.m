@@ -111,10 +111,11 @@
     [inputView.cameraButton addTarget:self
                                action:@selector(cameraPressed:)
                      forControlEvents:UIControlEventTouchUpInside];
+    [self resetCameraButtonImage];
     
     [self.view addSubview:inputView];
     _messageInputView = inputView;
-
+    
 }
 
 #pragma mark - View lifecycle
@@ -202,21 +203,19 @@
 }
 
 - (void)cameraPressed:(UIButton *)sender {
-    UIAlertView *alert;
+    
     if (self.messageImage == nil) {
-    alert = [[UIAlertView alloc] initWithTitle:@"Add a Picture"
-                                                    message:@""
-                                                   delegate:self
-                                          cancelButtonTitle:@"Cancel"
-                                          otherButtonTitles:@"Take New", @"Select Existing", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Add a Picture"
+                                                        message:@""
+                                                       delegate:self
+                                              cancelButtonTitle:@"Cancel"
+                                              otherButtonTitles:@"Take New", @"Select Existing", nil];
+        [alert show];
     } else {
-        alert = [[UIAlertView alloc] initWithTitle:@"Add a Picture"
-                                           message:@""
-                                          delegate:self
-                                 cancelButtonTitle:@"Cancel"
-                                 otherButtonTitles:@"Take New", @"Select Existing", "Remove Selected Picture", nil];
+        UIAlertView *someAlert = [[UIAlertView alloc] initWithTitle:@"Remove Picture" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Remove", nil];
+        [someAlert show];
     }
-    [alert show];
+    
 }
 
 - (void)handleTapGestureRecognizer:(UITapGestureRecognizer *)tap
@@ -240,8 +239,8 @@
 {
     JSBubbleMessageCell *cell;
     /*if ((cell = [self.cellCache objectForKey:[NSNumber numberWithInt:indexPath.row]]) != nil) {
-        return cell;
-    }*/
+     return cell;
+     }*/
     
     JSBubbleMessageType type = [self.delegate messageTypeForRowAtIndexPath:indexPath];
     
@@ -281,17 +280,17 @@
     [cell setAvatarImageView:avatar];
     //[cell setBackgroundColor:tableView.backgroundColor];
     
-/*#if TARGET_IPHONE_SIMULATOR
-    cell.bubbleView.textView.dataDetectorTypes = UIDataDetectorTypeNone;
-#else
-    cell.bubbleView.textView.dataDetectorTypes = UIDataDetectorTypeAll;
-#endif*/
+    /*#if TARGET_IPHONE_SIMULATOR
+     cell.bubbleView.textView.dataDetectorTypes = UIDataDetectorTypeNone;
+     #else
+     cell.bubbleView.textView.dataDetectorTypes = UIDataDetectorTypeAll;
+     #endif*/
 	
     if ([self.delegate respondsToSelector:@selector(configureCell:atIndexPath:)]) {
-        [self.delegate configureCell:cell atIndexPath:indexPath];                       
+        [self.delegate configureCell:cell atIndexPath:indexPath];
     }
     
- 
+    
     
     //[self.cellCache setObject:cell forKey:[NSNumber numberWithInt:(int)indexPath.row]];
     
@@ -599,9 +598,11 @@
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 3) {
-        self.messageImage = nil;
-        [self resetCameraButtonImage];
+    if (self.messageImage != nil) {
+        if (buttonIndex == 1) {
+            self.messageImage = nil;
+            [self resetCameraButtonImage];
+        }
     }
     else if (buttonIndex > 0) {
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
@@ -621,7 +622,7 @@
 }
 
 - (void)resetCameraButtonImage {
-    [_messageInputView.cameraButton setImage:[UIImage imageNamed:@"photo-icon.png"] forState:UIControlStateNormal];
+    [_messageInputView.cameraButton setImage:nil forState:UIControlStateNormal];
+    [_messageInputView.cameraButton setTitle:@"Pic" forState:UIControlStateNormal];
 }
-
 @end
