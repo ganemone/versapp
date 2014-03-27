@@ -45,7 +45,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" title="who" id="6QJ-5W-nS7"/>
+                    <navigationItem key="navigationItem" title="Versapp" id="6QJ-5W-nS7"/>
                     <connections>
                         <outlet property="loginButton" destination="X1a-tq-Qp4" id="EEQ-pw-DRM"/>
                         <outlet property="message" destination="d9c-vz-9Ph" id="VUq-9J-6Pk"/>
@@ -56,7 +56,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ys-sZ-kKc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="762" y="-28"/>
+            <point key="canvasLocation" x="742" y="180"/>
         </scene>
         <!--User Registration View Controller - Registration-->
         <scene sceneID="OkA-Ea-htW">
@@ -160,7 +160,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UX8-eA-Agf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="762" y="781"/>
+            <point key="canvasLocation" x="742" y="781"/>
         </scene>
         <!--Enter Confirmation View Controller-->
         <scene sceneID="uBF-HU-jkh">
@@ -212,7 +212,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FxL-m8-eCE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="762" y="1381"/>
+            <point key="canvasLocation" x="742" y="1381"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="0uv-p4-vva">
@@ -230,7 +230,7 @@
             <objects>
                 <viewController storyboardIdentifier="MainSwipeViewController" id="FvA-Qe-GrR" customClass="MainSwipeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qgn-rc-9ur">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -239,7 +239,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iUp-KR-8dx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1789" y="204"/>
+            <point key="canvasLocation" x="1790" y="174"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ytD-Qm-JKC">
@@ -1128,7 +1128,7 @@
             </objects>
             <point key="canvasLocation" x="2279" y="1381"/>
         </scene>
-        <!--Compose Confession View Controller - Compose-->
+        <!--Compose Confession View Controller-->
         <scene sceneID="nHE-9V-Fd3">
             <objects>
                 <viewController id="lnb-gW-AWX" customClass="ComposeConfessionViewController" sceneMemberID="viewController">
@@ -1184,13 +1184,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Compose" id="bRR-D9-Nnz">
-                        <barButtonItem key="rightBarButtonItem" title="Post" id="zYL-lD-IH8">
-                            <connections>
-                                <action selector="postConfession:" destination="lnb-gW-AWX" id="P00-iM-uAQ"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="bRR-D9-Nnz"/>
                     <connections>
                         <outlet property="composeTextView" destination="lyF-9W-sxP" id="5jH-W1-B3m"/>
                         <outlet property="imageView" destination="NAg-qb-d2Q" id="je8-so-cbx"/>
@@ -1198,12 +1192,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tA4-AL-IFV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4571" y="771"/>
+            <point key="canvasLocation" x="4051" y="795"/>
         </scene>
         <!--Navigation Controller - Conversation-->
         <scene sceneID="WcW-T3-2la">
             <objects>
-                <navigationController title="Conversation" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="q1s-4p-78S" sceneMemberID="viewController">
+                <navigationController title="Conversation" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" navigationBarHidden="YES" id="q1s-4p-78S" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rkL-to-hjm">
@@ -1270,7 +1264,7 @@
         <!--Navigation Controller-->
         <scene sceneID="LHe-G0-1Nd">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="0is-xr-rle" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" navigationBarHidden="YES" id="0is-xr-rle" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="9zH-xR-hSW">
@@ -1321,7 +1315,7 @@
         <!--Navigation Controller-->
         <scene sceneID="yBm-AZ-eE1">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Cux-g5-SSx" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="Cux-g5-SSx" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="TJc-vs-KVz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1334,7 +1328,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cpg-JW-8es" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4109" y="771"/>
+            <point key="canvasLocation" x="3589" y="795"/>
         </scene>
         <!--App Init View Controller-->
         <scene sceneID="HoD-1Q-AHL">
@@ -1506,7 +1500,7 @@
         <!--Navigation Controller-->
         <scene sceneID="UN7-TX-c4V">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Gcr-Xy-TFT" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="Gcr-Xy-TFT" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="a5I-3V-fw1"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="h0x-VU-Iaa">
@@ -1543,17 +1537,17 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="fSF-xn-2Ew"/>
         <segue reference="Ve6-mS-bkp"/>
+        <segue reference="fSF-xn-2Ew"/>
         <segue reference="fah-BG-Sut"/>
         <segue reference="QMt-WW-ujz"/>
+        <segue reference="y0l-DF-V89"/>
         <segue reference="pHb-Kf-4qo"/>
         <segue reference="hVX-XL-lBE"/>
-        <segue reference="tVn-SP-Hc9"/>
-        <segue reference="BCc-dv-kG7"/>
         <segue reference="z6h-qs-HbB"/>
-        <segue reference="zTQ-Mf-6oX"/>
-        <segue reference="YCw-e7-spT"/>
-        <segue reference="qGQ-aw-vgl"/>
+        <segue reference="BCc-dv-kG7"/>
+        <segue reference="tVn-SP-Hc9"/>
+        <segue reference="v72-9M-1Zf"/>
+        <segue reference="rOT-zb-Yrt"/>
     </inferredMetricsTieBreakers>
 </document>
