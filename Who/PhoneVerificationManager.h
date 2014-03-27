@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PhoneVerificationManager : NSObject
+@interface PhoneVerificationManager : NSObject<NSURLConnectionDelegate, NSURLConnectionDataDelegate>
 
 +(NSString *)loadVerificationCode;
 +(void)saveVerificationCode:(NSString *)code;
