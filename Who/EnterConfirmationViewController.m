@@ -42,8 +42,8 @@
 - (IBAction)submitClicked:(id)sender {
     
     if ([self.confirmationCode compare:[self.confirmationCodeField text]] == 0) {
-        //[UserDefaultManager saveValidated:YES];
-        [LoginViewController setValidated:YES];
+        //[LoginViewController setValidated:YES];
+        [UserDefaultManager saveValidated:YES];
         [self performSegueWithIdentifier:SEGUE_ID_CONFIRMED sender:self];
     } else {
         [self.incorrectLabel setFont:[StyleManager getFontStyleBoldSizeMed]];
@@ -57,7 +57,7 @@
     self.confirmationCode = [self randomString:characters length:8];
     NSLog(@"%@", self.confirmationCode);
     
-    //Text confirmationCode to user
+    //Text confirmationCode to user after registration complete
 }
 -(NSString *)randomString:(NSString *)alphabet length:(NSUInteger)len {
     NSMutableString *s = [NSMutableString stringWithCapacity:len];
@@ -67,6 +67,10 @@
         [s appendFormat:@"%C", c];
     }
     return [NSString stringWithString:s];
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
 }
 
 - (void)didReceiveMemoryWarning

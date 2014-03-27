@@ -267,8 +267,8 @@ static ConnectionProvider *selfInstance;
     self.username = [self.pendingAccountInfo objectForKey:VCARD_TAG_USERNAME];
     self.password = [self.pendingAccountInfo objectForKey:USER_DEFAULTS_PASSWORD];
     
-    [UserDefaultManager savePassword:self.username];
-    [UserDefaultManager saveUsername:self.password];
+    [UserDefaultManager saveUsername:self.username];
+    [UserDefaultManager savePassword:self.password];
     NSError *error = nil;
     if ([[self xmppStream] authenticateWithPassword:self.password error:&error])
     {

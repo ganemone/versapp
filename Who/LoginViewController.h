@@ -9,10 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "XMPPStream.h"
 
-@interface LoginViewController : UIViewController <XMPPStreamDelegate, UITextFieldDelegate>
-
-+(BOOL)validated;
-+(void)setValidated:(BOOL)valid;
+@interface LoginViewController : UIViewController <XMPPStreamDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 
 -(void)authenticated;
 
