@@ -84,6 +84,7 @@
 		3A59D5EB18B2D4C800CE7B7B /* MainSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A59D5EA18B2D4C800CE7B7B /* MainSwipeViewController.m */; };
 		3A59D5EE18B2F2FE00CE7B7B /* RNBlurModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A59D5ED18B2F2FE00CE7B7B /* RNBlurModalView.m */; };
 		3A59D5F118B2F32200CE7B7B /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A59D5F018B2F32200CE7B7B /* Accelerate.framework */; };
+		3A67DB4C18E4AA4100DA6691 /* PhoneVerificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A67DB4B18E4AA4100DA6691 /* PhoneVerificationManager.m */; };
 		3A6C3BBB1884AD61003B162B /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6C3BBA1884AD61003B162B /* LoginViewController.m */; };
 		3A720CB418A1C2E200423959 /* MUCCreationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A720CB318A1C2E200423959 /* MUCCreationManager.m */; };
 		3A720CB718A28DAD00423959 /* PresencePacketReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A720CB618A28DAD00423959 /* PresencePacketReceiver.m */; };
@@ -376,6 +377,8 @@
 		3A59D5EC18B2F2FE00CE7B7B /* RNBlurModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNBlurModalView.h; sourceTree = "<group>"; };
 		3A59D5ED18B2F2FE00CE7B7B /* RNBlurModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBlurModalView.m; sourceTree = "<group>"; };
 		3A59D5F018B2F32200CE7B7B /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		3A67DB4A18E4AA4100DA6691 /* PhoneVerificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhoneVerificationManager.h; sourceTree = "<group>"; };
+		3A67DB4B18E4AA4100DA6691 /* PhoneVerificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhoneVerificationManager.m; sourceTree = "<group>"; };
 		3A6C3BB91884AD61003B162B /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		3A6C3BBA1884AD61003B162B /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		3A720CB118A1C1D400423959 /* XMPPFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPFramework.h; path = Who/XMPPFramework.h; sourceTree = "<group>"; };
@@ -808,6 +811,8 @@
 				3AF5113B1885D79E002383D3 /* Constants.h */,
 				3AF5113C1885D79E002383D3 /* Constants.m */,
 				3A0FE1CC18A9B6DA003692EB /* Resources */,
+				3A67DB4A18E4AA4100DA6691 /* PhoneVerificationManager.h */,
+				3A67DB4B18E4AA4100DA6691 /* PhoneVerificationManager.m */,
 			);
 			path = Who;
 			sourceTree = "<group>";
@@ -1951,6 +1956,7 @@
 				3AF5113A1885B1EC002383D3 /* IQPacketManager.m in Sources */,
 				3A98D8E718BD19B200B69049 /* XMPPModule.m in Sources */,
 				F751016718ABE101001F1E7F /* IASKPSTitleValueSpecifierViewCell.m in Sources */,
+				3A67DB4C18E4AA4100DA6691 /* PhoneVerificationManager.m in Sources */,
 				3A98DA2018BD1A2600B69049 /* XMPPAutoTime.m in Sources */,
 				3A7D69F31896F12100E18B45 /* OneToOneConversationViewController.m in Sources */,
 				3A3A0ADE18AB1126006FBAE4 /* JSBubbleImageViewFactory.m in Sources */,
