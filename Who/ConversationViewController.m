@@ -214,31 +214,35 @@
 }
 
 - (IBAction)showGroupMembers:(id)sender {
-    NSLog(@"Add Users");
-    [self performSegueWithIdentifier:SEGUE_ID_ADD_TO_GROUP sender:self];
+    NSString *title = [NSString stringWithFormat:@"Members of %@", [self.chatMO user_defined_chat_name]];
+    UIAlertView *groupMemberList = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:@"Close" otherButtonTitles:@"Add Users", nil];
+    NSArray *members = [self.chatMO participants];
+    NSMutableString *list = [[NSMutableString alloc] init];
+    for (NSString *member in members) {
+        FriendMO *friend = [FriendsDBManager getUserWithJID:[NSString stringWithFormat:@"%@", member]];
+        [list appendString:[NSString stringWithFormat:@"%@\n", friend.name]];
+    }
+    [groupMemberList setMessage:list];
+    groupMemberList.alertViewStyle = UIAlertViewStyleDefault;
+    [groupMemberList show];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier compare:SEGUE_ID_ADD_TO_GROUP] == 0) {
         id destination = segue.destinationViewController;
         if ([destination conformsToProtocol:@protocol(AddToGroupViewController)]) {
-            //[destination setCurrentParticipants:[_chatMO participants]];
             [destination setChatID:_chatMO.chat_id];
         }
     }
 }
 
-/*-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == [alertView cancelButtonIndex]) {
         NSLog(@"Close");
     } else {
         NSLog(@"Add Users");
-        NSMutableDictionary *friendsDict = [[NSMutableDictionary alloc] init];
-        for (int i=0; i<[[self.chatMO participants] count]; i++) {
-            [friendsDict setObject:[[self.chatMO participants] objectAtIndex:i] forKey:[NSNumber numberWithInt:i]];
-        }
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CURRENT_GROUP_MEMBERS object:nil userInfo:friendsDict];
+        [self performSegueWithIdentifier:SEGUE_ID_ADD_TO_GROUP sender:self];
     }
-}*/
+}
 
 @end
