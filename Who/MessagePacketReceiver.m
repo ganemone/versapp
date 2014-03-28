@@ -107,6 +107,11 @@
             } else {
                 newMessage = [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:receiverID];
             }
+            ChatMO *currentChat = [ChatDBManager getChatWithID:groupID];
+            if (![currentChat.participants containsObject:senderID]) {
+                [currentChat.participants addObject:senderID];
+                [currentChat setValue:[currentChat.participants componentsJoinedByString:@", "] forKey:CHATS_TABLE_COLUMN_NAME_PARTICIPANT_STRING];
+            }
             NSDictionary *messageDictionary = [NSDictionary dictionaryWithObject:newMessage forKey:DICTIONARY_KEY_MESSAGE_OBJECT];
             NSLog(@"Received Message! Sending notification now...");
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
