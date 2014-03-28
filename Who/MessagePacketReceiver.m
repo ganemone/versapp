@@ -32,7 +32,8 @@
     NSString *chatID,
     *chatName,
     *tempName,
-    *tempValue;
+    *tempValue,
+    *invitedBy;
     for (NSTextCheckingResult *match in matches) {
         tempName = [message.XMLString substringWithRange:[match rangeAtIndex:1]];
         tempValue = [message.XMLString substringWithRange:[match rangeAtIndex:2]];
@@ -43,7 +44,8 @@
         }
     }
     if (chatID != nil) {
-        [self handleMessageInvitationReceived:chatID groupName:chatName];
+        invitedBy = [[message.fromStr componentsSeparatedByString:@"@"] firstObject];
+        [self handleMessageInvitationReceived:chatID groupName:chatName invitedBy:invitedBy];
     } else if([message.type compare:MESSAGE_TYPE_HEADLINE] == 0) {
         // Handle Confession Messages Here...
     } else {
@@ -51,9 +53,9 @@
     }
 }
 
-+(void)handleMessageInvitationReceived:(NSString*)chatID groupName:(NSString *)groupName {
++(void)handleMessageInvitationReceived:(NSString*)chatID groupName:(NSString *)groupName invitedBy:(NSString *)invitedBy {
     NSLog(@"Received Group Invite Chat ID: %@ %@", chatID, groupName);
-    [ChatDBManager insertChatWithID:chatID chatName:groupName chatType:CHAT_TYPE_GROUP participantString:nil status:STATUS_PENDING];
+    [ChatDBManager insertChatWithID:chatID chatName:groupName chatType:CHAT_TYPE_GROUP participantString:nil status:STATUS_PENDING ownerID:invitedBy];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_NOTIFICATIONS object:nil];
 }
 
