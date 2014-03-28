@@ -20,8 +20,6 @@
 
 @implementation IQPacketReceiver
 
-static int numRequestsWaitingAtLogin;
-
 +(bool)isPacketWithID:(NSString *)packetID packet:(XMPPIQ *)packet {
     return ([packet.elementID compare:packetID] == 0 && packet.elementID != nil);
 }
