@@ -164,6 +164,7 @@
 }
 
 -(void)reloadData {
+    _allAccepted = [FriendsDBManager getAllWithStatusFriends];
     [self.tableView reloadData];
 }
 
