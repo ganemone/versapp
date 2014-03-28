@@ -222,21 +222,6 @@ static int numUninvitedParticipants;
     chatIDUpdatingParticipants = chatID;
 }
 
-+(void)incrementNumUninvitedParticipants {
-    numUninvitedParticipants++;
-}
-
-+(void)decrementNumUninvitedParticipants {
-    numUninvitedParticipants--;
-    if (numUninvitedParticipants == 0) {
-        ChatMO *chat = [self getChatWithID:chatIDUpdatingParticipants];
-        XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
-        for (NSString *participant in chat.participants) {
-            [conn sendElement:[IQPacketManager createInviteToMUCMessage:chat.chat_id username:participant]];
-        }
-    }
-}
-
 +(int)getNumUninvitedParticipants {
     return numUninvitedParticipants;
 }

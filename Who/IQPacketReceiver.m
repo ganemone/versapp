@@ -337,7 +337,7 @@
 }
 
 +(void)handleInviteUserToChatPacket:(XMPPIQ*)iq {
-    [ChatDBManager decrementNumUninvitedParticipants];
+    NSLog(@"Invited User to Chat");
 }
 
 +(void)handleCreateOneToOneChatPacket:(XMPPIQ*)iq {
@@ -420,16 +420,7 @@
 }
 
 +(void)handleCreatedMUCPacket:(XMPPIQ *)iq {
-    ConnectionProvider *cp = [ConnectionProvider getInstance];
-    XMPPStream *conn = [cp getConnection];
-    NSString *pendingChatID = [cp pendingParticipantsChatID];
-    if (cp != nil) {
-        NSMutableArray *participants = [[ChatDBManager getChatWithID:pendingChatID] participants];
-        for (NSString *participant in participants) {
-            [conn sendElement:[IQPacketManager createInviteToChatPacket:pendingChatID invitedUsername:participant]];
-        }
-        [cp setPendingParticipantsChatID:nil];
-    }
+    NSLog(@"Created MUC!");
 }
 
 @end

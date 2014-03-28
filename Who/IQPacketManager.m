@@ -405,7 +405,7 @@
     return messagePacket;
 }
 
-+(DDXMLElement *)createInviteToMUCMessage:(NSString*)chatID username:(NSString*)username {
++(DDXMLElement *)createInviteToMUCMessage:(NSString*)chatID username:(NSString*)username chatName:(NSString *)chatName {
     XMPPMessage *messagePacket = [XMPPMessage messageWithType:CHAT_TYPE_ONE_TO_ONE to:[XMPPJID jidWithString:[NSString stringWithFormat:@"%@@%@", username, [ConnectionProvider getServerIPAddress]]]];
     [messagePacket addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:@"null"]];
     [messagePacket addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[NSString stringWithFormat:@"%@@%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]]]];
@@ -418,10 +418,20 @@
     DDXMLElement *chatIDProperty = [DDXMLElement elementWithName:@"property"];
     DDXMLElement *chatIDPropertyName = [DDXMLElement elementWithName:@"name" stringValue:MESSAGE_PROPERTY_INVITATION_MESSAGE];
     DDXMLElement *chatIDPropertyValue = [DDXMLElement elementWithName:@"value" stringValue:chatID];
+    
+    DDXMLElement *chatNameProperty = [DDXMLElement elementWithName:@"property"];
+    DDXMLElement *chatNamePropertyName = [DDXMLElement elementWithName:@"name" stringValue:MESSAGE_PROPERTY_GROUP_NAME];
+    DDXMLElement *chatNamePropertyValue = [DDXMLElement elementWithName:@"value" stringValue:chatName];
+
     [chatIDPropertyValue addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"string"]];
     [chatIDProperty addChild:chatIDPropertyName];
     [chatIDProperty addChild:chatIDPropertyValue];
     
+    [chatNamePropertyValue addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"string"]];
+    [chatNameProperty addChild:chatNamePropertyName];
+    [chatNameProperty addChild:chatNamePropertyValue];
+    
+    [properties addChild:chatNameProperty];
     [properties addChild:chatIDProperty];
     [messagePacket addChild:properties];
     

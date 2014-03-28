@@ -55,16 +55,6 @@
 
 +(void)setChatIDUpdatingParticipants:(NSString*)chatID;
 
-+(void)incrementNumUninvitedParticipants;
-
-+(void)decrementNumUninvitedParticipants;
-
-+(int)getNumUninvitedParticipants;
-
-+(void)resetNumUninvitedParticipants;
-
-+(void)setNumUninvitedParticipants:(int)num;
-
 +(void)setChatIDPendingCreation:(NSString*)chatID;
 
 +(void)resetChatIDPendingCreation;
