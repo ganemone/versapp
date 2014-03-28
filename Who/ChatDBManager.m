@@ -49,6 +49,33 @@ static int numUninvitedParticipants;
     return chatEntry;
 }
 
++(ChatMO *)insertChatWithID:(NSString *)chatID chatName:(NSString *)chatName chatType:(NSString *)chatType participantString:(NSString *)participantString status:(int)status ownerID:(NSString *)ownerID {
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *moc = [delegate managedObjectContext];
+    
+    ChatMO *chatEntry = [self getChatWithID:chatID];
+    
+    if (chatEntry == nil) {
+        chatEntry = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_CHATS inManagedObjectContext:moc];
+    }
+    NSLog(@"Setting Chat Name from %@ to %@",chatEntry.user_defined_chat_name, chatName);
+    [chatEntry setValue:chatID forKey:CHATS_TABLE_COLUMN_NAME_CHAT_ID];
+    [chatEntry setValue:chatName forKey:CHATS_TABLE_COLUMN_NAME_CHAT_NAME];
+    [chatEntry setValue:chatName forKey:CHATS_TABLE_COLUMN_NAME_USER_DEFINED_CHAT_NAME];
+    [chatEntry setValue:chatType forKey:CHATS_TABLE_COLUMN_NAME_CHAT_TYPE];
+    [chatEntry setValue:[NSNumber numberWithInt:status] forKey:CHATS_TABLE_COLUMN_NAME_STATUS];
+    [chatEntry setValue:participantString forKey:CHATS_TABLE_COLUMN_NAME_PARTICIPANT_STRING];
+    [chatEntry setValue:ownerID forKeyPath:CHATS_TABLE_COLUMN_NAME_OWNER_ID];
+    [delegate saveContext];
+    if (participantString != nil) {
+        [chatEntry setParticipants:[[NSMutableArray alloc] initWithArray:[participantString componentsSeparatedByString:@", "]]];
+    } else {
+        [chatEntry setParticipants:[[NSMutableArray alloc] initWithObjects:[ConnectionProvider getUser], ownerID, nil]];
+    }
+    
+    return chatEntry;
+}
+
 +(void)updateUserDefinedChatNameWithID:(NSString *)chatID chatName:(NSString *)chatName {
     ChatMO *chatEntry = [self getChatWithID:chatID];
     [chatEntry setValue:chatName forKey:CHATS_TABLE_COLUMN_NAME_USER_DEFINED_CHAT_NAME];
@@ -204,7 +231,7 @@ static int numUninvitedParticipants;
 }
 
 +(void)setChatIDAddingParticipants:(NSString *)chatID {
-        chatIDAddingParticipants = chatID;
+    chatIDAddingParticipants = chatID;
 }
 
 +(void)updateChatParticipants:(NSMutableArray *)participants {

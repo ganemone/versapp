@@ -17,6 +17,8 @@
 
 +(ChatMO*)insertChatWithID:(NSString *)chatID chatName:(NSString *)chatName chatType:(NSString*)chatType participantString:(NSString*)participantString status:(int)status;
 
++(ChatMO*)insertChatWithID:(NSString *)chatID chatName:(NSString *)chatName chatType:(NSString*)chatType participantString:(NSString*)participantString status:(int)status ownerID:(NSString *)ownerID;
+
 +(void)updateUserDefinedChatNameWithID:(NSString*)chatID chatName:(NSString*)chatName;
 
 +(NSString*)getChatNameWithID:(NSString*)chatID;

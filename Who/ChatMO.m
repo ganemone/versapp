@@ -21,6 +21,7 @@
 @dynamic user_defined_chat_name;
 @dynamic chat_type;
 @dynamic participant_string;
+@dynamic owner_id;
 
 @synthesize messages = _messages;
 @synthesize participants = _participants;

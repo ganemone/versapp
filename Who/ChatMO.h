@@ -20,6 +20,7 @@
 @property (nonatomic, retain) NSNumber * status;
 @property (nonatomic, retain) NSString * user_defined_chat_name;
 @property (nonatomic, retain) NSString * participant_string;
+@property (nonatomic, retain) NSString * owner_id;
 
 @property (strong, nonatomic) NSMutableArray *messages;
 @property (strong, nonatomic) NSMutableArray *participants;
