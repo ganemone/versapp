@@ -102,8 +102,10 @@
             jid = [[[self allAccepted] objectAtIndex:indexPath.row] username];
         }
         if([self.selectedJIDs containsObject:jid]) {
-            [self.selectedJIDs removeObject:jid];
-            [cell setCellUnselected];
+            UIAlertView *noRemove = [[UIAlertView alloc] initWithTitle:@"What's the problem?" message: @"This page is for adding group members. You must use reporting to remove members from groups." delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil, nil];
+            
+            noRemove.alertViewStyle = UIAlertViewStyleDefault;
+            [noRemove show];
         } else {
             [self.selectedJIDs addObject:jid];
             [cell setCellSelected];
@@ -113,6 +115,12 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
      
     NSLog(@"Selected: %@", _selectedJIDs);
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == [alertView cancelButtonIndex]) {
+        [self.tableView reloadData];
+    }
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
