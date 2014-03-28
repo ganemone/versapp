@@ -43,7 +43,7 @@ static UIColor *colorBlue;
 
 +(UIFont*)getFontStyleLightSizeXL {
     if (lightXL == nil) {
-        lightXL = [UIFont fontWithName:@"MavenProLight300-Regular" size:22];
+        lightXL = [UIFont fontWithName:@"MavenProLight300-Regular" size:18];
     }
     return lightXL;
 }
@@ -77,7 +77,7 @@ static UIColor *colorBlue;
 }
 
 +(UIFont*)getFontStyleMediumSizeXL {
-    return [UIFont fontWithName:@"MavenProRegular" size:18];
+    return [UIFont fontWithName:@"MavenProRegular" size:24];
 }
 
 +(UIFont*)getFontStyleBoldSizeSmall {

@@ -43,7 +43,7 @@
     [self.tableView setSeparatorColor:[StyleManager getColorGreen]];
     [self.tableView setBackgroundColor:[StyleManager getColorGreen]];
     
-    [self.headerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+    [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
     [self.footerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     
     // Add a bottomBorder to the header view

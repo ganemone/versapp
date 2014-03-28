@@ -56,7 +56,7 @@
     
     self.cp = [ConnectionProvider getInstance];
     
-    [self.header setFont:[StyleManager getFontStyleLightSizeXL]];
+    [self.header setFont:[StyleManager getFontStyleMediumSizeXL]];
     [self.header setTextColor:[UIColor whiteColor]];
     [self.footerView setFont:[StyleManager getFontStyleLightSizeXL]];
     
@@ -356,7 +356,7 @@
         UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height*0.25, 280, 21)];
         [notificationsLabel setText:NO_NOTIFICATIONS];
         [notificationsLabel setTextAlignment:NSTextAlignmentCenter];
-        [notificationsLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+        [notificationsLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
         [notificationsLabel setTextColor:[StyleManager getColorBlue]];
         [self.notificationsHeader addSubview:notificationsLabel];
         [self.notificationsHeader addSubview:self.notificationsButtonGreen];
@@ -366,7 +366,7 @@
         UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 32, 280, 21)];
         [notificationsLabel setText:NOTIFICATIONS];
         [notificationsLabel setTextAlignment:NSTextAlignmentCenter];
-        [notificationsLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+        [notificationsLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
         [notificationsLabel setTextColor:[StyleManager getColorGreen]];
         [self.notificationsHeader addSubview:notificationsLabel];
         [self.notificationsHeader addSubview:self.notificationsButtonGreen];

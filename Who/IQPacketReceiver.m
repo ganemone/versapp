@@ -154,7 +154,7 @@
         name = [self urlDecode:[packetXML substringWithRange:[match rangeAtIndex:5]]];
         //*createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
         participants = [participantString componentsSeparatedByString:@", "];
-        
+        NSLog(@"Participant String: %@", participantString);
         if ([type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
             ChatMO *chat = [ChatDBManager getChatWithID:chatId];
             if (chat != nil) {

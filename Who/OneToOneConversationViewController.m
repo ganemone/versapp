@@ -39,7 +39,7 @@
         [self.headerLabel setText:[self.chatMO user_defined_chat_name]];
     }
     
-    [self.headerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+    [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
     
     // Add a bottomBorder to the header view
     CALayer *headerBottomborder = [CALayer layer];
