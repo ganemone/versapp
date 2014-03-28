@@ -17,6 +17,7 @@
 #import "IQPacketManager.h"
 @implementation ChatDBManager
 
+static NSString *chatIDAddingParticipants;
 static NSString *chatIDUpdatingParticipants;
 static NSString *chatIDPendingCreation;
 static int numUninvitedParticipants;
@@ -182,6 +183,28 @@ static int numUninvitedParticipants;
             }
         }
     }
+}
+
++(void)addChatParticipants:(NSMutableArray *)participants {
+    if (chatIDAddingParticipants != nil) {
+        ChatMO *chat = [self getChatWithID:chatIDAddingParticipants];
+        
+        XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
+        for (NSString *participant in participants) {
+            if ([chat.participants containsObject:participant] == NO) {
+                [conn sendElement:[IQPacketManager createInviteToChatPacket:chat.chat_id invitedUsername:participant]];
+            }
+        }
+        
+        NSLog(@"Udated participants in %@ to %@", chatIDUpdatingParticipants, chat.participants);
+        AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+        [delegate saveContext];
+        chatIDUpdatingParticipants = nil;
+    }
+}
+
++(void)setChatIDAddingParticipants:(NSString *)chatID {
+        chatIDAddingParticipants = chatID;
 }
 
 +(void)updateChatParticipants:(NSMutableArray *)participants {

@@ -69,8 +69,8 @@
 }
 
 - (IBAction)doneButtonClicked:(id)sender {
-    [ChatDBManager setChatIDUpdatingParticipants:_chatMO.chat_id];
-    [ChatDBManager updateChatParticipants:_selectedJIDs];
+    [ChatDBManager setChatIDAddingParticipants:_chatMO.chat_id];
+    [ChatDBManager addChatParticipants:_selectedJIDs];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -47,6 +47,10 @@
 
 +(void)joinAllChats;
 
++(void)addChatParticipants:(NSMutableArray *)participants;
+
++(void)setChatIDAddingParticipants:(NSString *)chatID;
+
 +(void)updateChatParticipants:(NSMutableArray*)participants;
 
 +(void)setChatIDUpdatingParticipants:(NSString*)chatID;
