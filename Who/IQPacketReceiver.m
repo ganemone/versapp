@@ -133,6 +133,7 @@
             [participants addObject:[packetXML substringWithRange:[match rangeAtIndex:1]]];
         }
     }
+    
     [ChatDBManager updateChatParticipants:participants];
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_CHAT_PARTICIPANTS object:nil];
 }

@@ -20,8 +20,12 @@
 #import "FriendsDBManager.h"
 #import "FriendMO.h"
 #import "AddToGroupViewController.h"
+#import "IQPacketManager.h"
 
 @interface ConversationViewController ()
+
+@property (strong, nonatomic) ConnectionProvider *cp;
+@property (strong, nonatomic) UIAlertView *groupMemberList;
 
 @end
 
@@ -31,6 +35,10 @@
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceived:) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(participantsUpdated:) name:PACKET_ID_GET_CHAT_PARTICIPANTS object:nil];
+    
+    self.cp = [ConnectionProvider getInstance];
+    [[self.cp getConnection] sendElement:[IQPacketManager createGetChatParticipantsPacket:self.chatMO.chat_id]];
 
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView setBackgroundColor:[StyleManager getColorBlue]];
@@ -53,6 +61,22 @@
     
     [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
     
+    NSString *title = [NSString stringWithFormat:@"Members of %@", [self.chatMO user_defined_chat_name]];
+    _groupMemberList = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:@"Close" otherButtonTitles:@"Add Users", nil];
+    [_groupMemberList setMessage:@"Loading"];
+    
+}
+
+-(void)participantsUpdated:(NSNotification *)notification {
+    self.chatMO = [ChatDBManager getChatWithID:self.chatMO.chat_id];
+    NSArray *members = self.chatMO.participants;
+    NSMutableString *list = [[NSMutableString alloc] init];
+    for (NSString *member in members) {
+        FriendMO *friend = [FriendsDBManager getUserWithJID:[NSString stringWithFormat:@"%@", member]];
+        [list appendString:[NSString stringWithFormat:@"%@\n", friend.name]];
+    }
+    [_groupMemberList setMessage:list];
+    _groupMemberList.alertViewStyle = UIAlertViewStyleDefault;
 }
 
 - (void)didReceiveMemoryWarning
@@ -214,17 +238,7 @@
 }
 
 - (IBAction)showGroupMembers:(id)sender {
-    NSString *title = [NSString stringWithFormat:@"Members of %@", [self.chatMO user_defined_chat_name]];
-    UIAlertView *groupMemberList = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:@"Close" otherButtonTitles:@"Add Users", nil];
-    NSArray *members = [self.chatMO participants];
-    NSMutableString *list = [[NSMutableString alloc] init];
-    for (NSString *member in members) {
-        FriendMO *friend = [FriendsDBManager getUserWithJID:[NSString stringWithFormat:@"%@", member]];
-        [list appendString:[NSString stringWithFormat:@"%@\n", friend.name]];
-    }
-    [groupMemberList setMessage:list];
-    groupMemberList.alertViewStyle = UIAlertViewStyleDefault;
-    [groupMemberList show];
+    [_groupMemberList show];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
