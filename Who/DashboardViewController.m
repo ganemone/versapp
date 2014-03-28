@@ -405,6 +405,8 @@
 - (void)updateNotifications {
     _groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingGroupChats]];
     _friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
+    [self.notificationTableView reloadData];
+    [self setNotificationsIcon];
 }
 
 - (void)acceptInvitation:(NSIndexPath *)indexPath {
