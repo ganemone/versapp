@@ -62,7 +62,7 @@
     
     [self.bottomTextField setDelegate:self];
     
-    [self.headerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+    [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
     
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:@"Pull to Refresh"];

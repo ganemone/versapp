@@ -73,7 +73,7 @@
     self.allAccepted = [FriendsDBManager getAllWithStatusFriends];
     self.searchResults = _allAccepted;
     
-    [self.header setFont:[StyleManager getFontStyleLightSizeXL]];
+    [self.header setFont:[StyleManager getFontStyleMediumSizeXL]];
     [self.bottomLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
 }
 

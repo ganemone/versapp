@@ -64,8 +64,8 @@
     self.allAccepted = [FriendsDBManager getAllWithStatusFriends];
     self.searchResults = _allAccepted;
     
-    [self.header setFont:[StyleManager getFontStyleLightSizeXL]];
-    [self.bottomLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
+    [self.header setFont:[StyleManager getFontStyleMediumSizeXL]];
+    [self.bottomLabel setFont:[StyleManager getFontStyleLightSizeXL]];
 }
 
 - (IBAction)doneButtonClicked:(id)sender {
