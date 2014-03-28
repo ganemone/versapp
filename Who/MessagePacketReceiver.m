@@ -80,10 +80,8 @@
     }
     
     if ([senderID isEqualToString:[ConnectionProvider getUser]]) {
-        return;
-    }
-    
-    if (inviteFlag == nil) {
+        [MessagesDBManager updateMessageWithGroupID:groupID messageBody:message.body imageLink:imageLink time:timestamp];
+    } else if (inviteFlag == nil) {
         if ([message.type compare:CHAT_TYPE_GROUP] == 0) {
             MessageMO *newMessage;
             if (imageLink != nil) {
@@ -94,8 +92,8 @@
             NSDictionary *messageDictionary = [NSDictionary dictionaryWithObject:newMessage forKey:DICTIONARY_KEY_MESSAGE_OBJECT];
             NSLog(@"Received Message! Sending notification now...");
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
-            //}
             [ChatDBManager setHasNewMessageYes:groupID];
+            
         } else if([message.type compare:CHAT_TYPE_ONE_TO_ONE] == 0) {
             if (imageLink != nil) {
                 [MessagesDBManager insert:message.body groupID:message.thread time:timestamp senderID:senderID receiverID:receiverID imageLink:imageLink];

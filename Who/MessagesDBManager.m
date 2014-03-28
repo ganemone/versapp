@@ -22,7 +22,7 @@
     [message setValue:time forKey:MESSAGE_PROPERTY_TIMESTAMP];
     [message setValue:senderID forKey:MESSAGE_PROPERTY_SENDER_ID];
     [message setValue:receiverID forKey:MESSAGE_PROPERTY_RECEIVER_ID];
-    
+    NSLog(@"Inserting Message: %@", [message description]);
     [delegate saveContext];
     
     return message;
@@ -38,10 +38,27 @@
     [message setValue:senderID forKey:MESSAGE_PROPERTY_SENDER_ID];
     [message setValue:receiverID forKey:MESSAGE_PROPERTY_RECEIVER_ID];
     [message setValue:imageLink forKey:MESSAGE_PROPERTY_IMAGE_LINK];
-    
+    NSLog(@"Inserting Message: %@", [message description]);
     [delegate saveContext];
     
     return message;
+}
+
++(void)updateMessageWithGroupID:(NSString *)groupID messageBody:(NSString *)messageBody imageLink:(NSString *)imageLink time:(NSString *)time {
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *moc = [delegate managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:CORE_DATA_TABLE_MESSAGES inManagedObjectContext:moc];
+    [fetchRequest setEntity:entity];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%@ = \"%@\" && %@ = \"%@\" && %@ = \"%@\"", MESSAGE_PROPERTY_GROUP_ID, groupID, MESSAGE_PROPERTY_BODY, messageBody, MESSAGE_PROPERTY_SENDER_ID, [ConnectionProvider getUser]]];
+    [fetchRequest setFetchLimit:1];
+    [fetchRequest setPredicate:predicate];
+    NSError* error;
+    NSArray *fetchedItems = [moc executeFetchRequest:fetchRequest error:&error];
+    MessageMO *itemToUpdate = [fetchedItems firstObject];
+    NSLog(@"Message to Update: %@", [itemToUpdate description]);
+    [itemToUpdate setTime:time];
+    [delegate saveContext];
 }
 
 +(NSMutableArray *)getMessagesByChat:(NSString *)chatID {
@@ -52,9 +69,11 @@
     [fetchRequest setEntity:entity];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%@ = \"%@\"", MESSAGE_PROPERTY_GROUP_ID, chatID]];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:MESSAGE_PROPERTY_TIMESTAMP ascending:NO];
     [fetchRequest setFetchLimit:100];
     [fetchRequest setPredicate:predicate];
     
+    [fetchRequest setSortDescriptors:@[sort]];
     NSError* error;
     NSArray *fetchedItems = [moc executeFetchRequest:fetchRequest error:&error];
     return [NSMutableArray arrayWithArray:fetchedItems];
@@ -82,13 +101,14 @@
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:CORE_DATA_TABLE_MESSAGES inManagedObjectContext:moc];
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:MESSAGE_PROPERTY_TIMESTAMP ascending:YES];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:MESSAGE_PROPERTY_TIMESTAMP ascending:NO];
     [fetchRequest setSortDescriptors:@[sort]];
     [fetchRequest setEntity:entity];
     [fetchRequest setFetchLimit:1];
-    
     NSError* error;
     NSArray *fetchedItems = [moc executeFetchRequest:fetchRequest error:&error];
+    MessageMO *message = [fetchedItems firstObject];
+    NSLog(@"Using this message for time... %@", [message description]);
     if ([fetchedItems count] > 0) {
         NSTimeInterval interval= [[[fetchedItems firstObject] time] doubleValue];
         NSDate *gregDate = [NSDate dateWithTimeIntervalSince1970: interval];

@@ -16,6 +16,8 @@
 
 +(MessageMO*)insert:(NSString*)messageBody groupID:(NSString*)groupID time:(NSString*)time senderID:(NSString*)senderID receiverID:(NSString*)receiverID imageLink:(NSString*)imageLink;
 
++(void)updateMessageWithGroupID:(NSString *)groupID messageBody:(NSString *)messageBody imageLink:(NSString *)imageLink time:(NSString *)time;
+
 +(NSMutableArray*)getMessagesByChat:(NSString*)chatID;
 
 +(NSString*)getTimeForHistory;
