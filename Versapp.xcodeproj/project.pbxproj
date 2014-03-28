@@ -222,6 +222,7 @@
 		3AFF778418C415BD003277F9 /* ChatMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778318C415BD003277F9 /* ChatMO.m */; };
 		3AFF778718C415BE003277F9 /* FriendMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778618C415BE003277F9 /* FriendMO.m */; };
 		3AFFC93D18A06AE3009D7F13 /* db.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC93B18A06AE3009D7F13 /* db.xcdatamodeld */; };
+		F73713F218E4FADF008A9ED2 /* AddToGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F73713F118E4FADF008A9ED2 /* AddToGroupViewController.m */; };
 		F744856018DB61C500460FBC /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = F744854118DB61C500460FBC /* NSMutableArray+SWUtilityButtons.m */; };
 		F744856118DB61C500460FBC /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = F744854318DB61C500460FBC /* SWCellScrollView.m */; };
 		F744856218DB61C500460FBC /* SWLongPressGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = F744854618DB61C500460FBC /* SWLongPressGestureRecognizer.m */; };
@@ -635,6 +636,8 @@
 		3AFF778518C415BE003277F9 /* FriendMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendMO.h; sourceTree = "<group>"; };
 		3AFF778618C415BE003277F9 /* FriendMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendMO.m; sourceTree = "<group>"; };
 		3AFFC93C18A06AE3009D7F13 /* db.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = db.xcdatamodel; sourceTree = "<group>"; };
+		F73713F018E4FADF008A9ED2 /* AddToGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddToGroupViewController.h; sourceTree = "<group>"; };
+		F73713F118E4FADF008A9ED2 /* AddToGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddToGroupViewController.m; sourceTree = "<group>"; };
 		F744854018DB61C500460FBC /* NSMutableArray+SWUtilityButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+SWUtilityButtons.h"; sourceTree = "<group>"; };
 		F744854118DB61C500460FBC /* NSMutableArray+SWUtilityButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+SWUtilityButtons.m"; sourceTree = "<group>"; };
 		F744854218DB61C500460FBC /* SWCellScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWCellScrollView.h; sourceTree = "<group>"; };
@@ -1519,6 +1522,8 @@
 		3AEE80BF18D8FD620098F2D1 /* Friends */ = {
 			isa = PBXGroup;
 			children = (
+				F73713F018E4FADF008A9ED2 /* AddToGroupViewController.h */,
+				F73713F118E4FADF008A9ED2 /* AddToGroupViewController.m */,
 				3A25B6741881E84800166623 /* FriendsViewController.h */,
 				3A25B6751881E84800166623 /* FriendsViewController.m */,
 				3AEE80BC18D8FD5B0098F2D1 /* FriendTableViewCell.h */,
@@ -2100,6 +2105,7 @@
 				F751015F18ABE101001F1E7F /* IASKSpecifierValuesViewController.m in Sources */,
 				3A98DA0818BD1A2600B69049 /* NSDate+XMPPDateTimeProfiles.m in Sources */,
 				3A98D9DC18BD1A2600B69049 /* XMPPRosterMemoryStorage.m in Sources */,
+				F73713F218E4FADF008A9ED2 /* AddToGroupViewController.m in Sources */,
 				3A98D9E818BD1A2600B69049 /* XMPPRoomMessageCoreDataStorageObject.m in Sources */,
 				3A98DA6418BD1A7E00B69049 /* XMPPXOAuth2Google.m in Sources */,
 				3A98DA6318BD1A7E00B69049 /* XMPPXFacebookPlatformAuthentication.m in Sources */,
