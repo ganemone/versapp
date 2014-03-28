@@ -27,6 +27,7 @@
 @property (strong, nonatomic) NSMutableArray *selectedUnregisteredContacts;
 @property (strong, nonatomic) NSMutableArray *smsContacts;
 @property (strong, nonatomic) NSMutableArray *emailContacts;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -66,6 +67,25 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:UPDATE_CONTACTS_VIEW object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:PACKET_ID_GET_VCARD object:nil];
+    
+    
+    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:@"Pull to Refresh"];
+    [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, 15)];
+    [refresh setAttributedTitle:attrString];
+    [refresh addTarget:self action:@selector(searchForContacts) forControlEvents:UIControlEventValueChanged];
+    [refresh setTintColor:[UIColor whiteColor]];
+    
+    UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
+    [tableViewController setRefreshControl:refresh];
+    [tableViewController setTableView:_tableView];
+    self.refreshControl = refresh;
+
+}
+
+-(void)searchForContacts {
+    ContactSearchManager *csm = [ContactSearchManager getInstance];
+    [csm accessContacts];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -91,6 +111,9 @@
 - (void)refreshData {
     _registeredContacts = [FriendsDBManager getAllWithStatusRegisteredOrRequested];
     _unregisteredContacts = [FriendsDBManager getAllWithStatusUnregistered];
+    if ([_refreshControl isRefreshing]) {
+        [_refreshControl endRefreshing];
+    }
     [self.tableView reloadData];
 }
 

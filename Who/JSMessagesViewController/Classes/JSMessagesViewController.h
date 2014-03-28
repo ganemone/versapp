@@ -225,4 +225,6 @@
 			  atScrollPosition:(UITableViewScrollPosition)position
 					  animated:(BOOL)animated;
 
+- (void)resetCameraButtonImage;
+
 @end

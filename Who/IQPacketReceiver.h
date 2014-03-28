@@ -12,7 +12,6 @@
 
 @interface IQPacketReceiver : NSObject
 
-+(int)numRequestsWaitingAtLogin;
 +(void)handleIQPacket:(XMPPIQ*)iq;
 
 @end

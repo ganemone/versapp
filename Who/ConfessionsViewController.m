@@ -86,49 +86,6 @@
     self.favIconActive = [UIImage imageNamed:@"fav-icon-active.png"];
     self.gradLineSmall = [UIImage imageNamed:@"grad-line-small.png"];
     self.chatIcon = [UIImage imageNamed:@"chat-icon.png"];
-    
-    //[self setUpInBackground];
-    /*
-     self.cellCache = [[NSMutableDictionary alloc] initWithCapacity:[_confessionsManager getNumberOfConfessions]];
-     
-     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
-     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:@"Pull to Refresh"];
-     [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, 15)];
-     [refresh setAttributedTitle:attrString];
-     [refresh addTarget:self action:@selector(loadConfessions) forControlEvents:UIControlEventValueChanged];
-     [refresh setTintColor:[UIColor whiteColor]];
-     
-     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
-     [tableViewController setRefreshControl:refresh];
-     [tableViewController setTableView:_tableView];
-     
-     [self.tableView setDelegate:self];
-     [self.tableView setDataSource:self];
-     [self.tableView setBackgroundColor:[StyleManager getColorLightOrange]];
-     [self.tableView setBackgroundView:nil];
-     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-     
-     self.refreshControl = refresh;
-     self.favIcon = [UIImage imageNamed:@"fav-icon.png"];
-     self.favIconActive = [UIImage imageNamed:@"fav-icon-active.png"];
-     self.gradLineSmall = [UIImage imageNamed:@"grad-line-small.png"];
-     self.chatIcon = [UIImage imageNamed:@"chat-icon.png"];
-     
-     // Add a bottomBorder to the header view
-     CALayer *headerBottomborder = [CALayer layer];
-     headerBottomborder.frame = CGRectMake(0.0f, self.header.frame.size.height, self.header.frame.size.width, 2.0f);
-     headerBottomborder.backgroundColor = [UIColor whiteColor].CGColor;
-     [self.header.layer addSublayer:headerBottomborder];
-     // Add a top border to the footer view
-     CALayer *footerTopBorder = [CALayer layer];
-     footerTopBorder.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 2.0f);
-     footerTopBorder.backgroundColor = [UIColor whiteColor].CGColor;
-     [self.bottomView.layer addSublayer:footerTopBorder];
-     
-     [self.bottomTextField setDelegate:self];
-     
-     [self.headerLabel setFont:[StyleManager getFontStyleLightSizeXL]]; */
-    
 }
 
 - (void)setUpInBackground {

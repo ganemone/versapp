@@ -14,6 +14,7 @@
 #import "FriendsDBManager.h"
 #import "FriendMO.h"
 #import "AppDelegate.h"
+#import "UserDefaultManager.h"
 
 @interface ContactSearchManager()
 
@@ -57,12 +58,17 @@ static ContactSearchManager *selfInstance;
                 if (!granted) {
                     //failure((__bridge NSError *)error);
                 } else {
+                    [UserDefaultManager saveCountryCode:@"1"];
+                    NSString *countryCode = [UserDefaultManager loadCountryCode];
+                    NSLog(@"Country Code: %@", countryCode);
+                    NSString *phoneNumberWithoutCountry = [[[UserDefaultManager loadUsername] componentsSeparatedByString:@"-"] lastObject];
                     NSMutableArray *allPhoneNumbers = [[NSMutableArray alloc] initWithCapacity:100];
                     NSMutableArray *allEmails = [[NSMutableArray alloc] initWithCapacity:100];
                     NSArray *people = (__bridge NSArray *)(ABAddressBookCopyArrayOfAllPeople(addressBook));
                     for (id person in people) {
-                        NSString *firstName = (__bridge_transfer NSString*)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonFirstNameProperty);
-                        NSString *lastName = (__bridge_transfer NSString*)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonLastNameProperty);
+                        ABRecordRef personRecordReference = (__bridge ABRecordRef)person;
+                        NSString *firstName = (__bridge_transfer NSString*)ABRecordCopyValue(personRecordReference, kABPersonFirstNameProperty);
+                        NSString *lastName = (__bridge_transfer NSString*)ABRecordCopyValue(personRecordReference, kABPersonLastNameProperty);
                         
                         if (firstName == nil && lastName == nil) {
                             continue;
@@ -76,8 +82,8 @@ static ContactSearchManager *selfInstance;
                         NSMutableArray *phoneBufferArray = [[NSMutableArray alloc] init],
                         *emailBufferArray = [[NSMutableArray alloc] init];
                         // Get all phone numbers of a contact
-                        ABMultiValueRef phoneNumbers = ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonPhoneProperty),
-                        emailList = ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonEmailProperty);
+                        ABMultiValueRef phoneNumbers = ABRecordCopyValue(personRecordReference, kABPersonPhoneProperty);
+                        ABMultiValueRef emailList = ABRecordCopyValue(personRecordReference, kABPersonEmailProperty);
                         BOOL shouldSearch = YES;
                         NSInteger emailCount = ABMultiValueGetCount(emailList);
                         NSString *tempEmail;
@@ -101,7 +107,20 @@ static ContactSearchManager *selfInstance;
                             for (int i = 0; i < phoneNumberCount; i++) {
                                 phone = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phoneNumbers, i);
                                 phone = [regex stringByReplacingMatchesInString:phone options:0 range:NSMakeRange(0, [phone length]) withTemplate:@""];
-                                [phoneBufferArray addObject:phone];
+                                NSLog(@"Looking at Phone: %@", phone);
+                                NSLog(@"Phone Code: %@", [phone substringToIndex:countryCode.length]);
+                                if (phone.length == phoneNumberWithoutCountry.length) {
+                                    NSLog(@"Making Phone %@-%@", countryCode, phone);
+                                    phone = [NSString stringWithFormat:@"%@-%@", countryCode, phone];
+                                    [phoneBufferArray addObject:phone];
+                                } else if([[phone substringToIndex:countryCode.length] isEqualToString:countryCode]) {
+                                    phone = [NSString stringWithFormat:@"%@-%@", countryCode, [phone substringFromIndex:countryCode.length]];
+                                    NSLog(@"Phone Already has Country Code: %@", phone);
+                                    [phoneBufferArray addObject:phone];
+                                } else {
+                                    NSLog(@"Continuing: %@", phone);
+                                    continue;
+                                }
                                 FriendMO* friend;
                                 if ((friend = [self getFriendWithUsername:phone]) != nil) {
                                     shouldSearch = ([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_UNREGISTERED]]) ? YES : NO;
@@ -112,13 +131,13 @@ static ContactSearchManager *selfInstance;
                             }
                         }
                         if (shouldSearch == YES) {
-                            for (int i = 0; i < MAX(emailCount, phoneNumberCount); i++) {
+                            for (int i = 0; i < MAX(emailCount, [phoneBufferArray count]); i++) {
                                 if (i < emailCount) {
                                     [allEmails addObject:[emailBufferArray objectAtIndex:i]];
                                 } else {
                                     [allEmails addObject:@""];
                                 }
-                                if (i < phoneNumberCount) {
+                                if (i < [phoneBufferArray count]) {
                                     [allPhoneNumbers addObject:[phoneBufferArray objectAtIndex:i]];
                                 } else {
                                     [allPhoneNumbers addObject:@""];
@@ -127,7 +146,6 @@ static ContactSearchManager *selfInstance;
                             [self.contacts addObject:[NSDictionary dictionaryWithObjectsAndKeys:firstName, VCARD_TAG_FIRST_NAME, lastName, VCARD_TAG_LAST_NAME, emailBufferArray, VCARD_TAG_EMAIL, phoneBufferArray, VCARD_TAG_USERNAME, nil]];
                         }
                     }
-                    
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createUserSearchPacketWithPhoneNumbers:allPhoneNumbers emails:allEmails]];
                     });
@@ -139,9 +157,6 @@ static ContactSearchManager *selfInstance;
 }
 
 -(void)updateContactListAfterUserSearch {
-    NSLog(@"Has user... %d", [FriendsDBManager hasUserWithEmail:@"ganemone@gmail.com"]);
-    NSLog(@"User Status: %@", [FriendsDBManager getUserWithEmail:@"ganemone@gmail.com"]);
-    NSMutableArray *contactsWithStatus = [[NSMutableArray alloc] initWithCapacity:[_contacts count]];
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *mainMoc = [delegate managedObjectContext];
     NSManagedObjectContext *moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
@@ -160,13 +175,13 @@ static ContactSearchManager *selfInstance;
                 if (i < [phoneNumbers count]) {
                     tempPhone = [phoneNumbers objectAtIndex:i];
                     NSLog(@"Temp Phone: %@", tempPhone);
-                    friend = [FriendsDBManager getUserWithJID:tempPhone moc:moc];
+                    friend = [FriendsDBManager getUserWithSearchedPhoneNumber:tempPhone withMOC:moc];
                 }
                 if (i < [emailAddresses count]) {
                     tempEmail = [emailAddresses objectAtIndex:i];
                     NSLog(@"Temp Email: %@", tempEmail);
                     if (friend == nil) {
-                        friend = [FriendsDBManager getUserWithEmail:tempEmail moc:moc];
+                        friend = [FriendsDBManager getUserWithSearchedEmail:tempEmail withMOC:moc];
                     }
                 }
                 i++;
@@ -184,18 +199,13 @@ static ContactSearchManager *selfInstance;
             if (name == nil) {
                 name = @";";
             }
-            NSDictionary *newContact = [NSDictionary dictionaryWithObjectsAndKeys:status, FRIENDS_TABLE_COLUMN_NAME_STATUS, name, FRIENDS_TABLE_COLUMN_NAME_NAME, tempPhone, FRIENDS_TABLE_COLUMN_NAME_USERNAME, tempEmail, FRIENDS_TABLE_COLUMN_NAME_EMAIL, nil];
-            [contactsWithStatus addObject:newContact];
-        }
-        
-        for (NSDictionary *contact in contactsWithStatus) {
-            [FriendsDBManager updateFriendAfterSearch:[contact objectForKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME]
-                                                 name:[contact objectForKey:FRIENDS_TABLE_COLUMN_NAME_NAME]
-                                                email:[contact objectForKey:FRIENDS_TABLE_COLUMN_NAME_EMAIL]
-                                               status:[contact objectForKey:FRIENDS_TABLE_COLUMN_NAME_STATUS]
-                                  searchedPhoneNumber:nil
-                                        searchedEmail:nil
-                                                  moc:moc];
+
+            if (friend == nil) {
+                [FriendsDBManager insertWithMOC:moc username:nil name:name email:tempEmail status:status searchedPhoneNumber:tempPhone searchedEmail:tempEmail];
+            } else {
+                [friend setValue:name forKey:FRIENDS_TABLE_COLUMN_NAME_NAME];
+                [friend setValue:status forKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];
+            }
         }
         
         NSError *err = nil;

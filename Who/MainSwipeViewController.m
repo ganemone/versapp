@@ -22,6 +22,7 @@
 #import "FriendMO.h"
 #import "ConfessionsManager.h"
 #import "Confession.h"
+#import "FriendsDBManager.h"
 
 #define NumViewPages 4
 

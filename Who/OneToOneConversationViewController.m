@@ -62,11 +62,6 @@
     }
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self scrollToBottomAnimated:NO];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -173,13 +168,9 @@
 }
 
 -(void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
-    NSLog(@"Chat Participants: %@", self.chatMO.participant_string);
-    
     while (self.isUploadingImage == YES);
-    NSLog(@"Chat Size: %u", [self.chatMO getNumberOfMessages]);
-    NSLog(@"Current ChatMO: %@", [self.chatMO description]);
     [self.chatMO sendOneToOneMessage:text imageLink:self.messageImageLink];
-    
+    [self resetCameraButtonImage];
     self.messageImage = nil;
     self.messageImageLink = nil;
     [self animateAddNewestMessage];
