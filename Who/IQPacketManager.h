@@ -85,6 +85,8 @@
 
 +(DDXMLElement *)createLeaveChatPacket:(NSString *)chatId;
 
++(DDXMLElement *)createExitRoomPacket:(NSString *)chatId;
+
 +(DDXMLElement *)createDestroyConfessionPacket:(NSString*)confessionID;
 
 +(DDXMLElement *)createUserSearchPacketWithSearchParam:(NSString *)searchParam;

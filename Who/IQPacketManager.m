@@ -113,6 +113,14 @@
     return [self createDenyChatInvitePacket:chatId];
 }
 
++(DDXMLElement *)createExitRoomPacket:(NSString *)chatId {
+    DDXMLElement *presence = [DDXMLElement elementWithName:@"presence"];
+    [presence addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[self getPacketFromString]]];
+    [presence addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[NSString stringWithFormat:@"%@@%@", chatId, [ConnectionProvider getConferenceIPAddress]]]];
+    [presence addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"unavailable"]];
+    return presence;
+}
+
 +(DDXMLElement*)createWhoIQPacket:(NSString*)type action:(NSString*)action packetID: (NSString*)packetID {
     DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
 	[query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:chat"]];
