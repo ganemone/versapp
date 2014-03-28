@@ -77,6 +77,7 @@ NSString *const NOTIFICATION_FINISHED_INVITING_ONE_TO_ONE_USERS = @"notification
 NSString *const NOTIFICATION_DISABLE_SWIPE = @"notification_disable_swipe";
 NSString *const NOTIFICATION_ENABLE_SWIPE = @"notification_enable_swipe";
 NSString *const NOTIFICATION_LOGOUT = @"notification_logout";
+NSString *const NOTIFICATION_AUTHENTICATED = @"authenticated";
 
 NSString *const APPLICATION_RESOURCE = @"who";
 
@@ -164,6 +165,7 @@ NSString *const STORYBOARD_ID_FRIENDS_VIEW_CONTROLLER = @"FriendsViewController"
 NSString *const STORYBOARD_ID_CONTACTS_VIEW_CONTROLLER = @"ContactsViewController";
 NSString *const STORYBOARD_ID_SWIPE_VIEW_CONTROLLER = @"MainSwipeViewController";
 NSString *const STORYBOARD_ID_CONFESSIONS_VIEW_CONTROLLER = @"ConfessionsViewController";
+NSString *const STORYBOARD_ID_CONNECTION_LOST_VIEW_CONTROLLER = @"ConnectionLostViewController";
 
 NSString *const PAGE_NAVIGATE_TO_MESSAGES = @"page_navigate_to_messages";
 NSString *const PAGE_NAVIGATE_TO_CONFESSIONS = @"page_navigate_to_confessions";
