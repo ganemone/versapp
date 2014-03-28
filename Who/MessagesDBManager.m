@@ -111,7 +111,7 @@
     MessageMO *message = [fetchedItems firstObject];
     NSLog(@"Using this message for time... %@", [message description]);
     if ([fetchedItems count] > 0) {
-        NSTimeInterval interval= [[[fetchedItems firstObject] time] doubleValue];
+        NSTimeInterval interval= [[[fetchedItems firstObject] time] doubleValue] + 1;
         NSDate *gregDate = [NSDate dateWithTimeIntervalSince1970: interval];
         NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
         [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
