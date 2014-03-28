@@ -8,6 +8,16 @@
 
 #import "FriendsViewController.h"
 
-@interface AddToGroupViewController : FriendsViewController
+@protocol AddToGroupViewController
+
+-(void)setCurrentParticipants:(NSArray *)currentParticipants;
+
+@end
+
+@interface AddToGroupViewController : FriendsViewController <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, AddToGroupViewController>
+
+@property (weak, nonatomic) IBOutlet UILabel *header;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UILabel *bottomLabel;
 
 @end

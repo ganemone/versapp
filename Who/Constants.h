@@ -76,6 +76,7 @@ extern NSString *const NOTIFICATION_DISABLE_SWIPE;
 extern NSString *const NOTIFICATION_ENABLE_SWIPE;
 extern NSString *const NOTIFICATION_LOGOUT;
 extern NSString *const NOTIFICATION_AUTHENTICATED;
+extern NSString *const NOTIFICATION_CURRENT_GROUP_MEMBERS;
 
 extern NSString *const APPLICATION_RESOURCE;
 
@@ -95,6 +96,7 @@ extern NSString *const SEGUE_ID_GO_TO_REGISTER_PAGE;
 extern NSString *const SEGUE_ID_FROM_REGISTER_TO_LOGIN;
 extern NSString *const SEGUE_ID_LOGOUT;
 extern NSString *const SEGUE_ID_AUTHENTICATED_FROM_APP_INIT;
+extern NSString *const SEGUE_ID_ADD_TO_GROUP;
 
 extern NSString *const CELL_ID_CONVERSATION_PROTOTYPE;
 extern NSString *const CELL_ID_FRIENDS_PROTOTYPE;

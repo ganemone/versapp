@@ -150,6 +150,8 @@
     } else {
         [_bottomLabel setText:@"Start Group Conversation"];
     }
+    
+    NSLog(@"Selected: %@", _selectedJIDs);
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

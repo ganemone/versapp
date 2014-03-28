@@ -10,6 +10,10 @@
 #import "ConnectionProvider.h"
 #import "ChatMO.h"
 #import "LoadingDialogManager.h"
+#import "StyleManager.h"
+#import "FriendsDBManager.h"
+#import "Constants.h"
+#import "FriendTableViewCell.h"
 
 @interface AddToGroupViewController ()
 
@@ -17,17 +21,18 @@
 @property (strong, nonatomic) NSArray *searchResults;
 @property (strong, nonatomic) NSArray *allAccepted;
 @property (strong, nonatomic) NSMutableArray *selectedJIDs;
-@property (strong, nonatomic) ChatMO *createdChat;
+@property (strong, nonatomic) ChatMO *chat;
 @property (strong, nonatomic) LoadingDialogManager *ldm;
 @property (strong, nonatomic) NSString *invitedUser;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
-@property BOOL isCreatingGroup;
 @property BOOL isSearching;
 
 @end
 
 @implementation AddToGroupViewController
+
+//@synthesize currentParticipants = _currentParticipants;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -40,8 +45,104 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData:) name:PACKET_ID_GET_VCARD object:nil];
+    
+    [self.tableView setDataSource:self];
+    [self.tableView setDelegate:self];
+    
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+    [self.tableView setSeparatorColor:[StyleManager getColorPurple]];
+    [self.tableView setBackgroundColor:[StyleManager getColorPurple]];
+    
+    [self.searchBar setSearchBarStyle:UISearchBarStyleMinimal];
+    [self.searchBar setDelegate:self];
+    
+    self.cp = [ConnectionProvider getInstance];
+    self.ldm = [LoadingDialogManager create:self.view];
+    self.allAccepted = [FriendsDBManager getAllWithStatusFriends];
+    self.searchResults = _allAccepted;
+    
+    [self.header setFont:[StyleManager getFontStyleLightSizeXL]];
+    [self.bottomLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
+}
+
+- (IBAction)doneButtonClicked:(id)sender {
+    
+}
+
+- (IBAction)backButtonClicked:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)setCurrentParticipants:(NSArray *)currentParticipants {
+    _selectedJIDs = [[NSMutableArray alloc] initWithArray:currentParticipants];
+    NSLog(@"Selected: %@", _selectedJIDs);
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {\
+    return [super tableView:tableView cellForRowAtIndexPath:indexPath];
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    return [super tableView:tableView viewForFooterInSection:section];
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    FriendTableViewCell *cell = (FriendTableViewCell*)[tableView cellForRowAtIndexPath:indexPath];
+    if ([cell.textLabel.text compare:@"Loading..."] != 0) {
+        NSString *jid;
+        if ([self.searchResults count] > 0) {
+            jid = [[self.searchResults objectAtIndex:indexPath.row] username];
+        } else {
+            jid = [[[self allAccepted] objectAtIndex:indexPath.row] username];
+        }
+        if([self.selectedJIDs containsObject:jid]) {
+            [self.selectedJIDs removeObject:jid];
+            [cell setCellUnselected];
+        } else {
+            [self.selectedJIDs addObject:jid];
+            [cell setCellSelected];
+        }
+        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    }
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+     
+    NSLog(@"Selected: %@", _selectedJIDs);
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.searchResults.count;
+}
+
+-(void)reloadData:(NSNotification*)notification {
+    [self.tableView reloadData];
+}
+
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    [self.searchBar setShowsCancelButton:YES animated:YES];
+}
+
+-(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if (searchText.length > 0) {
+        self.isSearching = YES;
+        NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"name contains[c] %@", searchText];
+        self.searchResults = [_allAccepted filteredArrayUsingPredicate:resultPredicate];
+    } else {
+        self.isSearching = NO;
+        self.searchResults = _allAccepted;
+    }
+    [self.tableView reloadData];
+}
+
+-(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    self.searchResults = _allAccepted;
+    [self.tableView reloadData];
+    [self.searchBar setShowsCancelButton:NO animated:YES];
+    [self.searchBar resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning

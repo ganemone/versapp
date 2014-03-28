@@ -78,6 +78,7 @@ NSString *const NOTIFICATION_DISABLE_SWIPE = @"notification_disable_swipe";
 NSString *const NOTIFICATION_ENABLE_SWIPE = @"notification_enable_swipe";
 NSString *const NOTIFICATION_LOGOUT = @"notification_logout";
 NSString *const NOTIFICATION_AUTHENTICATED = @"authenticated";
+NSString *const NOTIFICATION_CURRENT_GROUP_MEMBERS = @"notification_current_muc_members";
 
 NSString *const APPLICATION_RESOURCE = @"who";
 
@@ -97,6 +98,7 @@ NSString *const SEGUE_ID_GO_TO_REGISTER_PAGE = @"SegueIDGoToRegisterPage";
 NSString *const SEGUE_ID_FROM_REGISTER_TO_LOGIN = @"SegueIDFromRegisterToLogin";
 NSString *const SEGUE_ID_LOGOUT = @"SegueIDLogout";
 NSString *const SEGUE_ID_AUTHENTICATED_FROM_APP_INIT = @"SegueIDAuthenticatedFromAppInit";
+NSString *const SEGUE_ID_ADD_TO_GROUP = @"SegueIDAddToGroup";
 
 NSString *const CELL_ID_CONVERSATION_PROTOTYPE = @"ConversationCellPrototype";
 NSString *const CELL_ID_FRIENDS_PROTOTYPE = @"FriendsCellPrototype";
