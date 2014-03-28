@@ -27,18 +27,34 @@
 +(void)handleMessagePacket:(XMPPMessage*)message {
     NSError *error = NULL;
 
-    NSRegularExpression *chatInvitationRegex = [NSRegularExpression regularExpressionWithPattern:[NSString stringWithFormat:@"<property><name>%@<\\/name><value>(.*?)<\\/value><\\/property>", MESSAGE_PROPERTY_INVITATION_MESSAGE] options:NSRegularExpressionCaseInsensitive error:&error];
-    NSTextCheckingResult *invitationResult = [chatInvitationRegex firstMatchInString:message.XMLString options:0 range:NSMakeRange(0, message.XMLString.length)];
-    if ([invitationResult numberOfRanges] > 0) {
-        [self handleMessageInvitationReceived:[message.XMLString substringWithRange:[invitationResult rangeAtIndex:1]]];
+    NSRegularExpression *chatInvitationRegex = [NSRegularExpression regularExpressionWithPattern:@"<property><name>(.*?)<\\/name><value.*?>(.*?)<\\/value><\\/property>" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSArray *matches = [chatInvitationRegex matchesInString:message.XMLString options:0 range:NSMakeRange(0, message.XMLString.length)];
+    NSString *chatID,
+    *chatName,
+    *tempName,
+    *tempValue;
+    for (NSTextCheckingResult *match in matches) {
+        tempName = [message.XMLString substringWithRange:[match rangeAtIndex:1]];
+        tempValue = [message.XMLString substringWithRange:[match rangeAtIndex:2]];
+        if ([tempName isEqualToString:MESSAGE_PROPERTY_INVITATION_MESSAGE]) {
+            chatID = tempValue;
+        } else if ([tempName isEqualToString:MESSAGE_PROPERTY_GROUP_NAME]) {
+            chatName = tempValue;
+        }
+    }
+    if (chatID != nil) {
+        [self handleMessageInvitationReceived:chatID groupName:chatName];
     } else if([message.type compare:MESSAGE_TYPE_HEADLINE] == 0) {
+        // Handle Confession Messages Here...
     } else {
         [self handleChatMessageReceived:message];
     }
 }
 
-+(void)handleMessageInvitationReceived:(NSString*)chatID {
-    NSLog(@"Received Group Invite Chat ID: %@", chatID);
++(void)handleMessageInvitationReceived:(NSString*)chatID groupName:(NSString *)groupName {
+    NSLog(@"Received Group Invite Chat ID: %@ %@", chatID, groupName);
+    [ChatDBManager insertChatWithID:chatID chatName:groupName chatType:CHAT_TYPE_GROUP participantString:nil status:STATUS_PENDING];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_NOTIFICATIONS object:nil];
 }
 
 +(void)handleChatMessageReceived:(XMPPMessage*)message {

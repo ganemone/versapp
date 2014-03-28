@@ -57,7 +57,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableInteraction) name:NOTIFICATION_DISABLE_SWIPE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enableInteraction) name:NOTIFICATION_ENABLE_SWIPE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setUpInBackground) name:PACKET_ID_GET_CONFESSIONS object:nil];
-    
+
     [self.navigationController.navigationBar setHidden:YES];
     
     // Initialize and configure page view controller

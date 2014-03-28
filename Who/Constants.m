@@ -81,6 +81,7 @@ NSString *const NOTIFICATION_ENABLE_SWIPE = @"notification_enable_swipe";
 NSString *const NOTIFICATION_LOGOUT = @"notification_logout";
 NSString *const NOTIFICATION_AUTHENTICATED = @"authenticated";
 NSString *const NOTIFICATION_CURRENT_GROUP_MEMBERS = @"notification_current_muc_members";
+NSString *const NOTIFICATION_UPDATE_NOTIFICATIONS = @"notification_update_notifications";
 
 NSString *const APPLICATION_RESOURCE = @"who";
 
