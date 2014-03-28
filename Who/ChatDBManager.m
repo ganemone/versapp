@@ -220,6 +220,7 @@ static int numUninvitedParticipants;
         for (NSString *participant in participants) {
             if ([chat.participants containsObject:participant] == NO) {
                 [conn sendElement:[IQPacketManager createInviteToChatPacket:chat.chat_id invitedUsername:participant]];
+                [conn sendElement:[IQPacketManager createInviteToMUCMessage:chat.chat_id username:participant chatName:chat.chat_name]];
             }
         }
         
