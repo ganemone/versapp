@@ -51,7 +51,8 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     NSLog(@"View did load");
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData:) name:PACKET_ID_GET_VCARD object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:PACKET_ID_GET_VCARD object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:NOTIFICATION_UPDATE_FRIENDS object:nil];
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedInvitingUsersToMUC:) name:NOTIFICATION_FINISHED_INVITING_MUC_USERS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCreatedOneToOneChat:) name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT object:nil];
     
@@ -162,7 +163,7 @@
     return self.searchResults.count;
 }
 
--(void)reloadData:(NSNotification*)notification {
+-(void)reloadData {
     [self.tableView reloadData];
 }
 
