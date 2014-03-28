@@ -62,13 +62,15 @@
     self.unregisteredContacts = [FriendsDBManager getAllWithStatusUnregistered];
     NSLog(@"Num Registered Contacts: %lu", (unsigned long)[self.registeredContacts count]);
     NSLog(@"Num Unregistered Contacts %lu", (unsigned long)[self.unregisteredContacts count]);
+
     self.selectedRegisteredContacts = [[NSMutableArray alloc] initWithCapacity:[_registeredContacts count]];
     self.selectedUnregisteredContacts = [[NSMutableArray alloc] initWithCapacity:[_unregisteredContacts count]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:UPDATE_CONTACTS_VIEW object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:PACKET_ID_GET_VCARD object:nil];
     
-    
+    NSArray *allContacts = [FriendsDBManager getAll];
+    NSLog(@"All Contacts: %lu", [allContacts count]);
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:@"Pull to Refresh"];
     [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, 15)];
@@ -144,8 +146,10 @@
     if ([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_REGISTERED]]) {
         if ([_selectedRegisteredContacts containsObject:friend]) {
             [_selectedRegisteredContacts removeObject:friend];
+            NSLog(@"Removing Registered Contacts");
             [[cell actionBtn] setImage:[UIImage imageNamed:@"cell-select.png"] forState:UIControlStateNormal];
         } else {
+            NSLog(@"Adding Registered Contact");
             [_selectedRegisteredContacts addObject:friend];
             [[cell actionBtn] setImage:[UIImage imageNamed:@"cell-select-active.png"] forState:UIControlStateNormal];
         }
@@ -153,7 +157,9 @@
         if ([_selectedUnregisteredContacts containsObject:friend]) {
             [_selectedUnregisteredContacts removeObject:friend];
             [[cell actionBtn] setImage:[UIImage imageNamed:@"cell-select.png"] forState:UIControlStateNormal];
+            NSLog(@"Removing Unregistered Contact");
         } else {
+            NSLog(@"Adding Unregistered Contact");
             [_selectedUnregisteredContacts addObject:friend];
             [[cell actionBtn] setImage:[UIImage imageNamed:@"cell-select-active.png"] forState:UIControlStateNormal];
         }
@@ -313,17 +319,18 @@
         [conn sendElement:[IQPacketManager createSubscribePacket:friend.username]];
         [FriendsDBManager updateUserSetStatusRequested:friend.username];
     }
-    
+    NSLog(@"Unregistered Contact Size: %d", [_unregisteredContacts count]);
     self.smsContacts = [[NSMutableArray alloc] initWithCapacity:[_selectedUnregisteredContacts count]];
     self.emailContacts = [[NSMutableArray alloc] initWithCapacity:[_selectedUnregisteredContacts count]];
     
     for (FriendMO *friend in _selectedUnregisteredContacts) {
-        if (friend.username != nil) {
+        if (friend.searchedPhoneNumber != nil) {
             [_smsContacts addObject:friend.username];
         } else if(friend.email != nil) {
             [_emailContacts addObject:friend.email];
         }
     }
+    
     if ([_smsContacts count] > 0) {
         [self showSMS:_smsContacts];
     } else {
