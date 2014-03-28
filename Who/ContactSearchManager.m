@@ -14,6 +14,7 @@
 #import "FriendsDBManager.h"
 #import "FriendMO.h"
 #import "AppDelegate.h"
+#import "UserDefaultManager.h"
 
 @interface ContactSearchManager()
 
@@ -57,12 +58,15 @@ static ContactSearchManager *selfInstance;
                 if (!granted) {
                     //failure((__bridge NSError *)error);
                 } else {
+                    NSString *countryCode = [UserDefaultManager loadCountryCode];
+                    NSString *phoneNumberWithoutCountry = [[[UserDefaultManager loadUsername] componentsSeparatedByString:@"-"] firstObject];
                     NSMutableArray *allPhoneNumbers = [[NSMutableArray alloc] initWithCapacity:100];
                     NSMutableArray *allEmails = [[NSMutableArray alloc] initWithCapacity:100];
                     NSArray *people = (__bridge NSArray *)(ABAddressBookCopyArrayOfAllPeople(addressBook));
                     for (id person in people) {
-                        NSString *firstName = (__bridge_transfer NSString*)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonFirstNameProperty);
-                        NSString *lastName = (__bridge_transfer NSString*)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonLastNameProperty);
+                        ABRecordRef personRecordReference = (__bridge ABRecordRef)person;
+                        NSString *firstName = (__bridge_transfer NSString*)ABRecordCopyValue(personRecordReference, kABPersonFirstNameProperty);
+                        NSString *lastName = (__bridge_transfer NSString*)ABRecordCopyValue(personRecordReference, kABPersonLastNameProperty);
                         
                         if (firstName == nil && lastName == nil) {
                             continue;
@@ -76,8 +80,8 @@ static ContactSearchManager *selfInstance;
                         NSMutableArray *phoneBufferArray = [[NSMutableArray alloc] init],
                         *emailBufferArray = [[NSMutableArray alloc] init];
                         // Get all phone numbers of a contact
-                        ABMultiValueRef phoneNumbers = ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonPhoneProperty),
-                        emailList = ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonEmailProperty);
+                        ABMultiValueRef phoneNumbers = ABRecordCopyValue(personRecordReference, kABPersonPhoneProperty);
+                        ABMultiValueRef emailList = ABRecordCopyValue(personRecordReference, kABPersonEmailProperty);
                         BOOL shouldSearch = YES;
                         NSInteger emailCount = ABMultiValueGetCount(emailList);
                         NSString *tempEmail;
@@ -101,6 +105,9 @@ static ContactSearchManager *selfInstance;
                             for (int i = 0; i < phoneNumberCount; i++) {
                                 phone = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phoneNumbers, i);
                                 phone = [regex stringByReplacingMatchesInString:phone options:0 range:NSMakeRange(0, [phone length]) withTemplate:@""];
+                                if (phone.length == phoneNumberWithoutCountry.length) {
+                                    phone = [NSString stringWithFormat:@"%@-%@", countryCode, phone];
+                                }
                                 [phoneBufferArray addObject:phone];
                                 FriendMO* friend;
                                 if ((friend = [self getFriendWithUsername:phone]) != nil) {
