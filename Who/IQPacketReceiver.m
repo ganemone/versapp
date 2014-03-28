@@ -114,6 +114,7 @@
         } else {
             searchedEmail = nil;
         }
+        NSLog(@"\n\n Found Registered Contact: %@ \n %@ \n %@ \n\n", username, searchedPhoneNumber, searchedEmail);
         [FriendsDBManager insert:username name:nil email:searchedEmail status:[NSNumber numberWithInt:STATUS_REGISTERED] searchedPhoneNumber:searchedPhoneNumber searchedEmail:searchedEmail];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_SEARCH_FOR_USERS object:nil];

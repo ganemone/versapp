@@ -44,21 +44,22 @@
     return message;
 }
 
-+(void)updateMessageWithGroupID:(NSString *)groupID messageBody:(NSString *)messageBody imageLink:(NSString *)imageLink time:(NSString *)time {
++(void)updateMessageWithGroupID:(NSString *)groupID time:(NSString *)time {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:CORE_DATA_TABLE_MESSAGES inManagedObjectContext:moc];
     [fetchRequest setEntity:entity];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%@ = \"%@\" && %@ = \"%@\" && %@ = \"%@\"", MESSAGE_PROPERTY_GROUP_ID, groupID, MESSAGE_PROPERTY_BODY, messageBody, MESSAGE_PROPERTY_SENDER_ID, [ConnectionProvider getUser]]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%@ = \"%@\" && %@ = \"%@\"", MESSAGE_PROPERTY_GROUP_ID, groupID, MESSAGE_PROPERTY_SENDER_ID, [ConnectionProvider getUser]]];
     [fetchRequest setFetchLimit:1];
     [fetchRequest setPredicate:predicate];
     NSError* error;
     NSArray *fetchedItems = [moc executeFetchRequest:fetchRequest error:&error];
     MessageMO *itemToUpdate = [fetchedItems firstObject];
-    NSLog(@"Message to Update: %@", [itemToUpdate description]);
-    [itemToUpdate setTime:time];
-    [delegate saveContext];
+    if (itemToUpdate != nil) {
+        [itemToUpdate setTime:time];
+        [delegate saveContext];
+    }
 }
 
 +(NSMutableArray *)getMessagesByChat:(NSString *)chatID {

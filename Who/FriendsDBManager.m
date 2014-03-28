@@ -89,13 +89,14 @@
     //[delegate saveContextWithMOC:moc];
 }
 
-+ (FriendMO *)getUserWithJIDS:(NSArray *)phoneNumbers searchedEmails:(NSArray *)emails {
-    NSArray *fetchedData = [self makeFetchRequestWithPredicate:[NSPredicate predicateWithFormat:@"%@ IN %@ OR %@ IN %@", FRIENDS_TABLE_COLUMN_NAME_USERNAME, phoneNumbers, FRIENDS_TABLE_COLUMN_NAME_EMAIL, emails]];
-    if(fetchedData.count > 0) {
-        NSLog(@"Found Item!");
-        return [fetchedData firstObject];
-    }
-    return nil;
++ (FriendMO *)getUserWithSearchedPhoneNumber:(NSString *)phoneNumber withMOC:(NSManagedObjectContext *)moc {
+    NSArray *result = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER, phoneNumber] moc:moc];
+    return (result.count > 0) ? [result firstObject] : nil;
+}
+
++ (FriendMO *)getUserWithSearchedEmail:(NSString *)email withMOC:(NSManagedObjectContext *)moc {
+    NSArray *result = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL, email] moc:moc];
+    return (result.count > 0) ? [result firstObject] : nil;
 }
 
 + (void)insertWithMOC:(NSManagedObjectContext *)moc username:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status searchedPhoneNumber:(NSString*)searchedPhoneNumber searchedEmail:(NSString*)searchedEmail {
@@ -228,7 +229,7 @@
     if (friend == nil) {
         return NO;
     }
-
+    
     [friend setValue:name forKey:FRIENDS_TABLE_COLUMN_NAME_NAME];
     [friend setValue:email forKey:FRIENDS_TABLE_COLUMN_NAME_EMAIL];
     [friend setValue:status forKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];

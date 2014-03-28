@@ -80,7 +80,7 @@
     }
     
     if ([senderID isEqualToString:[ConnectionProvider getUser]]) {
-        [MessagesDBManager updateMessageWithGroupID:groupID messageBody:message.body imageLink:imageLink time:timestamp];
+        [MessagesDBManager updateMessageWithGroupID:groupID time:timestamp];
     } else if (inviteFlag == nil) {
         if ([message.type compare:CHAT_TYPE_GROUP] == 0) {
             MessageMO *newMessage;

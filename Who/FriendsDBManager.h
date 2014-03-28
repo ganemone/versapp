@@ -18,7 +18,9 @@
 
 + (void)updateFriendAfterSearch:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status searchedPhoneNumber:(NSString*)searchedPhoneNumber searchedEmail:(NSString*)searchedEmail moc:(NSManagedObjectContext *)moc;
 
-+ (FriendMO *)getUserWithJIDS:(NSArray *)phoneNumbers searchedEmails:(NSArray *)emails;
++ (FriendMO *)getUserWithSearchedPhoneNumber:(NSString *)phoneNumber withMOC:(NSManagedObjectContext *)moc;
+
++ (FriendMO *)getUserWithSearchedEmail:(NSString *)email withMOC:(NSManagedObjectContext *)moc;
 
 +(NSArray*)getAll;
 
