@@ -54,6 +54,7 @@
         if ([presence.type compare:@"subscribe"] == 0) {
             NSLog(@"Adding Pending Friend...");
             [FriendsDBManager insert:username name:nil email:nil status:[NSNumber numberWithInt:STATUS_PENDING] searchedPhoneNumber:nil searchedEmail:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_NOTIFICATIONS object:nil];
         }
         // Friend accepted connected users request
         // => move friend to contacts
