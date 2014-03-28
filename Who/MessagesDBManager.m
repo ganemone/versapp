@@ -69,7 +69,7 @@
     [fetchRequest setEntity:entity];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%@ = \"%@\"", MESSAGE_PROPERTY_GROUP_ID, chatID]];
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:MESSAGE_PROPERTY_TIMESTAMP ascending:NO];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:MESSAGE_PROPERTY_TIMESTAMP ascending:YES];
     [fetchRequest setFetchLimit:100];
     [fetchRequest setPredicate:predicate];
     
