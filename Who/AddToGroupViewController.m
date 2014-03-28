@@ -14,6 +14,7 @@
 #import "FriendsDBManager.h"
 #import "Constants.h"
 #import "FriendTableViewCell.h"
+#import "ChatDBManager.h"
 
 @interface AddToGroupViewController ()
 
@@ -21,7 +22,7 @@
 @property (strong, nonatomic) NSArray *searchResults;
 @property (strong, nonatomic) NSArray *allAccepted;
 @property (strong, nonatomic) NSMutableArray *selectedJIDs;
-@property (strong, nonatomic) ChatMO *chat;
+@property (strong, nonatomic) ChatMO *chatMO;
 @property (strong, nonatomic) LoadingDialogManager *ldm;
 @property (strong, nonatomic) NSString *invitedUser;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -33,6 +34,7 @@
 @implementation AddToGroupViewController
 
 //@synthesize currentParticipants = _currentParticipants;
+@synthesize chatID = _chatID;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -67,16 +69,19 @@
 }
 
 - (IBAction)doneButtonClicked:(id)sender {
-    
+    [ChatDBManager setChatIDUpdatingParticipants:_chatMO.chat_id];
+    [ChatDBManager updateChatParticipants:_selectedJIDs];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)backButtonClicked:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)setCurrentParticipants:(NSArray *)currentParticipants {
-    _selectedJIDs = [[NSMutableArray alloc] initWithArray:currentParticipants];
-    NSLog(@"Selected: %@", _selectedJIDs);
+-(void)setChatID:(NSString *)chatID {
+    _chatID = chatID;
+    _chatMO = [ChatDBManager getChatWithID:chatID];
+    _selectedJIDs = [[NSMutableArray alloc] initWithArray:_chatMO.participants];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {\

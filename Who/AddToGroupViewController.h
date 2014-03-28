@@ -10,7 +10,9 @@
 
 @protocol AddToGroupViewController
 
--(void)setCurrentParticipants:(NSArray *)currentParticipants;
+@property (strong, nonatomic) NSString *chatID;
+
+-(void)setChatID:(NSString *)chatID;
 
 @end
 

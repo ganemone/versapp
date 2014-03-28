@@ -221,7 +221,8 @@
     if ([segue.identifier compare:SEGUE_ID_ADD_TO_GROUP] == 0) {
         id destination = segue.destinationViewController;
         if ([destination conformsToProtocol:@protocol(AddToGroupViewController)]) {
-            [destination setCurrentParticipants:[_chatMO participants]];
+            //[destination setCurrentParticipants:[_chatMO participants]];
+            [destination setChatID:_chatMO.chat_id];
         }
     }
 }
