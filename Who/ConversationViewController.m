@@ -211,7 +211,7 @@
 }
 - (IBAction)showGroupMembers:(id)sender {
     NSString *title = [NSString stringWithFormat:@"Members of %@", [self.chatMO user_defined_chat_name]];
-    UIAlertView *groupMemberList = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil, nil];
+    UIAlertView *groupMemberList = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:@"Close" otherButtonTitles:@"Add Users", nil];
     NSArray *members = [self.chatMO participants];
     NSMutableString *list = [[NSMutableString alloc] init];
     for (NSString *member in members) {
@@ -221,6 +221,14 @@
     [groupMemberList setMessage:list];
     groupMemberList.alertViewStyle = UIAlertViewStyleDefault;
     [groupMemberList show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == [alertView cancelButtonIndex]) {
+        NSLog(@"Close");
+    } else {
+        NSLog(@"Add Users");
+    }
 }
 
 @end

@@ -1547,12 +1547,12 @@
         <segue reference="fSF-xn-2Ew"/>
         <segue reference="QMt-WW-ujz"/>
         <segue reference="pHb-Kf-4qo"/>
-        <segue reference="BCc-dv-kG7"/>
-        <segue reference="hVX-XL-lBE"/>
         <segue reference="z6h-qs-HbB"/>
+        <segue reference="BCc-dv-kG7"/>
         <segue reference="tVn-SP-Hc9"/>
-        <segue reference="zTQ-Mf-6oX"/>
+        <segue reference="hVX-XL-lBE"/>
         <segue reference="YCw-e7-spT"/>
-        <segue reference="qGQ-aw-vgl"/>
+        <segue reference="8c7-Mw-K5g"/>
+        <segue reference="zTQ-Mf-6oX"/>
     </inferredMetricsTieBreakers>
 </document>
