@@ -41,4 +41,6 @@
 
 +(NSString *)createGroupID;
 
+-(NSString *)getChatName;
+
 @end

@@ -57,7 +57,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableInteraction) name:NOTIFICATION_DISABLE_SWIPE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enableInteraction) name:NOTIFICATION_ENABLE_SWIPE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setUpInBackground) name:PACKET_ID_GET_CONFESSIONS object:nil];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enableEditing) name:NOTIFICATION_ENABLE_DASHBOARD_EDITING object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableEditing) name:NOTIFICATION_DISABLE_DASHBOARD_EDITING object:nil];
+    
     [self.navigationController.navigationBar setHidden:YES];
     
     // Initialize and configure page view controller
@@ -71,6 +73,7 @@
     [self addChildViewController:_pageViewController];
     // Add the page view controller frame to the current view controller
     [_pageViewController.view setFrame:self.view.frame];
+    
     [self.view addSubview:_pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];
 }
@@ -198,5 +201,22 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void)enableEditing {
+    [_pageViewController.view removeFromSuperview];
+    DashboardViewController *dashboard = (DashboardViewController *)[self.viewControllers objectAtIndex:0];
+    [dashboard removeFromParentViewController];
+    [self addChildViewController:dashboard];
+    [self.view addSubview:[dashboard view]];
+}
+
+-(void)disableEditing {
+    DashboardViewController *dashboard = (DashboardViewController *)[self.viewControllers objectAtIndex:0];
+    [dashboard removeFromParentViewController];
+    [_pageViewController setViewControllers:@[dashboard] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    [self.view addSubview:_pageViewController.view];
+}
+
+
 
 @end

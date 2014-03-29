@@ -22,4 +22,6 @@
 
 +(NSString*)getTimeForHistory;
 
++(void)deleteMessagesFromChatWithID:(NSString *)chatID;
+
 @end

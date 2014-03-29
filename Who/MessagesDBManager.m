@@ -143,4 +143,24 @@
     return fetchedRecords;
 }
 
++(void)deleteMessagesFromChatWithID:(NSString *)chatID {
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *moc = [delegate managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:CORE_DATA_TABLE_MESSAGES inManagedObjectContext:moc];
+    [fetchRequest setEntity:entity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%@ = \"%@\"", MESSAGE_PROPERTY_GROUP_ID, chatID]];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:MESSAGE_PROPERTY_TIMESTAMP ascending:YES];
+    [fetchRequest setPredicate:predicate];
+    
+    [fetchRequest setSortDescriptors:@[sort]];
+    NSError* error;
+    NSArray *fetchedItems = [moc executeFetchRequest:fetchRequest error:&error];
+    for (MessageMO *message in fetchedItems) {
+        [moc deleteObject:message];
+    }
+    [delegate saveContext];
+}
+
 @end

@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "SWTableViewCell.h"
 #import "ConnectionHandlingViewController.h"
-@interface DashboardViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, SWTableViewCellDelegate>
+@interface DashboardViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, SWTableViewCellDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate>
 
 @end

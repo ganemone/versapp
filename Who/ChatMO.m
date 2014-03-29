@@ -92,4 +92,8 @@
     return [NSString stringWithFormat:@"\n Chat ID: %@ \n Chat Name: %@ \n Chat Type: %@ \n Chat Status: %@ \n", self.chat_id, self.chat_name, self.chat_type, self.status];
 }
 
+-(NSString *)getChatName {
+    return (self.user_defined_chat_name == nil) ? self.chat_name : self.user_defined_chat_name;
+}
+
 @end

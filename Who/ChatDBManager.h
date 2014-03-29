@@ -63,4 +63,6 @@
 
 +(NSString *)getChatIDPendingCreation;
 
++(void)deleteChat:(ChatMO *)chat;
+
 @end
