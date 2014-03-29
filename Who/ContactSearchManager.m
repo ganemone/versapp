@@ -18,7 +18,7 @@
 
 @interface ContactSearchManager()
 
-@property (strong, nonatomic) NSMutableDictionary *contacts;
+@property (strong, atomic) NSMutableDictionary *contacts;
 @property (strong, nonatomic) NSArray *allFriends;
 @property int numPacketsSent;
 @end
@@ -31,7 +31,7 @@ static ContactSearchManager *selfInstance;
     @synchronized(self) {
         if (selfInstance == nil) {
             selfInstance = [[self alloc] init];
-            selfInstance.contacts = [[NSMutableArray alloc] initWithCapacity:100];
+            selfInstance.contacts = [[NSMutableDictionary alloc] initWithCapacity:100];
         }
     }
     return selfInstance;
@@ -88,6 +88,7 @@ static ContactSearchManager *selfInstance;
                     NSString *phoneNumberWithoutCountry = [[[UserDefaultManager loadUsername] componentsSeparatedByString:@"-"] lastObject];
                     NSMutableArray *allPhoneNumbers = [[NSMutableArray alloc] initWithCapacity:100];
                     NSMutableArray *allEmails = [[NSMutableArray alloc] initWithCapacity:100];
+                    NSMutableArray *allIDS = [[NSMutableArray alloc] initWithCapacity:100];
                     NSArray *people = (__bridge NSArray *)(ABAddressBookCopyArrayOfAllPeople(addressBook));
                     for (id person in people) {
                         ABRecordRef personRecordReference = (__bridge ABRecordRef)person;
@@ -95,6 +96,7 @@ static ContactSearchManager *selfInstance;
                         NSString *lastName = (__bridge_transfer NSString*)ABRecordCopyValue(personRecordReference, kABPersonLastNameProperty);
                         ABRecordID personID = ABRecordGetRecordID(personRecordReference);
                         NSString *personIDString = [NSString stringWithFormat:@"%d", personID];
+                        NSLog(@"Person ID String: %@ %@ %@", firstName, lastName, personIDString);
                         if (firstName == nil && lastName == nil) {
                             continue;
                         } else if(firstName == nil) {
@@ -156,7 +158,7 @@ static ContactSearchManager *selfInstance;
                             }
                         }
                         if (shouldSearch == YES) {
-                            for (int i = 0; i < MAX(emailCount, [phoneBufferArray count]); i++) {
+                            for (int i = 0; i < MAX([emailBufferArray count], [phoneBufferArray count]); i++) {
                                 if (i < emailCount) {
                                     [allEmails addObject:[emailBufferArray objectAtIndex:i]];
                                 } else {
@@ -167,30 +169,43 @@ static ContactSearchManager *selfInstance;
                                 } else {
                                     [allPhoneNumbers addObject:@""];
                                 }
+                                [allIDS addObject:personIDString];
                             }
                             [self.contacts setObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:personIDString, DICTIONARY_KEY_ID, firstName, VCARD_TAG_FIRST_NAME, lastName, VCARD_TAG_LAST_NAME, emailBufferArray, VCARD_TAG_EMAIL, phoneBufferArray, VCARD_TAG_USERNAME, [NSNumber numberWithInt:STATUS_UNREGISTERED], FRIENDS_TABLE_COLUMN_NAME_STATUS, nil] forKey:personIDString];
                         }
                     }
-                    int numToSplit = 100;
+                    int numToSplit = 35;
                     int startingIndex = 0;
                     [self resetNumPacketsSent];
-                    while (MAX([allPhoneNumbers count], [allEmails count]) > startingIndex + numToSplit) {
-                        NSMutableArray *tempPhoneNumbers = [[NSMutableArray alloc] initWithCapacity:MIN(numToSplit, [allPhoneNumbers count])];
-                        NSMutableArray *tempEmails = [[NSMutableArray alloc] initWithCapacity:MIN(numToSplit, [allEmails count])];
+                    while ([allIDS count] > startingIndex + numToSplit) {
+                        NSMutableArray *tempPhoneNumbers = [[NSMutableArray alloc] initWithCapacity:numToSplit];
+                        NSMutableArray *tempEmails = [[NSMutableArray alloc] initWithCapacity:numToSplit];
+                        NSMutableArray *tempIDS = [[NSMutableArray alloc] initWithCapacity:numToSplit];
                         for (int i = startingIndex; i < startingIndex + numToSplit; i++) {
-                            if (i < [allPhoneNumbers count]) {
-                                [tempPhoneNumbers addObject:[allPhoneNumbers objectAtIndex:i]];
-                            }
-                            if (i < [allEmails count]) {
-                                [tempEmails addObject:[allEmails objectAtIndex:i]];
-                            }
+                            [tempPhoneNumbers addObject:[allPhoneNumbers objectAtIndex:i]];
+                            [tempEmails addObject:[allEmails objectAtIndex:i]];
+                            [tempIDS addObject:[allIDS objectAtIndex:i]];
                         }
                         [self incrementNumPacketsSent];
                         startingIndex = startingIndex + numToSplit;
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createUserSearchPacketWithPhoneNumbers:tempPhoneNumbers emails:tempEmails]];
+                            [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createUserSearchPacketWithPhoneNumbers:tempPhoneNumbers emails:tempEmails personIDS:tempIDS]];
                         });
                     }
+                    startingIndex = startingIndex - numToSplit;
+                    int capacity = ((int)[allIDS count]) - startingIndex;
+                    NSMutableArray *tempPhoneNumbers = [[NSMutableArray alloc] initWithCapacity:capacity];
+                    NSMutableArray *tempEmails = [[NSMutableArray alloc] initWithCapacity:capacity];
+                    NSMutableArray *tempIDS = [[NSMutableArray alloc] initWithCapacity:capacity];
+                    for (int i = startingIndex - numToSplit; i < [allIDS count]; i++) {
+                        [tempPhoneNumbers addObject:[allPhoneNumbers objectAtIndex:i]];
+                        [tempEmails addObject:[allEmails objectAtIndex:i]];
+                        [tempIDS addObject:[allIDS objectAtIndex:i]];
+                    }
+                    [self incrementNumPacketsSent];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createUserSearchPacketWithPhoneNumbers:tempPhoneNumbers emails:tempEmails personIDS:tempIDS]];
+                    });
                 }
                 CFRelease(addressBook);
             });
@@ -205,15 +220,20 @@ static ContactSearchManager *selfInstance;
     [moc setParentContext:mainMoc];
     [moc performBlock:^{
         for (NSDictionary *registeredContact in contactsFound) {
-            NSMutableDictionary *contact = [_contacts objectForKey:[registeredContact objectForKey:DICTIONARY_KEY_ID]];
-            [contact setObject:[contact objectForKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME] forKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME];
+            NSString *dictionaryKey = [registeredContact objectForKey:DICTIONARY_KEY_ID];
+            NSLog(@"Dictionary Key: %@", dictionaryKey);
+            NSMutableDictionary *contact = [_contacts objectForKey:dictionaryKey];
+            NSLog(@"Found Contact: %@ %@", [contact objectForKey:VCARD_TAG_FIRST_NAME], [contact objectForKey:VCARD_TAG_LAST_NAME]);
+            [contact setObject:[registeredContact objectForKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME] forKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME];
             [contact setObject:[NSNumber numberWithInt:STATUS_REGISTERED] forKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];
             [contact setObject:[registeredContact objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER] forKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER];
             [contact setObject:[registeredContact objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL] forKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL];
         }
         [self decrementNumPacketsSent];
         if ([self isFinishedSearching]) {
-            for (NSDictionary *contact in _contacts) {
+            NSEnumerator *contactEnumerator = [_contacts objectEnumerator];
+            NSDictionary *contact;
+            while ((contact = [contactEnumerator nextObject]) != nil) {
                 [FriendsDBManager updateFriendAfterUserSearch:contact withContext:moc];
             }
         }

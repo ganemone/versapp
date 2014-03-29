@@ -77,14 +77,14 @@
     NSLog(@"User Search Result: %@", iq.XMLString);
     NSError *error = NULL;
     NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?(?:\\[\\]|\"(.*?)\").*?(?:\\[\\]|\"(.*?)\")\\]" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?\(?:\\[\\]|\"(.*?)\").*?(?:\\[\\]|\"(.*?)\")\\]" options:NSRegularExpressionCaseInsensitive error:&error];
     NSTextCheckingResult *match = [regex firstMatchInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
     NSLog(@"Number of Ranges: %lu", (unsigned long)[match numberOfRanges]);
     if ([match numberOfRanges] > 0) {
         NSLog(@"Found Matches...");
         NSString *username = [packetXML substringWithRange:[match rangeAtIndex:1]];
         NSString *searchedEmail;
-        if ([match rangeAtIndex:3].length != 0) {
+        if ([match rangeAtIndex:4].length != 0) {
             searchedEmail = [packetXML substringWithRange:[match rangeAtIndex:3]];
         }
         NSLog(@"Found User: %@", username);
@@ -99,25 +99,27 @@
 +(void)handleUserSearchPacket:(XMPPIQ *)iq {
     NSError *error = NULL;
     NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\(?:\\[\\]|\"(.*?)\").*?(?:\\[\\]|\"(.*?)\").*?\"(.*?)\".*?\\]" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?\(?:\\[\\]|\"(.*?)\").*?(?:\\[\\]|\"(.*?)\")\\]" options:NSRegularExpressionCaseInsensitive error:&error];
     NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
     NSMutableArray *registeredContacts = [[NSMutableArray alloc] initWithCapacity:[matches count]];
     NSString *username, *searchedPhoneNumber, *searchedEmail, *uid;
     for (NSTextCheckingResult *match in matches) {
-        username = [packetXML substringWithRange:[match rangeAtIndex:1]];
-        if ([match rangeAtIndex:2].length != 0) {
-            searchedPhoneNumber = [packetXML substringWithRange:[match rangeAtIndex:2]];
-        } else {
-            searchedPhoneNumber = [packetXML substringWithRange:[match rangeAtIndex:2]];
-        }
+        uid = [packetXML substringWithRange:[match rangeAtIndex:1]];
+        username = [packetXML substringWithRange:[match rangeAtIndex:2]];
         if ([match rangeAtIndex:3].length != 0) {
-            searchedEmail = [packetXML substringWithRange:[match rangeAtIndex:3]];
+            searchedPhoneNumber = [packetXML substringWithRange:[match rangeAtIndex:3]];
         } else {
-            searchedEmail = nil;
+            searchedPhoneNumber = @"";
         }
-        uid = [packetXML substringWithRange:[match rangeAtIndex:4]];
+        if ([match rangeAtIndex:4].length != 0) {
+            searchedEmail = [packetXML substringWithRange:[match rangeAtIndex:4]];
+        } else {
+            searchedEmail = @"";
+        }
+        
         NSLog(@"\n\n Found Registered Contact: %@ \n %@ \n %@ \n %@ \n\n", username, searchedPhoneNumber, searchedEmail, uid);
-        [registeredContacts addObject:[[NSDictionary alloc] initWithObjectsAndKeys:username, FRIENDS_TABLE_COLUMN_NAME_USERNAME, searchedPhoneNumber, FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER, searchedEmail, FRIENDS_TABLE_COLUMN_NAME_EMAIL, uid, DICTIONARY_KEY_ID, nil]];
+        
+        [registeredContacts addObject:[[NSDictionary alloc] initWithObjectsAndKeys:username, FRIENDS_TABLE_COLUMN_NAME_USERNAME, searchedPhoneNumber, FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER, searchedEmail, FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL, uid, DICTIONARY_KEY_ID, nil]];
         //[FriendsDBManager insert:username name:nil email:searchedEmail status:[NSNumber numberWithInt:STATUS_REGISTERED] searchedPhoneNumber:searchedPhoneNumber searchedEmail:searchedEmail];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_SEARCH_FOR_USERS object:nil];

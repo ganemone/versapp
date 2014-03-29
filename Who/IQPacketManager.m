@@ -651,11 +651,13 @@
         emailString = @"";
     }
     
+    DDXMLElement *uid = [DDXMLElement elementWithName:@"id" stringValue:@"id"];
     DDXMLElement *phone = [DDXMLElement elementWithName:@"phone" stringValue:phoneString];
     DDXMLElement *email = [DDXMLElement elementWithName:@"email" stringValue:emailString];
     
     [contact addChild:phone];
     [contact addChild:email];
+    [contact addChild:uid];
     [contacts addChild:contact];
     
     [search addChild:contacts];
@@ -665,7 +667,7 @@
     return iq;
 }
 
-+(DDXMLElement *)createUserSearchPacketWithPhoneNumbers:(NSArray *)phoneNumbers emails:(NSArray*)emails {
++(DDXMLElement *)createUserSearchPacketWithPhoneNumbers:(NSArray *)phoneNumbers emails:(NSArray*)emails personIDS:(NSArray *)personIDS {
     DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
     [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_SEARCH_FOR_USERS]];
     [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"get"]];
@@ -678,10 +680,12 @@
     DDXMLElement *contacts = [DDXMLElement elementWithName:@"contacts"];
     for (int i = 0; i < [phoneNumbers count]; i++) {
         DDXMLElement *contact = [DDXMLElement elementWithName:@"contact"],
+        *uid = [DDXMLElement elementWithName:@"id" stringValue:[personIDS objectAtIndex:i]],
         *phone = [DDXMLElement elementWithName:@"phone" stringValue:[phoneNumbers objectAtIndex:i]],
         *email = [DDXMLElement elementWithName:@"email" stringValue:[emails objectAtIndex:i]];
         [contact addChild:phone];
         [contact addChild:email];
+        [contact addChild:uid];
         [contacts addChild:contact];
     }
     

@@ -81,7 +81,6 @@
         [friendMO setValue:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL];
         [friendMO setValue:[NSNumber numberWithInt:STATUS_REGISTERED] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_STATUS];
         [friendMO setValue:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER];
-        [friendMO setValue:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL];
     }
 }
 
@@ -102,7 +101,6 @@
             [friendMO setValue:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL];
             [friendMO setValue:[NSNumber numberWithInt:STATUS_UNREGISTERED] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_STATUS];
             [friendMO setValue:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER];
-            [friendMO setValue:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL];
         }
     } else {
         [self insertWithMOC:moc

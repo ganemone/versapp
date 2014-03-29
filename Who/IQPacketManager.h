@@ -91,6 +91,6 @@
 
 +(DDXMLElement *)createUserSearchPacketWithSearchParam:(NSString *)searchParam;
 
-+(DDXMLElement *)createUserSearchPacketWithPhoneNumbers:(NSArray *)phoneNumbers emails:(NSArray*)emails;
++(DDXMLElement *)createUserSearchPacketWithPhoneNumbers:(NSArray *)phoneNumbers emails:(NSArray*)emails personIDS:(NSArray *)personIDS;
 
 @end
