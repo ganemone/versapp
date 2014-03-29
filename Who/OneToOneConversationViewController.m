@@ -15,6 +15,7 @@
 #import "MessageMO.h"
 #import "ChatMO.h"
 #import "StyleManager.h"
+#import "IQPacketManager.h"
 
 @implementation OneToOneConversationViewController
 

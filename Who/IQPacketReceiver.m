@@ -157,6 +157,11 @@
         name = [self urlDecode:[packetXML substringWithRange:[match rangeAtIndex:5]]];
         //*createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
         participants = [participantString componentsSeparatedByString:@", "];
+        for (NSString *participant in participants) {
+            if (![FriendsDBManager hasUserWithJID:participant]) {
+                [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetVCardPacket:participant]];
+            }
+        }
         if ([type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
             ChatMO *chat = [ChatDBManager getChatWithID:chatId];
             if (chat != nil) {
@@ -264,8 +269,13 @@
     }
     if ([username compare:[ConnectionProvider getUser]] != 0) {
         NSString *name = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
-        [FriendsDBManager insert:username name:name email:email status:nil searchedPhoneNumber:nil searchedEmail:nil];
-        [ChatDBManager updateOneToOneChatNames:name username:username];
+        if ([FriendsDBManager hasUserWithJID:username]) {
+            [FriendsDBManager insert:username name:name email:email status:nil searchedPhoneNumber:nil searchedEmail:nil];
+            [ChatDBManager updateOneToOneChatNames:name username:username];
+        } else {
+            NSLog(@"Adding name for temp vcard info... %@", name);
+            [[ConnectionProvider getInstance] addName:name forUsername:username];
+        }
     } else {
         [UserDefaultManager saveEmail:email];
         [UserDefaultManager saveName:[NSString stringWithFormat:@"%@ %@", firstName, lastName]];

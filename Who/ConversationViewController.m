@@ -227,7 +227,14 @@
     NSMutableString *list = [[NSMutableString alloc] init];
     for (NSString *member in members) {
         FriendMO *friend = [FriendsDBManager getUserWithJID:[NSString stringWithFormat:@"%@", member]];
-        [list appendString:[NSString stringWithFormat:@"%@\n", friend.name]];
+        if (friend == nil) {
+            NSString *name = [[[ConnectionProvider getInstance] tempVCardInfo] objectForKey:member];
+            if (name != nil) {
+                [list appendString:[NSString stringWithFormat:@"%@\n", name]];
+            }
+        } else {
+            [list appendString:[NSString stringWithFormat:@"%@\n", friend.name]];
+        }
     }
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Participants" message:nil delegate:self cancelButtonTitle:@"Close" otherButtonTitles:@"Add Users", nil];
     [alertView setMessage:list];

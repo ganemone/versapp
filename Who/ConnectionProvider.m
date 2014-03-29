@@ -33,14 +33,15 @@
 #import "ContactSearchManager.h"
 @interface ConnectionProvider ()
 
-@property(strong, nonatomic) XMPPReconnect *xmppReconnect;
-@property(strong, nonatomic) XMPPAutoPing *xmppPing;
+//@property(strong, nonatomic) XMPPReconnect *xmppReconnect;
+//@property(strong, nonatomic) XMPPAutoPing *xmppPing;
 @property(strong, nonatomic) XMPPStream* xmppStream;
 @property(strong, nonatomic) NSString* username;
 @property(strong, nonatomic) NSString* password;
 @property(strong, nonatomic) NSString* SERVER_IP_ADDRESS;
 @property(strong, nonatomic) NSString* CONFERENCE_IP_ADDRESS;
 @property(strong, nonatomic) NSDictionary *pendingAccountInfo;
+
 
 @property BOOL isCreatingAccount;
 
@@ -57,12 +58,13 @@ static ConnectionProvider *selfInstance;
             selfInstance = [[self alloc] init];
             selfInstance.SERVER_IP_ADDRESS = @"ejabberd.versapp.co";
             selfInstance.CONFERENCE_IP_ADDRESS = @"conference.ejabberd.versapp.co";
-            selfInstance.xmppReconnect = [[XMPPReconnect alloc] initWithDispatchQueue:dispatch_get_main_queue()];
-            [selfInstance.xmppReconnect addDelegate:self delegateQueue:dispatch_get_main_queue()];
-            selfInstance.xmppPing = [[XMPPAutoPing alloc] initWithDispatchQueue:dispatch_get_main_queue()];
-            selfInstance.xmppPing.pingInterval = 25.f; // default is 60
-            selfInstance.xmppPing.pingTimeout = 10.f; // default is 10
-            [selfInstance.xmppPing addDelegate:self delegateQueue:dispatch_get_main_queue()];
+            selfInstance.tempVCardInfo = [[NSMutableDictionary alloc] initWithCapacity:5];
+            //selfInstance.xmppReconnect = [[XMPPReconnect alloc] initWithDispatchQueue:dispatch_get_main_queue()];
+            //[selfInstance.xmppReconnect addDelegate:self delegateQueue:dispatch_get_main_queue()];
+            //selfInstance.xmppPing = [[XMPPAutoPing alloc] initWithDispatchQueue:dispatch_get_main_queue()];
+            //selfInstance.xmppPing.pingInterval = 25.f; // default is 60
+            //selfInstance.xmppPing.pingTimeout = 10.f; // default is 10
+            //[selfInstance.xmppPing addDelegate:self delegateQueue:dispatch_get_main_queue()];
             [selfInstance addSelfStreamDelegate];
         }
     }
@@ -154,7 +156,7 @@ static ConnectionProvider *selfInstance;
 - (void)xmppStreamDidAuthenticate:(XMPPStream *)sender
 {
     NSLog(@"XMPP Stream Did Authenticate");
-    [self.xmppReconnect activate:self.xmppStream];
+    //[self.xmppReconnect activate:self.xmppStream];
     self.authenticated = YES;
     if (self.isCreatingAccount == YES) {
         NSLog(@"Creating VCard...");
@@ -296,6 +298,10 @@ static ConnectionProvider *selfInstance;
     }
     
     NSLog(@"%@", regError);
+}
+
+-(void)addName:(NSString *)name forUsername:(NSString *)username {
+    [_tempVCardInfo setObject:name forKey:username];
 }
 
 @end

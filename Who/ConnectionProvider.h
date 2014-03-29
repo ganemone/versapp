@@ -20,6 +20,7 @@
 @interface ConnectionProvider : NSObject  <XMPPStreamDelegate, XMPPAutoPingDelegate, XMPPReconnectDelegate>
 
 @property(strong, nonatomic) NSString *pendingParticipantsChatID;
+@property(strong, nonatomic) NSMutableDictionary *tempVCardInfo;
 @property BOOL authenticated;
 @property BOOL didConnect;
 
@@ -43,5 +44,7 @@
 + (NSString*) getUser;
 
 - (void) createAccount:(NSDictionary*)accountInfo;
+
+- (void)addName:(NSString *)name forUsername:(NSString *)username;
 
 @end
