@@ -117,8 +117,6 @@
             searchedEmail = @"";
         }
         
-        NSLog(@"\n\n Found Registered Contact: %@ \n %@ \n %@ \n %@ \n\n", username, searchedPhoneNumber, searchedEmail, uid);
-        
         [registeredContacts addObject:[[NSDictionary alloc] initWithObjectsAndKeys:username, FRIENDS_TABLE_COLUMN_NAME_USERNAME, searchedPhoneNumber, FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER, searchedEmail, FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL, uid, DICTIONARY_KEY_ID, nil]];
         //[FriendsDBManager insert:username name:nil email:searchedEmail status:[NSNumber numberWithInt:STATUS_REGISTERED] searchedPhoneNumber:searchedPhoneNumber searchedEmail:searchedEmail];
     }
@@ -131,7 +129,7 @@
     NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\"\\]" options:NSRegularExpressionCaseInsensitive error:&error];
     NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
-    NSMutableArray *participants;
+    NSMutableArray *participants = [[NSMutableArray alloc] initWithCapacity:[matches count]];
     
     for (NSTextCheckingResult *match in matches) {
         if ([[packetXML substringWithRange:[match rangeAtIndex:3]] isEqualToString:@"active"]) {
@@ -159,7 +157,6 @@
         name = [self urlDecode:[packetXML substringWithRange:[match rangeAtIndex:5]]];
         //*createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
         participants = [participantString componentsSeparatedByString:@", "];
-        NSLog(@"Participant String: %@", participantString);
         if ([type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
             ChatMO *chat = [ChatDBManager getChatWithID:chatId];
             if (chat != nil) {

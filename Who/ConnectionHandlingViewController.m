@@ -10,14 +10,6 @@
 #import "ConnectionLostViewController.h"
 #import "Constants.h"
 
-@interface ConnectionHandlingViewController ()
-
-@property BOOL shouldShowConnectionLostView;
-@property BOOL viewHasAppeared;
-@property BOOL connectionLostViewIsVisible;
-
-@end
-
 @implementation ConnectionHandlingViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

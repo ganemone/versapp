@@ -36,7 +36,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceived:) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
     
     self.cp = [ConnectionProvider getInstance];
-    
+    [[self.cp getConnection] sendElement:[IQPacketManager createGetChatParticipantsPacket:_chatMO.chat_id]];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView setBackgroundColor:[StyleManager getColorBlue]];
     
@@ -222,14 +222,14 @@
 
 - (IBAction)showGroupMembers:(id)sender {
     _chatMO = [ChatDBManager getChatWithID:_chatMO.chat_id];
+    NSLog(@"Chat Participants :%@", [_chatMO participant_string]);
     NSArray *members = self.chatMO.participants;
     NSMutableString *list = [[NSMutableString alloc] init];
     for (NSString *member in members) {
         FriendMO *friend = [FriendsDBManager getUserWithJID:[NSString stringWithFormat:@"%@", member]];
         [list appendString:[NSString stringWithFormat:@"%@\n", friend.name]];
     }
-    NSString *title = [NSString stringWithFormat:@"Members of %@", [self.chatMO getChatName]];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:@"Close" otherButtonTitles:@"Add Users", nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Participants" message:nil delegate:self cancelButtonTitle:@"Close" otherButtonTitles:@"Add Users", nil];
     [alertView setMessage:list];
     [alertView setAlertViewStyle:UIAlertViewStyleDefault];
     [alertView setMessage:list];

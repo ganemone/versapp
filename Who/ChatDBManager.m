@@ -235,6 +235,7 @@ static int numUninvitedParticipants;
 
 +(void)updateChatParticipants:(NSMutableArray *)participants {
     if (chatIDUpdatingParticipants != nil) {
+        NSLog(@"Updating Chat Participants: %@", [participants componentsJoinedByString:@", "]);
         ChatMO *chat = [self getChatWithID:chatIDUpdatingParticipants];
         [chat setParticipants:participants];
         [chat setParticipant_string:[participants componentsJoinedByString:@", "]];
@@ -242,6 +243,7 @@ static int numUninvitedParticipants;
         [delegate saveContext];
         chatIDUpdatingParticipants = nil;
     }
+
 }
 
 +(void)setChatIDUpdatingParticipants:(NSString*)chatID {
