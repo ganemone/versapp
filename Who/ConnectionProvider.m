@@ -33,8 +33,8 @@
 #import "ContactSearchManager.h"
 @interface ConnectionProvider ()
 
-//@property(strong, nonatomic) XMPPReconnect *xmppReconnect;
-//@property(strong, nonatomic) XMPPAutoPing *xmppPing;
+@property(strong, nonatomic) XMPPReconnect *xmppReconnect;
+@property(strong, nonatomic) XMPPAutoPing *xmppPing;
 @property(strong, nonatomic) XMPPStream* xmppStream;
 @property(strong, nonatomic) NSString* username;
 @property(strong, nonatomic) NSString* password;
@@ -59,12 +59,12 @@ static ConnectionProvider *selfInstance;
             selfInstance.SERVER_IP_ADDRESS = @"ejabberd.versapp.co";
             selfInstance.CONFERENCE_IP_ADDRESS = @"conference.ejabberd.versapp.co";
             selfInstance.tempVCardInfo = [[NSMutableDictionary alloc] initWithCapacity:5];
-            //selfInstance.xmppReconnect = [[XMPPReconnect alloc] initWithDispatchQueue:dispatch_get_main_queue()];
-            //[selfInstance.xmppReconnect addDelegate:self delegateQueue:dispatch_get_main_queue()];
-            //selfInstance.xmppPing = [[XMPPAutoPing alloc] initWithDispatchQueue:dispatch_get_main_queue()];
-            //selfInstance.xmppPing.pingInterval = 25.f; // default is 60
-            //selfInstance.xmppPing.pingTimeout = 10.f; // default is 10
-            //[selfInstance.xmppPing addDelegate:self delegateQueue:dispatch_get_main_queue()];
+            selfInstance.xmppReconnect = [[XMPPReconnect alloc] initWithDispatchQueue:dispatch_get_main_queue()];
+            [selfInstance.xmppReconnect addDelegate:self delegateQueue:dispatch_get_main_queue()];
+            selfInstance.xmppPing = [[XMPPAutoPing alloc] initWithDispatchQueue:dispatch_get_main_queue()];
+            selfInstance.xmppPing.pingInterval = 25.f; // default is 60
+            selfInstance.xmppPing.pingTimeout = 10.f; // default is 10
+            [selfInstance.xmppPing addDelegate:self delegateQueue:dispatch_get_main_queue()];
             [selfInstance addSelfStreamDelegate];
         }
     }
@@ -169,7 +169,7 @@ static ConnectionProvider *selfInstance;
     }
     [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
     [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];
-    //[self.xmppStream sendElement:[IQPacketManager createGetLastTimeActivePacket]];
+    [self.xmppStream sendElement:[IQPacketManager createGetLastTimeActivePacket]];
     [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
     [self.xmppStream sendElement:[IQPacketManager createGetRosterPacket]];
     [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];

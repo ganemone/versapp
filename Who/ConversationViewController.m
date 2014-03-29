@@ -222,7 +222,6 @@
 
 - (IBAction)showGroupMembers:(id)sender {
     _chatMO = [ChatDBManager getChatWithID:_chatMO.chat_id];
-    NSLog(@"Chat Participants :%@", [_chatMO participant_string]);
     NSArray *members = self.chatMO.participants;
     NSMutableString *list = [[NSMutableString alloc] init];
     for (NSString *member in members) {

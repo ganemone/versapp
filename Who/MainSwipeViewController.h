@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "ConnectionHandlingViewController.h"
 
-@interface MainSwipeViewController : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate, UIGestureRecognizerDelegate, UIGestureRecognizerDelegate>
+@interface MainSwipeViewController : ConnectionHandlingViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate, UIGestureRecognizerDelegate, UIGestureRecognizerDelegate>
 
 @end
