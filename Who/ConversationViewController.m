@@ -253,11 +253,12 @@
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == [alertView cancelButtonIndex]) {
-        NSLog(@"Close");
+    if ([[alertView buttonTitleAtIndex:2] isEqualToString:@"Add Users"]) {
+        if (!(buttonIndex == [alertView cancelButtonIndex])) {
+            [self performSegueWithIdentifier:SEGUE_ID_ADD_TO_GROUP sender:self];
+        }
     } else {
-        NSLog(@"Add Users");
-        [self performSegueWithIdentifier:SEGUE_ID_ADD_TO_GROUP sender:self];
+        [super alertView:alertView clickedButtonAtIndex:buttonIndex];
     }
 }
 
