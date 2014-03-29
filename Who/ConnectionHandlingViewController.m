@@ -9,6 +9,7 @@
 #import "ConnectionHandlingViewController.h"
 #import "ConnectionLostViewController.h"
 #import "Constants.h"
+#import "ConnectionProvider.h"
 
 @implementation ConnectionHandlingViewController
 
@@ -27,7 +28,7 @@
     [super viewDidLoad];
     _shouldShowConnectionLostView = NO;
     _viewHasAppeared = NO;
-    _connectionLostViewIsVisible = YES;
+    _connectionLostViewIsVisible = NO;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConnectionLost) name:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConnectionLost) name:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
@@ -57,16 +58,22 @@
 }
 
 - (void)didReconnect {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    _shouldShowConnectionLostView = NO;
-    _connectionLostViewIsVisible = NO;
+    if (_connectionLostViewIsVisible) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        _shouldShowConnectionLostView = NO;
+        _connectionLostViewIsVisible = NO;
+    }
 }
 
 - (void)showDisconnectedView {
-    NSLog(@"Showing Disconnected View");
-    ConnectionLostViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:STORYBOARD_ID_CONNECTION_LOST_VIEW_CONTROLLER];
-    [self presentViewController:vc animated:YES completion:nil];
-    _connectionLostViewIsVisible = YES;
+    XMPPStream *stream = [[ConnectionProvider getInstance] getConnection];
+    if (![stream isConnecting] && ![stream isConnected] && ![stream isAuthenticated] && ![stream isAuthenticating]) {
+        if (!_connectionLostViewIsVisible) {
+            ConnectionLostViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:STORYBOARD_ID_CONNECTION_LOST_VIEW_CONTROLLER];
+            [self presentViewController:vc animated:YES completion:nil];
+            _connectionLostViewIsVisible = YES;
+        }
+    }
 }
 
 /*

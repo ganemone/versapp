@@ -131,7 +131,6 @@
     NSLog(@"Is Authenticating? %d", [stream isAuthenticating]);
     NSLog(@"Is Connecting? %d", [stream isConnecting]);
     NSLog(@"Is Disconnected? %d", [stream isDisconnected]);
-    
     if ([stream isDisconnected]) {
         NSString *username = [UserDefaultManager loadUsername];
         NSString *password = [UserDefaultManager loadPassword];
