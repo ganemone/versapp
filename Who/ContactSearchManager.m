@@ -84,7 +84,6 @@ static ContactSearchManager *selfInstance;
                 } else {
                     [UserDefaultManager saveCountryCode:@"1"];
                     NSString *countryCode = [UserDefaultManager loadCountryCode];
-                    NSLog(@"Country Code: %@", countryCode);
                     NSString *phoneNumberWithoutCountry = [[[UserDefaultManager loadUsername] componentsSeparatedByString:@"-"] lastObject];
                     NSMutableArray *allPhoneNumbers = [[NSMutableArray alloc] initWithCapacity:100];
                     NSMutableArray *allEmails = [[NSMutableArray alloc] initWithCapacity:100];
@@ -96,7 +95,6 @@ static ContactSearchManager *selfInstance;
                         NSString *lastName = (__bridge_transfer NSString*)ABRecordCopyValue(personRecordReference, kABPersonLastNameProperty);
                         ABRecordID personID = ABRecordGetRecordID(personRecordReference);
                         NSString *personIDString = [NSString stringWithFormat:@"%d", personID];
-                        NSLog(@"Person ID String: %@ %@ %@", firstName, lastName, personIDString);
                         if (firstName == nil && lastName == nil) {
                             continue;
                         } else if(firstName == nil) {
@@ -134,18 +132,13 @@ static ContactSearchManager *selfInstance;
                             for (int i = 0; i < phoneNumberCount; i++) {
                                 phone = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phoneNumbers, i);
                                 phone = [regex stringByReplacingMatchesInString:phone options:0 range:NSMakeRange(0, [phone length]) withTemplate:@""];
-                                NSLog(@"Looking at Phone: %@", phone);
-                                NSLog(@"Phone Code: %@", [phone substringToIndex:countryCode.length]);
                                 if (phone.length == phoneNumberWithoutCountry.length) {
-                                    NSLog(@"Making Phone %@-%@", countryCode, phone);
                                     phone = [NSString stringWithFormat:@"%@-%@", countryCode, phone];
                                     [phoneBufferArray addObject:phone];
                                 } else if([[phone substringToIndex:countryCode.length] isEqualToString:countryCode]) {
                                     phone = [NSString stringWithFormat:@"%@-%@", countryCode, [phone substringFromIndex:countryCode.length]];
-                                    NSLog(@"Phone Already has Country Code: %@", phone);
                                     [phoneBufferArray addObject:phone];
                                 } else {
-                                    NSLog(@"Continuing: %@", phone);
                                     continue;
                                 }
                                 FriendMO* friend;
@@ -221,9 +214,7 @@ static ContactSearchManager *selfInstance;
     [moc performBlock:^{
         for (NSDictionary *registeredContact in contactsFound) {
             NSString *dictionaryKey = [registeredContact objectForKey:DICTIONARY_KEY_ID];
-            NSLog(@"Dictionary Key: %@", dictionaryKey);
             NSMutableDictionary *contact = [_contacts objectForKey:dictionaryKey];
-            NSLog(@"Found Contact: %@ %@", [contact objectForKey:VCARD_TAG_FIRST_NAME], [contact objectForKey:VCARD_TAG_LAST_NAME]);
             [contact setObject:[registeredContact objectForKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME] forKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME];
             [contact setObject:[NSNumber numberWithInt:STATUS_REGISTERED] forKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];
             [contact setObject:[registeredContact objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER] forKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER];
@@ -240,13 +231,11 @@ static ContactSearchManager *selfInstance;
         
         NSError *err = nil;
         if(![moc save:&err]) {
-            NSLog(@"Failed to push data to parent...");
         }
         
         [mainMoc performBlock:^{
             NSError *error = nil;
             if (![mainMoc save:&error]) {
-                NSLog(@"Failed to save data...");
             }
         }];
         
