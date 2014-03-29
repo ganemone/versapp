@@ -58,9 +58,9 @@
     
     [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
     
-    NSString *title = [NSString stringWithFormat:@"Members of %@", [self.chatMO user_defined_chat_name]];
+    /*NSString *title = [NSString stringWithFormat:@"Members of %@", [self.chatMO user_defined_chat_name]];
     _groupMemberList = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:@"Close" otherButtonTitles:@"Add Users", nil];
-    [_groupMemberList setMessage:@"Loading..."];
+    [_groupMemberList setMessage:@"Loading..."];*/
     
     NSLog(@"Chat Participants: %@", [_chatMO participant_string]);
 }

@@ -106,7 +106,11 @@
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    if (tableView == self.tableView) {
+        return 2;
+    } else {
+        return 2;
+    }
 }
 
 /*-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -139,10 +143,18 @@
     if (tableView == self.tableView) {
         return (section == 0) ? @"Groups" : @"One to One";
     } else {
-        if (section == 0)
-            return NOTIFICATIONS_GROUP;
-        else
-            return NOTIFICATIONS_FRIEND;
+        if (section == 0) {
+            if (self.groupInvites.count == 0)
+                return nil;
+            else
+                return NOTIFICATIONS_GROUP;
+        }
+        else {
+            if (self.friendRequests.count == 0)
+                return nil;
+            else
+                return NOTIFICATIONS_FRIEND;
+        }
     }
 }
 
@@ -380,6 +392,10 @@
     self.groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingGroupChats]];
     self.friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
     
+    if (self.friendRequests.count == 0) {
+        [self.friendRequests addObject:[FriendsDBManager getUserWithJID:@"1-2697777777"]];
+    }
+    
     NSLog(@"Group invites: %@", self.groupInvites);
     
     [self setNotificationsIcon];
@@ -418,7 +434,7 @@
     
     [self.groupInvites removeObjectAtIndex:indexPath.row];
     [ChatDBManager setChatStatus:STATUS_JOINED chatID:groupInvite.chat_id];
-    [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     [self setNotificationsIcon];
 }
 
@@ -430,7 +446,7 @@
     
     [self.groupInvites removeObjectAtIndex:indexPath.row];
     [ChatDBManager setChatStatus:STATUS_REQUEST_REJECTED chatID:groupInvite.chat_id];
-    [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];\
+    [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];\
     [self setNotificationsIcon];
 }
 
@@ -444,7 +460,7 @@
     NSLog(@"Accepted friend request: %@, %@", address, friendRequest.username);
     
     [self.friendRequests removeObjectAtIndex:indexPath.row];
-    [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];\
+    [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];\
     [self setNotificationsIcon];
 }
 
@@ -455,7 +471,7 @@
     NSLog(@"Declined friend request: %@", friendRequest.name);
     
     [self.friendRequests removeObjectAtIndex:indexPath.row];
-    [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     [self setNotificationsIcon];
 }
 
