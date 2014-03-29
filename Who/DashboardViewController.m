@@ -391,11 +391,11 @@
         greenImageName = [NSMutableString stringWithString:@"notification5+-green.png"];
     }
     UIImage *notificationsImage = [UIImage imageNamed:imageName];
-    UIImageView *notificationsBadgeGreen = [[UIImageView alloc] initWithFrame:CGRectMake(20, 25, 30, 30)];
+    UIImageView *notificationsBadgeGreen = [[UIImageView alloc] initWithFrame:CGRectMake(244, 29, 28, 28)];
     [self.notificationsButton setImage:notificationsImage forState:UIControlStateNormal];
     UIImage *notificationsImageGreen = [UIImage imageNamed:greenImageName];
     [notificationsBadgeGreen setImage:notificationsImageGreen];
-    self.notificationsButtonGreen = [[UIButton alloc] initWithFrame:CGRectMake(20, 25, 30, 30)];
+    self.notificationsButtonGreen = [[UIButton alloc] initWithFrame:CGRectMake(244, 29, 28, 28)];
     [self.notificationsButtonGreen setImage:notificationsImageGreen forState:UIControlStateNormal];
     [self.notificationsButtonGreen addTarget:self action:@selector(notificationsGreenClicked:) forControlEvents:UIControlEventTouchUpInside];
     
