@@ -38,7 +38,6 @@ static int numUninvitedParticipants;
     NSLog(@"Setting Chat Name from %@ to %@",chatEntry.user_defined_chat_name, chatName);
     [chatEntry setValue:chatID forKey:CHATS_TABLE_COLUMN_NAME_CHAT_ID];
     [chatEntry setValue:chatName forKey:CHATS_TABLE_COLUMN_NAME_CHAT_NAME];
-    [chatEntry setValue:chatName forKey:CHATS_TABLE_COLUMN_NAME_USER_DEFINED_CHAT_NAME];
     [chatEntry setValue:chatType forKey:CHATS_TABLE_COLUMN_NAME_CHAT_TYPE];
     [chatEntry setValue:[NSNumber numberWithInt:status] forKey:CHATS_TABLE_COLUMN_NAME_STATUS];
     [chatEntry setValue:participantString forKey:CHATS_TABLE_COLUMN_NAME_PARTICIPANT_STRING];
@@ -61,7 +60,6 @@ static int numUninvitedParticipants;
     NSLog(@"Setting Chat Name from %@ to %@",chatEntry.user_defined_chat_name, chatName);
     [chatEntry setValue:chatID forKey:CHATS_TABLE_COLUMN_NAME_CHAT_ID];
     [chatEntry setValue:chatName forKey:CHATS_TABLE_COLUMN_NAME_CHAT_NAME];
-    [chatEntry setValue:chatName forKey:CHATS_TABLE_COLUMN_NAME_USER_DEFINED_CHAT_NAME];
     [chatEntry setValue:chatType forKey:CHATS_TABLE_COLUMN_NAME_CHAT_TYPE];
     [chatEntry setValue:[NSNumber numberWithInt:status] forKey:CHATS_TABLE_COLUMN_NAME_STATUS];
     [chatEntry setValue:participantString forKey:CHATS_TABLE_COLUMN_NAME_PARTICIPANT_STRING];
@@ -272,6 +270,12 @@ static int numUninvitedParticipants;
 
 +(NSString *)getChatIDPendingCreation {
     return chatIDPendingCreation;
+}
+
++(void)deleteChat:(ChatMO *)chat {
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [[delegate managedObjectContext] deleteObject:chat];
+    [delegate saveContext];
 }
 
 @end

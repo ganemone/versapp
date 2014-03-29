@@ -83,6 +83,8 @@ NSString *const NOTIFICATION_AUTHENTICATED = @"authenticated";
 NSString *const NOTIFICATION_CURRENT_GROUP_MEMBERS = @"notification_current_muc_members";
 NSString *const NOTIFICATION_UPDATE_NOTIFICATIONS = @"notification_update_notifications";
 NSString *const NOTIFICATION_UPDATE_FRIENDS = @"notification_update_friends";
+NSString *const NOTIFICATION_ENABLE_DASHBOARD_EDITING = @"notification_enable_dashboard_editing";
+NSString *const NOTIFICATION_DISABLE_DASHBOARD_EDITING = @"notification_disable_dashboard_editing";
 
 NSString *const APPLICATION_RESOURCE = @"who";
 

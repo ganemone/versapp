@@ -19,6 +19,7 @@
 #import "FriendsDBManager.h"
 #import "SWTableViewCell.h"
 #import "MainSwipeViewController.h"
+#import "AppDelegate.h"
 
 @interface DashboardViewController()
 
@@ -37,6 +38,7 @@
 @property (strong, nonatomic) UITableView *notificationTableView;
 @property (strong, nonatomic) NSMutableArray *friendRequests;
 @property (strong, nonatomic) NSMutableArray *groupInvites;
+@property (strong, nonatomic) ChatMO *editingChat;
 
 @end
 
@@ -62,8 +64,13 @@
     
     self.groupChats = [ChatDBManager getAllActiveGroupChats];
     self.oneToOneChats = [ChatDBManager getAllActiveOneToOneChats];
-    
     [self loadNotifications];
+    
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
+                                          initWithTarget:self action:@selector(handleLongPress:)];
+    lpgr.minimumPressDuration = 0.5; //seconds
+    lpgr.delegate = self;
+    [_tableView addGestureRecognizer:lpgr];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -90,10 +97,24 @@
 - (IBAction)notificationsClicked:(id)sender {
     [self showNotifications];
 }
-     
+
 - (IBAction)notificationsGreenClicked:(id)sender {
     [self hideNotifications];
 }
+
+- (IBAction)toggleEditing:(id)sender {
+    UIButton *button = (UIButton*)sender;
+    if ([_tableView isEditing]) {
+        [button setTitle:@"Edit" forState:UIControlStateNormal];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DISABLE_DASHBOARD_EDITING object:nil];
+        [_tableView setEditing:NO animated:YES];
+    } else {
+        [button setTitle:@"Cancel" forState:UIControlStateNormal];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ENABLE_DASHBOARD_EDITING object:nil];
+        [_tableView setEditing:YES animated:YES];
+    }
+}
+
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier compare:SEGUE_ID_GROUP_CONVERSATION] == 0) {
@@ -112,32 +133,6 @@
         return 2;
     }
 }
-
-/*-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *customView = [[UIView alloc] initWithFrame:CGRectMake(10.0, 10.0f, self.view.frame.size.width, 30.0)];
-    [customView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"grad-back-messages.jpg"]]];
-    UILabel * headerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    headerLabel.backgroundColor = [UIColor clearColor];
-    headerLabel.opaque = NO;
-    headerLabel.textColor = [UIColor whiteColor];
-    headerLabel.highlightedTextColor = [UIColor whiteColor];
-    [headerLabel setFont:[StyleManager getFontStyleLightSizeMed]];
-    headerLabel.frame = CGRectMake(10.0f, 10.0f, self.view.frame.size.width, 30.0);
-    
-    if (section == 0) {
-        headerLabel.text = @"Groups";
-    } else {
-        headerLabel.text = @"One to One";
-    }
-    
-    [customView addSubview:headerLabel];
-    
-    return customView;
-}*/
-
-/*-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 50.0f;
-}*/
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (tableView == self.tableView) {
@@ -174,11 +169,11 @@
             chatMo = [self.oneToOneChats objectAtIndex:indexPath.row];
         }
         
-        if ([chatMo.chat_type compare:CHAT_TYPE_ONE_TO_ONE] == 0 && [[ConnectionProvider getUser] compare:[chatMo.chat_id substringToIndex:[[ConnectionProvider getUser] length]]] != 0) {
-           [cell.textLabel setText:ANONYMOUS_FRIEND];
-        } else {
+        //if ([chatMo.chat_type compare:CHAT_TYPE_ONE_TO_ONE] == 0 && [[ConnectionProvider getUser] compare:[chatMo.chat_id substringToIndex:[[ConnectionProvider getUser] length]]] != 0) {
+          //  [cell.textLabel setText:ANONYMOUS_FRIEND];
+        //} else {
             [cell.textLabel setText:chatMo.user_defined_chat_name];
-        }
+        //}
         [cell.detailTextLabel setText:[chatMo getLastMessage]];
         
         if ([ChatDBManager doesChatHaveNewMessage:chatMo.chat_id]) {
@@ -229,6 +224,46 @@
     }
 }
 
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == _tableView && [_tableView isEditing]) {
+        return YES;
+    }
+    return NO;
+}
+
+-(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
+}
+
+-(BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == _tableView) {
+        return YES;
+    }
+    return NO;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"Leave Chat?";
+}
+
+-(void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"Finished Editing...");
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        ChatMO *chat = (indexPath.section == 0) ? [_groupChats objectAtIndex:indexPath.row] : [_oneToOneChats objectAtIndex:indexPath.row];
+        [MessagesDBManager deleteMessagesFromChatWithID:chat.chat_id];
+        [ChatDBManager deleteChat:chat];
+        if (indexPath.section == 0) {
+            _groupChats = [ChatDBManager getAllActiveGroupChats];
+        } else {
+            _oneToOneChats = [ChatDBManager getAllActiveOneToOneChats];
+        }
+        [_tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+    }
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == self.tableView) {
         if(section == 0) {
@@ -244,14 +279,14 @@
         }
     }
 }
-                                                    
+
 - (NSArray *)notificationsButtons {
     NSMutableArray *buttons = [NSMutableArray new];
     UIImage *accept = [UIImage imageNamed:@"check-icon-green.png"];
     UIImage *decline = [UIImage imageNamed:@"decline-icon-green.png"];
     [buttons sw_addUtilityButtonWithColor:[UIColor clearColor] icon:accept];
     [buttons sw_addUtilityButtonWithColor:[UIColor clearColor] icon:decline];
-            
+    
     return buttons;
 }
 
@@ -345,8 +380,8 @@
     NSMutableString *imageName;
     NSMutableString *greenImageName;
     if ([self.friendRequests count] + [self.groupInvites count] > 0 && [self.friendRequests count] + [self.groupInvites count] < 6) {
-        imageName = [NSMutableString stringWithFormat:@"notification%u.png", [self.friendRequests count] + [self.groupInvites count]];
-        greenImageName = [NSMutableString stringWithFormat:@"notification%u-green.png", [self.friendRequests count] + [self.groupInvites count]];
+        imageName = [NSMutableString stringWithFormat:@"notification%d.png", [self.friendRequests count] + [self.groupInvites count]];
+        greenImageName = [NSMutableString stringWithFormat:@"notification%d-green.png", [self.friendRequests count] + [self.groupInvites count]];
     } else if ([self.friendRequests count] + [self.groupInvites count] == 0) {
         imageName = [NSMutableString stringWithString:@"notification-none.png"];
         greenImageName = [NSMutableString stringWithString:@"notification-none-green.png"];
@@ -440,7 +475,8 @@
     
     [self.groupInvites removeObjectAtIndex:indexPath.row];
     [ChatDBManager setChatStatus:STATUS_REQUEST_REJECTED chatID:groupInvite.chat_id];
-    [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];\
+
+    [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     [self setNotificationsIcon];
 }
 
@@ -454,7 +490,7 @@
     NSLog(@"Accepted friend request: %@, %@", address, friendRequest.username);
     
     [self.friendRequests removeObjectAtIndex:indexPath.row];
-    [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];\
+    [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     [self setNotificationsIcon];
 }
 
@@ -479,6 +515,44 @@
     self.groupChats = [ChatDBManager getAllActiveGroupChats];
     self.oneToOneChats = [ChatDBManager getAllOneToOneChats];
     [self.tableView reloadData];
+}
+
+-(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    CGPoint p = [gestureRecognizer locationInView:_tableView];
+    NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint:p];
+    if (indexPath == nil) {
+        NSLog(@"long press on table view but not on a row");
+    }
+    else {
+        NSLog(@"long press on table view at row %d", indexPath.row);
+        if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+            [self handleLongPressForRowAtIndexPath:indexPath];
+        }
+    }
+}
+
+-(void)handleLongPressForRowAtIndexPath:(NSIndexPath*)indexPath {
+    if (indexPath.section == 0) {
+        _editingChat = [_groupChats objectAtIndex:indexPath.row];
+    } else {
+        _editingChat = [_oneToOneChats objectAtIndex:indexPath.row];
+    }
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Rename Conversation" message:@"Enter a new name for this conversation." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rename", nil];
+    [alertView setAlertViewStyle:UIAlertViewStylePlainTextInput];
+    [alertView show];
+    
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        NSLog(@"Setting Chat Name Here");
+        NSString *name = [alertView textFieldAtIndex:0].text;
+        [_editingChat setUser_defined_chat_name:name];
+        [(AppDelegate*)[UIApplication sharedApplication].delegate saveContext];
+        [_tableView reloadData];
+    }
+    _editingChat = nil;
 }
 
 @end

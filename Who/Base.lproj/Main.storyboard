@@ -613,7 +613,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7ln-9F-xZt">
-                                        <rect key="frame" x="14" y="30" width="26" height="26"/>
+                                        <rect key="frame" x="244" y="29" width="28" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="notification-none.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -630,6 +630,17 @@
                                         </state>
                                         <connections>
                                             <action selector="settingsClicked:" destination="HoZ-Rh-4HR" eventType="touchUpInside" id="tca-UO-OGQ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5Dp-pv-Nsb">
+                                        <rect key="frame" x="10" y="28" width="49" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Edit">
+                                            <color key="titleColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="toggleEditing:" destination="HoZ-Rh-4HR" eventType="touchUpInside" id="lsc-qO-XBK"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1823,9 +1834,9 @@
         <segue reference="z6h-qs-HbB"/>
         <segue reference="BCc-dv-kG7"/>
         <segue reference="Ve6-mS-bkp"/>
+        <segue reference="3yg-rT-qjq"/>
         <segue reference="fSF-xn-2Ew"/>
         <segue reference="bRX-TH-pHe"/>
-        <segue reference="QMt-WW-ujz"/>
         <segue reference="YCw-e7-spT"/>
     </inferredMetricsTieBreakers>
 </document>
