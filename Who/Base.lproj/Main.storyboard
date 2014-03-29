@@ -682,7 +682,7 @@
                         <outlet property="tableView" destination="bZg-V8-zi7" id="YN9-TT-PZ3"/>
                         <segue destination="iDZ-uG-Ep6" kind="push" identifier="SegueOneToOneConversation" id="Y5D-AL-CYy"/>
                         <segue destination="LSk-rM-HTJ" kind="push" identifier="SegueGroupConversation" id="AGt-Q0-zDh"/>
-                        <segue destination="bp7-7c-bhQ" kind="push" identifier="SegueIDSettings" id="GJI-IF-DPe"/>
+                        <segue destination="bp7-7c-bhQ" kind="push" identifier="SegueIDSettings" id="pGf-sv-Dfa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bIz-uI-TiQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -945,7 +945,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PyV-1r-SiD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4477" y="180"/>
+            <point key="canvasLocation" x="3853" y="204"/>
         </scene>
         <!--Connection Lost View Controller-->
         <scene sceneID="Vxc-R8-Yys">
@@ -1802,7 +1802,20 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="4923" y="180"/>
+            <point key="canvasLocation" x="4407" y="204"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="DiW-cH-PT0">
+            <objects>
+                <viewController id="pSj-gq-1HQ" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KcR-Hz-xLB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dXL-Ny-F3U" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
     <resources>
@@ -1825,18 +1838,18 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="tVn-SP-Hc9"/>
-        <segue reference="AGt-Q0-zDh"/>
-        <segue reference="Y5D-AL-CYy"/>
-        <segue reference="YEX-bB-bO6"/>
-        <segue reference="pHb-Kf-4qo"/>
-        <segue reference="hVX-XL-lBE"/>
-        <segue reference="z6h-qs-HbB"/>
-        <segue reference="BCc-dv-kG7"/>
-        <segue reference="Ve6-mS-bkp"/>
         <segue reference="3yg-rT-qjq"/>
         <segue reference="fSF-xn-2Ew"/>
+        <segue reference="BCc-dv-kG7"/>
+        <segue reference="AGt-Q0-zDh"/>
+        <segue reference="Y5D-AL-CYy"/>
+        <segue reference="LFT-Wz-IaK"/>
+        <segue reference="z6h-qs-HbB"/>
+        <segue reference="tVn-SP-Hc9"/>
+        <segue reference="pHb-Kf-4qo"/>
+        <segue reference="hVX-XL-lBE"/>
         <segue reference="bRX-TH-pHe"/>
         <segue reference="YCw-e7-spT"/>
+        <segue reference="J3H-cG-x94"/>
     </inferredMetricsTieBreakers>
 </document>

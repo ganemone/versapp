@@ -200,8 +200,9 @@
         
         if (indexPath.section == 0) {
             ChatMO *groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
-            cell.textLabel.text = groupInvite.chat_name;
-            //cell.textLabel.text = [NSMutableString stringWithFormat:@"%@ - %@", groupInvite.chat_name, groupInvite.participant_string];
+            //cell.textLabel.text = groupInvite.chat_name;
+            NSString *inviter = [FriendsDBManager getUserWithJID:groupInvite.owner_id].name;
+            cell.textLabel.text = [NSMutableString stringWithFormat:@"%@ - invited by %@", groupInvite.chat_name, inviter];
         } else {
             FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
             cell.textLabel.text = friendRequest.name;
