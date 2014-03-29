@@ -392,12 +392,6 @@
     self.groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingGroupChats]];
     self.friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
     
-    if (self.friendRequests.count == 0) {
-        [self.friendRequests addObject:[FriendsDBManager getUserWithJID:@"1-2697777777"]];
-    }
-    
-    NSLog(@"Group invites: %@", self.groupInvites);
-    
     [self setNotificationsIcon];
     
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToHideNotifications:)];

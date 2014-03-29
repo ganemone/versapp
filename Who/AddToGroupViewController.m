@@ -22,6 +22,7 @@
 @property (strong, nonatomic) NSArray *searchResults;
 @property (strong, nonatomic) NSArray *allAccepted;
 @property (strong, nonatomic) NSMutableArray *selectedJIDs;
+@property (strong, nonatomic) NSArray *originalJIDs;
 @property (strong, nonatomic) ChatMO *chatMO;
 @property (strong, nonatomic) LoadingDialogManager *ldm;
 @property (strong, nonatomic) NSString *invitedUser;
@@ -82,6 +83,7 @@
     _chatID = chatID;
     _chatMO = [ChatDBManager getChatWithID:chatID];
     _selectedJIDs = [[NSMutableArray alloc] initWithArray:_chatMO.participants];
+    _originalJIDs = [[NSArray alloc] initWithArray:_chatMO.participants];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {\
@@ -102,10 +104,15 @@
             jid = [[[self allAccepted] objectAtIndex:indexPath.row] username];
         }
         if([self.selectedJIDs containsObject:jid]) {
-            UIAlertView *noRemove = [[UIAlertView alloc] initWithTitle:@"What's the problem?" message: @"This page is for adding group members. You must use reporting to remove members from groups." delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil, nil];
-            
-            noRemove.alertViewStyle = UIAlertViewStyleDefault;
-            [noRemove show];
+            if ([self.originalJIDs containsObject:jid]) {
+                UIAlertView *noRemove = [[UIAlertView alloc] initWithTitle:@"What's the problem?" message: @"This page is for adding group members. You must use reporting to remove members from groups." delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil, nil];
+                
+                noRemove.alertViewStyle = UIAlertViewStyleDefault;
+                [noRemove show];
+            } else {
+                [self.selectedJIDs removeObject:jid];
+                [cell setCellUnselected];
+            }
         } else {
             [self.selectedJIDs addObject:jid];
             [cell setCellSelected];
