@@ -14,6 +14,6 @@
 
 -(void)accessContacts;
 
--(void)updateContactListAfterUserSearch;
+-(void)updateContactListAfterUserSearch: (NSArray *)contactsFound;
 
 @end

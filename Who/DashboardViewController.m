@@ -170,9 +170,9 @@
         }
         
         //if ([chatMo.chat_type compare:CHAT_TYPE_ONE_TO_ONE] == 0 && [[ConnectionProvider getUser] compare:[chatMo.chat_id substringToIndex:[[ConnectionProvider getUser] length]]] != 0) {
-          //  [cell.textLabel setText:ANONYMOUS_FRIEND];
+        //  [cell.textLabel setText:ANONYMOUS_FRIEND];
         //} else {
-            [cell.textLabel setText:chatMo.user_defined_chat_name];
+        [cell.textLabel setText:[chatMo getChatName]];
         //}
         [cell.detailTextLabel setText:[chatMo getLastMessage]];
         
@@ -476,7 +476,7 @@
     
     [self.groupInvites removeObjectAtIndex:indexPath.row];
     [ChatDBManager setChatStatus:STATUS_REQUEST_REJECTED chatID:groupInvite.chat_id];
-
+    
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     [self setNotificationsIcon];
 }

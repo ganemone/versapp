@@ -101,6 +101,7 @@
     NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\(?:\\[\\]|\"(.*?)\").*?(?:\\[\\]|\"(.*?)\")\\]" options:NSRegularExpressionCaseInsensitive error:&error];
     NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
+    NSMutableArray *registeredContacts = [[NSMutableArray alloc] initWithCapacity:[matches count]];
     NSString *username, *searchedPhoneNumber, *searchedEmail;
     for (NSTextCheckingResult *match in matches) {
         username = [packetXML substringWithRange:[match rangeAtIndex:1]];
@@ -115,10 +116,11 @@
             searchedEmail = nil;
         }
         NSLog(@"\n\n Found Registered Contact: %@ \n %@ \n %@ \n\n", username, searchedPhoneNumber, searchedEmail);
-        [FriendsDBManager insert:username name:nil email:searchedEmail status:[NSNumber numberWithInt:STATUS_REGISTERED] searchedPhoneNumber:searchedPhoneNumber searchedEmail:searchedEmail];
+        [registeredContacts addObject:[[NSDictionary alloc] initWithObjectsAndKeys:username, FRIENDS_TABLE_COLUMN_NAME_USERNAME, searchedPhoneNumber, FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER, searchedEmail, FRIENDS_TABLE_COLUMN_NAME_EMAIL, nil]];
+        //[FriendsDBManager insert:username name:nil email:searchedEmail status:[NSNumber numberWithInt:STATUS_REGISTERED] searchedPhoneNumber:searchedPhoneNumber searchedEmail:searchedEmail];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_SEARCH_FOR_USERS object:nil];
-    [[ContactSearchManager getInstance] updateContactListAfterUserSearch];
+    [[ContactSearchManager getInstance] updateContactListAfterUserSearch: registeredContacts];
 }
 
 +(void)handleGetChatParticipantsPacket:(XMPPIQ *)iq {
@@ -166,6 +168,8 @@
                     if (name == nil) {
                         name = @"Loading...";
                     }
+                } else {
+                    name = ANONYMOUS_FRIEND;
                 }
             }
         }
@@ -334,7 +338,7 @@
             }
             [FriendsDBManager insert:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_FRIENDS] searchedPhoneNumber:nil searchedEmail:nil];
         }
-   }
+    }
 }
 
 +(void)handleInviteUserToChatPacket:(XMPPIQ*)iq {

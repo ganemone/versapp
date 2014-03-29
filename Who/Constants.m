@@ -68,6 +68,7 @@ NSString *const MESSAGE_PROPERTY_INVITATION_MESSAGE = @"CHAT_ID";
 NSString *const MESSAGE_PROPERTY_GROUP_NAME = @"group_name";
 
 NSString *const DICTIONARY_KEY_MESSAGE_OBJECT = @"message";
+NSString *const DICTIONARY_KEY_CONTACT_SEARCH = @"contacts";
 
 NSString *const NOTIFICATION_MUC_MESSAGE_RECEIVED = @"notification_muc_message_received";
 NSString *const NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED = @"notification_one_to_one_message_received";

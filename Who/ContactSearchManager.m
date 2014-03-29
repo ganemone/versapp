@@ -20,7 +20,7 @@
 
 @property (strong, nonatomic) NSMutableArray *contacts;
 @property (strong, nonatomic) NSArray *allFriends;
-
+@property int numPacketsSent;
 @end
 
 static ContactSearchManager *selfInstance;
@@ -146,9 +146,28 @@ static ContactSearchManager *selfInstance;
                             [self.contacts addObject:[NSDictionary dictionaryWithObjectsAndKeys:firstName, VCARD_TAG_FIRST_NAME, lastName, VCARD_TAG_LAST_NAME, emailBufferArray, VCARD_TAG_EMAIL, phoneBufferArray, VCARD_TAG_USERNAME, nil]];
                         }
                     }
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createUserSearchPacketWithPhoneNumbers:allPhoneNumbers emails:allEmails]];
-                    });
+                    int numToSplit = 100;
+                    int startingIndex = 0;
+                    _numPacketsSent = 0;
+                    NSLog(@"Phone Count: %lu", (unsigned long)[allPhoneNumbers count]);
+                    NSLog(@"Email Count: %lu", (unsigned long)[allEmails count]);
+                    while (MAX([allPhoneNumbers count], [allEmails count]) > startingIndex + numToSplit) {
+                        NSMutableArray *tempPhoneNumbers = [[NSMutableArray alloc] initWithCapacity:MIN(numToSplit, [allPhoneNumbers count])];
+                        NSMutableArray *tempEmails = [[NSMutableArray alloc] initWithCapacity:MIN(numToSplit, [allEmails count])];
+                        for (int i = startingIndex; i < startingIndex + numToSplit; i++) {
+                            if (i < [allPhoneNumbers count]) {
+                                [tempPhoneNumbers addObject:[allPhoneNumbers objectAtIndex:i]];
+                            }
+                            if (i < [allEmails count]) {
+                                [tempEmails addObject:[allEmails objectAtIndex:i]];
+                            }
+                        }
+                        _numPacketsSent++;
+                        startingIndex = startingIndex + numToSplit;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createUserSearchPacketWithPhoneNumbers:tempPhoneNumbers emails:tempEmails]];
+                        });
+                    }
                 }
                 CFRelease(addressBook);
             });
@@ -157,6 +176,8 @@ static ContactSearchManager *selfInstance;
 }
 
 -(void)updateContactListAfterUserSearch {
+    self.numPacketsSent--;
+    BOOL shouldSendNotification = (_numPacketsSent == 0);
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *mainMoc = [delegate managedObjectContext];
     NSManagedObjectContext *moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
@@ -199,7 +220,7 @@ static ContactSearchManager *selfInstance;
             if (name == nil) {
                 name = @";";
             }
-
+            
             if (friend == nil) {
                 [FriendsDBManager insertWithMOC:moc username:nil name:name email:tempEmail status:status searchedPhoneNumber:tempPhone searchedEmail:tempEmail];
             } else {
@@ -220,9 +241,12 @@ static ContactSearchManager *selfInstance;
             }
         }];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_CONTACTS_VIEW object:nil];
-        });
+        if (shouldSendNotification) {
+            NSLog(@"Sending Notification");
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_CONTACTS_VIEW object:nil];
+            });
+        }
     }];
 }
 
