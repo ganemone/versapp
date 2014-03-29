@@ -214,6 +214,7 @@
     DashboardViewController *dashboard = (DashboardViewController *)[self.viewControllers objectAtIndex:0];
     [dashboard removeFromParentViewController];
     [_pageViewController setViewControllers:@[dashboard] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    [_pageViewController addChildViewController:dashboard];
     [self.view addSubview:_pageViewController.view];
 }
 
