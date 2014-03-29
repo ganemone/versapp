@@ -163,7 +163,7 @@
         if ([type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
             ChatMO *chat = [ChatDBManager getChatWithID:chatId];
             if (chat != nil) {
-                name = chat.user_defined_chat_name;
+                name = [chat getChatName];
             } else {
                 if ([owner isEqualToString:[ConnectionProvider getUser]]) {
                     NSString *participant = ([[participants firstObject] isEqualToString:[ConnectionProvider getUser]]) ? [participants lastObject] : [participants firstObject];

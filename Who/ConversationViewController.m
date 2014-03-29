@@ -40,14 +40,13 @@
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView setBackgroundColor:[StyleManager getColorBlue]];
     
-    self.navigationItem.title = self.chatMO.user_defined_chat_name;
     self.delegate = self;
     self.dataSource = self;
     self.im = [[ImageManager alloc] init];
     [self.im setDelegate:self];
     self.imageCache = [ImageCache getInstance];
     self.downloadingImageURLs = [[NSMutableArray alloc] initWithCapacity:20];
-    [self.headerLabel setText:[self.chatMO user_defined_chat_name]];
+    [self.headerLabel setText:[self.chatMO getChatName]];
     [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
     
     // Add a bottomBorder to the header view
@@ -57,17 +56,10 @@
     [self.header.layer addSublayer:headerBottomborder];
     
     [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
-    
-    /*NSString *title = [NSString stringWithFormat:@"Members of %@", [self.chatMO user_defined_chat_name]];
-    _groupMemberList = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:@"Close" otherButtonTitles:@"Add Users", nil];
-    [_groupMemberList setMessage:@"Loading..."];*/
-    
-    NSLog(@"Chat Participants: %@", [_chatMO participant_string]);
 }
 
 -(void)participantsUpdated:(NSNotification *)notification {
     self.chatMO = [ChatDBManager getChatWithID:self.chatMO.chat_id];
-    NSLog(@"Chat Participants: %@", [_chatMO participant_string]);
 }
 
 - (void)didReceiveMemoryWarning
@@ -236,7 +228,7 @@
         FriendMO *friend = [FriendsDBManager getUserWithJID:[NSString stringWithFormat:@"%@", member]];
         [list appendString:[NSString stringWithFormat:@"%@\n", friend.name]];
     }
-    NSString *title = [NSString stringWithFormat:@"Members of %@", [self.chatMO user_defined_chat_name]];
+    NSString *title = [NSString stringWithFormat:@"Members of %@", [self.chatMO getChatName]];
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:@"Close" otherButtonTitles:@"Add Users", nil];
     [alertView setMessage:list];
     [alertView setAlertViewStyle:UIAlertViewStyleDefault];
