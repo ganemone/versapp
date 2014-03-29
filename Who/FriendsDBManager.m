@@ -13,7 +13,7 @@
 
 @implementation FriendsDBManager
 
-+(void)insert:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status searchedPhoneNumber:(NSString*)searchedPhoneNumber searchedEmail:(NSString*)searchedEmail {
++(FriendMO *)insert:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status searchedPhoneNumber:(NSString*)searchedPhoneNumber searchedEmail:(NSString*)searchedEmail {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     FriendMO *friend = (email == nil) ? [self getUserWithJID:username] : [self getUserWithJID:username email:email];
@@ -50,19 +50,80 @@
     
     //NSLog(@"Friend: %@", [friend description]);
     [delegate saveContext];
+    return friend;
 }
 
-+ (FriendMO *)getUserWithSearchedPhoneNumber:(NSString *)phoneNumber withMOC:(NSManagedObjectContext *)moc {
-    NSArray *result = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER, phoneNumber] moc:moc];
-    return (result.count > 0) ? [result firstObject] : nil;
++ (void)updateFriendAfterUserSearch:(NSDictionary *)friend withContext:(NSManagedObjectContext *)moc {
+    NSNumber *status = [friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];
+    if ([status isEqualToNumber:[NSNumber numberWithInt:STATUS_REGISTERED]]) {
+        [self updateRegisteredFriendAfterUserSearch:friend withContext:moc];
+    } else {
+        [self updateUnregisteredFriendAfterUserSearch:friend withContext:moc];
+    }
 }
 
-+ (FriendMO *)getUserWithSearchedEmail:(NSString *)email withMOC:(NSManagedObjectContext *)moc {
-    NSArray *result = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL, email] moc:moc];
-    return (result.count > 0) ? [result firstObject] : nil;
++ (void)updateRegisteredFriendAfterUserSearch:(NSDictionary *)friend withContext:(NSManagedObjectContext *)moc {
+    NSString *username = [friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME];
+    NSString *fullName = [NSString stringWithFormat:@"%@ %@", [friend objectForKey:VCARD_TAG_FIRST_NAME], [friend objectForKey:VCARD_TAG_LAST_NAME]];
+    NSLog(@"Updating Registered Friend After User Search %@", fullName);
+    FriendMO *friendMO = [self getUserWithJID:username moc:moc];
+    if (friendMO == nil) {
+        friendMO = [self insertWithMOC:moc
+                              username:username
+                                  name:fullName
+                                 email:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL]
+                                status:[NSNumber numberWithInt:STATUS_REGISTERED]
+                   searchedPhoneNumber:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER]
+                         searchedEmail:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL]];
+    } else {
+        [friendMO setValue:username forKeyPath:FRIENDS_TABLE_COLUMN_NAME_USERNAME];
+        [friendMO setValue:fullName forKeyPath:FRIENDS_TABLE_COLUMN_NAME_NAME];
+        [friendMO setValue:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL];
+        [friendMO setValue:[NSNumber numberWithInt:STATUS_REGISTERED] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_STATUS];
+        [friendMO setValue:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER];
+        [friendMO setValue:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL];
+    }
 }
 
-+ (void)insertWithMOC:(NSManagedObjectContext *)moc username:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status searchedPhoneNumber:(NSString*)searchedPhoneNumber searchedEmail:(NSString*)searchedEmail {
++ (void)updateUnregisteredFriendAfterUserSearch:(NSDictionary *)friend withContext:(NSManagedObjectContext *)moc {
+    NSString *searchedPhoneNumber = [friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER];
+    NSString *searchedEmail = [friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL];
+    NSString *fullName = [NSString stringWithFormat:@"%@ %@", [friend objectForKey:VCARD_TAG_FIRST_NAME], [friend objectForKey:VCARD_TAG_LAST_NAME]];
+    NSLog(@"Updating Unregistered Friend After User Search %@", fullName);
+    NSArray *friends;
+    if (searchedPhoneNumber != nil && searchedPhoneNumber.length > 0) {
+        friends = [self getUserWithSearchedPhoneNumber:searchedPhoneNumber withMOC:moc];
+    } else {
+        friends = [self getUserWithSearchedEmail:searchedEmail withMOC:moc];
+    }
+    if (friends.count > 0) {
+        for (FriendMO *friendMO in friends) {
+            [friendMO setValue:fullName forKeyPath:FRIENDS_TABLE_COLUMN_NAME_NAME];
+            [friendMO setValue:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL];
+            [friendMO setValue:[NSNumber numberWithInt:STATUS_UNREGISTERED] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_STATUS];
+            [friendMO setValue:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER];
+            [friendMO setValue:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL];
+        }
+    } else {
+        [self insertWithMOC:moc
+                   username:nil
+                       name:fullName
+                      email:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL]
+                     status:[NSNumber numberWithInt:STATUS_UNREGISTERED]
+        searchedPhoneNumber:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER]
+              searchedEmail:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL]];
+    }
+}
+
++ (NSArray *)getUserWithSearchedPhoneNumber:(NSString *)phoneNumber withMOC:(NSManagedObjectContext *)moc {
+    return [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER, phoneNumber] moc:moc];
+}
+
++ (NSArray *)getUserWithSearchedEmail:(NSString *)email withMOC:(NSManagedObjectContext *)moc {
+    return [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL, email] moc:moc];
+}
+
++ (FriendMO *)insertWithMOC:(NSManagedObjectContext *)moc username:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status searchedPhoneNumber:(NSString*)searchedPhoneNumber searchedEmail:(NSString*)searchedEmail {
     FriendMO *friend = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_FRIENDS inManagedObjectContext:moc];
     if (username != nil) {
         [friend setValue:username forKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME];
@@ -88,6 +149,7 @@
         [friend setValue:searchedEmail forKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL];
         NSLog(@"Setting Friend MO Searched Email: %@", searchedEmail);
     }
+    return friend;
     //[delegate saveContextWithMOC:moc];
 }
 

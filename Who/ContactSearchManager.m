@@ -18,7 +18,7 @@
 
 @interface ContactSearchManager()
 
-@property (strong, nonatomic) NSMutableArray *contacts;
+@property (strong, nonatomic) NSMutableDictionary *contacts;
 @property (strong, nonatomic) NSArray *allFriends;
 @property int numPacketsSent;
 @end
@@ -35,6 +35,30 @@ static ContactSearchManager *selfInstance;
         }
     }
     return selfInstance;
+}
+
+-(void)incrementNumPacketsSent {
+    @synchronized(self) {
+        _numPacketsSent++;
+    }
+}
+
+-(void)decrementNumPacketsSent {
+    @synchronized(self) {
+        _numPacketsSent--;
+    }
+}
+
+-(BOOL)isFinishedSearching {
+    @synchronized(self) {
+        return (_numPacketsSent == 0);
+    }
+}
+
+-(void)resetNumPacketsSent {
+    @synchronized(self) {
+        _numPacketsSent = 0;
+    }
 }
 
 -(FriendMO *)getFriendWithEmail:(NSString *)email {
@@ -69,7 +93,8 @@ static ContactSearchManager *selfInstance;
                         ABRecordRef personRecordReference = (__bridge ABRecordRef)person;
                         NSString *firstName = (__bridge_transfer NSString*)ABRecordCopyValue(personRecordReference, kABPersonFirstNameProperty);
                         NSString *lastName = (__bridge_transfer NSString*)ABRecordCopyValue(personRecordReference, kABPersonLastNameProperty);
-                        
+                        ABRecordID personID = ABRecordGetRecordID(personRecordReference);
+                        NSString *personIDString = [NSString stringWithFormat:@"%d", personID];
                         if (firstName == nil && lastName == nil) {
                             continue;
                         } else if(firstName == nil) {
@@ -143,14 +168,12 @@ static ContactSearchManager *selfInstance;
                                     [allPhoneNumbers addObject:@""];
                                 }
                             }
-                            [self.contacts addObject:[NSDictionary dictionaryWithObjectsAndKeys:firstName, VCARD_TAG_FIRST_NAME, lastName, VCARD_TAG_LAST_NAME, emailBufferArray, VCARD_TAG_EMAIL, phoneBufferArray, VCARD_TAG_USERNAME, nil]];
+                            [self.contacts setObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:personIDString, DICTIONARY_KEY_ID, firstName, VCARD_TAG_FIRST_NAME, lastName, VCARD_TAG_LAST_NAME, emailBufferArray, VCARD_TAG_EMAIL, phoneBufferArray, VCARD_TAG_USERNAME, [NSNumber numberWithInt:STATUS_UNREGISTERED], FRIENDS_TABLE_COLUMN_NAME_STATUS, nil] forKey:personIDString];
                         }
                     }
                     int numToSplit = 100;
                     int startingIndex = 0;
-                    _numPacketsSent = 0;
-                    NSLog(@"Phone Count: %lu", (unsigned long)[allPhoneNumbers count]);
-                    NSLog(@"Email Count: %lu", (unsigned long)[allEmails count]);
+                    [self resetNumPacketsSent];
                     while (MAX([allPhoneNumbers count], [allEmails count]) > startingIndex + numToSplit) {
                         NSMutableArray *tempPhoneNumbers = [[NSMutableArray alloc] initWithCapacity:MIN(numToSplit, [allPhoneNumbers count])];
                         NSMutableArray *tempEmails = [[NSMutableArray alloc] initWithCapacity:MIN(numToSplit, [allEmails count])];
@@ -162,7 +185,7 @@ static ContactSearchManager *selfInstance;
                                 [tempEmails addObject:[allEmails objectAtIndex:i]];
                             }
                         }
-                        _numPacketsSent++;
+                        [self incrementNumPacketsSent];
                         startingIndex = startingIndex + numToSplit;
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createUserSearchPacketWithPhoneNumbers:tempPhoneNumbers emails:tempEmails]];
@@ -175,57 +198,23 @@ static ContactSearchManager *selfInstance;
     }
 }
 
--(void)updateContactListAfterUserSearch {
-    self.numPacketsSent--;
-    BOOL shouldSendNotification = (_numPacketsSent == 0);
+-(void)updateContactListAfterUserSearch:(NSArray *)contactsFound {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *mainMoc = [delegate managedObjectContext];
     NSManagedObjectContext *moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     [moc setParentContext:mainMoc];
     [moc performBlock:^{
-        NSLog(@"Updating Contact List After Search!!!!");
-        NSArray *phoneNumbers, *emailAddresses;
-        NSString *tempPhone, *tempEmail;
-        for (NSDictionary *contact in _contacts) {
-            phoneNumbers = [contact objectForKey:VCARD_TAG_USERNAME];
-            emailAddresses = [contact objectForKey:VCARD_TAG_EMAIL];
-            tempEmail = nil, tempPhone = nil;
-            FriendMO *friend = nil;
-            int i = 0;
-            while (friend == nil && i < MAX([phoneNumbers count], [emailAddresses count])) {
-                if (i < [phoneNumbers count]) {
-                    tempPhone = [phoneNumbers objectAtIndex:i];
-                    NSLog(@"Temp Phone: %@", tempPhone);
-                    friend = [FriendsDBManager getUserWithSearchedPhoneNumber:tempPhone withMOC:moc];
-                }
-                if (i < [emailAddresses count]) {
-                    tempEmail = [emailAddresses objectAtIndex:i];
-                    NSLog(@"Temp Email: %@", tempEmail);
-                    if (friend == nil) {
-                        friend = [FriendsDBManager getUserWithSearchedEmail:tempEmail withMOC:moc];
-                    }
-                }
-                i++;
-            }
-            
-            NSNumber *status = (friend == nil) ? [NSNumber numberWithInt:STATUS_UNREGISTERED] : friend.status;
-            NSString *name = [NSString stringWithFormat:@"%@ %@", [contact objectForKey:VCARD_TAG_FIRST_NAME], [contact objectForKey:VCARD_TAG_LAST_NAME]];
-            NSLog(@"Found Friend %@? : %d", name, (friend != nil));
-            if (tempPhone == nil) {
-                tempPhone = @"";
-            }
-            if (tempEmail == nil) {
-                tempEmail = @"";
-            }
-            if (name == nil) {
-                name = @";";
-            }
-            
-            if (friend == nil) {
-                [FriendsDBManager insertWithMOC:moc username:nil name:name email:tempEmail status:status searchedPhoneNumber:tempPhone searchedEmail:tempEmail];
-            } else {
-                [friend setValue:name forKey:FRIENDS_TABLE_COLUMN_NAME_NAME];
-                [friend setValue:status forKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];
+        for (NSDictionary *registeredContact in contactsFound) {
+            NSMutableDictionary *contact = [_contacts objectForKey:[registeredContact objectForKey:DICTIONARY_KEY_ID]];
+            [contact setObject:[contact objectForKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME] forKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME];
+            [contact setObject:[NSNumber numberWithInt:STATUS_REGISTERED] forKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];
+            [contact setObject:[registeredContact objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER] forKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER];
+            [contact setObject:[registeredContact objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL] forKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL];
+        }
+        [self decrementNumPacketsSent];
+        if ([self isFinishedSearching]) {
+            for (NSDictionary *contact in _contacts) {
+                [FriendsDBManager updateFriendAfterUserSearch:contact withContext:moc];
             }
         }
         
@@ -241,8 +230,7 @@ static ContactSearchManager *selfInstance;
             }
         }];
         
-        if (shouldSendNotification) {
-            NSLog(@"Sending Notification");
+        if ([self isFinishedSearching]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_CONTACTS_VIEW object:nil];
             });
