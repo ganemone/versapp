@@ -160,11 +160,7 @@ static ConnectionProvider *selfInstance;
     self.authenticated = YES;
     if (self.isCreatingAccount == YES) {
         NSLog(@"Creating VCard...");
-        [self.xmppStream sendElement:
-         [IQPacketManager createCreateVCardPacket:[self.pendingAccountInfo objectForKey:VCARD_TAG_FIRST_NAME]
-                                         lastname:[self.pendingAccountInfo objectForKey:VCARD_TAG_LAST_NAME]
-                                            phone:[self.pendingAccountInfo objectForKey:VCARD_TAG_USERNAME]
-                                            email:[self.pendingAccountInfo objectForKey:VCARD_TAG_EMAIL]]];
+        [self.xmppStream sendElement:[IQPacketManager createCreateVCardPacket:[_pendingAccountInfo objectForKey:VCARD_TAG_FIRST_NAME] lastname:[_pendingAccountInfo objectForKey:VCARD_TAG_LAST_NAME]]];
         self.isCreatingAccount = NO;
     }
     [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
@@ -267,7 +263,7 @@ static ConnectionProvider *selfInstance;
 
 -(void)xmppStreamDidRegister:(XMPPStream *)sender {
     NSLog(@"Registered Account!");
-    self.username = [self.pendingAccountInfo objectForKey:VCARD_TAG_USERNAME];
+    self.username = [self.pendingAccountInfo objectForKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME];
     self.password = [self.pendingAccountInfo objectForKey:USER_DEFAULTS_PASSWORD];
     
     [UserDefaultManager saveUsername:self.username];

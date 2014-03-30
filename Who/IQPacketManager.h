@@ -29,8 +29,8 @@
 +(DDXMLElement *)createJoinMUCPacket:(NSString*)chatID lastTimeActive: (NSString*)lastTimeActive;
 +(DDXMLElement *)createCreateMUCPacket:(NSString*)chatID roomName:(NSString*)roomName participants:(NSArray*)participants;
 +(DDXMLElement *)createRegisterUserPacket:(NSString*)username password:(NSString*)password;
-+(DDXMLElement *)createCreateVCardPacket:(NSString*)firstName lastname:(NSString*)lastName phone:(NSString*)phone email:(NSString*)email;
-+(DDXMLElement *)createUpdateVCardPacket:(NSString *)firstName lastname:(NSString *)lastName phone:(NSString *)phone email:(NSString *)email;
++(DDXMLElement *)createCreateVCardPacket:(NSString*)firstName lastname:(NSString*)lastName;
++(DDXMLElement *)createUpdateVCardPacket:(NSString *)firstName lastname:(NSString *)lastName;
 +(DDXMLElement *)createGetLastTimeActivePacket;
 +(DDXMLElement *)createGetServerTimePacket;
 +(DDXMLElement *)createSendMUCMessagePacket:(MessageMO *)message;

@@ -189,7 +189,7 @@
     return iq;
 }
 
-+(DDXMLElement *)createCreateVCardPacket:(NSString *)firstName lastname:(NSString *)lastName phone:(NSString *)phone email:(NSString *)email {
++(DDXMLElement *)createCreateVCardPacket:(NSString *)firstName lastname:(NSString *)lastName {
     DDXMLElement *query = [DDXMLElement elementWithName:@"vCard"];
 	[query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"vcard-temp"]];
     
@@ -200,8 +200,6 @@
     [nTag addChild:[DDXMLElement elementWithName:VCARD_TAG_LAST_NAME stringValue:lastName]];
     
     [query addChild:nTag];
-    [query addChild:[DDXMLElement elementWithName:VCARD_TAG_USERNAME stringValue:phone]];
-    [query addChild:[DDXMLElement elementWithName:VCARD_TAG_EMAIL stringValue:email]];
     [query addChild:[DDXMLElement elementWithName:VCARD_TAG_NICKNAME stringValue:[NSString stringWithFormat:@"%@ %@", firstName, lastName]]];
     
 	DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
@@ -213,8 +211,8 @@
     return iq;
 }
 
-+(DDXMLElement *)createUpdateVCardPacket:(NSString *)firstName lastname:(NSString *)lastName phone:(NSString *)phone email:(NSString *)email {
-    return [self createCreateVCardPacket:firstName lastname:lastName phone:phone email:email];
++(DDXMLElement *)createUpdateVCardPacket:(NSString *)firstName lastname:(NSString *)lastName {
+    return [self createCreateVCardPacket:firstName lastname:lastName];
 }
 
 +(DDXMLElement *)createCreateMUCPacket:(NSString*)chatID roomName:(NSString*)roomName participants:(NSArray*)participants {

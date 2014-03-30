@@ -250,10 +250,6 @@
             itemName = [[grand objectAtIndex:j] name];
             if([itemName compare:VCARD_TAG_NICKNAME] == 0) {
                 nickname = [[grand objectAtIndex:j] stringValue];
-            } else if([itemName compare:VCARD_TAG_EMAIL] == 0) {
-                email = [[grand objectAtIndex:j] stringValue];
-            } else if([itemName compare:VCARD_TAG_USERNAME] == 0) {
-                username = [[grand objectAtIndex:j] stringValue];
             } else if([itemName compare:@"N"] == 0) {
                 NSArray *nameItems = [[grand objectAtIndex:j] children];
                 for(int k = 0; k < nameItems.count; k++) {
