@@ -57,5 +57,6 @@
 +(DDXMLElement *)createBlockUserInGroupPacket:(NSString *)username chatID:(NSString *)chatID;
 +(DDXMLElement *)createUnblockImplicitUser:(NSString *)username;
 +(DDXMLElement *)createUnblockUserInGroupPacket:(NSString *)username chatID:(NSString *)chatID;
++(DDXMLElement *)createSetDeviceTokenPacket:(NSString *)deviceToken;
 
 @end

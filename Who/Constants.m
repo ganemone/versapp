@@ -199,8 +199,9 @@ NSString *const PACKET_ID_BLOCK_USER_IN_GROUP = @"packet_id_block_user_in_group"
 NSString *const PACKET_ID_UNBLOCK_IMPLICIT_USER = @"packet_id_unblock_implicit_user";
 NSString *const PACKET_ID_UNBLOCK_USER_IN_GROUP = @"packet_id_unblock_user_in_group";
 
+NSString *const PACKET_ID_SET_DEVICE_TOKEN = @"packet_id_set_device_token";
+
 NSString *const BLOCKING_TYPE_IMPLICIT = @"implicit_user";
 NSString *const BLOCKING_TYPE_GROUP = @"user_in_group";
-
 
 @end

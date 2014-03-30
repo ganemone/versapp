@@ -197,6 +197,8 @@ extern NSString *const PACKET_ID_BLOCK_USER_IN_GROUP;
 extern NSString *const PACKET_ID_UNBLOCK_IMPLICIT_USER;
 extern NSString *const PACKET_ID_UNBLOCK_USER_IN_GROUP;
 
+extern NSString *const PACKET_ID_SET_DEVICE_TOKEN;
+
 extern NSString *const BLOCKING_TYPE_IMPLICIT;
 extern NSString *const BLOCKING_TYPE_GROUP;
 

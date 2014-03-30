@@ -769,6 +769,23 @@
     return iq;
 }
 
+// ---------------------------------
+// Device Token - Push Notifications
+// ---------------------------------
++(DDXMLElement *)createSetDeviceTokenPacket:(NSString *)deviceToken {
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    DDXMLElement *query = [DDXMLElement elementWithName:@"query" stringValue:deviceToken];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_SET_DEVICE_TOKEN]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"set"]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue: [self getPacketFromString]]];
+    
+    [query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:token"]];
+    [iq addChild:query];
+    NSLog(@"Device Token Packet: %@", iq.XMLString);
+    return iq;
+}
+
 +(NSString *)getPacketFromString {
     return [NSString stringWithFormat:@"%@@%@",[ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]];
 }
