@@ -61,12 +61,11 @@
         
         NSString *imageName;
         if([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_REGISTERED]]) {
-            imageName = @"cell-select.png";
+            imageName = @"cell-select-green.png";
         } else if([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_REQUESTED]]) {
-            imageName = @"check-icon.png";
-            [btn setBackgroundColor:[UIColor blackColor]];
+            imageName = @"check-icon-green.png";
         } else {
-            imageName = @"cell-select.png";
+            imageName = @"cell-select-green.png";
         }
         
         [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
