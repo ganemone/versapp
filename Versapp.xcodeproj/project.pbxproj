@@ -217,13 +217,9 @@
 		3AF1AEA818E78D6B00E9DA05 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF1AEA718E78D6B00E9DA05 /* Reachability.m */; };
 		3AF1AEAC18E7971000E9DA05 /* cell-select-green-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1AEAA18E7971000E9DA05 /* cell-select-green-active.png */; };
 		3AF1AEAD18E7971000E9DA05 /* cell-select-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1AEAB18E7971000E9DA05 /* cell-select-green.png */; };
-		3AF1AEAF18E7974200E9DA05 /* camera-icon-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1AEAE18E7974200E9DA05 /* camera-icon-dark.png */; };
-		3AF1AEB418E7976F00E9DA05 /* x-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1AEB018E7976F00E9DA05 /* x-blue.png */; };
 		3AF1AEB518E7976F00E9DA05 /* x-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1AEB118E7976F00E9DA05 /* x-green.png */; };
 		3AF1AEB618E7976F00E9DA05 /* x-orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1AEB218E7976F00E9DA05 /* x-orange.png */; };
 		3AF1AEB718E7976F00E9DA05 /* x-purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1AEB318E7976F00E9DA05 /* x-purple.png */; };
-		3AF1AEB918E7979800E9DA05 /* check-icon-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1AEB818E7979800E9DA05 /* check-icon-green.png */; };
-		3AF1AEBB18E797AC00E9DA05 /* arrow-up-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1AEBA18E797AC00E9DA05 /* arrow-up-icon.png */; };
 		3AF5113A1885B1EC002383D3 /* IQPacketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF511391885B1EC002383D3 /* IQPacketManager.m */; };
 		3AF5113D1885D79E002383D3 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF5113C1885D79E002383D3 /* Constants.m */; };
 		3AF86D2918B504CF00033495 /* bubble-old.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF86D2718B504CF00033495 /* bubble-old.png */; };
@@ -232,6 +228,7 @@
 		3AFF778418C415BD003277F9 /* ChatMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778318C415BD003277F9 /* ChatMO.m */; };
 		3AFF778718C415BE003277F9 /* FriendMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778618C415BE003277F9 /* FriendMO.m */; };
 		3AFFC93D18A06AE3009D7F13 /* db.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC93B18A06AE3009D7F13 /* db.xcdatamodeld */; };
+		F7303EC718E862F30045F9AF /* arrow-up-icon-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303EC618E862F30045F9AF /* arrow-up-icon-green.png */; };
 		F73713F218E4FADF008A9ED2 /* AddToGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F73713F118E4FADF008A9ED2 /* AddToGroupViewController.m */; };
 		F744856018DB61C500460FBC /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = F744854118DB61C500460FBC /* NSMutableArray+SWUtilityButtons.m */; };
 		F744856118DB61C500460FBC /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = F744854318DB61C500460FBC /* SWCellScrollView.m */; };
@@ -637,13 +634,9 @@
 		3AF1AEA718E78D6B00E9DA05 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = ../../Reachability/Reachability.m; sourceTree = "<group>"; };
 		3AF1AEAA18E7971000E9DA05 /* cell-select-green-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cell-select-green-active.png"; path = "../../../../Google Drive/!Who /Versapp Design Resources/Add Contacts Page/cell-select-green-active.png"; sourceTree = "<group>"; };
 		3AF1AEAB18E7971000E9DA05 /* cell-select-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cell-select-green.png"; path = "../../../../Google Drive/!Who /Versapp Design Resources/Add Contacts Page/cell-select-green.png"; sourceTree = "<group>"; };
-		3AF1AEAE18E7974200E9DA05 /* camera-icon-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera-icon-dark.png"; path = "../../../../Google Drive/!Who /Versapp Design Resources/App Icons/camera-icon-dark.png"; sourceTree = "<group>"; };
-		3AF1AEB018E7976F00E9DA05 /* x-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "x-blue.png"; path = "../../../../Google Drive/!Who /Versapp Design Resources/App Icons/x-blue.png"; sourceTree = "<group>"; };
 		3AF1AEB118E7976F00E9DA05 /* x-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "x-green.png"; path = "../../../../Google Drive/!Who /Versapp Design Resources/App Icons/x-green.png"; sourceTree = "<group>"; };
 		3AF1AEB218E7976F00E9DA05 /* x-orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "x-orange.png"; path = "../../../../Google Drive/!Who /Versapp Design Resources/App Icons/x-orange.png"; sourceTree = "<group>"; };
 		3AF1AEB318E7976F00E9DA05 /* x-purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "x-purple.png"; path = "../../../../Google Drive/!Who /Versapp Design Resources/App Icons/x-purple.png"; sourceTree = "<group>"; };
-		3AF1AEB818E7979800E9DA05 /* check-icon-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "check-icon-green.png"; path = "../../../../Google Drive/!Who /Versapp Design Resources/App Icons/check-icon-green.png"; sourceTree = "<group>"; };
-		3AF1AEBA18E797AC00E9DA05 /* arrow-up-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrow-up-icon.png"; path = "../../../../Google Drive/!Who /Versapp Design Resources/App Icons/arrow-up-icon.png"; sourceTree = "<group>"; };
 		3AF511381885B1EC002383D3 /* IQPacketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQPacketManager.h; sourceTree = "<group>"; };
 		3AF511391885B1EC002383D3 /* IQPacketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQPacketManager.m; sourceTree = "<group>"; };
 		3AF5113B1885D79E002383D3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -657,6 +650,7 @@
 		3AFF778518C415BE003277F9 /* FriendMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendMO.h; sourceTree = "<group>"; };
 		3AFF778618C415BE003277F9 /* FriendMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendMO.m; sourceTree = "<group>"; };
 		3AFFC93C18A06AE3009D7F13 /* db.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = db.xcdatamodel; sourceTree = "<group>"; };
+		F7303EC618E862F30045F9AF /* arrow-up-icon-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-up-icon-green.png"; sourceTree = "<group>"; };
 		F73713F018E4FADF008A9ED2 /* AddToGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddToGroupViewController.h; sourceTree = "<group>"; };
 		F73713F118E4FADF008A9ED2 /* AddToGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddToGroupViewController.m; sourceTree = "<group>"; };
 		F744854018DB61C500460FBC /* NSMutableArray+SWUtilityButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+SWUtilityButtons.h"; sourceTree = "<group>"; };
@@ -1670,13 +1664,10 @@
 		3AF86D3218B5070200033495 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				3AF1AEBA18E797AC00E9DA05 /* arrow-up-icon.png */,
-				3AF1AEB818E7979800E9DA05 /* check-icon-green.png */,
-				3AF1AEB018E7976F00E9DA05 /* x-blue.png */,
+				F7303EC618E862F30045F9AF /* arrow-up-icon-green.png */,
 				3AF1AEB118E7976F00E9DA05 /* x-green.png */,
 				3AF1AEB218E7976F00E9DA05 /* x-orange.png */,
 				3AF1AEB318E7976F00E9DA05 /* x-purple.png */,
-				3AF1AEAE18E7974200E9DA05 /* camera-icon-dark.png */,
 				3AF1AEAA18E7971000E9DA05 /* cell-select-green-active.png */,
 				3AF1AEAB18E7971000E9DA05 /* cell-select-green.png */,
 				3AD19AC018E26356001B3B88 /* loading640x960.png */,
@@ -1911,7 +1902,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AF1AEB418E7976F00E9DA05 /* x-blue.png in Resources */,
 				3A07F6C018D3C21800E82390 /* fav-icon-active.png in Resources */,
 				3A3A0B0918AB1126006FBAE4 /* input-field-cover@2x.png in Resources */,
 				F744857318DB731F00460FBC /* notification-none-green.png in Resources */,
@@ -1943,12 +1933,11 @@
 				3AD19AB918E26298001B3B88 /* AppIcon80.png in Resources */,
 				3A1EACDD18D9DC41006E4CA3 /* bubble.png in Resources */,
 				3A25B6411881E03700166623 /* InfoPlist.strings in Resources */,
+				F7303EC718E862F30045F9AF /* arrow-up-icon-green.png in Resources */,
 				3A3A0B0B18AB1126006FBAE4 /* send-button-pressed@2x.png in Resources */,
-				3AF1AEBB18E797AC00E9DA05 /* arrow-up-icon.png in Resources */,
 				3AF0B00818B515E500E3D0D3 /* transparent-bg.png in Resources */,
 				3A3A0B0A18AB1126006FBAE4 /* send-button-pressed.png in Resources */,
 				3AB8D18818C23DF00082B77C /* MavenProLight-100.ttf in Resources */,
-				3AF1AEAF18E7974200E9DA05 /* camera-icon-dark.png in Resources */,
 				3AB8D19118C259B00082B77C /* MavenProMedium.ttf in Resources */,
 				3AD19AC518E266F0001B3B88 /* Default-568h@2x.png in Resources */,
 				3A3A0B1218AB1126006FBAE4 /* message-received.aiff in Resources */,
@@ -1987,7 +1976,6 @@
 				3A07F6D718D3EFC200E82390 /* check-icon.png in Resources */,
 				3A7D536D18E237DB00BFF569 /* notification4.png in Resources */,
 				3AF1AEB718E7976F00E9DA05 /* x-purple.png in Resources */,
-				3AF1AEB918E7979800E9DA05 /* check-icon-green.png in Resources */,
 				F744857218DB731F00460FBC /* notification-none.png in Resources */,
 				3A00167E18B8231000C54059 /* message-icon.png in Resources */,
 				F744857418DB731F00460FBC /* notification1-green.png in Resources */,
