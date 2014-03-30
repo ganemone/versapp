@@ -214,6 +214,16 @@
 		3AF19A731881F67300F3E4D3 /* libidn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF19A711881F67300F3E4D3 /* libidn.a */; };
 		3AF19A761881F6C300F3E4D3 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF19A751881F6C300F3E4D3 /* libresolv.dylib */; };
 		3AF19AD11882075D00F3E4D3 /* ConnectionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF19AD01882075D00F3E4D3 /* ConnectionProvider.m */; };
+		3AF1AEA818E78D6B00E9DA05 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF1AEA718E78D6B00E9DA05 /* Reachability.m */; };
+		3AF1AEAC18E7971000E9DA05 /* cell-select-green-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1AEAA18E7971000E9DA05 /* cell-select-green-active.png */; };
+		3AF1AEAD18E7971000E9DA05 /* cell-select-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1AEAB18E7971000E9DA05 /* cell-select-green.png */; };
+		3AF1AEAF18E7974200E9DA05 /* camera-icon-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1AEAE18E7974200E9DA05 /* camera-icon-dark.png */; };
+		3AF1AEB418E7976F00E9DA05 /* x-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1AEB018E7976F00E9DA05 /* x-blue.png */; };
+		3AF1AEB518E7976F00E9DA05 /* x-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1AEB118E7976F00E9DA05 /* x-green.png */; };
+		3AF1AEB618E7976F00E9DA05 /* x-orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1AEB218E7976F00E9DA05 /* x-orange.png */; };
+		3AF1AEB718E7976F00E9DA05 /* x-purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1AEB318E7976F00E9DA05 /* x-purple.png */; };
+		3AF1AEB918E7979800E9DA05 /* check-icon-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1AEB818E7979800E9DA05 /* check-icon-green.png */; };
+		3AF1AEBB18E797AC00E9DA05 /* arrow-up-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1AEBA18E797AC00E9DA05 /* arrow-up-icon.png */; };
 		3AF5113A1885B1EC002383D3 /* IQPacketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF511391885B1EC002383D3 /* IQPacketManager.m */; };
 		3AF5113D1885D79E002383D3 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF5113C1885D79E002383D3 /* Constants.m */; };
 		3AF86D2918B504CF00033495 /* bubble-old.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF86D2718B504CF00033495 /* bubble-old.png */; };
@@ -623,6 +633,17 @@
 		3AF19A751881F6C300F3E4D3 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		3AF19ACF1882075D00F3E4D3 /* ConnectionProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionProvider.h; sourceTree = "<group>"; };
 		3AF19AD01882075D00F3E4D3 /* ConnectionProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionProvider.m; sourceTree = "<group>"; };
+		3AF1AEA618E78D6B00E9DA05 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = ../../Reachability/Reachability.h; sourceTree = "<group>"; };
+		3AF1AEA718E78D6B00E9DA05 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = ../../Reachability/Reachability.m; sourceTree = "<group>"; };
+		3AF1AEAA18E7971000E9DA05 /* cell-select-green-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cell-select-green-active.png"; path = "../../../../Google Drive/!Who /Versapp Design Resources/Add Contacts Page/cell-select-green-active.png"; sourceTree = "<group>"; };
+		3AF1AEAB18E7971000E9DA05 /* cell-select-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cell-select-green.png"; path = "../../../../Google Drive/!Who /Versapp Design Resources/Add Contacts Page/cell-select-green.png"; sourceTree = "<group>"; };
+		3AF1AEAE18E7974200E9DA05 /* camera-icon-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera-icon-dark.png"; path = "../../../../Google Drive/!Who /Versapp Design Resources/App Icons/camera-icon-dark.png"; sourceTree = "<group>"; };
+		3AF1AEB018E7976F00E9DA05 /* x-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "x-blue.png"; path = "../../../../Google Drive/!Who /Versapp Design Resources/App Icons/x-blue.png"; sourceTree = "<group>"; };
+		3AF1AEB118E7976F00E9DA05 /* x-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "x-green.png"; path = "../../../../Google Drive/!Who /Versapp Design Resources/App Icons/x-green.png"; sourceTree = "<group>"; };
+		3AF1AEB218E7976F00E9DA05 /* x-orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "x-orange.png"; path = "../../../../Google Drive/!Who /Versapp Design Resources/App Icons/x-orange.png"; sourceTree = "<group>"; };
+		3AF1AEB318E7976F00E9DA05 /* x-purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "x-purple.png"; path = "../../../../Google Drive/!Who /Versapp Design Resources/App Icons/x-purple.png"; sourceTree = "<group>"; };
+		3AF1AEB818E7979800E9DA05 /* check-icon-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "check-icon-green.png"; path = "../../../../Google Drive/!Who /Versapp Design Resources/App Icons/check-icon-green.png"; sourceTree = "<group>"; };
+		3AF1AEBA18E797AC00E9DA05 /* arrow-up-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrow-up-icon.png"; path = "../../../../Google Drive/!Who /Versapp Design Resources/App Icons/arrow-up-icon.png"; sourceTree = "<group>"; };
 		3AF511381885B1EC002383D3 /* IQPacketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQPacketManager.h; sourceTree = "<group>"; };
 		3AF511391885B1EC002383D3 /* IQPacketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQPacketManager.m; sourceTree = "<group>"; };
 		3AF5113B1885D79E002383D3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -1622,6 +1643,7 @@
 		3AF19ACE1881F86000F3E4D3 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				3AF1AEA918E78D7000E9DA05 /* Reachability */,
 				F744853F18DB61C500460FBC /* PodFiles */,
 				3A59D5EF18B2F30300CE7B7B /* RNBlurModalView */,
 				3AC0BA2C18AEEFBA0061A565 /* base64 */,
@@ -1636,9 +1658,27 @@
 			name = Dependencies;
 			sourceTree = "<group>";
 		};
+		3AF1AEA918E78D7000E9DA05 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				3AF1AEA618E78D6B00E9DA05 /* Reachability.h */,
+				3AF1AEA718E78D6B00E9DA05 /* Reachability.m */,
+			);
+			name = Reachability;
+			sourceTree = "<group>";
+		};
 		3AF86D3218B5070200033495 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3AF1AEBA18E797AC00E9DA05 /* arrow-up-icon.png */,
+				3AF1AEB818E7979800E9DA05 /* check-icon-green.png */,
+				3AF1AEB018E7976F00E9DA05 /* x-blue.png */,
+				3AF1AEB118E7976F00E9DA05 /* x-green.png */,
+				3AF1AEB218E7976F00E9DA05 /* x-orange.png */,
+				3AF1AEB318E7976F00E9DA05 /* x-purple.png */,
+				3AF1AEAE18E7974200E9DA05 /* camera-icon-dark.png */,
+				3AF1AEAA18E7971000E9DA05 /* cell-select-green-active.png */,
+				3AF1AEAB18E7971000E9DA05 /* cell-select-green.png */,
 				3AD19AC018E26356001B3B88 /* loading640x960.png */,
 				3AD19AC118E26356001B3B88 /* loading640x1136.png */,
 				3AD19AB518E26298001B3B88 /* AppIcon58.png */,
@@ -1871,6 +1911,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AF1AEB418E7976F00E9DA05 /* x-blue.png in Resources */,
 				3A07F6C018D3C21800E82390 /* fav-icon-active.png in Resources */,
 				3A3A0B0918AB1126006FBAE4 /* input-field-cover@2x.png in Resources */,
 				F744857318DB731F00460FBC /* notification-none-green.png in Resources */,
@@ -1888,6 +1929,7 @@
 				3A07F6C318D3C21800E82390 /* cell-select.png in Resources */,
 				3AD8F48318DCCB7D002C399C /* Countries.plist in Resources */,
 				F744857918DB731F00460FBC /* notification5+-green.png in Resources */,
+				3AF1AEAC18E7971000E9DA05 /* cell-select-green-active.png in Resources */,
 				3AB8D18F18C259B00082B77C /* MavenProBlack.ttf in Resources */,
 				3A3A0AE818AB1126006FBAE4 /* avatar-placeholder.png in Resources */,
 				3A25B6521881E03700166623 /* Images.xcassets in Resources */,
@@ -1902,16 +1944,20 @@
 				3A1EACDD18D9DC41006E4CA3 /* bubble.png in Resources */,
 				3A25B6411881E03700166623 /* InfoPlist.strings in Resources */,
 				3A3A0B0B18AB1126006FBAE4 /* send-button-pressed@2x.png in Resources */,
+				3AF1AEBB18E797AC00E9DA05 /* arrow-up-icon.png in Resources */,
 				3AF0B00818B515E500E3D0D3 /* transparent-bg.png in Resources */,
 				3A3A0B0A18AB1126006FBAE4 /* send-button-pressed.png in Resources */,
 				3AB8D18818C23DF00082B77C /* MavenProLight-100.ttf in Resources */,
+				3AF1AEAF18E7974200E9DA05 /* camera-icon-dark.png in Resources */,
 				3AB8D19118C259B00082B77C /* MavenProMedium.ttf in Resources */,
 				3AD19AC518E266F0001B3B88 /* Default-568h@2x.png in Resources */,
 				3A3A0B1218AB1126006FBAE4 /* message-received.aiff in Resources */,
+				3AF1AEB618E7976F00E9DA05 /* x-orange.png in Resources */,
 				F744857718DB731F00460FBC /* notification4-green.png in Resources */,
 				F751016C18ABE8A2001F1E7F /* Settings.bundle in Resources */,
 				3AB8D19018C259B00082B77C /* MavenProBold.ttf in Resources */,
 				3AF19A6E1881F34A00F3E4D3 /* README.txt in Resources */,
+				3AF1AEB518E7976F00E9DA05 /* x-green.png in Resources */,
 				3AD19AC218E26356001B3B88 /* loading640x960.png in Resources */,
 				3A7D536718E237DB00BFF569 /* arrow-up-icon.png in Resources */,
 				F7977B6518DBA25B000E955C /* decline-icon-green.png in Resources */,
@@ -1921,6 +1967,7 @@
 				3A3A0B0818AB1126006FBAE4 /* input-field-cover.png in Resources */,
 				3A3A0B1018AB1126006FBAE4 /* input-bar-flat.png in Resources */,
 				3A7D536918E237DB00BFF569 /* messages-icon-white.png in Resources */,
+				3AF1AEAD18E7971000E9DA05 /* cell-select-green.png in Resources */,
 				3A07F6C518D3C21800E82390 /* cell-select-active.png in Resources */,
 				3A7D536F18E237DB00BFF569 /* notification5+.png in Resources */,
 				3A07F6C118D3C21800E82390 /* fav-icon.png in Resources */,
@@ -1939,6 +1986,8 @@
 				3AF86D2918B504CF00033495 /* bubble-old.png in Resources */,
 				3A07F6D718D3EFC200E82390 /* check-icon.png in Resources */,
 				3A7D536D18E237DB00BFF569 /* notification4.png in Resources */,
+				3AF1AEB718E7976F00E9DA05 /* x-purple.png in Resources */,
+				3AF1AEB918E7979800E9DA05 /* check-icon-green.png in Resources */,
 				F744857218DB731F00460FBC /* notification-none.png in Resources */,
 				3A00167E18B8231000C54059 /* message-icon.png in Resources */,
 				F744857418DB731F00460FBC /* notification1-green.png in Resources */,
@@ -2016,6 +2065,7 @@
 				3A98DA1E18BD1A2600B69049 /* XMPPAutoPing.m in Sources */,
 				3A98DA3818BD1A4B00B69049 /* GCDMulticastDelegate.m in Sources */,
 				3A98D8E518BD19B200B69049 /* XMPPJID.m in Sources */,
+				3AF1AEA818E78D6B00E9DA05 /* Reachability.m in Sources */,
 				3A5DC78118E5DB040090660B /* CountryPickerDelegate.m in Sources */,
 				3A98D9EC18BD1A2600B69049 /* XMPPRoomMessageHybridCoreDataStorageObject.m in Sources */,
 				3AC6D0D218C22A9500091539 /* StyleManager.m in Sources */,

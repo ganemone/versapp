@@ -252,7 +252,7 @@
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if ([[alertView buttonTitleAtIndex:2] isEqualToString:@"Add Users"]) {
+    if ([[alertView buttonTitleAtIndex:1] isEqualToString:@"Add Users"]) {
         if (!(buttonIndex == [alertView cancelButtonIndex])) {
             [self performSegueWithIdentifier:SEGUE_ID_ADD_TO_GROUP sender:self];
         }
