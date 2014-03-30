@@ -194,4 +194,13 @@ NSString *const REPORT_CONFIRM_ABUSE = @"Report abuse!";
 NSString *const INVALID_CODE = @"Incorrect Code...try again.";
 NSString *const NOT_VALIDATED = @"Phone number not yet confirmed.";
 
+NSString *const PACKET_ID_BLOCK_IMPLICIT_USER = @"packet_id_block_implicit_user";
+NSString *const PACKET_ID_BLOCK_USER_IN_GROUP = @"packet_id_block_user_in_group";
+NSString *const PACKET_ID_UNBLOCK_IMPLICIT_USER = @"packet_id_unblock_implicit_user";
+NSString *const PACKET_ID_UNBLOCK_USER_IN_GROUP = @"packet_id_unblock_user_in_group";
+
+NSString *const BLOCKING_TYPE_IMPLICIT = @"implicit_user";
+NSString *const BLOCKING_TYPE_GROUP = @"user_in_group";
+
+
 @end

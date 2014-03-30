@@ -697,8 +697,47 @@
 }
 
 // ---------------------
+// Blocking
+// ---------------------
++(DDXMLElement *)createBlockImplicitUserPacket:(NSString *)username {
+    return [self getBlockingPacketForUser:username blockingType:@"block" withType:BLOCKING_TYPE_IMPLICIT withID:PACKET_ID_BLOCK_IMPLICIT_USER];
+}
+
++(DDXMLElement *)createBlockUserInGroupPacket:(NSString *)username chatID:(NSString *)chatID {
+    return [self getBlockingPacketForUser:username blockingType:@"block" withType:BLOCKING_TYPE_GROUP withID:PACKET_ID_BLOCK_USER_IN_GROUP];
+}
+
++(DDXMLElement *)createUnblockImplicitUser:(NSString *)username {
+    return [self getBlockingPacketForUser:username blockingType:@"unblock" withType:BLOCKING_TYPE_IMPLICIT withID:PACKET_ID_UNBLOCK_IMPLICIT_USER];
+}
+
++(DDXMLElement *)createUnblockUserInGroupPacket:(NSString *)username chatID:(NSString *)chatID {
+    return [self getBlockingPacketForUser:username blockingType:@"unblock" withType:BLOCKING_TYPE_GROUP withID:PACKET_ID_UNBLOCK_USER_IN_GROUP];
+}
+
++(DDXMLElement *)getBlockingPacketForUser:(NSString *)username blockingType:(NSString *)blockingType withType:(NSString *)type withID:(NSString *)packetID {
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
+    [query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:block"]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:packetID]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"set"]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
+    
+    DDXMLElement *block = [DDXMLElement elementWithName:blockingType];
+    DDXMLElement *usernameElement = [DDXMLElement elementWithName:@"username" stringValue:username];
+    DDXMLElement *typeElement = [DDXMLElement elementWithName:@"type" stringValue:type];
+    [block addChild:usernameElement];
+    [block addChild:typeElement];
+    [query addChild:block];
+    [iq addChild:query];
+    NSLog(@"Blocking Packet: %@", iq.XMLString);
+    return iq;
+}
+
+// ---------------------
 // Helper Packet Methods
 // ---------------------
+
 +(DDXMLElement*)getWhoChatIQElementWithType:(NSString*)type packetID: (NSString*)packetID children:(DDXMLElement*)element {
     DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"],
     *chat = [DDXMLElement elementWithName:@"chat"];
