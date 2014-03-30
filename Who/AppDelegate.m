@@ -13,6 +13,7 @@
 #import "UserRegistrationViewController.h"
 #import "DashboardViewController.h"
 #import "Reachability.h"
+#import "IQPacketManager.h"
 
 @implementation AppDelegate
 
@@ -88,22 +89,29 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Let the device know we want to receive push notifications
-	//[[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-    // (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
     return YES;
 }
 
-/*- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
 	NSLog(@"My token is: %@", deviceToken);
+    NSString *deviceTokenString = [[[[deviceToken description]
+                                     stringByReplacingOccurrencesOfString:@" " withString:@""]
+                                    stringByReplacingOccurrencesOfString:@"<" withString:@""]
+                                   stringByReplacingOccurrencesOfString:@">" withString:@""];
+    
+    NSLog(@"Decoded Token String: %@", deviceTokenString);
+    //[[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSetDeviceTokenPacket:deviceTokenString]];
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
 	NSLog(@"Failed to get token, error: %@", error);
 }
-*/
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -170,13 +178,12 @@
     [self saveContext];
 }
 
-/*- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     NSLog(@"didReceiveRemoteNotification");
-    
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.alertBody = @"Test Notification";
     [application presentLocalNotificationNow:notification];
     completionHandler(UIBackgroundFetchResultNewData);
-}*/
+}
 
 @end
