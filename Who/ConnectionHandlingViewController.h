@@ -10,6 +10,10 @@
 
 @interface ConnectionHandlingViewController : UIViewController
 
+@property BOOL shouldShowConnectionLostView;
+@property BOOL viewHasAppeared;
+@property BOOL connectionLostViewIsVisible;
+
 - (void)showDisconnectedView;
 
 @end

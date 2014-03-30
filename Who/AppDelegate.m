@@ -12,6 +12,7 @@
 #import "Constants.h"
 #import "UserRegistrationViewController.h"
 #import "DashboardViewController.h"
+#import "Reachability.h"
 
 @implementation AppDelegate
 
@@ -126,12 +127,7 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     ConnectionProvider *cp = [ConnectionProvider getInstance];
     XMPPStream *stream = [cp getConnection];
-    NSLog(@"Is Connected? %d", [stream isConnected]);
-    NSLog(@"Is Authenticated? %d", [stream isAuthenticated]);
-    NSLog(@"Is Authenticating? %d", [stream isAuthenticating]);
-    NSLog(@"Is Connecting? %d", [stream isConnecting]);
-    NSLog(@"Is Disconnected? %d", [stream isDisconnected]);
-    
+    [self setupReachability];
     if ([stream isDisconnected]) {
         NSString *username = [UserDefaultManager loadUsername];
         NSString *password = [UserDefaultManager loadPassword];
@@ -146,6 +142,27 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:@"needToRegister" object:nil];
         }
     }
+}
+
+- (void)setupReachability {
+    Reachability *reach = [Reachability reachabilityWithHostname:[ConnectionProvider getServerIPAddress]];
+    reach.reachableOnWWAN = YES;
+    reach.unreachableBlock = ^(Reachability*reach) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[[ConnectionProvider getInstance] getConnection] disconnect];
+        });
+    };
+    reach.reachableBlock = ^(Reachability *reach) {
+        ConnectionProvider *cp = [ConnectionProvider getInstance];
+        XMPPStream *stream = [cp getConnection];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (![stream isConnecting] && ![stream isAuthenticating] && ![stream isConnected] && ![stream isAuthenticated]) {
+                [cp connect:[UserDefaultManager loadUsername] password:[UserDefaultManager loadPassword]];
+            }
+        });
+        
+    };
+    [reach startNotifier];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

@@ -48,10 +48,12 @@
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:MESSAGE_PROPERTY_TIMESTAMP ascending:NO];
     NSEntityDescription *entity = [NSEntityDescription entityForName:CORE_DATA_TABLE_MESSAGES inManagedObjectContext:moc];
     [fetchRequest setEntity:entity];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%@ = \"%@\" && %@ = \"%@\"", MESSAGE_PROPERTY_GROUP_ID, groupID, MESSAGE_PROPERTY_SENDER_ID, [ConnectionProvider getUser]]];
     [fetchRequest setFetchLimit:1];
+    [fetchRequest setSortDescriptors:@[sort]];
     [fetchRequest setPredicate:predicate];
     NSError* error;
     NSArray *fetchedItems = [moc executeFetchRequest:fetchRequest error:&error];

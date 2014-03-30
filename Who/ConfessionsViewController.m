@@ -75,7 +75,7 @@
     [tableViewController setRefreshControl:refresh];
     [tableViewController setTableView:_tableView];
     self.refreshControl = refresh;
-    
+
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     [self.tableView setBackgroundColor:[StyleManager getColorOrange]];
