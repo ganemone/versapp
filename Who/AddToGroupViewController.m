@@ -87,7 +87,20 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {\
-    return [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    FriendMO *currentItem = [self.searchResults objectAtIndex:indexPath.row];
+    FriendTableViewCell *cell = [[FriendTableViewCell alloc] initWithText:currentItem.name reuseIdentifier:CELL_ID_FRIENDS_PROTOTYPE];
+    
+    if ([self.originalJIDs containsObject:currentItem.username]) {
+        CGFloat btnSize = 18.0f;
+        [cell.isSelectedImageView setFrame:CGRectMake(cell.frame.size.width - 50.0f, cell.frame.size.height / 2 - btnSize/2 + 2.0f, btnSize, 134.0f/(193.0f/btnSize))];
+        [cell.isSelectedImageView setImage:[UIImage imageNamed:@"check-icon-purple.png"]];
+    } else if ([self.selectedJIDs containsObject:currentItem.username]) {
+        [cell.isSelectedImageView setImage:[UIImage imageNamed:@"cell-select-active.png"]];
+    } else {
+        [cell.isSelectedImageView setImage:[UIImage imageNamed:@"cell-select.png"]];
+    }
+    
+    return cell;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {

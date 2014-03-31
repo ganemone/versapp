@@ -235,6 +235,14 @@
 		3AFF778418C415BD003277F9 /* ChatMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778318C415BD003277F9 /* ChatMO.m */; };
 		3AFF778718C415BE003277F9 /* FriendMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778618C415BE003277F9 /* FriendMO.m */; };
 		3AFFC93D18A06AE3009D7F13 /* db.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC93B18A06AE3009D7F13 /* db.xcdatamodeld */; };
+		F7303EC718E862F30045F9AF /* arrow-up-icon-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303EC618E862F30045F9AF /* arrow-up-icon-green.png */; };
+		F7303EC918E8E3100045F9AF /* arrow-up-icon-square-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303EC818E8E3100045F9AF /* arrow-up-icon-square-green.png */; };
+		F7303ECB18E8E3C70045F9AF /* check-icon-purple.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303ECA18E8E3C70045F9AF /* check-icon-purple.png */; };
+		F7303ECD18E8E4DA0045F9AF /* fav-icon-label-active.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303ECC18E8E4DA0045F9AF /* fav-icon-label-active.png */; };
+		F7303ECF18E8E4EA0045F9AF /* chat-icon-label.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303ECE18E8E4EA0045F9AF /* chat-icon-label.png */; };
+		F7303ED318E8E7080045F9AF /* fav-icon-label.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303ED018E8E7080045F9AF /* fav-icon-label.png */; };
+		F7303ED818E8EF3F0045F9AF /* fav-icon-label-single-active.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303ED618E8EF3F0045F9AF /* fav-icon-label-single-active.png */; };
+		F7303ED918E8EF3F0045F9AF /* fav-icon-label-single.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303ED718E8EF3F0045F9AF /* fav-icon-label-single.png */; };
 		F73713F218E4FADF008A9ED2 /* AddToGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F73713F118E4FADF008A9ED2 /* AddToGroupViewController.m */; };
 		F744856018DB61C500460FBC /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = F744854118DB61C500460FBC /* NSMutableArray+SWUtilityButtons.m */; };
 		F744856118DB61C500460FBC /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = F744854318DB61C500460FBC /* SWCellScrollView.m */; };
@@ -668,6 +676,14 @@
 		3AFF778518C415BE003277F9 /* FriendMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendMO.h; sourceTree = "<group>"; };
 		3AFF778618C415BE003277F9 /* FriendMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendMO.m; sourceTree = "<group>"; };
 		3AFFC93C18A06AE3009D7F13 /* db.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = db.xcdatamodel; sourceTree = "<group>"; };
+		F7303EC618E862F30045F9AF /* arrow-up-icon-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-up-icon-green.png"; sourceTree = "<group>"; };
+		F7303EC818E8E3100045F9AF /* arrow-up-icon-square-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-up-icon-square-green.png"; sourceTree = "<group>"; };
+		F7303ECA18E8E3C70045F9AF /* check-icon-purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon-purple.png"; sourceTree = "<group>"; };
+		F7303ECC18E8E4DA0045F9AF /* fav-icon-label-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fav-icon-label-active.png"; sourceTree = "<group>"; };
+		F7303ECE18E8E4EA0045F9AF /* chat-icon-label.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-icon-label.png"; sourceTree = "<group>"; };
+		F7303ED018E8E7080045F9AF /* fav-icon-label.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fav-icon-label.png"; sourceTree = "<group>"; };
+		F7303ED618E8EF3F0045F9AF /* fav-icon-label-single-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fav-icon-label-single-active.png"; sourceTree = "<group>"; };
+		F7303ED718E8EF3F0045F9AF /* fav-icon-label-single.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fav-icon-label-single.png"; sourceTree = "<group>"; };
 		F73713F018E4FADF008A9ED2 /* AddToGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddToGroupViewController.h; sourceTree = "<group>"; };
 		F73713F118E4FADF008A9ED2 /* AddToGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddToGroupViewController.m; sourceTree = "<group>"; };
 		F744854018DB61C500460FBC /* NSMutableArray+SWUtilityButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+SWUtilityButtons.h"; sourceTree = "<group>"; };
@@ -1691,6 +1707,14 @@
 		3AF86D3218B5070200033495 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				F7303ED618E8EF3F0045F9AF /* fav-icon-label-single-active.png */,
+				F7303ED718E8EF3F0045F9AF /* fav-icon-label-single.png */,
+				F7303ECE18E8E4EA0045F9AF /* chat-icon-label.png */,
+				F7303ECC18E8E4DA0045F9AF /* fav-icon-label-active.png */,
+				F7303ED018E8E7080045F9AF /* fav-icon-label.png */,
+				F7303ECA18E8E3C70045F9AF /* check-icon-purple.png */,
+				F7303EC818E8E3100045F9AF /* arrow-up-icon-square-green.png */,
+				F7303EC618E862F30045F9AF /* arrow-up-icon-green.png */,
 				3AEFB76018E8BE5C0039B5B0 /* camera-icon-dark.png */,
 				3AEFB76118E8BE5C0039B5B0 /* cell-select-green-active.png */,
 				3AEFB76218E8BE5C0039B5B0 /* cell-select-green.png */,
@@ -1940,6 +1964,7 @@
 				3AD8F47E18DC97F3002C399C /* loading-screen.jpg in Resources */,
 				3A00167F18B8231000C54059 /* photo-icon.png in Resources */,
 				3A07F6C218D3C21800E82390 /* arrow-right-bold.png in Resources */,
+				F7303ECB18E8E3C70045F9AF /* check-icon-purple.png in Resources */,
 				3AEFB75E18E8BE210039B5B0 /* x-orange.png in Resources */,
 				3A07F6D518D3DB0300E82390 /* confession-cell-bottom.png in Resources */,
 				F744857518DB731F00460FBC /* notification2-green.png in Resources */,
@@ -1947,6 +1972,9 @@
 				3AD19AB818E26298001B3B88 /* AppIcon58.png in Resources */,
 				3A07F6C318D3C21800E82390 /* cell-select.png in Resources */,
 				3AD8F48318DCCB7D002C399C /* Countries.plist in Resources */,
+				F7303ECD18E8E4DA0045F9AF /* fav-icon-label-active.png in Resources */,
+				F7303ED918E8EF3F0045F9AF /* fav-icon-label-single.png in Resources */,
+				F7303ED818E8EF3F0045F9AF /* fav-icon-label-single-active.png in Resources */,
 				F744857918DB731F00460FBC /* notification5+-green.png in Resources */,
 				3AB8D18F18C259B00082B77C /* MavenProBlack.ttf in Resources */,
 				3A3A0AE818AB1126006FBAE4 /* avatar-placeholder.png in Resources */,
@@ -1963,10 +1991,12 @@
 				3AD19AB918E26298001B3B88 /* AppIcon80.png in Resources */,
 				3A1EACDD18D9DC41006E4CA3 /* bubble.png in Resources */,
 				3A25B6411881E03700166623 /* InfoPlist.strings in Resources */,
+				F7303EC718E862F30045F9AF /* arrow-up-icon-green.png in Resources */,
 				3A3A0B0B18AB1126006FBAE4 /* send-button-pressed@2x.png in Resources */,
 				3AF0B00818B515E500E3D0D3 /* transparent-bg.png in Resources */,
 				3A3A0B0A18AB1126006FBAE4 /* send-button-pressed.png in Resources */,
 				3AB8D18818C23DF00082B77C /* MavenProLight-100.ttf in Resources */,
+				F7303ED318E8E7080045F9AF /* fav-icon-label.png in Resources */,
 				3AB8D19118C259B00082B77C /* MavenProMedium.ttf in Resources */,
 				3AD19AC518E266F0001B3B88 /* Default-568h@2x.png in Resources */,
 				3A3A0B1218AB1126006FBAE4 /* message-received.aiff in Resources */,
@@ -1998,7 +2028,9 @@
 				3A07F6BD18D3C21800E82390 /* confessions-icon.png in Resources */,
 				3AF86D2A18B504CF00033495 /* bubble-old@2x.png in Resources */,
 				3AF0B00A18B54E9000E3D0D3 /* bottom-section.png in Resources */,
+				F7303ECF18E8E4EA0045F9AF /* chat-icon-label.png in Resources */,
 				3A07F6C818D3C21800E82390 /* More Notifications Icon.png in Resources */,
+				F7303EC918E8E3100045F9AF /* arrow-up-icon-square-green.png in Resources */,
 				3AB8D19218C259B00082B77C /* MavenProRegular.ttf in Resources */,
 				3A3A0B0C18AB1126006FBAE4 /* send-button.png in Resources */,
 				3AF86D2918B504CF00033495 /* bubble-old.png in Resources */,
@@ -2331,12 +2363,12 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who;
+				FRAMEWORK_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/Versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
+				LIBRARY_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios/who;
 				PRODUCT_NAME = Versapp;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -2348,12 +2380,12 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who;
+				FRAMEWORK_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/Versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
+				LIBRARY_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios/who;
 				PRODUCT_NAME = Versapp;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;

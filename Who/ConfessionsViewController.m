@@ -82,10 +82,10 @@
     [self.tableView setBackgroundView:nil];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
-    self.favIcon = [UIImage imageNamed:@"fav-icon.png"];
-    self.favIconActive = [UIImage imageNamed:@"fav-icon-active.png"];
+    self.favIcon = [UIImage imageNamed:@"fav-icon-label.png"];
+    self.favIconActive = [UIImage imageNamed:@"fav-icon-label-active.png"];
     self.gradLineSmall = [UIImage imageNamed:@"grad-line-small.png"];
-    self.chatIcon = [UIImage imageNamed:@"chat-icon.png"];
+    self.chatIcon = [UIImage imageNamed:@"chat-icon-label.png"];
 }
 
 - (void)setUpInBackground {

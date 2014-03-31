@@ -386,7 +386,7 @@
         greenImageName = [NSMutableString stringWithFormat:@"notification%d-green.png", [self.friendRequests count] + [self.groupInvites count]];
     } else if ([self.friendRequests count] + [self.groupInvites count] == 0) {
         imageName = [NSMutableString stringWithString:@"notification-none.png"];
-        greenImageName = [NSMutableString stringWithString:@"notification-none-green.png"];
+        greenImageName = [NSMutableString stringWithString:@"arrow-up-icon-square-green.png"];
     } else {
         imageName = [NSMutableString stringWithString:@"notification5+.png"];
         greenImageName = [NSMutableString stringWithString:@"notification5+-green.png"];

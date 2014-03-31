@@ -82,10 +82,10 @@ static UITapGestureRecognizer *favoriteTap;
         // Configuring Chat Buttons
         UIButton *createChatButton = confession.chatButton;
         //[createChatButton addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
-        UILabel *createChatLabel = confession.chatLabel;
+        /*UILabel *createChatLabel = confession.chatLabel;
         [createChatLabel setUserInteractionEnabled:YES];
         [createChatLabel setText:@"Chat"];
-        [createChatLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
+        [createChatLabel setFont:[StyleManager getFontStyleLightSizeLarge]];*/
         
         // Configure Favorites
         UIButton *favoriteButton = confession.favoriteButton;
@@ -101,7 +101,7 @@ static UITapGestureRecognizer *favoriteTap;
         [self.contentView addSubview:textView];
         [self.contentView addSubview:footer];
         [self.contentView addSubview:createChatButton];
-        [self.contentView addSubview:createChatLabel];
+        //[self.contentView addSubview:createChatLabel];
         [self.contentView addSubview:favoriteLabel];
         [self.contentView addSubview:favoriteButton];
         [self.contentView addSubview:timestampLabel];
@@ -141,9 +141,17 @@ static UITapGestureRecognizer *favoriteTap;
     BOOL isFavorited = [_confession toggleFavorite];
     NSLog(@"Is Favorited... %d", [_confession isFavoritedByConnectedUser]);
     if (isFavorited) {
-        [_favoriteButton setImage:[UIImage imageNamed:@"fav-icon-active.png"] forState:UIControlStateNormal];
+        if ([_confession getNumForLabel] == 1) {
+            [_favoriteButton setImage:[UIImage imageNamed:@"fav-icon-label-single-active.png"] forState:UIControlStateNormal];
+        } else {
+            [_favoriteButton setImage:[UIImage imageNamed:@"fav-icon-label-active.png"] forState:UIControlStateNormal];
+        }
     } else {
-        [_favoriteButton setImage:[UIImage imageNamed:@"fav-icon.png"] forState:UIControlStateNormal];
+        if ([_confession getNumForLabel] == 1) {
+            [_favoriteButton setImage:[UIImage imageNamed:@"fav-icon-label-single.png"] forState:UIControlStateNormal];
+        } else {
+            [_favoriteButton setImage:[UIImage imageNamed:@"fav-icon-label.png"] forState:UIControlStateNormal];
+        }
     }
     [_favoriteLabel setText:[_confession getTextForLabel]];
     ConfessionsManager *confessionsManager = [ConfessionsManager getInstance];
