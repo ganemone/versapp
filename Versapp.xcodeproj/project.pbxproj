@@ -215,12 +215,6 @@
 		3AF19A731881F67300F3E4D3 /* libidn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF19A711881F67300F3E4D3 /* libidn.a */; };
 		3AF19A761881F6C300F3E4D3 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF19A751881F6C300F3E4D3 /* libresolv.dylib */; };
 		3AF19AD11882075D00F3E4D3 /* ConnectionProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF19AD01882075D00F3E4D3 /* ConnectionProvider.m */; };
-		3AF1AEAC18E7971000E9DA05 /* cell-select-green-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1AEAA18E7971000E9DA05 /* cell-select-green-active.png */; };
-		3AF1AEAD18E7971000E9DA05 /* cell-select-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1AEAB18E7971000E9DA05 /* cell-select-green.png */; };
-		3AF1AEB518E7976F00E9DA05 /* x-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1AEB118E7976F00E9DA05 /* x-green.png */; };
-		3AF1AEB618E7976F00E9DA05 /* x-orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1AEB218E7976F00E9DA05 /* x-orange.png */; };
-		3AF1AEB718E7976F00E9DA05 /* x-purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1AEB318E7976F00E9DA05 /* x-purple.png */; };
-		3AF1AEB918E7979800E9DA05 /* check-icon-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF1AEB818E7979800E9DA05 /* check-icon-green.png */; };
 		3AF5113A1885B1EC002383D3 /* IQPacketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF511391885B1EC002383D3 /* IQPacketManager.m */; };
 		3AF5113D1885D79E002383D3 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF5113C1885D79E002383D3 /* Constants.m */; };
 		3AF86D2918B504CF00033495 /* bubble-old.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF86D2718B504CF00033495 /* bubble-old.png */; };
@@ -230,6 +224,13 @@
 		3AFF778718C415BE003277F9 /* FriendMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778618C415BE003277F9 /* FriendMO.m */; };
 		3AFFC93D18A06AE3009D7F13 /* db.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC93B18A06AE3009D7F13 /* db.xcdatamodeld */; };
 		F7303EC718E862F30045F9AF /* arrow-up-icon-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303EC618E862F30045F9AF /* arrow-up-icon-green.png */; };
+		F7303EC918E8E3100045F9AF /* arrow-up-icon-square-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303EC818E8E3100045F9AF /* arrow-up-icon-square-green.png */; };
+		F7303ECB18E8E3C70045F9AF /* check-icon-purple.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303ECA18E8E3C70045F9AF /* check-icon-purple.png */; };
+		F7303ECD18E8E4DA0045F9AF /* fav-icon-label-active.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303ECC18E8E4DA0045F9AF /* fav-icon-label-active.png */; };
+		F7303ECF18E8E4EA0045F9AF /* chat-icon-label.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303ECE18E8E4EA0045F9AF /* chat-icon-label.png */; };
+		F7303ED318E8E7080045F9AF /* fav-icon-label.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303ED018E8E7080045F9AF /* fav-icon-label.png */; };
+		F7303ED818E8EF3F0045F9AF /* fav-icon-label-single-active.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303ED618E8EF3F0045F9AF /* fav-icon-label-single-active.png */; };
+		F7303ED918E8EF3F0045F9AF /* fav-icon-label-single.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303ED718E8EF3F0045F9AF /* fav-icon-label-single.png */; };
 		F73713F218E4FADF008A9ED2 /* AddToGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F73713F118E4FADF008A9ED2 /* AddToGroupViewController.m */; };
 		F744856018DB61C500460FBC /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = F744854118DB61C500460FBC /* NSMutableArray+SWUtilityButtons.m */; };
 		F744856118DB61C500460FBC /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = F744854318DB61C500460FBC /* SWCellScrollView.m */; };
@@ -633,12 +634,6 @@
 		3AF19A751881F6C300F3E4D3 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		3AF19ACF1882075D00F3E4D3 /* ConnectionProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionProvider.h; sourceTree = "<group>"; };
 		3AF19AD01882075D00F3E4D3 /* ConnectionProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionProvider.m; sourceTree = "<group>"; };
-		3AF1AEAA18E7971000E9DA05 /* cell-select-green-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cell-select-green-active.png"; path = "../../../../Google Drive/!Who /Versapp Design Resources/Add Contacts Page/cell-select-green-active.png"; sourceTree = "<group>"; };
-		3AF1AEAB18E7971000E9DA05 /* cell-select-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cell-select-green.png"; path = "../../../../Google Drive/!Who /Versapp Design Resources/Add Contacts Page/cell-select-green.png"; sourceTree = "<group>"; };
-		3AF1AEB118E7976F00E9DA05 /* x-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "x-green.png"; path = "../../../../Google Drive/!Who /Versapp Design Resources/App Icons/x-green.png"; sourceTree = "<group>"; };
-		3AF1AEB218E7976F00E9DA05 /* x-orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "x-orange.png"; path = "../../../../Google Drive/!Who /Versapp Design Resources/App Icons/x-orange.png"; sourceTree = "<group>"; };
-		3AF1AEB318E7976F00E9DA05 /* x-purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "x-purple.png"; path = "../../../../Google Drive/!Who /Versapp Design Resources/App Icons/x-purple.png"; sourceTree = "<group>"; };
-		3AF1AEB818E7979800E9DA05 /* check-icon-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "check-icon-green.png"; path = "../../../../Google Drive/!Who /Versapp Design Resources/App Icons/check-icon-green.png"; sourceTree = "<group>"; };
 		3AF511381885B1EC002383D3 /* IQPacketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQPacketManager.h; sourceTree = "<group>"; };
 		3AF511391885B1EC002383D3 /* IQPacketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQPacketManager.m; sourceTree = "<group>"; };
 		3AF5113B1885D79E002383D3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -653,6 +648,13 @@
 		3AFF778618C415BE003277F9 /* FriendMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendMO.m; sourceTree = "<group>"; };
 		3AFFC93C18A06AE3009D7F13 /* db.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = db.xcdatamodel; sourceTree = "<group>"; };
 		F7303EC618E862F30045F9AF /* arrow-up-icon-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-up-icon-green.png"; sourceTree = "<group>"; };
+		F7303EC818E8E3100045F9AF /* arrow-up-icon-square-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-up-icon-square-green.png"; sourceTree = "<group>"; };
+		F7303ECA18E8E3C70045F9AF /* check-icon-purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon-purple.png"; sourceTree = "<group>"; };
+		F7303ECC18E8E4DA0045F9AF /* fav-icon-label-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fav-icon-label-active.png"; sourceTree = "<group>"; };
+		F7303ECE18E8E4EA0045F9AF /* chat-icon-label.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-icon-label.png"; sourceTree = "<group>"; };
+		F7303ED018E8E7080045F9AF /* fav-icon-label.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fav-icon-label.png"; sourceTree = "<group>"; };
+		F7303ED618E8EF3F0045F9AF /* fav-icon-label-single-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fav-icon-label-single-active.png"; sourceTree = "<group>"; };
+		F7303ED718E8EF3F0045F9AF /* fav-icon-label-single.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fav-icon-label-single.png"; sourceTree = "<group>"; };
 		F73713F018E4FADF008A9ED2 /* AddToGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddToGroupViewController.h; sourceTree = "<group>"; };
 		F73713F118E4FADF008A9ED2 /* AddToGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddToGroupViewController.m; sourceTree = "<group>"; };
 		F744854018DB61C500460FBC /* NSMutableArray+SWUtilityButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+SWUtilityButtons.h"; sourceTree = "<group>"; };
@@ -1666,14 +1668,14 @@
 		3AF86D3218B5070200033495 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				F7303ED618E8EF3F0045F9AF /* fav-icon-label-single-active.png */,
+				F7303ED718E8EF3F0045F9AF /* fav-icon-label-single.png */,
+				F7303ECE18E8E4EA0045F9AF /* chat-icon-label.png */,
+				F7303ECC18E8E4DA0045F9AF /* fav-icon-label-active.png */,
+				F7303ED018E8E7080045F9AF /* fav-icon-label.png */,
+				F7303ECA18E8E3C70045F9AF /* check-icon-purple.png */,
+				F7303EC818E8E3100045F9AF /* arrow-up-icon-square-green.png */,
 				F7303EC618E862F30045F9AF /* arrow-up-icon-green.png */,
-				3AF1AEB818E7979800E9DA05 /* check-icon-green.png */,
-				3AF1AEB018E7976F00E9DA05 /* x-blue.png */,
-				3AF1AEB118E7976F00E9DA05 /* x-green.png */,
-				3AF1AEB218E7976F00E9DA05 /* x-orange.png */,
-				3AF1AEB318E7976F00E9DA05 /* x-purple.png */,
-				3AF1AEAA18E7971000E9DA05 /* cell-select-green-active.png */,
-				3AF1AEAB18E7971000E9DA05 /* cell-select-green.png */,
 				3AD19AC018E26356001B3B88 /* loading640x960.png */,
 				3AD19AC118E26356001B3B88 /* loading640x1136.png */,
 				3AD19AB518E26298001B3B88 /* AppIcon58.png */,
@@ -1916,14 +1918,17 @@
 				3AD8F47E18DC97F3002C399C /* loading-screen.jpg in Resources */,
 				3A00167F18B8231000C54059 /* photo-icon.png in Resources */,
 				3A07F6C218D3C21800E82390 /* arrow-right-bold.png in Resources */,
+				F7303ECB18E8E3C70045F9AF /* check-icon-purple.png in Resources */,
 				3A07F6D518D3DB0300E82390 /* confession-cell-bottom.png in Resources */,
 				F744857518DB731F00460FBC /* notification2-green.png in Resources */,
 				3A07F6BF18D3C21800E82390 /* compose-icon.png in Resources */,
 				3AD19AB818E26298001B3B88 /* AppIcon58.png in Resources */,
 				3A07F6C318D3C21800E82390 /* cell-select.png in Resources */,
 				3AD8F48318DCCB7D002C399C /* Countries.plist in Resources */,
+				F7303ECD18E8E4DA0045F9AF /* fav-icon-label-active.png in Resources */,
+				F7303ED918E8EF3F0045F9AF /* fav-icon-label-single.png in Resources */,
+				F7303ED818E8EF3F0045F9AF /* fav-icon-label-single-active.png in Resources */,
 				F744857918DB731F00460FBC /* notification5+-green.png in Resources */,
-				3AF1AEAC18E7971000E9DA05 /* cell-select-green-active.png in Resources */,
 				3AB8D18F18C259B00082B77C /* MavenProBlack.ttf in Resources */,
 				3A3A0AE818AB1126006FBAE4 /* avatar-placeholder.png in Resources */,
 				3A25B6521881E03700166623 /* Images.xcassets in Resources */,
@@ -1942,15 +1947,14 @@
 				3AF0B00818B515E500E3D0D3 /* transparent-bg.png in Resources */,
 				3A3A0B0A18AB1126006FBAE4 /* send-button-pressed.png in Resources */,
 				3AB8D18818C23DF00082B77C /* MavenProLight-100.ttf in Resources */,
+				F7303ED318E8E7080045F9AF /* fav-icon-label.png in Resources */,
 				3AB8D19118C259B00082B77C /* MavenProMedium.ttf in Resources */,
 				3AD19AC518E266F0001B3B88 /* Default-568h@2x.png in Resources */,
 				3A3A0B1218AB1126006FBAE4 /* message-received.aiff in Resources */,
-				3AF1AEB618E7976F00E9DA05 /* x-orange.png in Resources */,
 				F744857718DB731F00460FBC /* notification4-green.png in Resources */,
 				F751016C18ABE8A2001F1E7F /* Settings.bundle in Resources */,
 				3AB8D19018C259B00082B77C /* MavenProBold.ttf in Resources */,
 				3AF19A6E1881F34A00F3E4D3 /* README.txt in Resources */,
-				3AF1AEB518E7976F00E9DA05 /* x-green.png in Resources */,
 				3AD19AC218E26356001B3B88 /* loading640x960.png in Resources */,
 				3A7D536718E237DB00BFF569 /* arrow-up-icon.png in Resources */,
 				F7977B6518DBA25B000E955C /* decline-icon-green.png in Resources */,
@@ -1960,7 +1964,6 @@
 				3A3A0B0818AB1126006FBAE4 /* input-field-cover.png in Resources */,
 				3A3A0B1018AB1126006FBAE4 /* input-bar-flat.png in Resources */,
 				3A7D536918E237DB00BFF569 /* messages-icon-white.png in Resources */,
-				3AF1AEAD18E7971000E9DA05 /* cell-select-green.png in Resources */,
 				3A07F6C518D3C21800E82390 /* cell-select-active.png in Resources */,
 				3A7D536F18E237DB00BFF569 /* notification5+.png in Resources */,
 				3A07F6C118D3C21800E82390 /* fav-icon.png in Resources */,
@@ -1973,13 +1976,14 @@
 				3A07F6BD18D3C21800E82390 /* confessions-icon.png in Resources */,
 				3AF86D2A18B504CF00033495 /* bubble-old@2x.png in Resources */,
 				3AF0B00A18B54E9000E3D0D3 /* bottom-section.png in Resources */,
+				F7303ECF18E8E4EA0045F9AF /* chat-icon-label.png in Resources */,
 				3A07F6C818D3C21800E82390 /* More Notifications Icon.png in Resources */,
+				F7303EC918E8E3100045F9AF /* arrow-up-icon-square-green.png in Resources */,
 				3AB8D19218C259B00082B77C /* MavenProRegular.ttf in Resources */,
 				3A3A0B0C18AB1126006FBAE4 /* send-button.png in Resources */,
 				3AF86D2918B504CF00033495 /* bubble-old.png in Resources */,
 				3A07F6D718D3EFC200E82390 /* check-icon.png in Resources */,
 				3A7D536D18E237DB00BFF569 /* notification4.png in Resources */,
-				3AF1AEB718E7976F00E9DA05 /* x-purple.png in Resources */,
 				F744857218DB731F00460FBC /* notification-none.png in Resources */,
 				3A00167E18B8231000C54059 /* message-icon.png in Resources */,
 				F744857418DB731F00460FBC /* notification1-green.png in Resources */,

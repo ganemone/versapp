@@ -50,18 +50,19 @@
     CGRect timestampLabelFrame = CGRectMake(cellX, textHeight - 15.0f, contentSize.width - 25.0f, 15.0f);
     _timestampLabel = [[UILabel alloc] initWithFrame:timestampLabelFrame];
     // Configuring Chat Buttons
-    CGFloat iconSize = 25.0f, paddingSmall = 5.0f;
+    CGFloat iconSize = 25.0f, paddingSmall = 5.0f, chatWidth = 505.0f/(201.0f/iconSize), favWidth = 795.0f/(196.0f/iconSize);
     CGFloat labelWidth = (contentSize.width - 2.0f * cellX) / 2.0f;
 
-    CGRect chatButtonFrame = CGRectMake(cellX + paddingSmall, textHeight + paddingSmall, iconSize, iconSize);
-    CGRect chatLabelFrame = CGRectMake(cellX + iconSize + 2 * paddingSmall, textHeight + paddingSmall, labelWidth, iconSize);
+    CGRect chatButtonFrame = CGRectMake(cellX + paddingSmall, textHeight + paddingSmall, chatWidth, iconSize);
+    //CGRect chatLabelFrame = CGRectMake(cellX + iconSize + 2 * paddingSmall, textHeight + paddingSmall, labelWidth, iconSize);
     _chatButton = [[UIButton alloc] initWithFrame:chatButtonFrame];
-    _chatLabel = [[UILabel alloc] initWithFrame:chatLabelFrame];
+    //_chatLabel = [[UILabel alloc] initWithFrame:chatLabelFrame];
 
     
     // Configure Favorites
-    CGRect favoriteButtonFrame = CGRectMake(contentSize.width - iconSize - cellX - 2 * paddingSmall, textHeight + paddingSmall, iconSize, iconSize);
-    CGRect favoriteLabelFrame = CGRectMake(contentSize.width / 2 + iconSize, textHeight + paddingSmall, labelWidth, iconSize);
+    //CGRect favoriteButtonFrame = CGRectMake(contentSize.width - iconSize - cellX - 2 * paddingSmall, textHeight + paddingSmall, favWidth, iconSize);
+    CGRect favoriteButtonFrame = CGRectMake(contentSize.width / 2 + 1.5f*iconSize, textHeight + paddingSmall, favWidth, iconSize);
+    CGRect favoriteLabelFrame = CGRectMake(contentSize.width / 2 + iconSize, textHeight + paddingSmall, 25.0f, iconSize);
     _favoriteButton = [[UIButton alloc] initWithFrame:favoriteButtonFrame];
     _favoriteLabel = [[UILabel alloc] initWithFrame:favoriteLabelFrame];
     
@@ -153,7 +154,12 @@
 }
 
 -(NSString *)getTextForLabel {
-    return (_favoritedUsers.count == 1) ? @"1 Favorite" : [NSString stringWithFormat:@"%lu Favorites", (unsigned long)_favoritedUsers.count];
+    //return (_favoritedUsers.count == 1) ? @"1 Favorite" : [NSString stringWithFormat:@"%lu Favorites", (unsigned long)_favoritedUsers.count];
+    return [NSString stringWithFormat:@"%lu", (unsigned long)_favoritedUsers.count];
+}
+
+-(NSUInteger)getNumForLabel {
+    return _favoritedUsers.count;
 }
 
 @end

@@ -50,6 +50,8 @@
 
 -(NSString *)getTextForLabel;
 
+-(NSUInteger)getNumForLabel;
+
 - (CGFloat)heightForConfession;
 
 @end
