@@ -39,7 +39,7 @@
 
 +(BOOL)isValidUsername:(NSString *)username {
     NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^[a-zA-Z-_]+$" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^[a-zA-Z_0-9]+$" options:NSRegularExpressionCaseInsensitive error:&error];
     return ([[regex matchesInString:username options:0 range:NSMakeRange(0, username.length)] count] > 0);
 }
 

@@ -7,9 +7,7 @@
 //
 
 #import "NewUserRegisterUsernameViewController.h"
-#import "NewUserRegisterNameViewController.h"
-#import "NewUserRegisterPhoneViewController.h"
-#import "NewUserRegisterUsernameViewController.h"
+#import "Constants.h"
 #import "Validator.h"
 
 @interface NewUserRegisterUsernameViewController ()
@@ -39,7 +37,12 @@
 }
 
 - (void)handleFinishedRegisteringUsername {
-    
+    if ([Validator isValidUsername:_username.text]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FINISHED_REGISTERING_USERNAME object:nil];
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Usernames must only contain Letters, numbers, and underscores." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alertView show];
+    }
 }
 
 - (void)didReceiveMemoryWarning
