@@ -105,7 +105,7 @@
     NSString *firstName = [name firstObject];
     NSString *lastName = [name lastObject];
     
-    NSDictionary *accountInfo = [NSDictionary dictionaryWithObjectsAndKeys:username, VCARD_TAG_USERNAME, _passwordField.text, USER_DEFAULTS_PASSWORD, firstName, VCARD_TAG_FIRST_NAME, lastName, VCARD_TAG_LAST_NAME, _emailField.text, VCARD_TAG_EMAIL, nil];
+    NSDictionary *accountInfo = [NSDictionary dictionaryWithObjectsAndKeys:username, FRIENDS_TABLE_COLUMN_NAME_USERNAME, _passwordField.text, USER_DEFAULTS_PASSWORD, firstName, VCARD_TAG_FIRST_NAME, lastName, VCARD_TAG_LAST_NAME, _emailField.text, FRIENDS_TABLE_COLUMN_NAME_EMAIL, nil];
     [self.cp createAccount:accountInfo];
 }
 

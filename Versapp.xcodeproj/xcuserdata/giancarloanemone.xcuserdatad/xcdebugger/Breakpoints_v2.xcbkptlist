@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Who/ConversationViewController.m"
-            timestampString = "417812566.600451"
+            timestampString = "417922118.22544"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "@implementation ConversationViewController"
             landmarkType = "3">
          </BreakpointContent>

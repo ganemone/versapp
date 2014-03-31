@@ -242,7 +242,8 @@
 }
 
 +(void)handleGetVCardPacket:(XMPPIQ *)packet {
-    NSString *firstName, *lastName, *username, *email, *itemName, *nickname;
+    NSString *firstName, *lastName, *itemName, *nickname;
+    NSString *username = [[[packet fromStr] componentsSeparatedByString:@"@"] firstObject];
     NSArray *children = [packet children];
     for (int i = 0; i < children.count; i++) {
         NSArray *grand = [[children objectAtIndex:i] children];
@@ -250,10 +251,6 @@
             itemName = [[grand objectAtIndex:j] name];
             if([itemName compare:VCARD_TAG_NICKNAME] == 0) {
                 nickname = [[grand objectAtIndex:j] stringValue];
-            } else if([itemName compare:VCARD_TAG_EMAIL] == 0) {
-                email = [[grand objectAtIndex:j] stringValue];
-            } else if([itemName compare:VCARD_TAG_USERNAME] == 0) {
-                username = [[grand objectAtIndex:j] stringValue];
             } else if([itemName compare:@"N"] == 0) {
                 NSArray *nameItems = [[grand objectAtIndex:j] children];
                 for(int k = 0; k < nameItems.count; k++) {
@@ -270,14 +267,14 @@
     if ([username compare:[ConnectionProvider getUser]] != 0) {
         NSString *name = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
         if ([FriendsDBManager hasUserWithJID:username]) {
-            [FriendsDBManager insert:username name:name email:email status:nil searchedPhoneNumber:nil searchedEmail:nil];
+            [FriendsDBManager insert:username name:name email:nil status:nil searchedPhoneNumber:nil searchedEmail:nil];
             [ChatDBManager updateOneToOneChatNames:name username:username];
         } else {
             NSLog(@"Adding name for temp vcard info... %@", name);
             [[ConnectionProvider getInstance] addName:name forUsername:username];
         }
     } else {
-        [UserDefaultManager saveEmail:email];
+        //[UserDefaultManager saveEmail:email];
         [UserDefaultManager saveName:[NSString stringWithFormat:@"%@ %@", firstName, lastName]];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_VCARD object:nil];

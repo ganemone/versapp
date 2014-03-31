@@ -196,6 +196,17 @@
 		3AD8F48118DC9DD8002C399C /* UserRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD8F48018DC9DD8002C399C /* UserRegistrationViewController.m */; };
 		3AD8F48318DCCB7D002C399C /* Countries.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3AD8F48218DCCB7D002C399C /* Countries.plist */; };
 		3AEE80BE18D8FD5B0098F2D1 /* FriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEE80BD18D8FD5B0098F2D1 /* FriendTableViewCell.m */; };
+		3AEFB75C18E8BE210039B5B0 /* x-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AEFB75818E8BE210039B5B0 /* x-blue.png */; };
+		3AEFB75D18E8BE210039B5B0 /* x-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AEFB75918E8BE210039B5B0 /* x-green.png */; };
+		3AEFB75E18E8BE210039B5B0 /* x-orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AEFB75A18E8BE210039B5B0 /* x-orange.png */; };
+		3AEFB75F18E8BE210039B5B0 /* x-purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AEFB75B18E8BE210039B5B0 /* x-purple.png */; };
+		3AEFB76318E8BE5C0039B5B0 /* camera-icon-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AEFB76018E8BE5C0039B5B0 /* camera-icon-dark.png */; };
+		3AEFB76418E8BE5C0039B5B0 /* cell-select-green-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AEFB76118E8BE5C0039B5B0 /* cell-select-green-active.png */; };
+		3AEFB76518E8BE5C0039B5B0 /* cell-select-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AEFB76218E8BE5C0039B5B0 /* cell-select-green.png */; };
+		3AEFB76818E8EE510039B5B0 /* NewUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEFB76718E8EE510039B5B0 /* NewUserViewController.m */; };
+		3AEFB76B18E8EF890039B5B0 /* NewUserRegisterNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEFB76A18E8EF890039B5B0 /* NewUserRegisterNameViewController.m */; };
+		3AEFB76E18E8EF980039B5B0 /* NewUserRegisterPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEFB76D18E8EF980039B5B0 /* NewUserRegisterPhoneViewController.m */; };
+		3AEFB77118E8EFA90039B5B0 /* NewUserRegisterUsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEFB77018E8EFA90039B5B0 /* NewUserRegisterUsernameViewController.m */; };
 		3AF0B00818B515E500E3D0D3 /* transparent-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF0B00718B515E500E3D0D3 /* transparent-bg.png */; };
 		3AF0B00A18B54E9000E3D0D3 /* bottom-section.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF0B00918B54E9000E3D0D3 /* bottom-section.png */; };
 		3AF19A451881EF1600F3E4D3 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF19A3C1881EF1600F3E4D3 /* DDAbstractDatabaseLogger.m */; };
@@ -599,6 +610,21 @@
 		3AD8F48218DCCB7D002C399C /* Countries.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Countries.plist; sourceTree = "<group>"; };
 		3AEE80BC18D8FD5B0098F2D1 /* FriendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendTableViewCell.h; sourceTree = "<group>"; };
 		3AEE80BD18D8FD5B0098F2D1 /* FriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendTableViewCell.m; sourceTree = "<group>"; };
+		3AEFB75818E8BE210039B5B0 /* x-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-blue.png"; sourceTree = "<group>"; };
+		3AEFB75918E8BE210039B5B0 /* x-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-green.png"; sourceTree = "<group>"; };
+		3AEFB75A18E8BE210039B5B0 /* x-orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-orange.png"; sourceTree = "<group>"; };
+		3AEFB75B18E8BE210039B5B0 /* x-purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-purple.png"; sourceTree = "<group>"; };
+		3AEFB76018E8BE5C0039B5B0 /* camera-icon-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-icon-dark.png"; sourceTree = "<group>"; };
+		3AEFB76118E8BE5C0039B5B0 /* cell-select-green-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-select-green-active.png"; sourceTree = "<group>"; };
+		3AEFB76218E8BE5C0039B5B0 /* cell-select-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-select-green.png"; sourceTree = "<group>"; };
+		3AEFB76618E8EE510039B5B0 /* NewUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewUserViewController.h; sourceTree = "<group>"; };
+		3AEFB76718E8EE510039B5B0 /* NewUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewUserViewController.m; sourceTree = "<group>"; };
+		3AEFB76918E8EF890039B5B0 /* NewUserRegisterNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewUserRegisterNameViewController.h; sourceTree = "<group>"; };
+		3AEFB76A18E8EF890039B5B0 /* NewUserRegisterNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewUserRegisterNameViewController.m; sourceTree = "<group>"; };
+		3AEFB76C18E8EF980039B5B0 /* NewUserRegisterPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewUserRegisterPhoneViewController.h; sourceTree = "<group>"; };
+		3AEFB76D18E8EF980039B5B0 /* NewUserRegisterPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewUserRegisterPhoneViewController.m; sourceTree = "<group>"; };
+		3AEFB76F18E8EFA90039B5B0 /* NewUserRegisterUsernameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewUserRegisterUsernameViewController.h; sourceTree = "<group>"; };
+		3AEFB77018E8EFA90039B5B0 /* NewUserRegisterUsernameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewUserRegisterUsernameViewController.m; sourceTree = "<group>"; };
 		3AF0B00718B515E500E3D0D3 /* transparent-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "transparent-bg.png"; sourceTree = "<group>"; };
 		3AF0B00918B54E9000E3D0D3 /* bottom-section.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bottom-section.png"; sourceTree = "<group>"; };
 		3AF19A3B1881EF1600F3E4D3 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
@@ -1529,10 +1555,18 @@
 		3AB8D19318C2A42B0082B77C /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				3AEFB76618E8EE510039B5B0 /* NewUserViewController.h */,
+				3AEFB76718E8EE510039B5B0 /* NewUserViewController.m */,
 				3A6C3BB91884AD61003B162B /* LoginViewController.h */,
 				3A6C3BBA1884AD61003B162B /* LoginViewController.m */,
 				3A08D1F818BFD3BB002A7C8E /* UserDefaultManager.h */,
 				3A08D1F918BFD3BB002A7C8E /* UserDefaultManager.m */,
+				3AEFB76918E8EF890039B5B0 /* NewUserRegisterNameViewController.h */,
+				3AEFB76A18E8EF890039B5B0 /* NewUserRegisterNameViewController.m */,
+				3AEFB76C18E8EF980039B5B0 /* NewUserRegisterPhoneViewController.h */,
+				3AEFB76D18E8EF980039B5B0 /* NewUserRegisterPhoneViewController.m */,
+				3AEFB76F18E8EFA90039B5B0 /* NewUserRegisterUsernameViewController.h */,
+				3AEFB77018E8EFA90039B5B0 /* NewUserRegisterUsernameViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -1676,6 +1710,13 @@
 				F7303ECA18E8E3C70045F9AF /* check-icon-purple.png */,
 				F7303EC818E8E3100045F9AF /* arrow-up-icon-square-green.png */,
 				F7303EC618E862F30045F9AF /* arrow-up-icon-green.png */,
+				3AEFB76018E8BE5C0039B5B0 /* camera-icon-dark.png */,
+				3AEFB76118E8BE5C0039B5B0 /* cell-select-green-active.png */,
+				3AEFB76218E8BE5C0039B5B0 /* cell-select-green.png */,
+				3AEFB75818E8BE210039B5B0 /* x-blue.png */,
+				3AEFB75918E8BE210039B5B0 /* x-green.png */,
+				3AEFB75A18E8BE210039B5B0 /* x-orange.png */,
+				3AEFB75B18E8BE210039B5B0 /* x-purple.png */,
 				3AD19AC018E26356001B3B88 /* loading640x960.png */,
 				3AD19AC118E26356001B3B88 /* loading640x1136.png */,
 				3AD19AB518E26298001B3B88 /* AppIcon58.png */,
@@ -1919,6 +1960,7 @@
 				3A00167F18B8231000C54059 /* photo-icon.png in Resources */,
 				3A07F6C218D3C21800E82390 /* arrow-right-bold.png in Resources */,
 				F7303ECB18E8E3C70045F9AF /* check-icon-purple.png in Resources */,
+				3AEFB75E18E8BE210039B5B0 /* x-orange.png in Resources */,
 				3A07F6D518D3DB0300E82390 /* confession-cell-bottom.png in Resources */,
 				F744857518DB731F00460FBC /* notification2-green.png in Resources */,
 				3A07F6BF18D3C21800E82390 /* compose-icon.png in Resources */,
@@ -1931,10 +1973,12 @@
 				F744857918DB731F00460FBC /* notification5+-green.png in Resources */,
 				3AB8D18F18C259B00082B77C /* MavenProBlack.ttf in Resources */,
 				3A3A0AE818AB1126006FBAE4 /* avatar-placeholder.png in Resources */,
+				3AEFB76318E8BE5C0039B5B0 /* camera-icon-dark.png in Resources */,
 				3A25B6521881E03700166623 /* Images.xcassets in Resources */,
 				3A7D537018E237DB00BFF569 /* settings-icon.png in Resources */,
 				F744857618DB731F00460FBC /* notification3-green.png in Resources */,
 				3AD19ABA18E26298001B3B88 /* AppIcon120.png in Resources */,
+				3AEFB75F18E8BE210039B5B0 /* x-purple.png in Resources */,
 				3A7D536E18E237DB00BFF569 /* notification5.png in Resources */,
 				3A3A0B0718AB1126006FBAE4 /* input-bar-background@2x.png in Resources */,
 				3A7D536618E237DB00BFF569 /* arrow-left-icon.png in Resources */,
@@ -1962,9 +2006,12 @@
 				3A7D535A18E2376E00BFF569 /* add-icon.png in Resources */,
 				3A1EACDF18D9DCF6006E4CA3 /* bubble@2x.png in Resources */,
 				3A3A0B0818AB1126006FBAE4 /* input-field-cover.png in Resources */,
+				3AEFB76418E8BE5C0039B5B0 /* cell-select-green-active.png in Resources */,
 				3A3A0B1018AB1126006FBAE4 /* input-bar-flat.png in Resources */,
 				3A7D536918E237DB00BFF569 /* messages-icon-white.png in Resources */,
 				3A07F6C518D3C21800E82390 /* cell-select-active.png in Resources */,
+				3AEFB75C18E8BE210039B5B0 /* x-blue.png in Resources */,
+				3AEFB76518E8BE5C0039B5B0 /* cell-select-green.png in Resources */,
 				3A7D536F18E237DB00BFF569 /* notification5+.png in Resources */,
 				3A07F6C118D3C21800E82390 /* fav-icon.png in Resources */,
 				3AB8D18A18C23DF00082B77C /* MavenProLight-300.ttf in Resources */,
@@ -1983,6 +2030,7 @@
 				3A3A0B0C18AB1126006FBAE4 /* send-button.png in Resources */,
 				3AF86D2918B504CF00033495 /* bubble-old.png in Resources */,
 				3A07F6D718D3EFC200E82390 /* check-icon.png in Resources */,
+				3AEFB75D18E8BE210039B5B0 /* x-green.png in Resources */,
 				3A7D536D18E237DB00BFF569 /* notification4.png in Resources */,
 				F744857218DB731F00460FBC /* notification-none.png in Resources */,
 				3A00167E18B8231000C54059 /* message-icon.png in Resources */,
@@ -2034,6 +2082,7 @@
 				3AAE9B1A1894A049003B4560 /* ConversationViewController.m in Sources */,
 				3A67DB4F18E4D08200DA6691 /* ConnectionHandlingViewController.m in Sources */,
 				F744856318DB61C500460FBC /* SWTableViewCell.m in Sources */,
+				3AEFB76E18E8EF980039B5B0 /* NewUserRegisterPhoneViewController.m in Sources */,
 				3AB9E67E18A45573001EFDB8 /* LoadingDialogManager.m in Sources */,
 				3AFF778718C415BE003277F9 /* FriendMO.m in Sources */,
 				3A98D8E318BD19B200B69049 /* XMPPElement.m in Sources */,
@@ -2070,11 +2119,13 @@
 				3A98D9D118BD1A2600B69049 /* XMPPBandwidthMonitor.m in Sources */,
 				3A98DA3918BD1A4B00B69049 /* RFImageToDataTransformer.m in Sources */,
 				3A7D577318D14E47004F90B8 /* ContactSearchManager.m in Sources */,
+				3AEFB77118E8EFA90039B5B0 /* NewUserRegisterUsernameViewController.m in Sources */,
 				3A98D9EA18BD1A2600B69049 /* XMPPRoomHybrid.xcdatamodeld in Sources */,
 				F744856118DB61C500460FBC /* SWCellScrollView.m in Sources */,
 				3A98D8EA18BD19B200B69049 /* XMPPStream.m in Sources */,
 				F751016218ABE101001F1E7F /* IASKSettingsStoreFile.m in Sources */,
 				3A98D9F118BD1A2600B69049 /* XMPPMessage+XEP0045.m in Sources */,
+				3AEFB76B18E8EF890039B5B0 /* NewUserRegisterNameViewController.m in Sources */,
 				3A25B6761881E84800166623 /* FriendsViewController.m in Sources */,
 				3A98DA2218BD1A2600B69049 /* NSXMLElement+XEP_0203.m in Sources */,
 				3A47C844189F1A52003020D7 /* FriendsDBManager.m in Sources */,
@@ -2166,6 +2217,7 @@
 				3A8BCF7918B5964400D4B7CE /* ConfessionsManager.m in Sources */,
 				3A720CB418A1C2E200423959 /* MUCCreationManager.m in Sources */,
 				3A3A0ADA18AB1126006FBAE4 /* NSString+JSMessagesView.m in Sources */,
+				3AEFB76818E8EE510039B5B0 /* NewUserViewController.m in Sources */,
 				3AF19A6C1881F34A00F3E4D3 /* ContextFilterLogFormatter.m in Sources */,
 				F751016118ABE101001F1E7F /* IASKSettingsStore.m in Sources */,
 				3A98D9F218BD1A2600B69049 /* XMPPMUC.m in Sources */,

@@ -189,7 +189,7 @@
     return iq;
 }
 
-+(DDXMLElement *)createCreateVCardPacket:(NSString *)firstName lastname:(NSString *)lastName phone:(NSString *)phone email:(NSString *)email {
++(DDXMLElement *)createCreateVCardPacket:(NSString *)firstName lastname:(NSString *)lastName {
     DDXMLElement *query = [DDXMLElement elementWithName:@"vCard"];
 	[query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"vcard-temp"]];
     
@@ -200,8 +200,6 @@
     [nTag addChild:[DDXMLElement elementWithName:VCARD_TAG_LAST_NAME stringValue:lastName]];
     
     [query addChild:nTag];
-    [query addChild:[DDXMLElement elementWithName:VCARD_TAG_USERNAME stringValue:phone]];
-    [query addChild:[DDXMLElement elementWithName:VCARD_TAG_EMAIL stringValue:email]];
     [query addChild:[DDXMLElement elementWithName:VCARD_TAG_NICKNAME stringValue:[NSString stringWithFormat:@"%@ %@", firstName, lastName]]];
     
 	DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
@@ -213,8 +211,8 @@
     return iq;
 }
 
-+(DDXMLElement *)createUpdateVCardPacket:(NSString *)firstName lastname:(NSString *)lastName phone:(NSString *)phone email:(NSString *)email {
-    return [self createCreateVCardPacket:firstName lastname:lastName phone:phone email:email];
++(DDXMLElement *)createUpdateVCardPacket:(NSString *)firstName lastname:(NSString *)lastName {
+    return [self createCreateVCardPacket:firstName lastname:lastName];
 }
 
 +(DDXMLElement *)createCreateMUCPacket:(NSString*)chatID roomName:(NSString*)roomName participants:(NSArray*)participants {
@@ -697,8 +695,47 @@
 }
 
 // ---------------------
+// Blocking
+// ---------------------
++(DDXMLElement *)createBlockImplicitUserPacket:(NSString *)username {
+    return [self getBlockingPacketForUser:username blockingType:@"block" withType:BLOCKING_TYPE_IMPLICIT withID:PACKET_ID_BLOCK_IMPLICIT_USER];
+}
+
++(DDXMLElement *)createBlockUserInGroupPacket:(NSString *)username chatID:(NSString *)chatID {
+    return [self getBlockingPacketForUser:username blockingType:@"block" withType:BLOCKING_TYPE_GROUP withID:PACKET_ID_BLOCK_USER_IN_GROUP];
+}
+
++(DDXMLElement *)createUnblockImplicitUser:(NSString *)username {
+    return [self getBlockingPacketForUser:username blockingType:@"unblock" withType:BLOCKING_TYPE_IMPLICIT withID:PACKET_ID_UNBLOCK_IMPLICIT_USER];
+}
+
++(DDXMLElement *)createUnblockUserInGroupPacket:(NSString *)username chatID:(NSString *)chatID {
+    return [self getBlockingPacketForUser:username blockingType:@"unblock" withType:BLOCKING_TYPE_GROUP withID:PACKET_ID_UNBLOCK_USER_IN_GROUP];
+}
+
++(DDXMLElement *)getBlockingPacketForUser:(NSString *)username blockingType:(NSString *)blockingType withType:(NSString *)type withID:(NSString *)packetID {
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
+    [query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:block"]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:packetID]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"set"]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
+    
+    DDXMLElement *block = [DDXMLElement elementWithName:blockingType];
+    DDXMLElement *usernameElement = [DDXMLElement elementWithName:@"username" stringValue:username];
+    DDXMLElement *typeElement = [DDXMLElement elementWithName:@"type" stringValue:type];
+    [block addChild:usernameElement];
+    [block addChild:typeElement];
+    [query addChild:block];
+    [iq addChild:query];
+    NSLog(@"Blocking Packet: %@", iq.XMLString);
+    return iq;
+}
+
+// ---------------------
 // Helper Packet Methods
 // ---------------------
+
 +(DDXMLElement*)getWhoChatIQElementWithType:(NSString*)type packetID: (NSString*)packetID children:(DDXMLElement*)element {
     DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"],
     *chat = [DDXMLElement elementWithName:@"chat"];
@@ -727,6 +764,23 @@
     [chat addChild:element];
     
     [iq addChild:chat];
+    return iq;
+}
+
+// ---------------------------------
+// Device Token - Push Notifications
+// ---------------------------------
++(DDXMLElement *)createSetDeviceTokenPacket:(NSString *)deviceToken {
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    DDXMLElement *query = [DDXMLElement elementWithName:@"query" stringValue:deviceToken];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_SET_DEVICE_TOKEN]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"set"]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue: [self getPacketFromString]]];
+    
+    [query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:token"]];
+    [iq addChild:query];
+    NSLog(@"Device Token Packet: %@", iq.XMLString);
     return iq;
 }
 

@@ -87,6 +87,9 @@ NSString *const NOTIFICATION_UPDATE_NOTIFICATIONS = @"notification_update_notifi
 NSString *const NOTIFICATION_UPDATE_FRIENDS = @"notification_update_friends";
 NSString *const NOTIFICATION_ENABLE_DASHBOARD_EDITING = @"notification_enable_dashboard_editing";
 NSString *const NOTIFICATION_DISABLE_DASHBOARD_EDITING = @"notification_disable_dashboard_editing";
+NSString *const NOTIFICATION_FINISHED_REGISTERING_NAME = @"notification_finished_registering_name";
+NSString *const NOTIFICATION_FINISHED_REGISTERING_PHONE = @"notification_finished_registering_phone";
+NSString *const NOTIFICATION_FINISHED_REGISTERING_USERNAME = @"notification_finished_registering_username";
 
 
 NSString *const APPLICATION_RESOURCE = @"who";
@@ -178,6 +181,10 @@ NSString *const STORYBOARD_ID_CONTACTS_VIEW_CONTROLLER = @"ContactsViewControlle
 NSString *const STORYBOARD_ID_SWIPE_VIEW_CONTROLLER = @"MainSwipeViewController";
 NSString *const STORYBOARD_ID_CONFESSIONS_VIEW_CONTROLLER = @"ConfessionsViewController";
 NSString *const STORYBOARD_ID_CONNECTION_LOST_VIEW_CONTROLLER = @"ConnectionLostViewController";
+NSString *const STORYBOARD_ID_NEW_USER_REGISTER_NAME_VIEW_CONTROLLER = @"NewUserRegisterNameViewController";
+NSString *const STORYBOARD_ID_NEW_USER_REGISTER_PHONE_VIEW_CONTROLLER = @"NewUserRegisterPhoneViewController";
+NSString *const STORYBOARD_ID_NEW_USER_REGISTER_USERNAME_VIEW_CONTROLLER = @"NewUserRegisterUsernameViewController";
+NSString *const STORYBOARD_ID_ENTER_CONFIRMATION_CODE_VIEW_CONTROLLER = @"EnterConfirmationCodeViewController";
 
 NSString *const PAGE_NAVIGATE_TO_MESSAGES = @"page_navigate_to_messages";
 NSString *const PAGE_NAVIGATE_TO_CONFESSIONS = @"page_navigate_to_confessions";
@@ -193,5 +200,15 @@ NSString *const REPORT_CONFIRM_ABUSE = @"Report abuse!";
 
 NSString *const INVALID_CODE = @"Incorrect Code...try again.";
 NSString *const NOT_VALIDATED = @"Phone number not yet confirmed.";
+
+NSString *const PACKET_ID_BLOCK_IMPLICIT_USER = @"packet_id_block_implicit_user";
+NSString *const PACKET_ID_BLOCK_USER_IN_GROUP = @"packet_id_block_user_in_group";
+NSString *const PACKET_ID_UNBLOCK_IMPLICIT_USER = @"packet_id_unblock_implicit_user";
+NSString *const PACKET_ID_UNBLOCK_USER_IN_GROUP = @"packet_id_unblock_user_in_group";
+
+NSString *const PACKET_ID_SET_DEVICE_TOKEN = @"packet_id_set_device_token";
+
+NSString *const BLOCKING_TYPE_IMPLICIT = @"implicit_user";
+NSString *const BLOCKING_TYPE_GROUP = @"user_in_group";
 
 @end

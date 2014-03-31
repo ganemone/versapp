@@ -49,6 +49,9 @@
     [self.headerLabel setText:[self.chatMO getChatName]];
     [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
     
+    //UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
+      //                                    initWithTarget:self action:@selector(handleLongPress:)];
+    
     // Add a bottomBorder to the header view
     CALayer *headerBottomborder = [CALayer layer];
     headerBottomborder.frame = CGRectMake(0.0f, self.header.frame.size.height - 2.0f, self.view.frame.size.width, 2.0f);
@@ -57,6 +60,30 @@
     
     [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
 }
+/*
+-(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    if (gestureRecognizer.state != UIGestureRecognizerStateBegan || ![self becomeFirstResponder])
+        return;
+    
+    CGPoint p = [gestureRecognizer locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
+    if (indexPath == nil) {
+        NSLog(@"long press on table view but not on a row");
+    }
+    else {
+        NSLog(@"long press on table view at row %d", indexPath.row);
+        [self handleLongPressForRowAtIndexPath:indexPath];
+    }
+}
+
+-(void)handleLongPressForRowAtIndexPath:(NSIndexPath*)indexPath {
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Rename Conversation" message:@"Enter a new name for this conversation." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rename", nil];
+    [alertView setAlertViewStyle:UIAlertViewStylePlainTextInput];
+    [alertView show];
+    
+}*/
 
 -(void)participantsUpdated:(NSNotification *)notification {
     self.chatMO = [ChatDBManager getChatWithID:self.chatMO.chat_id];

@@ -364,52 +364,50 @@ static const CGFloat kJSSubtitleLabelHeight = 15.0f;
 
 - (void)handleLongPressGesture:(UILongPressGestureRecognizer *)longPress
 {
-//    return;
+    //    return;
     if (longPress.state != UIGestureRecognizerStateBegan || ![self becomeFirstResponder])
         return;
     
-    UIAlertView *reportAbuse = [[UIAlertView alloc] initWithTitle:@"Report" message: @"Do you want to report abuse or block the sender?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:REPORT_ABUSE, REPORT_BLOCK,nil];
+    UIAlertView *reportAbuse = [[UIAlertView alloc] initWithTitle:@"Block" message: @"Do you want to block the sender?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:REPORT_BLOCK, nil];
     
     reportAbuse.alertViewStyle = UIAlertViewStyleDefault;
     [reportAbuse show];
-//
-//    UIMenuController *menu = [UIMenuController sharedMenuController];
-//    CGRect targetRect = [self convertRect:[self.bubbleView bubbleFrame]
-//                                 fromView:self.bubbleView];
-//    
-//    [menu setTargetRect:CGRectInset(targetRect, 0.0f, 4.0f) inView:self];
-//    
-//    self.bubbleView.bubbleImageView.highlighted = YES;
-//    
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(handleMenuWillShowNotification:)
-//                                                 name:UIMenuControllerWillShowMenuNotification
-//                                               object:nil];
-//    [menu setMenuVisible:YES animated:YES];
+    //
+    //    UIMenuController *menu = [UIMenuController sharedMenuController];
+    //    CGRect targetRect = [self convertRect:[self.bubbleView bubbleFrame]
+    //                                 fromView:self.bubbleView];
+    //
+    //    [menu setTargetRect:CGRectInset(targetRect, 0.0f, 4.0f) inView:self];
+    //
+    //    self.bubbleView.bubbleImageView.highlighted = YES;
+    //
+    //    [[NSNotificationCenter defaultCenter] addObserver:self
+    //                                             selector:@selector(handleMenuWillShowNotification:)
+    //                                                 name:UIMenuControllerWillShowMenuNotification
+    //                                               object:nil];
+    //    [menu setMenuVisible:YES animated:YES];
 }
 
 - (void)alertView:(UIAlertView *) alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
-    if([title isEqualToString:REPORT_ABUSE])
-    {
-        UIAlertView *report = [[UIAlertView alloc]initWithTitle:@"Report for abuse" message:@"Do you wish to report this message and its sender for abuse?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: REPORT_CONFIRM_ABUSE, nil];
-        [report show];
-    }
-    else if ([title isEqualToString:REPORT_BLOCK])
-    {
-        UIAlertView *report = [[UIAlertView alloc]initWithTitle:@"Report for blocking" message:@"Do you wish to block this sender?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: REPORT_CONFIRM_BLOCK, nil];
-        [report show];
-    }
-    else if ([title isEqualToString:REPORT_CONFIRM_ABUSE])
-    {
-        //TODO: implement report abuse method
-    }
-    else if ([title isEqualToString:REPORT_CONFIRM_BLOCK])
-    {
-        //TODO: implement block sender method
-    }
-    
+    /*if([title isEqualToString:REPORT_ABUSE])
+     {
+     UIAlertView *report = [[UIAlertView alloc]initWithTitle:@"Report for abuse" message:@"Do you wish to report this message and its sender for abuse?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: REPORT_CONFIRM_ABUSE, nil];
+     [report show];
+     }
+     else*/ if ([title isEqualToString:REPORT_BLOCK])
+     {
+         UIAlertView *report = [[UIAlertView alloc]initWithTitle:@"Block" message:@"Do you wish to block this sender?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: REPORT_CONFIRM_BLOCK, nil];
+         [report show];
+     }
+     /*else if ([title isEqualToString:REPORT_CONFIRM_ABUSE])
+     {
+         //TODO: implement report abuse method
+     }*/
+     else if ([title isEqualToString:REPORT_CONFIRM_BLOCK])
+     {
+     }
 }
 
 #pragma mark - Notifications
