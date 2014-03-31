@@ -14,15 +14,13 @@
 #import "NewUserRegisterPhoneViewController.h"
 #import "NewUserRegisterUsernameViewController.h"
 
-#define NumViewPages 4
-
 @interface NewUserViewController ()
 
 @property UIPageViewController *pageViewController;
 @property(nonatomic, strong) ConnectionProvider *connectionProvider;
 @property(nonatomic, strong) NSArray *viewControllers;
 @property(nonatomic, strong) UIView *confessionView;
-
+@property int numPages;
 @end
 
 @implementation NewUserViewController
@@ -49,8 +47,9 @@
     self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:STORYBOARD_ID_PAGE_VIEW_CONTROLLER];
     self.pageViewController.dataSource = self;
     self.pageViewController.delegate = self;
-    
+    _numPages = 4;
     self.viewControllers = @[[self viewControllerAtIndex:0], [self viewControllerAtIndex:1], [self viewControllerAtIndex:2], [self viewControllerAtIndex:3]];
+    _numPages = 1;
     // Set the first controller to be shown
     [self.pageViewController setViewControllers:@[[_viewControllers objectAtIndex:0]] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:nil];
     [self addChildViewController:_pageViewController];
@@ -68,15 +67,17 @@
 }
 
 - (void)handleFinishedRegisteringName:(NSNotification *)notification {
-    [_pageViewController setViewControllers:@[[_viewControllers objectAtIndex:1]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+    _numPages = 2;
+    [_pageViewController setViewControllers:@[[self viewControllerAtIndex:1]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 }
 
 - (void)handleFinishedRegisteringPhone:(NSNotification *)notification {
-    [_pageViewController setViewControllers:@[[_viewControllers objectAtIndex:1]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+    _numPages = 3;
+    [_pageViewController setViewControllers:@[[self viewControllerAtIndex:2]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 }
 
 - (void)handleFinishedRegisteringUsername:(NSNotification *)notification {
-    NSLog(@"Finished Registering Username...");
+    
 }
 
 
@@ -88,8 +89,8 @@
 
 - (UIViewController*)viewControllerAtIndex:(int)index {
     NSString *storyboardID;
-    
-    if (index > NumViewPages || index < 0) {
+    NSLog(@"Looking at Index: %d With num pages: %d", index, _numPages);
+    if (index >= _numPages || index < 0) {
         return nil;
     }
     

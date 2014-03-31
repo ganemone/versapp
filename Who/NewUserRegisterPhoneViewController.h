@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "CountryPickerDelegate.h"
 
-@interface NewUserRegisterPhoneViewController : CountryPickerDelegate
+@interface NewUserRegisterPhoneViewController : CountryPickerDelegate<UITextFieldDelegate>
 
 @end
