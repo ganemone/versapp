@@ -13,6 +13,7 @@
 #import "NewUserRegisterNameViewController.h"
 #import "NewUserRegisterPhoneViewController.h"
 #import "NewUserRegisterUsernameViewController.h"
+#import "Validator.h"
 
 @interface NewUserViewController ()
 
@@ -77,9 +78,46 @@
 }
 
 - (void)handleFinishedRegisteringUsername:(NSNotification *)notification {
+    NewUserRegisterNameViewController *nameVC = (NewUserRegisterNameViewController *)[self viewControllerAtIndex:0];
+    NewUserRegisterPhoneViewController *phoneVC = (NewUserRegisterPhoneViewController *)[self viewControllerAtIndex:1];
+    NewUserRegisterUsernameViewController *usernameVC = (NewUserRegisterUsernameViewController *)[self viewControllerAtIndex:2];
+    NSString *name = [[nameVC name] text];
+    NSString *email = [[nameVC email] text];
+    NSString *password = [[nameVC password] text];
+    NSString *confirm = [[nameVC confirmPassword] text];
+    NSString *phone = [[phoneVC phone] text];
+    NSString *username = [[usernameVC username] text];
+    UIAlertView *alertView;
     
+    if (![Validator isValidName:name]) {
+        alertView = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Please enter a valid name." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+    } else if(![Validator isValidEmail:email]) {
+        alertView = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Please enter a valid email address" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+    } else if(![Validator isValidPasswordPair:password confirmPassword:confirm]) {
+        alertView = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Please make sure your passwords match, and are at least 6 digits long." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+    } else if (![Validator isValidPhoneNumber:phone]) {
+        alertView = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Please enter a valid phone number" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    } else if (![Validator isValidUsername:username]) {
+        alertView = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Usernames must only contain Letters, numbers, and underscores." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    }
+    if (alertView != nil) {
+        [alertView show];
+    } else {
+        [self registerUserWithName:name
+                             email:email
+                             phone:phone
+                          username:username
+                          password:password];
+    }
 }
 
+- (void)registerUserWithName:(NSString *)name
+                       email:(NSString *)email
+                       phone:(NSString *)phone
+                    username:(NSString *)username
+                    password:(NSString *)password {
+    
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -112,7 +150,7 @@
     }
     NSLog(@"Instantiating View Controller: %@", storyboardID);
     UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:storyboardID];
-
+    
     return viewController;
 }
 
@@ -139,14 +177,14 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
