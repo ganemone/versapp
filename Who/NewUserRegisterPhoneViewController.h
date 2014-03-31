@@ -11,4 +11,7 @@
 
 @interface NewUserRegisterPhoneViewController : CountryPickerDelegate<UITextFieldDelegate>
 
+@property (weak, nonatomic) IBOutlet UILabel *countryCodeLabel;
+@property (weak, nonatomic) IBOutlet UITextField *phone;
+
 @end

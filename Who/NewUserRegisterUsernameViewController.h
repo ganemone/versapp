@@ -10,4 +10,6 @@
 
 @interface NewUserRegisterUsernameViewController : UIViewController<UITextFieldDelegate>
 
+@property (weak, nonatomic) IBOutlet UITextField *username;
+
 @end

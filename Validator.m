@@ -43,5 +43,4 @@
     return ([[regex matchesInString:username options:0 range:NSMakeRange(0, username.length)] count] > 0);
 }
 
-
 @end

@@ -12,8 +12,6 @@
 @interface NewUserRegisterPhoneViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 @property (weak, nonatomic) IBOutlet UIButton *actionBtn;
-@property (weak, nonatomic) IBOutlet UILabel *countryCodeLabel;
-@property (weak, nonatomic) IBOutlet UITextField *phone;
 @property (weak, nonatomic) IBOutlet UIPickerView *countryPicker;
 
 @end
