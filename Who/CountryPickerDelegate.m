@@ -49,6 +49,14 @@
     [self.countryPicker selectRow:row inComponent:0 animated:NO];
 }
 
+-(NSString *)getSelectedCountry {
+    return [[_countries objectAtIndex:[_countryPicker selectedRowInComponent:0]] objectForKey:@"country"];
+}
+
+-(NSString *)getSelectedCountryCode {
+    return [[_countries objectAtIndex:[_countryPicker selectedRowInComponent:0]] objectForKey:@"code"];
+}
+
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     return [_countries count];
 }

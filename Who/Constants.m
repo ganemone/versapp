@@ -50,6 +50,9 @@ NSString *const VCARD_TAG_EMAIL = @"EMAIL";
 NSString *const USER_DEFAULTS_PASSWORD = @"password";
 NSString *const USER_DEFAULTS_VALID = @"validated";
 NSString *const USER_DEFAULTS_COUNTRY = @"country";
+NSString *const USER_DEFAULTS_USERNAME = @"nsdefault_key_username";
+NSString *const USER_DEFAULTS_COUNTRY_CODE = @"nsdefault_key_country_code";
+NSString *const USER_DEFAULTS_EMAIL = @"nsdefault_key_email";
 
 NSString *const CHAT_TYPE_GROUP = @"groupchat";
 NSString *const CHAT_TYPE_ONE_TO_ONE = @"chat";
@@ -131,6 +134,8 @@ NSString *const FRIENDS_TABLE_COLUMN_NAME_STATUS = @"status";
 NSString *const FRIENDS_TABLE_COLUMN_NAME_EMAIL = @"email";
 NSString *const FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER = @"searchedPhoneNumber";
 NSString *const FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL = @"searchedEmail";
+NSString *const FRIENDS_TABLE_COLUMN_NAME_PHONE = @"phone";
+
 
 NSString *const CHATS_TABLE_COLUMN_NAME_CHAT_ID = @"chat_id";
 NSString *const CHATS_TABLE_COLUMN_NAME_CHAT_NAME = @"chat_name";

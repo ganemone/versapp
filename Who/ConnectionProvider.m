@@ -103,7 +103,7 @@ static ConnectionProvider *selfInstance;
     self.isCreatingAccount = YES;
     self.pendingAccountInfo = accountInfo;
     [self.xmppStream setHostName:self.SERVER_IP_ADDRESS];
-    self.xmppStream.myJID = [XMPPJID jidWithString:[NSString stringWithFormat:@"%@@%@", [accountInfo objectForKey:VCARD_TAG_USERNAME], self.SERVER_IP_ADDRESS]];
+    self.xmppStream.myJID = [XMPPJID jidWithString:[NSString stringWithFormat:@"%@@%@", [accountInfo objectForKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME], self.SERVER_IP_ADDRESS]];
     NSError *error = nil;
     if(![self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error]) {
         NSLog(@"Failed to connection due to some error %@", error);

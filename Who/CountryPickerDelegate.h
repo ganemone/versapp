@@ -12,4 +12,7 @@
 
 -(void)setUp:(UIPickerView *)picker countryCodeField:(UILabel *)countryCodeField;
 
+-(NSString *)getSelectedCountryCode;
+-(NSString *)getSelectedCountry;
+
 @end

@@ -48,6 +48,9 @@ extern NSString *const VCARD_TAG_EMAIL;
 extern NSString *const USER_DEFAULTS_PASSWORD;
 extern NSString *const USER_DEFAULTS_VALID;
 extern NSString *const USER_DEFAULTS_COUNTRY;
+extern NSString *const USER_DEFAULTS_USERNAME;
+extern NSString *const USER_DEFAULTS_COUNTRY_CODE;
+extern NSString *const USER_DEFAULTS_EMAIL;
 
 extern NSString *const CHAT_TYPE_GROUP;
 extern NSString *const CHAT_TYPE_ONE_TO_ONE;
@@ -130,6 +133,7 @@ extern NSString *const FRIENDS_TABLE_COLUMN_NAME_STATUS;
 extern NSString *const FRIENDS_TABLE_COLUMN_NAME_EMAIL;
 extern NSString *const FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER;
 extern NSString *const FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL;
+extern NSString *const FRIENDS_TABLE_COLUMN_NAME_PHONE;
 
 extern NSString *const CHATS_TABLE_COLUMN_NAME_CHAT_ID;
 extern NSString *const CHATS_TABLE_COLUMN_NAME_CHAT_NAME;

@@ -9,40 +9,37 @@
 #import "UserDefaultManager.h"
 #import "Constants.h"
 
-NSString *const NSDEFAULT_KEY_PASSWORD = @"nsdefault_key_password";
-NSString *const NSDEFAULT_KEY_USERNAME = @"nsdefault_key_username";
-NSString *const NSDEFAULT_KEY_COUNTRY_CODE = @"nsdefault_key_country_code";
-NSString *const NSDEFAULT_KEY_EMAIL = @"nsdefault_key_email";
+
 
 @implementation UserDefaultManager
 
 +(void)savePassword:(NSString *)password {
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
-    [preferences setObject:password forKey:NSDEFAULT_KEY_PASSWORD];
+    [preferences setObject:password forKey:USER_DEFAULTS_PASSWORD];
     [preferences synchronize];
 }
 
 +(void)saveUsername:(NSString *)username {
     
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
-    [preferences setObject:username forKey:NSDEFAULT_KEY_USERNAME];
+    [preferences setObject:username forKey:USER_DEFAULTS_USERNAME];
     [preferences synchronize];
 }
 
 +(NSString *)loadPassword {
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
-    return [preferences stringForKey:NSDEFAULT_KEY_PASSWORD];
+    return [preferences stringForKey:USER_DEFAULTS_PASSWORD];
 }
 
 +(NSString *)loadUsername {
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
-    return [preferences stringForKey:NSDEFAULT_KEY_USERNAME];
+    return [preferences stringForKey:USER_DEFAULTS_USERNAME];
 }
 
 +(void)clearUsernameAndPassword {
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
-    [preferences removeObjectForKey:NSDEFAULT_KEY_USERNAME];
-    [preferences removeObjectForKey:NSDEFAULT_KEY_PASSWORD];
+    [preferences removeObjectForKey:USER_DEFAULTS_USERNAME];
+    [preferences removeObjectForKey:USER_DEFAULTS_PASSWORD];
     [preferences synchronize];
 }
 
@@ -53,7 +50,7 @@ NSString *const NSDEFAULT_KEY_EMAIL = @"nsdefault_key_email";
 
 +(NSString *)loadEmail {
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
-    return [preferences stringForKey:NSDEFAULT_KEY_EMAIL];
+    return [preferences stringForKey:USER_DEFAULTS_EMAIL];
 }
 
 +(void)saveName:(NSString *)name {
@@ -64,18 +61,18 @@ NSString *const NSDEFAULT_KEY_EMAIL = @"nsdefault_key_email";
 
 +(void)saveEmail:(NSString *)email {
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
-    [preferences setObject:email forKey:NSDEFAULT_KEY_EMAIL];
+    [preferences setObject:email forKey:USER_DEFAULTS_EMAIL];
     [preferences synchronize];
 }
 
 +(NSString *)loadCountryCode {
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
-    return [preferences stringForKey:NSDEFAULT_KEY_COUNTRY_CODE];
+    return [preferences stringForKey:USER_DEFAULTS_COUNTRY_CODE];
 }
 
 +(void)saveCountryCode:(NSString *)code {
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
-    [preferences setObject:code forKey:NSDEFAULT_KEY_COUNTRY_CODE];
+    [preferences setObject:code forKey:USER_DEFAULTS_COUNTRY_CODE];
     [preferences synchronize];
 }
 

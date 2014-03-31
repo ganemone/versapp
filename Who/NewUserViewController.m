@@ -38,6 +38,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.connectionProvider = [ConnectionProvider getInstance];
     [self setupNotificationListeners];
     [self setupPageViewController];
     [self.navigationController.navigationBar setHidden:YES];
@@ -87,6 +88,11 @@
     NSString *confirm = [[nameVC confirmPassword] text];
     NSString *phone = [[phoneVC phone] text];
     NSString *username = [[usernameVC username] text];
+    NSArray *components = [phone componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
+    phone = [components componentsJoinedByString:@""];
+    NSString *country = [phoneVC getSelectedCountry];
+    NSString *countryCode = [phoneVC getSelectedCountryCode];
+    
     UIAlertView *alertView;
     
     if (![Validator isValidName:name]) {
@@ -107,7 +113,9 @@
                              email:email
                              phone:phone
                           username:username
-                          password:password];
+                          password:password
+                           country:country
+                       countryCode:countryCode];
     }
 }
 
@@ -115,8 +123,19 @@
                        email:(NSString *)email
                        phone:(NSString *)phone
                     username:(NSString *)username
-                    password:(NSString *)password {
+                    password:(NSString *)password
+                     country:(NSString *)country
+                 countryCode:(NSString *)countryCode
+{
+    [UserDefaultManager saveValidated:NO];
+    [UserDefaultManager saveCountry:country];
+    [UserDefaultManager saveCountryCode:countryCode];
+    NSArray *nameArray = [name componentsSeparatedByString:@" "];
+    NSString *firstName = [nameArray firstObject];
+    NSString *lastName = [nameArray lastObject];
     
+    NSDictionary *accountInfo = [NSDictionary dictionaryWithObjectsAndKeys:username, FRIENDS_TABLE_COLUMN_NAME_USERNAME, password, USER_DEFAULTS_PASSWORD, firstName, VCARD_TAG_FIRST_NAME, lastName, VCARD_TAG_LAST_NAME, email, FRIENDS_TABLE_COLUMN_NAME_EMAIL, phone, FRIENDS_TABLE_COLUMN_NAME_PHONE, countryCode, USER_DEFAULTS_COUNTRY_CODE, nil];
+    [self.connectionProvider createAccount:accountInfo];
 }
 
 - (void)didReceiveMemoryWarning

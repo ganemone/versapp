@@ -14,7 +14,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 @property (weak, nonatomic) IBOutlet UIButton *actionBtn;
-@property (weak, nonatomic) IBOutlet UITextField *username;
 
 @end
 
