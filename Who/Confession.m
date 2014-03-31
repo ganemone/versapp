@@ -61,10 +61,11 @@
     
     // Configure Favorites
     //CGRect favoriteButtonFrame = CGRectMake(contentSize.width - iconSize - cellX - 2 * paddingSmall, textHeight + paddingSmall, favWidth, iconSize);
-    CGRect favoriteButtonFrame = CGRectMake(contentSize.width / 2 + 1.5f*iconSize, textHeight + paddingSmall, favWidth, iconSize);
-    CGRect favoriteLabelFrame = CGRectMake(contentSize.width / 2 + iconSize, textHeight + paddingSmall, 25.0f, iconSize);
+    CGRect favoriteButtonFrame = CGRectMake(contentSize.width - cellX - paddingSmall - favWidth, textHeight + paddingSmall, favWidth, iconSize);
+    CGRect favoriteLabelFrame = CGRectMake(contentSize.width / 2, textHeight + paddingSmall - 1.0f, contentSize.width / 2 - cellX - 2*paddingSmall - favWidth, iconSize);
     _favoriteButton = [[UIButton alloc] initWithFrame:favoriteButtonFrame];
     _favoriteLabel = [[UILabel alloc] initWithFrame:favoriteLabelFrame];
+    [_favoriteLabel setTextAlignment:NSTextAlignmentRight];
     
     UITapGestureRecognizer *chatTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startChat)];
     [_chatLabel addGestureRecognizer:chatTap];
