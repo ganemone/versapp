@@ -165,7 +165,6 @@ static ConnectionProvider *selfInstance;
     }
     [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
     [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];
-    [self.xmppStream sendElement:[IQPacketManager createGetLastTimeActivePacket]];
     [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
     [self.xmppStream sendElement:[IQPacketManager createGetRosterPacket]];
     [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
@@ -263,6 +262,8 @@ static ConnectionProvider *selfInstance;
 
 -(void)xmppStreamDidRegister:(XMPPStream *)sender {
     NSLog(@"Registered Account!");
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DID_REGISTER_USER object:nil];
+    
     self.username = [self.pendingAccountInfo objectForKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME];
     self.password = [self.pendingAccountInfo objectForKey:USER_DEFAULTS_PASSWORD];
     
@@ -286,14 +287,18 @@ static ConnectionProvider *selfInstance;
 -(void)xmppStream:(XMPPStream *)sender didNotRegister:(DDXMLElement *)error {
     DDXMLElement *errorXML = [error elementForName:@"error"];
     NSString *errorCode  = [[errorXML attributeForName:@"code"] stringValue];
-    
     NSString *regError = [NSString stringWithFormat:@"ERROR :- %@",error.description];
-    
+    NSString *errorMessage;
     if([errorCode isEqualToString:@"409"]){
-        NSLog(@"Username already exists");
+        errorMessage = @"Username already exists";
+    } else {
+        errorMessage = @"Failed to register user. Please check your network connection";
     }
-    
+    NSLog(@"Error Message: %@", errorMessage);
     NSLog(@"%@", regError);
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DID_FAIL_TO_REGISTER_USER
+                                                        object:nil
+                                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:errorCode, DICTIONARY_KEY_ERROR_CODE, errorMessage, DICTIONARY_KEY_ERROR_MESSAGE, nil]];
 }
 
 -(void)addName:(NSString *)name forUsername:(NSString *)username {

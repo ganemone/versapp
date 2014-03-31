@@ -72,6 +72,8 @@ NSString *const MESSAGE_PROPERTY_GROUP_NAME = @"group_name";
 
 NSString *const DICTIONARY_KEY_MESSAGE_OBJECT = @"message";
 NSString *const DICTIONARY_KEY_ID = @"id";
+NSString *const DICTIONARY_KEY_ERROR_CODE = @"dictionary_key_error_code";
+NSString *const DICTIONARY_KEY_ERROR_MESSAGE = @"dictionary_key_error_message";
 
 NSString *const NOTIFICATION_MUC_MESSAGE_RECEIVED = @"notification_muc_message_received";
 NSString *const NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED = @"notification_one_to_one_message_received";
@@ -93,7 +95,8 @@ NSString *const NOTIFICATION_DISABLE_DASHBOARD_EDITING = @"notification_disable_
 NSString *const NOTIFICATION_FINISHED_REGISTERING_NAME = @"notification_finished_registering_name";
 NSString *const NOTIFICATION_FINISHED_REGISTERING_PHONE = @"notification_finished_registering_phone";
 NSString *const NOTIFICATION_FINISHED_REGISTERING_USERNAME = @"notification_finished_registering_username";
-
+NSString *const NOTIFICATION_DID_REGISTER_USER = @"notification_did_register_user";
+NSString *const NOTIFICATION_DID_FAIL_TO_REGISTER_USER = @"notification_did_fail_to_register_user";
 
 NSString *const APPLICATION_RESOURCE = @"who";
 
@@ -215,5 +218,6 @@ NSString *const PACKET_ID_SET_DEVICE_TOKEN = @"packet_id_set_device_token";
 
 NSString *const BLOCKING_TYPE_IMPLICIT = @"implicit_user";
 NSString *const BLOCKING_TYPE_GROUP = @"user_in_group";
+
 
 @end

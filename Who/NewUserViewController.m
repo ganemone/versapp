@@ -66,6 +66,21 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedRegisteringName:) name:NOTIFICATION_FINISHED_REGISTERING_NAME object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedRegisteringPhone:) name:NOTIFICATION_FINISHED_REGISTERING_PHONE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedRegisteringUsername:) name:NOTIFICATION_FINISHED_REGISTERING_USERNAME object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRegisteredUser) name:NOTIFICATION_DID_REGISTER_USER object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailedToRegisterUser:) name:NOTIFICATION_DID_FAIL_TO_REGISTER_USER object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAuthenticated) name:NOTIFICATION_AUTHENTICATED object:nil];
+}
+
+- (void)handleAuthenticated {
+    NSLog(@"Authenticated");
+}
+
+- (void)handleRegisteredUser {
+    NSLog(@"Sucessfully Registered User! Go to tutorial now");
+}
+
+- (void)handleFailedToRegisterUser:(NSNotification *)notification {
+    NSLog(@"Failed to register user...");
 }
 
 - (void)handleFinishedRegisteringName:(NSNotification *)notification {
