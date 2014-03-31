@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NewUserRegisterUsernameViewController : UIViewController
+@interface NewUserRegisterUsernameViewController : UIViewController<UITextFieldDelegate>
 
 @end

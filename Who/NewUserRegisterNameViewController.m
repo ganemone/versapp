@@ -9,6 +9,7 @@
 #import "NewUserRegisterNameViewController.h"
 #import "StyleManager.h"
 #import "Constants.h"
+#import "Validator.h"
 
 @interface NewUserRegisterNameViewController ()
 
@@ -51,13 +52,13 @@
 
 - (void)handleActionBtnClicked {
     UIAlertView *alertView;
-    if (![self isValidName]) {
+    if (![Validator isValidName:_name.text]) {
         alertView = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Please enter a valid name." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-    } else if(![self isValidEmail]) {
+    } else if(![Validator isValidEmail:_email.text]) {
         alertView = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Please enter a valid email address" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-    } else if(![self isValidPassword]) {
+    } else if(![Validator isValidPassword:_password.text]) {
         alertView = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Your password must be at least 6 digits long" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-    } else if (![self isValidConfirm]) {
+    } else if (![Validator isValidPasswordPair:_password.text confirmPassword:_confirmPassword.text]) {
         alertView = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Your passwords do not match." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
     } else {
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FINISHED_REGISTERING_NAME object:nil];
@@ -65,31 +66,6 @@
     if (alertView != nil) {
         [alertView show];
     }
-}
-
-- (BOOL)isValidName {
-    NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^a-zA-Z\\s\\'-.]" options:NSRegularExpressionCaseInsensitive error:&error];
-    if ([regex matchesInString:_name.text options:0 range:NSMakeRange(0, _name.text.length)].count > 0) {
-        return NO;
-    } else if([[_name.text componentsSeparatedByString:@" "] count] < 2) {
-        return NO;
-    } else if ([[_name.text stringByReplacingOccurrencesOfString:@" " withString:@""] length] < 2) {
-        return NO;
-    }
-    return YES;
-}
-
-- (BOOL)isValidEmail {
-    return ([[_email.text componentsSeparatedByString:@"@"] count] > 1);
-}
-
-- (BOOL)isValidPassword {
-    return (_password.text.length > 6);
-}
-
-- (BOOL)isValidConfirm {
-    return (_confirmPassword.text.length > 6 && [_confirmPassword.text isEqualToString:_password.text]);
 }
 
 - (void)didReceiveMemoryWarning

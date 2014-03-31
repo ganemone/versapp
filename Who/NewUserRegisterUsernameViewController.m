@@ -10,6 +10,7 @@
 #import "NewUserRegisterNameViewController.h"
 #import "NewUserRegisterPhoneViewController.h"
 #import "NewUserRegisterUsernameViewController.h"
+#import "Validator.h"
 
 @interface NewUserRegisterUsernameViewController ()
 
@@ -33,7 +34,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [_username setDelegate:self];
+    [_actionBtn addTarget:self action:@selector(handleFinishedRegisteringUsername) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)handleFinishedRegisteringUsername {
+    
 }
 
 - (void)didReceiveMemoryWarning
