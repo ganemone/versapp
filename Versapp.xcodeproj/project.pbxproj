@@ -204,6 +204,9 @@
 		3AEFB76418E8BE5C0039B5B0 /* cell-select-green-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AEFB76118E8BE5C0039B5B0 /* cell-select-green-active.png */; };
 		3AEFB76518E8BE5C0039B5B0 /* cell-select-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AEFB76218E8BE5C0039B5B0 /* cell-select-green.png */; };
 		3AEFB76818E8EE510039B5B0 /* NewUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEFB76718E8EE510039B5B0 /* NewUserViewController.m */; };
+		3AEFB76B18E8EF890039B5B0 /* NewUserRegisterNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEFB76A18E8EF890039B5B0 /* NewUserRegisterNameViewController.m */; };
+		3AEFB76E18E8EF980039B5B0 /* NewUserRegisterPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEFB76D18E8EF980039B5B0 /* NewUserRegisterPhoneViewController.m */; };
+		3AEFB77118E8EFA90039B5B0 /* NewUserRegisterUsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEFB77018E8EFA90039B5B0 /* NewUserRegisterUsernameViewController.m */; };
 		3AF0B00818B515E500E3D0D3 /* transparent-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF0B00718B515E500E3D0D3 /* transparent-bg.png */; };
 		3AF0B00A18B54E9000E3D0D3 /* bottom-section.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF0B00918B54E9000E3D0D3 /* bottom-section.png */; };
 		3AF19A451881EF1600F3E4D3 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF19A3C1881EF1600F3E4D3 /* DDAbstractDatabaseLogger.m */; };
@@ -608,6 +611,12 @@
 		3AEFB76218E8BE5C0039B5B0 /* cell-select-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-select-green.png"; sourceTree = "<group>"; };
 		3AEFB76618E8EE510039B5B0 /* NewUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewUserViewController.h; sourceTree = "<group>"; };
 		3AEFB76718E8EE510039B5B0 /* NewUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewUserViewController.m; sourceTree = "<group>"; };
+		3AEFB76918E8EF890039B5B0 /* NewUserRegisterNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewUserRegisterNameViewController.h; sourceTree = "<group>"; };
+		3AEFB76A18E8EF890039B5B0 /* NewUserRegisterNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewUserRegisterNameViewController.m; sourceTree = "<group>"; };
+		3AEFB76C18E8EF980039B5B0 /* NewUserRegisterPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewUserRegisterPhoneViewController.h; sourceTree = "<group>"; };
+		3AEFB76D18E8EF980039B5B0 /* NewUserRegisterPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewUserRegisterPhoneViewController.m; sourceTree = "<group>"; };
+		3AEFB76F18E8EFA90039B5B0 /* NewUserRegisterUsernameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewUserRegisterUsernameViewController.h; sourceTree = "<group>"; };
+		3AEFB77018E8EFA90039B5B0 /* NewUserRegisterUsernameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewUserRegisterUsernameViewController.m; sourceTree = "<group>"; };
 		3AF0B00718B515E500E3D0D3 /* transparent-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "transparent-bg.png"; sourceTree = "<group>"; };
 		3AF0B00918B54E9000E3D0D3 /* bottom-section.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bottom-section.png"; sourceTree = "<group>"; };
 		3AF19A3B1881EF1600F3E4D3 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
@@ -1536,6 +1545,12 @@
 				3A6C3BBA1884AD61003B162B /* LoginViewController.m */,
 				3A08D1F818BFD3BB002A7C8E /* UserDefaultManager.h */,
 				3A08D1F918BFD3BB002A7C8E /* UserDefaultManager.m */,
+				3AEFB76918E8EF890039B5B0 /* NewUserRegisterNameViewController.h */,
+				3AEFB76A18E8EF890039B5B0 /* NewUserRegisterNameViewController.m */,
+				3AEFB76C18E8EF980039B5B0 /* NewUserRegisterPhoneViewController.h */,
+				3AEFB76D18E8EF980039B5B0 /* NewUserRegisterPhoneViewController.m */,
+				3AEFB76F18E8EFA90039B5B0 /* NewUserRegisterUsernameViewController.h */,
+				3AEFB77018E8EFA90039B5B0 /* NewUserRegisterUsernameViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -2035,6 +2050,7 @@
 				3AAE9B1A1894A049003B4560 /* ConversationViewController.m in Sources */,
 				3A67DB4F18E4D08200DA6691 /* ConnectionHandlingViewController.m in Sources */,
 				F744856318DB61C500460FBC /* SWTableViewCell.m in Sources */,
+				3AEFB76E18E8EF980039B5B0 /* NewUserRegisterPhoneViewController.m in Sources */,
 				3AB9E67E18A45573001EFDB8 /* LoadingDialogManager.m in Sources */,
 				3AFF778718C415BE003277F9 /* FriendMO.m in Sources */,
 				3A98D8E318BD19B200B69049 /* XMPPElement.m in Sources */,
@@ -2071,11 +2087,13 @@
 				3A98D9D118BD1A2600B69049 /* XMPPBandwidthMonitor.m in Sources */,
 				3A98DA3918BD1A4B00B69049 /* RFImageToDataTransformer.m in Sources */,
 				3A7D577318D14E47004F90B8 /* ContactSearchManager.m in Sources */,
+				3AEFB77118E8EFA90039B5B0 /* NewUserRegisterUsernameViewController.m in Sources */,
 				3A98D9EA18BD1A2600B69049 /* XMPPRoomHybrid.xcdatamodeld in Sources */,
 				F744856118DB61C500460FBC /* SWCellScrollView.m in Sources */,
 				3A98D8EA18BD19B200B69049 /* XMPPStream.m in Sources */,
 				F751016218ABE101001F1E7F /* IASKSettingsStoreFile.m in Sources */,
 				3A98D9F118BD1A2600B69049 /* XMPPMessage+XEP0045.m in Sources */,
+				3AEFB76B18E8EF890039B5B0 /* NewUserRegisterNameViewController.m in Sources */,
 				3A25B6761881E84800166623 /* FriendsViewController.m in Sources */,
 				3A98DA2218BD1A2600B69049 /* NSXMLElement+XEP_0203.m in Sources */,
 				3A47C844189F1A52003020D7 /* FriendsDBManager.m in Sources */,
