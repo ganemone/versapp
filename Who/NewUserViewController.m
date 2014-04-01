@@ -22,6 +22,15 @@
 @property(nonatomic, strong) ConnectionProvider *connectionProvider;
 @property(nonatomic, strong) NSArray *viewControllers;
 @property(nonatomic, strong) UIView *confessionView;
+@property(nonatomic, strong) NSString *name;
+@property(nonatomic, strong) NSString *email;
+@property(nonatomic, strong) NSString *password;
+@property(nonatomic, strong) NSString *confirm;
+@property(nonatomic, strong) NSString *phone;
+@property(nonatomic, strong) NSString *username;
+@property(nonatomic, strong) NSString *country;
+@property(nonatomic, strong) NSString *countryCode;
+
 @property int numPages;
 @end
 
@@ -43,7 +52,6 @@
     [self setupNotificationListeners];
     [self setupPageViewController];
     [self.navigationController.navigationBar setHidden:YES];
-    PhoneVerificationManager *pvm = [[PhoneVerificationManager alloc] init];
 }
 
 - (void)setupPageViewController {
@@ -99,59 +107,47 @@
     NewUserRegisterNameViewController *nameVC = (NewUserRegisterNameViewController *)[self viewControllerAtIndex:0];
     NewUserRegisterPhoneViewController *phoneVC = (NewUserRegisterPhoneViewController *)[self viewControllerAtIndex:1];
     NewUserRegisterUsernameViewController *usernameVC = (NewUserRegisterUsernameViewController *)[self viewControllerAtIndex:2];
-    NSString *name = [[nameVC name] text];
-    NSString *email = [[nameVC email] text];
-    NSString *password = [[nameVC password] text];
-    NSString *confirm = [[nameVC confirmPassword] text];
-    NSString *phone = [[phoneVC phone] text];
-    NSString *username = [[usernameVC username] text];
-    NSArray *components = [phone componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
-    phone = [components componentsJoinedByString:@""];
-    NSString *country = [phoneVC getSelectedCountry];
-    NSString *countryCode = [phoneVC getSelectedCountryCode];
+    _name = [[nameVC name] text];
+    _email = [[nameVC email] text];
+    _password = [[nameVC password] text];
+    _confirm = [[nameVC confirmPassword] text];
+    _phone = [[phoneVC phone] text];
+    _username = [[usernameVC username] text];
+    NSArray *components = [_phone componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
+    _phone = [components componentsJoinedByString:@""];
+    _country = [phoneVC getSelectedCountry];
+    _countryCode = [phoneVC getSelectedCountryCode];
     
     UIAlertView *alertView;
     
-    if (![Validator isValidName:name]) {
+    if (![Validator isValidName:_name]) {
         alertView = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Please enter a valid name." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-    } else if(![Validator isValidEmail:email]) {
+    } else if(![Validator isValidEmail:_email]) {
         alertView = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Please enter a valid email address" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-    } else if(![Validator isValidPasswordPair:password confirmPassword:confirm]) {
+    } else if(![Validator isValidPasswordPair:_password confirmPassword:_confirm]) {
         alertView = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Please make sure your passwords match, and are at least 6 digits long." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-    } else if (![Validator isValidPhoneNumber:phone]) {
+    } else if (![Validator isValidPhoneNumber:_phone]) {
         alertView = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Please enter a valid phone number" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-    } else if (![Validator isValidUsername:username]) {
+    } else if (![Validator isValidUsername:_username]) {
         alertView = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Usernames must only contain Letters, numbers, and underscores." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     }
     if (alertView != nil) {
         [alertView show];
     } else {
-        [self registerUserWithName:name
-                             email:email
-                             phone:phone
-                          username:username
-                          password:password
-                           country:country
-                       countryCode:countryCode];
+        PhoneVerificationManager *pvm = [[PhoneVerificationManager alloc] init];
+        [pvm checkForPhoneRegisteredOnServer:_countryCode phone:_phone];
     }
 }
 
-- (void)registerUserWithName:(NSString *)name
-                       email:(NSString *)email
-                       phone:(NSString *)phone
-                    username:(NSString *)username
-                    password:(NSString *)password
-                     country:(NSString *)country
-                 countryCode:(NSString *)countryCode
-{
+- (void)registerUser {
     [UserDefaultManager saveValidated:NO];
-    [UserDefaultManager saveCountry:country];
-    [UserDefaultManager saveCountryCode:countryCode];
-    NSArray *nameArray = [name componentsSeparatedByString:@" "];
+    [UserDefaultManager saveCountry:_country];
+    [UserDefaultManager saveCountryCode:_countryCode];
+    NSArray *nameArray = [_name componentsSeparatedByString:@" "];
     NSString *firstName = [nameArray firstObject];
     NSString *lastName = [nameArray lastObject];
     
-    NSDictionary *accountInfo = [NSDictionary dictionaryWithObjectsAndKeys:username, FRIENDS_TABLE_COLUMN_NAME_USERNAME, password, USER_DEFAULTS_PASSWORD, firstName, VCARD_TAG_FIRST_NAME, lastName, VCARD_TAG_LAST_NAME, email, FRIENDS_TABLE_COLUMN_NAME_EMAIL, phone, FRIENDS_TABLE_COLUMN_NAME_PHONE, countryCode, USER_DEFAULTS_COUNTRY_CODE, nil];
+    NSDictionary *accountInfo = [NSDictionary dictionaryWithObjectsAndKeys:_username, FRIENDS_TABLE_COLUMN_NAME_USERNAME, _password, USER_DEFAULTS_PASSWORD, firstName, VCARD_TAG_FIRST_NAME, lastName, VCARD_TAG_LAST_NAME, _email, FRIENDS_TABLE_COLUMN_NAME_EMAIL, _phone, FRIENDS_TABLE_COLUMN_NAME_PHONE, _countryCode, USER_DEFAULTS_COUNTRY_CODE, nil];
     [self.connectionProvider createAccount:accountInfo];
 }
 

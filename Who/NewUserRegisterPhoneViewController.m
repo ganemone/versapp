@@ -8,8 +8,10 @@
 
 #import "NewUserRegisterPhoneViewController.h"
 #import "Constants.h"
+#import "PhoneVerificationManager.h"
 
 @interface NewUserRegisterPhoneViewController ()
+
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 @property (weak, nonatomic) IBOutlet UIButton *actionBtn;
 @property (weak, nonatomic) IBOutlet UILabel *countryCodeLabel;
