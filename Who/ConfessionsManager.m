@@ -7,6 +7,7 @@
 //
 
 #import "ConfessionsManager.h"
+#import "AppDelegate.h"
 
 static ConfessionsManager *selfInstance;
 
@@ -63,6 +64,10 @@ static ConfessionsManager *selfInstance;
 -(void)clearConfessions {
     [_confessionIDValues removeAllObjects];
     [_confessions removeAllObjects];
+}
+
+-(void)deleteConfession:(NSString *)confessionID {
+    [_confessions removeObjectForKey:confessionID];
 }
 
 @end

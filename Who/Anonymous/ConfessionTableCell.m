@@ -47,7 +47,6 @@ static UITapGestureRecognizer *favoriteTap;
     self.textLabel.hidden = YES;
     self.detailTextLabel.text = nil;
     self.detailTextLabel.hidden = YES;
-    
 }
 
 - (instancetype)initWithConfession:(Confession*)confession reuseIdentifier:(NSString *)reuseIdentifier {
@@ -96,6 +95,9 @@ static UITapGestureRecognizer *favoriteTap;
         [favoriteLabel setUserInteractionEnabled:YES];
         [favoriteLabel addGestureRecognizer:favoriteTap];
         
+        UIButton *deleteButton = confession.deleteButton;
+        [deleteButton addTarget:self action:@selector(handleConfessionDeleted:) forControlEvents:UIControlEventTouchUpInside];
+        
         // Add subviews
         [self.contentView addSubview:backgroundView];
         [self.contentView addSubview:textView];
@@ -105,6 +107,7 @@ static UITapGestureRecognizer *favoriteTap;
         [self.contentView addSubview:favoriteLabel];
         [self.contentView addSubview:favoriteButton];
         [self.contentView addSubview:timestampLabel];
+        [self.contentView addSubview:deleteButton];
         
         // Store variables
         _confessionText = textView;
@@ -115,6 +118,7 @@ static UITapGestureRecognizer *favoriteTap;
         _favoriteButton = favoriteButton;
         _favoriteLabel = favoriteLabel;
         _timestampLabel = timestampLabel;
+        _deleteButton = deleteButton;
         
         /*for (UIGestureRecognizer *recognizer in self.gestureRecognizers) {
          if ([recognizer isKindOfClass:[UILongPressGestureRecognizer class]]){
@@ -160,6 +164,10 @@ static UITapGestureRecognizer *favoriteTap;
 
 -(void)handleConfessionChatStarted:(id)sender {
     [_confession startChat];
+}
+
+-(void)handleConfessionDeleted:(id)sender {
+    [_confession deleteConfession];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

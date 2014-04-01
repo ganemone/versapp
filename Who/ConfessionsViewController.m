@@ -26,6 +26,7 @@
 @property (strong, nonatomic) UIImage *favIconActive;
 @property (strong, nonatomic) UIImage *gradLineSmall;
 @property (strong, nonatomic) UIImage *chatIcon;
+@property (strong, nonatomic) UIImage *deleteIcon;
 @property (strong, nonatomic) ChatMO *createdChat;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
@@ -47,6 +48,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name: PACKET_ID_GET_CONFESSIONS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name:PACKET_ID_POST_CONFESSION object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name:NOTIFICATION_CONFESSION_DELETED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOneToOneChatCreatedFromConfession) name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION object:nil];
     
     // Add a bottomBorder to the header view
@@ -86,6 +88,7 @@
     self.favIconActive = [UIImage imageNamed:@"fav-icon-label-active.png"];
     self.gradLineSmall = [UIImage imageNamed:@"grad-line-small.png"];
     self.chatIcon = [UIImage imageNamed:@"chat-icon-label.png"];
+    self.deleteIcon = [UIImage imageNamed:@"x-orange.png"];
 }
 
 - (void)setUpInBackground {
@@ -155,6 +158,12 @@
         [cell.favoriteLabel setText:[confession getTextForLabel]];
         [cell.chatButton setImage:self.chatIcon forState:UIControlStateNormal];
         [_cellCache setObject:cell forKey:[confession confessionID]];
+        
+        if ([confession isPostedByConnectedUser]) {
+            [cell.deleteButton setImage:self.deleteIcon forState:UIControlStateNormal];
+        } else {
+            [cell.deleteButton removeFromSuperview];
+        }
     }
     return cell;
 }
