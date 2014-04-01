@@ -80,6 +80,12 @@
     [tableViewController setRefreshControl:refresh];
     [tableViewController setTableView:_tableView];
     self.refreshControl = refresh;
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.frame];
+    [imageView setClipsToBounds:NO];
+    [imageView setContentMode:UIViewContentModeScaleAspectFill];
+    [imageView setImage:[UIImage imageNamed:@"contacts-background-large.png"]];
+    [self.tableView setBackgroundView:imageView];
 
 }
 
@@ -265,10 +271,15 @@
     
     // Present mail view controller on screen
     [self presentViewController:mc animated:YES completion:NULL];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.frame];
+    [imageView setClipsToBounds:YES];
+    [imageView setImage:[UIImage imageNamed:@"contacts-background-large.png"]];
+    [self.view addSubview:imageView];
+    [self.view sendSubviewToBack:imageView];
 }
 
 - (void)showSMS:(NSArray *)recipients {
-    
     if(![MFMessageComposeViewController canSendText]) {
         UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Your device doesn't support SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [warningAlert show];
@@ -327,13 +338,11 @@
             [_emailContacts addObject:friend.email];
         }
     }
-    
     if ([_smsContacts count] > 0) {
         [self showSMS:_smsContacts];
     } else {
         [self showEmail:_emailContacts];
     }
-
 }
 
 @end

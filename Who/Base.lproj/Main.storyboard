@@ -752,7 +752,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7ln-9F-xZt">
-                                        <rect key="frame" x="244" y="29" width="28" height="28"/>
+                                        <rect key="frame" x="281" y="27" width="31" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="notification-none.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -762,7 +762,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ed2-Z8-EHa">
-                                        <rect key="frame" x="276" y="25" width="36" height="36"/>
+                                        <rect key="frame" x="42" y="26" width="34" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="settings-icon.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -771,10 +771,10 @@
                                             <action selector="settingsClicked:" destination="HoZ-Rh-4HR" eventType="touchUpInside" id="tca-UO-OGQ"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5Dp-pv-Nsb">
-                                        <rect key="frame" x="10" y="28" width="49" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5Dp-pv-Nsb">
+                                        <rect key="frame" x="8" y="30" width="26" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Edit">
+                                        <state key="normal" image="edit-icon.png">
                                             <color key="titleColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1033,7 +1033,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oVV-yT-uoA">
-                                        <rect key="frame" x="1" y="26" width="36" height="36"/>
+                                        <rect key="frame" x="20" y="27" width="31" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="arrow-left-icon.png"/>
                                         <connections>
@@ -1041,7 +1041,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vGo-i9-aRA">
-                                        <rect key="frame" x="277" y="25" width="35" height="35"/>
+                                        <rect key="frame" x="277" y="27" width="31" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="friends-icon.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1246,7 +1246,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="K9m-Fc-zry">
-                                        <rect key="frame" x="0.0" y="26" width="36" height="36"/>
+                                        <rect key="frame" x="13" y="28" width="31" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="arrow-left-icon.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1436,7 +1436,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="s33-9h-SeM">
-                                        <rect key="frame" x="1" y="26" width="36" height="36"/>
+                                        <rect key="frame" x="20" y="25" width="36" height="36"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="arrow-left-icon.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1563,7 +1563,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7Z0-9d-7wE">
-                                        <rect key="frame" x="0.0" y="26" width="35" height="35"/>
+                                        <rect key="frame" x="13" y="28" width="31" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="arrow-left-icon.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1910,7 +1910,8 @@
         <image name="arrow-left-icon.png" width="60" height="60"/>
         <image name="arrow-right-bold.png" width="97" height="185"/>
         <image name="check-icon.png" width="192" height="129"/>
-        <image name="confessions-icon.png" width="244" height="222"/>
+        <image name="confessions-icon.png" width="60" height="60"/>
+        <image name="edit-icon.png" width="60" height="60"/>
         <image name="first" width="30" height="30"/>
         <image name="friends-icon.png" width="60" height="60"/>
         <image name="message-icon.png" width="157" height="153"/>
@@ -1926,15 +1927,15 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="z6h-qs-HbB"/>
+        <segue reference="AGt-Q0-zDh"/>
+        <segue reference="Y5D-AL-CYy"/>
+        <segue reference="YEX-bB-bO6"/>
         <segue reference="BCc-dv-kG7"/>
         <segue reference="hVX-XL-lBE"/>
         <segue reference="tVn-SP-Hc9"/>
         <segue reference="pHb-Kf-4qo"/>
-        <segue reference="qGQ-aw-vgl"/>
         <segue reference="YCw-e7-spT"/>
-        <segue reference="J3H-cG-x94"/>
         <segue reference="QMt-WW-ujz"/>
         <segue reference="Ve6-mS-bkp"/>
-        <segue reference="zTQ-Mf-6oX"/>
     </inferredMetricsTieBreakers>
 </document>

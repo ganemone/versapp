@@ -38,9 +38,9 @@
     NSLog(@"bounds: %f %f", screen.size.height, screen.size.width);
     UIImage *image = [[UIImage alloc] init];
     if (screen.size.height < 500) {
-        image = [UIImage imageNamed:@"loading640x960.png"];
+        image = [UIImage imageNamed:@"loadingScreenSmall.png"];
     } else {
-        image = [UIImage imageNamed:@"loading640x1136.png"];
+        image = [UIImage imageNamed:@"loadingScreenLarge.png"];
     }
     [self.loadingImage setImage:image];
     
