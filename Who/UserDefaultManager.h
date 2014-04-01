@@ -18,12 +18,14 @@
 +(void)saveCountryCode:(NSString *)code;
 +(void)saveValidated:(BOOL)valid;
 +(void)saveCountry:(NSString *)country;
++(void)savePhone:(NSString *)phone;
 +(NSString*)loadPassword;
 +(NSString*)loadUsername;
 +(NSString *)loadName;
 +(NSString *)loadEmail;
 +(NSString *)loadCountryCode;
-+(BOOL)isValidated;
++(NSString *)loadPhone;
 +(NSString *)loadCountry;
++(BOOL)isValidated;
 
 @end

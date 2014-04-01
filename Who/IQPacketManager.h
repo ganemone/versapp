@@ -59,5 +59,5 @@
 +(DDXMLElement *)createUnblockUserInGroupPacket:(NSString *)username chatID:(NSString *)chatID;
 +(DDXMLElement *)createSetDeviceTokenPacket:(NSString *)deviceToken;
 +(DDXMLElement *)createGetUserInfoPacket;
-+(DDXMLElement *)createSetUserInfoPacketWithPhone:(NSString *)phone countryCode:(NSString *)countryCode email:(NSString *)email;
++(DDXMLElement *)createSetUserInfoPacketFromDefaults;
 @end

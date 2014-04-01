@@ -55,6 +55,7 @@ NSString *const USER_DEFAULTS_COUNTRY = @"country";
 NSString *const USER_DEFAULTS_USERNAME = @"nsdefault_key_username";
 NSString *const USER_DEFAULTS_COUNTRY_CODE = @"nsdefault_key_country_code";
 NSString *const USER_DEFAULTS_EMAIL = @"nsdefault_key_email";
+NSString *const USER_DEFAULTS_PHONE = @"nsdefault_key_phone";
 
 NSString *const CHAT_TYPE_GROUP = @"groupchat";
 NSString *const CHAT_TYPE_ONE_TO_ONE = @"chat";

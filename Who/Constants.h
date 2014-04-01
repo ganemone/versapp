@@ -53,6 +53,7 @@ extern NSString *const USER_DEFAULTS_COUNTRY;
 extern NSString *const USER_DEFAULTS_USERNAME;
 extern NSString *const USER_DEFAULTS_COUNTRY_CODE;
 extern NSString *const USER_DEFAULTS_EMAIL;
+extern NSString *const USER_DEFAULTS_PHONE;
 
 extern NSString *const CHAT_TYPE_GROUP;
 extern NSString *const CHAT_TYPE_ONE_TO_ONE;

@@ -162,8 +162,10 @@ static ConnectionProvider *selfInstance;
         NSLog(@"Creating VCard...");
         [self.xmppStream sendElement:[IQPacketManager createCreateVCardPacket:[_pendingAccountInfo objectForKey:VCARD_TAG_FIRST_NAME] lastname:[_pendingAccountInfo objectForKey:VCARD_TAG_LAST_NAME]]];
         self.isCreatingAccount = NO;
+
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
-        //[self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
+        [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
+        [self.xmppStream sendElement:[IQPacketManager createSetUserInfoPacketFromDefaults]];
     } else {
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];
@@ -272,6 +274,8 @@ static ConnectionProvider *selfInstance;
     
     [UserDefaultManager saveUsername:self.username];
     [UserDefaultManager savePassword:self.password];
+    [UserDefaultManager savePhone:[self.pendingAccountInfo objectForKey:FRIENDS_TABLE_COLUMN_NAME_PHONE]];
+    [UserDefaultManager saveEmail:[self.pendingAccountInfo objectForKey:FRIENDS_TABLE_COLUMN_NAME_EMAIL]];
     
     PhoneVerificationManager *pvm = [[PhoneVerificationManager alloc] init];
     [pvm sendVerificationText];
@@ -294,6 +298,8 @@ static ConnectionProvider *selfInstance;
     NSString *errorMessage;
     if([errorCode isEqualToString:@"409"]){
         errorMessage = @"Username already exists";
+    } else if([errorCode isEqualToString:@"500"]) {
+        errorMessage = @"Nice try buddy! You can't register for multiple accounts from a single device.";
     } else {
         errorMessage = @"Failed to register user. Please check your network connection";
     }

@@ -26,6 +26,17 @@
     [preferences synchronize];
 }
 
++(void)savePhone:(NSString *)phone {
+    NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setObject:phone forKey:USER_DEFAULTS_PHONE];
+    [preferences synchronize];
+}
+
++(NSString *)loadPhone {
+    NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
+    return [preferences stringForKey:USER_DEFAULTS_PHONE];
+}
+
 +(NSString *)loadPassword {
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
     return [preferences stringForKey:USER_DEFAULTS_PASSWORD];

@@ -13,6 +13,8 @@
 #import "Constants.h"
 #import "MessageMO.h"
 #import "ChatDBManager.h"
+#import "UserDefaultManager.h"
+
 @implementation IQPacketManager
 
 -(XMPPIQ*)buildIQPacket:(NSString *)packetType packetID:(NSString *)packetID {
@@ -694,7 +696,11 @@
     return iq;
 }
 
-+(DDXMLElement *)createSetUserInfoPacketWithPhone:(NSString *)phone countryCode:(NSString *)countryCode email:(NSString *)email {
++(DDXMLElement *)createSetUserInfoPacketFromDefaults {
+    NSString *countryCode = [UserDefaultManager loadCountryCode];
+    NSString *phone = [UserDefaultManager loadPhone];
+    NSString *email = [UserDefaultManager loadEmail];
+    
     DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
     [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_SET_USER_INFO]];
     [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"set"]];
