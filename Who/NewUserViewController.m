@@ -14,6 +14,7 @@
 #import "NewUserRegisterPhoneViewController.h"
 #import "NewUserRegisterUsernameViewController.h"
 #import "Validator.h"
+#import "PhoneVerificationManager.h"
 
 @interface NewUserViewController ()
 
@@ -42,6 +43,7 @@
     [self setupNotificationListeners];
     [self setupPageViewController];
     [self.navigationController.navigationBar setHidden:YES];
+    PhoneVerificationManager *pvm = [[PhoneVerificationManager alloc] init];
 }
 
 - (void)setupPageViewController {

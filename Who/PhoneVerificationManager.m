@@ -9,6 +9,7 @@
 
 #import "PhoneVerificationManager.h"
 #import "UserDefaultManager.h"
+#import "Constants.h"
 
 NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_code";
 
@@ -44,6 +45,27 @@ NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_c
     // create connection and set delegate if needed
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:uploadRequest delegate:self];
     [conn start];
+}
+
+-(void)checkForPhoneRegisteredOnServer:(NSString *)countryCode phone:(NSString *)phone {
+    NSLog(@"Reached Send Verification Text");
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://ejabberd.versapp.co/validate.php?ccode=%@&phone=%@",countryCode, phone]];
+        NSMutableURLRequest *uploadRequest = [NSMutableURLRequest requestWithURL:url];
+        [uploadRequest setHTTPMethod:@"GET"];
+        [uploadRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+        // create connection and set delegate if needed
+        NSHTTPURLResponse *response = nil;
+        NSError *error = NULL;
+        [NSURLConnection sendSynchronousRequest:uploadRequest returningResponse:&response error:&error];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([response statusCode] == 200) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PHONE_AVAILABLE object:nil];
+            } else {
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PHONE_UNAVAILABLE object:nil];
+            }
+        });
+    });
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {

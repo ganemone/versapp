@@ -13,5 +13,6 @@
 -(NSString *)loadVerificationCode;
 -(void)saveVerificationCode:(NSString *)code;
 -(void)sendVerificationText;
+-(void)checkForPhoneRegisteredOnServer:(NSString *)countryCode phone:(NSString *)phone;
 
 @end
