@@ -203,6 +203,7 @@ NSString *const STORYBOARD_ID_NEW_USER_REGISTER_PHONE_VIEW_CONTROLLER = @"NewUse
 NSString *const STORYBOARD_ID_NEW_USER_REGISTER_USERNAME_VIEW_CONTROLLER = @"NewUserRegisterUsernameViewController";
 NSString *const STORYBOARD_ID_ENTER_CONFIRMATION_CODE_VIEW_CONTROLLER = @"EnterConfirmationCodeViewController";
 NSString *const STORYBOARD_ID_NEW_USER_CONFIRMATION_CODE_VIEW_CONTROLLER = @"NewUserConfirmationCodeViewController";
+NSString *const STORYBOARD_ID_TUTORIAL_SLIDE_VIEW_CONTROLLER = @"TutorialSlideViewController";
 
 NSString *const PAGE_NAVIGATE_TO_MESSAGES = @"page_navigate_to_messages";
 NSString *const PAGE_NAVIGATE_TO_CONFESSIONS = @"page_navigate_to_confessions";

@@ -100,6 +100,9 @@
 		3A8BCF8218B6DFBB00D4B7CE /* ConfessionTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BCF8118B6DFBB00D4B7CE /* ConfessionTableCell.m */; };
 		3A91F1DC18EAFEF10006B9F8 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A91F1DB18EAFEF10006B9F8 /* MBProgressHUD.m */; };
 		3A91F1E018EB189C0006B9F8 /* NewUserConfirmationCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A91F1DF18EB189C0006B9F8 /* NewUserConfirmationCodeViewController.m */; };
+		3A91F1E318EB27ED0006B9F8 /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A91F1E218EB27ED0006B9F8 /* TutorialViewController.m */; };
+		3A91F1E618EB28430006B9F8 /* TutorialSlideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A91F1E518EB28430006B9F8 /* TutorialSlideViewController.m */; };
+		3A91F1E918EB35CA0006B9F8 /* SMPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A91F1E818EB35CA0006B9F8 /* SMPageControl.m */; };
 		3A98D8E318BD19B200B69049 /* XMPPElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D8D218BD19B200B69049 /* XMPPElement.m */; };
 		3A98D8E418BD19B200B69049 /* XMPPIQ.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D8D518BD19B200B69049 /* XMPPIQ.m */; };
 		3A98D8E518BD19B200B69049 /* XMPPJID.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D8D718BD19B200B69049 /* XMPPJID.m */; };
@@ -419,6 +422,12 @@
 		3A91F1DB18EAFEF10006B9F8 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		3A91F1DE18EB189C0006B9F8 /* NewUserConfirmationCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewUserConfirmationCodeViewController.h; sourceTree = "<group>"; };
 		3A91F1DF18EB189C0006B9F8 /* NewUserConfirmationCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewUserConfirmationCodeViewController.m; sourceTree = "<group>"; };
+		3A91F1E118EB27ED0006B9F8 /* TutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialViewController.h; sourceTree = "<group>"; };
+		3A91F1E218EB27ED0006B9F8 /* TutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialViewController.m; sourceTree = "<group>"; };
+		3A91F1E418EB28430006B9F8 /* TutorialSlideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialSlideViewController.h; sourceTree = "<group>"; };
+		3A91F1E518EB28430006B9F8 /* TutorialSlideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialSlideViewController.m; sourceTree = "<group>"; };
+		3A91F1E718EB35CA0006B9F8 /* SMPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPageControl.h; sourceTree = "<group>"; };
+		3A91F1E818EB35CA0006B9F8 /* SMPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPageControl.m; sourceTree = "<group>"; };
 		3A98D8D018BD19B200B69049 /* XMPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPP.h; sourceTree = "<group>"; };
 		3A98D8D118BD19B200B69049 /* XMPPElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPElement.h; sourceTree = "<group>"; };
 		3A98D8D218BD19B200B69049 /* XMPPElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPElement.m; sourceTree = "<group>"; };
@@ -1153,6 +1162,15 @@
 			name = MBProgressHUD;
 			sourceTree = "<group>";
 		};
+		3A91F1EA18EB35D20006B9F8 /* SMPageControl */ = {
+			isa = PBXGroup;
+			children = (
+				3A91F1E718EB35CA0006B9F8 /* SMPageControl.h */,
+				3A91F1E818EB35CA0006B9F8 /* SMPageControl.m */,
+			);
+			name = SMPageControl;
+			sourceTree = "<group>";
+		};
 		3A939630189B3543004B01CE /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -1547,6 +1565,10 @@
 				3A91F1DF18EB189C0006B9F8 /* NewUserConfirmationCodeViewController.m */,
 				3AEFB76F18E8EFA90039B5B0 /* NewUserRegisterUsernameViewController.h */,
 				3AEFB77018E8EFA90039B5B0 /* NewUserRegisterUsernameViewController.m */,
+				3A91F1E118EB27ED0006B9F8 /* TutorialViewController.h */,
+				3A91F1E218EB27ED0006B9F8 /* TutorialViewController.m */,
+				3A91F1E418EB28430006B9F8 /* TutorialSlideViewController.h */,
+				3A91F1E518EB28430006B9F8 /* TutorialSlideViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -1664,6 +1686,7 @@
 		3AF19ACE1881F86000F3E4D3 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				3A91F1EA18EB35D20006B9F8 /* SMPageControl */,
 				3A91F1DD18EAFEF60006B9F8 /* MBProgressHUD */,
 				3A5538C018E86A10003DD6CF /* Reachability */,
 				F744853F18DB61C500460FBC /* PodFiles */,
@@ -2093,6 +2116,7 @@
 				F751016418ABE101001F1E7F /* IASKSpecifier.m in Sources */,
 				3AE1E35F18E9A9AA00E2347F /* Validator.m in Sources */,
 				3A91F1DC18EAFEF10006B9F8 /* MBProgressHUD.m in Sources */,
+				3A91F1E318EB27ED0006B9F8 /* TutorialViewController.m in Sources */,
 				3A3A0ADF18AB1126006FBAE4 /* JSBubbleMessageCell.m in Sources */,
 				3AF19A481881EF1600F3E4D3 /* DDLog.m in Sources */,
 				F751016018ABE101001F1E7F /* IASKSettingsReader.m in Sources */,
@@ -2202,6 +2226,7 @@
 				F73713F218E4FADF008A9ED2 /* AddToGroupViewController.m in Sources */,
 				3A98D9E818BD1A2600B69049 /* XMPPRoomMessageCoreDataStorageObject.m in Sources */,
 				3A98DA6418BD1A7E00B69049 /* XMPPXOAuth2Google.m in Sources */,
+				3A91F1E618EB28430006B9F8 /* TutorialSlideViewController.m in Sources */,
 				3A98DA6318BD1A7E00B69049 /* XMPPXFacebookPlatformAuthentication.m in Sources */,
 				3A67DB5218E4D64700DA6691 /* ConnectionLostViewController.m in Sources */,
 				3AF19A6A1881F34A00F3E4D3 /* DDXMLElement.m in Sources */,
@@ -2214,6 +2239,7 @@
 				3A8BCF7918B5964400D4B7CE /* ConfessionsManager.m in Sources */,
 				3A720CB418A1C2E200423959 /* MUCCreationManager.m in Sources */,
 				3A3A0ADA18AB1126006FBAE4 /* NSString+JSMessagesView.m in Sources */,
+				3A91F1E918EB35CA0006B9F8 /* SMPageControl.m in Sources */,
 				3AEFB76818E8EE510039B5B0 /* NewUserViewController.m in Sources */,
 				3AF19A6C1881F34A00F3E4D3 /* ContextFilterLogFormatter.m in Sources */,
 				F751016118ABE101001F1E7F /* IASKSettingsStore.m in Sources */,

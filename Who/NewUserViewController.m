@@ -24,7 +24,6 @@
 @property UIPageViewController *pageViewController;
 @property(nonatomic, strong) ConnectionProvider *connectionProvider;
 @property(nonatomic, strong) NSArray *viewControllers;
-@property(nonatomic, strong) UIView *confessionView;
 @property(nonatomic, strong) NSString *name;
 @property(nonatomic, strong) NSString *email;
 @property(nonatomic, strong) NSString *password;
