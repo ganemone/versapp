@@ -102,7 +102,6 @@
 		3A91F1E018EB189C0006B9F8 /* NewUserConfirmationCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A91F1DF18EB189C0006B9F8 /* NewUserConfirmationCodeViewController.m */; };
 		3A91F1E318EB27ED0006B9F8 /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A91F1E218EB27ED0006B9F8 /* TutorialViewController.m */; };
 		3A91F1E618EB28430006B9F8 /* TutorialSlideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A91F1E518EB28430006B9F8 /* TutorialSlideViewController.m */; };
-		3A91F1E918EB35CA0006B9F8 /* SMPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A91F1E818EB35CA0006B9F8 /* SMPageControl.m */; };
 		3A98D8E318BD19B200B69049 /* XMPPElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D8D218BD19B200B69049 /* XMPPElement.m */; };
 		3A98D8E418BD19B200B69049 /* XMPPIQ.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D8D518BD19B200B69049 /* XMPPIQ.m */; };
 		3A98D8E518BD19B200B69049 /* XMPPJID.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D8D718BD19B200B69049 /* XMPPJID.m */; };
@@ -426,8 +425,6 @@
 		3A91F1E218EB27ED0006B9F8 /* TutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialViewController.m; sourceTree = "<group>"; };
 		3A91F1E418EB28430006B9F8 /* TutorialSlideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialSlideViewController.h; sourceTree = "<group>"; };
 		3A91F1E518EB28430006B9F8 /* TutorialSlideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialSlideViewController.m; sourceTree = "<group>"; };
-		3A91F1E718EB35CA0006B9F8 /* SMPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPageControl.h; sourceTree = "<group>"; };
-		3A91F1E818EB35CA0006B9F8 /* SMPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPageControl.m; sourceTree = "<group>"; };
 		3A98D8D018BD19B200B69049 /* XMPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPP.h; sourceTree = "<group>"; };
 		3A98D8D118BD19B200B69049 /* XMPPElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPElement.h; sourceTree = "<group>"; };
 		3A98D8D218BD19B200B69049 /* XMPPElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPElement.m; sourceTree = "<group>"; };
@@ -1162,15 +1159,6 @@
 			name = MBProgressHUD;
 			sourceTree = "<group>";
 		};
-		3A91F1EA18EB35D20006B9F8 /* SMPageControl */ = {
-			isa = PBXGroup;
-			children = (
-				3A91F1E718EB35CA0006B9F8 /* SMPageControl.h */,
-				3A91F1E818EB35CA0006B9F8 /* SMPageControl.m */,
-			);
-			name = SMPageControl;
-			sourceTree = "<group>";
-		};
 		3A939630189B3543004B01CE /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -1686,7 +1674,6 @@
 		3AF19ACE1881F86000F3E4D3 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				3A91F1EA18EB35D20006B9F8 /* SMPageControl */,
 				3A91F1DD18EAFEF60006B9F8 /* MBProgressHUD */,
 				3A5538C018E86A10003DD6CF /* Reachability */,
 				F744853F18DB61C500460FBC /* PodFiles */,
@@ -2239,7 +2226,6 @@
 				3A8BCF7918B5964400D4B7CE /* ConfessionsManager.m in Sources */,
 				3A720CB418A1C2E200423959 /* MUCCreationManager.m in Sources */,
 				3A3A0ADA18AB1126006FBAE4 /* NSString+JSMessagesView.m in Sources */,
-				3A91F1E918EB35CA0006B9F8 /* SMPageControl.m in Sources */,
 				3AEFB76818E8EE510039B5B0 /* NewUserViewController.m in Sources */,
 				3AF19A6C1881F34A00F3E4D3 /* ContextFilterLogFormatter.m in Sources */,
 				F751016118ABE101001F1E7F /* IASKSettingsStore.m in Sources */,

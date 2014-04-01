@@ -10,6 +10,7 @@
 #import "UserDefaultManager.h"
 #import "TutorialSlideViewController.h"
 #import "Constants.h"
+#import "SMPageControl.h"
 
 #define numPages 5
 
