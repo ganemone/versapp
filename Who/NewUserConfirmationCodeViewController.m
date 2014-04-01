@@ -7,11 +7,15 @@
 //
 
 #import "NewUserConfirmationCodeViewController.h"
+#import "UserDefaultManager.h"
+#import "PhoneVerificationManager.h"
+#import "Constants.h"
 
 @interface NewUserConfirmationCodeViewController ()
 
 @property (weak, nonatomic) IBOutlet UIPickerView *confirmationPicker;
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
+@property (strong, nonatomic) PhoneVerificationManager *pvm;
 
 @end
 
@@ -31,6 +35,7 @@
     [super viewDidLoad];
     [_confirmationPicker setDelegate:self];
     [_confirmationPicker setDataSource:self];
+    self.pvm = [[PhoneVerificationManager alloc] init];
     // Do any additional setup after loading the view.
 }
 
@@ -58,7 +63,12 @@
     NSString *thirdDigit = [self pickerView:_confirmationPicker titleForRow:[_confirmationPicker selectedRowInComponent:2] forComponent:2];
     NSString *fourthDigit = [self pickerView:_confirmationPicker titleForRow:[_confirmationPicker selectedRowInComponent:3] forComponent:3];
     NSString *code = [NSString stringWithFormat:@"%@%@%@%@", firstDigit, secondDigit, thirdDigit, fourthDigit];
-    NSLog(@"Code: %@", code);
+    if ([code isEqualToString:[_pvm loadVerificationCode]]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DID_VERIFY_PHONE object:nil];
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Incorrect Verification Code." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alertView show];
+    }
 }
 
 /*

@@ -81,11 +81,6 @@
 }
 
 -(BOOL)validatePhoneFieldChangeFromString:(NSString*)originalString toString:(NSString*)string textField:(UITextField *)textField range:(NSRange)range {
-    NSLog(@"%@", [self getSelectedCountryCode]);
-    if (![[self getSelectedCountryCode] isEqualToString:@"1"]) {
-        return YES;
-    }
-    
     if (string.length == 0) {
         return YES;
     }
