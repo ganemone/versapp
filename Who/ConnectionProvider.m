@@ -162,14 +162,16 @@ static ConnectionProvider *selfInstance;
         NSLog(@"Creating VCard...");
         [self.xmppStream sendElement:[IQPacketManager createCreateVCardPacket:[_pendingAccountInfo objectForKey:VCARD_TAG_FIRST_NAME] lastname:[_pendingAccountInfo objectForKey:VCARD_TAG_LAST_NAME]]];
         self.isCreatingAccount = NO;
+        [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
+    } else {
+        [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
+        [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];
+        [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
+        [self.xmppStream sendElement:[IQPacketManager createGetRosterPacket]];
+        [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
+        [self.xmppStream sendElement:[IQPacketManager createGetConfessionsPacket]];
+        [self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];
     }
-    [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
-    [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];
-    [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
-    [self.xmppStream sendElement:[IQPacketManager createGetRosterPacket]];
-    [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
-    [self.xmppStream sendElement:[IQPacketManager createGetConfessionsPacket]];
-    [self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
 }
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error

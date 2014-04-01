@@ -79,6 +79,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRegisteredUser) name:NOTIFICATION_DID_REGISTER_USER object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailedToRegisterUser:) name:NOTIFICATION_DID_FAIL_TO_REGISTER_USER object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAuthenticated) name:NOTIFICATION_AUTHENTICATED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registerUser) name:NOTIFICATION_PHONE_AVAILABLE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePhoneUnavailable) name:NOTIFICATION_PHONE_UNAVAILABLE object:nil];
+}
+
+- (void)handlePhoneUnavailable {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"The phone number you picked has already been registered for an account" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+    [alertView show];
 }
 
 - (void)handleAuthenticated {
@@ -207,16 +214,5 @@
     }
     return index;
 }
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
- {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end
