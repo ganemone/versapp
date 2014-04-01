@@ -518,7 +518,7 @@
         <!--Page View Controller-->
         <scene sceneID="0uv-p4-vva">
             <objects>
-                <pageViewController storyboardIdentifier="MainPageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="6OU-nc-Pqi" sceneMemberID="viewController">
+                <pageViewController storyboardIdentifier="MainPageViewController" autoresizesArchivedViewToFullSize="NO" hidesBottomBarWhenPushed="YES" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="6OU-nc-Pqi" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VqM-Dg-cyw" userLabel="First Responder" sceneMemberID="firstResponder"/>

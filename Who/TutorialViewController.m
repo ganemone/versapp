@@ -10,7 +10,6 @@
 #import "UserDefaultManager.h"
 #import "TutorialSlideViewController.h"
 #import "Constants.h"
-#import "SMPageControl.h"
 
 #define numPages 5
 
@@ -18,7 +17,7 @@
 
 @property UIPageViewController *pageViewController;
 @property NSMutableArray *viewControllers;
-
+@property UIPageControl *pageControl;
 @end
 
 @implementation TutorialViewController
@@ -43,9 +42,25 @@
     [self.pageViewController setViewControllers:@[[self viewControllerAtIndex:0]] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:nil];
     [self addChildViewController:_pageViewController];
     // Add the page view controller frame to the current view controller
-    [_pageViewController.view setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 30)];
+    [_pageViewController.view setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height + 37.0)];
     [self.view addSubview:_pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];
+    
+    NSArray *subviews = self.pageViewController.view.subviews;
+    UIPageControl *oldPageControl = nil;
+    for (int i=0; i<[subviews count]; i++) {
+        if ([[subviews objectAtIndex:i] isKindOfClass:[UIPageControl class]]) {
+            oldPageControl = (UIPageControl *)[subviews objectAtIndex:i];
+        }
+    }
+    [oldPageControl removeFromSuperview];
+    _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 20, self.view.frame.size.width, 10)];
+    [_pageControl setBackgroundColor:[UIColor clearColor]];
+    //[_pageControl setTintColor:[UIColor blackColor]];
+    //[_pageControl setPageIndicatorTintColor:[UIColor blackColor]];
+    //[_pageControl setCurrentPageIndicatorTintColor:[UIColor blueColor]];
+    [_pageControl setNumberOfPages:5];
+    [self.view addSubview:_pageControl];
 }
 
 - (void)didReceiveMemoryWarning
@@ -55,23 +70,23 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 - (UIViewController*)viewControllerAtIndex:(int)index {
     if (index >= numPages || index < 0) {
         return nil;
     }
     /*if ([_viewControllers count] <= index) {
-        [_viewControllers addObject:[[TutorialSlideViewController alloc] initWithImage:[self imageForViewControllerAtIndex:index] indexInTutorial:index]];
-    }*/
+     [_viewControllers addObject:[[TutorialSlideViewController alloc] initWithImage:[self imageForViewControllerAtIndex:index] indexInTutorial:index]];
+     }*/
     return [[TutorialSlideViewController alloc] initWithImage:[self imageForViewControllerAtIndex:index] indexInTutorial:index];
 }
 
@@ -105,6 +120,14 @@
 
 -(NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {
     return 0;
+}
+
+-(void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers {
+    [_pageControl setCurrentPage:[(TutorialSlideViewController *)[pendingViewControllers firstObject] indexInTutorial]];
+}
+
+-(void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed {
+    [_pageControl setCurrentPage:[(TutorialSlideViewController *)[pageViewController.viewControllers firstObject] indexInTutorial]];
 }
 
 @end
