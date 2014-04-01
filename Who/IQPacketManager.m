@@ -694,6 +694,36 @@
     return iq;
 }
 
++(DDXMLElement *)createSetUserInfoPacketWithPhone:(NSString *)phone countryCode:(NSString *)countryCode email:(NSString *)email {
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_SET_USER_INFO]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"set"]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
+    DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
+    [query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:info"]];
+    DDXMLElement *ccode = [DDXMLElement elementWithName:@"ccode" stringValue:countryCode];
+    DDXMLElement *phoneElement = [DDXMLElement elementWithName:@"phone" stringValue:phone];
+    DDXMLElement *emailElement = [DDXMLElement elementWithName:@"email" stringValue:email];
+    [query addChild:ccode];
+    [query addChild:phoneElement];
+    [query addChild:emailElement];
+    [iq addChild:query];
+    NSLog(@"Set User Info Packet: %@", iq.XMLString);
+    return iq;
+}
+
++(DDXMLElement *)createGetUserInfoPacket {
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_GET_USER_INFO]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"get"]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
+    DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
+    [query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:info"]];
+    [iq addChild:query];
+    NSLog(@"Get User Info Packet: %@", iq.XMLString);
+    return iq;
+}
+
 // ---------------------
 // Blocking
 // ---------------------
