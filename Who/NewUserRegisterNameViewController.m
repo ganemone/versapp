@@ -85,6 +85,10 @@
     return NO; // We do not want UITextField to insert line-breaks.
 }
 
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
+}
+
 /*
 #pragma mark - Navigation
 
