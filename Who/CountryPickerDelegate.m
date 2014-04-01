@@ -54,7 +54,7 @@
 }
 
 -(NSString *)getCountryCodeAtIndex:(NSInteger)index {
-    return [[_countries objectAtIndex:index] objectForKey:@"country"];
+    return [[_countries objectAtIndex:index] objectForKey:@"code"];
 }
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {

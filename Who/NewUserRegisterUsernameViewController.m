@@ -35,6 +35,11 @@
     [_actionBtn addTarget:self action:@selector(handleFinishedRegisteringUsername) forControlEvents:UIControlEventTouchUpInside];
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [_username becomeFirstResponder];
+}
+
 - (void)handleFinishedRegisteringUsername {
     if ([Validator isValidUsername:_username.text]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FINISHED_REGISTERING_USERNAME object:nil];

@@ -38,6 +38,11 @@
     [_actionBtn addTarget:self action:@selector(handleFinishedRegisteringPhone) forControlEvents:UIControlEventTouchUpInside];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [_phone becomeFirstResponder];
+}
+
 -(NSString *)getSelectedCountry {
     return [super getCountryAtIndex:[_countryPicker selectedRowInComponent:0]];
 }
@@ -76,6 +81,10 @@
 }
 
 -(BOOL)validatePhoneFieldChangeFromString:(NSString*)originalString toString:(NSString*)string textField:(UITextField *)textField range:(NSRange)range {
+    NSLog(@"%@", [self getSelectedCountryCode]);
+    if (![[self getSelectedCountryCode] isEqualToString:@"1"]) {
+        return YES;
+    }
     
     if (string.length == 0) {
         return YES;

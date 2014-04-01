@@ -102,7 +102,7 @@
 
 - (void)handleFailedToRegisterUser:(NSNotification *)notification {
     NSLog(@"Failed to register user...");
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [MBProgressHUD hideAllHUDsForView:self.view animated:NO];
     NSString *message = [notification.userInfo objectForKey:DICTIONARY_KEY_ERROR_MESSAGE];
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
     [alertView show];
@@ -152,7 +152,7 @@
     } else {
         _loadingDialog = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [_loadingDialog setLabelFont:[StyleManager getFontStyleLightSizeXL]];
-        [_loadingDialog setLabelText:@"Verifying Phone Number"];
+        [_loadingDialog setLabelText:@"Registering User"];
         
         PhoneVerificationManager *pvm = [[PhoneVerificationManager alloc] init];
         [pvm checkForPhoneRegisteredOnServer:_countryCode phone:_phone];
@@ -160,7 +160,6 @@
 }
 
 - (void)registerUser {
-    [_loadingDialog setLabelText:@"Registering User"];
     [UserDefaultManager saveValidated:NO];
     [UserDefaultManager saveCountry:_country];
     [UserDefaultManager saveCountryCode:_countryCode];

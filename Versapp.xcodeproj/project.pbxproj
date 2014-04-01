@@ -576,8 +576,8 @@
 		3AD8F47F18DC9DD8002C399C /* UserRegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserRegistrationViewController.h; sourceTree = "<group>"; };
 		3AD8F48018DC9DD8002C399C /* UserRegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserRegistrationViewController.m; sourceTree = "<group>"; };
 		3AD8F48218DCCB7D002C399C /* Countries.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Countries.plist; sourceTree = "<group>"; };
-		3AE1E35D18E9A9AA00E2347F /* Validator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Validator.h; sourceTree = "<group>"; };
-		3AE1E35E18E9A9AA00E2347F /* Validator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Validator.m; sourceTree = "<group>"; };
+		3AE1E35D18E9A9AA00E2347F /* Validator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Validator.h; path = ../Validator.h; sourceTree = "<group>"; };
+		3AE1E35E18E9A9AA00E2347F /* Validator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Validator.m; path = ../Validator.m; sourceTree = "<group>"; };
 		3AEE80BC18D8FD5B0098F2D1 /* FriendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendTableViewCell.h; sourceTree = "<group>"; };
 		3AEE80BD18D8FD5B0098F2D1 /* FriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendTableViewCell.m; sourceTree = "<group>"; };
 		3AEFB75818E8BE210039B5B0 /* x-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-blue.png"; sourceTree = "<group>"; };
@@ -778,8 +778,6 @@
 		3A25B62A1881E03700166623 = {
 			isa = PBXGroup;
 			children = (
-				3AE1E35D18E9A9AA00E2347F /* Validator.h */,
-				3AE1E35E18E9A9AA00E2347F /* Validator.m */,
 				3AD19AC418E266F0001B3B88 /* Default-568h@2x.png */,
 				3A720CB118A1C1D400423959 /* XMPPFramework.h */,
 				3A25B63C1881E03700166623 /* Who */,
@@ -820,6 +818,8 @@
 		3A25B63C1881E03700166623 /* Who */ = {
 			isa = PBXGroup;
 			children = (
+				3AE1E35D18E9A9AA00E2347F /* Validator.h */,
+				3AE1E35E18E9A9AA00E2347F /* Validator.m */,
 				3A7D577118D14E47004F90B8 /* ContactSearchManager.h */,
 				3A7D577218D14E47004F90B8 /* ContactSearchManager.m */,
 				3AB8D19318C2A42B0082B77C /* Login */,
