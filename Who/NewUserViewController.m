@@ -84,6 +84,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAuthenticated) name:NOTIFICATION_AUTHENTICATED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registerUser) name:NOTIFICATION_PHONE_AVAILABLE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePhoneUnavailable) name:NOTIFICATION_PHONE_UNAVAILABLE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleEnteredVerificationCode) name:NOTIFICATION_DID_VERIFY_PHONE object:nil];
 }
 
 - (void)handlePhoneUnavailable {
@@ -116,6 +117,11 @@
 - (void)handleFinishedRegisteringPhone:(NSNotification *)notification {
     _numPages = 3;
     [_pageViewController setViewControllers:@[[self viewControllerAtIndex:2]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+}
+
+- (void)handleEnteredVerificationCode {
+    _numPages = 4;
+    [_pageViewController setViewControllers:@[[self viewControllerAtIndex:3]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 }
 
 - (void)handleFinishedRegisteringUsername:(NSNotification *)notification {
@@ -194,9 +200,9 @@
         case 1:
             storyboardID = STORYBOARD_ID_NEW_USER_REGISTER_PHONE_VIEW_CONTROLLER; break;
         case 2:
-            storyboardID = STORYBOARD_ID_NEW_USER_REGISTER_USERNAME_VIEW_CONTROLLER; break;
+            storyboardID = STORYBOARD_ID_NEW_USER_CONFIRMATION_CODE_VIEW_CONTROLLER; break;
         case 3:
-            storyboardID = STORYBOARD_ID_ENTER_CONFIRMATION_CODE_VIEW_CONTROLLER; break;
+            storyboardID = STORYBOARD_ID_NEW_USER_REGISTER_USERNAME_VIEW_CONTROLLER; break;
         default:
             return nil;
     }

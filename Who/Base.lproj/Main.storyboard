@@ -284,7 +284,7 @@
         <!--New User Confirmation Code View Controller-->
         <scene sceneID="fut-Lb-Wbu">
             <objects>
-                <viewController id="3su-G8-eS7" customClass="NewUserConfirmationCodeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewUserConfirmationCodeViewController" id="3su-G8-eS7" customClass="NewUserConfirmationCodeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HFF-uZ-Okp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

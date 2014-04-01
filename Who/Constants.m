@@ -105,6 +105,7 @@ NSString *const NOTIFICATION_PHONE_UNAVAILABLE = @"notification_phone_unavailabl
 NSString *const NOTIFICATION_CONFESSION_DELETED = @"notification_confession_deleted";
 NSString *const NOTIFICATION_SENT_VERIFICATION_TEXT = @"notification_sent_verification_text";
 NSString *const NOTIFICATION_FAILED_TO_SEND_VERIFICATION_TEXT = @"notification_failed_to_send_verification_text";
+NSString *const NOTIFICATION_DID_VERIFY_PHONE = @"notification_did_verify_phone";
 
 NSString *const APPLICATION_RESOURCE = @"who";
 
@@ -201,6 +202,7 @@ NSString *const STORYBOARD_ID_NEW_USER_REGISTER_NAME_VIEW_CONTROLLER = @"NewUser
 NSString *const STORYBOARD_ID_NEW_USER_REGISTER_PHONE_VIEW_CONTROLLER = @"NewUserRegisterPhoneViewController";
 NSString *const STORYBOARD_ID_NEW_USER_REGISTER_USERNAME_VIEW_CONTROLLER = @"NewUserRegisterUsernameViewController";
 NSString *const STORYBOARD_ID_ENTER_CONFIRMATION_CODE_VIEW_CONTROLLER = @"EnterConfirmationCodeViewController";
+NSString *const STORYBOARD_ID_NEW_USER_CONFIRMATION_CODE_VIEW_CONTROLLER = @"NewUserConfirmationCodeViewController";
 
 NSString *const PAGE_NAVIGATE_TO_MESSAGES = @"page_navigate_to_messages";
 NSString *const PAGE_NAVIGATE_TO_CONFESSIONS = @"page_navigate_to_confessions";
