@@ -166,6 +166,7 @@ static ConnectionProvider *selfInstance;
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
     } else {
+        [self.xmppStream sendElement:[IQPacketManager createGetUserInfoPacket]];
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];

@@ -69,6 +69,23 @@
         [self handleUserSearchPacket:iq];
     } else if([self isPacketWithID:PACKET_ID_SEARCH_FOR_USER packet:iq]) {
         [self handleSearchForUserPacket:iq];
+    } else if([self isPacketWithID:PACKET_ID_GET_USER_INFO packet:iq]) {
+        NSLog(@"Get User Info Packet: %@", iq.XMLString);
+        [self handleGetUserInfoPacket:iq];
+    }
+}
+
++(void)handleGetUserInfoPacket:(XMPPIQ *)iq {
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\",\"(.*?)\",\"(.*?)\"\\]" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSTextCheckingResult *match = [regex firstMatchInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
+    if ([match numberOfRanges] > 0) {
+        NSString *countryCode = [iq.XMLString substringWithRange:[match rangeAtIndex:1]];
+        NSString *phone = [iq.XMLString substringWithRange:[match rangeAtIndex:2]];
+        NSString *email = [iq.XMLString substringWithRange:[match rangeAtIndex:3]];
+        [UserDefaultManager saveCountryCode:countryCode];
+        [UserDefaultManager savePhone:phone];
+        [UserDefaultManager saveEmail:email];
     }
 }
 
