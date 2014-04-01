@@ -33,4 +33,6 @@
 
 -(void)clearConfessions;
 
+-(void)deleteConfession:(NSString *)confessionID;
+
 @end

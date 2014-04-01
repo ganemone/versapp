@@ -19,6 +19,7 @@
 @property (weak, nonatomic, readonly) UILabel *favoriteLabel;
 @property (weak, nonatomic, readonly) UILabel *conversationLabel;
 @property (weak, nonatomic, readonly) UILabel *timestampLabel;
+@property (weak, nonatomic, readonly) UIButton *deleteButton;
 
 @property (strong, nonatomic) Confession *confession;
 

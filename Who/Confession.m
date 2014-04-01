@@ -12,6 +12,7 @@
 #import "ChatDBManager.h"
 #import "Constants.h"
 #import "StyleManager.h"
+#import "ConfessionsManager.h"
 
 @implementation Confession
 
@@ -50,7 +51,7 @@
     CGRect timestampLabelFrame = CGRectMake(cellX, textHeight - 15.0f, contentSize.width - 25.0f, 15.0f);
     _timestampLabel = [[UILabel alloc] initWithFrame:timestampLabelFrame];
     // Configuring Chat Buttons
-    CGFloat iconSize = 25.0f, paddingSmall = 5.0f, chatWidth = 505.0f/(201.0f/iconSize), favWidth = 795.0f/(196.0f/iconSize);
+    CGFloat iconSize = 25.0f, paddingSmall = 5.0f, chatWidth = 505.0f/(201.0f/iconSize), favWidth = 795.0f/(196.0f/iconSize), deleteSize = 10.0f;
     CGFloat labelWidth = (contentSize.width - 2.0f * cellX) / 2.0f;
 
     CGRect chatButtonFrame = CGRectMake(cellX + paddingSmall, textHeight + paddingSmall, chatWidth, iconSize);
@@ -66,6 +67,9 @@
     _favoriteButton = [[UIButton alloc] initWithFrame:favoriteButtonFrame];
     _favoriteLabel = [[UILabel alloc] initWithFrame:favoriteLabelFrame];
     [_favoriteLabel setTextAlignment:NSTextAlignmentRight];
+    
+    CGRect deleteButtonFrame = CGRectMake(contentSize.width - deleteSize - cellX - paddingSmall, paddingSmall, deleteSize, deleteSize);
+    _deleteButton = [[UIButton alloc]initWithFrame:deleteButtonFrame];
     
     UITapGestureRecognizer *chatTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startChat)];
     [_chatLabel addGestureRecognizer:chatTap];
@@ -161,6 +165,13 @@
 
 -(NSUInteger)getNumForLabel {
     return _favoritedUsers.count;
+}
+
+-(void)deleteConfession {
+    ConnectionProvider *cp = [ConnectionProvider getInstance];
+    [[cp getConnection] sendElement:[IQPacketManager createDestroyConfessionPacket:_confessionID]];
+    [[ConfessionsManager getInstance] deleteConfession:_confessionID];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CONFESSION_DELETED object:nil];
 }
 
 @end

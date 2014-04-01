@@ -25,6 +25,7 @@
 @property (strong, nonatomic) UILabel *chatLabel;
 @property (strong, nonatomic) UILabel *favoriteLabel;
 @property (strong, nonatomic) UILabel *timestampLabel;
+@property (strong, nonatomic) UIButton *deleteButton;
 
 @property BOOL hasCalculatedFrames;
 
@@ -53,5 +54,7 @@
 -(NSUInteger)getNumForLabel;
 
 - (CGFloat)heightForConfession;
+
+-(void)deleteConfession;
 
 @end

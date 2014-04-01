@@ -101,6 +101,7 @@ NSString *const NOTIFICATION_DID_REGISTER_USER = @"notification_did_register_use
 NSString *const NOTIFICATION_DID_FAIL_TO_REGISTER_USER = @"notification_did_fail_to_register_user";
 NSString *const NOTIFICATION_PHONE_AVAILABLE = @"notification_phone_available";
 NSString *const NOTIFICATION_PHONE_UNAVAILABLE = @"notification_phone_unavailable";
+NSString *const NOTIFICATION_CONFESSION_DELETED = @"notification_confession_deleted";
 
 NSString *const APPLICATION_RESOURCE = @"who";
 

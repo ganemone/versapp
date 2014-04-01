@@ -383,17 +383,18 @@
     NSMutableString *greenImageName;
     if ([self.friendRequests count] + [self.groupInvites count] > 0 && [self.friendRequests count] + [self.groupInvites count] < 6) {
         imageName = [NSMutableString stringWithFormat:@"notification%d.png", [self.friendRequests count] + [self.groupInvites count]];
-        greenImageName = [NSMutableString stringWithFormat:@"notification%d-green.png", [self.friendRequests count] + [self.groupInvites count]];
+        //greenImageName = [NSMutableString stringWithFormat:@"notification%d-green.png", [self.friendRequests count] + [self.groupInvites count]];
     } else if ([self.friendRequests count] + [self.groupInvites count] == 0) {
         imageName = [NSMutableString stringWithString:@"notification-none.png"];
-        greenImageName = [NSMutableString stringWithString:@"arrow-up-icon-square-green.png"];
+        //greenImageName = [NSMutableString stringWithString:@"arrow-up-icon-square-green.png"];
     } else {
         imageName = [NSMutableString stringWithString:@"notification5+.png"];
-        greenImageName = [NSMutableString stringWithString:@"notification5+-green.png"];
+        //greenImageName = [NSMutableString stringWithString:@"notification5+-green.png"];
     }
     UIImage *notificationsImage = [UIImage imageNamed:imageName];
     UIImageView *notificationsBadgeGreen = [[UIImageView alloc] initWithFrame:CGRectMake(244, 29, 28, 28)];
     [self.notificationsButton setImage:notificationsImage forState:UIControlStateNormal];
+    greenImageName = [NSMutableString stringWithString:@"arrow-up-icon-square-green.png"];
     UIImage *notificationsImageGreen = [UIImage imageNamed:greenImageName];
     [notificationsBadgeGreen setImage:notificationsImageGreen];
     self.notificationsButtonGreen = [[UIButton alloc] initWithFrame:CGRectMake(244, 29, 28, 28)];
