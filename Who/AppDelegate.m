@@ -36,6 +36,13 @@
     return moc;
 }
 
+-(NSManagedObjectContext *)getManagedObjectContextForBackgroundThread {
+    NSManagedObjectContext *mainMoc = [self managedObjectContext];
+    NSManagedObjectContext *moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    [moc setParentContext:mainMoc];
+    return moc;
+}
+
 - (NSManagedObjectModel *)managedObjectModel {
     @synchronized(self) {
         if (_managedObjectModel != nil) {
@@ -74,12 +81,17 @@
     }
 }
 
-- (void)saveContextWithMOC:(NSManagedObjectContext *)moc {
-    NSError *error = nil;
-    if ([moc hasChanges] && ![moc save:&error])
-    {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+- (void)saveContextForBackgroundThreadWithMOC:(NSManagedObjectContext *)moc {
+    NSManagedObjectContext *mainMoc = [self managedObjectContext];
+    NSError *err = nil;
+    if(![moc save:&err]) {
     }
+    
+    [mainMoc performBlock:^{
+        NSError *error = nil;
+        if (![mainMoc save:&error]) {
+        }
+    }];
 }
 
 - (NSString *)applicationDocumentsDirectory {

@@ -115,13 +115,17 @@ static int numUninvitedParticipants;
     return chat;
 }
 
-+(void)joinAllChats {
-    NSArray *chats = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\" && %@ = \"%d\"",CHATS_TABLE_COLUMN_NAME_CHAT_TYPE, CHAT_TYPE_GROUP, CHATS_TABLE_COLUMN_NAME_STATUS, STATUS_JOINED]];
+// Called from async thread...
++(void)joinAllChats:(NSManagedObjectContext *)moc {
+    NSArray *chats = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\" && %@ = \"%d\"",CHATS_TABLE_COLUMN_NAME_CHAT_TYPE, CHAT_TYPE_GROUP, CHATS_TABLE_COLUMN_NAME_STATUS, STATUS_JOINED] withMOC:moc];
     XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
-    NSString *time = [MessagesDBManager getTimeForHistory];
-    for (ChatMO *chat in chats) {
-        [conn sendElement:[IQPacketManager createJoinMUCPacket:chat.chat_id lastTimeActive:time]];
-    }
+    NSString *time = [MessagesDBManager getTimeForHistory:moc];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        for (ChatMO *chat in chats) {
+            [conn sendElement:[IQPacketManager createJoinMUCPacket:chat.chat_id lastTimeActive:time]];
+        }
+    });
 }
 
 +(NSArray*)makeFetchRequest:(NSString*)predicateString {

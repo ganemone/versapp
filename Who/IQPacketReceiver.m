@@ -160,9 +160,7 @@
 
 +(void)handleGetJoinedChatsPacket:(XMPPIQ *)iq {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-    NSManagedObjectContext *mainMoc = [delegate managedObjectContext];
-    NSManagedObjectContext *moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    [moc setParentContext:mainMoc];
+    NSManagedObjectContext *moc = [delegate getManagedObjectContextForBackgroundThread];
     [moc performBlock:^{
         
         NSError *error = NULL;
@@ -205,25 +203,18 @@
             [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_JOINED withContext:moc];
         }
         
-        NSError *err = nil;
-        if(![moc save:&err]) {
-        }
+        [ChatDBManager joinAllChats:moc];
         
-        [mainMoc performBlock:^{
-            NSError *error = nil;
-            if (![mainMoc save:&error]) {
-            }
-        }];
+        [delegate saveContextForBackgroundThreadWithMOC:moc];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [ChatDBManager joinAllChats];
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
         });
     }];
 }
 
 + (NSString *)urlDecode:(NSString *)string {
-    return [[string stringByReplacingOccurrencesOfString:@"+" withString:@" "]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    return [[string stringByReplacingOccurrencesOfString:@"+" withString:@" "] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
 + (NSString *)urlencode:(NSString*)stringToEncode {
