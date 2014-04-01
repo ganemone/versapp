@@ -99,6 +99,7 @@
 		3A8BCF7F18B59C5400D4B7CE /* Confession.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BCF7E18B59C5400D4B7CE /* Confession.m */; };
 		3A8BCF8218B6DFBB00D4B7CE /* ConfessionTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BCF8118B6DFBB00D4B7CE /* ConfessionTableCell.m */; };
 		3A91F1DC18EAFEF10006B9F8 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A91F1DB18EAFEF10006B9F8 /* MBProgressHUD.m */; };
+		3A91F1E018EB189C0006B9F8 /* NewUserConfirmationCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A91F1DF18EB189C0006B9F8 /* NewUserConfirmationCodeViewController.m */; };
 		3A98D8E318BD19B200B69049 /* XMPPElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D8D218BD19B200B69049 /* XMPPElement.m */; };
 		3A98D8E418BD19B200B69049 /* XMPPIQ.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D8D518BD19B200B69049 /* XMPPIQ.m */; };
 		3A98D8E518BD19B200B69049 /* XMPPJID.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D8D718BD19B200B69049 /* XMPPJID.m */; };
@@ -416,6 +417,8 @@
 		3A8BCF8118B6DFBB00D4B7CE /* ConfessionTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConfessionTableCell.m; path = Anonymous/ConfessionTableCell.m; sourceTree = "<group>"; };
 		3A91F1DA18EAFEF10006B9F8 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		3A91F1DB18EAFEF10006B9F8 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		3A91F1DE18EB189C0006B9F8 /* NewUserConfirmationCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewUserConfirmationCodeViewController.h; sourceTree = "<group>"; };
+		3A91F1DF18EB189C0006B9F8 /* NewUserConfirmationCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewUserConfirmationCodeViewController.m; sourceTree = "<group>"; };
 		3A98D8D018BD19B200B69049 /* XMPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPP.h; sourceTree = "<group>"; };
 		3A98D8D118BD19B200B69049 /* XMPPElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPElement.h; sourceTree = "<group>"; };
 		3A98D8D218BD19B200B69049 /* XMPPElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPElement.m; sourceTree = "<group>"; };
@@ -1540,6 +1543,8 @@
 				3AEFB76A18E8EF890039B5B0 /* NewUserRegisterNameViewController.m */,
 				3AEFB76C18E8EF980039B5B0 /* NewUserRegisterPhoneViewController.h */,
 				3AEFB76D18E8EF980039B5B0 /* NewUserRegisterPhoneViewController.m */,
+				3A91F1DE18EB189C0006B9F8 /* NewUserConfirmationCodeViewController.h */,
+				3A91F1DF18EB189C0006B9F8 /* NewUserConfirmationCodeViewController.m */,
 				3AEFB76F18E8EFA90039B5B0 /* NewUserRegisterUsernameViewController.h */,
 				3AEFB77018E8EFA90039B5B0 /* NewUserRegisterUsernameViewController.m */,
 			);
@@ -2214,6 +2219,7 @@
 				F751016118ABE101001F1E7F /* IASKSettingsStore.m in Sources */,
 				3A98D9F218BD1A2600B69049 /* XMPPMUC.m in Sources */,
 				F751015E18ABE101001F1E7F /* IASKAppSettingsWebViewController.m in Sources */,
+				3A91F1E018EB189C0006B9F8 /* NewUserConfirmationCodeViewController.m in Sources */,
 				F744856218DB61C500460FBC /* SWLongPressGestureRecognizer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
