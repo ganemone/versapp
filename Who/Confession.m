@@ -68,7 +68,7 @@
     _favoriteLabel = [[UILabel alloc] initWithFrame:favoriteLabelFrame];
     [_favoriteLabel setTextAlignment:NSTextAlignmentRight];
     
-    CGRect deleteButtonFrame = CGRectMake(contentSize.width - deleteSize - cellX - paddingSmall, paddingSmall, deleteSize, deleteSize);
+    CGRect deleteButtonFrame = CGRectMake(cellX + paddingSmall, textHeight + paddingSmall, iconSize, iconSize);
     _deleteButton = [[UIButton alloc]initWithFrame:deleteButtonFrame];
     
     UITapGestureRecognizer *chatTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startChat)];

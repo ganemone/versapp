@@ -156,13 +156,14 @@
         }
         [cell.timestampLabel setText:[confession getTimePosted]];
         [cell.favoriteLabel setText:[confession getTextForLabel]];
-        [cell.chatButton setImage:self.chatIcon forState:UIControlStateNormal];
         [_cellCache setObject:cell forKey:[confession confessionID]];
         
         if ([confession isPostedByConnectedUser]) {
+            [cell.chatButton removeFromSuperview];
             [cell.deleteButton setImage:self.deleteIcon forState:UIControlStateNormal];
         } else {
             [cell.deleteButton removeFromSuperview];
+            [cell.chatButton setImage:self.chatIcon forState:UIControlStateNormal];
         }
     }
     return cell;
