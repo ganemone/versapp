@@ -11,8 +11,7 @@
 @interface CountryPickerDelegate : UIViewController<UIPickerViewDelegate, UIPickerViewDataSource>
 
 -(void)setUp:(UIPickerView *)picker countryCodeField:(UILabel *)countryCodeField;
-
--(NSString *)getSelectedCountryCode;
--(NSString *)getSelectedCountry;
+-(NSString *)getCountryAtIndex:(NSInteger)index;
+-(NSString *)getCountryCodeAtIndex:(NSInteger)index;
 
 @end

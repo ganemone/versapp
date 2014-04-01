@@ -71,6 +71,7 @@
 }
 
 +(void)saveCountryCode:(NSString *)code {
+    NSLog(@"Saving Country Code: %@", code);
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
     [preferences setObject:code forKey:USER_DEFAULTS_COUNTRY_CODE];
     [preferences synchronize];
@@ -98,6 +99,7 @@
 }
 
 +(void)saveCountry:(NSString *)country {
+    NSLog(@"Saving Country: %@", country);
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences setObject:country forKey:USER_DEFAULTS_COUNTRY];
     [preferences synchronize];

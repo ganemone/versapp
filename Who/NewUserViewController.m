@@ -15,6 +15,8 @@
 #import "NewUserRegisterUsernameViewController.h"
 #import "Validator.h"
 #import "PhoneVerificationManager.h"
+#import "MBProgressHUD.h"
+#import "StyleManager.h"
 
 @interface NewUserViewController ()
 
@@ -30,6 +32,7 @@
 @property(nonatomic, strong) NSString *username;
 @property(nonatomic, strong) NSString *country;
 @property(nonatomic, strong) NSString *countryCode;
+@property(nonatomic, strong) MBProgressHUD *loadingDialog;
 
 @property int numPages;
 @end
@@ -94,10 +97,15 @@
 
 - (void)handleRegisteredUser {
     NSLog(@"Sucessfully Registered User! Go to tutorial now");
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 - (void)handleFailedToRegisterUser:(NSNotification *)notification {
     NSLog(@"Failed to register user...");
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    NSString *message = [notification.userInfo objectForKey:DICTIONARY_KEY_ERROR_MESSAGE];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+    [alertView show];
 }
 
 - (void)handleFinishedRegisteringName:(NSNotification *)notification {
@@ -124,7 +132,8 @@
     _phone = [components componentsJoinedByString:@""];
     _country = [phoneVC getSelectedCountry];
     _countryCode = [phoneVC getSelectedCountryCode];
-    
+    NSLog(@"Country: %@", _country);
+    NSLog(@"Country Code: %@", _countryCode);
     UIAlertView *alertView;
     
     if (![Validator isValidName:_name]) {
@@ -141,12 +150,17 @@
     if (alertView != nil) {
         [alertView show];
     } else {
+        _loadingDialog = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [_loadingDialog setLabelFont:[StyleManager getFontStyleLightSizeXL]];
+        [_loadingDialog setLabelText:@"Verifying Phone Number"];
+        
         PhoneVerificationManager *pvm = [[PhoneVerificationManager alloc] init];
         [pvm checkForPhoneRegisteredOnServer:_countryCode phone:_phone];
     }
 }
 
 - (void)registerUser {
+    [_loadingDialog setLabelText:@"Registering User"];
     [UserDefaultManager saveValidated:NO];
     [UserDefaultManager saveCountry:_country];
     [UserDefaultManager saveCountryCode:_countryCode];

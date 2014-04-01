@@ -544,9 +544,9 @@
     [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_GET_SESSION_ID]];
 	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"get"]];
     [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
-    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[NSString stringWithFormat:@"%@@%@",[ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[self getPacketFromString]]];
 	[iq addChild:query];
-    
+    NSLog(@"Session ID Packet: %@", iq.XMLString);
     return iq;
 }
 

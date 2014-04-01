@@ -38,6 +38,14 @@
     [_actionBtn addTarget:self action:@selector(handleFinishedRegisteringPhone) forControlEvents:UIControlEventTouchUpInside];
 }
 
+-(NSString *)getSelectedCountry {
+    return [super getCountryAtIndex:[_countryPicker selectedRowInComponent:0]];
+}
+
+-(NSString *)getSelectedCountryCode {
+    return [super getCountryCodeAtIndex:[_countryPicker selectedRowInComponent:0]];
+}
+
 - (void)handleFinishedRegisteringPhone {
     if ([_phone.text length] > 0) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FINISHED_REGISTERING_PHONE object:nil];

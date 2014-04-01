@@ -13,4 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *phone;
 
+-(NSString *)getSelectedCountryCode;
+-(NSString *)getSelectedCountry;
+
 @end
