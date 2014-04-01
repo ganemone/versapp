@@ -10,7 +10,6 @@
 		3A00167E18B8231000C54059 /* message-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A00167C18B8231000C54059 /* message-icon.png */; };
 		3A00167F18B8231000C54059 /* photo-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A00167D18B8231000C54059 /* photo-icon.png */; };
 		3A00168218B82BB200C54059 /* ComposeConfessionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A00168118B82BB200C54059 /* ComposeConfessionViewController.m */; };
-		3A07F6BD18D3C21800E82390 /* confessions-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A07F6AB18D3C21800E82390 /* confessions-icon.png */; };
 		3A07F6BF18D3C21800E82390 /* compose-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A07F6AD18D3C21800E82390 /* compose-icon.png */; };
 		3A07F6C218D3C21800E82390 /* arrow-right-bold.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A07F6B018D3C21800E82390 /* arrow-right-bold.png */; };
 		3A07F6C318D3C21800E82390 /* cell-select.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A07F6B118D3C21800E82390 /* cell-select.png */; };
@@ -119,6 +118,8 @@
 		3A91F20A18EB534F0006B9F8 /* notification4.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A91F20318EB534F0006B9F8 /* notification4.png */; };
 		3A91F20B18EB534F0006B9F8 /* notification5.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A91F20418EB534F0006B9F8 /* notification5.png */; };
 		3A91F20C18EB534F0006B9F8 /* notification5+.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A91F20518EB534F0006B9F8 /* notification5+.png */; };
+		3A91F20F18EB537E0006B9F8 /* edit-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A91F20E18EB537E0006B9F8 /* edit-icon.png */; };
+		3A91F21118EB53990006B9F8 /* confessions-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A91F21018EB53990006B9F8 /* confessions-icon.png */; };
 		3A98D8E318BD19B200B69049 /* XMPPElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D8D218BD19B200B69049 /* XMPPElement.m */; };
 		3A98D8E418BD19B200B69049 /* XMPPIQ.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D8D518BD19B200B69049 /* XMPPIQ.m */; };
 		3A98D8E518BD19B200B69049 /* XMPPJID.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D8D718BD19B200B69049 /* XMPPJID.m */; };
@@ -298,7 +299,6 @@
 		3A00167D18B8231000C54059 /* photo-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo-icon.png"; sourceTree = "<group>"; };
 		3A00168018B82BB200C54059 /* ComposeConfessionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeConfessionViewController.h; sourceTree = "<group>"; };
 		3A00168118B82BB200C54059 /* ComposeConfessionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeConfessionViewController.m; sourceTree = "<group>"; };
-		3A07F6AB18D3C21800E82390 /* confessions-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "confessions-icon.png"; sourceTree = "<group>"; };
 		3A07F6AD18D3C21800E82390 /* compose-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose-icon.png"; sourceTree = "<group>"; };
 		3A07F6B018D3C21800E82390 /* arrow-right-bold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-right-bold.png"; sourceTree = "<group>"; };
 		3A07F6B118D3C21800E82390 /* cell-select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-select.png"; sourceTree = "<group>"; };
@@ -459,6 +459,8 @@
 		3A91F20318EB534F0006B9F8 /* notification4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notification4.png; sourceTree = "<group>"; };
 		3A91F20418EB534F0006B9F8 /* notification5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notification5.png; sourceTree = "<group>"; };
 		3A91F20518EB534F0006B9F8 /* notification5+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification5+.png"; sourceTree = "<group>"; };
+		3A91F20E18EB537E0006B9F8 /* edit-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit-icon.png"; sourceTree = "<group>"; };
+		3A91F21018EB53990006B9F8 /* confessions-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "confessions-icon.png"; sourceTree = "<group>"; };
 		3A98D8D018BD19B200B69049 /* XMPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPP.h; sourceTree = "<group>"; };
 		3A98D8D118BD19B200B69049 /* XMPPElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPElement.h; sourceTree = "<group>"; };
 		3A98D8D218BD19B200B69049 /* XMPPElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPElement.m; sourceTree = "<group>"; };
@@ -1741,7 +1743,7 @@
 		3AF521C918EA2DAE008320CD /* Confessions */ = {
 			isa = PBXGroup;
 			children = (
-				3A07F6AB18D3C21800E82390 /* confessions-icon.png */,
+				3A91F21018EB53990006B9F8 /* confessions-icon.png */,
 				3A07F6D418D3DB0300E82390 /* confession-cell-bottom.png */,
 				F7303ED618E8EF3F0045F9AF /* fav-icon-label-single-active.png */,
 				F7303ED718E8EF3F0045F9AF /* fav-icon-label-single.png */,
@@ -1822,6 +1824,7 @@
 		3AF521D718EA3162008320CD /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				3A91F20E18EB537E0006B9F8 /* edit-icon.png */,
 				3AEFB76018E8BE5C0039B5B0 /* camera-icon-dark.png */,
 				3A00167D18B8231000C54059 /* photo-icon.png */,
 				3AF521D018EA3072008320CD /* friends-icon.png */,
@@ -2075,6 +2078,7 @@
 				3A91F20A18EB534F0006B9F8 /* notification4.png in Resources */,
 				3A3A0B0B18AB1126006FBAE4 /* send-button-pressed@2x.png in Resources */,
 				3A3A0B0A18AB1126006FBAE4 /* send-button-pressed.png in Resources */,
+				3A91F21118EB53990006B9F8 /* confessions-icon.png in Resources */,
 				3AB8D18818C23DF00082B77C /* MavenProLight-100.ttf in Resources */,
 				F7303ED318E8E7080045F9AF /* fav-icon-label.png in Resources */,
 				3AB8D19118C259B00082B77C /* MavenProMedium.ttf in Resources */,
@@ -2104,8 +2108,8 @@
 				3A3A0B0E18AB1126006FBAE4 /* button-photo.png in Resources */,
 				3A3A0B0F18AB1126006FBAE4 /* button-photo@2x.png in Resources */,
 				3A91F20718EB534F0006B9F8 /* notification1.png in Resources */,
-				3A07F6BD18D3C21800E82390 /* confessions-icon.png in Resources */,
 				3AF86D2A18B504CF00033495 /* bubble-old@2x.png in Resources */,
+				3A91F20F18EB537E0006B9F8 /* edit-icon.png in Resources */,
 				F7303ECF18E8E4EA0045F9AF /* chat-icon-label.png in Resources */,
 				3A91F1F218EB4BE50006B9F8 /* loadingScreenSmall.png in Resources */,
 				F7303EC918E8E3100045F9AF /* arrow-up-icon-square-green.png in Resources */,

@@ -1915,7 +1915,7 @@
         <image name="friends-icon.png" width="60" height="60"/>
         <image name="message-icon.png" width="157" height="153"/>
         <image name="messages-icon-white.png" width="60" height="60"/>
-        <image name="notification-none.png" width="265" height="265"/>
+        <image name="notification-none.png" width="250" height="250"/>
         <image name="photo-icon.png" width="183" height="145"/>
         <image name="settings-icon.png" width="80" height="80"/>
     </resources>
