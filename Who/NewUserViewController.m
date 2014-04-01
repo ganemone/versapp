@@ -13,6 +13,7 @@
 #import "NewUserRegisterNameViewController.h"
 #import "NewUserRegisterPhoneViewController.h"
 #import "NewUserRegisterUsernameViewController.h"
+#import "NewUserConfirmationCodeViewController.h"
 #import "Validator.h"
 #import "PhoneVerificationManager.h"
 #import "MBProgressHUD.h"
@@ -228,7 +229,7 @@
         index = 0;
     } else if([viewController isKindOfClass:[NewUserRegisterPhoneViewController class]]) {
         index = 1;
-    } else if([viewController isKindOfClass:[NewUserRegisterUsernameViewController class]]) {
+    } else if([viewController isKindOfClass:[NewUserConfirmationCodeViewController class]]) {
         index = 2;
     }
     return index;

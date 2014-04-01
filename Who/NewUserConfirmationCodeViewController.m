@@ -29,6 +29,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [_confirmationPicker setDelegate:self];
+    [_confirmationPicker setDataSource:self];
     // Do any additional setup after loading the view.
 }
 
