@@ -16,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UIPickerView *confirmationPicker;
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 @property (strong, nonatomic) PhoneVerificationManager *pvm;
+@property (weak, nonatomic) IBOutlet UITextView *textFieldBottom;
+@property (weak, nonatomic) IBOutlet UITextView *textFieldTop;
 
 @end
 
@@ -69,6 +71,10 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Incorrect Verification Code." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alertView show];
     }
+}
+
+- (IBAction)resendVerification:(id)sender {
+    [_pvm sendVerificationText];
 }
 
 /*

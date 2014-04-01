@@ -273,7 +273,6 @@ static ConnectionProvider *selfInstance;
     
     [UserDefaultManager saveUsername:self.username];
     [UserDefaultManager savePassword:self.password];
-    [UserDefaultManager savePhone:[self.pendingAccountInfo objectForKey:FRIENDS_TABLE_COLUMN_NAME_PHONE]];
     [UserDefaultManager saveEmail:[self.pendingAccountInfo objectForKey:FRIENDS_TABLE_COLUMN_NAME_EMAIL]];
     
     PhoneVerificationManager *pvm = [[PhoneVerificationManager alloc] init];

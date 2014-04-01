@@ -9,6 +9,7 @@
 #import "NewUserRegisterPhoneViewController.h"
 #import "Constants.h"
 #import "PhoneVerificationManager.h"
+#import "UserDefaultManager.h"
 
 @interface NewUserRegisterPhoneViewController ()
 
@@ -53,6 +54,13 @@
 
 - (void)handleFinishedRegisteringPhone {
     if ([_phone.text length] > 0) {
+        NSArray *components = [_phone.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
+        NSString *decimalString = [components componentsJoinedByString:@""];
+        [UserDefaultManager savePhone:decimalString];
+        [UserDefaultManager saveCountry:[self getSelectedCountry]];
+        [UserDefaultManager saveCountryCode:[self getSelectedCountryCode]];
+        PhoneVerificationManager *pvm = [[PhoneVerificationManager alloc] init];
+        [pvm sendVerificationText];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FINISHED_REGISTERING_PHONE object:nil];
     } else {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Please enter a valid phone number" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
