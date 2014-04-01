@@ -35,14 +35,29 @@ static int numUninvitedParticipants;
     if (chatEntry == nil) {
         chatEntry = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_CHATS inManagedObjectContext:moc];
     }
-    NSLog(@"Setting Chat Name from %@ to %@",chatEntry.user_defined_chat_name, chatName);
     [chatEntry setValue:chatID forKey:CHATS_TABLE_COLUMN_NAME_CHAT_ID];
     [chatEntry setValue:chatName forKey:CHATS_TABLE_COLUMN_NAME_CHAT_NAME];
     [chatEntry setValue:chatType forKey:CHATS_TABLE_COLUMN_NAME_CHAT_TYPE];
     [chatEntry setValue:[NSNumber numberWithInt:status] forKey:CHATS_TABLE_COLUMN_NAME_STATUS];
     [chatEntry setValue:participantString forKey:CHATS_TABLE_COLUMN_NAME_PARTICIPANT_STRING];
     [delegate saveContext];
-    NSLog(@"Inserting Chat: %@", [chatEntry description]);
+    [chatEntry setParticipants:[[NSMutableArray alloc] initWithArray:[participantString componentsSeparatedByString:@", "]]];
+    
+    return chatEntry;
+}
+
++(ChatMO*)insertChatWithID:(NSString *)chatID chatName:(NSString *)chatName chatType:(NSString*)chatType participantString:(NSString*)participantString status:(int)status withContext:(NSManagedObjectContext *)moc {
+    ChatMO *chatEntry = [self getChatWithID:chatID];
+    
+    if (chatEntry == nil) {
+        chatEntry = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_CHATS inManagedObjectContext:moc];
+    }
+    
+    [chatEntry setValue:chatID forKey:CHATS_TABLE_COLUMN_NAME_CHAT_ID];
+    [chatEntry setValue:chatName forKey:CHATS_TABLE_COLUMN_NAME_CHAT_NAME];
+    [chatEntry setValue:chatType forKey:CHATS_TABLE_COLUMN_NAME_CHAT_TYPE];
+    [chatEntry setValue:[NSNumber numberWithInt:status] forKey:CHATS_TABLE_COLUMN_NAME_STATUS];
+    [chatEntry setValue:participantString forKey:CHATS_TABLE_COLUMN_NAME_PARTICIPANT_STRING];
     [chatEntry setParticipants:[[NSMutableArray alloc] initWithArray:[participantString componentsSeparatedByString:@", "]]];
     
     return chatEntry;
@@ -94,6 +109,12 @@ static int numUninvitedParticipants;
     return chat;
 }
 
++(ChatMO *)getChatWithID:(NSString *)chatID withMOC:(NSManagedObjectContext *)moc {
+    ChatMO *chat = [[self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", CHATS_TABLE_COLUMN_NAME_CHAT_ID, chatID] withMOC:moc] firstObject];
+    [chat setParticipants:[[NSMutableArray alloc] initWithArray:[chat.participant_string componentsSeparatedByString:@", "]]];
+    return chat;
+}
+
 +(void)joinAllChats {
     NSArray *chats = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\" && %@ = \"%d\"",CHATS_TABLE_COLUMN_NAME_CHAT_TYPE, CHAT_TYPE_GROUP, CHATS_TABLE_COLUMN_NAME_STATUS, STATUS_JOINED]];
     XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
@@ -104,9 +125,12 @@ static int numUninvitedParticipants;
 }
 
 +(NSArray*)makeFetchRequest:(NSString*)predicateString {
-    
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate managedObjectContext];
+    return [self makeFetchRequest:predicateString withMOC:moc];
+}
+
++(NSArray *)makeFetchRequest:(NSString *)predicateString withMOC:(NSManagedObjectContext *)moc {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     
     NSEntityDescription *entity = [NSEntityDescription entityForName:CORE_DATA_TABLE_CHATS inManagedObjectContext:moc];

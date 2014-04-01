@@ -15,9 +15,13 @@
 
 +(ChatMO*)getChatWithID:(NSString*)chatID;
 
++(ChatMO *)getChatWithID:(NSString *)chatID withMOC:(NSManagedObjectContext *)moc;
+
 +(ChatMO*)insertChatWithID:(NSString *)chatID chatName:(NSString *)chatName chatType:(NSString*)chatType participantString:(NSString*)participantString status:(int)status;
 
 +(ChatMO*)insertChatWithID:(NSString *)chatID chatName:(NSString *)chatName chatType:(NSString*)chatType participantString:(NSString*)participantString status:(int)status ownerID:(NSString *)ownerID;
+
++(ChatMO*)insertChatWithID:(NSString *)chatID chatName:(NSString *)chatName chatType:(NSString*)chatType participantString:(NSString*)participantString status:(int)status withContext:(NSManagedObjectContext *)moc;
 
 +(void)updateUserDefinedChatNameWithID:(NSString*)chatID chatName:(NSString*)chatName;
 

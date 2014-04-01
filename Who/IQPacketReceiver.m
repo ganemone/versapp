@@ -159,46 +159,67 @@
 }
 
 +(void)handleGetJoinedChatsPacket:(XMPPIQ *)iq {
-    NSError *error = NULL;
-    
-    NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\"\\]" options:NSRegularExpressionCaseInsensitive error:&error];
-    NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)],
-    *participants;
-    NSString *participantString, *chatId, *type, *owner, *name;
-    for (NSTextCheckingResult *match in matches) {
-        participantString = [packetXML substringWithRange:[match rangeAtIndex:1]];
-        chatId = [packetXML substringWithRange:[match rangeAtIndex:2]];
-        type = [packetXML substringWithRange:[match rangeAtIndex:3]];
-        owner = [packetXML substringWithRange:[match rangeAtIndex:4]];
-        name = [self urlDecode:[packetXML substringWithRange:[match rangeAtIndex:5]]];
-        //*createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
-        participants = [participantString componentsSeparatedByString:@", "];
-        for (NSString *participant in participants) {
-            if (![FriendsDBManager hasUserWithJID:participant]) {
-                [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetVCardPacket:participant]];
-            }
-        }
-        if ([type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
-            ChatMO *chat = [ChatDBManager getChatWithID:chatId];
-            if (chat != nil) {
-                name = [chat getChatName];
-            } else {
-                if ([owner isEqualToString:[ConnectionProvider getUser]]) {
-                    NSString *participant = ([[participants firstObject] isEqualToString:[ConnectionProvider getUser]]) ? [participants lastObject] : [participants firstObject];
-                    name = [FriendsDBManager getUserWithJID:participant].name;
-                    if (name == nil) {
-                        name = @"Loading...";
-                    }
-                } else {
-                    name = ANONYMOUS_FRIEND;
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *mainMoc = [delegate managedObjectContext];
+    NSManagedObjectContext *moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    [moc setParentContext:mainMoc];
+    [moc performBlock:^{
+        
+        NSError *error = NULL;
+        NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\"\\]" options:NSRegularExpressionCaseInsensitive error:&error];
+        NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)],
+        *participants;
+        NSString *participantString, *chatId, *type, *owner, *name;
+        for (NSTextCheckingResult *match in matches) {
+            participantString = [packetXML substringWithRange:[match rangeAtIndex:1]];
+            chatId = [packetXML substringWithRange:[match rangeAtIndex:2]];
+            type = [packetXML substringWithRange:[match rangeAtIndex:3]];
+            owner = [packetXML substringWithRange:[match rangeAtIndex:4]];
+            name = [self urlDecode:[packetXML substringWithRange:[match rangeAtIndex:5]]];
+            //*createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
+            participants = [participantString componentsSeparatedByString:@", "];
+            for (NSString *participant in participants) {
+                if ([FriendsDBManager getUserWithJID:participant moc:moc] == nil) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetVCardPacket:participant]];
+                    });
                 }
             }
+            if ([type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
+                ChatMO *chat = [ChatDBManager getChatWithID:chatId withMOC:moc];
+                if (chat != nil) {
+                    name = [chat getChatName];
+                } else {
+                    if ([owner isEqualToString:[ConnectionProvider getUser]]) {
+                        NSString *participant = ([[participants firstObject] isEqualToString:[ConnectionProvider getUser]]) ? [participants lastObject] : [participants firstObject];
+                        name = [FriendsDBManager getUserWithJID:participant moc:moc].name;
+                        if (name == nil) {
+                            name = @"Loading...";
+                        }
+                    } else {
+                        name = ANONYMOUS_FRIEND;
+                    }
+                }
+            }
+            [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_JOINED withContext:moc];
         }
-        [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_JOINED];
-    }
-    [ChatDBManager joinAllChats];
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
+        
+        NSError *err = nil;
+        if(![moc save:&err]) {
+        }
+        
+        [mainMoc performBlock:^{
+            NSError *error = nil;
+            if (![mainMoc save:&error]) {
+            }
+        }];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [ChatDBManager joinAllChats];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
+        });
+    }];
 }
 
 + (NSString *)urlDecode:(NSString *)string {
