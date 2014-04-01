@@ -162,10 +162,9 @@ static ConnectionProvider *selfInstance;
         NSLog(@"Creating VCard...");
         [self.xmppStream sendElement:[IQPacketManager createCreateVCardPacket:[_pendingAccountInfo objectForKey:VCARD_TAG_FIRST_NAME] lastname:[_pendingAccountInfo objectForKey:VCARD_TAG_LAST_NAME]]];
         self.isCreatingAccount = NO;
-
+        [self.xmppStream sendElement:[IQPacketManager createSetUserInfoPacketFromDefaults]];
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
-        [self.xmppStream sendElement:[IQPacketManager createSetUserInfoPacketFromDefaults]];
     } else {
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];

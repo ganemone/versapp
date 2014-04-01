@@ -27,23 +27,31 @@ NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_c
 }
 
 -(void)sendVerificationText {
-    NSURL *url = [NSURL URLWithString:@"http://media.versapp.co/verify/"];
-    NSMutableURLRequest *uploadRequest = [NSMutableURLRequest requestWithURL:url];
-    [uploadRequest setHTTPMethod:@"POST"];
-    [uploadRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    NSString *phone = [UserDefaultManager loadUsername];
-    NSString *country = [UserDefaultManager loadCountryCode];
-    NSString *code = [NSString stringWithFormat:@"%d%d%d%d", arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9)];
-    [self saveVerificationCode:code];
-    NSString *postString = [NSString stringWithFormat:@"phone=%@&country=%@&code=%@",phone, country, code];
-    postString = [postString stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
-    NSData *postData = [NSData dataWithBytes:[postString UTF8String] length:[postString length]];
-    [uploadRequest setValue:[NSString stringWithFormat:@"%lu", (unsigned long)postString.length] forHTTPHeaderField:@"Content-Length"];
-    [uploadRequest setHTTPBody:postData];
-    
-    // create connection and set delegate if needed
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:uploadRequest delegate:self];
-    [conn start];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSURL *url = [NSURL URLWithString:@"http://media.versapp.co/verify/"];
+        NSMutableURLRequest *uploadRequest = [NSMutableURLRequest requestWithURL:url];
+        [uploadRequest setHTTPMethod:@"POST"];
+        [uploadRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+        NSString *phone = [UserDefaultManager loadPhone];
+        NSString *country = [UserDefaultManager loadCountryCode];
+        NSString *code = [NSString stringWithFormat:@"%d%d%d%d", arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9)];
+        [self saveVerificationCode:code];
+        NSString *postString = [NSString stringWithFormat:@"phone=%@&country=%@&code=%@",phone, country, code];
+        postString = [postString stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
+        NSData *postData = [NSData dataWithBytes:[postString UTF8String] length:[postString length]];
+        [uploadRequest setValue:[NSString stringWithFormat:@"%lu", (unsigned long)postString.length] forHTTPHeaderField:@"Content-Length"];
+        [uploadRequest setHTTPBody:postData];
+        NSHTTPURLResponse *response = nil;
+        NSError *error = nil;
+        [NSURLConnection sendSynchronousRequest:uploadRequest returningResponse:&response error:&error];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([response statusCode] == 200) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SENT_VERIFICATION_TEXT object:nil];
+            } else {
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
+            }
+        });
+    });
 }
 
 -(void)checkForPhoneRegisteredOnServer:(NSString *)countryCode phone:(NSString *)phone {
@@ -66,22 +74,4 @@ NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_c
     });
 }
 
-/*-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    NSString *result = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-}
-
--(void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
-}
-
--(void)connectionDidFinishLoading:(NSURLConnection *)connection {
-
- }
-
- -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-     NSLog(@"Did fail with error: %@", error);
- }
- 
- -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-     NSLog(@"Did Receive Response: %@", response);
- }*/
 @end

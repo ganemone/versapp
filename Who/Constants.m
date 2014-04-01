@@ -103,6 +103,8 @@ NSString *const NOTIFICATION_DID_FAIL_TO_REGISTER_USER = @"notification_did_fail
 NSString *const NOTIFICATION_PHONE_AVAILABLE = @"notification_phone_available";
 NSString *const NOTIFICATION_PHONE_UNAVAILABLE = @"notification_phone_unavailable";
 NSString *const NOTIFICATION_CONFESSION_DELETED = @"notification_confession_deleted";
+NSString *const NOTIFICATION_SENT_VERIFICATION_TEXT = @"notification_sent_verification_text";
+NSString *const NOTIFICATION_FAILED_TO_SEND_VERIFICATION_TEXT = @"notification_failed_to_send_verification_text";
 
 NSString *const APPLICATION_RESOURCE = @"who";
 
