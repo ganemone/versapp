@@ -217,12 +217,14 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.clickedCellIndexPath = indexPath;
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 0) {
-        [self performSegueWithIdentifier:SEGUE_ID_GROUP_CONVERSATION sender:self];
-    } else {
-        [self performSegueWithIdentifier:SEGUE_ID_ONE_TO_ONE_CONVERSATION sender:self];
+    if (tableView == _tableView) {
+        self.clickedCellIndexPath = indexPath;
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+        if (indexPath.section == 0) {
+            [self performSegueWithIdentifier:SEGUE_ID_GROUP_CONVERSATION sender:self];
+        } else {
+            [self performSegueWithIdentifier:SEGUE_ID_ONE_TO_ONE_CONVERSATION sender:self];
+        }
     }
 }
 
