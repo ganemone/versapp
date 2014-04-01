@@ -27,7 +27,6 @@ NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_c
 }
 
 -(void)sendVerificationText {
-    NSLog(@"Reached Send Verification Text");
     NSURL *url = [NSURL URLWithString:@"http://media.versapp.co/verify/"];
     NSMutableURLRequest *uploadRequest = [NSMutableURLRequest requestWithURL:url];
     [uploadRequest setHTTPMethod:@"POST"];
@@ -48,7 +47,6 @@ NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_c
 }
 
 -(void)checkForPhoneRegisteredOnServer:(NSString *)countryCode phone:(NSString *)phone {
-    NSLog(@"Reached Send Verification Text");
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://ejabberd.versapp.co/validate.php?ccode=%@&phone=%@",countryCode, phone]];
         NSMutableURLRequest *uploadRequest = [NSMutableURLRequest requestWithURL:url];
@@ -68,17 +66,15 @@ NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_c
     });
 }
 
--(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+/*-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     NSString *result = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-    NSLog(@"Received Post Response!!: %@", result);
 }
 
 -(void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
-    NSLog(@"Did Send Body Data: %ld \n %ld \n %ld", (long)bytesWritten, (long)totalBytesWritten, (long)totalBytesExpectedToWrite);
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    NSLog(@"Did finish Loading");
+
  }
 
  -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
@@ -87,6 +83,5 @@ NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_c
  
  -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
      NSLog(@"Did Receive Response: %@", response);
- }
-
+ }*/
 @end
