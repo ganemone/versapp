@@ -61,18 +61,7 @@ static ContactSearchManager *selfInstance;
     }
 }
 
--(FriendMO *)getFriendWithEmail:(NSString *)email {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"email = \"%@\"", email]];
-    return [[_allFriends filteredArrayUsingPredicate:predicate] firstObject];
-}
-
--(FriendMO *)getFriendWithUsername:(NSString *)username {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"username = \"%@\"", username]];
-    return [[_allFriends filteredArrayUsingPredicate:predicate] firstObject];
-}
-
 -(void)accessContacts {
-    _allFriends = [FriendsDBManager getAll];
     if (ABAddressBookRequestAccessWithCompletion) {
         CFErrorRef *error = NULL;
         ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, error);
@@ -124,14 +113,9 @@ static ContactSearchManager *selfInstance;
                             phone = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phoneNumbers, i);
                             phone = [regex stringByReplacingMatchesInString:phone options:0 range:NSMakeRange(0, [phone length]) withTemplate:@""];
                             if (phone.length == phoneNumberWithoutCountry.length) {
-                                phone = [NSString stringWithFormat:@"%@-%@", countryCode, phone];
-                                [phoneBufferArray addObject:phone];
-                            } else if([[phone substringToIndex:countryCode.length] isEqualToString:countryCode]) {
-                                phone = [NSString stringWithFormat:@"%@-%@", countryCode, [phone substringFromIndex:countryCode.length]];
-                                [phoneBufferArray addObject:phone];
-                            } else {
-                                continue;
+                                phone = [NSString stringWithFormat:@"%@%@", countryCode, phone];
                             }
+                            [phoneBufferArray addObject:phone];
                         }
                         for (int i = 0; i < MAX([emailBufferArray count], [phoneBufferArray count]); i++) {
                             if (i < emailCount) {
@@ -145,13 +129,13 @@ static ContactSearchManager *selfInstance;
                                 [allPhoneNumbers addObject:@""];
                             }
                             [allIDS addObject:personIDString];
-                            [self.contacts setObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:personIDString, DICTIONARY_KEY_ID, firstName, VCARD_TAG_FIRST_NAME, lastName, VCARD_TAG_LAST_NAME, emailBufferArray, VCARD_TAG_EMAIL, phoneBufferArray, VCARD_TAG_USERNAME, [NSNumber numberWithInt:STATUS_UNREGISTERED], FRIENDS_TABLE_COLUMN_NAME_STATUS, nil] forKey:personIDString];
+                            [self.contacts setObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:personIDString, DICTIONARY_KEY_ID, firstName, VCARD_TAG_FIRST_NAME, lastName, VCARD_TAG_LAST_NAME, emailBufferArray, VCARD_TAG_EMAIL, phoneBufferArray, VCARD_TAG_USERNAME, [NSNumber numberWithInt:STATUS_UNREGISTERED], FRIENDS_TABLE_COLUMN_NAME_STATUS, [NSNumber numberWithInt:personID], FRIENDS_TABLE_COLUMN_NAME_UID, nil] forKey:personIDString];
                         }
                     }
-                    int numToSplit = 35;
+                    int numToSplit = MIN(35, [allIDS count]);
                     int startingIndex = 0;
                     [self resetNumPacketsSent];
-                    while ([allIDS count] > startingIndex + numToSplit) {
+                    while ([allIDS count] >= startingIndex + numToSplit) {
                         NSMutableArray *tempPhoneNumbers = [[NSMutableArray alloc] initWithCapacity:numToSplit];
                         NSMutableArray *tempEmails = [[NSMutableArray alloc] initWithCapacity:numToSplit];
                         NSMutableArray *tempIDS = [[NSMutableArray alloc] initWithCapacity:numToSplit];
@@ -176,10 +160,12 @@ static ContactSearchManager *selfInstance;
                         [tempEmails addObject:[allEmails objectAtIndex:i]];
                         [tempIDS addObject:[allIDS objectAtIndex:i]];
                     }
-                    [self incrementNumPacketsSent];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createUserSearchPacketWithPhoneNumbers:tempPhoneNumbers emails:tempEmails personIDS:tempIDS]];
-                    });
+                    if ([tempIDS count] > 0) {
+                        [self incrementNumPacketsSent];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createUserSearchPacketWithPhoneNumbers:tempPhoneNumbers emails:tempEmails personIDS:tempIDS]];
+                        });
+                    }
                 }
                 CFRelease(addressBook);
             });

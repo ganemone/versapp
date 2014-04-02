@@ -13,10 +13,15 @@
 
 @implementation FriendsDBManager
 
-+(FriendMO *)insert:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status searchedPhoneNumber:(NSString*)searchedPhoneNumber searchedEmail:(NSString*)searchedEmail {
++(FriendMO *)insert:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status searchedPhoneNumber:(NSString*)searchedPhoneNumber searchedEmail:(NSString*)searchedEmail uid:(NSNumber *)uid {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate managedObjectContext];
-    FriendMO *friend = (email == nil) ? [self getUserWithJID:username] : [self getUserWithJID:username email:email];
+    FriendMO *friend;
+    if (uid != nil) {
+        friend = [self getUserWithUID:uid];
+    } else {
+        friend = (email == nil) ? [self getUserWithJID:username] : [self getUserWithJID:username email:email];
+    }
     if (friend == nil) {
         NSLog(@"Inserting new friend");
         friend = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_FRIENDS inManagedObjectContext:moc];
@@ -47,6 +52,9 @@
         [friend setValue:searchedEmail forKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL];
         //NSLog(@"Setting Friend MO Searched Email: %@", searchedEmail);
     }
+    if (uid != nil) {
+        [friend setValue:uid forKey:FRIENDS_TABLE_COLUMN_NAME_UID];
+    }
     
     //NSLog(@"Friend: %@", [friend description]);
     [delegate saveContext];
@@ -74,12 +82,15 @@
                                  email:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL]
                                 status:[NSNumber numberWithInt:STATUS_REGISTERED]
                    searchedPhoneNumber:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER]
-                         searchedEmail:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL]];
+                         searchedEmail:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL]
+                                   uid:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_UID]];
     } else {
         [friendMO setValue:username forKeyPath:FRIENDS_TABLE_COLUMN_NAME_USERNAME];
         [friendMO setValue:fullName forKeyPath:FRIENDS_TABLE_COLUMN_NAME_NAME];
         [friendMO setValue:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL];
-        [friendMO setValue:[NSNumber numberWithInt:STATUS_REGISTERED] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_STATUS];
+        if ([friendMO.status isEqualToNumber:[NSNumber numberWithInt:STATUS_UNREGISTERED]]) {
+            [friendMO setValue:[NSNumber numberWithInt:STATUS_REGISTERED] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_STATUS];
+        }
         [friendMO setValue:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER];
     }
 }
@@ -99,7 +110,9 @@
         for (FriendMO *friendMO in friends) {
             [friendMO setValue:fullName forKeyPath:FRIENDS_TABLE_COLUMN_NAME_NAME];
             [friendMO setValue:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL];
-            [friendMO setValue:[NSNumber numberWithInt:STATUS_UNREGISTERED] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_STATUS];
+            if (friendMO.status == nil) {
+                [friendMO setValue:[NSNumber numberWithInt:STATUS_UNREGISTERED] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_STATUS];
+            }
             [friendMO setValue:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER];
         }
     } else {
@@ -109,7 +122,8 @@
                       email:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL]
                      status:[NSNumber numberWithInt:STATUS_UNREGISTERED]
         searchedPhoneNumber:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER]
-              searchedEmail:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL]];
+              searchedEmail:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL]
+                        uid:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_UID]];
     }
 }
 
@@ -121,8 +135,17 @@
     return [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL, email] moc:moc];
 }
 
-+ (FriendMO *)insertWithMOC:(NSManagedObjectContext *)moc username:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status searchedPhoneNumber:(NSString*)searchedPhoneNumber searchedEmail:(NSString*)searchedEmail {
-    FriendMO *friend = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_FRIENDS inManagedObjectContext:moc];
++ (FriendMO *)insertWithMOC:(NSManagedObjectContext *)moc username:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status searchedPhoneNumber:(NSString*)searchedPhoneNumber searchedEmail:(NSString*)searchedEmail uid:(NSNumber *)uid {
+    
+    FriendMO *friend;
+    if (uid != nil) {
+        friend = [self getUserWithUID:uid withMOC:moc];
+    } else {
+        friend = (email == nil) ? [self getUserWithJID:username moc:moc] : [self getUserWithJID:username email:email moc:moc];
+    }
+    if (friend == nil) {
+        friend = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_FRIENDS inManagedObjectContext:moc];
+    }
     if (username != nil) {
         [friend setValue:username forKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME];
         NSLog(@"Setting Friend MO Username: %@", username);
@@ -146,6 +169,9 @@
     if (searchedEmail != nil) {
         [friend setValue:searchedEmail forKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL];
         NSLog(@"Setting Friend MO Searched Email: %@", searchedEmail);
+    }
+    if (uid != nil) {
+        [friend setValue:uid forKey:FRIENDS_TABLE_COLUMN_NAME_UID];
     }
     return friend;
 }
@@ -192,6 +218,22 @@
 
 +(FriendMO *)getUserWithJID:(NSString *)jid {
     NSArray *fetchedData = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", FRIENDS_TABLE_COLUMN_NAME_USERNAME, jid]];
+    if(fetchedData.count > 0) {
+        return [fetchedData firstObject];
+    }
+    return nil;
+}
+
++(FriendMO *)getUserWithUID:(NSNumber *)uid {
+    NSArray *fetchedData = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", FRIENDS_TABLE_COLUMN_NAME_UID, uid]];
+    if(fetchedData.count > 0) {
+        return [fetchedData firstObject];
+    }
+    return nil;
+}
+
++(FriendMO *)getUserWithUID:(NSNumber *)uid withMOC:(NSManagedObjectContext *)moc {
+    NSArray *fetchedData = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", FRIENDS_TABLE_COLUMN_NAME_UID, uid] moc:moc];
     if(fetchedData.count > 0) {
         return [fetchedData firstObject];
     }

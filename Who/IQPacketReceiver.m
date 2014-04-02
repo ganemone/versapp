@@ -296,7 +296,7 @@
     if ([username compare:[ConnectionProvider getUser]] != 0) {
         NSString *name = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
         if ([FriendsDBManager hasUserWithJID:username]) {
-            [FriendsDBManager insert:username name:name email:nil status:nil searchedPhoneNumber:nil searchedEmail:nil];
+            [FriendsDBManager insert:username name:name email:nil status:nil searchedPhoneNumber:nil searchedEmail:nil uid:nil];
             [ChatDBManager updateOneToOneChatNames:name username:username];
         } else {
             NSLog(@"Adding name for temp vcard info... %@", name);
@@ -369,12 +369,12 @@
         NSString *resultJid = [jid substringWithRange:[matchJid rangeAtIndex:1]];
         [conn sendElement:[IQPacketManager createGetVCardPacket:resultJid]];
         if ([subscription rangeOfString:@"none"].location != NSNotFound){
-            [FriendsDBManager insert:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_REQUESTED] searchedPhoneNumber:nil searchedEmail:nil];
+            [FriendsDBManager insert:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_REQUESTED] searchedPhoneNumber:nil searchedEmail:nil uid:nil];
         } else {
             if([subscription rangeOfString:@"to"].location != NSNotFound) {
                 [conn sendElement:[IQPacketManager createSubscribedPacket:resultJid]];
             }
-            [FriendsDBManager insert:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_FRIENDS] searchedPhoneNumber:nil searchedEmail:nil];
+            [FriendsDBManager insert:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_FRIENDS] searchedPhoneNumber:nil searchedEmail:nil uid:nil];
         }
     }
 }
