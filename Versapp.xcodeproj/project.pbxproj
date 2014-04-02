@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3A00167E18B8231000C54059 /* message-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A00167C18B8231000C54059 /* message-icon.png */; };
 		3A00167F18B8231000C54059 /* photo-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A00167D18B8231000C54059 /* photo-icon.png */; };
 		3A00168218B82BB200C54059 /* ComposeConfessionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A00168118B82BB200C54059 /* ComposeConfessionViewController.m */; };
 		3A07F6BF18D3C21800E82390 /* compose-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A07F6AD18D3C21800E82390 /* compose-icon.png */; };
@@ -296,7 +295,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3A00167C18B8231000C54059 /* message-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message-icon.png"; sourceTree = "<group>"; };
 		3A00167D18B8231000C54059 /* photo-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo-icon.png"; sourceTree = "<group>"; };
 		3A00168018B82BB200C54059 /* ComposeConfessionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeConfessionViewController.h; sourceTree = "<group>"; };
 		3A00168118B82BB200C54059 /* ComposeConfessionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeConfessionViewController.m; sourceTree = "<group>"; };
@@ -1836,7 +1834,6 @@
 				3AF521D418EA30A5008320CD /* messages-icon-white.png */,
 				3A07F6B418D3C21800E82390 /* messages-icon-blue.png */,
 				3A07F6AD18D3C21800E82390 /* compose-icon.png */,
-				3A00167C18B8231000C54059 /* message-icon.png */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -2122,7 +2119,6 @@
 				3A07F6D718D3EFC200E82390 /* check-icon.png in Resources */,
 				3AEFB75D18E8BE210039B5B0 /* x-green.png in Resources */,
 				3AF521D118EA3072008320CD /* friends-icon.png in Resources */,
-				3A00167E18B8231000C54059 /* message-icon.png in Resources */,
 				F7977B6418DBA25B000E955C /* check-icon-green.png in Resources */,
 				3A25B64A1881E03700166623 /* Main.storyboard in Resources */,
 				3A3A0B0618AB1126006FBAE4 /* input-bar-background.png in Resources */,
