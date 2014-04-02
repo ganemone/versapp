@@ -78,27 +78,19 @@
     _textView.layer.borderWidth = 0.65f;
     _textView.layer.cornerRadius = 6.0f;
     
-    self.image = [[UIImage imageNamed:@"input-bar-flat"] resizableImageWithCapInsets:UIEdgeInsetsMake(2.0f, 0.0f, 0.0f, 0.0f)
+    self.image = [[UIImage imageNamed:@"input-bar-flat"] resizableImageWithCapInsets:UIEdgeInsetsMake(2.5f, 0.0f, 0.0f, 0.0f)
                                                                         resizingMode:UIImageResizingModeStretch];
     //}
 }
 
 - (void)configureCameraButton {
-    UIButton *cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton *cameraButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
     cameraButton.backgroundColor = [UIColor clearColor];
+    [cameraButton setImage:[UIImage imageNamed:@"camera-icon-dark.png"] forState:UIControlStateNormal];
+    [cameraButton setImage:[UIImage imageNamed:@"camera-icon-dark.png"] forState:UIControlStateHighlighted];
+    [cameraButton setImage:[UIImage imageNamed:@"camera-icon-dark.png"] forState:UIControlStateDisabled];
     
-    [cameraButton setTitleColor:[UIColor js_bubbleBlueColor] forState:UIControlStateNormal];
-    [cameraButton setTitleColor:[UIColor js_bubbleBlueColor] forState:UIControlStateHighlighted];
-    [cameraButton setTitleColor:[UIColor js_bubbleLightGrayColor] forState:UIControlStateDisabled];
-    [cameraButton setTitle:@"Pic" forState:UIControlStateNormal];
-    [cameraButton.titleLabel setFont:[StyleManager getFontStyleLightSizeMed]];
-    /*
-    [cameraButton setImage:[UIImage imageNamed:@"photo-icon"] forState:UIControlStateNormal];
-    [cameraButton setImage:[UIImage imageNamed:@"photo-icon"] forState:UIControlStateHighlighted];
-    [cameraButton setImage:[UIImage imageNamed:@"photo-icon"] forState:UIControlStateDisabled];*/
-    
-    cameraButton.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin);
+    //cameraButton.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin);
     [cameraButton setEnabled:YES];
     [self setCameraButton:cameraButton];
 }

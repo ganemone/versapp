@@ -623,7 +623,6 @@
 }
 
 - (void)resetCameraButtonImage {
-    [_messageInputView.cameraButton setImage:nil forState:UIControlStateNormal];
-    [_messageInputView.cameraButton setTitle:@"Pic" forState:UIControlStateNormal];
+    [_messageInputView.cameraButton setImage:[UIImage imageNamed:@"camera-icon-dark.png"] forState:UIControlStateNormal];
 }
 @end
