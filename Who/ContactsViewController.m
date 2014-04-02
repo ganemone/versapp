@@ -333,7 +333,7 @@
     
     for (FriendMO *friend in _selectedUnregisteredContacts) {
         if (friend.searchedPhoneNumber != nil) {
-            [_smsContacts addObject:friend.username];
+            [_smsContacts addObject:friend.searchedPhoneNumber];
         } else if(friend.email != nil) {
             [_emailContacts addObject:friend.email];
         }
