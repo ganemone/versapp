@@ -202,7 +202,7 @@
         SWTableViewCell *cell = (SWTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
         if (cell == nil) {
-            cell = [[SWTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier containingTableView:self.notificationTableView leftUtilityButtons:nil rightUtilityButtons:[self notificationsButtons]];
+            cell = [[SWTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier containingTableView:self.notificationTableView leftUtilityButtons:nil rightUtilityButtons:[self notificationsButtons]];
             cell.delegate = self;
         }
         
@@ -212,26 +212,32 @@
             ChatMO *groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
             //cell.textLabel.text = groupInvite.chat_name;
             NSString *inviter = [FriendsDBManager getUserWithJID:groupInvite.owner_id].name;
-            cell.textLabel.text = [NSMutableString stringWithFormat:@"%@ - invited by %@", groupInvite.chat_name, inviter];
+            //cell.textLabel.text = [NSMutableString stringWithFormat:@"%@ - invited by %@", groupInvite.chat_name, inviter];
+            cell.textLabel.text = groupInvite.chat_name;
+            cell.detailTextLabel.text = [NSMutableString stringWithFormat:@"invited by %@", inviter];
         } else {
             FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
             cell.textLabel.text = friendRequest.name;
         }
         
-        [cell.textLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
+        [cell.textLabel setFont:[StyleManager getFontStyleBoldSizeLarge]];
         [cell.textLabel setTextColor:[StyleManager getColorGreen]];
+        [cell.detailTextLabel setFont:[StyleManager getFontStyleBoldSizeSmall]];
+        [cell.detailTextLabel setTextColor:[StyleManager getColorGreen]];
         
         return cell;
     }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.clickedCellIndexPath = indexPath;
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 0) {
-        [self performSegueWithIdentifier:SEGUE_ID_GROUP_CONVERSATION sender:self];
-    } else {
-        [self performSegueWithIdentifier:SEGUE_ID_ONE_TO_ONE_CONVERSATION sender:self];
+    if (tableView == _tableView) {
+        self.clickedCellIndexPath = indexPath;
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+        if (indexPath.section == 0) {
+            [self performSegueWithIdentifier:SEGUE_ID_GROUP_CONVERSATION sender:self];
+        } else {
+            [self performSegueWithIdentifier:SEGUE_ID_ONE_TO_ONE_CONVERSATION sender:self];
+        }
     }
 }
 
@@ -341,8 +347,8 @@
                      animations:^{
                          self.notificationTableView.frame = notificationFrame;
                          self.tableView.backgroundColor = [UIColor grayColor];
-                         self.tableView.alpha = 0.5;
-                         self.footerView.alpha = 0.5;
+                         self.tableView.alpha = 0.3;
+                         self.footerView.alpha = 0.3;
                      }
                      completion:^(BOOL finished){
                          [self.tableView setUserInteractionEnabled:NO];
@@ -401,12 +407,12 @@
         //greenImageName = [NSMutableString stringWithString:@"notification5+-green.png"];
     }
     UIImage *notificationsImage = [UIImage imageNamed:imageName];
-    UIImageView *notificationsBadgeGreen = [[UIImageView alloc] initWithFrame:CGRectMake(244, 29, 28, 28)];
+    UIImageView *notificationsBadgeGreen = [[UIImageView alloc] initWithFrame:CGRectMake(281, 27, 31, 31)];
     [self.notificationsButton setImage:notificationsImage forState:UIControlStateNormal];
     greenImageName = [NSMutableString stringWithString:@"arrow-up-icon-square-green.png"];
     UIImage *notificationsImageGreen = [UIImage imageNamed:greenImageName];
     [notificationsBadgeGreen setImage:notificationsImageGreen];
-    self.notificationsButtonGreen = [[UIButton alloc] initWithFrame:CGRectMake(244, 29, 28, 28)];
+    self.notificationsButtonGreen = [[UIButton alloc] initWithFrame:CGRectMake(281, 27, 31, 31)];
     [self.notificationsButtonGreen setImage:notificationsImageGreen forState:UIControlStateNormal];
     [self.notificationsButtonGreen addTarget:self action:@selector(notificationsGreenClicked:) forControlEvents:UIControlEventTouchUpInside];
     

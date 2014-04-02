@@ -327,6 +327,8 @@
         createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
         participants = [participantString componentsSeparatedByString:@", "];
         
+        NSLog(@"%@ has owner: %@", name, owner);
+        
         [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_PENDING];
     }
     

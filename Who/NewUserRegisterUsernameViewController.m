@@ -43,9 +43,19 @@
 - (void)handleFinishedRegisteringUsername {
     if ([Validator isValidUsername:_username.text]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FINISHED_REGISTERING_USERNAME object:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"All Set" message:@"You're a Versapper!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Go to Tutorial", nil];
+        [alertView show];
     } else {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Usernames must only contain Letters, numbers, and underscores." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alertView show];
+    }
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if ([[alertView buttonTitleAtIndex:1] isEqualToString:@"Go to Tutorial"]) {
+        if (!(buttonIndex == [alertView cancelButtonIndex])) {
+            [self performSegueWithIdentifier:SEGUE_ID_TUTORIAL sender:self];
+        }
     }
 }
 
@@ -53,6 +63,10 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
 }
 
 /*

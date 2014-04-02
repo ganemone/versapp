@@ -241,6 +241,7 @@ static int numUninvitedParticipants;
 +(void)addChatParticipants:(NSMutableArray *)participants {
     if (chatIDAddingParticipants != nil) {
         ChatMO *chat = [self getChatWithID:chatIDAddingParticipants];
+        chat.owner_id = [ConnectionProvider getUser];
         
         XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
         for (NSString *participant in participants) {
