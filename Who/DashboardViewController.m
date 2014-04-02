@@ -111,10 +111,18 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if (_clickedCellIndexPath != nil) {
-        MessageMO *message = (_clickedCellIndexPath.section == 0) ? [_groupChats objectAtIndex:_clickedCellIndexPath.row] : [_oneToOneChats objectAtIndex:_clickedCellIndexPath.row];
+        ChatMO *chat = (_clickedCellIndexPath.section == 0) ? [_groupChats objectAtIndex:_clickedCellIndexPath.row] : [_oneToOneChats objectAtIndex:_clickedCellIndexPath.row];
+        MessageMO *message = [[chat messages] lastObject];
         if (![message.time isEqualToString:_mostRecentMessageInPushedChat.time]) {
-
+            if (_clickedCellIndexPath.section == 0) {
+                [_groupChats removeObjectAtIndex:_clickedCellIndexPath.row];
+                [_groupChats insertObject:chat atIndex:0];
+            } else {
+                [_oneToOneChats removeObjectAtIndex:_clickedCellIndexPath.row];
+                [_oneToOneChats insertObject:chat atIndex:0];
+            }
         }
+        [_tableView reloadData];
     }
 }
 
