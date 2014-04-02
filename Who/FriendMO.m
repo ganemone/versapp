@@ -11,6 +11,7 @@
 
 @implementation FriendMO
 
+@dynamic uid;
 @dynamic email;
 @dynamic name;
 @dynamic status;
@@ -19,7 +20,7 @@
 @dynamic searchedPhoneNumber;
 
 -(NSString *)description {
-    return [NSString stringWithFormat:@"%@ \n %@ \n %@ \n %@ \n %@ \n %@", self.email, self.name, self.status, self.username, self.searchedEmail, self.searchedPhoneNumber];
+    return [NSString stringWithFormat:@"%@ \n %@ \n %@ \n %@ \n %@ \n %@ \n %@", self.uid, self.email, self.name, self.status, self.username, self.searchedEmail, self.searchedPhoneNumber];
 }
 
 @end

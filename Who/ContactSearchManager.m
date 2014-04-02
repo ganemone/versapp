@@ -109,61 +109,42 @@ static ContactSearchManager *selfInstance;
                         // Get all phone numbers of a contact
                         ABMultiValueRef phoneNumbers = ABRecordCopyValue(personRecordReference, kABPersonPhoneProperty);
                         ABMultiValueRef emailList = ABRecordCopyValue(personRecordReference, kABPersonEmailProperty);
-                        BOOL shouldSearch = YES;
                         NSInteger emailCount = ABMultiValueGetCount(emailList);
                         NSString *tempEmail;
                         for (int i = 0; i < emailCount; i++) {
                             tempEmail = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(emailList, i);
                             [emailBufferArray addObject:tempEmail];
-                            FriendMO* friend;
-                            if ((friend = [self getFriendWithEmail:tempEmail]) != nil) {
-                                shouldSearch = ([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_UNREGISTERED]]) ? YES : NO;
-                            }
-                            if (shouldSearch == NO) {
-                                i = (int)emailCount;
-                            }
                         }
                         
                         NSInteger phoneNumberCount = ABMultiValueGetCount(phoneNumbers);
                         NSError *regerr = NULL;
                         NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^0-9]" options:NSRegularExpressionCaseInsensitive error:&regerr];
                         NSString *phone;
-                        if (shouldSearch == YES) {
-                            for (int i = 0; i < phoneNumberCount; i++) {
-                                phone = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phoneNumbers, i);
-                                phone = [regex stringByReplacingMatchesInString:phone options:0 range:NSMakeRange(0, [phone length]) withTemplate:@""];
-                                if (phone.length == phoneNumberWithoutCountry.length) {
-                                    phone = [NSString stringWithFormat:@"%@-%@", countryCode, phone];
-                                    [phoneBufferArray addObject:phone];
-                                } else if([[phone substringToIndex:countryCode.length] isEqualToString:countryCode]) {
-                                    phone = [NSString stringWithFormat:@"%@-%@", countryCode, [phone substringFromIndex:countryCode.length]];
-                                    [phoneBufferArray addObject:phone];
-                                } else {
-                                    continue;
-                                }
-                                FriendMO* friend;
-                                if ((friend = [self getFriendWithUsername:phone]) != nil) {
-                                    shouldSearch = ([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_UNREGISTERED]]) ? YES : NO;
-                                }
-                                if (shouldSearch == NO) {
-                                    i = (int)phoneNumberCount;
-                                }
+                        for (int i = 0; i < phoneNumberCount; i++) {
+                            phone = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phoneNumbers, i);
+                            phone = [regex stringByReplacingMatchesInString:phone options:0 range:NSMakeRange(0, [phone length]) withTemplate:@""];
+                            if (phone.length == phoneNumberWithoutCountry.length) {
+                                phone = [NSString stringWithFormat:@"%@-%@", countryCode, phone];
+                                [phoneBufferArray addObject:phone];
+                            } else if([[phone substringToIndex:countryCode.length] isEqualToString:countryCode]) {
+                                phone = [NSString stringWithFormat:@"%@-%@", countryCode, [phone substringFromIndex:countryCode.length]];
+                                [phoneBufferArray addObject:phone];
+                            } else {
+                                continue;
                             }
                         }
-                        if (shouldSearch == YES) {
-                            for (int i = 0; i < MAX([emailBufferArray count], [phoneBufferArray count]); i++) {
-                                if (i < emailCount) {
-                                    [allEmails addObject:[emailBufferArray objectAtIndex:i]];
-                                } else {
-                                    [allEmails addObject:@""];
-                                }
-                                if (i < [phoneBufferArray count]) {
-                                    [allPhoneNumbers addObject:[phoneBufferArray objectAtIndex:i]];
-                                } else {
-                                    [allPhoneNumbers addObject:@""];
-                                }
-                                [allIDS addObject:personIDString];
+                        for (int i = 0; i < MAX([emailBufferArray count], [phoneBufferArray count]); i++) {
+                            if (i < emailCount) {
+                                [allEmails addObject:[emailBufferArray objectAtIndex:i]];
+                            } else {
+                                [allEmails addObject:@""];
                             }
+                            if (i < [phoneBufferArray count]) {
+                                [allPhoneNumbers addObject:[phoneBufferArray objectAtIndex:i]];
+                            } else {
+                                [allPhoneNumbers addObject:@""];
+                            }
+                            [allIDS addObject:personIDString];
                             [self.contacts setObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:personIDString, DICTIONARY_KEY_ID, firstName, VCARD_TAG_FIRST_NAME, lastName, VCARD_TAG_LAST_NAME, emailBufferArray, VCARD_TAG_EMAIL, phoneBufferArray, VCARD_TAG_USERNAME, [NSNumber numberWithInt:STATUS_UNREGISTERED], FRIENDS_TABLE_COLUMN_NAME_STATUS, nil] forKey:personIDString];
                         }
                     }
