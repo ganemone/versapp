@@ -26,8 +26,8 @@
 @property (strong, nonatomic) ConnectionProvider* cp;
 @property (strong, nonatomic) NSString *timeLastActive;
 @property (strong, nonatomic) NSIndexPath *clickedCellIndexPath;
-@property (strong, nonatomic) NSArray *groupChats;
-@property (strong, nonatomic) NSArray *oneToOneChats;
+@property (strong, nonatomic) NSMutableArray *groupChats;
+@property (strong, nonatomic) NSMutableArray *oneToOneChats;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *header;
 @property (weak, nonatomic) IBOutlet UILabel *footerView;
@@ -38,6 +38,7 @@
 @property (strong, nonatomic) UITableView *notificationTableView;
 @property (strong, nonatomic) NSMutableArray *friendRequests;
 @property (strong, nonatomic) NSMutableArray *groupInvites;
+@property (strong, nonatomic) MessageMO *mostRecentMessageInPushedChat;
 @property (strong, nonatomic) UIView *greyOutView;
 @property (strong, nonatomic) ChatMO *editingChat;
 
@@ -46,11 +47,10 @@
 @implementation DashboardViewController
 
 -(void)viewDidLoad {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleGetLastPacketReceived:) name:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:PACKET_ID_GET_VCARD object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView) name:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView) name:PACKET_ID_GET_VCARD object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadNotifications) name:PACKET_ID_GET_PENDING_CHATS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNotifications) name:NOTIFICATION_UPDATE_NOTIFICATIONS object:nil];
     
@@ -64,8 +64,8 @@
     [self.footerView setFont:[StyleManager getFontStyleLightSizeXL]];
     
     
-    self.groupChats = [ChatDBManager getAllActiveGroupChats];
-    self.oneToOneChats = [ChatDBManager getAllActiveOneToOneChats];
+    self.groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
+    self.oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveOneToOneChats]];
     [self loadNotifications];
     
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
@@ -110,7 +110,12 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.tableView reloadData];
+    if (_clickedCellIndexPath != nil) {
+        MessageMO *message = (_clickedCellIndexPath.section == 0) ? [_groupChats objectAtIndex:_clickedCellIndexPath.row] : [_oneToOneChats objectAtIndex:_clickedCellIndexPath.row];
+        if (![message.time isEqualToString:_mostRecentMessageInPushedChat.time]) {
+
+        }
+    }
 }
 
 
@@ -155,9 +160,11 @@
     if([segue.identifier compare:SEGUE_ID_GROUP_CONVERSATION] == 0) {
         ConversationViewController *dest = segue.destinationViewController;
         dest.chatMO = [[self groupChats] objectAtIndex:self.clickedCellIndexPath.row];
+        _mostRecentMessageInPushedChat = [[dest.chatMO messages] lastObject];
     } else if([segue.identifier compare:SEGUE_ID_ONE_TO_ONE_CONVERSATION] == 0) {
         OneToOneConversationViewController *dest = segue.destinationViewController;
         dest.chatMO = [self.oneToOneChats objectAtIndex:self.clickedCellIndexPath.row];
+        _mostRecentMessageInPushedChat = [[dest.chatMO messages] lastObject];
     }
 }
 
@@ -298,9 +305,9 @@
         [MessagesDBManager deleteMessagesFromChatWithID:chat.chat_id];
         [ChatDBManager deleteChat:chat];
         if (indexPath.section == 0) {
-            _groupChats = [ChatDBManager getAllActiveGroupChats];
+            _groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
         } else {
-            _oneToOneChats = [ChatDBManager getAllActiveOneToOneChats];
+            _oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveOneToOneChats]];
         }
         [_tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     }
@@ -382,7 +389,7 @@
     
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ENABLE_SWIPE object:nil];
     
-    self.groupChats = [ChatDBManager getAllActiveGroupChats];
+    self.groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
     [self.tableView reloadData];
     
     CGRect notificationFrame = self.notificationTableView.frame;
@@ -542,15 +549,9 @@
     [self setNotificationsIcon];
 }
 
--(void)handleGetLastPacketReceived:(NSNotification*)notification {
-    self.groupChats = [ChatDBManager getAllActiveGroupChats];
-    self.oneToOneChats = [ChatDBManager getAllOneToOneChats];
-    [self.tableView reloadData];
-}
-
--(void)handleRefreshListView:(NSNotification*)notification {
-    self.groupChats = [ChatDBManager getAllActiveGroupChats];
-    self.oneToOneChats = [ChatDBManager getAllOneToOneChats];
+-(void)handleRefreshListView {
+    self.groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
+    self.oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllOneToOneChats]];
     [self.tableView reloadData];
 }
 
