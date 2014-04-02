@@ -62,6 +62,7 @@
     [self.header setTextColor:[UIColor whiteColor]];
     [self.footerView setFont:[StyleManager getFontStyleLightSizeXL]];
     
+    
     self.groupChats = [ChatDBManager getAllActiveGroupChats];
     self.oneToOneChats = [ChatDBManager getAllActiveOneToOneChats];
     [self loadNotifications];
@@ -71,6 +72,12 @@
     lpgr.minimumPressDuration = 0.5; //seconds
     lpgr.delegate = self;
     [_tableView addGestureRecognizer:lpgr];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.frame];
+    [imageView setClipsToBounds:NO];
+    [imageView setContentMode:UIViewContentModeScaleAspectFill];
+    [imageView setImage:[UIImage imageNamed:@"messages-background-large.png"]];
+    [self.tableView setBackgroundView:imageView];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -106,11 +113,13 @@
 - (IBAction)toggleEditing:(id)sender {
     UIButton *button = (UIButton*)sender;
     if ([_tableView isEditing]) {
-        [button setTitle:@"Edit" forState:UIControlStateNormal];
+        [button setTitle:@"" forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"edit-icon.png"] forState:UIControlStateNormal];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DISABLE_DASHBOARD_EDITING object:nil];
         [_tableView setEditing:NO animated:YES];
     } else {
-        [button setTitle:@"Cancel" forState:UIControlStateNormal];
+        [button setImage:nil forState:UIControlStateNormal];
+        [button setTitle:@"Done" forState:UIControlStateNormal];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ENABLE_DASHBOARD_EDITING object:nil];
         [_tableView setEditing:YES animated:YES];
     }
@@ -185,7 +194,7 @@
             [cell.detailTextLabel setFont:[StyleManager getFontStyleLightSizeMed]];
         }
         
-        [cell setBackgroundColor:[UIColor clearColor]];
+        [cell setBackgroundColor:[UIColor whiteColor]];
         return cell;
     } else {
         static NSString *cellIdentifier = @"Cell";

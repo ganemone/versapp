@@ -148,7 +148,6 @@
         NSLog(@"Setting Friend MO Searched Email: %@", searchedEmail);
     }
     return friend;
-    //[delegate saveContextWithMOC:moc];
 }
 
 +(NSArray *)getAll {

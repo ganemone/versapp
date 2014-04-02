@@ -99,9 +99,7 @@
     return [[fetchedItems firstObject] message_body];
 }
 
-+(NSString*)getTimeForHistory {
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-    NSManagedObjectContext *moc = [delegate managedObjectContext];
++(NSString*)getTimeForHistory:(NSManagedObjectContext *)moc {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:CORE_DATA_TABLE_MESSAGES inManagedObjectContext:moc];
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:MESSAGE_PROPERTY_TIMESTAMP ascending:NO];

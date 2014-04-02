@@ -20,7 +20,7 @@
 
 +(NSMutableArray*)getMessagesByChat:(NSString*)chatID;
 
-+(NSString*)getTimeForHistory;
++(NSString*)getTimeForHistory:(NSManagedObjectContext *)moc;
 
 +(void)deleteMessagesFromChatWithID:(NSString *)chatID;
 

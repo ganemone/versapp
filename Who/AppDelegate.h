@@ -20,7 +20,8 @@
 - (NSManagedObjectContext *) managedObjectContext;
 - (NSManagedObjectModel *)managedObjectModel;
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator;
+- (NSManagedObjectContext *)getManagedObjectContextForBackgroundThread;
 - (void)saveContext;
-- (void)saveContextWithMOC:(NSManagedObjectContext *)moc;
+- (void)saveContextForBackgroundThreadWithMOC:(NSManagedObjectContext *)moc;
 
 @end

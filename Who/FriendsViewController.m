@@ -75,6 +75,13 @@
     
     [self.header setFont:[StyleManager getFontStyleMediumSizeXL]];
     [self.bottomLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.frame];
+    [imageView setClipsToBounds:NO];
+    [imageView setContentMode:UIViewContentModeScaleAspectFill];
+    [imageView setImage:[UIImage imageNamed:@"friends-background-large.png"]];
+    [self.tableView setBackgroundView:imageView];
+    
 }
 
 /*- (IBAction)beginSelectingFriendsForGroup:(id)sender {

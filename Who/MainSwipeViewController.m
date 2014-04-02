@@ -32,6 +32,7 @@
 @property(nonatomic, strong) ConnectionProvider *connectionProvider;
 @property(nonatomic, strong) NSArray *viewControllers;
 @property(nonatomic, strong) UIView *confessionView;
+@property(nonatomic, strong) UIImageView *backgroundImageView;
 
 @end
 
@@ -76,6 +77,12 @@
     
     [self.view addSubview:_pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];
+    
+    _backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
+    [_backgroundImageView setImage:[UIImage imageNamed:@"owl-left.png"]];
+    [self.view addSubview:_backgroundImageView];
+    [self.view sendSubviewToBack:_backgroundImageView];
+    //[self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"owl-left.png"]]];
 }
 
 - (void)setUpInBackground {
@@ -123,6 +130,19 @@
             [pvcs setViewControllers:@[controller] direction:direction animated:NO completion:nil];
         });
     }];
+}
+
+-(void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers {
+    
+}
+
+-(void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed {
+    UIViewController *dest = [[pageViewController viewControllers] firstObject];
+    if ([dest isKindOfClass:[ContactsViewController class]]) {
+        [_backgroundImageView setImage:[UIImage imageNamed:@"owl-right.png"]];
+    } else {
+        [_backgroundImageView setImage:[UIImage imageNamed:@"owl-left.png"]];
+    }
 }
 
 - (UIViewController*)viewControllerAtIndex:(int)index {
@@ -217,6 +237,8 @@
     [_pageViewController addChildViewController:dashboard];
     [self.view addSubview:_pageViewController.view];
 }
+
+
 
 
 
