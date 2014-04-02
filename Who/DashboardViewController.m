@@ -38,6 +38,7 @@
 @property (strong, nonatomic) UITableView *notificationTableView;
 @property (strong, nonatomic) NSMutableArray *friendRequests;
 @property (strong, nonatomic) NSMutableArray *groupInvites;
+@property (strong, nonatomic) UIView *greyOutView;
 @property (strong, nonatomic) ChatMO *editingChat;
 
 @end
@@ -78,16 +79,40 @@
     [imageView setContentMode:UIViewContentModeScaleAspectFill];
     [imageView setImage:[UIImage imageNamed:@"messages-background-large.png"]];
     [self.tableView setBackgroundView:imageView];
+    
+    _greyOutView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0)];
+    [_greyOutView setUserInteractionEnabled:NO];
+    [_greyOutView setBackgroundColor:[UIColor blackColor]];
+    [_greyOutView setAlpha:0.3];
+    [self.view addSubview:_greyOutView];
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    if (section == 0) {
+        return nil;
+    }
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
+    [footer setBackgroundColor:[UIColor clearColor]];
+    return footer;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return section;
+}
+
+-(void)handleGroupChatMovedToTop:(NSNotification *)notification {
+    
+}
+
+-(void)handleOneToOneChatMovedToTop:(NSNotification *)notification {
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    NSLog(@"View will appear");
+    [super viewWillAppear:animated];
     [self.tableView reloadData];
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
 
 - (IBAction)arrowClicked:(id)sender {
     NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -168,7 +193,7 @@
         static NSString *CellIdentifier = @"ChatCellIdentifier";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         
-        [cell.textLabel setTextColor:[UIColor blackColor]];
+        [cell.textLabel setTextColor:[StyleManager getColorBlue]];
         [cell.detailTextLabel setTextColor:[UIColor blackColor]];
         [cell.detailTextLabel setHidden:NO];
         
@@ -311,14 +336,12 @@
     NSIndexPath *indexPath = [self.notificationTableView indexPathForCell:cell];
     switch (index) {
         case 0:
-            NSLog(@"accept pressed");
             if (indexPath.section == 0)
                 [self acceptInvitation:indexPath];
             else
                 [self acceptFriendRequest:indexPath];
             break;
         case 1:
-            NSLog(@"decline pressed");
             if (indexPath.section == 0)
                 [self declineInvitation:indexPath];
             else
@@ -345,10 +368,8 @@
           initialSpringVelocity:4.0
                         options: UIViewAnimationOptionCurveEaseIn
                      animations:^{
+                         self.greyOutView.frame = self.view.frame;
                          self.notificationTableView.frame = notificationFrame;
-                         self.tableView.backgroundColor = [UIColor grayColor];
-                         self.tableView.alpha = 0.3;
-                         self.footerView.alpha = 0.3;
                      }
                      completion:^(BOOL finished){
                          [self.tableView setUserInteractionEnabled:NO];
@@ -373,10 +394,8 @@
           initialSpringVelocity:4.0
                         options: UIViewAnimationOptionCurveEaseOut
                      animations:^{
+                         self.greyOutView.frame = CGRectMake(0, 0, self.view.frame.size.width, 0);
                          self.notificationTableView.frame = notificationFrame;
-                         self.tableView.backgroundColor = [UIColor clearColor];
-                         self.tableView.alpha = 1;
-                         self.footerView.alpha = 1;
                      }
                      completion:^(BOOL finished){
                          self.notificationTableView.hidden = YES;

@@ -85,16 +85,10 @@
     }
 }
 
-- (void)saveContextForBackgroundThreadWithMOC:(NSManagedObjectContext *)moc {
-    NSManagedObjectContext *mainMoc = [self managedObjectContext];
-    NSError *err = nil;
-    if(![moc save:&err]) {
-    }
-    
-    [mainMoc performBlock:^{
-        NSError *error = nil;
-        if (![mainMoc save:&error]) {
-        }
+- (void)saveContextForBackgroundThread {
+    [_childObjectContext save:nil];
+    [_managedObjectContext performBlock:^{
+        [_managedObjectContext save:nil];
     }];
 }
 

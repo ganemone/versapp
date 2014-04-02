@@ -23,6 +23,6 @@
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator;
 - (NSManagedObjectContext *)getManagedObjectContextForBackgroundThread;
 - (void)saveContext;
-- (void)saveContextForBackgroundThreadWithMOC:(NSManagedObjectContext *)moc;
+- (void)saveContextForBackgroundThread;
 
 @end

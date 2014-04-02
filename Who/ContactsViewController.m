@@ -299,13 +299,16 @@
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    UIView *footer = [[UIView alloc] init];
+    if (section == 0) {
+        return nil;
+    }
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
     [footer setBackgroundColor:[UIColor clearColor]];
     return footer;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.0f;
+    return section;
 }
 
 - (IBAction)addNewContact:(id)sender {

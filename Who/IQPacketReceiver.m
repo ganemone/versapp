@@ -205,7 +205,7 @@
         
         [ChatDBManager joinAllChats:moc];
         
-        [delegate saveContextForBackgroundThreadWithMOC:moc];
+        [delegate saveContextForBackgroundThread];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
@@ -386,7 +386,7 @@
                 [FriendsDBManager insertWithMOC:moc username:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_FRIENDS] searchedPhoneNumber:nil searchedEmail:nil uid:nil];
             }
         }
-        [delegate saveContextForBackgroundThreadWithMOC:moc];
+        [delegate saveContextForBackgroundThread];
     }];
 }
 
