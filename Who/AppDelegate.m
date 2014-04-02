@@ -37,10 +37,14 @@
 }
 
 -(NSManagedObjectContext *)getManagedObjectContextForBackgroundThread {
-    NSManagedObjectContext *mainMoc = [self managedObjectContext];
-    NSManagedObjectContext *moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    [moc setParentContext:mainMoc];
-    return moc;
+    @synchronized(self) {
+        if (_childObjectContext != nil) {
+            return _childObjectContext;
+        }
+        _childObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        [_childObjectContext setParentContext:[self managedObjectContext]];
+        return _childObjectContext;
+    }
 }
 
 - (NSManagedObjectModel *)managedObjectModel {

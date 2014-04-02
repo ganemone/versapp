@@ -353,30 +353,41 @@
     return [[ret stringByReplacingOccurrencesOfString:@"+" withString:@" "]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
-+(void)handleGetRosterPacket: (XMPPIQ *)iq{
-    NSError *error = NULL;
-    DDXMLElement *query = [[iq children] firstObject];
-    NSArray *items = [query children];
-    DDXMLElement *item;
++(void)handleGetRosterPacket: (XMPPIQ *)iq {
     XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
-    for (int i = 0; i < items.count; i++) {
-        item = items[i];
-        NSString *subscription = [[item attributeForName:@"subscription"] XMLString];
-        //Parse jid
-        NSString *jid = [[item attributeForName:@"jid"] XMLString] ;
-        NSRegularExpression *regexJid = [NSRegularExpression regularExpressionWithPattern:@"jid=\"(.*)@" options: 0 error:&error];
-        NSTextCheckingResult *matchJid = [regexJid firstMatchInString:jid options:0 range:NSMakeRange(0,jid.length)];
-        NSString *resultJid = [jid substringWithRange:[matchJid rangeAtIndex:1]];
-        [conn sendElement:[IQPacketManager createGetVCardPacket:resultJid]];
-        if ([subscription rangeOfString:@"none"].location != NSNotFound){
-            [FriendsDBManager insert:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_REQUESTED] searchedPhoneNumber:nil searchedEmail:nil uid:nil];
-        } else {
-            if([subscription rangeOfString:@"to"].location != NSNotFound) {
-                [conn sendElement:[IQPacketManager createSubscribedPacket:resultJid]];
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *moc = [delegate getManagedObjectContextForBackgroundThread];
+    [moc performBlock:^{
+        
+        NSError *error = NULL;
+        DDXMLElement *query = [[iq children] firstObject];
+        NSArray *items = [query children];
+        DDXMLElement *item;
+        
+        for (int i = 0; i < items.count; i++) {
+            item = items[i];
+            NSString *subscription = [[item attributeForName:@"subscription"] XMLString];
+            //Parse jid
+            NSString *jid = [[item attributeForName:@"jid"] XMLString] ;
+            NSRegularExpression *regexJid = [NSRegularExpression regularExpressionWithPattern:@"jid=\"(.*)@" options: 0 error:&error];
+            NSTextCheckingResult *matchJid = [regexJid firstMatchInString:jid options:0 range:NSMakeRange(0,jid.length)];
+            NSString *resultJid = [jid substringWithRange:[matchJid rangeAtIndex:1]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [conn sendElement:[IQPacketManager createGetVCardPacket:resultJid]];
+            });
+            if ([subscription rangeOfString:@"none"].location != NSNotFound){
+                [FriendsDBManager insertWithMOC:moc username:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_REQUESTED] searchedPhoneNumber:nil searchedEmail:nil uid:nil];
+            } else {
+                if([subscription rangeOfString:@"to"].location != NSNotFound) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [conn sendElement:[IQPacketManager createSubscribedPacket:resultJid]];
+                    });
+                }
+                [FriendsDBManager insertWithMOC:moc username:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_FRIENDS] searchedPhoneNumber:nil searchedEmail:nil uid:nil];
             }
-            [FriendsDBManager insert:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_FRIENDS] searchedPhoneNumber:nil searchedEmail:nil uid:nil];
         }
-    }
+        [delegate saveContextForBackgroundThreadWithMOC:moc];
+    }];
 }
 
 +(void)handleInviteUserToChatPacket:(XMPPIQ*)iq {
@@ -397,6 +408,8 @@
 }
 
 +(void)handleGetConfessionsPacket:(XMPPIQ *)iq {
+    
+    
     NSString *decodedPacketXML = [self getPacketXMLWithoutWhiteSpace:iq];
     decodedPacketXML = [self getDecodedPacketXML:iq];
     NSError *error = NULL;
