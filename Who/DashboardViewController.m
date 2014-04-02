@@ -347,8 +347,8 @@
                      animations:^{
                          self.notificationTableView.frame = notificationFrame;
                          self.tableView.backgroundColor = [UIColor grayColor];
-                         self.tableView.alpha = 0.5;
-                         self.footerView.alpha = 0.5;
+                         self.tableView.alpha = 0.3;
+                         self.footerView.alpha = 0.3;
                      }
                      completion:^(BOOL finished){
                          [self.tableView setUserInteractionEnabled:NO];
@@ -407,12 +407,12 @@
         //greenImageName = [NSMutableString stringWithString:@"notification5+-green.png"];
     }
     UIImage *notificationsImage = [UIImage imageNamed:imageName];
-    UIImageView *notificationsBadgeGreen = [[UIImageView alloc] initWithFrame:CGRectMake(244, 29, 28, 28)];
+    UIImageView *notificationsBadgeGreen = [[UIImageView alloc] initWithFrame:CGRectMake(281, 27, 31, 31)];
     [self.notificationsButton setImage:notificationsImage forState:UIControlStateNormal];
     greenImageName = [NSMutableString stringWithString:@"arrow-up-icon-square-green.png"];
     UIImage *notificationsImageGreen = [UIImage imageNamed:greenImageName];
     [notificationsBadgeGreen setImage:notificationsImageGreen];
-    self.notificationsButtonGreen = [[UIButton alloc] initWithFrame:CGRectMake(244, 29, 28, 28)];
+    self.notificationsButtonGreen = [[UIButton alloc] initWithFrame:CGRectMake(281, 27, 31, 31)];
     [self.notificationsButtonGreen setImage:notificationsImageGreen forState:UIControlStateNormal];
     [self.notificationsButtonGreen addTarget:self action:@selector(notificationsGreenClicked:) forControlEvents:UIControlEventTouchUpInside];
     
