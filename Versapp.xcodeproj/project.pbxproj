@@ -89,8 +89,8 @@
 		3A720CB418A1C2E200423959 /* MUCCreationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A720CB318A1C2E200423959 /* MUCCreationManager.m */; };
 		3A720CB718A28DAD00423959 /* PresencePacketReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A720CB618A28DAD00423959 /* PresencePacketReceiver.m */; };
 		3A720CBA18A28ECB00423959 /* MessagePacketReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A720CB918A28ECB00423959 /* MessagePacketReceiver.m */; };
+		3A7CDB7F18EB9E5D006A4BBF /* settings-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7CDB7E18EB9E5D006A4BBF /* settings-icon.png */; };
 		3A7D535A18E2376E00BFF569 /* add-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7D535918E2376E00BFF569 /* add-icon.png */; };
-		3A7D537018E237DB00BFF569 /* settings-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7D536518E237DB00BFF569 /* settings-icon.png */; };
 		3A7D577318D14E47004F90B8 /* ContactSearchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A7D577218D14E47004F90B8 /* ContactSearchManager.m */; };
 		3A7D69F31896F12100E18B45 /* OneToOneConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A7D69F21896F12100E18B45 /* OneToOneConversationViewController.m */; };
 		3A8BCF7518B5960300D4B7CE /* ConfessionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BCF7418B5960300D4B7CE /* ConfessionsViewController.m */; };
@@ -420,8 +420,8 @@
 		3A720CB618A28DAD00423959 /* PresencePacketReceiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresencePacketReceiver.m; sourceTree = "<group>"; };
 		3A720CB818A28ECB00423959 /* MessagePacketReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagePacketReceiver.h; sourceTree = "<group>"; };
 		3A720CB918A28ECB00423959 /* MessagePacketReceiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagePacketReceiver.m; sourceTree = "<group>"; };
+		3A7CDB7E18EB9E5D006A4BBF /* settings-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings-icon.png"; sourceTree = "<group>"; };
 		3A7D535918E2376E00BFF569 /* add-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-icon.png"; sourceTree = "<group>"; };
-		3A7D536518E237DB00BFF569 /* settings-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings-icon.png"; sourceTree = "<group>"; };
 		3A7D577118D14E47004F90B8 /* ContactSearchManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactSearchManager.h; sourceTree = "<group>"; };
 		3A7D577218D14E47004F90B8 /* ContactSearchManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactSearchManager.m; sourceTree = "<group>"; };
 		3A7D69F11896F12100E18B45 /* OneToOneConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneToOneConversationViewController.h; sourceTree = "<group>"; };
@@ -1824,11 +1824,11 @@
 		3AF521D718EA3162008320CD /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				3A7CDB7E18EB9E5D006A4BBF /* settings-icon.png */,
 				3A91F20E18EB537E0006B9F8 /* edit-icon.png */,
 				3AEFB76018E8BE5C0039B5B0 /* camera-icon-dark.png */,
 				3A00167D18B8231000C54059 /* photo-icon.png */,
 				3AF521D018EA3072008320CD /* friends-icon.png */,
-				3A7D536518E237DB00BFF569 /* settings-icon.png */,
 				3A7D535918E2376E00BFF569 /* add-icon.png */,
 				3AF521D418EA30A5008320CD /* messages-icon-white.png */,
 				3A07F6B418D3C21800E82390 /* messages-icon-blue.png */,
@@ -2063,7 +2063,6 @@
 				3AEFB76318E8BE5C0039B5B0 /* camera-icon-dark.png in Resources */,
 				3A25B6521881E03700166623 /* Images.xcassets in Resources */,
 				3A91F1FD18EB4C3D0006B9F8 /* owl-left.png in Resources */,
-				3A7D537018E237DB00BFF569 /* settings-icon.png in Resources */,
 				3AD19ABA18E26298001B3B88 /* AppIcon120.png in Resources */,
 				3A91F1F518EB4BF50006B9F8 /* messages-background-large.png in Resources */,
 				3AEFB75F18E8BE210039B5B0 /* x-purple.png in Resources */,
@@ -2111,6 +2110,7 @@
 				3AF86D2A18B504CF00033495 /* bubble-old@2x.png in Resources */,
 				3A91F20F18EB537E0006B9F8 /* edit-icon.png in Resources */,
 				F7303ECF18E8E4EA0045F9AF /* chat-icon-label.png in Resources */,
+				3A7CDB7F18EB9E5D006A4BBF /* settings-icon.png in Resources */,
 				3A91F1F218EB4BE50006B9F8 /* loadingScreenSmall.png in Resources */,
 				F7303EC918E8E3100045F9AF /* arrow-up-icon-square-green.png in Resources */,
 				3AB8D19218C259B00082B77C /* MavenProRegular.ttf in Resources */,
