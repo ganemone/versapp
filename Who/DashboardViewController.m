@@ -193,7 +193,7 @@
         SWTableViewCell *cell = (SWTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
         if (cell == nil) {
-            cell = [[SWTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier containingTableView:self.notificationTableView leftUtilityButtons:nil rightUtilityButtons:[self notificationsButtons]];
+            cell = [[SWTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier containingTableView:self.notificationTableView leftUtilityButtons:nil rightUtilityButtons:[self notificationsButtons]];
             cell.delegate = self;
         }
         
@@ -203,14 +203,18 @@
             ChatMO *groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
             //cell.textLabel.text = groupInvite.chat_name;
             NSString *inviter = [FriendsDBManager getUserWithJID:groupInvite.owner_id].name;
-            cell.textLabel.text = [NSMutableString stringWithFormat:@"%@ - invited by %@", groupInvite.chat_name, inviter];
+            //cell.textLabel.text = [NSMutableString stringWithFormat:@"%@ - invited by %@", groupInvite.chat_name, inviter];
+            cell.textLabel.text = groupInvite.chat_name;
+            cell.detailTextLabel.text = [NSMutableString stringWithFormat:@"invited by %@", inviter];
         } else {
             FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
             cell.textLabel.text = friendRequest.name;
         }
         
-        [cell.textLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
+        [cell.textLabel setFont:[StyleManager getFontStyleBoldSizeLarge]];
         [cell.textLabel setTextColor:[StyleManager getColorGreen]];
+        [cell.detailTextLabel setFont:[StyleManager getFontStyleBoldSizeSmall]];
+        [cell.detailTextLabel setTextColor:[StyleManager getColorGreen]];
         
         return cell;
     }
