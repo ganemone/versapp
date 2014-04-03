@@ -80,11 +80,7 @@ static UITapGestureRecognizer *favoriteTap;
         
         // Configuring Chat Buttons
         UIButton *createChatButton = confession.chatButton;
-        //[createChatButton addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
-        /*UILabel *createChatLabel = confession.chatLabel;
-        [createChatLabel setUserInteractionEnabled:YES];
-        [createChatLabel setText:@"Chat"];
-        [createChatLabel setFont:[StyleManager getFontStyleLightSizeLarge]];*/
+        [createChatButton addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
         
         // Configure Favorites
         UIButton *favoriteButton = confession.favoriteButton;
@@ -103,8 +99,6 @@ static UITapGestureRecognizer *favoriteTap;
         [self.contentView addSubview:textView];
         [self.contentView addSubview:footer];
         [self.contentView addSubview:createChatButton];
-        //[self.contentView addSubview:createChatLabel];
-        [self.contentView addSubview:favoriteLabel];
         [self.contentView addSubview:favoriteButton];
         [self.contentView addSubview:timestampLabel];
         [self.contentView addSubview:deleteButton];
@@ -116,7 +110,6 @@ static UITapGestureRecognizer *favoriteTap;
         _footerView = footer;
         _chatButton = createChatButton;
         _favoriteButton = favoriteButton;
-        _favoriteLabel = favoriteLabel;
         _timestampLabel = timestampLabel;
         _deleteButton = deleteButton;
         

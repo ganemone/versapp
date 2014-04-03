@@ -34,6 +34,13 @@
     self.imageCache = [ImageCache getInstance];
     self.downloadingImageURLs = [[NSMutableArray alloc] initWithCapacity:20];
     
+    if ([[ConnectionProvider getUser] compare:[self.chatMO.chat_id substringToIndex:[[ConnectionProvider getUser] length]]] != 0) {
+        [self.headerLabel setText:ANONYMOUS_FRIEND];
+    } else {
+        [self.headerLabel setText:[[self.chatMO getChatName] stringByReplacingOccurrencesOfString:@"+" withString:@" "]];
+    }
+    
+    [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
     [self.headerLabel setText:[self.chatMO getChatName]];
     [self.headerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     

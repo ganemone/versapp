@@ -41,6 +41,8 @@
 @property (strong, nonatomic) MessageMO *mostRecentMessageInPushedChat;
 @property (strong, nonatomic) UIView *greyOutView;
 @property (strong, nonatomic) ChatMO *editingChat;
+@property (nonatomic) CGFloat notificationHeight;
+@property (nonatomic) CGFloat notificationCenter;
 
 @end
 
@@ -98,13 +100,14 @@ static BOOL notificationsHalfHidden = NO;
         [footer setBackgroundColor:[UIColor clearColor]];
         return footer;
     } else {
-        UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30.0f)];
+        /*UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30.0f)];
         [footer setBackgroundColor:[UIColor blackColor]];
         UISwipeGestureRecognizer *swipeUpGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeUpToHideNotifications:)];
         [swipeUpGestureRecognizer setDelegate:self];
         swipeUpGestureRecognizer.direction = UISwipeGestureRecognizerDirectionUp;
         [footer addGestureRecognizer:swipeUpGestureRecognizer];
-        return footer;
+        return footer;*/
+        return nil;
     }
 }
 
@@ -126,7 +129,7 @@ static BOOL notificationsHalfHidden = NO;
     if ([tableView isEqual:_tableView]) {
         return section;
     }
-    return 50;
+    return 0;
 }
 
 -(void)handleGroupChatMovedToTop:(NSNotification *)notification {
@@ -399,7 +402,7 @@ static BOOL notificationsHalfHidden = NO;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DISABLE_SWIPE object:nil];
     
-    CGRect notificationFrame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5+20);
+    CGRect notificationFrame = CGRectMake(0, 0, self.view.frame.size.width, _notificationHeight);
     
     self.notificationTableView.hidden = NO;
     self.greyOutView.frame = self.view.frame;
@@ -411,6 +414,7 @@ static BOOL notificationsHalfHidden = NO;
                      animations:^{
                          self.greyOutView.alpha = 0.5;
                          self.notificationTableView.frame = notificationFrame;
+                         _notificationCenter = self.notificationTableView.center.y;
                          [self.tableView setBackgroundView:nil];
                      }
                      completion:^(BOOL finished){
@@ -466,10 +470,10 @@ static BOOL notificationsHalfHidden = NO;
         } else {
             notificationsHalfHidden = NO;
         }
-        if (recognizer.view.superview.center.y <= 120) {
+        if (recognizer.view.superview.center.y <= _notificationCenter) {
             [recognizer.view.superview setCenter:CGPointMake(recognizer.view.superview.center.x, recognizer.view.superview.center.y + translation.y)];
         } else {
-            [recognizer.view.superview setCenter:CGPointMake(recognizer.view.superview.center.x, 120)];
+            [recognizer.view.superview setCenter:CGPointMake(recognizer.view.superview.center.x, _notificationCenter)];
         }
         [recognizer setTranslation:CGPointZero inView:recognizer.view.superview];
     } else if (recognizer.state == UIGestureRecognizerStateEnded) {
@@ -571,34 +575,42 @@ static BOOL notificationsHalfHidden = NO;
     tapRecognizer.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapRecognizer];
     
-    self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5+20)];
-    /*CGFloat notificationHeight;
-     if (self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.numberOfSections*self.notificationTableView.rowHeight/2 + self.notificationsHeader.frame.size.height < self.view.frame.size.height/2+20) {
-     notificationHeight = self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.numberOfSections*self.notificationTableView.rowHeight/2 + self.notificationsHeader.frame.size.height;
-     } else {
-     notificationHeight = self.view.frame.size.height/2+20;
-     }
-     self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, notificationHeight)];*/
+    self.notificationTableView = [[UITableView alloc] init];
     self.notificationTableView.hidden = YES;
     [self.notificationTableView setDelegate:self];
     [self.notificationTableView setDataSource:self];
-    
     [self.notificationTableView setTableHeaderView:self.notificationsHeader];
     [self.notificationTableView setSeparatorColor:[StyleManager getColorGreen]];
+    [self setNotificationSize];
     
-    /*UIView *notificationsFooter = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height*0.5+20, self.view.frame.size.width, 20)];
-     [notificationsFooter setBackgroundColor:[StyleManager getColorGreen]];
-     [self.notificationTableView setTableFooterView:notificationsFooter];*/
+    UIView *notificationsFooter = [[UIView alloc] initWithFrame:CGRectMake(0, _notificationHeight, self.view.frame.size.width, 20)];
+    [notificationsFooter setBackgroundColor:[StyleManager getColorGreen]];
+    UILabel *closeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, _notificationHeight, self.view.frame.size.width, 20)];
+    [closeLabel setTextAlignment:NSTextAlignmentCenter];
+    [closeLabel setTextColor:[UIColor whiteColor]];
+    [closeLabel setFont:[StyleManager getFontStyleBoldSizeSmall]];
+    [closeLabel setText:@"Swipe up to close"];
+    [notificationsFooter addSubview:closeLabel];
+    [self.notificationTableView setTableFooterView:notificationsFooter];
     
     [self.view addSubview:self.notificationTableView];
     
-    /*UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(swipeToHideNotifications:)];
+    UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(swipeToHideNotifications:)];
      [panRecognizer setDelegate:self];
      panRecognizer.minimumNumberOfTouches = 1;
      panRecognizer.maximumNumberOfTouches = 1;
-     [notificationsFooter addGestureRecognizer:panRecognizer];*/
+     [notificationsFooter addGestureRecognizer:panRecognizer];
     
     [self hideNotifications];
+}
+
+-(void)setNotificationSize {
+    if (self.groupInvites.count + self.friendRequests.count == 0) {
+        _notificationHeight = self.view.frame.size.height/2 + 20;
+    } else {
+        _notificationHeight = self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.numberOfSections*self.notificationTableView.sectionHeaderHeight + self.notificationsHeader.frame.size.height;
+    }
+    self.notificationTableView.frame = CGRectMake(0, 0, self.view.frame.size.width, _notificationHeight);
 }
 
 - (void)updateNotifications {
@@ -618,6 +630,7 @@ static BOOL notificationsHalfHidden = NO;
     [self.groupInvites removeObjectAtIndex:indexPath.row];
     [ChatDBManager setChatStatus:STATUS_JOINED chatID:groupInvite.chat_id];
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+    [self setNotificationSize];
     [self setNotificationsIcon];
 }
 
@@ -631,6 +644,7 @@ static BOOL notificationsHalfHidden = NO;
     [ChatDBManager setChatStatus:STATUS_REQUEST_REJECTED chatID:groupInvite.chat_id];
     
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+    [self setNotificationSize];
     [self setNotificationsIcon];
 }
 
@@ -645,6 +659,7 @@ static BOOL notificationsHalfHidden = NO;
     
     [self.friendRequests removeObjectAtIndex:indexPath.row];
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+    [self setNotificationSize];
     [self setNotificationsIcon];
 }
 
@@ -656,6 +671,7 @@ static BOOL notificationsHalfHidden = NO;
     
     [self.friendRequests removeObjectAtIndex:indexPath.row];
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+    [self setNotificationSize];
     [self setNotificationsIcon];
 }
 
