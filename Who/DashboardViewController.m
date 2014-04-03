@@ -683,24 +683,58 @@ static BOOL notificationsHalfHidden = NO;
 -(void)handleLongPressForRowAtIndexPath:(NSIndexPath*)indexPath {
     if (indexPath.section == 0) {
         _editingChat = [_groupChats objectAtIndex:indexPath.row];
+        [self showRenameDialog];
     } else {
         _editingChat = [_oneToOneChats objectAtIndex:indexPath.row];
+        [self showOneToOneLongPressDialog];
     }
+}
+
+- (void)showOneToOneLongPressDialog {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rename", @"Block", nil];
+    [alertView show];
+}
+
+- (void)showRenameDialog {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Rename Conversation" message:@"Enter a new name for this conversation." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rename", nil];
     [alertView setAlertViewStyle:UIAlertViewStylePlainTextInput];
     [alertView show];
-    
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 1) {
-        NSLog(@"Setting Chat Name Here");
-        NSString *name = [alertView textFieldAtIndex:0].text;
-        [_editingChat setUser_defined_chat_name:name];
-        [(AppDelegate*)[UIApplication sharedApplication].delegate saveContext];
-        [_tableView reloadData];
+    if ([alertView cancelButtonIndex] == buttonIndex) {
+        _editingChat = nil;
+        return;
     }
-    _editingChat = nil;
+
+    if ([alertView numberOfButtons] == 3) {
+        if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Block"]) {
+            [self showConfirmBlockDiaglog];
+        } else {
+            [self showRenameDialog];
+        }
+    } else if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Rename"]) {
+        [self handleRenameChat:alertView];
+    } else if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Block"]) {
+        [self handleBlockOneToOneChat];
+    }
+}
+
+- (void)handleRenameChat:(UIAlertView *)alertView {
+    NSString *name = [alertView textFieldAtIndex:0].text;
+    [_editingChat setUser_defined_chat_name:name];
+    [(AppDelegate*)[UIApplication sharedApplication].delegate saveContext];
+    [_tableView reloadData];
+
+}
+
+- (void)showConfirmBlockDiaglog {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:@"Blocking this user means they will no longer be able to create one to one chats with you." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Block", nil];
+    [alertView show];
+}
+
+- (void)handleBlockOneToOneChat {
+    NSLog(@"Would block one to one chat here...");
 }
 
 @end

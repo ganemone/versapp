@@ -21,6 +21,7 @@
 @property (strong, nonatomic) UIImage *selectedImage;
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 @property (weak, nonatomic) IBOutlet UIView *header;
+@property (strong, nonatomic) MessageMO *messageToBlock;
 
 
 @end

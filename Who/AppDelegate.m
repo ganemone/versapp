@@ -157,7 +157,7 @@
     if ([stream isDisconnected]) {
         NSString *username = [UserDefaultManager loadUsername];
         NSString *password = [UserDefaultManager loadPassword];
-        NSLog(@"User: %@", username);
+        NSLog(@"User: %@ Password: %@", username, password);
         if (username != nil && password != nil) {
             [cp connect:username password:password];
         } else {
@@ -179,7 +179,11 @@
         XMPPStream *stream = [cp getConnection];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (![stream isConnecting] && ![stream isAuthenticating] && ![stream isConnected] && ![stream isAuthenticated]) {
-                [cp connect:[UserDefaultManager loadUsername] password:[UserDefaultManager loadPassword]];
+                NSString *username = [UserDefaultManager loadUsername];
+                NSString *password = [UserDefaultManager loadPassword];
+                if (username != nil && password != nil) {
+                    [cp connect:username password:password];
+                }
             }
         });
         

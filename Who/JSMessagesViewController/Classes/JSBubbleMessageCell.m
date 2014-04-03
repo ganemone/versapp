@@ -69,10 +69,9 @@ static const CGFloat kJSSubtitleLabelHeight = 15.0f;
     self.detailTextLabel.text = nil;
     self.detailTextLabel.hidden = YES;
     
-    UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                                                             action:@selector(handleLongPressGesture:)];
+    /*UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressGesture:)];
     [recognizer setMinimumPressDuration:0.4f];
-    [self addGestureRecognizer:recognizer];
+    [self addGestureRecognizer:recognizer];*/
 }
 
 - (void)configureTimestampLabel

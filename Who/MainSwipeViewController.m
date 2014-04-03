@@ -88,11 +88,10 @@
 - (void)setUpInBackground {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         ConfessionsManager *cm = [ConfessionsManager getInstance];
-        NSEnumerator *objectEnumerator = [[cm confessions] objectEnumerator];
-        Confession *currentConfession;
         CGSize contentSize = self.view.frame.size;
-        while ((currentConfession = objectEnumerator.nextObject) != nil) {
-            [currentConfession calculateFramesForTableViewCell:contentSize];
+        NSArray *confessions = [[cm confessions] allValues];
+        for (int i = 0; i < [confessions count]; i++) {
+            [[confessions objectAtIndex:i] calculateFramesForTableViewCell:contentSize];
         }
     });
 }

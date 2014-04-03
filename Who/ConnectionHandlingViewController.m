@@ -70,9 +70,9 @@
     XMPPStream *stream = [[ConnectionProvider getInstance] getConnection];
     if (![stream isConnecting] && ![stream isConnected] && ![stream isAuthenticated] && ![stream isAuthenticating]) {
         if (!_connectionLostViewIsVisible) {
-            ConnectionLostViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:STORYBOARD_ID_CONNECTION_LOST_VIEW_CONTROLLER];
-            [self presentViewController:vc animated:YES completion:nil];
-            _connectionLostViewIsVisible = YES;
+            //ConnectionLostViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:STORYBOARD_ID_CONNECTION_LOST_VIEW_CONTROLLER];
+            //[self presentViewController:vc animated:YES completion:nil];
+            //_connectionLostViewIsVisible = YES;
         }
     }
 }
