@@ -44,10 +44,9 @@
     
     // Add a bottomBorder to the header view
     CALayer *headerBottomborder = [CALayer layer];
-    headerBottomborder.frame = CGRectMake(0.0f, self.header.frame.size.height, self.view.frame.size.width, 2.0f);
+    headerBottomborder.frame = CGRectMake(0.0f, 62.0f, self.view.frame.size.width, 2.0f);
     headerBottomborder.backgroundColor = [UIColor whiteColor].CGColor;
-    [self.header.layer addSublayer:headerBottomborder];
-    [self.header sendSubviewToBack:_headerLabel];
+    [self.view.layer addSublayer:headerBottomborder];
     [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
 }
 
@@ -197,6 +196,18 @@
 - (IBAction)onBackClicked:(id)sender {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
+
+- (IBAction)handleDiscloseInfoBtnClicked:(id)sender {
+    NSString *title;
+    NSString *message;
+    if ([_chatMO.chat_name isEqualToString:ANONYMOUS_FRIEND]) {
+        
+    } else {
+        
+    }
+}
+
+
 /*
  // Override to support conditional editing of the table view.
  - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
