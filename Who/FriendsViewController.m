@@ -280,7 +280,7 @@
 
 - (void)confirmCreateOneToOneChat:(FriendMO*)friend {
     self.invitedUser = friend.username;
-    UIAlertView *groupNamePrompt = [[UIAlertView alloc] initWithTitle:@"Confirmation" message:[NSString stringWithFormat:@"Would you like to start an anonymous chat with %@", friend.name] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Create", nil];
+    UIAlertView *groupNamePrompt = [[UIAlertView alloc] initWithTitle:@"Confirmation" message:[NSString stringWithFormat:@"Would you like to start an anonymous chat with %@?", friend.name] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Create", nil];
     groupNamePrompt.alertViewStyle = UIAlertViewStyleDefault;
     [groupNamePrompt show];
 }
