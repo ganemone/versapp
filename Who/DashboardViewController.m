@@ -82,24 +82,51 @@ static BOOL notificationsHalfHidden = NO;
     [imageView setImage:[UIImage imageNamed:@"messages-background-large.png"]];
     [self.tableView setBackgroundView:imageView];
     
-    _greyOutView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0)];
+    _greyOutView = [[UIView alloc] initWithFrame:CGRectZero];
     [_greyOutView setUserInteractionEnabled:NO];
     [_greyOutView setBackgroundColor:[UIColor blackColor]];
-    [_greyOutView setAlpha:0.3];
+    [_greyOutView setAlpha:0.0];
     [self.view addSubview:_greyOutView];
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    if (section == 0) {
-        return nil;
+    if ([tableView isEqual:_tableView]) {
+        if (section == 0) {
+            return nil;
+        }
+        UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
+        [footer setBackgroundColor:[UIColor clearColor]];
+        return footer;
+    } else {
+        UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30.0f)];
+        [footer setBackgroundColor:[UIColor blackColor]];
+        UISwipeGestureRecognizer *swipeUpGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeUpToHideNotifications:)];
+        [swipeUpGestureRecognizer setDelegate:self];
+        swipeUpGestureRecognizer.direction = UISwipeGestureRecognizerDirectionUp;
+        [footer addGestureRecognizer:swipeUpGestureRecognizer];
+        return footer;
     }
-    UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
-    [footer setBackgroundColor:[UIColor clearColor]];
-    return footer;
+}
+
+- (void)handleSwipeUpToHideNotifications:(UIGestureRecognizer *)gestureRecognizer {
+    [self hideNotifications];
+}
+
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    NSLog(@"Should Begin?");
+    return YES;
+}
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    NSLog(@"Gesture 1: %@ Gesture 2: %@", [gestureRecognizer description], [otherGestureRecognizer description]);
+    return YES;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return section;
+    if ([tableView isEqual:_tableView]) {
+        return section;
+    }
+    return 50;
 }
 
 -(void)handleGroupChatMovedToTop:(NSNotification *)notification {
@@ -372,18 +399,17 @@ static BOOL notificationsHalfHidden = NO;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DISABLE_SWIPE object:nil];
     
-    CGRect notificationFrame = self.notificationTableView.frame;
-    notificationFrame.origin.y = 0;
+    CGRect notificationFrame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5+20);
     
     self.notificationTableView.hidden = NO;
-    
+    self.greyOutView.frame = self.view.frame;
     [UIView animateWithDuration:0.5
                           delay:0.0
          usingSpringWithDamping:1.0
           initialSpringVelocity:4.0
                         options: UIViewAnimationOptionCurveEaseIn
                      animations:^{
-                         self.greyOutView.frame = self.view.frame;
+                         self.greyOutView.alpha = 0.5;
                          self.notificationTableView.frame = notificationFrame;
                          [self.tableView setBackgroundView:nil];
                      }
@@ -402,20 +428,19 @@ static BOOL notificationsHalfHidden = NO;
     [self.tableView reloadData];
     
     notificationsHalfHidden = NO;
-    
-    CGRect notificationFrame = self.notificationTableView.frame;
-    notificationFrame.origin.y = -1*self.notificationTableView.frame.size.height;
+
     
     [UIView animateWithDuration:0.5
-                          delay:0.2
+                          delay:0.0
          usingSpringWithDamping:1.0
           initialSpringVelocity:4.0
                         options: UIViewAnimationOptionCurveEaseOut
                      animations:^{
-                         self.greyOutView.frame = CGRectMake(0, 0, self.view.frame.size.width, 0);
-                         self.notificationTableView.frame = notificationFrame;
+                         self.greyOutView.alpha = 0;
+                         self.notificationTableView.frame = CGRectMake(0, 0, self.view.frame.size.width, 0);
                      }
                      completion:^(BOOL finished){
+                         self.greyOutView.frame = CGRectZero;
                          self.notificationTableView.hidden = YES;
                          [self.tableView setUserInteractionEnabled:YES];
                      }];
@@ -466,7 +491,7 @@ static BOOL notificationsHalfHidden = NO;
     }
 }
 
--(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+/*-(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     if (scrollView == self.notificationTableView) {
         NSLog(@"Velocity: %f,%f Offset: %f,%f", velocity.x, velocity.y, targetContentOffset->x, targetContentOffset->y);
         NSLog(@"Current Offset: %f", scrollView.contentOffset.y);
@@ -474,7 +499,17 @@ static BOOL notificationsHalfHidden = NO;
             [self hideNotifications];
         }
     }
-}
+}*/
+
+/*-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView == _notificationTableView) {
+        if (scrollView.contentOffset.y > 60) {
+            [self hideNotifications];
+        } else {
+        [_notificationTableView setFrame:CGRectMake(0, 0, _notificationTableView.frame.size.width, _notificationTableView.frame.size.height - scrollView.contentOffset.y)];
+        }
+    }
+}*/
 
 -(void)setNotificationsIcon {
     NSMutableString *imageName;
@@ -538,12 +573,12 @@ static BOOL notificationsHalfHidden = NO;
     
     self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5+20)];
     /*CGFloat notificationHeight;
-    if (self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.numberOfSections*self.notificationTableView.rowHeight/2 + self.notificationsHeader.frame.size.height < self.view.frame.size.height/2+20) {
-        notificationHeight = self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.numberOfSections*self.notificationTableView.rowHeight/2 + self.notificationsHeader.frame.size.height;
-    } else {
-        notificationHeight = self.view.frame.size.height/2+20;
-    }
-    self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, notificationHeight)];*/
+     if (self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.numberOfSections*self.notificationTableView.rowHeight/2 + self.notificationsHeader.frame.size.height < self.view.frame.size.height/2+20) {
+     notificationHeight = self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.numberOfSections*self.notificationTableView.rowHeight/2 + self.notificationsHeader.frame.size.height;
+     } else {
+     notificationHeight = self.view.frame.size.height/2+20;
+     }
+     self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, notificationHeight)];*/
     self.notificationTableView.hidden = YES;
     [self.notificationTableView setDelegate:self];
     [self.notificationTableView setDataSource:self];
@@ -552,16 +587,16 @@ static BOOL notificationsHalfHidden = NO;
     [self.notificationTableView setSeparatorColor:[StyleManager getColorGreen]];
     
     /*UIView *notificationsFooter = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height*0.5+20, self.view.frame.size.width, 20)];
-    [notificationsFooter setBackgroundColor:[StyleManager getColorGreen]];
-    [self.notificationTableView setTableFooterView:notificationsFooter];*/
+     [notificationsFooter setBackgroundColor:[StyleManager getColorGreen]];
+     [self.notificationTableView setTableFooterView:notificationsFooter];*/
     
     [self.view addSubview:self.notificationTableView];
     
     /*UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(swipeToHideNotifications:)];
-    [panRecognizer setDelegate:self];
-    panRecognizer.minimumNumberOfTouches = 1;
-    panRecognizer.maximumNumberOfTouches = 1;
-    [notificationsFooter addGestureRecognizer:panRecognizer];*/
+     [panRecognizer setDelegate:self];
+     panRecognizer.minimumNumberOfTouches = 1;
+     panRecognizer.maximumNumberOfTouches = 1;
+     [notificationsFooter addGestureRecognizer:panRecognizer];*/
     
     [self hideNotifications];
 }
