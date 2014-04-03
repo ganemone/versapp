@@ -819,7 +819,7 @@
                                 <color key="backgroundColor" red="0.21960784310000001" green="0.65490196079999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" id="YTd-vx-gd2">
-                                <rect key="frame" x="0.0" y="440" width="320" height="40"/>
+                                <rect key="frame" x="0.0" y="442" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Conversation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NrB-mq-V7g">
@@ -847,7 +847,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="footerView" destination="NrB-mq-V7g" id="mba-Lm-nLY"/>
+                        <outlet property="footerLabel" destination="NrB-mq-V7g" id="x1G-O8-wvQ"/>
+                        <outlet property="footerView" destination="YTd-vx-gd2" id="zuE-zb-KUE"/>
                         <outlet property="header" destination="W3K-qU-JeC" id="NlN-dY-0zG"/>
                         <outlet property="notificationsButton" destination="7ln-9F-xZt" id="rFN-XL-in9"/>
                         <outlet property="settingsButton" destination="ed2-Z8-EHa" id="om4-w6-kVJ"/>
@@ -966,6 +967,7 @@
                     <navigationItem key="navigationItem" id="AyH-7P-r1o"/>
                     <connections>
                         <outlet property="bottomLabel" destination="lVS-Q3-Rub" id="y7x-7f-7zs"/>
+                        <outlet property="bottomView" destination="b2u-mj-P71" id="05h-IH-zKJ"/>
                         <outlet property="header" destination="D8u-sU-pBy" id="Yfw-F2-zzU"/>
                         <outlet property="searchBar" destination="G30-1u-tkr" id="C19-rP-HhO"/>
                         <outlet property="searchDisplayController" destination="xnm-H1-FA6" id="TsH-Et-elB"/>
@@ -1978,16 +1980,16 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="YEX-bB-bO6"/>
-        <segue reference="zTQ-Mf-6oX"/>
         <segue reference="hVX-XL-lBE"/>
+        <segue reference="Y5D-AL-CYy"/>
+        <segue reference="AGt-Q0-zDh"/>
+        <segue reference="YEX-bB-bO6"/>
+        <segue reference="pHb-Kf-4qo"/>
         <segue reference="BCc-dv-kG7"/>
         <segue reference="tVn-SP-Hc9"/>
-        <segue reference="pHb-Kf-4qo"/>
         <segue reference="z6h-qs-HbB"/>
-        <segue reference="3yg-rT-qjq"/>
         <segue reference="Ve6-mS-bkp"/>
-        <segue reference="qGQ-aw-vgl"/>
+        <segue reference="3yg-rT-qjq"/>
         <segue reference="YCw-e7-spT"/>
         <segue reference="WHz-1g-xNx"/>
     </inferredMetricsTieBreakers>

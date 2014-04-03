@@ -82,6 +82,17 @@
     [imageView setImage:[UIImage imageNamed:@"friends-background-large.png"]];
     [self.tableView setBackgroundView:imageView];
     
+    // Add a bottomBorder to the header view
+    CALayer *headerBottomborder = [CALayer layer];
+    headerBottomborder.frame = CGRectMake(0.0f, self.header.frame.size.height, self.header.frame.size.width, 2.0f);
+    headerBottomborder.backgroundColor = [UIColor whiteColor].CGColor;
+    [self.header.layer addSublayer:headerBottomborder];
+    // Add a top border to the footer view
+    CALayer *footerTopBorder = [CALayer layer];
+    footerTopBorder.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 2.0f);
+    footerTopBorder.backgroundColor = [UIColor whiteColor].CGColor;
+    [self.bottomView.layer addSublayer:footerTopBorder];
+    
 }
 
 /*- (IBAction)beginSelectingFriendsForGroup:(id)sender {
