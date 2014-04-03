@@ -88,7 +88,7 @@
     self.favIconActive = [UIImage imageNamed:@"fav-icon-label-active.png"];
     self.gradLineSmall = [UIImage imageNamed:@"grad-line-small.png"];
     self.chatIcon = [UIImage imageNamed:@"chat-icon-label.png"];
-    self.deleteIcon = [UIImage imageNamed:@"x-orange.png"];
+    self.deleteIcon = [UIImage imageNamed:@"delete-confession.png"];
 }
 
 - (void)setUpInBackground {

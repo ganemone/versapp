@@ -244,6 +244,8 @@
 		3AFF778418C415BD003277F9 /* ChatMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778318C415BD003277F9 /* ChatMO.m */; };
 		3AFF778718C415BE003277F9 /* FriendMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778618C415BE003277F9 /* FriendMO.m */; };
 		3AFFC93D18A06AE3009D7F13 /* db.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC93B18A06AE3009D7F13 /* db.xcdatamodeld */; };
+		F72B36FF18ECFD1F0015A324 /* check-icon-green-square.png in Resources */ = {isa = PBXBuildFile; fileRef = F72B36FE18ECFD1F0015A324 /* check-icon-green-square.png */; };
+		F72B370118ED00960015A324 /* delete-confession.png in Resources */ = {isa = PBXBuildFile; fileRef = F72B370018ED00960015A324 /* delete-confession.png */; };
 		F7303EC718E862F30045F9AF /* arrow-up-icon-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303EC618E862F30045F9AF /* arrow-up-icon-green.png */; };
 		F7303EC918E8E3100045F9AF /* arrow-up-icon-square-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303EC818E8E3100045F9AF /* arrow-up-icon-square-green.png */; };
 		F7303ECB18E8E3C70045F9AF /* check-icon-purple.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303ECA18E8E3C70045F9AF /* check-icon-purple.png */; };
@@ -690,6 +692,8 @@
 		3AFF778518C415BE003277F9 /* FriendMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendMO.h; sourceTree = "<group>"; };
 		3AFF778618C415BE003277F9 /* FriendMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendMO.m; sourceTree = "<group>"; };
 		3AFFC93C18A06AE3009D7F13 /* db.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = db.xcdatamodel; sourceTree = "<group>"; };
+		F72B36FE18ECFD1F0015A324 /* check-icon-green-square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon-green-square.png"; sourceTree = "<group>"; };
+		F72B370018ED00960015A324 /* delete-confession.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete-confession.png"; sourceTree = "<group>"; };
 		F7303EC618E862F30045F9AF /* arrow-up-icon-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-up-icon-green.png"; sourceTree = "<group>"; };
 		F7303EC818E8E3100045F9AF /* arrow-up-icon-square-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-up-icon-square-green.png"; sourceTree = "<group>"; };
 		F7303ECA18E8E3C70045F9AF /* check-icon-purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon-purple.png"; sourceTree = "<group>"; };
@@ -1743,6 +1747,7 @@
 		3AF521C918EA2DAE008320CD /* Confessions */ = {
 			isa = PBXGroup;
 			children = (
+				F72B370018ED00960015A324 /* delete-confession.png */,
 				3A91F21018EB53990006B9F8 /* confessions-icon.png */,
 				3A07F6D418D3DB0300E82390 /* confession-cell-bottom.png */,
 				F7303ED618E8EF3F0045F9AF /* fav-icon-label-single-active.png */,
@@ -1814,6 +1819,7 @@
 		3AF521D618EA3124008320CD /* Check Icons */ = {
 			isa = PBXGroup;
 			children = (
+				F72B36FE18ECFD1F0015A324 /* check-icon-green-square.png */,
 				F7303ECA18E8E3C70045F9AF /* check-icon-purple.png */,
 				F7977B6218DBA25B000E955C /* check-icon-green.png */,
 				3A07F6D618D3EFC200E82390 /* check-icon.png */,
@@ -2063,6 +2069,7 @@
 				3AEFB76318E8BE5C0039B5B0 /* camera-icon-dark.png in Resources */,
 				3A25B6521881E03700166623 /* Images.xcassets in Resources */,
 				3A91F1FD18EB4C3D0006B9F8 /* owl-left.png in Resources */,
+				F72B36FF18ECFD1F0015A324 /* check-icon-green-square.png in Resources */,
 				3AD19ABA18E26298001B3B88 /* AppIcon120.png in Resources */,
 				3A91F1F518EB4BF50006B9F8 /* messages-background-large.png in Resources */,
 				3AEFB75F18E8BE210039B5B0 /* x-purple.png in Resources */,
@@ -2122,6 +2129,7 @@
 				F7977B6418DBA25B000E955C /* check-icon-green.png in Resources */,
 				3A25B64A1881E03700166623 /* Main.storyboard in Resources */,
 				3A3A0B0618AB1126006FBAE4 /* input-bar-background.png in Resources */,
+				F72B370118ED00960015A324 /* delete-confession.png in Resources */,
 				3A3A0B1318AB1126006FBAE4 /* message-sent.aiff in Resources */,
 				3AF521D518EA30A5008320CD /* messages-icon-white.png in Resources */,
 				3A7CDB8118EBA20D006A4BBF /* add-contact-icon.png in Resources */,
@@ -2447,12 +2455,12 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who;
+				FRAMEWORK_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/Versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
+				LIBRARY_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios/who;
 				PRODUCT_NAME = Versapp;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -2464,12 +2472,12 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who;
+				FRAMEWORK_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/Versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
+				LIBRARY_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios/who;
 				PRODUCT_NAME = Versapp;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;

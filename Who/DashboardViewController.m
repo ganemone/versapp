@@ -46,6 +46,8 @@
 
 @implementation DashboardViewController
 
+static BOOL notificationsHalfHidden = NO;
+
 -(void)viewDidLoad {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
@@ -258,8 +260,8 @@
         
         [cell.textLabel setFont:[StyleManager getFontStyleBoldSizeLarge]];
         [cell.textLabel setTextColor:[StyleManager getColorGreen]];
-        [cell.detailTextLabel setFont:[StyleManager getFontStyleBoldSizeSmall]];
-        [cell.detailTextLabel setTextColor:[StyleManager getColorGreen]];
+        [cell.detailTextLabel setFont:[StyleManager getFontStyleLightSizeSmall]];
+        [cell.detailTextLabel setTextColor:[UIColor blackColor]];
         
         return cell;
     }
@@ -337,8 +339,8 @@
 
 - (NSArray *)notificationsButtons {
     NSMutableArray *buttons = [NSMutableArray new];
-    UIImage *accept = [UIImage imageNamed:@"check-icon-green.png"];
-    UIImage *decline = [UIImage imageNamed:@"decline-icon-green.png"];
+    UIImage *accept = [UIImage imageNamed:@"check-icon-green-square.png"];
+    UIImage *decline = [UIImage imageNamed:@"x-green.png"];
     [buttons sw_addUtilityButtonWithColor:[UIColor clearColor] icon:accept];
     [buttons sw_addUtilityButtonWithColor:[UIColor clearColor] icon:decline];
     
@@ -383,6 +385,7 @@
                      animations:^{
                          self.greyOutView.frame = self.view.frame;
                          self.notificationTableView.frame = notificationFrame;
+                         [self.tableView setBackgroundView:nil];
                      }
                      completion:^(BOOL finished){
                          [self.tableView setUserInteractionEnabled:NO];
@@ -397,6 +400,8 @@
     
     self.groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
     [self.tableView reloadData];
+    
+    notificationsHalfHidden = NO;
     
     CGRect notificationFrame = self.notificationTableView.frame;
     notificationFrame.origin.y = -1*self.notificationTableView.frame.size.height;
@@ -417,11 +422,57 @@
     [UIView commitAnimations];
 }
 
-- (IBAction)tapToHideNotifications:(UITapGestureRecognizer *)recognizer {
+-(IBAction)tapToHideNotifications:(UITapGestureRecognizer *)recognizer {
     CGPoint tapLocation = [recognizer locationInView:self.view];
     
     if (!CGRectContainsPoint(self.notificationTableView.frame, tapLocation) && !self.notificationTableView.hidden) {
         [self hideNotifications];
+    }
+}
+
+-(IBAction)swipeToHideNotifications:(UIPanGestureRecognizer *)recognizer {
+    [self adjustAnchorPoint:recognizer];
+    
+    if (recognizer.state == UIGestureRecognizerStateBegan || recognizer.state == UIGestureRecognizerStateChanged) {
+        CGPoint translation = [recognizer translationInView:recognizer.view.superview];
+        NSLog(@"Center: %f", recognizer.view.superview.center.y);
+        if (recognizer.view.superview.center.y <= 0) {
+            notificationsHalfHidden = YES;
+        } else {
+            notificationsHalfHidden = NO;
+        }
+        if (recognizer.view.superview.center.y <= 120) {
+            [recognizer.view.superview setCenter:CGPointMake(recognizer.view.superview.center.x, recognizer.view.superview.center.y + translation.y)];
+        } else {
+            [recognizer.view.superview setCenter:CGPointMake(recognizer.view.superview.center.x, 120)];
+        }
+        [recognizer setTranslation:CGPointZero inView:recognizer.view.superview];
+    } else if (recognizer.state == UIGestureRecognizerStateEnded) {
+        if (notificationsHalfHidden) {
+            [self hideNotifications];
+        } else {
+            [self showNotifications];
+        }
+    }
+}
+
+-(void)adjustAnchorPoint:(UIPanGestureRecognizer *)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        CGPoint inView = [recognizer locationInView:recognizer.view];
+        CGPoint inSuperview = [recognizer locationInView:recognizer.view.superview];
+        
+        recognizer.view.layer.anchorPoint = CGPointMake(inView.x / recognizer.view.bounds.size.width, inView.y / recognizer.view.bounds.size.height);
+        recognizer.view.center = inSuperview;
+    }
+}
+
+-(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    if (scrollView == self.notificationTableView) {
+        NSLog(@"Velocity: %f,%f Offset: %f,%f", velocity.x, velocity.y, targetContentOffset->x, targetContentOffset->y);
+        NSLog(@"Current Offset: %f", scrollView.contentOffset.y);
+        if (scrollView.contentOffset.y > 60) {
+            [self hideNotifications];
+        }
     }
 }
 
@@ -485,7 +536,14 @@
     tapRecognizer.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapRecognizer];
     
-    self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5)];
+    self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5+20)];
+    /*CGFloat notificationHeight;
+    if (self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.numberOfSections*self.notificationTableView.rowHeight/2 + self.notificationsHeader.frame.size.height < self.view.frame.size.height/2+20) {
+        notificationHeight = self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.numberOfSections*self.notificationTableView.rowHeight/2 + self.notificationsHeader.frame.size.height;
+    } else {
+        notificationHeight = self.view.frame.size.height/2+20;
+    }
+    self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, notificationHeight)];*/
     self.notificationTableView.hidden = YES;
     [self.notificationTableView setDelegate:self];
     [self.notificationTableView setDataSource:self];
@@ -493,7 +551,18 @@
     [self.notificationTableView setTableHeaderView:self.notificationsHeader];
     [self.notificationTableView setSeparatorColor:[StyleManager getColorGreen]];
     
+    /*UIView *notificationsFooter = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height*0.5+20, self.view.frame.size.width, 20)];
+    [notificationsFooter setBackgroundColor:[StyleManager getColorGreen]];
+    [self.notificationTableView setTableFooterView:notificationsFooter];*/
+    
     [self.view addSubview:self.notificationTableView];
+    
+    /*UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(swipeToHideNotifications:)];
+    [panRecognizer setDelegate:self];
+    panRecognizer.minimumNumberOfTouches = 1;
+    panRecognizer.maximumNumberOfTouches = 1;
+    [notificationsFooter addGestureRecognizer:panRecognizer];*/
+    
     [self hideNotifications];
 }
 
