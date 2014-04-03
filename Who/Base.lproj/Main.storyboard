@@ -1084,6 +1084,14 @@
                                             <action selector="onBackClicked:" destination="LSk-rM-HTJ" eventType="touchUpInside" id="0ds-Bj-FaE"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" id="J3u-R3-Wbe">
+                                        <rect key="frame" x="245" y="31" width="22" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.21960784310000001" green="0.65490196079999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -1093,7 +1101,7 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="qz8-H8-B20"/>
                     <connections>
-                        <outlet property="header" destination="vsd-42-qBE" id="Bl4-zf-2eG"/>
+                        <outlet property="header" destination="vsd-42-qBE" id="qoq-Zb-7Z6"/>
                         <outlet property="headerLabel" destination="HUc-cS-3Ub" id="FXq-lN-0ns"/>
                         <segue destination="kcE-6H-FHd" kind="push" identifier="SegueIDAddToGroup" id="YEX-bB-bO6"/>
                     </connections>
@@ -1178,7 +1186,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="IIL-et-yzh">
-                                        <rect key="frame" x="271" y="5" width="34" height="30"/>
+                                        <rect key="frame" x="281" y="5" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                         <state key="normal" image="compose-icon.png">
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1189,11 +1197,19 @@
                                         </connections>
                                     </button>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Whats going on?" minimumFontSize="17" id="r1H-mN-7k3">
-                                        <rect key="frame" x="6" y="5" width="257" height="30"/>
+                                        <rect key="frame" x="40" y="5" width="233" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" id="AfO-AP-jbz">
+                                        <rect key="frame" x="10" y="8" width="22" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.95686274509803915" green="0.5725490196078431" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -1453,7 +1469,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="l1b-JD-9CX">
-                                        <rect key="frame" x="63" y="20" width="194" height="44"/>
+                                        <rect key="frame" x="48" y="20" width="225" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1469,6 +1485,14 @@
                                             <action selector="onBackClicked:" destination="iDZ-uG-Ep6" eventType="touchUpInside" id="KTi-cY-2i2"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" id="x9Y-gK-Yya">
+                                        <rect key="frame" x="288" y="31" width="22" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <connections>
+                                            <action selector="handleDiscloseInfoBtnClicked:" destination="iDZ-uG-Ep6" eventType="touchUpInside" id="gXH-eJ-ic3"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.21960784310000001" green="0.65490196079999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -1476,11 +1500,9 @@
                         <color key="backgroundColor" red="0.21960784310000001" green="0.65490196079999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" id="CbB-Xy-nAC">
-                        <barButtonItem key="backBarButtonItem" title="Dashboard" id="5Re-bn-JwE"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="CbB-Xy-nAC"/>
                     <connections>
-                        <outlet property="header" destination="Cey-fd-2nt" id="VRg-3v-uPC"/>
+                        <outlet property="header" destination="Cey-fd-2nt" id="grD-jx-qU1"/>
                         <outlet property="headerLabel" destination="l1b-JD-9CX" id="rmE-BW-DHc"/>
                     </connections>
                 </viewController>
@@ -1951,17 +1973,17 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="WHz-1g-xNx"/>
+        <segue reference="zTQ-Mf-6oX"/>
+        <segue reference="YEX-bB-bO6"/>
         <segue reference="Ve6-mS-bkp"/>
         <segue reference="3yg-rT-qjq"/>
         <segue reference="YCw-e7-spT"/>
-        <segue reference="BCc-dv-kG7"/>
-        <segue reference="pHb-Kf-4qo"/>
-        <segue reference="tVn-SP-Hc9"/>
+        <segue reference="qGQ-aw-vgl"/>
         <segue reference="z6h-qs-HbB"/>
         <segue reference="hVX-XL-lBE"/>
-        <segue reference="zTQ-Mf-6oX"/>
-        <segue reference="8c7-Mw-K5g"/>
-        <segue reference="YEX-bB-bO6"/>
-        <segue reference="WHz-1g-xNx"/>
+        <segue reference="tVn-SP-Hc9"/>
+        <segue reference="pHb-Kf-4qo"/>
+        <segue reference="BCc-dv-kG7"/>
     </inferredMetricsTieBreakers>
 </document>
