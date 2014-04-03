@@ -223,7 +223,7 @@ static int numUninvitedParticipants;
 }
 
 +(void)updateOneToOneChatNames:(NSString *)name username:(NSString*)username {
-    NSArray *loadingOneToOneChats = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", CHATS_TABLE_COLUMN_NAME_CHAT_TYPE, CHAT_TYPE_ONE_TO_ONE]];
+    NSArray *loadingOneToOneChats = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", CHATS_TABLE_COLUMN_NAME_CHAT_TYPE, CHAT_TYPE_ONE_TO_ONE_INVITER]];
     ChatMO *chatEntry;
     for (int i = 0; i < loadingOneToOneChats.count; i++) {
         chatEntry = [loadingOneToOneChats objectAtIndex:i];
