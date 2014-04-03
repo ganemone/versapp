@@ -200,11 +200,15 @@
 - (IBAction)handleDiscloseInfoBtnClicked:(id)sender {
     NSString *title;
     NSString *message;
-    if ([_chatMO.chat_name isEqualToString:ANONYMOUS_FRIEND]) {
+    if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION]) {
         
     } else {
         
     }
+    title = _chatMO.chat_type;
+    message = _chatMO.participant_string;
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+    [alertView show];
 }
 
 

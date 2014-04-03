@@ -219,11 +219,7 @@
             chatMo = [self.oneToOneChats objectAtIndex:indexPath.row];
         }
         
-        //if ([chatMo.chat_type compare:CHAT_TYPE_ONE_TO_ONE] == 0 && [[ConnectionProvider getUser] compare:[chatMo.chat_id substringToIndex:[[ConnectionProvider getUser] length]]] != 0) {
-        //  [cell.textLabel setText:ANONYMOUS_FRIEND];
-        //} else {
         [cell.textLabel setText:[chatMo getChatName]];
-        //}
         [cell.detailTextLabel setText:[chatMo getLastMessage]];
         
         if ([ChatDBManager doesChatHaveNewMessage:chatMo.chat_id]) {
