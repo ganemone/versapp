@@ -91,23 +91,6 @@
     self.deleteIcon = [UIImage imageNamed:@"delete-confession.png"];
 }
 
-- (void)setUpInBackground {
-    NSLog(@"Setting up In Background...");
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        self.confessionsManager = [ConfessionsManager getInstance];
-        
-        self.cellCache = [[NSMutableDictionary alloc] initWithCapacity:[_confessionsManager getNumberOfConfessions]];
-        NSEnumerator *confessionEnumerator = [[_confessionsManager confessions] objectEnumerator];
-        Confession *confession;
-        
-        while ((confession = [confessionEnumerator nextObject]) != nil) {
-            NSLog(@"Setting up Confession...");
-            [self.cellCache setObject:[self confessionTableCellForConfession:confession] forKey:confession.confessionID];
-        }
-    });
-}
-
 - (void)loadConfessions {
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacket]];
 }

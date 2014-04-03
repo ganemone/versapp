@@ -66,6 +66,7 @@
 }
 
 - (void)showDisconnectedView {
+    NSLog(@"Showing Disconnected View");
     XMPPStream *stream = [[ConnectionProvider getInstance] getConnection];
     if (![stream isConnecting] && ![stream isConnected] && ![stream isAuthenticated] && ![stream isAuthenticating]) {
         if (!_connectionLostViewIsVisible) {

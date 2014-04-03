@@ -34,7 +34,7 @@
     [room activate:conn];
     [room joinRoomUsingNickname:[ConnectionProvider getUser] history:nil];
     //[room fetchConfigurationForm];
-    [room configureRoomUsingOptions:[IQPacketManager createRoomConfigurationForm:roomName]];
+    [room configureRoomUsingOptions:[IQPacketManager createRoomConfigurationForm:chatID]];
     ChatMO *chat = [ChatDBManager insertChatWithID:chatID chatName:roomName chatType:CHAT_TYPE_GROUP participantString:[participants componentsJoinedByString:@", "] status:STATUS_JOINED];
     for (NSString *participant in participants) {
         [conn sendElement:[IQPacketManager createInviteToMUCMessage:chatID username:participant chatName:roomName]];
