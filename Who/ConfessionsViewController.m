@@ -24,6 +24,8 @@
 @property (strong, nonatomic) NSMutableDictionary *cellCache;
 @property (strong, nonatomic) UIImage *favIcon;
 @property (strong, nonatomic) UIImage *favIconActive;
+@property (strong, nonatomic) UIImage *favIconSingle;
+@property (strong, nonatomic) UIImage *favIconSingleActive;
 @property (strong, nonatomic) UIImage *gradLineSmall;
 @property (strong, nonatomic) UIImage *chatIcon;
 @property (strong, nonatomic) UIImage *deleteIcon;
@@ -86,6 +88,8 @@
     
     self.favIcon = [UIImage imageNamed:@"fav-icon-label.png"];
     self.favIconActive = [UIImage imageNamed:@"fav-icon-label-active.png"];
+    self.favIconSingle = [UIImage imageNamed:@"fav-icon-label-single.png"];
+    self.favIconSingleActive = [UIImage imageNamed:@"fav-icon-label-single-active.png"];
     self.gradLineSmall = [UIImage imageNamed:@"grad-line-small.png"];
     self.chatIcon = [UIImage imageNamed:@"chat-icon-label.png"];
     self.deleteIcon = [UIImage imageNamed:@"delete-confession.png"];
@@ -150,9 +154,17 @@
         NSLog(@"Cell is nil...");
         cell = [[ConfessionTableCell alloc] initWithConfession:confession reuseIdentifier:CellIdentifier];
         if ([confession isFavoritedByConnectedUser]) {
-            [cell.favoriteButton setImage:self.favIconActive forState:UIControlStateNormal];
+            if ([confession getNumForLabel] == 1) {
+                [cell.favoriteButton setImage:self.favIconSingleActive forState:UIControlStateNormal];
+            } else {
+                [cell.favoriteButton setImage:self.favIconActive forState:UIControlStateNormal];
+            }
         } else {
-            [cell.favoriteButton setImage:self.favIcon forState:UIControlStateNormal];
+            if ([confession getNumForLabel] == 1) {
+                [cell.favoriteButton setImage:self.favIconSingle forState:UIControlStateNormal];
+            } else {
+                [cell.favoriteButton setImage:self.favIcon forState:UIControlStateNormal];
+            }
         }
         [cell.timestampLabel setText:[confession getTimePosted]];
         [cell.favoriteLabel setText:[confession getTextForLabel]];
@@ -214,7 +226,7 @@
         [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, attrString.length)];
         [self.refreshControl setAttributedTitle:attrString];
     }
-    
+    [self.tableView reloadData];
 }
 
 - (void)handleOneToOneChatCreatedFromConfession {
