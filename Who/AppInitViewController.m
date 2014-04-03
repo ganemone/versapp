@@ -52,13 +52,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNoDefaultsStored) name:@"needToRegister" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailedToAuthenticate) name:NOTIFICATION_LOGOUT object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailedToAuthenticate) name:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];
-    /*NSString *username = [UserDefaultManager loadUsername];
-    NSString *password = [UserDefaultManager loadPassword];
-    if (username != nil && password != nil) {
-        [[ConnectionProvider getInstance] connect:username password:password];
-    } else {
-        [self handleNoDefaultsStored];
-    }*/
 }
 
 -(void)viewDidAppear:(BOOL)animated {

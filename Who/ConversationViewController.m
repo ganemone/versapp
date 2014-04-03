@@ -47,7 +47,7 @@
     self.imageCache = [ImageCache getInstance];
     self.downloadingImageURLs = [[NSMutableArray alloc] initWithCapacity:20];
     [self.headerLabel setText:[self.chatMO getChatName]];
-    [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
+    [self.headerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     
     //UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
     //                                    initWithTarget:self action:@selector(handleLongPress:)];

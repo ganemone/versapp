@@ -1674,7 +1674,7 @@
         <!--App Init View Controller-->
         <scene sceneID="HoD-1Q-AHL">
             <objects>
-                <viewController id="emE-SZ-5gQ" customClass="AppInitViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AppInitViewController" id="emE-SZ-5gQ" customClass="AppInitViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QPa-Fu-CtY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

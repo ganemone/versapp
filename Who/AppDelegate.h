@@ -18,6 +18,8 @@
 @property (strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (strong, nonatomic) NSString *sessionID;
 
+@property BOOL didResumeFromBackground;
+
 - (NSManagedObjectContext *) managedObjectContext;
 - (NSManagedObjectModel *)managedObjectModel;
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator;

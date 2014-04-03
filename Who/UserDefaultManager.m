@@ -121,5 +121,16 @@
     return [preferences stringForKey:USER_DEFAULTS_COUNTRY];
 }
 
++(NSString *)loadDeviceID {
+    NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
+    return [preferences stringForKey:USER_DEFAULTS_DEVICE_ID];
+}
+
++(void)saveDeviceID:(NSString *)deviceID {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setObject:deviceID forKey:USER_DEFAULTS_DEVICE_ID];
+    [preferences synchronize];
+}
+
 
 @end

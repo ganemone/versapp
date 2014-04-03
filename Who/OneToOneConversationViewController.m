@@ -196,14 +196,31 @@
     NSString *title = @"What's the deal?";
     NSString *message;
     if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION]) {
-        message = [NSString stringWithFormat:@"This is a one to one chat started from a confession. This chat is two-way anonymous! Neither of you know exactly who the other user is, but you are connected by this confession: %@", _chatMO.chat_name];
+        message = @"This is a one to one chat started from a confession. This chat is two-way anonymous! Neither of you know exactly who the other user is, but you are connected by a confession";
     } else if([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITED]) {
         message = @"This is a one to one chat started by one of your friends. Remember, since they started the chat, they know who you are but you don't know who they are.";
     } else {
         message = [NSString stringWithFormat:@"This is a one to one chat between you and %@. This chat is one-way anonymous. Since you started the chat, you know who they are, but they don't know who you are!", _chatMO.chat_name];
     }
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
-    [alertView show];
+    
+    if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:@"View Confession", nil];
+        [alertView show];
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:nil];
+        [alertView show];
+    }
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION] && [alertView numberOfButtons] > 1) {
+        if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString: @"View Confession"]) {
+            UIAlertView *confessionAlert = [[UIAlertView alloc] initWithTitle:@"Confession" message:_chatMO.chat_name delegate:self cancelButtonTitle:@"Cool" otherButtonTitles: nil];
+            [confessionAlert show];
+        }
+    } else {
+        [super alertView:alertView clickedButtonAtIndex:buttonIndex];
+    }
 }
 
 

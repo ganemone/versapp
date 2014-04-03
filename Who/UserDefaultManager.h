@@ -19,6 +19,7 @@
 +(void)saveValidated:(BOOL)valid;
 +(void)saveCountry:(NSString *)country;
 +(void)savePhone:(NSString *)phone;
++(void)saveDeviceID:(NSString *)deviceID;
 +(NSString*)loadPassword;
 +(NSString*)loadUsername;
 +(NSString *)loadName;
@@ -26,6 +27,7 @@
 +(NSString *)loadCountryCode;
 +(NSString *)loadPhone;
 +(NSString *)loadCountry;
++(NSString *)loadDeviceID;
 +(BOOL)isValidated;
 
 @end
