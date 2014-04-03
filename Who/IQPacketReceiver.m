@@ -190,6 +190,7 @@
                 ChatMO *chat = [ChatDBManager getChatWithID:chatId withMOC:moc];
                 if (chat != nil) {
                     name = [chat getChatName];
+                    type = chat.chat_type;
                 } else {
                     if ([owner isEqualToString:[ConnectionProvider getUser]]) {
                         NSLog(@"I AM THE OWNER");
