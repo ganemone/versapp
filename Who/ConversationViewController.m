@@ -50,7 +50,7 @@
     [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
     
     //UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
-      //                                    initWithTarget:self action:@selector(handleLongPress:)];
+    //                                    initWithTarget:self action:@selector(handleLongPress:)];
     
     // Add a bottomBorder to the header view
     CALayer *headerBottomborder = [CALayer layer];
@@ -61,29 +61,29 @@
     [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
 }
 /*
--(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
-{
-    if (gestureRecognizer.state != UIGestureRecognizerStateBegan || ![self becomeFirstResponder])
-        return;
-    
-    CGPoint p = [gestureRecognizer locationInView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
-    if (indexPath == nil) {
-        NSLog(@"long press on table view but not on a row");
-    }
-    else {
-        NSLog(@"long press on table view at row %d", indexPath.row);
-        [self handleLongPressForRowAtIndexPath:indexPath];
-    }
-}
-
--(void)handleLongPressForRowAtIndexPath:(NSIndexPath*)indexPath {
-    
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Rename Conversation" message:@"Enter a new name for this conversation." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rename", nil];
-    [alertView setAlertViewStyle:UIAlertViewStylePlainTextInput];
-    [alertView show];
-    
-}*/
+ -(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+ {
+ if (gestureRecognizer.state != UIGestureRecognizerStateBegan || ![self becomeFirstResponder])
+ return;
+ 
+ CGPoint p = [gestureRecognizer locationInView:self.tableView];
+ NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
+ if (indexPath == nil) {
+ NSLog(@"long press on table view but not on a row");
+ }
+ else {
+ NSLog(@"long press on table view at row %d", indexPath.row);
+ [self handleLongPressForRowAtIndexPath:indexPath];
+ }
+ }
+ 
+ -(void)handleLongPressForRowAtIndexPath:(NSIndexPath*)indexPath {
+ 
+ UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Rename Conversation" message:@"Enter a new name for this conversation." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rename", nil];
+ [alertView setAlertViewStyle:UIAlertViewStylePlainTextInput];
+ [alertView show];
+ 
+ }*/
 
 -(void)participantsUpdated:(NSNotification *)notification {
     self.chatMO = [ChatDBManager getChatWithID:self.chatMO.chat_id];
@@ -247,25 +247,9 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-- (IBAction)showGroupMembers:(id)sender {
-    _chatMO = [ChatDBManager getChatWithID:_chatMO.chat_id];
-    NSArray *members = self.chatMO.participants;
-    NSMutableString *list = [[NSMutableString alloc] init];
-    for (NSString *member in members) {
-        FriendMO *friend = [FriendsDBManager getUserWithJID:[NSString stringWithFormat:@"%@", member]];
-        if (friend == nil) {
-            NSString *name = [[[ConnectionProvider getInstance] tempVCardInfo] objectForKey:member];
-            if (name != nil) {
-                [list appendString:[NSString stringWithFormat:@"%@\n", name]];
-            }
-        } else {
-            [list appendString:[NSString stringWithFormat:@"%@\n", friend.name]];
-        }
-    }
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Participants" message:nil delegate:self cancelButtonTitle:@"Close" otherButtonTitles:@"Add Users", nil];
-    [alertView setMessage:list];
+- (IBAction)discloseInfoButtonClicked:(id)sender {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:_headerLabel.text message:@"This is a group chat. Everyone knows who is in the group, but no one knows who is sending each message." delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil];
     [alertView setAlertViewStyle:UIAlertViewStyleDefault];
-    [alertView setMessage:list];
     [alertView show];
 }
 
@@ -278,7 +262,30 @@
     }
 }
 
+- (IBAction)showGroupParticipants:(id)sender {
+    _chatMO = [ChatDBManager getChatWithID:_chatMO.chat_id];
+    NSArray *members = self.chatMO.participants;
+    NSMutableArray *list = [[NSMutableArray alloc] init];
+    for (NSString *member in members) {
+        FriendMO *friend = [FriendsDBManager getUserWithJID:[NSString stringWithFormat:@"%@", member]];
+        if (friend == nil) {
+            NSString *name = [[[ConnectionProvider getInstance] tempVCardInfo] objectForKey:member];
+            if (name != nil) {
+                [list addObject:name];
+            }
+        } else {
+            [list addObject:friend.name];
+        }
+    }
+    NSString *participantString = [list componentsJoinedByString:@"\n"];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:self.headerLabel.text message:participantString delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"Add Users", nil];
+    [alert show];
+}
+
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if ([alertView numberOfButtons] == 1) {
+        return;
+    }
     if ([[alertView buttonTitleAtIndex:1] isEqualToString:@"Add Users"]) {
         if (!(buttonIndex == [alertView cancelButtonIndex])) {
             [self performSegueWithIdentifier:SEGUE_ID_ADD_TO_GROUP sender:self];
