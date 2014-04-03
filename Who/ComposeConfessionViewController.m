@@ -12,8 +12,10 @@
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
 #import "Constants.h"
+#import "StyleManager.h"
 
 @interface ComposeConfessionViewController ()
+@property (strong, nonatomic) IBOutlet UILabel *headerLabel;
 
 @end
 
@@ -31,7 +33,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[self composeTextView] becomeFirstResponder];
+    [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
+    [self.composeTextView becomeFirstResponder];
+    [self.composeTextView setFont:[StyleManager getFontStyleMediumSizeLarge]];
+    [self.composeTextView setTextColor:[UIColor whiteColor]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedPostingConfession) name:PACKET_ID_POST_CONFESSION object:nil];
 }
 

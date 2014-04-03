@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JSMessagesViewController/Classes/JSBubbleView.h"
 
 @interface ComposeConfessionViewController : UIViewController
 
