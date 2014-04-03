@@ -468,6 +468,14 @@ static BOOL notificationsHalfHidden = NO;
     }
 }
 
+-(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    NSLog(@"Velocity: %f,%f Offset: %f,%f", velocity.x, velocity.y, targetContentOffset->x, targetContentOffset->y);
+    NSLog(@"Current Offset: %f", scrollView.contentOffset.y);
+    if (scrollView.contentOffset.y > 60) {
+        [self hideNotifications];
+    }
+}
+
 -(void)setNotificationsIcon {
     NSMutableString *imageName;
     NSMutableString *greenImageName;
