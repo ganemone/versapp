@@ -538,12 +538,12 @@ static BOOL notificationsHalfHidden = NO;
     tapRecognizer.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapRecognizer];
     
-    self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5+20)];
+    self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5)];
     /*CGFloat notificationHeight;
-    if (self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.numberOfSections*self.notificationTableView.rowHeight/2 + self.notificationsHeader.frame.size.height < self.view.frame.size.height/2+20) {
+    if (self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.numberOfSections*self.notificationTableView.rowHeight/2 + self.notificationsHeader.frame.size.height < self.view.frame.size.height/2) {
         notificationHeight = self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.numberOfSections*self.notificationTableView.rowHeight/2 + self.notificationsHeader.frame.size.height;
     } else {
-        notificationHeight = self.view.frame.size.height/2+20;
+        notificationHeight = self.view.frame.size.height/2;
     }
     self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, notificationHeight)];*/
     self.notificationTableView.hidden = YES;
