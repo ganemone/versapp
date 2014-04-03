@@ -59,6 +59,9 @@ NSString *const USER_DEFAULTS_PHONE = @"nsdefault_key_phone";
 
 NSString *const CHAT_TYPE_GROUP = @"groupchat";
 NSString *const CHAT_TYPE_ONE_TO_ONE = @"chat";
+NSString *const CHAT_TYPE_ONE_TO_ONE_INVITER = @"one_to_one_inviter";
+NSString *const CHAT_TYPE_ONE_TO_ONE_INVITED = @"one_to_one_invited";
+NSString *const CHAT_TYPE_ONE_TO_ONE_CONFESSION = @"one_to_one_confession";
 NSString *const MESSAGE_TYPE_HEADLINE = @"headline";
 
 NSString *const MESSAGE_PROPERTY_BODY = @"message_body";

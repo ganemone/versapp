@@ -67,17 +67,17 @@
     [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
     
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
-    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:@"Pull to Refresh"];
-    [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, 15)];
-    [refresh setAttributedTitle:attrString];
-    [refresh addTarget:self action:@selector(loadConfessions) forControlEvents:UIControlEventValueChanged];
+//    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:@"Pull to Refresh"];
+//    [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, attrString.length)];
+    [refresh addTarget:self action:@selector(refreshListView) forControlEvents:UIControlEventValueChanged];
+//    [refresh setAttributedTitle:attrString];
+    
     [refresh setTintColor:[UIColor whiteColor]];
     
     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
     [tableViewController setRefreshControl:refresh];
     [tableViewController setTableView:_tableView];
     self.refreshControl = refresh;
-
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     [self.tableView setBackgroundColor:[StyleManager getColorOrange]];
@@ -193,15 +193,28 @@
     return [confession heightForConfession] - 8.0f;
 }
 
-- (void)refreshListView {
+- (void)refreshListView
+{
     [_confessionsManager sortConfessions];
     [_cellCache removeAllObjects];
+    
     if ([self.refreshControl isRefreshing]) {
+        
+        NSMutableAttributedString *refreshTitle = [[NSMutableAttributedString alloc]initWithString:@"Refreshing..."];
+        [refreshTitle addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, refreshTitle.length)];
+        
+        [self.refreshControl setAttributedTitle:refreshTitle];
+
+        [self loadConfessions];
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
-    } else {
-        [self.tableView reloadData];
     }
+    else {
+        NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:@"Pull to refresh"];
+        [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, attrString.length)];
+        [self.refreshControl setAttributedTitle:attrString];
+    }
+    
 }
 
 - (void)handleOneToOneChatCreatedFromConfession {
@@ -232,5 +245,11 @@
                                                         object:nil
                                                       userInfo:userInfo];
 }
+
+- (IBAction)handleDiscloseInfoBtnClicked:(id)sender {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Confessions" message:@"This is your newsfeed of confessions. Confessions are anonymous and you only see the confessions of your friends. Try favoriting a confession, or starting a chat with a confession poster! They are both done completely anonymously!" delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil];
+    [alertView show];
+}
+
 
 @end

@@ -177,6 +177,7 @@
             name = [self urlDecode:[packetXML substringWithRange:[match rangeAtIndex:5]]];
             //*createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
             participants = [participantString componentsSeparatedByString:@", "];
+            NSLog(@"Found Joined Chat! %@ %@ %@", type, owner, name);
             for (NSString *participant in participants) {
                 if ([FriendsDBManager getUserWithJID:participant moc:moc] == nil) {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -185,17 +186,26 @@
                 }
             }
             if ([type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
+                NSLog(@"Is One to One Chat!");
                 ChatMO *chat = [ChatDBManager getChatWithID:chatId withMOC:moc];
                 if (chat != nil) {
                     name = [chat getChatName];
+                    type = chat.chat_type;
                 } else {
                     if ([owner isEqualToString:[ConnectionProvider getUser]]) {
+                        NSLog(@"I AM THE OWNER");
                         NSString *participant = ([[participants firstObject] isEqualToString:[ConnectionProvider getUser]]) ? [participants lastObject] : [participants firstObject];
+                        type = CHAT_TYPE_ONE_TO_ONE_INVITER;
                         name = [FriendsDBManager getUserWithJID:participant moc:moc].name;
                         if (name == nil) {
                             name = @"Loading...";
                         }
+                    } else if([owner isEqualToString:@"server"]) {
+                        NSLog(@"Server is Owner!");
+                        type = CHAT_TYPE_ONE_TO_ONE_CONFESSION;
                     } else {
+                        NSLog(@"I am not the owner!");
+                        type = CHAT_TYPE_ONE_TO_ONE_INVITED;
                         name = ANONYMOUS_FRIEND;
                     }
                 }

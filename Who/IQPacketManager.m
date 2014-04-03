@@ -107,7 +107,7 @@
     [query addChild:[DDXMLNode elementWithName:@"chat_id" stringValue:chatId]];
     [query addChild:[DDXMLNode elementWithName:@"status" stringValue:@"inactive"]];
     DDXMLElement *iq = [self getWhoChatIQElementWithType:@"set" packetID:PACKET_ID_DENY_CHAT_INVITE children:query];
-    NSLog(@"Create Invite to Chat Packet: %@", iq.XMLString);
+    NSLog(@"Create Deny Chat Packet: %@", iq.XMLString);
     return iq;
 }
 

@@ -41,13 +41,14 @@
     }
     
     [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
+    [self.headerLabel setText:[self.chatMO getChatName]];
+    [self.headerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     
     // Add a bottomBorder to the header view
     CALayer *headerBottomborder = [CALayer layer];
-    headerBottomborder.frame = CGRectMake(0.0f, self.header.frame.size.height - 2.0f, self.view.frame.size.width, 2.0f);
+    headerBottomborder.frame = CGRectMake(0.0f, 62.0f, self.view.frame.size.width, 2.0f);
     headerBottomborder.backgroundColor = [UIColor whiteColor].CGColor;
-    [self.header.layer addSublayer:headerBottomborder];
-    
+    [self.view.layer addSublayer:headerBottomborder];
     [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
 }
 
@@ -197,6 +198,22 @@
 - (IBAction)onBackClicked:(id)sender {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
+
+- (IBAction)handleDiscloseInfoBtnClicked:(id)sender {
+    NSString *title = @"What's the deal?";
+    NSString *message;
+    if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION]) {
+        message = [NSString stringWithFormat:@"This is a one to one chat started from a confession. This chat is two-way anonymous! Neither of you know exactly who the other user is, but you are connected by this confession: %@", _chatMO.chat_name];
+    } else if([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITED]) {
+        message = @"This is a one to one chat started by one of your friends. Remember, since they started the chat, they know who you are but you don't know who they are.";
+    } else {
+        message = [NSString stringWithFormat:@"This is a one to one chat between you and %@. This chat is one-way anonymous. Since you started the chat, you know who they are, but they don't know who you are!", _chatMO.chat_name];
+    }
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+    [alertView show];
+}
+
+
 /*
  // Override to support conditional editing of the table view.
  - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

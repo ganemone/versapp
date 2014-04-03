@@ -62,7 +62,7 @@
     self.unregisteredContacts = [FriendsDBManager getAllWithStatusUnregistered];
     NSLog(@"Num Registered Contacts: %lu", (unsigned long)[self.registeredContacts count]);
     NSLog(@"Num Unregistered Contacts %lu", (unsigned long)[self.unregisteredContacts count]);
-
+    
     self.selectedRegisteredContacts = [[NSMutableArray alloc] initWithCapacity:[_registeredContacts count]];
     self.selectedUnregisteredContacts = [[NSMutableArray alloc] initWithCapacity:[_unregisteredContacts count]];
     
@@ -87,6 +87,7 @@
     [imageView setImage:[UIImage imageNamed:@"contacts-background-large.png"]];
     [self.tableView setBackgroundView:imageView];
 
+    self.refreshControl.layer.zPosition = self.tableView.backgroundView.layer.zPosition + 1;
 }
 
 -(void)searchForContacts {
@@ -215,7 +216,7 @@
     for (NSString *username in _smsContacts) {
         [FriendsDBManager updateUserSetStatusInvited:username];
     }
-
+    
     [self dismissViewControllerAnimated:YES completion:nil];
     [self showEmail:_emailContacts];
 }

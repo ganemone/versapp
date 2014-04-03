@@ -128,9 +128,8 @@
             }
             NSDictionary *messageDictionary = [NSDictionary dictionaryWithObject:message.thread forKey:MESSAGE_PROPERTY_GROUP_ID];
             if ([ChatDBManager hasChatWithID:message.thread] == NO) {
-                NSLog(@"Getting New Chat HERE!!");
-                NSLog(@"Chat Name should be anonymous friend");
-                [ChatDBManager insertChatWithID:message.thread chatName:@"Anonymous Friend" chatType:CHAT_TYPE_ONE_TO_ONE participantString:senderID status:STATUS_JOINED];
+                [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetJoinedChatsPacket]];
+                /*[ChatDBManager insertChatWithID:message.thread chatName:@"Anonymous Friend" chatType:CHAT_TYPE_ONE_TO_ONE participantString:senderID status:STATUS_JOINED];*/
             }
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
             [ChatDBManager setHasNewMessageYes:message.thread];

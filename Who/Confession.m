@@ -153,7 +153,7 @@
     NSString *invitedID = [[_posterJID componentsSeparatedByString:@"@"] firstObject];
     NSString *participants = [NSString stringWithFormat:@"%@, %@", [ConnectionProvider getUser], invitedID];
     [ChatDBManager setChatIDPendingCreation:chatID];
-    [ChatDBManager insertChatWithID:chatID chatName:_body chatType:CHAT_TYPE_ONE_TO_ONE participantString:participants status:STATUS_JOINED];
+    [ChatDBManager insertChatWithID:chatID chatName:_body chatType:CHAT_TYPE_ONE_TO_ONE_CONFESSION participantString:participants status:STATUS_JOINED];
     [self decodeBody];
 }
 
