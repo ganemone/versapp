@@ -26,8 +26,8 @@
 @property (strong, nonatomic) ConnectionProvider* cp;
 @property (strong, nonatomic) NSString *timeLastActive;
 @property (strong, nonatomic) NSIndexPath *clickedCellIndexPath;
-@property (strong, nonatomic) NSArray *groupChats;
-@property (strong, nonatomic) NSArray *oneToOneChats;
+@property (strong, nonatomic) NSMutableArray *groupChats;
+@property (strong, nonatomic) NSMutableArray *oneToOneChats;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *header;
 @property (weak, nonatomic) IBOutlet UILabel *footerView;
@@ -38,18 +38,21 @@
 @property (strong, nonatomic) UITableView *notificationTableView;
 @property (strong, nonatomic) NSMutableArray *friendRequests;
 @property (strong, nonatomic) NSMutableArray *groupInvites;
+@property (strong, nonatomic) MessageMO *mostRecentMessageInPushedChat;
+@property (strong, nonatomic) UIView *greyOutView;
 @property (strong, nonatomic) ChatMO *editingChat;
 
 @end
 
 @implementation DashboardViewController
 
+static BOOL notificationsHalfHidden = NO;
+
 -(void)viewDidLoad {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleGetLastPacketReceived:) name:PACKET_ID_GET_LAST_TIME_ACTIVE object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView:) name:PACKET_ID_GET_VCARD object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView) name:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView) name:PACKET_ID_GET_VCARD object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadNotifications) name:PACKET_ID_GET_PENDING_CHATS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNotifications) name:NOTIFICATION_UPDATE_NOTIFICATIONS object:nil];
     
@@ -63,8 +66,8 @@
     [self.footerView setFont:[StyleManager getFontStyleLightSizeXL]];
     
     
-    self.groupChats = [ChatDBManager getAllActiveGroupChats];
-    self.oneToOneChats = [ChatDBManager getAllActiveOneToOneChats];
+    self.groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
+    self.oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveOneToOneChats]];
     [self loadNotifications];
     
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
@@ -78,16 +81,53 @@
     [imageView setContentMode:UIViewContentModeScaleAspectFill];
     [imageView setImage:[UIImage imageNamed:@"messages-background-large.png"]];
     [self.tableView setBackgroundView:imageView];
+    
+    _greyOutView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0)];
+    [_greyOutView setUserInteractionEnabled:NO];
+    [_greyOutView setBackgroundColor:[UIColor blackColor]];
+    [_greyOutView setAlpha:0.3];
+    [self.view addSubview:_greyOutView];
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    if (section == 0) {
+        return nil;
+    }
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
+    [footer setBackgroundColor:[UIColor clearColor]];
+    return footer;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return section;
+}
+
+-(void)handleGroupChatMovedToTop:(NSNotification *)notification {
+    
+}
+
+-(void)handleOneToOneChatMovedToTop:(NSNotification *)notification {
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    NSLog(@"View will appear");
-    [self.tableView reloadData];
+    [super viewWillAppear:animated];
+    if (_clickedCellIndexPath != nil) {
+        ChatMO *chat = (_clickedCellIndexPath.section == 0) ? [_groupChats objectAtIndex:_clickedCellIndexPath.row] : [_oneToOneChats objectAtIndex:_clickedCellIndexPath.row];
+        MessageMO *message = [[chat messages] lastObject];
+        if (![message.time isEqualToString:_mostRecentMessageInPushedChat.time]) {
+            if (_clickedCellIndexPath.section == 0) {
+                [_groupChats removeObjectAtIndex:_clickedCellIndexPath.row];
+                [_groupChats insertObject:chat atIndex:0];
+            } else {
+                [_oneToOneChats removeObjectAtIndex:_clickedCellIndexPath.row];
+                [_oneToOneChats insertObject:chat atIndex:0];
+            }
+        }
+        [_tableView reloadData];
+    }
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
 
 - (IBAction)arrowClicked:(id)sender {
     NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -130,9 +170,11 @@
     if([segue.identifier compare:SEGUE_ID_GROUP_CONVERSATION] == 0) {
         ConversationViewController *dest = segue.destinationViewController;
         dest.chatMO = [[self groupChats] objectAtIndex:self.clickedCellIndexPath.row];
+        _mostRecentMessageInPushedChat = [[dest.chatMO messages] lastObject];
     } else if([segue.identifier compare:SEGUE_ID_ONE_TO_ONE_CONVERSATION] == 0) {
         OneToOneConversationViewController *dest = segue.destinationViewController;
         dest.chatMO = [self.oneToOneChats objectAtIndex:self.clickedCellIndexPath.row];
+        _mostRecentMessageInPushedChat = [[dest.chatMO messages] lastObject];
     }
 }
 
@@ -168,7 +210,7 @@
         static NSString *CellIdentifier = @"ChatCellIdentifier";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         
-        [cell.textLabel setTextColor:[UIColor blackColor]];
+        [cell.textLabel setTextColor:[StyleManager getColorBlue]];
         [cell.detailTextLabel setTextColor:[UIColor blackColor]];
         [cell.detailTextLabel setHidden:NO];
         
@@ -273,9 +315,9 @@
         [MessagesDBManager deleteMessagesFromChatWithID:chat.chat_id];
         [ChatDBManager deleteChat:chat];
         if (indexPath.section == 0) {
-            _groupChats = [ChatDBManager getAllActiveGroupChats];
+            _groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
         } else {
-            _oneToOneChats = [ChatDBManager getAllActiveOneToOneChats];
+            _oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveOneToOneChats]];
         }
         [_tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     }
@@ -299,8 +341,8 @@
 
 - (NSArray *)notificationsButtons {
     NSMutableArray *buttons = [NSMutableArray new];
-    UIImage *accept = [UIImage imageNamed:@"check-icon-green.png"];
-    UIImage *decline = [UIImage imageNamed:@"decline-icon-green.png"];
+    UIImage *accept = [UIImage imageNamed:@"check-icon-green-square.png"];
+    UIImage *decline = [UIImage imageNamed:@"x-green.png"];
     [buttons sw_addUtilityButtonWithColor:[UIColor clearColor] icon:accept];
     [buttons sw_addUtilityButtonWithColor:[UIColor clearColor] icon:decline];
     
@@ -311,14 +353,12 @@
     NSIndexPath *indexPath = [self.notificationTableView indexPathForCell:cell];
     switch (index) {
         case 0:
-            NSLog(@"accept pressed");
             if (indexPath.section == 0)
                 [self acceptInvitation:indexPath];
             else
                 [self acceptFriendRequest:indexPath];
             break;
         case 1:
-            NSLog(@"decline pressed");
             if (indexPath.section == 0)
                 [self declineInvitation:indexPath];
             else
@@ -345,11 +385,9 @@
           initialSpringVelocity:4.0
                         options: UIViewAnimationOptionCurveEaseIn
                      animations:^{
+                         self.greyOutView.frame = self.view.frame;
                          self.notificationTableView.frame = notificationFrame;
                          [self.tableView setBackgroundView:nil];
-                         self.tableView.backgroundColor = [UIColor grayColor];
-                         self.tableView.alpha = 0.3;
-                         self.footerView.alpha = 0.3;
                      }
                      completion:^(BOOL finished){
                          [self.tableView setUserInteractionEnabled:NO];
@@ -362,8 +400,10 @@
     
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ENABLE_SWIPE object:nil];
     
-    self.groupChats = [ChatDBManager getAllActiveGroupChats];
+    self.groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
     [self.tableView reloadData];
+    
+    notificationsHalfHidden = NO;
     
     CGRect notificationFrame = self.notificationTableView.frame;
     notificationFrame.origin.y = -1*self.notificationTableView.frame.size.height;
@@ -374,10 +414,8 @@
           initialSpringVelocity:4.0
                         options: UIViewAnimationOptionCurveEaseOut
                      animations:^{
+                         self.greyOutView.frame = CGRectMake(0, 0, self.view.frame.size.width, 0);
                          self.notificationTableView.frame = notificationFrame;
-                         self.tableView.backgroundColor = [UIColor clearColor];
-                         self.tableView.alpha = 1;
-                         self.footerView.alpha = 1;
                      }
                      completion:^(BOOL finished){
                          self.notificationTableView.hidden = YES;
@@ -395,14 +433,28 @@
 }
 
 -(IBAction)swipeToHideNotifications:(UIPanGestureRecognizer *)recognizer {
-    NSLog(@"Swiping");
     [self adjustAnchorPoint:recognizer];
     
     if (recognizer.state == UIGestureRecognizerStateBegan || recognizer.state == UIGestureRecognizerStateChanged) {
-        CGPoint point = [recognizer translationInView:recognizer.view.superview];
+        CGPoint translation = [recognizer translationInView:recognizer.view.superview];
+        NSLog(@"Center: %f", recognizer.view.superview.center.y);
+        if (recognizer.view.superview.center.y <= 0) {
+            notificationsHalfHidden = YES;
+        } else {
+            notificationsHalfHidden = NO;
+        }
+        if (recognizer.view.superview.center.y <= 120) {
+            [recognizer.view.superview setCenter:CGPointMake(recognizer.view.superview.center.x, recognizer.view.superview.center.y + translation.y)];
+        } else {
+            [recognizer.view.superview setCenter:CGPointMake(recognizer.view.superview.center.x, 120)];
+        }
         [recognizer setTranslation:CGPointZero inView:recognizer.view.superview];
     } else if (recognizer.state == UIGestureRecognizerStateEnded) {
-        [self hideNotifications];
+        if (notificationsHalfHidden) {
+            [self hideNotifications];
+        } else {
+            [self showNotifications];
+        }
     }
 }
 
@@ -476,7 +528,14 @@
     tapRecognizer.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapRecognizer];
     
-    self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5)];
+    self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5+20)];
+    /*CGFloat notificationHeight;
+    if (self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.numberOfSections*self.notificationTableView.rowHeight/2 + self.notificationsHeader.frame.size.height < self.view.frame.size.height/2+20) {
+        notificationHeight = self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.numberOfSections*self.notificationTableView.rowHeight/2 + self.notificationsHeader.frame.size.height;
+    } else {
+        notificationHeight = self.view.frame.size.height/2+20;
+    }
+    self.notificationTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, notificationHeight)];*/
     self.notificationTableView.hidden = YES;
     [self.notificationTableView setDelegate:self];
     [self.notificationTableView setDataSource:self];
@@ -484,17 +543,17 @@
     [self.notificationTableView setTableHeaderView:self.notificationsHeader];
     [self.notificationTableView setSeparatorColor:[StyleManager getColorGreen]];
     
-    UIView *notificationsFooter = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 20)];
+    /*UIView *notificationsFooter = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height*0.5+20, self.view.frame.size.width, 20)];
     [notificationsFooter setBackgroundColor:[StyleManager getColorGreen]];
-    [self.notificationTableView setTableFooterView:notificationsFooter];
+    [self.notificationTableView setTableFooterView:notificationsFooter];*/
     
     [self.view addSubview:self.notificationTableView];
     
-    UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(swipeToHideNotifications:)];
+    /*UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(swipeToHideNotifications:)];
     [panRecognizer setDelegate:self];
     panRecognizer.minimumNumberOfTouches = 1;
     panRecognizer.maximumNumberOfTouches = 1;
-    [notificationsFooter addGestureRecognizer:panRecognizer];
+    [notificationsFooter addGestureRecognizer:panRecognizer];*/
     
     [self hideNotifications];
 }
@@ -557,15 +616,9 @@
     [self setNotificationsIcon];
 }
 
--(void)handleGetLastPacketReceived:(NSNotification*)notification {
-    self.groupChats = [ChatDBManager getAllActiveGroupChats];
-    self.oneToOneChats = [ChatDBManager getAllOneToOneChats];
-    [self.tableView reloadData];
-}
-
--(void)handleRefreshListView:(NSNotification*)notification {
-    self.groupChats = [ChatDBManager getAllActiveGroupChats];
-    self.oneToOneChats = [ChatDBManager getAllOneToOneChats];
+-(void)handleRefreshListView {
+    self.groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
+    self.oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllOneToOneChats]];
     [self.tableView reloadData];
 }
 

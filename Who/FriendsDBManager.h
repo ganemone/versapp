@@ -12,9 +12,9 @@
 
 @interface FriendsDBManager : NSObject
 
-+(FriendMO *)insert:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status searchedPhoneNumber:(NSString*)searchedPhoneNumber searchedEmail:(NSString*)searchedEmail;
++(FriendMO *)insert:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status searchedPhoneNumber:(NSString*)searchedPhoneNumber searchedEmail:(NSString*)searchedEmail uid:(NSNumber *)uid;
 
-+ (FriendMO *)insertWithMOC:(NSManagedObjectContext *)moc username:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status searchedPhoneNumber:(NSString*)searchedPhoneNumber searchedEmail:(NSString*)searchedEmail;
++ (FriendMO *)insertWithMOC:(NSManagedObjectContext *)moc username:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status searchedPhoneNumber:(NSString*)searchedPhoneNumber searchedEmail:(NSString*)searchedEmail uid:(NSNumber *)uid;
 
 + (NSArray *)getUserWithSearchedPhoneNumber:(NSString *)phoneNumber withMOC:(NSManagedObjectContext *)moc;
 

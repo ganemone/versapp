@@ -148,7 +148,7 @@ NSString *const FRIENDS_TABLE_COLUMN_NAME_EMAIL = @"email";
 NSString *const FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER = @"searchedPhoneNumber";
 NSString *const FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL = @"searchedEmail";
 NSString *const FRIENDS_TABLE_COLUMN_NAME_PHONE = @"phone";
-
+NSString *const FRIENDS_TABLE_COLUMN_NAME_UID = @"uid"; 
 
 NSString *const CHATS_TABLE_COLUMN_NAME_CHAT_ID = @"chat_id";
 NSString *const CHATS_TABLE_COLUMN_NAME_CHAT_NAME = @"chat_name";

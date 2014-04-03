@@ -15,6 +15,7 @@
 @property (nonatomic, retain) NSString * email;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * status;
+@property (nonatomic, retain) NSNumber * uid;
 @property (nonatomic, retain) NSString * username;
 @property (nonatomic, retain) NSString * searchedEmail;
 @property (nonatomic, retain) NSString * searchedPhoneNumber;

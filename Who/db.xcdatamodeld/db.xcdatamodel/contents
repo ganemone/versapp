@@ -16,6 +16,7 @@
         <attribute name="searchedEmail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="searchedPhoneNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="uid" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="MessageMO" representedClassName="MessageMO" syncable="YES">
@@ -28,7 +29,7 @@
     </entity>
     <elements>
         <element name="ChatMO" positionX="0" positionY="0" width="128" height="165"/>
-        <element name="FriendMO" positionX="0" positionY="0" width="128" height="135"/>
+        <element name="FriendMO" positionX="0" positionY="0" width="128" height="148"/>
         <element name="MessageMO" positionX="0" positionY="0" width="128" height="135"/>
     </elements>
 </model>

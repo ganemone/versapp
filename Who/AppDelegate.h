@@ -14,6 +14,7 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) NSManagedObjectContext *childObjectContext;
 @property (strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (strong, nonatomic) NSString *sessionID;
 
@@ -22,6 +23,6 @@
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator;
 - (NSManagedObjectContext *)getManagedObjectContextForBackgroundThread;
 - (void)saveContext;
-- (void)saveContextForBackgroundThreadWithMOC:(NSManagedObjectContext *)moc;
+- (void)saveContextForBackgroundThread;
 
 @end
