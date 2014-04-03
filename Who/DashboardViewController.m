@@ -222,8 +222,8 @@
         
         [cell.textLabel setFont:[StyleManager getFontStyleBoldSizeLarge]];
         [cell.textLabel setTextColor:[StyleManager getColorGreen]];
-        [cell.detailTextLabel setFont:[StyleManager getFontStyleBoldSizeSmall]];
-        [cell.detailTextLabel setTextColor:[StyleManager getColorGreen]];
+        [cell.detailTextLabel setFont:[StyleManager getFontStyleLightSizeSmall]];
+        [cell.detailTextLabel setTextColor:[UIColor blackColor]];
         
         return cell;
     }
@@ -346,6 +346,7 @@
                         options: UIViewAnimationOptionCurveEaseIn
                      animations:^{
                          self.notificationTableView.frame = notificationFrame;
+                         [self.tableView setBackgroundView:nil];
                          self.tableView.backgroundColor = [UIColor grayColor];
                          self.tableView.alpha = 0.3;
                          self.footerView.alpha = 0.3;
@@ -385,11 +386,33 @@
     [UIView commitAnimations];
 }
 
-- (IBAction)tapToHideNotifications:(UITapGestureRecognizer *)recognizer {
+-(IBAction)tapToHideNotifications:(UITapGestureRecognizer *)recognizer {
     CGPoint tapLocation = [recognizer locationInView:self.view];
     
     if (!CGRectContainsPoint(self.notificationTableView.frame, tapLocation) && !self.notificationTableView.hidden) {
         [self hideNotifications];
+    }
+}
+
+-(IBAction)swipeToHideNotifications:(UIPanGestureRecognizer *)recognizer {
+    NSLog(@"Swiping");
+    [self adjustAnchorPoint:recognizer];
+    
+    if (recognizer.state == UIGestureRecognizerStateBegan || recognizer.state == UIGestureRecognizerStateChanged) {
+        CGPoint point = [recognizer translationInView:recognizer.view.superview];
+        [recognizer setTranslation:CGPointZero inView:recognizer.view.superview];
+    } else if (recognizer.state == UIGestureRecognizerStateEnded) {
+        [self hideNotifications];
+    }
+}
+
+-(void)adjustAnchorPoint:(UIPanGestureRecognizer *)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        CGPoint inView = [recognizer locationInView:recognizer.view];
+        CGPoint inSuperview = [recognizer locationInView:recognizer.view.superview];
+        
+        recognizer.view.layer.anchorPoint = CGPointMake(inView.x / recognizer.view.bounds.size.width, inView.y / recognizer.view.bounds.size.height);
+        recognizer.view.center = inSuperview;
     }
 }
 
@@ -461,7 +484,18 @@
     [self.notificationTableView setTableHeaderView:self.notificationsHeader];
     [self.notificationTableView setSeparatorColor:[StyleManager getColorGreen]];
     
+    UIView *notificationsFooter = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 20)];
+    [notificationsFooter setBackgroundColor:[StyleManager getColorGreen]];
+    [self.notificationTableView setTableFooterView:notificationsFooter];
+    
     [self.view addSubview:self.notificationTableView];
+    
+    UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(swipeToHideNotifications:)];
+    [panRecognizer setDelegate:self];
+    panRecognizer.minimumNumberOfTouches = 1;
+    panRecognizer.maximumNumberOfTouches = 1;
+    [notificationsFooter addGestureRecognizer:panRecognizer];
+    
     [self hideNotifications];
 }
 
