@@ -44,10 +44,10 @@
     
     // Add a bottomBorder to the header view
     CALayer *headerBottomborder = [CALayer layer];
-    headerBottomborder.frame = CGRectMake(0.0f, self.header.frame.size.height - 2.0f, self.view.frame.size.width, 2.0f);
+    headerBottomborder.frame = CGRectMake(0.0f, self.header.frame.size.height, self.view.frame.size.width, 2.0f);
     headerBottomborder.backgroundColor = [UIColor whiteColor].CGColor;
     [self.header.layer addSublayer:headerBottomborder];
-    
+    [self.header sendSubviewToBack:_headerLabel];
     [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
 }
 

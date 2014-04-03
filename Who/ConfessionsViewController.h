@@ -19,5 +19,4 @@
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 
 - (void)setUpInBackground;
-
 @end
