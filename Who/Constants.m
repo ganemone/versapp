@@ -238,5 +238,7 @@ NSString *const PACKET_ID_SET_DEVICE_TOKEN = @"packet_id_set_device_token";
 NSString *const BLOCKING_TYPE_IMPLICIT = @"implicit_user";
 NSString *const BLOCKING_TYPE_GROUP = @"user_in_group";
 
+NSString *const SALT_ONE = @"xJYa!Pc_UQ}TYV}hN}/;FZO$+j]ySF-SsG?=FJy++*g>qbG Yp>-|$c3d&p*FdRN";
+NSString *const SALT_TWO = @"C3G{l9z KG7#CXMv-N8sn1m_[0LjT(co&qu,h4!oFr.@BX1MFB |>)</@fah.ATt";
 
 @end

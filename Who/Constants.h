@@ -238,6 +238,7 @@ extern NSString *const PACKET_ID_SET_DEVICE_TOKEN;
 extern NSString *const BLOCKING_TYPE_IMPLICIT;
 extern NSString *const BLOCKING_TYPE_GROUP;
 
-
+extern NSString *const SALT_ONE;
+extern NSString *const SALT_TWO;
 
 @end

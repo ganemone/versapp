@@ -8,10 +8,13 @@
 
 #import <CommonCrypto/CommonDigest.h>
 #import "Encrypter.h"
+#import "Constants.h"
 
 @implementation Encrypter
 
 +(NSString *)md5:(NSString *)input {
+    input = [self saltString:input];
+    
     const char *cStr = [input UTF8String];
     unsigned char digest[16];
     CC_MD5( cStr, (CC_LONG)strlen(cStr), digest ); // This is the md5 call
@@ -25,6 +28,8 @@
 }
 
 +(NSString *)sha1:(NSString *)input {
+    input = [self saltString:input];
+    
     const char *cstr = [input cStringUsingEncoding:NSUTF8StringEncoding];
     NSData *data = [NSData dataWithBytes:cstr length:input.length];
     
@@ -38,6 +43,10 @@
         [output appendFormat:@"%02x", digest[i]];
     
     return output;
+}
+
++(NSString *)saltString:(NSString *)input {
+    return [NSString stringWithFormat:@"%@%@%@", SALT_ONE, input, SALT_TWO];
 }
 
 @end
