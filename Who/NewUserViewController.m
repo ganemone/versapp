@@ -127,7 +127,7 @@
 - (void)handleFinishedRegisteringUsername:(NSNotification *)notification {
     NewUserRegisterNameViewController *nameVC = (NewUserRegisterNameViewController *)[self viewControllerAtIndex:0];
     NewUserRegisterPhoneViewController *phoneVC = (NewUserRegisterPhoneViewController *)[self viewControllerAtIndex:1];
-    NewUserRegisterUsernameViewController *usernameVC = (NewUserRegisterUsernameViewController *)[self viewControllerAtIndex:2];
+    NewUserRegisterUsernameViewController *usernameVC = (NewUserRegisterUsernameViewController *)[self viewControllerAtIndex:3];
     _name = [[nameVC name] text];
     _email = [[nameVC email] text];
     _password = [[nameVC password] text];

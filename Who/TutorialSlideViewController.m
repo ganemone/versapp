@@ -7,11 +7,12 @@
 //
 
 #import "TutorialSlideViewController.h"
+#import "Constants.h"
 
 @interface TutorialSlideViewController ()
 
 @property (strong, nonatomic) UIImageView *imageView;
-
+@property (strong, nonatomic) UIButton *button;
 @end
 
 @implementation TutorialSlideViewController
@@ -30,10 +31,11 @@
     if (self) {
         self.image = image;
         self.indexInTutorial = indexInTutorial;
-        self.imageView = [[UIImageView alloc] initWithFrame:self.view.frame];
-        [self.imageView setContentMode:UIViewContentModeScaleAspectFill];
-        [self.view addSubview:_imageView];
-        [self.imageView setImage:_image];
+        //self.imageView = [[UIImageView alloc] initWithFrame:self.view.frame];
+        //[self.imageView setContentMode:UIViewContentModeScaleAspectFill];
+        //[self.view addSubview:_imageView];
+        //[self.imageView setImage:_image];
+        self.button = [[UIButton alloc] initWithFrame:CGRectMake(20, 20, 50, 50)];
     }
     return self;
 }
@@ -42,13 +44,27 @@
 {
     [super viewDidLoad];
     NSLog(@"Position In Tutorial %d", _indexInTutorial);
-    [self.imageView setImage:_image];
+    //[self.imageView setImage:_image];
+    //if (self.indexInTutorial == 5) {
+        [_button setTitle:@"Get Started" forState:UIControlStateNormal];
+        [_button setTintColor:[UIColor blackColor]];
+        [_button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        //[_button addTarget:self action:@selector(goToDashboard) forControlEvents:UIControlEventTouchUpInside];
+
+        [self.view addSubview:_button];
+        [self.view bringSubviewToFront:_button];
+        [self.view sendSubviewToBack:_imageView];
+    //}
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)goToDashboard {
+    [self performSegueWithIdentifier:SEGUE_ID_FINISHED_TUTORIAL sender:self];
 }
 
 /*
