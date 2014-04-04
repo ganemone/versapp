@@ -617,11 +617,13 @@
 }
 
 - (void)setCameraButtonImage:(UIImage *)image {
+    [_messageInputView.cameraButton setFrame:CGRectMake(0, 0, 10, 10)];
     [_messageInputView.cameraButton setContentMode:UIViewContentModeScaleAspectFill];
     [_messageInputView.cameraButton setImage:image forState:UIControlStateNormal];
 }
 
 - (void)resetCameraButtonImage {
+    [_messageInputView.cameraButton setFrame:CGRectMake(0, 0, 10, 10)];
     [_messageInputView.cameraButton setContentMode:UIViewContentModeScaleAspectFill];
     [_messageInputView.cameraButton setImage:[UIImage imageNamed:@"camera-icon-dark.png"] forState:UIControlStateNormal];
 }
