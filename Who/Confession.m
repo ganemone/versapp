@@ -43,35 +43,22 @@
     CGFloat cellHeight = [self heightForConfession];
     CGFloat textHeight = cellHeight - 50;
     _cellFrame = CGRectMake(cellX, cellY, contentSize.width - 2*cellX, cellHeight);
-    CGRect textFrame = CGRectMake(cellX, cellY, contentSize.width - 2*cellX, textHeight);
-    _textView = [[UITextView alloc] initWithFrame:textFrame];
-    
-    CGRect footerFrame = CGRectMake(cellX, textHeight, contentSize.width - 2*cellX, _cellFrame.size.width * 0.1176);
-    _footerView = [[UIImageView alloc] initWithFrame:footerFrame];
-    CGRect timestampLabelFrame = CGRectMake(cellX, textHeight - 15.0f, contentSize.width - 25.0f, 15.0f);
-    _timestampLabel = [[UILabel alloc] initWithFrame:timestampLabelFrame];
+    _textViewFrame = CGRectMake(cellX, cellY, contentSize.width - 2*cellX, textHeight);
+    _footerViewFrame = CGRectMake(cellX, textHeight, contentSize.width - 2*cellX, _cellFrame.size.width * 0.1176);
+    _timestampLabelFrame = CGRectMake(cellX, textHeight - 15.0f, contentSize.width - 25.0f, 15.0f);
     // Configuring Chat Buttons
     CGFloat iconSize = 25.0f, paddingSmall = 5.0f, chatWidth = 505.0f/(201.0f/iconSize), favWidth = 795.0f/(196.0f/iconSize), deleteWidth = 550.0f/(188.0f/iconSize);
-
-    CGRect chatButtonFrame = CGRectMake(cellX + paddingSmall, textHeight + paddingSmall, chatWidth, iconSize);
-    //CGRect chatLabelFrame = CGRectMake(cellX + iconSize + 2 * paddingSmall, textHeight + paddingSmall, labelWidth, iconSize);
-    _chatButton = [[UIButton alloc] initWithFrame:chatButtonFrame];
+    
+    _chatButtonFrame = CGRectMake(cellX + paddingSmall, textHeight + paddingSmall, chatWidth, iconSize);
     //_chatLabel = [[UILabel alloc] initWithFrame:chatLabelFrame];
 
     
     // Configure Favorites
     //CGRect favoriteButtonFrame = CGRectMake(contentSize.width - iconSize - cellX - 2 * paddingSmall, textHeight + paddingSmall, favWidth, iconSize);
-    CGRect favoriteButtonFrame = CGRectMake(contentSize.width - cellX - paddingSmall - favWidth, textHeight + paddingSmall, favWidth, iconSize);
-    CGRect favoriteLabelFrame = CGRectMake(contentSize.width / 2, textHeight + paddingSmall - 1.0f, contentSize.width / 2 - cellX - 2*paddingSmall - favWidth, iconSize);
-    _favoriteButton = [[UIButton alloc] initWithFrame:favoriteButtonFrame];
-    _favoriteLabel = [[UILabel alloc] initWithFrame:favoriteLabelFrame];
-    [_favoriteLabel setTextAlignment:NSTextAlignmentRight];
     
-    CGRect deleteButtonFrame = CGRectMake(cellX + paddingSmall, textHeight + paddingSmall, deleteWidth, iconSize);
-    _deleteButton = [[UIButton alloc]initWithFrame:deleteButtonFrame];
-    
-    UITapGestureRecognizer *chatTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startChat)];
-    [_chatLabel addGestureRecognizer:chatTap];
+    _favoriteButtonFrame = CGRectMake(contentSize.width - cellX - paddingSmall - favWidth, textHeight + paddingSmall, favWidth, iconSize);
+    _favoriteLabelFrame = CGRectMake(_favoriteButtonFrame.origin.x - 25, _favoriteButtonFrame.origin.y + 2, 20, 20);//CGRectMake(contentSize.width / 2, textHeight + paddingSmall - 1.0f, contentSize.width / 2 - cellX - 2*paddingSmall - favWidth, iconSize);
+    _deleteButtonFrame = CGRectMake(cellX + paddingSmall, textHeight + paddingSmall, deleteWidth, iconSize);
     _hasCalculatedFrames = YES;
 }
 
@@ -153,8 +140,9 @@
     NSString *invitedID = [[_posterJID componentsSeparatedByString:@"@"] firstObject];
     NSString *participants = [NSString stringWithFormat:@"%@, %@", [ConnectionProvider getUser], invitedID];
     [ChatDBManager setChatIDPendingCreation:chatID];
-    [ChatDBManager insertChatWithID:chatID chatName:_body chatType:CHAT_TYPE_ONE_TO_ONE_CONFESSION participantString:participants status:STATUS_JOINED];
     [self decodeBody];
+    [ChatDBManager insertChatWithID:chatID chatName:_body chatType:CHAT_TYPE_ONE_TO_ONE_CONFESSION participantString:participants status:STATUS_JOINED];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
 }
 
 -(NSString *)getTextForLabel {

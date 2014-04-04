@@ -53,42 +53,44 @@ static UITapGestureRecognizer *favoriteTap;
     self = [self initWithStyle:UITableViewCellStyleDefault reuseIdentifier: reuseIdentifier];
     if (self) {
         if ([confession hasCalculatedFrames] == NO) {
-            NSLog(@"Calculating Frames on Main Thread... :(");
+            NSLog(@"Calculating Frames on Main Thread...");
             [confession calculateFramesForTableViewCell:self.contentView.frame.size];
         }
         // Configure Background View
         UIView *backgroundView = [[UIImageView alloc] initWithFrame:confession.cellFrame];
         
         // Configure textview
-        UITextView *textView = confession.textView;
+        UITextView *textView = [[UITextView alloc] initWithFrame:confession.textViewFrame];
         [textView setTextContainerInset:insets];
         [textView setText:[confession body]];
         [textView setTextColor:[UIColor blackColor]];
         [textView setFont:[StyleManager getFontStyleLightSizeMed]];
         [textView setBackgroundColor:[UIColor whiteColor]];
         [textView setEditable:NO];
+        [textView setSelectable:NO];
         
         // Configure Timstamp
-        UILabel *timestampLabel = confession.timestampLabel;
+        UILabel *timestampLabel = [[UILabel alloc] initWithFrame:confession.timestampLabelFrame];
         [timestampLabel setFont:[StyleManager getFontStyleLightSizeSmall]];
         [timestampLabel setTextColor:[StyleManager getColorOrange]];
         [timestampLabel setTextAlignment:NSTextAlignmentRight];
         
         // Configure Footer View
-        UIImageView *footer = confession.footerView;
+        UIImageView *footer = [[UIImageView alloc] initWithFrame:confession.footerViewFrame];
         [footer setImage: footerImage];
         
         // Configuring Chat Buttons
-        UIButton *createChatButton = confession.chatButton;
+        UIButton *createChatButton = [[UIButton alloc] initWithFrame:confession.chatButtonFrame];
         [createChatButton addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
         
         // Configure Favorites
-        UIButton *favoriteButton = confession.favoriteButton;
+        UIButton *favoriteButton = [[UIButton alloc] initWithFrame:confession.favoriteButtonFrame];
         [favoriteButton addTarget:self action:@selector(handleConfessionFavorited:) forControlEvents:UIControlEventTouchUpInside];
-        UILabel *favoriteLabel = confession.favoriteLabel;
+        UILabel *favoriteLabel = [[UILabel alloc] initWithFrame:confession.favoriteLabelFrame];
         [favoriteLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
+        [favoriteLabel setTextAlignment:NSTextAlignmentRight];
         
-        UIButton *deleteButton = confession.deleteButton;
+        UIButton *deleteButton = [[UIButton alloc] initWithFrame:confession.deleteButtonFrame];
         [deleteButton addTarget:self action:@selector(handleConfessionDeleted:) forControlEvents:UIControlEventTouchUpInside];
         
         // Add subviews
@@ -111,17 +113,6 @@ static UITapGestureRecognizer *favoriteTap;
         _timestampLabel = timestampLabel;
         _deleteButton = deleteButton;
         _favoriteLabel = favoriteLabel;
-        
-        /*for (UIGestureRecognizer *recognizer in self.gestureRecognizers) {
-         if ([recognizer isKindOfClass:[UILongPressGestureRecognizer class]]){
-         recognizer.enabled = NO;
-         }
-         }
-         
-         UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self                                                                                             action:@selector(handleLongPressGesture:)];
-         [recognizer setMinimumPressDuration:0.4f];
-         //    recognizer.delegate = self;
-         [self addGestureRecognizer:recognizer];*/
         
     }
     return self;
@@ -169,57 +160,57 @@ static UITapGestureRecognizer *favoriteTap;
     // Configure the view for the selected state
 }
 /*
-- (void)handleLongPressGesture:(UILongPressGestureRecognizer *)longPress
-{
-    //    return;
-    
-    //    NSLog(@"Long pressed!");
-    if (longPress.state == UIGestureRecognizerStateBegan)
-    {
-        
-        UIAlertView *reportAbuse = [[UIAlertView alloc] initWithTitle:@"Block" message: @"Do you want to block the sender?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:REPORT_BLOCK, nil];
-        
-        reportAbuse.alertViewStyle = UIAlertViewStyleDefault;
-        [reportAbuse show];
-        //
-        //    UIMenuController *menu = [UIMenuController sharedMenuController];
-        //    CGRect targetRect = [self convertRect:[self.bubbleView bubbleFrame]
-        //                                 fromView:self.bubbleView];
-        //
-        //    [menu setTargetRect:CGRectInset(targetRect, 0.0f, 4.0f) inView:self];
-        //
-        //    self.bubbleView.bubbleImageView.highlighted = YES;
-        //
-        //    [[NSNotificationCenter defaultCenter] addObserver:self
-        //                                             selector:@selector(handleMenuWillShowNotification:)
-        //                                                 name:UIMenuControllerWillShowMenuNotification
-        //                                               object:nil];
-        //    [menu setMenuVisible:YES animated:YES];
-    }
-}
-
-- (void)alertView:(UIAlertView *) alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
-    if([title isEqualToString:REPORT_ABUSE])
-    {
-        UIAlertView *report = [[UIAlertView alloc]initWithTitle:@"Report for abuse" message:@"Do you wish to report this message and its sender for abuse?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: REPORT_CONFIRM_ABUSE, nil];
-        [report show];
-    }
-    if ([title isEqualToString:REPORT_BLOCK])
-    {
-        UIAlertView *report = [[UIAlertView alloc]initWithTitle:@"Report for blocking" message:@"Do you wish to block this sender?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: REPORT_CONFIRM_BLOCK, nil];
-        [report show];
-    }
-    else if ([title isEqualToString:REPORT_CONFIRM_ABUSE])
-    {
-        //TODO: implement report abuse method
-    }
-    else if ([title isEqualToString:REPORT_CONFIRM_BLOCK])
-    {
-        
-    }
-    
-}
-*/
+ - (void)handleLongPressGesture:(UILongPressGestureRecognizer *)longPress
+ {
+ //    return;
+ 
+ //    NSLog(@"Long pressed!");
+ if (longPress.state == UIGestureRecognizerStateBegan)
+ {
+ 
+ UIAlertView *reportAbuse = [[UIAlertView alloc] initWithTitle:@"Block" message: @"Do you want to block the sender?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:REPORT_BLOCK, nil];
+ 
+ reportAbuse.alertViewStyle = UIAlertViewStyleDefault;
+ [reportAbuse show];
+ //
+ //    UIMenuController *menu = [UIMenuController sharedMenuController];
+ //    CGRect targetRect = [self convertRect:[self.bubbleView bubbleFrame]
+ //                                 fromView:self.bubbleView];
+ //
+ //    [menu setTargetRect:CGRectInset(targetRect, 0.0f, 4.0f) inView:self];
+ //
+ //    self.bubbleView.bubbleImageView.highlighted = YES;
+ //
+ //    [[NSNotificationCenter defaultCenter] addObserver:self
+ //                                             selector:@selector(handleMenuWillShowNotification:)
+ //                                                 name:UIMenuControllerWillShowMenuNotification
+ //                                               object:nil];
+ //    [menu setMenuVisible:YES animated:YES];
+ }
+ }
+ 
+ - (void)alertView:(UIAlertView *) alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+ {
+ NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+ if([title isEqualToString:REPORT_ABUSE])
+ {
+ UIAlertView *report = [[UIAlertView alloc]initWithTitle:@"Report for abuse" message:@"Do you wish to report this message and its sender for abuse?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: REPORT_CONFIRM_ABUSE, nil];
+ [report show];
+ }
+ if ([title isEqualToString:REPORT_BLOCK])
+ {
+ UIAlertView *report = [[UIAlertView alloc]initWithTitle:@"Report for blocking" message:@"Do you wish to block this sender?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: REPORT_CONFIRM_BLOCK, nil];
+ [report show];
+ }
+ else if ([title isEqualToString:REPORT_CONFIRM_ABUSE])
+ {
+ //TODO: implement report abuse method
+ }
+ else if ([title isEqualToString:REPORT_CONFIRM_BLOCK])
+ {
+ 
+ }
+ 
+ }
+ */
 @end

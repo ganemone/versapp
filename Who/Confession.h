@@ -18,14 +18,14 @@
 @property (strong, nonatomic) NSMutableArray *favoritedUsers;
 @property CGFloat height;
 @property CGRect cellFrame;
-@property (strong, nonatomic) UITextView *textView;
-@property (strong, nonatomic) UIImageView *footerView;
-@property (strong, nonatomic) UIButton *chatButton;
-@property (strong, nonatomic) UIButton *favoriteButton;
-@property (strong, nonatomic) UILabel *chatLabel;
-@property (strong, nonatomic) UILabel *favoriteLabel;
-@property (strong, nonatomic) UILabel *timestampLabel;
-@property (strong, nonatomic) UIButton *deleteButton;
+@property CGRect textViewFrame;
+@property CGRect footerViewFrame;
+@property CGRect chatButtonFrame;
+@property CGRect favoriteButtonFrame;
+//@property CGRect *chatLabel;
+@property CGRect favoriteLabelFrame;
+@property CGRect timestampLabelFrame;
+@property CGRect deleteButtonFrame;
 
 @property BOOL hasCalculatedFrames;
 
