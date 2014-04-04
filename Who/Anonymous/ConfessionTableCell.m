@@ -88,9 +88,6 @@ static UITapGestureRecognizer *favoriteTap;
         UILabel *favoriteLabel = confession.favoriteLabel;
         [favoriteLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
         
-        [favoriteLabel setUserInteractionEnabled:YES];
-        [favoriteLabel addGestureRecognizer:favoriteTap];
-        
         UIButton *deleteButton = confession.deleteButton;
         [deleteButton addTarget:self action:@selector(handleConfessionDeleted:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -100,6 +97,7 @@ static UITapGestureRecognizer *favoriteTap;
         [self.contentView addSubview:footer];
         [self.contentView addSubview:createChatButton];
         [self.contentView addSubview:favoriteButton];
+        [self.contentView addSubview:favoriteLabel];
         [self.contentView addSubview:timestampLabel];
         [self.contentView addSubview:deleteButton];
         
@@ -112,6 +110,7 @@ static UITapGestureRecognizer *favoriteTap;
         _favoriteButton = favoriteButton;
         _timestampLabel = timestampLabel;
         _deleteButton = deleteButton;
+        _favoriteLabel = favoriteLabel;
         
         /*for (UIGestureRecognizer *recognizer in self.gestureRecognizers) {
          if ([recognizer isKindOfClass:[UILongPressGestureRecognizer class]]){

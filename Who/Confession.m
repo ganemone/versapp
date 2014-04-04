@@ -51,7 +51,7 @@
     CGRect timestampLabelFrame = CGRectMake(cellX, textHeight - 15.0f, contentSize.width - 25.0f, 15.0f);
     _timestampLabel = [[UILabel alloc] initWithFrame:timestampLabelFrame];
     // Configuring Chat Buttons
-    CGFloat iconSize = 25.0f, paddingSmall = 5.0f, chatWidth = 505.0f/(201.0f/iconSize), favWidth = 795.0f/(196.0f/iconSize);
+    CGFloat iconSize = 25.0f, paddingSmall = 5.0f, chatWidth = 505.0f/(201.0f/iconSize), favWidth = 795.0f/(196.0f/iconSize), deleteWidth = 550.0f/(188.0f/iconSize);
 
     CGRect chatButtonFrame = CGRectMake(cellX + paddingSmall, textHeight + paddingSmall, chatWidth, iconSize);
     //CGRect chatLabelFrame = CGRectMake(cellX + iconSize + 2 * paddingSmall, textHeight + paddingSmall, labelWidth, iconSize);
@@ -67,7 +67,7 @@
     _favoriteLabel = [[UILabel alloc] initWithFrame:favoriteLabelFrame];
     [_favoriteLabel setTextAlignment:NSTextAlignmentRight];
     
-    CGRect deleteButtonFrame = CGRectMake(cellX + paddingSmall, textHeight + paddingSmall, chatWidth, iconSize);
+    CGRect deleteButtonFrame = CGRectMake(cellX + paddingSmall, textHeight + paddingSmall, deleteWidth, iconSize);
     _deleteButton = [[UIButton alloc]initWithFrame:deleteButtonFrame];
     
     UITapGestureRecognizer *chatTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startChat)];
