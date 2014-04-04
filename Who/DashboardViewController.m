@@ -564,7 +564,7 @@ static BOOL notificationsHalfHidden = NO;
 
 -(void)setNotificationSize {
     if (self.groupInvites.count + self.friendRequests.count == 0) {
-        _notificationHeight = self.view.frame.size.height/2 + 20;
+        _notificationHeight = self.view.frame.size.height/2;
     } else {
         _notificationHeight = self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.numberOfSections*self.notificationTableView.sectionHeaderHeight + self.notificationsHeader.frame.size.height;
     }
