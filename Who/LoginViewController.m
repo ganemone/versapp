@@ -13,6 +13,7 @@
 #import "LoadingDialogManager.h"
 #import "UserDefaultManager.h"
 #import "ChatDBManager.h"
+#import "StyleManager.h"
 
 @interface LoginViewController()
 
@@ -27,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet UIPickerView *countryPicker;
 @property (strong, nonatomic) NSString *countryCode;
 @property (strong, nonatomic) NSArray *countries;
+@property (strong, nonatomic) IBOutlet UILabel *headerLabel;
 
 @property BOOL createVCardWhenAuthenticated;
 @property (strong, nonatomic) ConnectionProvider *cp;
@@ -47,6 +49,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registeredUser:) name:PACKET_ID_REGISTER_USER object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(streamDidDisconnect:) name:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didNotAuthenticate:) name:@"didNotAuthenticate" object:nil];
+    
+    [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
     
     self.createVCardWhenAuthenticated = NO;
     self.cp = [ConnectionProvider getInstance];
