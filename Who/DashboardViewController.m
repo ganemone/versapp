@@ -568,7 +568,7 @@ static BOOL notificationsHalfHidden = NO;
     [self setNotificationSize];
     
     [self.view addSubview:self.notificationTableView];
-    
+        
     [self hideNotifications];
 }
 
