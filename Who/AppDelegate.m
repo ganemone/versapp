@@ -104,6 +104,7 @@
                                     stringByReplacingOccurrencesOfString:@"<" withString:@""]
                                    stringByReplacingOccurrencesOfString:@">" withString:@""];
     
+    [UserDefaultManager saveDeviceID:deviceTokenString];
     //[[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSetDeviceTokenPacket:deviceTokenString]];
 }
 
@@ -127,11 +128,20 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    NSLog(@"Application Will Enter Foreground");
+    _didResumeFromBackground = YES;
+    [self setup];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    NSLog(@"Application Did Become Active");
+    if (!(_didResumeFromBackground == YES)) {
+        [self setup];
+    }
+}
+
+- (void)setup {
     ConnectionProvider *cp = [ConnectionProvider getInstance];
     XMPPStream *stream = [cp getConnection];
     [self setupReachability];
@@ -139,12 +149,8 @@
         NSString *username = [UserDefaultManager loadUsername];
         NSString *password = [UserDefaultManager loadPassword];
         if (username != nil && password != nil) {
-            //DashboardViewController *dashboard = [[DashboardViewController alloc] init];
-            //[self.window setRootViewController:dashboard];
             [cp connect:username password:password];
         } else {
-            //UserRegistrationViewController *registration = [[UserRegistrationViewController alloc] init];
-            //[self.window setRootViewController:registration];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"needToRegister" object:nil];
         }
     }
@@ -163,7 +169,11 @@
         XMPPStream *stream = [cp getConnection];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (![stream isConnecting] && ![stream isAuthenticating] && ![stream isConnected] && ![stream isAuthenticated]) {
-                [cp connect:[UserDefaultManager loadUsername] password:[UserDefaultManager loadPassword]];
+                NSString *username = [UserDefaultManager loadUsername];
+                NSString *password = [UserDefaultManager loadPassword];
+                if (username != nil && password != nil) {
+                    [cp connect:username password:password];
+                }
             }
         });
         
@@ -173,6 +183,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    _didResumeFromBackground = NO;
     [self saveContext];
 }
 

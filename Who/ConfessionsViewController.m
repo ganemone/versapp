@@ -21,7 +21,6 @@
 @interface ConfessionsViewController ()
 
 @property ConfessionsManager *confessionsManager;
-@property (strong, nonatomic) NSMutableDictionary *cellCache;
 @property (strong, nonatomic) UIImage *favIcon;
 @property (strong, nonatomic) UIImage *favIconActive;
 @property (strong, nonatomic) UIImage *favIconSingle;
@@ -69,10 +68,10 @@
     [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
     
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
-//    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:@"Pull to Refresh"];
-//    [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, attrString.length)];
+    //    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:@"Pull to Refresh"];
+    //    [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, attrString.length)];
     [refresh addTarget:self action:@selector(refreshListView) forControlEvents:UIControlEventValueChanged];
-//    [refresh setAttributedTitle:attrString];
+    //    [refresh setAttributedTitle:attrString];
     
     [refresh setTintColor:[UIColor whiteColor]];
     
@@ -95,23 +94,6 @@
     self.deleteIcon = [UIImage imageNamed:@"delete-confession.png"];
 }
 
-- (void)setUpInBackground {
-    NSLog(@"Setting up In Background...");
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        self.confessionsManager = [ConfessionsManager getInstance];
-        
-        self.cellCache = [[NSMutableDictionary alloc] initWithCapacity:[_confessionsManager getNumberOfConfessions]];
-        NSEnumerator *confessionEnumerator = [[_confessionsManager confessions] objectEnumerator];
-        Confession *confession;
-        
-        while ((confession = [confessionEnumerator nextObject]) != nil) {
-            NSLog(@"Setting up Confession...");
-            [self.cellCache setObject:[self confessionTableCellForConfession:confession] forKey:confession.confessionID];
-        }
-    });
-}
-
 - (void)loadConfessions {
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacket]];
 }
@@ -119,7 +101,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    self.cellCache = nil;
 }
 
 #pragma mark - Table view data source
@@ -146,37 +127,29 @@
 {
     static NSString *CellIdentifier = @"ConfessionCellIdentifier";
     Confession *confession = [_confessionsManager getConfessionAtIndex:(int)indexPath.row];
-    if (self.cellCache == nil) {
-        self.cellCache = [[NSMutableDictionary alloc] initWithCapacity:100];
+    ConfessionTableCell *cell = [[ConfessionTableCell alloc] initWithConfession:confession reuseIdentifier:CellIdentifier];
+    if ([confession isFavoritedByConnectedUser]) {
+        if ([confession getNumForLabel] == 1) {
+            [cell.favoriteButton setImage:self.favIconSingleActive forState:UIControlStateNormal];
+        } else {
+            [cell.favoriteButton setImage:self.favIconActive forState:UIControlStateNormal];
+        }
+    } else {
+        if ([confession getNumForLabel] == 1) {
+            [cell.favoriteButton setImage:self.favIconSingle forState:UIControlStateNormal];
+        } else {
+            [cell.favoriteButton setImage:self.favIcon forState:UIControlStateNormal];
+        }
     }
-    ConfessionTableCell *cell = [_cellCache objectForKey:[confession confessionID]];
-    if (cell == nil) {
-        NSLog(@"Cell is nil...");
-        cell = [[ConfessionTableCell alloc] initWithConfession:confession reuseIdentifier:CellIdentifier];
-        if ([confession isFavoritedByConnectedUser]) {
-            if ([confession getNumForLabel] == 1) {
-                [cell.favoriteButton setImage:self.favIconSingleActive forState:UIControlStateNormal];
-            } else {
-                [cell.favoriteButton setImage:self.favIconActive forState:UIControlStateNormal];
-            }
-        } else {
-            if ([confession getNumForLabel] == 1) {
-                [cell.favoriteButton setImage:self.favIconSingle forState:UIControlStateNormal];
-            } else {
-                [cell.favoriteButton setImage:self.favIcon forState:UIControlStateNormal];
-            }
-        }
-        [cell.timestampLabel setText:[confession getTimePosted]];
-        [cell.favoriteLabel setText:[confession getTextForLabel]];
-        [_cellCache setObject:cell forKey:[confession confessionID]];
-        
-        if ([confession isPostedByConnectedUser]) {
-            [cell.chatButton removeFromSuperview];
-            [cell.deleteButton setImage:self.deleteIcon forState:UIControlStateNormal];
-        } else {
-            [cell.deleteButton removeFromSuperview];
-            [cell.chatButton setImage:self.chatIcon forState:UIControlStateNormal];
-        }
+    [cell.timestampLabel setText:[confession getTimePosted]];
+    [cell.favoriteLabel setText:[confession getTextForLabel]];
+    
+    if ([confession isPostedByConnectedUser]) {
+        [cell.chatButton removeFromSuperview];
+        [cell.deleteButton setImage:self.deleteIcon forState:UIControlStateNormal];
+    } else {
+        [cell.deleteButton removeFromSuperview];
+        [cell.chatButton setImage:self.chatIcon forState:UIControlStateNormal];
     }
     return cell;
 }
@@ -208,15 +181,11 @@
 - (void)refreshListView
 {
     [_confessionsManager sortConfessions];
-    [_cellCache removeAllObjects];
-    
     if ([self.refreshControl isRefreshing]) {
         
         NSMutableAttributedString *refreshTitle = [[NSMutableAttributedString alloc]initWithString:@"Refreshing..."];
         [refreshTitle addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, refreshTitle.length)];
-        
         [self.refreshControl setAttributedTitle:refreshTitle];
-
         [self loadConfessions];
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];

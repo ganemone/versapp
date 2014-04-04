@@ -30,7 +30,8 @@
 @property (strong, nonatomic) NSMutableArray *oneToOneChats;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *header;
-@property (weak, nonatomic) IBOutlet UILabel *footerView;
+@property (weak, nonatomic) IBOutlet UILabel *footerLabel;
+@property (weak, nonatomic) IBOutlet UIView *footerView;
 @property (strong, nonatomic) IBOutlet UIButton *settingsButton;
 @property (strong, nonatomic) IBOutlet UIButton *notificationsButton;
 @property (strong, nonatomic) IBOutlet UIButton *notificationsButtonGreen;
@@ -65,15 +66,14 @@ static BOOL notificationsHalfHidden = NO;
     
     [self.header setFont:[StyleManager getFontStyleMediumSizeXL]];
     [self.header setTextColor:[UIColor whiteColor]];
-    [self.footerView setFont:[StyleManager getFontStyleLightSizeXL]];
+    [self.footerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     
     
     self.groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
     self.oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveOneToOneChats]];
     [self loadNotifications];
     
-    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
-                                          initWithTarget:self action:@selector(handleLongPress:)];
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self.tableView action:@selector(handleLongPress:)];
     lpgr.minimumPressDuration = 0.5; //seconds
     lpgr.delegate = self;
     [_tableView addGestureRecognizer:lpgr];
@@ -89,6 +89,18 @@ static BOOL notificationsHalfHidden = NO;
     [_greyOutView setBackgroundColor:[UIColor blackColor]];
     [_greyOutView setAlpha:0.0];
     [self.view addSubview:_greyOutView];
+    [self.view bringSubviewToFront:self.notificationTableView];
+    
+    // Add a bottomBorder to the header view
+    CALayer *headerBottomborder = [CALayer layer];
+    headerBottomborder.frame = CGRectMake(0.0f, self.header.frame.size.height, self.header.frame.size.width, 2.0f);
+    headerBottomborder.backgroundColor = [UIColor whiteColor].CGColor;
+    [self.header.layer addSublayer:headerBottomborder];
+    // Add a top border to the footer view
+    CALayer *footerTopBorder = [CALayer layer];
+    footerTopBorder.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 2.0f);
+    footerTopBorder.backgroundColor = [UIColor whiteColor].CGColor;
+    [self.footerView.layer addSublayer:footerTopBorder];
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -101,12 +113,12 @@ static BOOL notificationsHalfHidden = NO;
         return footer;
     } else {
         /*UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30.0f)];
-        [footer setBackgroundColor:[UIColor blackColor]];
-        UISwipeGestureRecognizer *swipeUpGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeUpToHideNotifications:)];
-        [swipeUpGestureRecognizer setDelegate:self];
-        swipeUpGestureRecognizer.direction = UISwipeGestureRecognizerDirectionUp;
-        [footer addGestureRecognizer:swipeUpGestureRecognizer];
-        return footer;*/
+         [footer setBackgroundColor:[UIColor blackColor]];
+         UISwipeGestureRecognizer *swipeUpGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeUpToHideNotifications:)];
+         [swipeUpGestureRecognizer setDelegate:self];
+         swipeUpGestureRecognizer.direction = UISwipeGestureRecognizerDirectionUp;
+         [footer addGestureRecognizer:swipeUpGestureRecognizer];
+         return footer;*/
         return nil;
     }
 }
@@ -188,8 +200,7 @@ static BOOL notificationsHalfHidden = NO;
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DISABLE_DASHBOARD_EDITING object:nil];
         [_tableView setEditing:NO animated:YES];
     } else {
-        [button setImage:nil forState:UIControlStateNormal];
-        [button setTitle:@"Done" forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"x-white.png"] forState:UIControlStateNormal];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ENABLE_DASHBOARD_EDITING object:nil];
         [_tableView setEditing:YES animated:YES];
     }
@@ -348,7 +359,7 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return @"Leave Chat?";
+    return @"Leave Chat";
 }
 
 -(void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -465,24 +476,24 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 /*-(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    if (scrollView == self.notificationTableView) {
-        NSLog(@"Velocity: %f,%f Offset: %f,%f", velocity.x, velocity.y, targetContentOffset->x, targetContentOffset->y);
-        NSLog(@"Current Offset: %f", scrollView.contentOffset.y);
-        if (scrollView.contentOffset.y > 60) {
-            [self hideNotifications];
-        }
-    }
-}*/
+ if (scrollView == self.notificationTableView) {
+ NSLog(@"Velocity: %f,%f Offset: %f,%f", velocity.x, velocity.y, targetContentOffset->x, targetContentOffset->y);
+ NSLog(@"Current Offset: %f", scrollView.contentOffset.y);
+ if (scrollView.contentOffset.y > 60) {
+ [self hideNotifications];
+ }
+ }
+ }*/
 
 /*-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView == _notificationTableView) {
-        if (scrollView.contentOffset.y > 60) {
-            [self hideNotifications];
-        } else {
-        [_notificationTableView setFrame:CGRectMake(0, 0, _notificationTableView.frame.size.width, _notificationTableView.frame.size.height - scrollView.contentOffset.y)];
-        }
-    }
-}*/
+ if (scrollView == _notificationTableView) {
+ if (scrollView.contentOffset.y > 60) {
+ [self hideNotifications];
+ } else {
+ [_notificationTableView setFrame:CGRectMake(0, 0, _notificationTableView.frame.size.width, _notificationTableView.frame.size.height - scrollView.contentOffset.y)];
+ }
+ }
+ }*/
 
 -(void)setNotificationsIcon {
     NSMutableString *imageName;
@@ -558,7 +569,7 @@ static BOOL notificationsHalfHidden = NO;
     [self setNotificationSize];
     
     [self.view addSubview:self.notificationTableView];
-    
+        
     [self hideNotifications];
 }
 
@@ -673,24 +684,64 @@ static BOOL notificationsHalfHidden = NO;
 -(void)handleLongPressForRowAtIndexPath:(NSIndexPath*)indexPath {
     if (indexPath.section == 0) {
         _editingChat = [_groupChats objectAtIndex:indexPath.row];
+        [self showRenameDialog];
     } else {
         _editingChat = [_oneToOneChats objectAtIndex:indexPath.row];
+        [self showOneToOneLongPressDialog];
     }
+}
+
+- (void)showOneToOneLongPressDialog {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rename", @"Block", nil];
+    [alertView show];
+}
+
+- (void)showRenameDialog {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Rename Conversation" message:@"Enter a new name for this conversation." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rename", nil];
     [alertView setAlertViewStyle:UIAlertViewStylePlainTextInput];
     [alertView show];
-    
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 1) {
-        NSLog(@"Setting Chat Name Here");
-        NSString *name = [alertView textFieldAtIndex:0].text;
-        [_editingChat setUser_defined_chat_name:name];
-        [(AppDelegate*)[UIApplication sharedApplication].delegate saveContext];
-        [_tableView reloadData];
+    if ([alertView cancelButtonIndex] == buttonIndex) {
+        _editingChat = nil;
+        return;
     }
+    
+    if ([alertView numberOfButtons] == 3) {
+        if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Block"]) {
+            [self showConfirmBlockDiaglog];
+        } else {
+            [self showRenameDialog];
+        }
+    } else if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Rename"]) {
+        [self handleRenameChat:alertView];
+    } else if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Block"]) {
+        [self handleBlockOneToOneChat];
+    }
+}
+
+- (void)handleRenameChat:(UIAlertView *)alertView {
+    NSString *name = [alertView textFieldAtIndex:0].text;
+    [_editingChat setUser_defined_chat_name:name];
+    [(AppDelegate*)[UIApplication sharedApplication].delegate saveContext];
+    [_tableView reloadData];
+    
+}
+
+- (void)showConfirmBlockDiaglog {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:@"Blocking this user means they will no longer be able to create one to one chats with you." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Block", nil];
+    [alertView show];
+}
+
+- (void)handleBlockOneToOneChat {
+    NSString *otherUser = ([[[_editingChat participants] firstObject] isEqualToString:[ConnectionProvider getUser]]) ? [_editingChat.participants lastObject] : [_editingChat.participants firstObject];
+    NSLog(@"Blocing User: %@", otherUser);
+    [[self.cp getConnection] sendElement:[IQPacketManager createBlockImplicitUserPacket:otherUser]];
+    [self.oneToOneChats removeObject:_editingChat];
+    [ChatDBManager deleteChat:_editingChat];
     _editingChat = nil;
+    [self.tableView reloadData];
 }
 
 @end

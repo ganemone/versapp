@@ -47,6 +47,7 @@ extern NSString *const VCARD_TAG_LAST_NAME;
 extern NSString *const VCARD_TAG_USERNAME;
 extern NSString *const VCARD_TAG_NICKNAME;
 extern NSString *const VCARD_TAG_EMAIL;
+
 extern NSString *const USER_DEFAULTS_PASSWORD;
 extern NSString *const USER_DEFAULTS_VALID;
 extern NSString *const USER_DEFAULTS_COUNTRY;
@@ -54,6 +55,7 @@ extern NSString *const USER_DEFAULTS_USERNAME;
 extern NSString *const USER_DEFAULTS_COUNTRY_CODE;
 extern NSString *const USER_DEFAULTS_EMAIL;
 extern NSString *const USER_DEFAULTS_PHONE;
+extern NSString *const USER_DEFAULTS_DEVICE_ID;
 
 extern NSString *const CHAT_TYPE_GROUP;
 extern NSString *const CHAT_TYPE_ONE_TO_ONE;
@@ -107,6 +109,7 @@ extern NSString *const NOTIFICATION_CONFESSION_DELETED;
 extern NSString *const NOTIFICATION_SENT_VERIFICATION_TEXT;
 extern NSString *const NOTIFICATION_FAILED_TO_SEND_VERIFICATION_TEXT;
 extern NSString *const NOTIFICATION_DID_VERIFY_PHONE;
+extern NSString *const NOTIFICATION_DID_LONG_PRESS_MESSAGE;
 
 extern NSString *const APPLICATION_RESOURCE;
 

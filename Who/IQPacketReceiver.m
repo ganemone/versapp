@@ -219,6 +219,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_AUTHENTICATED object:nil];
         });
     }];
 }
@@ -418,8 +419,6 @@
 }
 
 +(void)handleGetConfessionsPacket:(XMPPIQ *)iq {
-    
-    
     NSString *decodedPacketXML = [self getPacketXMLWithoutWhiteSpace:iq];
     decodedPacketXML = [self getDecodedPacketXML:iq];
     NSError *error = NULL;

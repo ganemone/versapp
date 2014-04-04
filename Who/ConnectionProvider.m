@@ -42,7 +42,6 @@
 @property(strong, nonatomic) NSString* CONFERENCE_IP_ADDRESS;
 @property(strong, nonatomic) NSDictionary *pendingAccountInfo;
 
-
 @property BOOL isCreatingAccount;
 
 @end
@@ -175,7 +174,12 @@ static ConnectionProvider *selfInstance;
         [self.xmppStream sendElement:[IQPacketManager createGetConfessionsPacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
+    
+    NSString *deviceID = [UserDefaultManager loadDeviceID];
+    if (deviceID != nil) {
+        [self.xmppStream sendElement:[IQPacketManager createSetDeviceTokenPacket:deviceID]];
+    }
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
 }
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error
 {

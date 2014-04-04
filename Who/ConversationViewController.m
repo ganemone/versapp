@@ -34,6 +34,7 @@
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceived:) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLongPress:) name:NOTIFICATION_DID_LONG_PRESS_MESSAGE object:nil];
     
     self.cp = [ConnectionProvider getInstance];
     [[self.cp getConnection] sendElement:[IQPacketManager createGetChatParticipantsPacket:_chatMO.chat_id]];
@@ -47,10 +48,7 @@
     self.imageCache = [ImageCache getInstance];
     self.downloadingImageURLs = [[NSMutableArray alloc] initWithCapacity:20];
     [self.headerLabel setText:[self.chatMO getChatName]];
-    [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
-    
-    //UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
-    //                                    initWithTarget:self action:@selector(handleLongPress:)];
+    [self.headerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     
     // Add a bottomBorder to the header view
     CALayer *headerBottomborder = [CALayer layer];
@@ -60,30 +58,39 @@
     
     [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
 }
-/*
- -(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
- {
- if (gestureRecognizer.state != UIGestureRecognizerStateBegan || ![self becomeFirstResponder])
- return;
- 
- CGPoint p = [gestureRecognizer locationInView:self.tableView];
- NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
- if (indexPath == nil) {
- NSLog(@"long press on table view but not on a row");
- }
- else {
- NSLog(@"long press on table view at row %d", indexPath.row);
- [self handleLongPressForRowAtIndexPath:indexPath];
- }
- }
- 
- -(void)handleLongPressForRowAtIndexPath:(NSIndexPath*)indexPath {
- 
- UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Rename Conversation" message:@"Enter a new name for this conversation." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rename", nil];
- [alertView setAlertViewStyle:UIAlertViewStylePlainTextInput];
- [alertView show];
- 
- }*/
+
+-(void)handleLongPress:(NSNotification *)notification
+{
+    NSLog(@"Handling Long Press!");
+    UILongPressGestureRecognizer *gestureRecognizer = [notification.userInfo objectForKey:NOTIFICATION_DID_LONG_PRESS_MESSAGE];
+    if (gestureRecognizer.state != UIGestureRecognizerStateBegan)
+        return;
+    
+    CGPoint p = [gestureRecognizer locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
+    if (indexPath == nil) {
+        NSLog(@"long press on table view but not on a row");
+    }
+    else {
+        NSLog(@"long press on table view at row %d", indexPath.row);
+        [self handleLongPressForRowAtIndexPath:indexPath];
+    }
+}
+
+-(void)handleLongPressForRowAtIndexPath:(NSIndexPath*)indexPath {
+    
+    MessageMO *mesage =[[_chatMO messages] objectAtIndex:indexPath.row];
+    
+    if ([[mesage sender_id] isEqualToString:[ConnectionProvider getUser]]) return;
+    
+    _messageToBlock = mesage;
+    
+    UIAlertView *reportAbuse = [[UIAlertView alloc] initWithTitle:@"Block" message: @"Do you want to block the sender?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:REPORT_BLOCK, nil];
+    
+    reportAbuse.alertViewStyle = UIAlertViewStyleDefault;
+    [reportAbuse show];
+    
+}
 
 -(void)participantsUpdated:(NSNotification *)notification {
     self.chatMO = [ChatDBManager getChatWithID:self.chatMO.chat_id];
@@ -286,11 +293,16 @@
     if ([alertView numberOfButtons] == 1) {
         return;
     }
-    if ([[alertView buttonTitleAtIndex:1] isEqualToString:@"Add Users"]) {
-        if (!(buttonIndex == [alertView cancelButtonIndex])) {
-            [self performSegueWithIdentifier:SEGUE_ID_ADD_TO_GROUP sender:self];
+    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Add Users"]) {
+        [self performSegueWithIdentifier:SEGUE_ID_ADD_TO_GROUP sender:self];
+    } else if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:REPORT_BLOCK]) {
+        if (_messageToBlock != nil) {
+            [[self.cp getConnection] sendElement:[IQPacketManager createBlockUserInGroupPacket:_messageToBlock.sender_id chatID:_chatMO.chat_id]];
+            [_messageToBlock setMessage_body:@"Message from blocked user"];
+            [self.tableView reloadData];
         }
     } else {
+        _messageToBlock = nil;
         [super alertView:alertView clickedButtonAtIndex:buttonIndex];
     }
 }

@@ -49,6 +49,7 @@ NSString *const VCARD_TAG_LAST_NAME = @"FAMILY";
 NSString *const VCARD_TAG_USERNAME = @"USERNAME";
 NSString *const VCARD_TAG_NICKNAME = @"NICKNAME";
 NSString *const VCARD_TAG_EMAIL = @"EMAIL";
+
 NSString *const USER_DEFAULTS_PASSWORD = @"password";
 NSString *const USER_DEFAULTS_VALID = @"validated";
 NSString *const USER_DEFAULTS_COUNTRY = @"country";
@@ -56,6 +57,7 @@ NSString *const USER_DEFAULTS_USERNAME = @"nsdefault_key_username";
 NSString *const USER_DEFAULTS_COUNTRY_CODE = @"nsdefault_key_country_code";
 NSString *const USER_DEFAULTS_EMAIL = @"nsdefault_key_email";
 NSString *const USER_DEFAULTS_PHONE = @"nsdefault_key_phone";
+NSString *const USER_DEFAULTS_DEVICE_ID = @"nsdefault_key_device_id";
 
 NSString *const CHAT_TYPE_GROUP = @"groupchat";
 NSString *const CHAT_TYPE_ONE_TO_ONE = @"chat";
@@ -109,6 +111,7 @@ NSString *const NOTIFICATION_CONFESSION_DELETED = @"notification_confession_dele
 NSString *const NOTIFICATION_SENT_VERIFICATION_TEXT = @"notification_sent_verification_text";
 NSString *const NOTIFICATION_FAILED_TO_SEND_VERIFICATION_TEXT = @"notification_failed_to_send_verification_text";
 NSString *const NOTIFICATION_DID_VERIFY_PHONE = @"notification_did_verify_phone";
+NSString *const NOTIFICATION_DID_LONG_PRESS_MESSAGE = @"notification_did_long_press_message";
 
 NSString *const APPLICATION_RESOURCE = @"who";
 

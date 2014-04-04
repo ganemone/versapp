@@ -738,7 +738,24 @@
 }
 
 +(DDXMLElement *)createBlockUserInGroupPacket:(NSString *)username chatID:(NSString *)chatID {
-    return [self getBlockingPacketForUser:username blockingType:@"block" withType:BLOCKING_TYPE_GROUP withID:PACKET_ID_BLOCK_USER_IN_GROUP];
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
+    [query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:block"]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_UNBLOCK_USER_IN_GROUP]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"set"]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
+    
+    DDXMLElement *block = [DDXMLElement elementWithName:@"block"];
+    DDXMLElement *usernameElement = [DDXMLElement elementWithName:@"username" stringValue:username];
+    DDXMLElement *typeElement = [DDXMLElement elementWithName:@"type" stringValue:BLOCKING_TYPE_GROUP];
+    DDXMLElement *chatIDElement = [DDXMLElement elementWithName:@"chat_id" stringValue:chatID];
+    
+    [block addChild:chatIDElement];
+    [block addChild:usernameElement];
+    [block addChild:typeElement];
+    [query addChild:block];
+    [iq addChild:query];
+    return iq;
 }
 
 +(DDXMLElement *)createUnblockImplicitUser:(NSString *)username {
@@ -746,7 +763,24 @@
 }
 
 +(DDXMLElement *)createUnblockUserInGroupPacket:(NSString *)username chatID:(NSString *)chatID {
-    return [self getBlockingPacketForUser:username blockingType:@"unblock" withType:BLOCKING_TYPE_GROUP withID:PACKET_ID_UNBLOCK_USER_IN_GROUP];
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
+    [query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:block"]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_UNBLOCK_USER_IN_GROUP]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"set"]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
+    
+    DDXMLElement *block = [DDXMLElement elementWithName:@"unblock"];
+    DDXMLElement *usernameElement = [DDXMLElement elementWithName:@"username" stringValue:username];
+    DDXMLElement *typeElement = [DDXMLElement elementWithName:@"type" stringValue:BLOCKING_TYPE_GROUP];
+    DDXMLElement *chatIDElement = [DDXMLElement elementWithName:@"chat_id" stringValue:chatID];
+    
+    [block addChild:chatIDElement];
+    [block addChild:usernameElement];
+    [block addChild:typeElement];
+    [query addChild:block];
+    [iq addChild:query];
+    return iq;
 }
 
 +(DDXMLElement *)getBlockingPacketForUser:(NSString *)username blockingType:(NSString *)blockingType withType:(NSString *)type withID:(NSString *)packetID {
@@ -764,7 +798,6 @@
     [block addChild:typeElement];
     [query addChild:block];
     [iq addChild:query];
-    NSLog(@"Blocking Packet: %@", iq.XMLString);
     return iq;
 }
 
