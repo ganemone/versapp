@@ -39,6 +39,7 @@
 		3A25B6761881E84800166623 /* FriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A25B6751881E84800166623 /* FriendsViewController.m */; };
 		3A25B6791881E85B00166623 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A25B6781881E85B00166623 /* ContactsViewController.m */; };
 		3A2A357E18AFC79F006402E5 /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2A357D18AFC79F006402E5 /* ImageCache.m */; };
+		3A2F7D2C18EF029400D443FC /* Encrypter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F7D2B18EF029400D443FC /* Encrypter.m */; };
 		3A39475D18A06483005730D2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A39475C18A06483005730D2 /* CoreData.framework */; };
 		3A3A0ADA18AB1126006FBAE4 /* NSString+JSMessagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3A0A8418AB1126006FBAE4 /* NSString+JSMessagesView.m */; };
 		3A3A0ADB18AB1126006FBAE4 /* UIColor+JSMessagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3A0A8618AB1126006FBAE4 /* UIColor+JSMessagesView.m */; };
@@ -354,6 +355,8 @@
 		3A25B6781881E85B00166623 /* ContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsViewController.m; sourceTree = "<group>"; };
 		3A2A357C18AFC79F006402E5 /* ImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCache.h; sourceTree = "<group>"; };
 		3A2A357D18AFC79F006402E5 /* ImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCache.m; sourceTree = "<group>"; };
+		3A2F7D2A18EF029400D443FC /* Encrypter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Encrypter.h; sourceTree = "<group>"; };
+		3A2F7D2B18EF029400D443FC /* Encrypter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Encrypter.m; sourceTree = "<group>"; };
 		3A39475C18A06483005730D2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		3A3A0A8318AB1126006FBAE4 /* NSString+JSMessagesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JSMessagesView.h"; sourceTree = "<group>"; };
 		3A3A0A8418AB1126006FBAE4 /* NSString+JSMessagesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JSMessagesView.m"; sourceTree = "<group>"; };
@@ -1656,6 +1659,8 @@
 		3AB8D19318C2A42B0082B77C /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				3A2F7D2A18EF029400D443FC /* Encrypter.h */,
+				3A2F7D2B18EF029400D443FC /* Encrypter.m */,
 				3AEFB76618E8EE510039B5B0 /* NewUserViewController.h */,
 				3AEFB76718E8EE510039B5B0 /* NewUserViewController.m */,
 				3A6C3BB91884AD61003B162B /* LoginViewController.h */,
@@ -2299,6 +2304,7 @@
 				3A98D9EA18BD1A2600B69049 /* XMPPRoomHybrid.xcdatamodeld in Sources */,
 				F744856118DB61C500460FBC /* SWCellScrollView.m in Sources */,
 				3A98D8EA18BD19B200B69049 /* XMPPStream.m in Sources */,
+				3A2F7D2C18EF029400D443FC /* Encrypter.m in Sources */,
 				F751016218ABE101001F1E7F /* IASKSettingsStoreFile.m in Sources */,
 				3A98D9F118BD1A2600B69049 /* XMPPMessage+XEP0045.m in Sources */,
 				3AEFB76B18E8EF890039B5B0 /* NewUserRegisterNameViewController.m in Sources */,
