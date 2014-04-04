@@ -89,6 +89,7 @@ static BOOL notificationsHalfHidden = NO;
     [_greyOutView setBackgroundColor:[UIColor blackColor]];
     [_greyOutView setAlpha:0.0];
     [self.view addSubview:_greyOutView];
+    [self.view bringSubviewToFront:self.notificationTableView];
     
     // Add a bottomBorder to the header view
     CALayer *headerBottomborder = [CALayer layer];
