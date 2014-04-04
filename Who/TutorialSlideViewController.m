@@ -7,11 +7,14 @@
 //
 
 #import "TutorialSlideViewController.h"
+#import "StyleManager.h"
+#import "Constants.h"
 
 @interface TutorialSlideViewController ()
 
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) UIButton *button;
+
 
 @end
 
@@ -36,12 +39,21 @@
         [self.view addSubview:_imageView];
         [self.imageView setImage:_image];
         
-        self.button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2 - 60, self.view.frame.size.height - 50, 120, 20)];
-        [self.button setTitle:@"Lets get going!" forState:UIControlStateNormal];
-        [self.button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [self.view addSubview:_button];
+        if (_indexInTutorial == 5) {
+            self.button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2 - 60, self.view.frame.size.height - 50, 120, 20)];
+            [self.button setTitle:@"Get Started" forState:UIControlStateNormal];
+            [self.button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [self.button.titleLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+            [self.button addTarget:self action:@selector(goToDashboard) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:_button];
+        }
+        
     }
     return self;
+}
+
+- (void)goToDashboard {
+    [[NSNotificationCenter defaultCenter] postNotificationName:SEGUE_ID_FINISHED_TUTORIAL object:nil];
 }
 
 - (void)viewDidLoad
@@ -56,14 +68,14 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

@@ -34,6 +34,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goToDashboard) name:SEGUE_ID_FINISHED_TUTORIAL object:nil];
+    
     self.viewControllers = [[NSMutableArray alloc] initWithCapacity:numPages];
     // Initialize and configure page view controller
     self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:STORYBOARD_ID_PAGE_VIEW_CONTROLLER];
@@ -61,6 +64,10 @@
     //[_pageControl setCurrentPageIndicatorTintColor:[UIColor blueColor]];
     [_pageControl setNumberOfPages:5];
     [self.view addSubview:_pageControl];
+}
+
+- (void)goToDashboard {
+    [self performSegueWithIdentifier:SEGUE_ID_FINISHED_TUTORIAL sender:self];
 }
 
 - (void)didReceiveMemoryWarning

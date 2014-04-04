@@ -338,6 +338,9 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="FvA-Qe-GrR" kind="modal" identifier="SegueIDFinishedTutorial" id="SII-hP-sMz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j3e-Im-Uub" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1986,6 +1989,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="SII-hP-sMz"/>
         <segue reference="YCw-e7-spT"/>
         <segue reference="WHz-1g-xNx"/>
         <segue reference="OKb-WW-kzU"/>
