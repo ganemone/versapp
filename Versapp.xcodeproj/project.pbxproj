@@ -121,6 +121,8 @@
 		3A91F20C18EB534F0006B9F8 /* notification5+.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A91F20518EB534F0006B9F8 /* notification5+.png */; };
 		3A91F20F18EB537E0006B9F8 /* edit-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A91F20E18EB537E0006B9F8 /* edit-icon.png */; };
 		3A91F21118EB53990006B9F8 /* confessions-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A91F21018EB53990006B9F8 /* confessions-icon.png */; };
+		3A930D3C18EE2D26006E5B5E /* search-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D3B18EE2D26006E5B5E /* search-icon.png */; };
+		3A930D3E18EE2D2E006E5B5E /* x-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D3D18EE2D2E006E5B5E /* x-white.png */; };
 		3A98D8E318BD19B200B69049 /* XMPPElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D8D218BD19B200B69049 /* XMPPElement.m */; };
 		3A98D8E418BD19B200B69049 /* XMPPIQ.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D8D518BD19B200B69049 /* XMPPIQ.m */; };
 		3A98D8E518BD19B200B69049 /* XMPPJID.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D8D718BD19B200B69049 /* XMPPJID.m */; };
@@ -464,6 +466,8 @@
 		3A91F20518EB534F0006B9F8 /* notification5+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification5+.png"; sourceTree = "<group>"; };
 		3A91F20E18EB537E0006B9F8 /* edit-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit-icon.png"; sourceTree = "<group>"; };
 		3A91F21018EB53990006B9F8 /* confessions-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "confessions-icon.png"; sourceTree = "<group>"; };
+		3A930D3B18EE2D26006E5B5E /* search-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-icon.png"; sourceTree = "<group>"; };
+		3A930D3D18EE2D2E006E5B5E /* x-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-white.png"; sourceTree = "<group>"; };
 		3A98D8D018BD19B200B69049 /* XMPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPP.h; sourceTree = "<group>"; };
 		3A98D8D118BD19B200B69049 /* XMPPElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPElement.h; sourceTree = "<group>"; };
 		3A98D8D218BD19B200B69049 /* XMPPElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPElement.m; sourceTree = "<group>"; };
@@ -1796,6 +1800,7 @@
 		3AF521D218EA3081008320CD /* Cancel Icons */ = {
 			isa = PBXGroup;
 			children = (
+				3A930D3D18EE2D2E006E5B5E /* x-white.png */,
 				F7977B6318DBA25B000E955C /* decline-icon-green.png */,
 				3AEFB75818E8BE210039B5B0 /* x-blue.png */,
 				3AEFB75918E8BE210039B5B0 /* x-green.png */,
@@ -1830,6 +1835,7 @@
 		3AF521D718EA3162008320CD /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				3A930D3B18EE2D26006E5B5E /* search-icon.png */,
 				3A7CDB8018EBA20D006A4BBF /* add-contact-icon.png */,
 				3A7CDB7E18EB9E5D006A4BBF /* settings-icon.png */,
 				3A91F20E18EB537E0006B9F8 /* edit-icon.png */,
@@ -2048,6 +2054,7 @@
 				3A91F20618EB534F0006B9F8 /* notification-none.png in Resources */,
 				3A00167F18B8231000C54059 /* photo-icon.png in Resources */,
 				3A07F6C218D3C21800E82390 /* arrow-right-bold.png in Resources */,
+				3A930D3C18EE2D26006E5B5E /* search-icon.png in Resources */,
 				F7303ECB18E8E3C70045F9AF /* check-icon-purple.png in Resources */,
 				3AF521CC18EA2E8F008320CD /* arrow-up-icon.png in Resources */,
 				3AEFB75E18E8BE210039B5B0 /* x-orange.png in Resources */,
@@ -2064,6 +2071,7 @@
 				3A91F1EE18EB4BD10006B9F8 /* friends-background-small.png in Resources */,
 				3A91F20918EB534F0006B9F8 /* notification3.png in Resources */,
 				3AB8D18F18C259B00082B77C /* MavenProBlack.ttf in Resources */,
+				3A930D3E18EE2D2E006E5B5E /* x-white.png in Resources */,
 				3A91F1FA18EB4C040006B9F8 /* contacts-background-small.png in Resources */,
 				3A3A0AE818AB1126006FBAE4 /* avatar-placeholder.png in Resources */,
 				3AEFB76318E8BE5C0039B5B0 /* camera-icon-dark.png in Resources */,

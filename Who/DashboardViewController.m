@@ -200,8 +200,7 @@ static BOOL notificationsHalfHidden = NO;
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DISABLE_DASHBOARD_EDITING object:nil];
         [_tableView setEditing:NO animated:YES];
     } else {
-        [button setImage:nil forState:UIControlStateNormal];
-        [button setTitle:@"Done" forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"x-white.png"] forState:UIControlStateNormal];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ENABLE_DASHBOARD_EDITING object:nil];
         [_tableView setEditing:YES animated:YES];
     }
