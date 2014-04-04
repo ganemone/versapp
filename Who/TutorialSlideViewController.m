@@ -31,6 +31,7 @@
         self.image = image;
         self.indexInTutorial = indexInTutorial;
         self.imageView = [[UIImageView alloc] initWithFrame:self.view.frame];
+        [self.imageView setContentMode:UIViewContentModeScaleAspectFill];
         [self.view addSubview:_imageView];
         [self.imageView setImage:_image];
     }
