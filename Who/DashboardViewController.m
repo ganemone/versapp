@@ -280,7 +280,7 @@ static BOOL notificationsHalfHidden = NO;
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
         }
         
-        CGFloat buttonSize = 20.0f, padding = 5.0f;
+        CGFloat buttonSize = 30.0f, padding = 5.0f;
         
         UIButton *accept = [[UIButton alloc] initWithFrame:CGRectMake(cell.frame.size.width - 4*padding - 2*buttonSize, (cell.frame.size.height-buttonSize)/2, buttonSize, buttonSize)];
         [accept setImage:[UIImage imageNamed:@"check-icon-green-square.png"] forState:UIControlStateNormal];
@@ -566,7 +566,11 @@ static BOOL notificationsHalfHidden = NO;
     if (self.groupInvites.count + self.friendRequests.count == 0) {
         _notificationHeight = self.view.frame.size.height/2;
     } else {
+        if (self.groupInvites.count == 0 || self.friendRequests.count == 0) {
+            _notificationHeight = self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.sectionHeaderHeight + self.notificationsHeader.frame.size.height;
+        } else {
         _notificationHeight = self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.numberOfSections*self.notificationTableView.sectionHeaderHeight + self.notificationsHeader.frame.size.height;
+        }
     }
     self.notificationTableView.frame = CGRectMake(0, 0, self.view.frame.size.width, _notificationHeight);
 }
