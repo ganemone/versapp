@@ -73,8 +73,7 @@ static BOOL notificationsHalfHidden = NO;
     self.oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveOneToOneChats]];
     [self loadNotifications];
     
-    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
-                                          initWithTarget:self action:@selector(handleLongPress:)];
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self.tableView action:@selector(handleLongPress:)];
     lpgr.minimumPressDuration = 0.5; //seconds
     lpgr.delegate = self;
     [_tableView addGestureRecognizer:lpgr];
@@ -339,7 +338,7 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return @"Leave Chat?";
+    return @"Leave Chat";
 }
 
 -(void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {

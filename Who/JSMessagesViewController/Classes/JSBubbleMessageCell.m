@@ -13,7 +13,7 @@
 //
 
 #import "JSBubbleMessageCell.h"
-
+#import "Constants.h"
 #import "JSAvatarImageFactory.h"
 #import "UIColor+JSMessagesView.h"
 #import "StyleManager.h"
@@ -69,9 +69,9 @@ static const CGFloat kJSSubtitleLabelHeight = 15.0f;
     self.detailTextLabel.text = nil;
     self.detailTextLabel.hidden = YES;
     
-    /*UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressGesture:)];
+    UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressGesture:)];
     [recognizer setMinimumPressDuration:0.4f];
-    [self addGestureRecognizer:recognizer];*/
+    [self addGestureRecognizer:recognizer];
 }
 
 - (void)configureTimestampLabel
@@ -363,28 +363,10 @@ static const CGFloat kJSSubtitleLabelHeight = 15.0f;
 
 - (void)handleLongPressGesture:(UILongPressGestureRecognizer *)longPress
 {
-    //    return;
-    if (longPress.state != UIGestureRecognizerStateBegan || ![self becomeFirstResponder])
-        return;
-    
-    UIAlertView *reportAbuse = [[UIAlertView alloc] initWithTitle:@"Block" message: @"Do you want to block the sender?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:REPORT_BLOCK, nil];
-    
-    reportAbuse.alertViewStyle = UIAlertViewStyleDefault;
-    [reportAbuse show];
-    //
-    //    UIMenuController *menu = [UIMenuController sharedMenuController];
-    //    CGRect targetRect = [self convertRect:[self.bubbleView bubbleFrame]
-    //                                 fromView:self.bubbleView];
-    //
-    //    [menu setTargetRect:CGRectInset(targetRect, 0.0f, 4.0f) inView:self];
-    //
-    //    self.bubbleView.bubbleImageView.highlighted = YES;
-    //
-    //    [[NSNotificationCenter defaultCenter] addObserver:self
-    //                                             selector:@selector(handleMenuWillShowNotification:)
-    //                                                 name:UIMenuControllerWillShowMenuNotification
-    //                                               object:nil];
-    //    [menu setMenuVisible:YES animated:YES];
+    NSLog(@"Handling Long PRESSSS");
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DID_LONG_PRESS_MESSAGE
+                                                        object:nil
+                                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:longPress, NOTIFICATION_DID_LONG_PRESS_MESSAGE, nil]];
 }
 
 - (void)alertView:(UIAlertView *) alertView clickedButtonAtIndex:(NSInteger)buttonIndex

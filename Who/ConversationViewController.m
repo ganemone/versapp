@@ -34,6 +34,7 @@
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceived:) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLongPress:) name:NOTIFICATION_DID_LONG_PRESS_MESSAGE object:nil];
     
     self.cp = [ConnectionProvider getInstance];
     [[self.cp getConnection] sendElement:[IQPacketManager createGetChatParticipantsPacket:_chatMO.chat_id]];
@@ -49,10 +50,6 @@
     [self.headerLabel setText:[self.chatMO getChatName]];
     [self.headerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     
-    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-    [lpgr setMinimumPressDuration:0.4];
-    [self.tableView addGestureRecognizer:lpgr];
-    
     // Add a bottomBorder to the header view
     CALayer *headerBottomborder = [CALayer layer];
     headerBottomborder.frame = CGRectMake(0.0f, 62.0f, self.view.frame.size.width, 2.0f);
@@ -62,10 +59,11 @@
     [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
 }
 
-
--(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+-(void)handleLongPress:(NSNotification *)notification
 {
-    if (gestureRecognizer.state != UIGestureRecognizerStateBegan || ![self becomeFirstResponder])
+    NSLog(@"Handling Long Press!");
+    UILongPressGestureRecognizer *gestureRecognizer = [notification.userInfo objectForKey:NOTIFICATION_DID_LONG_PRESS_MESSAGE];
+    if (gestureRecognizer.state != UIGestureRecognizerStateBegan)
         return;
     
     CGPoint p = [gestureRecognizer locationInView:self.tableView];
