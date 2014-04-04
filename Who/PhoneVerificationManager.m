@@ -16,11 +16,15 @@ NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_c
 @implementation PhoneVerificationManager
 
 -(NSString *)loadVerificationCode {
+    
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
-    return [preferences stringForKey:NSDEFAULT_KEY_VERIFICATION_CODE];
+    NSString *code = [preferences stringForKey:NSDEFAULT_KEY_VERIFICATION_CODE];
+    NSLog(@"Loading Verification Code: %@", code);
+    return code;
 }
 
 -(void)saveVerificationCode:(NSString *)code {
+    NSLog(@"Saving Verification Code: %@", code);
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
     [preferences setObject:code forKey:NSDEFAULT_KEY_VERIFICATION_CODE];
     [preferences synchronize];
@@ -36,7 +40,7 @@ NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_c
         NSString *country = [UserDefaultManager loadCountryCode];
         NSString *code = [self loadVerificationCode];
         if (code == nil || code.length == 0) {
-            NSString *code = [NSString stringWithFormat:@"%d%d%d%d", arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9)];
+            code = [NSString stringWithFormat:@"%d%d%d%d", arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9)];
             [self saveVerificationCode:code];
         }
         NSString *postString = [NSString stringWithFormat:@"phone=%@&country=%@&code=%@",phone, country, code];

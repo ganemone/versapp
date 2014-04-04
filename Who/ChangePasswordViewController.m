@@ -10,6 +10,7 @@
 #import "Constants.h"
 #import "StyleManager.h"
 #import "UserDefaultManager.h"
+#import "Encrypter.h"
 
 @interface ChangePasswordViewController ()
 @property (strong, nonatomic) IBOutlet UIButton *backButton;
@@ -44,7 +45,9 @@
 
 - (IBAction)submitClicked:(id)sender {
     if ([self.updatedPassword.text compare:self.confirmPassword.text] == 0) {
-        [UserDefaultManager savePassword:self.updatedPassword.text];
+        
+        NSString *md5Password = [Encrypter md5:self.confirmPassword.text];
+        [UserDefaultManager savePassword:md5Password];
         
         [self.success setTextColor:[StyleManager getColorGreen]];
         [self.success setFont:[StyleManager getFontStyleBoldSizeMed]];

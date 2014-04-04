@@ -15,6 +15,7 @@
 #import "ChatDBManager.h"
 #import "StyleManager.h"
 #import "MBProgressHUD.h"
+#import "Encrypter.h"
 
 @interface LoginViewController()
 
@@ -67,7 +68,7 @@
     
     self.passwordText = [UserDefaultManager loadPassword];
     [self.username setText:_usernameText];
-    [self.password setText:_passwordText];
+    //[self.password setText:_passwordText];
 }
 
 -(void)authenticated
@@ -77,18 +78,15 @@
 }
 
 - (IBAction)loginClick:(id)sender {
-    if ([UserDefaultManager isValidated]) {
         self.passwordText = self.password.text;
         self.usernameText = self.username.text;
         [self login];
-    } else {
-        [self.message setText:NOT_VALIDATED];
-    }
 }
 
 - (void)login {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
+    _passwordText = [Encrypter md5:_passwordText];
+    NSLog(@"Password Encrypted: %@", _passwordText);
     [UserDefaultManager savePassword:self.passwordText];
     [UserDefaultManager saveUsername:self.usernameText];
     

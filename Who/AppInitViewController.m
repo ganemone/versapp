@@ -69,17 +69,19 @@
 }
 
 - (void)handleAuthenticated {
+    NSLog(@"In App Init View Controller");
     _transitionTo = SEGUE_ID_AUTHENTICATED_FROM_APP_INIT;
     _shouldTransition = YES;
-    if (_viewDidShow) {
+    if (_viewDidShow && [self isKindOfClass:[[self presentedViewController] class]]) {
         [self performSegueWithIdentifier:SEGUE_ID_AUTHENTICATED_FROM_APP_INIT sender:self];
     }
 }
 
 - (void)handleFailedToAuthenticate {
+    NSLog(@"In App Init View Controller");
     _transitionTo = SEGUE_ID_GO_TO_LOGIN_PAGE;
     _shouldTransition = YES;
-    if (_viewDidShow) {
+    if (_viewDidShow && [self isKindOfClass:[[self presentedViewController] class]]) {
         [self performSegueWithIdentifier:SEGUE_ID_GO_TO_LOGIN_PAGE sender:self];
     }
 }
@@ -87,7 +89,7 @@
 - (void)handleNoDefaultsStored {
     _transitionTo = SEGUE_ID_GO_TO_REGISTER_PAGE;
     _shouldTransition = YES;
-    if (_viewDidShow) {
+    if (_viewDidShow && [self isKindOfClass:[[self presentedViewController] class]]) {
         [self performSegueWithIdentifier:SEGUE_ID_GO_TO_REGISTER_PAGE sender:self];
     }
 }

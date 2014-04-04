@@ -18,6 +18,7 @@
 #import "PhoneVerificationManager.h"
 #import "MBProgressHUD.h"
 #import "StyleManager.h"
+#import "Encrypter.h"
 
 @interface NewUserViewController ()
 
@@ -172,7 +173,8 @@
     NSArray *nameArray = [_name componentsSeparatedByString:@" "];
     NSString *firstName = [nameArray firstObject];
     NSString *lastName = [nameArray lastObject];
-    
+    _password = [Encrypter md5:_password];
+
     NSDictionary *accountInfo = [NSDictionary dictionaryWithObjectsAndKeys:_username, FRIENDS_TABLE_COLUMN_NAME_USERNAME, _password, USER_DEFAULTS_PASSWORD, firstName, VCARD_TAG_FIRST_NAME, lastName, VCARD_TAG_LAST_NAME, _email, FRIENDS_TABLE_COLUMN_NAME_EMAIL, _phone, FRIENDS_TABLE_COLUMN_NAME_PHONE, _countryCode, USER_DEFAULTS_COUNTRY_CODE, nil];
     [self.connectionProvider createAccount:accountInfo];
 }
