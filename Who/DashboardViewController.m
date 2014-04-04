@@ -267,12 +267,26 @@ static BOOL notificationsHalfHidden = NO;
     } else {
         static NSString *cellIdentifier = @"Cell";
         
-        SWTableViewCell *cell = (SWTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        //SWTableViewCell *cell = (SWTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
-        if (cell == nil) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        /*if (cell == nil) {
             cell = [[SWTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier containingTableView:self.notificationTableView leftUtilityButtons:nil rightUtilityButtons:[self notificationsButtons]];
             cell.delegate = self;
+        }*/
+        
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
         }
+        
+        CGFloat buttonSize = 20.0f, padding = 5.0f;
+        
+        UIButton *accept = [[UIButton alloc] initWithFrame:CGRectMake(cell.frame.size.width - 4*padding - 2*buttonSize, (cell.frame.size.height-buttonSize)/2, buttonSize, buttonSize)];
+        [accept setImage:[UIImage imageNamed:@"check-icon-green-square.png"] forState:UIControlStateNormal];
+        
+        UIButton *decline = [[UIButton alloc] initWithFrame:CGRectMake(cell.frame.size.width - padding - buttonSize, (cell.frame.size.height-(buttonSize-5))/2, buttonSize-5, buttonSize-5)];
+        [decline setImage:[UIImage imageNamed:@"x-green.png"] forState:UIControlStateNormal];
         
         NSLog(@"Cell: %@", [cell description]);
         
@@ -283,15 +297,21 @@ static BOOL notificationsHalfHidden = NO;
             //cell.textLabel.text = [NSMutableString stringWithFormat:@"%@ - invited by %@", groupInvite.chat_name, inviter];
             cell.textLabel.text = groupInvite.chat_name;
             cell.detailTextLabel.text = [NSMutableString stringWithFormat:@"invited by %@", inviter];
+            [accept addTarget:self action:@selector(acceptInvitation:) forControlEvents:UIControlEventTouchUpInside];
+            [decline addTarget:self action:@selector(declineInvitation:) forControlEvents:UIControlEventTouchUpInside];
         } else {
             FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
             cell.textLabel.text = friendRequest.name;
+            [accept addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
+            [decline addTarget:self action:@selector(declineFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
         }
         
         [cell.textLabel setFont:[StyleManager getFontStyleBoldSizeLarge]];
         [cell.textLabel setTextColor:[StyleManager getColorGreen]];
         [cell.detailTextLabel setFont:[StyleManager getFontStyleLightSizeSmall]];
         [cell.detailTextLabel setTextColor:[UIColor blackColor]];
+        [cell.contentView addSubview:accept];
+        [cell.contentView addSubview:decline];
         
         return cell;
     }
@@ -364,36 +384,6 @@ static BOOL notificationsHalfHidden = NO;
         } else {
             return [self.friendRequests count];
         }
-    }
-}
-
-- (NSArray *)notificationsButtons {
-    NSMutableArray *buttons = [NSMutableArray new];
-    UIImage *accept = [UIImage imageNamed:@"check-icon-green-square.png"];
-    UIImage *decline = [UIImage imageNamed:@"x-green.png"];
-    [buttons sw_addUtilityButtonWithColor:[UIColor clearColor] icon:accept];
-    [buttons sw_addUtilityButtonWithColor:[UIColor clearColor] icon:decline];
-    
-    return buttons;
-}
-
-- (void) swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index {
-    NSIndexPath *indexPath = [self.notificationTableView indexPathForCell:cell];
-    switch (index) {
-        case 0:
-            if (indexPath.section == 0)
-                [self acceptInvitation:indexPath];
-            else
-                [self acceptFriendRequest:indexPath];
-            break;
-        case 1:
-            if (indexPath.section == 0)
-                [self declineInvitation:indexPath];
-            else
-                [self declineFriendRequest:indexPath];
-            break;
-        default:
-            break;
     }
 }
 
@@ -620,7 +610,10 @@ static BOOL notificationsHalfHidden = NO;
     [self setNotificationsIcon];
 }
 
-- (void)acceptInvitation:(NSIndexPath *)indexPath {
+- (IBAction)acceptInvitation:(id)sender {
+    CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
+    NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
+    
     ChatMO *groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
     [[self.cp getConnection] sendElement:[IQPacketManager createAcceptChatInvitePacket:groupInvite.chat_id]];
     [[self.cp getConnection] sendElement:[IQPacketManager createJoinMUCPacket:groupInvite.chat_id lastTimeActive:BEGINNING_OF_TIME]];
@@ -634,7 +627,10 @@ static BOOL notificationsHalfHidden = NO;
     [self setNotificationsIcon];
 }
 
-- (void)declineInvitation:(NSIndexPath *)indexPath {
+- (IBAction)declineInvitation:(id)sender {
+    CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
+    NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
+    
     ChatMO*groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
     [[self.cp getConnection] sendElement:[IQPacketManager createDenyChatInvitePacket:groupInvite.chat_id]];
     
@@ -648,7 +644,10 @@ static BOOL notificationsHalfHidden = NO;
     [self setNotificationsIcon];
 }
 
-- (void)acceptFriendRequest:(NSIndexPath *)indexPath {
+- (IBAction)acceptFriendRequest:(id)sender {
+    CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
+    NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
+    
     FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
     NSMutableString *address = [NSMutableString stringWithFormat:@"%@@%@", friendRequest.username, [ConnectionProvider getServerIPAddress]];
     [[self.cp getConnection] sendElement:[IQPacketManager createSubscribedPacket:friendRequest.username]];
@@ -663,7 +662,10 @@ static BOOL notificationsHalfHidden = NO;
     [self setNotificationsIcon];
 }
 
-- (void)declineFriendRequest:(NSIndexPath *)indexPath {
+- (IBAction)declineFriendRequest:(id)sender {
+    CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
+    NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
+    
     FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
     [FriendsDBManager updateUserSetStatusRejected:friendRequest.username];
     

@@ -205,10 +205,6 @@
 		3AD8F48318DCCB7D002C399C /* Countries.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3AD8F48218DCCB7D002C399C /* Countries.plist */; };
 		3AE1E35F18E9A9AA00E2347F /* Validator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE1E35E18E9A9AA00E2347F /* Validator.m */; };
 		3AEE80BE18D8FD5B0098F2D1 /* FriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEE80BD18D8FD5B0098F2D1 /* FriendTableViewCell.m */; };
-		3AEFB75C18E8BE210039B5B0 /* x-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AEFB75818E8BE210039B5B0 /* x-blue.png */; };
-		3AEFB75D18E8BE210039B5B0 /* x-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AEFB75918E8BE210039B5B0 /* x-green.png */; };
-		3AEFB75E18E8BE210039B5B0 /* x-orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AEFB75A18E8BE210039B5B0 /* x-orange.png */; };
-		3AEFB75F18E8BE210039B5B0 /* x-purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AEFB75B18E8BE210039B5B0 /* x-purple.png */; };
 		3AEFB76318E8BE5C0039B5B0 /* camera-icon-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AEFB76018E8BE5C0039B5B0 /* camera-icon-dark.png */; };
 		3AEFB76418E8BE5C0039B5B0 /* cell-select-green-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AEFB76118E8BE5C0039B5B0 /* cell-select-green-active.png */; };
 		3AEFB76518E8BE5C0039B5B0 /* cell-select-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AEFB76218E8BE5C0039B5B0 /* cell-select-green.png */; };
@@ -284,6 +280,11 @@
 		F7977B6418DBA25B000E955C /* check-icon-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F7977B6218DBA25B000E955C /* check-icon-green.png */; };
 		F7A3F96218EE3052006FBA0A /* arrow-close-notifications.png in Resources */ = {isa = PBXBuildFile; fileRef = F7A3F96118EE3052006FBA0A /* arrow-close-notifications.png */; };
 		F7A3F96418EE306A006FBA0A /* check-icon-green-square.png in Resources */ = {isa = PBXBuildFile; fileRef = F7A3F96318EE306A006FBA0A /* check-icon-green-square.png */; };
+		F7A3F96A18EE33B1006FBA0A /* x-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = F7A3F96518EE33B1006FBA0A /* x-blue.png */; };
+		F7A3F96B18EE33B1006FBA0A /* x-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F7A3F96618EE33B1006FBA0A /* x-green.png */; };
+		F7A3F96C18EE33B1006FBA0A /* x-orange.png in Resources */ = {isa = PBXBuildFile; fileRef = F7A3F96718EE33B1006FBA0A /* x-orange.png */; };
+		F7A3F96D18EE33B1006FBA0A /* x-purple.png in Resources */ = {isa = PBXBuildFile; fileRef = F7A3F96818EE33B1006FBA0A /* x-purple.png */; };
+		F7A3F96E18EE33B1006FBA0A /* x-white.png in Resources */ = {isa = PBXBuildFile; fileRef = F7A3F96918EE33B1006FBA0A /* x-white.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -628,10 +629,6 @@
 		3AE1E35E18E9A9AA00E2347F /* Validator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Validator.m; path = ../Validator.m; sourceTree = "<group>"; };
 		3AEE80BC18D8FD5B0098F2D1 /* FriendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendTableViewCell.h; sourceTree = "<group>"; };
 		3AEE80BD18D8FD5B0098F2D1 /* FriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendTableViewCell.m; sourceTree = "<group>"; };
-		3AEFB75818E8BE210039B5B0 /* x-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-blue.png"; sourceTree = "<group>"; };
-		3AEFB75918E8BE210039B5B0 /* x-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-green.png"; sourceTree = "<group>"; };
-		3AEFB75A18E8BE210039B5B0 /* x-orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-orange.png"; sourceTree = "<group>"; };
-		3AEFB75B18E8BE210039B5B0 /* x-purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-purple.png"; sourceTree = "<group>"; };
 		3AEFB76018E8BE5C0039B5B0 /* camera-icon-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-icon-dark.png"; sourceTree = "<group>"; };
 		3AEFB76118E8BE5C0039B5B0 /* cell-select-green-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-select-green-active.png"; sourceTree = "<group>"; };
 		3AEFB76218E8BE5C0039B5B0 /* cell-select-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-select-green.png"; sourceTree = "<group>"; };
@@ -761,6 +758,11 @@
 		F7977B6218DBA25B000E955C /* check-icon-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon-green.png"; sourceTree = "<group>"; };
 		F7A3F96118EE3052006FBA0A /* arrow-close-notifications.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-close-notifications.png"; sourceTree = "<group>"; };
 		F7A3F96318EE306A006FBA0A /* check-icon-green-square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon-green-square.png"; sourceTree = "<group>"; };
+		F7A3F96518EE33B1006FBA0A /* x-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-blue.png"; sourceTree = "<group>"; };
+		F7A3F96618EE33B1006FBA0A /* x-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-green.png"; sourceTree = "<group>"; };
+		F7A3F96718EE33B1006FBA0A /* x-orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-orange.png"; sourceTree = "<group>"; };
+		F7A3F96818EE33B1006FBA0A /* x-purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-purple.png"; sourceTree = "<group>"; };
+		F7A3F96918EE33B1006FBA0A /* x-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-white.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1797,10 +1799,11 @@
 		3AF521D218EA3081008320CD /* Cancel Icons */ = {
 			isa = PBXGroup;
 			children = (
-				3AEFB75818E8BE210039B5B0 /* x-blue.png */,
-				3AEFB75918E8BE210039B5B0 /* x-green.png */,
-				3AEFB75A18E8BE210039B5B0 /* x-orange.png */,
-				3AEFB75B18E8BE210039B5B0 /* x-purple.png */,
+				F7A3F96518EE33B1006FBA0A /* x-blue.png */,
+				F7A3F96618EE33B1006FBA0A /* x-green.png */,
+				F7A3F96718EE33B1006FBA0A /* x-orange.png */,
+				F7A3F96818EE33B1006FBA0A /* x-purple.png */,
+				F7A3F96918EE33B1006FBA0A /* x-white.png */,
 			);
 			name = "Cancel Icons";
 			sourceTree = "<group>";
@@ -2050,13 +2053,13 @@
 				3A07F6C218D3C21800E82390 /* arrow-right-bold.png in Resources */,
 				F7303ECB18E8E3C70045F9AF /* check-icon-purple.png in Resources */,
 				3AF521CC18EA2E8F008320CD /* arrow-up-icon.png in Resources */,
-				3AEFB75E18E8BE210039B5B0 /* x-orange.png in Resources */,
 				3A07F6D518D3DB0300E82390 /* confession-cell-bottom.png in Resources */,
 				3A07F6BF18D3C21800E82390 /* compose-icon.png in Resources */,
 				3AD19AB818E26298001B3B88 /* AppIcon58.png in Resources */,
 				3A07F6C318D3C21800E82390 /* cell-select.png in Resources */,
 				3A91F20C18EB534F0006B9F8 /* notification5+.png in Resources */,
 				3A91F1F618EB4BF50006B9F8 /* messages-background-small.png in Resources */,
+				F7A3F96C18EE33B1006FBA0A /* x-orange.png in Resources */,
 				3AD8F48318DCCB7D002C399C /* Countries.plist in Resources */,
 				F7303ECD18E8E4DA0045F9AF /* fav-icon-label-active.png in Resources */,
 				F7303ED918E8EF3F0045F9AF /* fav-icon-label-single.png in Resources */,
@@ -2071,7 +2074,7 @@
 				3A91F1FD18EB4C3D0006B9F8 /* owl-left.png in Resources */,
 				3AD19ABA18E26298001B3B88 /* AppIcon120.png in Resources */,
 				3A91F1F518EB4BF50006B9F8 /* messages-background-large.png in Resources */,
-				3AEFB75F18E8BE210039B5B0 /* x-purple.png in Resources */,
+				F7A3F96D18EE33B1006FBA0A /* x-purple.png in Resources */,
 				3A3A0B0718AB1126006FBAE4 /* input-bar-background@2x.png in Resources */,
 				3A3A0AE918AB1126006FBAE4 /* avatar-placeholder@2x.png in Resources */,
 				3A91F1F918EB4C040006B9F8 /* contacts-background-large.png in Resources */,
@@ -2085,8 +2088,11 @@
 				3A3A0B0A18AB1126006FBAE4 /* send-button-pressed.png in Resources */,
 				3A91F21118EB53990006B9F8 /* confessions-icon.png in Resources */,
 				3AB8D18818C23DF00082B77C /* MavenProLight-100.ttf in Resources */,
+				F7A3F96E18EE33B1006FBA0A /* x-white.png in Resources */,
 				F7303ED318E8E7080045F9AF /* fav-icon-label.png in Resources */,
 				3AB8D19118C259B00082B77C /* MavenProMedium.ttf in Resources */,
+				F7A3F96B18EE33B1006FBA0A /* x-green.png in Resources */,
+				F7A3F96A18EE33B1006FBA0A /* x-blue.png in Resources */,
 				3AD19AC518E266F0001B3B88 /* Default-568h@2x.png in Resources */,
 				3A3A0B1218AB1126006FBAE4 /* message-received.aiff in Resources */,
 				F751016C18ABE8A2001F1E7F /* Settings.bundle in Resources */,
@@ -2103,7 +2109,6 @@
 				3A3A0B1018AB1126006FBAE4 /* input-bar-flat.png in Resources */,
 				3A91F1FE18EB4C3D0006B9F8 /* owl-right.png in Resources */,
 				3A07F6C518D3C21800E82390 /* cell-select-active.png in Resources */,
-				3AEFB75C18E8BE210039B5B0 /* x-blue.png in Resources */,
 				3A91F1ED18EB4BD10006B9F8 /* friends-background-large.png in Resources */,
 				3AEFB76518E8BE5C0039B5B0 /* cell-select-green.png in Resources */,
 				3A91F1F118EB4BE50006B9F8 /* loadingScreenLarge.png in Resources */,
@@ -2122,7 +2127,6 @@
 				3A3A0B0C18AB1126006FBAE4 /* send-button.png in Resources */,
 				3AF86D2918B504CF00033495 /* bubble-old.png in Resources */,
 				3A07F6D718D3EFC200E82390 /* check-icon.png in Resources */,
-				3AEFB75D18E8BE210039B5B0 /* x-green.png in Resources */,
 				3AF521D118EA3072008320CD /* friends-icon.png in Resources */,
 				F7977B6418DBA25B000E955C /* check-icon-green.png in Resources */,
 				3A25B64A1881E03700166623 /* Main.storyboard in Resources */,
