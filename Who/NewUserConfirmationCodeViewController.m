@@ -18,6 +18,7 @@
 @property (strong, nonatomic) PhoneVerificationManager *pvm;
 @property (weak, nonatomic) IBOutlet UITextView *textFieldBottom;
 @property (weak, nonatomic) IBOutlet UITextView *textFieldTop;
+@property (strong, nonatomic) IBOutlet UITextField *confirmationField;
 
 @end
 
@@ -35,8 +36,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [_confirmationPicker setDelegate:self];
-    [_confirmationPicker setDataSource:self];
     self.pvm = [[PhoneVerificationManager alloc] init];
     // Do any additional setup after loading the view.
 }
@@ -47,25 +46,8 @@
     // Dispose of any resources that can be recreated.
 }
 
--(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 4;
-}
-
--(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    return [NSString stringWithFormat:@"%ld", (long)row];
-}
-
--(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return 10;
-}
-
 - (IBAction)actionBtnClicked:(id)sender {
-    NSString *firstDigit = [self pickerView:_confirmationPicker titleForRow:[_confirmationPicker selectedRowInComponent:0] forComponent:0];
-    NSString *secondDigit = [self pickerView:_confirmationPicker titleForRow:[_confirmationPicker selectedRowInComponent:1] forComponent:1];
-    NSString *thirdDigit = [self pickerView:_confirmationPicker titleForRow:[_confirmationPicker selectedRowInComponent:2] forComponent:2];
-    NSString *fourthDigit = [self pickerView:_confirmationPicker titleForRow:[_confirmationPicker selectedRowInComponent:3] forComponent:3];
-    NSString *code = [NSString stringWithFormat:@"%@%@%@%@", firstDigit, secondDigit, thirdDigit, fourthDigit];
-    if ([code isEqualToString:[_pvm loadVerificationCode]]) {
+    if ([self.confirmationField.text isEqualToString:[_pvm loadVerificationCode]]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DID_VERIFY_PHONE object:nil];
     } else {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Incorrect Verification Code." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];

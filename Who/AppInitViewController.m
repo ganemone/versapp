@@ -35,7 +35,6 @@
 - (void)viewDidLoad
 {
     CGRect screen = [[UIScreen mainScreen] bounds];
-    NSLog(@"bounds: %f %f", screen.size.height, screen.size.width);
     UIImage *image = [[UIImage alloc] init];
     if (screen.size.height < 500) {
         image = [UIImage imageNamed:@"loadingScreenSmall.png"];

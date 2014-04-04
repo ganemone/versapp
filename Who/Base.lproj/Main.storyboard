@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="emE-SZ-5gQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="w0O-6j-SeY">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -218,6 +218,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="confirmationField" destination="ZhU-fI-C1c" id="OZd-Us-ZAU"/>
                         <outlet property="headerLabel" destination="zMJ-Ga-zPa" id="w2G-gW-Z95"/>
                         <outlet property="textFieldBottom" destination="Nx8-Nx-brZ" id="wcB-ga-u5u"/>
                         <outlet property="textFieldTop" destination="YTC-bw-ksh" id="len-HX-ooZ"/>
@@ -249,25 +250,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Giancarlo Anemone" borderStyle="roundedRect" placeholder="Name" minimumFontSize="17" id="Krm-Tr-FQS">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" minimumFontSize="17" id="Krm-Tr-FQS">
                                 <rect key="frame" x="20" y="78" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="next"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="ganemone@gmail.com" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" id="nlg-MF-IZ0">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" id="nlg-MF-IZ0">
                                 <rect key="frame" x="20" y="116" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="menisco" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" id="Ykh-uA-06L">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" id="Ykh-uA-06L">
                                 <rect key="frame" x="20" y="154" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="menisco" borderStyle="roundedRect" placeholder="Confirm Password" minimumFontSize="17" id="6Ox-3Z-ZwX">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" minimumFontSize="17" id="6Ox-3Z-ZwX">
                                 <rect key="frame" x="20" y="192" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1988,20 +1989,19 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
-    <inferredMetricsTieBreakers>
-        <segue reference="tVn-SP-Hc9"/>
+        <segue reference="3yg-rT-qjq"/>
+        <segue reference="oXT-5M-zi9"/>
+        <segue reference="OKb-WW-kzU"/>
+        <segue reference="WHz-1g-xNx"/>
+        <segue reference="Ve6-mS-bkp"/>
         <segue reference="Y5D-AL-CYy"/>
         <segue reference="AGt-Q0-zDh"/>
         <segue reference="YEX-bB-bO6"/>
-        <segue reference="z6h-qs-HbB"/>
-        <segue reference="hVX-XL-lBE"/>
-        <segue reference="pHb-Kf-4qo"/>
         <segue reference="BCc-dv-kG7"/>
-        <segue reference="SII-hP-sMz"/>
-        <segue reference="3yg-rT-qjq"/>
-        <segue reference="Ve6-mS-bkp"/>
-        <segue reference="oXT-5M-zi9"/>
-        <segue reference="WHz-1g-xNx"/>
+        <segue reference="hVX-XL-lBE"/>
+        <segue reference="z6h-qs-HbB"/>
+        <segue reference="tVn-SP-Hc9"/>
+        <segue reference="pHb-Kf-4qo"/>
         <segue reference="YCw-e7-spT"/>
     </inferredMetricsTieBreakers>
 </document>

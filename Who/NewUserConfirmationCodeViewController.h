@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NewUserConfirmationCodeViewController : UIViewController<UIPickerViewDataSource, UIPickerViewDelegate>
+@interface NewUserConfirmationCodeViewController : UIViewController
 
 @end

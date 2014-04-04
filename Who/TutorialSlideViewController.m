@@ -15,7 +15,6 @@
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) UIButton *button;
 
-
 @end
 
 @implementation TutorialSlideViewController
@@ -47,18 +46,12 @@
             [self.button addTarget:self action:@selector(goToDashboard) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:_button];
         }
-        
     }
     return self;
 }
 
 - (void)goToDashboard {
     [[NSNotificationCenter defaultCenter] postNotificationName:SEGUE_ID_FINISHED_TUTORIAL object:nil];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
 }
 
 - (void)didReceiveMemoryWarning

@@ -39,11 +39,9 @@
 }
 
 -(void)sendOneToOneMessage:(NSString*)messageText imageLink:(NSString*)imageLink {
-    NSLog(@"Trying to send a message");
     NSString * timeStampValue = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
     MessageMO *newMessage = [MessagesDBManager insert:messageText groupID:self.chat_id time:timeStampValue senderID:[ConnectionProvider getUser] receiverID:[self getMessageTo] imageLink:imageLink];
     [self addMessage:newMessage];
-    NSLog(@"Created Message: %@", newMessage);
     DDXMLElement *packet = [IQPacketManager createSendOneToOneMessagePacket:newMessage];
     [[[ConnectionProvider getInstance] getConnection] sendElement:packet];
 }
