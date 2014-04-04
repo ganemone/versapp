@@ -523,18 +523,18 @@ static BOOL notificationsHalfHidden = NO;
         //greenImageName = [NSMutableString stringWithFormat:@"notification%d-green.png", [self.friendRequests count] + [self.groupInvites count]];
     } else if ([self.friendRequests count] + [self.groupInvites count] == 0) {
         imageName = [NSMutableString stringWithString:@"notification-none.png"];
-        //greenImageName = [NSMutableString stringWithString:@"arrow-up-icon-square-green.png"];
+        //greenImageName = [NSMutableString stringWithString:@"arrow-close-notifications.png"];
     } else {
         imageName = [NSMutableString stringWithString:@"notification5+.png"];
         //greenImageName = [NSMutableString stringWithString:@"notification5+-green.png"];
     }
     UIImage *notificationsImage = [UIImage imageNamed:imageName];
-    UIImageView *notificationsBadgeGreen = [[UIImageView alloc] initWithFrame:CGRectMake(281, 27, 31, 31)];
+    UIImageView *notificationsBadgeGreen = [[UIImageView alloc] initWithFrame:CGRectMake(281, 27, 24, 24)];
     [self.notificationsButton setImage:notificationsImage forState:UIControlStateNormal];
-    greenImageName = [NSMutableString stringWithString:@"arrow-up-icon-square-green.png"];
+    greenImageName = [NSMutableString stringWithString:@"arrow-close-notifications.png"];
     UIImage *notificationsImageGreen = [UIImage imageNamed:greenImageName];
     [notificationsBadgeGreen setImage:notificationsImageGreen];
-    self.notificationsButtonGreen = [[UIButton alloc] initWithFrame:CGRectMake(281, 27, 31, 31)];
+    self.notificationsButtonGreen = [[UIButton alloc] initWithFrame:CGRectMake(281, 27, 24, 24)];
     [self.notificationsButtonGreen setImage:notificationsImageGreen forState:UIControlStateNormal];
     [self.notificationsButtonGreen addTarget:self action:@selector(notificationsGreenClicked:) forControlEvents:UIControlEventTouchUpInside];
     

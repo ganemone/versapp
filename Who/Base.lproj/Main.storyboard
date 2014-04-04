@@ -1429,7 +1429,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
-                        <color key="backgroundColor" red="0.95686274510000002" green="0.57254901960000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="bRR-D9-Nnz"/>
                     <connections>
@@ -1978,17 +1978,17 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="YEX-bB-bO6"/>
-        <segue reference="zTQ-Mf-6oX"/>
         <segue reference="hVX-XL-lBE"/>
-        <segue reference="BCc-dv-kG7"/>
-        <segue reference="tVn-SP-Hc9"/>
-        <segue reference="pHb-Kf-4qo"/>
+        <segue reference="Y5D-AL-CYy"/>
+        <segue reference="AGt-Q0-zDh"/>
+        <segue reference="YEX-bB-bO6"/>
         <segue reference="z6h-qs-HbB"/>
+        <segue reference="pHb-Kf-4qo"/>
+        <segue reference="tVn-SP-Hc9"/>
+        <segue reference="BCc-dv-kG7"/>
+        <segue reference="WHz-1g-xNx"/>
         <segue reference="3yg-rT-qjq"/>
         <segue reference="Ve6-mS-bkp"/>
-        <segue reference="qGQ-aw-vgl"/>
         <segue reference="YCw-e7-spT"/>
-        <segue reference="WHz-1g-xNx"/>
     </inferredMetricsTieBreakers>
 </document>
