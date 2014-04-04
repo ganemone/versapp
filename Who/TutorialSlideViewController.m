@@ -11,6 +11,7 @@
 @interface TutorialSlideViewController ()
 
 @property (strong, nonatomic) UIImageView *imageView;
+@property (strong, nonatomic) UIButton *button;
 
 @end
 
@@ -30,10 +31,15 @@
     if (self) {
         self.image = image;
         self.indexInTutorial = indexInTutorial;
-        self.imageView = [[UIImageView alloc] initWithFrame:self.view.frame];
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
         [self.imageView setContentMode:UIViewContentModeScaleAspectFill];
         [self.view addSubview:_imageView];
         [self.imageView setImage:_image];
+        
+        self.button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2 - 60, self.view.frame.size.height - 50, 120, 20)];
+        [self.button setTitle:@"Lets get going!" forState:UIControlStateNormal];
+        [self.button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.view addSubview:_button];
     }
     return self;
 }
@@ -41,8 +47,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"Position In Tutorial %d", _indexInTutorial);
-    [self.imageView setImage:_image];
 }
 
 - (void)didReceiveMemoryWarning
