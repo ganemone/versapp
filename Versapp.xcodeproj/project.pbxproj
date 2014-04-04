@@ -122,7 +122,7 @@
 		3A91F20F18EB537E0006B9F8 /* edit-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A91F20E18EB537E0006B9F8 /* edit-icon.png */; };
 		3A91F21118EB53990006B9F8 /* confessions-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A91F21018EB53990006B9F8 /* confessions-icon.png */; };
 		3A930D3C18EE2D26006E5B5E /* search-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D3B18EE2D26006E5B5E /* search-icon.png */; };
-		3A930D3E18EE2D2E006E5B5E /* x-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D3D18EE2D2E006E5B5E /* x-white.png */; };
+		3A930D4A18EE45B3006E5B5E /* x-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D4918EE45B3006E5B5E /* x-white.png */; };
 		3A98D8E318BD19B200B69049 /* XMPPElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D8D218BD19B200B69049 /* XMPPElement.m */; };
 		3A98D8E418BD19B200B69049 /* XMPPIQ.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D8D518BD19B200B69049 /* XMPPIQ.m */; };
 		3A98D8E518BD19B200B69049 /* XMPPJID.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98D8D718BD19B200B69049 /* XMPPJID.m */; };
@@ -286,7 +286,6 @@
 		F7A3F96B18EE33B1006FBA0A /* x-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F7A3F96618EE33B1006FBA0A /* x-green.png */; };
 		F7A3F96C18EE33B1006FBA0A /* x-orange.png in Resources */ = {isa = PBXBuildFile; fileRef = F7A3F96718EE33B1006FBA0A /* x-orange.png */; };
 		F7A3F96D18EE33B1006FBA0A /* x-purple.png in Resources */ = {isa = PBXBuildFile; fileRef = F7A3F96818EE33B1006FBA0A /* x-purple.png */; };
-		F7A3F96E18EE33B1006FBA0A /* x-white.png in Resources */ = {isa = PBXBuildFile; fileRef = F7A3F96918EE33B1006FBA0A /* x-white.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -468,7 +467,7 @@
 		3A91F20E18EB537E0006B9F8 /* edit-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit-icon.png"; sourceTree = "<group>"; };
 		3A91F21018EB53990006B9F8 /* confessions-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "confessions-icon.png"; sourceTree = "<group>"; };
 		3A930D3B18EE2D26006E5B5E /* search-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-icon.png"; sourceTree = "<group>"; };
-		3A930D3D18EE2D2E006E5B5E /* x-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-white.png"; sourceTree = "<group>"; };
+		3A930D4918EE45B3006E5B5E /* x-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-white.png"; sourceTree = "<group>"; };
 		3A98D8D018BD19B200B69049 /* XMPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPP.h; sourceTree = "<group>"; };
 		3A98D8D118BD19B200B69049 /* XMPPElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPElement.h; sourceTree = "<group>"; };
 		3A98D8D218BD19B200B69049 /* XMPPElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPElement.m; sourceTree = "<group>"; };
@@ -766,7 +765,6 @@
 		F7A3F96618EE33B1006FBA0A /* x-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-green.png"; sourceTree = "<group>"; };
 		F7A3F96718EE33B1006FBA0A /* x-orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-orange.png"; sourceTree = "<group>"; };
 		F7A3F96818EE33B1006FBA0A /* x-purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-purple.png"; sourceTree = "<group>"; };
-		F7A3F96918EE33B1006FBA0A /* x-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-white.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1803,11 +1801,11 @@
 		3AF521D218EA3081008320CD /* Cancel Icons */ = {
 			isa = PBXGroup;
 			children = (
+				3A930D4918EE45B3006E5B5E /* x-white.png */,
 				F7A3F96518EE33B1006FBA0A /* x-blue.png */,
 				F7A3F96618EE33B1006FBA0A /* x-green.png */,
 				F7A3F96718EE33B1006FBA0A /* x-orange.png */,
 				F7A3F96818EE33B1006FBA0A /* x-purple.png */,
-				F7A3F96918EE33B1006FBA0A /* x-white.png */,
 			);
 			name = "Cancel Icons";
 			sourceTree = "<group>";
@@ -2073,7 +2071,7 @@
 				3A91F1EE18EB4BD10006B9F8 /* friends-background-small.png in Resources */,
 				3A91F20918EB534F0006B9F8 /* notification3.png in Resources */,
 				3AB8D18F18C259B00082B77C /* MavenProBlack.ttf in Resources */,
-				3A930D3E18EE2D2E006E5B5E /* x-white.png in Resources */,
+				3A930D4A18EE45B3006E5B5E /* x-white.png in Resources */,
 				3A91F1FA18EB4C040006B9F8 /* contacts-background-small.png in Resources */,
 				3A3A0AE818AB1126006FBAE4 /* avatar-placeholder.png in Resources */,
 				3AEFB76318E8BE5C0039B5B0 /* camera-icon-dark.png in Resources */,
@@ -2095,7 +2093,6 @@
 				3A3A0B0A18AB1126006FBAE4 /* send-button-pressed.png in Resources */,
 				3A91F21118EB53990006B9F8 /* confessions-icon.png in Resources */,
 				3AB8D18818C23DF00082B77C /* MavenProLight-100.ttf in Resources */,
-				F7A3F96E18EE33B1006FBA0A /* x-white.png in Resources */,
 				F7303ED318E8E7080045F9AF /* fav-icon-label.png in Resources */,
 				3AB8D19118C259B00082B77C /* MavenProMedium.ttf in Resources */,
 				F7A3F96B18EE33B1006FBA0A /* x-green.png in Resources */,
