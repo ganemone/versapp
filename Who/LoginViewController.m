@@ -14,6 +14,7 @@
 #import "UserDefaultManager.h"
 #import "ChatDBManager.h"
 #import "StyleManager.h"
+#import "MBProgressHUD.h"
 
 @interface LoginViewController()
 
@@ -32,7 +33,6 @@
 
 @property BOOL createVCardWhenAuthenticated;
 @property (strong, nonatomic) ConnectionProvider *cp;
-@property (strong, nonatomic) LoadingDialogManager *ld;
 
 - (IBAction)loginClick:(id)sender;
 
@@ -59,7 +59,6 @@
     
     self.createVCardWhenAuthenticated = NO;
     self.cp = [ConnectionProvider getInstance];
-    self.ld = [LoadingDialogManager create:self.view];
     [_username setTag:0];
     [_password setTag:1];
     [self.username setDelegate:self];
@@ -73,7 +72,7 @@
 
 -(void)authenticated
 {
-    [self.ld hideLoadingDialogWithoutProgress];
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     [self performSegueWithIdentifier:SEGUE_ID_AUTHENTICATED sender:self];
 }
 
@@ -88,7 +87,7 @@
 }
 
 - (void)login {
-    [self.ld showLoadingDialogWithoutProgress];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     [UserDefaultManager savePassword:self.passwordText];
     [UserDefaultManager saveUsername:self.usernameText];
@@ -116,7 +115,7 @@
     [UserDefaultManager clearUsernameAndPassword];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your username and password could not be authenticated." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
-    [_ld hideLoadingDialogWithoutProgress];
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     self.passwordText = @"";
 }
 
@@ -126,6 +125,21 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    NSInteger nextTag = textField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [textField resignFirstResponder];
+        [self login];
+    }
+    return NO; // We do not want UITextField to insert line-breaks.
 }
 
 @end
