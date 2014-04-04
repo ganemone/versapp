@@ -47,7 +47,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="VDA-7L-oK4" kind="modal" id="XtJ-Xm-XFN"/>
+                                    <segue destination="U9q-qD-j1R" kind="modal" id="OKb-WW-kzU"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" id="3Mm-yc-YYD">
@@ -239,7 +239,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QqF-nM-1l1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-330" y="803"/>
+            <point key="canvasLocation" x="-330" y="811"/>
         </scene>
         <!--New User Register Name View Controller-->
         <scene sceneID="nmh-le-cdE">
@@ -1986,23 +1986,18 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="hVX-XL-lBE"/>
+        <segue reference="YCw-e7-spT"/>
+        <segue reference="WHz-1g-xNx"/>
+        <segue reference="OKb-WW-kzU"/>
+        <segue reference="QMt-WW-ujz"/>
         <segue reference="Y5D-AL-CYy"/>
         <segue reference="AGt-Q0-zDh"/>
         <segue reference="YEX-bB-bO6"/>
-        <segue reference="pHb-Kf-4qo"/>
-        <segue reference="BCc-dv-kG7"/>
-        <segue reference="tVn-SP-Hc9"/>
-        <segue reference="z6h-qs-HbB"/>
-        <segue reference="Ve6-mS-bkp"/>
-        <segue reference="3yg-rT-qjq"/>
-        <segue reference="z6h-qs-HbB"/>
-        <segue reference="pHb-Kf-4qo"/>
         <segue reference="tVn-SP-Hc9"/>
         <segue reference="BCc-dv-kG7"/>
-        <segue reference="WHz-1g-xNx"/>
-        <segue reference="QMt-WW-ujz"/>
-        <segue reference="YCw-e7-spT"/>
+        <segue reference="pHb-Kf-4qo"/>
+        <segue reference="z6h-qs-HbB"/>
+        <segue reference="hVX-XL-lBE"/>
         <segue reference="Ve6-mS-bkp"/>
     </inferredMetricsTieBreakers>
 </document>
