@@ -387,6 +387,11 @@ static BOOL notificationsHalfHidden = NO;
     }
 }
 
+-(void)notificationSwipeClose:(UISwipeGestureRecognizer *)recognizer {
+    NSLog(@"Swipe");
+    [self hideNotifications];
+}
+
 - (void) showNotifications {
     NSLog(@"Show Notifications");
     
@@ -396,6 +401,7 @@ static BOOL notificationsHalfHidden = NO;
     
     self.notificationTableView.hidden = NO;
     self.greyOutView.frame = self.view.frame;
+    
     [UIView animateWithDuration:0.5
                           delay:0.0
          usingSpringWithDamping:1.0
@@ -422,7 +428,6 @@ static BOOL notificationsHalfHidden = NO;
     [self.tableView reloadData];
     
     notificationsHalfHidden = NO;
-
     
     [UIView animateWithDuration:0.5
                           delay:0.0
@@ -441,37 +446,11 @@ static BOOL notificationsHalfHidden = NO;
     [UIView commitAnimations];
 }
 
--(IBAction)tapToHideNotifications:(UITapGestureRecognizer *)recognizer {
+-(IBAction)hideNotificationsGesture:(UITapGestureRecognizer *)recognizer {
     CGPoint tapLocation = [recognizer locationInView:self.view];
     
     if (!CGRectContainsPoint(self.notificationTableView.frame, tapLocation) && !self.notificationTableView.hidden) {
         [self hideNotifications];
-    }
-}
-
--(IBAction)swipeToHideNotifications:(UIPanGestureRecognizer *)recognizer {
-    [self adjustAnchorPoint:recognizer];
-    
-    if (recognizer.state == UIGestureRecognizerStateBegan || recognizer.state == UIGestureRecognizerStateChanged) {
-        CGPoint translation = [recognizer translationInView:recognizer.view.superview];
-        NSLog(@"Center: %f", recognizer.view.superview.center.y);
-        if (recognizer.view.superview.center.y <= 0) {
-            notificationsHalfHidden = YES;
-        } else {
-            notificationsHalfHidden = NO;
-        }
-        if (recognizer.view.superview.center.y <= _notificationCenter) {
-            [recognizer.view.superview setCenter:CGPointMake(recognizer.view.superview.center.x, recognizer.view.superview.center.y + translation.y)];
-        } else {
-            [recognizer.view.superview setCenter:CGPointMake(recognizer.view.superview.center.x, _notificationCenter)];
-        }
-        [recognizer setTranslation:CGPointZero inView:recognizer.view.superview];
-    } else if (recognizer.state == UIGestureRecognizerStateEnded) {
-        if (notificationsHalfHidden) {
-            [self hideNotifications];
-        } else {
-            [self showNotifications];
-        }
     }
 }
 
@@ -559,11 +538,16 @@ static BOOL notificationsHalfHidden = NO;
     
     [self setNotificationsIcon];
     
-    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToHideNotifications:)];
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideNotificationsGesture:)];
     tapRecognizer.delaysTouchesEnded = YES;
     tapRecognizer.numberOfTapsRequired = 1;
     tapRecognizer.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapRecognizer];
+    UISwipeGestureRecognizer *swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(hideNotificationsGesture:)];
+    [swipeRecognizer setDirection:UISwipeGestureRecognizerDirectionUp];
+    swipeRecognizer.numberOfTouchesRequired = 1;
+    swipeRecognizer.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:swipeRecognizer];
     
     self.notificationTableView = [[UITableView alloc] init];
     self.notificationTableView.hidden = YES;
@@ -573,23 +557,7 @@ static BOOL notificationsHalfHidden = NO;
     [self.notificationTableView setSeparatorColor:[StyleManager getColorGreen]];
     [self setNotificationSize];
     
-    UIView *notificationsFooter = [[UIView alloc] initWithFrame:CGRectMake(0, _notificationHeight, self.view.frame.size.width, 20)];
-    [notificationsFooter setBackgroundColor:[StyleManager getColorGreen]];
-    UILabel *closeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, _notificationHeight, self.view.frame.size.width, 20)];
-    [closeLabel setTextAlignment:NSTextAlignmentCenter];
-    [closeLabel setTextColor:[UIColor whiteColor]];
-    [closeLabel setFont:[StyleManager getFontStyleBoldSizeSmall]];
-    [closeLabel setText:@"Swipe up to close"];
-    [notificationsFooter addSubview:closeLabel];
-    [self.notificationTableView setTableFooterView:notificationsFooter];
-    
     [self.view addSubview:self.notificationTableView];
-    
-    UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(swipeToHideNotifications:)];
-     [panRecognizer setDelegate:self];
-     panRecognizer.minimumNumberOfTouches = 1;
-     panRecognizer.maximumNumberOfTouches = 1;
-     [notificationsFooter addGestureRecognizer:panRecognizer];
     
     [self hideNotifications];
 }
