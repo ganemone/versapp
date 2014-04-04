@@ -66,7 +66,6 @@
         NSError *error = nil;
         _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
         if(![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:nil error:&error]) {
-            NSLog(@"Failed to add persistent store type");
         }
     }
     return _persistentStoreCoordinator;
@@ -76,13 +75,6 @@
 {
     NSError *error = nil;
     NSManagedObjectContext *managedObjectContext = _managedObjectContext;
-    if (managedObjectContext != nil)
-    {
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error])
-        {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        }
-    }
 }
 
 - (void)saveContextForBackgroundThread {
@@ -107,19 +99,16 @@
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
-	NSLog(@"My token is: %@", deviceToken);
     NSString *deviceTokenString = [[[[deviceToken description]
                                      stringByReplacingOccurrencesOfString:@" " withString:@""]
                                     stringByReplacingOccurrencesOfString:@"<" withString:@""]
                                    stringByReplacingOccurrencesOfString:@">" withString:@""];
     
-    NSLog(@"Decoded Token String: %@", deviceTokenString);
     //[[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSetDeviceTokenPacket:deviceTokenString]];
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
-	NSLog(@"Failed to get token, error: %@", error);
 }
 
 
@@ -149,7 +138,6 @@
     if ([stream isDisconnected]) {
         NSString *username = [UserDefaultManager loadUsername];
         NSString *password = [UserDefaultManager loadPassword];
-        NSLog(@"User: %@", username);
         if (username != nil && password != nil) {
             //DashboardViewController *dashboard = [[DashboardViewController alloc] init];
             //[self.window setRootViewController:dashboard];
@@ -189,7 +177,6 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    NSLog(@"didReceiveRemoteNotification");
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.alertBody = @"Test Notification";
     [application presentLocalNotificationNow:notification];

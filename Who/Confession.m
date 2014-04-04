@@ -57,7 +57,6 @@
     //CGRect chatLabelFrame = CGRectMake(cellX + iconSize + 2 * paddingSmall, textHeight + paddingSmall, labelWidth, iconSize);
     _chatButton = [[UIButton alloc] initWithFrame:chatButtonFrame];
     //_chatLabel = [[UILabel alloc] initWithFrame:chatLabelFrame];
-
     
     // Configure Favorites
     //CGRect favoriteButtonFrame = CGRectMake(contentSize.width - iconSize - cellX - 2 * paddingSmall, textHeight + paddingSmall, favWidth, iconSize);

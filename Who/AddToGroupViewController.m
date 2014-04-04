@@ -133,8 +133,6 @@
         [tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
-     
-    NSLog(@"Selected: %@", _selectedJIDs);
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

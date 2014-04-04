@@ -47,7 +47,6 @@ static int numUninvitedParticipants;
 }
 
 +(ChatMO*)insertChatWithID:(NSString *)chatID chatName:(NSString *)chatName chatType:(NSString*)chatType participantString:(NSString*)participantString status:(int)status withContext:(NSManagedObjectContext *)moc {
-    NSLog(@"Inserting Chat With Values: %@ %@ %@ %@ %d", chatID, chatName, chatType, participantString, status);
     ChatMO *chatEntry = [self getChatWithID:chatID];
     if (chatEntry == nil) {
         chatEntry = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_CHATS inManagedObjectContext:moc];
@@ -72,7 +71,6 @@ static int numUninvitedParticipants;
         chatEntry = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_CHATS inManagedObjectContext:moc];
         [chatEntry setValue:chatType forKey:CHATS_TABLE_COLUMN_NAME_CHAT_TYPE];
     }
-    NSLog(@"Setting Chat Name from %@ to %@",chatEntry.user_defined_chat_name, chatName);
     [chatEntry setValue:chatID forKey:CHATS_TABLE_COLUMN_NAME_CHAT_ID];
     [chatEntry setValue:chatName forKey:CHATS_TABLE_COLUMN_NAME_CHAT_NAME];
     [chatEntry setValue:[NSNumber numberWithInt:status] forKey:CHATS_TABLE_COLUMN_NAME_STATUS];
@@ -250,7 +248,6 @@ static int numUninvitedParticipants;
             }
         }
         
-        NSLog(@"Udated participants in %@ to %@", chatIDUpdatingParticipants, chat.participants);
         AppDelegate *delegate = [UIApplication sharedApplication].delegate;
         [delegate saveContext];
         chatIDUpdatingParticipants = nil;
@@ -263,7 +260,6 @@ static int numUninvitedParticipants;
 
 +(void)updateChatParticipants:(NSMutableArray *)participants {
     if (chatIDUpdatingParticipants != nil) {
-        NSLog(@"Updating Chat Participants: %@", [participants componentsJoinedByString:@", "]);
         ChatMO *chat = [self getChatWithID:chatIDUpdatingParticipants];
         [chat setParticipants:participants];
         [chat setParticipant_string:[participants componentsJoinedByString:@", "]];
