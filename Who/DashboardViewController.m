@@ -277,12 +277,26 @@ static BOOL notificationsHalfHidden = NO;
     } else {
         static NSString *cellIdentifier = @"Cell";
         
-        SWTableViewCell *cell = (SWTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        //SWTableViewCell *cell = (SWTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
-        if (cell == nil) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        /*if (cell == nil) {
             cell = [[SWTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier containingTableView:self.notificationTableView leftUtilityButtons:nil rightUtilityButtons:[self notificationsButtons]];
             cell.delegate = self;
+        }*/
+        
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
         }
+        
+        CGFloat buttonSize = 20.0f, padding = 5.0f;
+        
+        UIButton *accept = [[UIButton alloc] initWithFrame:CGRectMake(cell.frame.size.width - 4*padding - 2*buttonSize, (cell.frame.size.height-buttonSize)/2, buttonSize, buttonSize)];
+        [accept setImage:[UIImage imageNamed:@"check-icon-green-square.png"] forState:UIControlStateNormal];
+        
+        UIButton *decline = [[UIButton alloc] initWithFrame:CGRectMake(cell.frame.size.width - padding - buttonSize, (cell.frame.size.height-(buttonSize-5))/2, buttonSize-5, buttonSize-5)];
+        [decline setImage:[UIImage imageNamed:@"x-green.png"] forState:UIControlStateNormal];
         
         NSLog(@"Cell: %@", [cell description]);
         
@@ -293,15 +307,21 @@ static BOOL notificationsHalfHidden = NO;
             //cell.textLabel.text = [NSMutableString stringWithFormat:@"%@ - invited by %@", groupInvite.chat_name, inviter];
             cell.textLabel.text = groupInvite.chat_name;
             cell.detailTextLabel.text = [NSMutableString stringWithFormat:@"invited by %@", inviter];
+            [accept addTarget:self action:@selector(acceptInvitation:) forControlEvents:UIControlEventTouchUpInside];
+            [decline addTarget:self action:@selector(declineInvitation:) forControlEvents:UIControlEventTouchUpInside];
         } else {
             FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
             cell.textLabel.text = friendRequest.name;
+            [accept addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
+            [decline addTarget:self action:@selector(declineFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
         }
         
         [cell.textLabel setFont:[StyleManager getFontStyleBoldSizeLarge]];
         [cell.textLabel setTextColor:[StyleManager getColorGreen]];
         [cell.detailTextLabel setFont:[StyleManager getFontStyleLightSizeSmall]];
         [cell.detailTextLabel setTextColor:[UIColor blackColor]];
+        [cell.contentView addSubview:accept];
+        [cell.contentView addSubview:decline];
         
         return cell;
     }
@@ -377,34 +397,9 @@ static BOOL notificationsHalfHidden = NO;
     }
 }
 
-- (NSArray *)notificationsButtons {
-    NSMutableArray *buttons = [NSMutableArray new];
-    UIImage *accept = [UIImage imageNamed:@"check-icon-green-square.png"];
-    UIImage *decline = [UIImage imageNamed:@"x-green.png"];
-    [buttons sw_addUtilityButtonWithColor:[UIColor clearColor] icon:accept];
-    [buttons sw_addUtilityButtonWithColor:[UIColor clearColor] icon:decline];
-    
-    return buttons;
-}
-
-- (void) swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index {
-    NSIndexPath *indexPath = [self.notificationTableView indexPathForCell:cell];
-    switch (index) {
-        case 0:
-            if (indexPath.section == 0)
-                [self acceptInvitation:indexPath];
-            else
-                [self acceptFriendRequest:indexPath];
-            break;
-        case 1:
-            if (indexPath.section == 0)
-                [self declineInvitation:indexPath];
-            else
-                [self declineFriendRequest:indexPath];
-            break;
-        default:
-            break;
-    }
+-(void)notificationSwipeClose:(UISwipeGestureRecognizer *)recognizer {
+    NSLog(@"Swipe");
+    [self hideNotifications];
 }
 
 - (void) showNotifications {
@@ -416,6 +411,7 @@ static BOOL notificationsHalfHidden = NO;
     
     self.notificationTableView.hidden = NO;
     self.greyOutView.frame = self.view.frame;
+    
     [UIView animateWithDuration:0.5
                           delay:0.0
          usingSpringWithDamping:1.0
@@ -443,7 +439,6 @@ static BOOL notificationsHalfHidden = NO;
     
     notificationsHalfHidden = NO;
     
-    
     [UIView animateWithDuration:0.5
                           delay:0.0
          usingSpringWithDamping:1.0
@@ -461,37 +456,11 @@ static BOOL notificationsHalfHidden = NO;
     [UIView commitAnimations];
 }
 
--(IBAction)tapToHideNotifications:(UITapGestureRecognizer *)recognizer {
+-(IBAction)hideNotificationsGesture:(UITapGestureRecognizer *)recognizer {
     CGPoint tapLocation = [recognizer locationInView:self.view];
     
     if (!CGRectContainsPoint(self.notificationTableView.frame, tapLocation) && !self.notificationTableView.hidden) {
         [self hideNotifications];
-    }
-}
-
--(IBAction)swipeToHideNotifications:(UIPanGestureRecognizer *)recognizer {
-    [self adjustAnchorPoint:recognizer];
-    
-    if (recognizer.state == UIGestureRecognizerStateBegan || recognizer.state == UIGestureRecognizerStateChanged) {
-        CGPoint translation = [recognizer translationInView:recognizer.view.superview];
-        NSLog(@"Center: %f", recognizer.view.superview.center.y);
-        if (recognizer.view.superview.center.y <= 0) {
-            notificationsHalfHidden = YES;
-        } else {
-            notificationsHalfHidden = NO;
-        }
-        if (recognizer.view.superview.center.y <= _notificationCenter) {
-            [recognizer.view.superview setCenter:CGPointMake(recognizer.view.superview.center.x, recognizer.view.superview.center.y + translation.y)];
-        } else {
-            [recognizer.view.superview setCenter:CGPointMake(recognizer.view.superview.center.x, _notificationCenter)];
-        }
-        [recognizer setTranslation:CGPointZero inView:recognizer.view.superview];
-    } else if (recognizer.state == UIGestureRecognizerStateEnded) {
-        if (notificationsHalfHidden) {
-            [self hideNotifications];
-        } else {
-            [self showNotifications];
-        }
     }
 }
 
@@ -533,18 +502,18 @@ static BOOL notificationsHalfHidden = NO;
         //greenImageName = [NSMutableString stringWithFormat:@"notification%d-green.png", [self.friendRequests count] + [self.groupInvites count]];
     } else if ([self.friendRequests count] + [self.groupInvites count] == 0) {
         imageName = [NSMutableString stringWithString:@"notification-none.png"];
-        //greenImageName = [NSMutableString stringWithString:@"arrow-up-icon-square-green.png"];
+        //greenImageName = [NSMutableString stringWithString:@"arrow-close-notifications.png"];
     } else {
         imageName = [NSMutableString stringWithString:@"notification5+.png"];
         //greenImageName = [NSMutableString stringWithString:@"notification5+-green.png"];
     }
     UIImage *notificationsImage = [UIImage imageNamed:imageName];
-    UIImageView *notificationsBadgeGreen = [[UIImageView alloc] initWithFrame:CGRectMake(281, 27, 31, 31)];
+    UIImageView *notificationsBadgeGreen = [[UIImageView alloc] initWithFrame:CGRectMake(281, 27, 24, 24)];
     [self.notificationsButton setImage:notificationsImage forState:UIControlStateNormal];
-    greenImageName = [NSMutableString stringWithString:@"arrow-up-icon-square-green.png"];
+    greenImageName = [NSMutableString stringWithString:@"arrow-close-notifications.png"];
     UIImage *notificationsImageGreen = [UIImage imageNamed:greenImageName];
     [notificationsBadgeGreen setImage:notificationsImageGreen];
-    self.notificationsButtonGreen = [[UIButton alloc] initWithFrame:CGRectMake(281, 27, 31, 31)];
+    self.notificationsButtonGreen = [[UIButton alloc] initWithFrame:CGRectMake(281, 27, 24, 24)];
     [self.notificationsButtonGreen setImage:notificationsImageGreen forState:UIControlStateNormal];
     [self.notificationsButtonGreen addTarget:self action:@selector(notificationsGreenClicked:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -579,11 +548,16 @@ static BOOL notificationsHalfHidden = NO;
     
     [self setNotificationsIcon];
     
-    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToHideNotifications:)];
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideNotificationsGesture:)];
     tapRecognizer.delaysTouchesEnded = YES;
     tapRecognizer.numberOfTapsRequired = 1;
     tapRecognizer.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapRecognizer];
+    UISwipeGestureRecognizer *swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(hideNotificationsGesture:)];
+    [swipeRecognizer setDirection:UISwipeGestureRecognizerDirectionUp];
+    swipeRecognizer.numberOfTouchesRequired = 1;
+    swipeRecognizer.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:swipeRecognizer];
     
     self.notificationTableView = [[UITableView alloc] init];
     self.notificationTableView.hidden = YES;
@@ -593,30 +567,14 @@ static BOOL notificationsHalfHidden = NO;
     [self.notificationTableView setSeparatorColor:[StyleManager getColorGreen]];
     [self setNotificationSize];
     
-    UIView *notificationsFooter = [[UIView alloc] initWithFrame:CGRectMake(0, _notificationHeight, self.view.frame.size.width, 20)];
-    [notificationsFooter setBackgroundColor:[StyleManager getColorGreen]];
-    UILabel *closeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, _notificationHeight, self.view.frame.size.width, 20)];
-    [closeLabel setTextAlignment:NSTextAlignmentCenter];
-    [closeLabel setTextColor:[UIColor whiteColor]];
-    [closeLabel setFont:[StyleManager getFontStyleBoldSizeSmall]];
-    [closeLabel setText:@"Swipe up to close"];
-    [notificationsFooter addSubview:closeLabel];
-    [self.notificationTableView setTableFooterView:notificationsFooter];
-    
     [self.view addSubview:self.notificationTableView];
-    
-    UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(swipeToHideNotifications:)];
-    [panRecognizer setDelegate:self];
-    panRecognizer.minimumNumberOfTouches = 1;
-    panRecognizer.maximumNumberOfTouches = 1;
-    [notificationsFooter addGestureRecognizer:panRecognizer];
     
     [self hideNotifications];
 }
 
 -(void)setNotificationSize {
     if (self.groupInvites.count + self.friendRequests.count == 0) {
-        _notificationHeight = self.view.frame.size.height/2 + 20;
+        _notificationHeight = self.view.frame.size.height/2;
     } else {
         _notificationHeight = self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.numberOfSections*self.notificationTableView.sectionHeaderHeight + self.notificationsHeader.frame.size.height;
     }
@@ -630,7 +588,10 @@ static BOOL notificationsHalfHidden = NO;
     [self setNotificationsIcon];
 }
 
-- (void)acceptInvitation:(NSIndexPath *)indexPath {
+- (IBAction)acceptInvitation:(id)sender {
+    CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
+    NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
+    
     ChatMO *groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
     [[self.cp getConnection] sendElement:[IQPacketManager createAcceptChatInvitePacket:groupInvite.chat_id]];
     [[self.cp getConnection] sendElement:[IQPacketManager createJoinMUCPacket:groupInvite.chat_id lastTimeActive:BEGINNING_OF_TIME]];
@@ -644,7 +605,10 @@ static BOOL notificationsHalfHidden = NO;
     [self setNotificationsIcon];
 }
 
-- (void)declineInvitation:(NSIndexPath *)indexPath {
+- (IBAction)declineInvitation:(id)sender {
+    CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
+    NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
+    
     ChatMO*groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
     [[self.cp getConnection] sendElement:[IQPacketManager createDenyChatInvitePacket:groupInvite.chat_id]];
     
@@ -658,7 +622,10 @@ static BOOL notificationsHalfHidden = NO;
     [self setNotificationsIcon];
 }
 
-- (void)acceptFriendRequest:(NSIndexPath *)indexPath {
+- (IBAction)acceptFriendRequest:(id)sender {
+    CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
+    NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
+    
     FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
     NSMutableString *address = [NSMutableString stringWithFormat:@"%@@%@", friendRequest.username, [ConnectionProvider getServerIPAddress]];
     [[self.cp getConnection] sendElement:[IQPacketManager createSubscribedPacket:friendRequest.username]];
@@ -673,7 +640,10 @@ static BOOL notificationsHalfHidden = NO;
     [self setNotificationsIcon];
 }
 
-- (void)declineFriendRequest:(NSIndexPath *)indexPath {
+- (IBAction)declineFriendRequest:(id)sender {
+    CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
+    NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
+    
     FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
     [FriendsDBManager updateUserSetStatusRejected:friendRequest.username];
     
