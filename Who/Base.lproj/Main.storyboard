@@ -1989,6 +1989,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
         <segue reference="3yg-rT-qjq"/>
         <segue reference="oXT-5M-zi9"/>
         <segue reference="OKb-WW-kzU"/>
