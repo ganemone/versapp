@@ -11,6 +11,7 @@
 #import "UserDefaultManager.h"
 #import "Constants.h"
 #import "StyleManager.h"
+#import "Encrypter.h"
 
 @interface AppInitViewController ()
 
