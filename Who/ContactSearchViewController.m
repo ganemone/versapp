@@ -41,6 +41,8 @@
 
 - (IBAction)sendRequest:(id)sender {
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSubscribePacket:_username.text]];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Friend Request Sent" message:nil delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+    [alertView show];
 }
 
 - (IBAction)handleBackPressed:(id)sender {
