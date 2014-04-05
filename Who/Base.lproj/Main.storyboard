@@ -636,7 +636,39 @@
                                 <rect key="frame" x="20" y="66" width="280" height="414"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <mutableString key="text">How do I sign up for Versapp?
+After you download and open the app, you will see a "Sign Up" button. Click and enter the information required by the form. Ensure the country code and phone number you enter are correct since they will be used to confirm your account.
+Major Features
+There are three major features that Versapp supports:
+Thoughts, One-to-One Conversations and Group Conversations.
+
+Thoughts
+Thoughts are everything your friends have to say! As the name indicates, with Thoughts you can share everything you are thinking about in the most sincere way. All your friends will see the Thought in their feed but they will not know which of their friends shared it.
+
+The most interesting part about Thoughts is that they allow you to start an anonymous conversation with the person who posted it. Neither of you will know who you are talking to. The only thing you know is that the person is a friend of yours!
+
+One to One Conversations
+Those are conversations that you can start with your friends! You know who you are talking to but your friend doesn't know who you are. In other words, this is a one-way anonymous conversation.
+
+You can start a One to One Conversation by going to your friend list, selecting a friend, and clicking the bottom bar that says "Create One to One Chat".
+
+If someone is bugging you a little too much, you may block the person. Blocking an anonymous chat that someone started with you will prevent the person from sending you messages or starting any other One to One Conversations with you. You will not know who you blocked. If in the future you start a conversation with one of your friends and this happens to be the person you blocked, that person will be unblocked.
+
+Group Conversations
+Groups are very fun! You can create a group by selecting more than one friend when creating a Conversation. You may name a group anything you'd like and when your friends receive a request to join the gruop, they will see that you have invited them and the name of the group.
+
+You can see the group participants at any moment. Just go in the conversation thread and click on the options in the top right menu (Android) or click the profile icon on the top bar of a conversation.
+
+You will not know who sent a message within a group. You only know it's one of the participants! You may block the sender of a message by long-pressing the message bubble you'd like to block. From that moment on, all messages sent by that person will appear on the Conversation as "Message from blocked user."
+
+How do I change my email?
+You can change your email by going to the settings page (click the settings icon on the top bar in the messages page) and clicking on the field that displays your email.
+How do I change my password?
+The first verion of Versapp does not allow you to change your password. We are working on the feature for the second release.
+Can I edit/delete my Thoughts?
+A Thought can be deleted but not edited. You can only delete a Thought that you created. To do so, click the delete button under the Thought you would like to delete. We are implementing the capability to delete a friend's Thought from your local feed.
+How do I delete my account?
+Email us at support@versapp.co and we can help you with that!</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -651,7 +683,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="d7E-Rd-JGR">
-                                        <rect key="frame" x="1" y="26" width="36" height="36"/>
+                                        <rect key="frame" x="10" y="27" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button" image="arrow-left-icon.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1682,7 +1714,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6c3-mp-XXk">
-                                        <rect key="frame" x="1" y="26" width="36" height="36"/>
+                                        <rect key="frame" x="10" y="27" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button" image="arrow-left-icon.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1720,7 +1752,7 @@
                                 <rect key="frame" x="20" y="66" width="280" height="414"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <mutableString key="text">Welcome to Versapp!
+                                <string key="text">Welcome to Versapp!
 Please read these Terms of Use (“Terms”) carefully. By downloading, accessing or using the mobile applications, websites or other products or services (collectively, the “Services”) of Versapp, you agree to be bound by these Terms. If you do not agree to these Terms, do not use the Services.
 
 We may change or modify these Terms at any time and in our sole discretion. If we make changes to these Terms, we will provide notice of such changes, such as by sending a notification, posting a notice on the Services or updating the “Last Updated” date above. Your continued use of the Services will confirm your acceptance of the revised Terms. We encourage you to frequently review the Terms to ensure you understand the terms and conditions that apply to your use of the Services. If you not agree to the amended Terms, you must stop using the Services and delete your Versapp account.
@@ -1805,7 +1837,7 @@ Complete Agreement
 These Terms supersede all prior understandings regarding the same and represent the complete agreement between you and Versapp.
 
 Questions and Comments
-Versapp welcomes comments, questions, concerns, or suggestions. Please send feedback to us by visiting http://versapp.co/support.html</mutableString>
+Versapp welcomes comments, questions, concerns, or suggestions. Please send feedback to us by visiting http://versapp.co/support.html</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -1820,7 +1852,7 @@ Versapp welcomes comments, questions, concerns, or suggestions. Please send feed
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="TqX-N9-gmt">
-                                        <rect key="frame" x="1" y="26" width="36" height="36"/>
+                                        <rect key="frame" x="10" y="27" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button" image="arrow-left-icon.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -2024,16 +2056,16 @@ Versapp welcomes comments, questions, concerns, or suggestions. Please send feed
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="AGt-Q0-zDh"/>
-        <segue reference="Y5D-AL-CYy"/>
-        <segue reference="YEX-bB-bO6"/>
+        <segue reference="z6h-qs-HbB"/>
         <segue reference="tVn-SP-Hc9"/>
         <segue reference="pHb-Kf-4qo"/>
-        <segue reference="z6h-qs-HbB"/>
         <segue reference="WHz-1g-xNx"/>
-        <segue reference="YCw-e7-spT"/>
-        <segue reference="Ve6-mS-bkp"/>
+        <segue reference="zTQ-Mf-6oX"/>
+        <segue reference="8c7-Mw-K5g"/>
+        <segue reference="YEX-bB-bO6"/>
         <segue reference="3yg-rT-qjq"/>
         <segue reference="oXT-5M-zi9"/>
+        <segue reference="Ve6-mS-bkp"/>
+        <segue reference="YCw-e7-spT"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -30,6 +30,14 @@
 			</dict>
 		</dict>
 		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Issues? Email support@versapp.co</string>
+			<key>Key</key>
+			<string></string>
+		</dict>
+		<dict>
 			<key>Title</key>
 			<string>Actions</string>
 			<key>Type</key>
