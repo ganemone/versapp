@@ -140,9 +140,8 @@ static BOOL notificationsHalfHidden = NO;
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if ([tableView isEqual:_tableView] && [self tableView:_tableView numberOfRowsInSection:0] == 0 && [self tableView:_tableView numberOfRowsInSection:1] == 0) {
         return 0;
-    } else {
-        return 10.0f;
     }
+    return UITableViewAutomaticDimension;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {

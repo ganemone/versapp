@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="emE-SZ-5gQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="w0O-6j-SeY">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -10,7 +10,7 @@
             <objects>
                 <viewController storyboardIdentifier="LoginViewController" title="LoginViewController" id="Dcg-Mp-WjV" customClass="LoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5RH-4f-tUs">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" id="NHs-F6-AKY">
@@ -35,13 +35,13 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Need an account?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MnZ-3h-bNE">
-                                <rect key="frame" x="20" y="370" width="145" height="21"/>
+                                <rect key="frame" x="20" y="434" width="145" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="rOR-tN-y8O">
-                                <rect key="frame" x="238" y="366" width="62" height="30"/>
+                                <rect key="frame" x="238" y="430" width="62" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <state key="normal" title="Register">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -129,7 +129,7 @@
                                 <rect key="frame" x="0.0" y="202" width="320" height="162"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </pickerView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Your phone number is used to help you find friends on Versapp. We will NEVER share this information with anyone. Ever." id="jQ9-Of-7w5">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Your phone number is used to help you find friends on Versapp. We will NEVER share this information with anyone. Ever." selectable="NO" id="jQ9-Of-7w5">
                                 <rect key="frame" x="20" y="72" width="280" height="67"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -190,14 +190,14 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="We send a text message to your phone with a confirmation code. Please enter that code below." id="YTC-bw-ksh">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="We send a text message to your phone with a confirmation code. Please enter that code below." selectable="NO" id="YTC-bw-ksh">
                                 <rect key="frame" x="20" y="72" width="280" height="67"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Didn't receive a message? It could take a minute or two. We can always resend it for you." id="Nx8-Nx-brZ">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Didn't receive a message? It could take a minute or two. We can always resend it for you." selectable="NO" id="Nx8-Nx-brZ">
                                 <rect key="frame" x="20" y="356" width="280" height="63"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -237,6 +237,9 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="w0O-6j-SeY" kind="modal" identifier="SegueIDTutorial" id="HIX-3N-ekv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QqF-nM-1l1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -385,7 +388,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.38431372549999998" green="0.17254901959999999" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Time for a username.  This will help keep your phone number safe.  " id="nAn-Xf-MTA">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Time for a username.  This will help keep your phone number safe.  " selectable="NO" id="nAn-Xf-MTA">
                                 <rect key="frame" x="20" y="72" width="280" height="63"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -399,7 +402,6 @@
                         <outlet property="actionBtn" destination="wLH-eS-7bo" id="IuA-ij-Wkx"/>
                         <outlet property="headerLabel" destination="xrC-Ab-83Q" id="HmQ-aG-4hM"/>
                         <outlet property="username" destination="azD-BE-2xW" id="GtI-n7-OVi"/>
-                        <segue destination="w0O-6j-SeY" kind="modal" identifier="SegueIDTutorial" id="1xi-qz-kDn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UtQ-K7-ZsY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1961,18 +1963,18 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="8c7-Mw-K5g"/>
-        <segue reference="Ve6-mS-bkp"/>
-        <segue reference="oXT-5M-zi9"/>
-        <segue reference="Hva-pz-dYE"/>
-        <segue reference="bRX-TH-pHe"/>
-        <segue reference="BCc-dv-kG7"/>
         <segue reference="hVX-XL-lBE"/>
-        <segue reference="z6h-qs-HbB"/>
         <segue reference="pHb-Kf-4qo"/>
+        <segue reference="z6h-qs-HbB"/>
         <segue reference="tVn-SP-Hc9"/>
-        <segue reference="YEX-bB-bO6"/>
-        <segue reference="v72-9M-1Zf"/>
+        <segue reference="BCc-dv-kG7"/>
         <segue reference="YCw-e7-spT"/>
+        <segue reference="v72-9M-1Zf"/>
+        <segue reference="YEX-bB-bO6"/>
+        <segue reference="SII-hP-sMz"/>
+        <segue reference="oXT-5M-zi9"/>
+        <segue reference="Ve6-mS-bkp"/>
+        <segue reference="WHz-1g-xNx"/>
+        <segue reference="8c7-Mw-K5g"/>
     </inferredMetricsTieBreakers>
 </document>

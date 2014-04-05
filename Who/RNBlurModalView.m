@@ -658,7 +658,7 @@ typedef void (^RNBlurCompletion)(void);
     
     pixelBuffer = malloc(CGImageGetBytesPerRow(img) * CGImageGetHeight(img));
     
-    if(pixelBuffer == NULL)
+    //if(pixelBuffer == NULL)
     
     outBuffer.data = pixelBuffer;
     outBuffer.width = CGImageGetWidth(img);
