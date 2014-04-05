@@ -26,7 +26,6 @@
 }
 
 -(void)logPacket:(XMPPIQ*)packet {
-    NSLog(@"Packet: %@", [packet XMLString]);
 }
 
 +(DDXMLElement *)createPresencePacketToUser:(NSString *)username withType:(NSString *)type {
@@ -55,14 +54,12 @@
 +(DDXMLElement *)createGetJoinedChatsPacket {
     DDXMLElement *query = [DDXMLElement elementWithName:@"status" stringValue:@"active"];
     DDXMLElement *iq = [self getWhoChatIQElementWithType:@"get" packetID:PACKET_ID_GET_JOINED_CHATS children:query];
-    NSLog(@"Create Get Joined Chats Packet: %@", iq.XMLString);
     return iq;
 }
 
 +(DDXMLElement *)createGetPendingChatsPacket {
     DDXMLElement *query = [DDXMLElement elementWithName:@"status" stringValue:@"pending"];
     DDXMLElement *iq = [self getWhoChatIQElementWithType:@"get" packetID:PACKET_ID_GET_PENDING_CHATS children:query];
-    NSLog(@"Create Get Pending Chats Packet: %@", iq.XMLString);
     return iq;
 }
 
@@ -75,7 +72,6 @@
     DDXMLElement *query = [DDXMLElement elementWithName:@"participants"];
     [query addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:chatId]];
     DDXMLElement *iq = [self getWhoChatIQElementWithType:@"get" packetID:PACKET_ID_GET_CHAT_PARTICIPANTS children:query];
-    NSLog(@"Create Get Pending Chats Packet: %@", iq.XMLString);
     return iq;
 }
 
@@ -89,7 +85,6 @@
     [query addChild:[DDXMLNode elementWithName:@"chat_id" stringValue:chatId]];
     [query addChild:[DDXMLNode elementWithName:@"status" stringValue:@"pending"]];
     DDXMLElement *iq = [self getWhoChatIQElementWithType:@"set" packetID:PACKET_ID_INVITE_USER_TO_CHAT children:query];
-    NSLog(@"Create Invite to Chat Packet: %@", iq.XMLString);
     return iq;
 }
 
@@ -98,7 +93,6 @@
     [query addChild:[DDXMLNode elementWithName:@"chat_id" stringValue:chatId]];
     [query addChild:[DDXMLNode elementWithName:@"status" stringValue:@"active"]];
     DDXMLElement *iq = [self getWhoChatIQElementWithType:@"set" packetID:PACKET_ID_ACCEPT_CHAT_INVITE children:query];
-    NSLog(@"Create Accept Chat Invite Packet: %@", iq.XMLString);
     return iq;
 }
 
@@ -107,7 +101,6 @@
     [query addChild:[DDXMLNode elementWithName:@"chat_id" stringValue:chatId]];
     [query addChild:[DDXMLNode elementWithName:@"status" stringValue:@"inactive"]];
     DDXMLElement *iq = [self getWhoChatIQElementWithType:@"set" packetID:PACKET_ID_DENY_CHAT_INVITE children:query];
-    NSLog(@"Create Deny Chat Packet: %@", iq.XMLString);
     return iq;
 }
 
@@ -209,7 +202,6 @@
 	[iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:@"set"]];
 	[iq addChild:query];
     
-    NSLog(@"VCard Packet: %@", iq.XMLString);
     return iq;
 }
 
@@ -237,7 +229,6 @@
     [create addChild:participantsElement];
     
     DDXMLElement *iq = [self getWhoChatIQElementWithType:@"set" packetID:PACKET_ID_CREATE_MUC children:create];
-    NSLog(@"Create Muc Packet \n\n %@", iq.XMLString);
     return iq;
 }
 
@@ -260,7 +251,6 @@
     [create addChild:participantsElement];
     
     DDXMLElement *iq = [self getWhoChatIQElementWithType:@"set" packetID:PACKET_ID_CREATE_ONE_TO_ONE_CHAT children:create];
-    NSLog(@"Create One To One Chat Packet \n\n %@", iq.XMLString);
     return iq;
 }
 
@@ -282,7 +272,6 @@
     [create addChild:participantsElement];
     
     DDXMLElement *iq = [self getWhoChatIQElementWithType:@"set" packetID:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION children:create];
-    NSLog(@"Create Chat From Confession Packet \n\n %@", iq.XMLString);
     return iq;
 }
 
@@ -298,12 +287,10 @@
     
     [iq addChild:element];
     
-    NSLog(@"Packet: %@", iq.XMLString);
     return iq;
 }
 
 +(DDXMLElement *)createJoinMUCPacket:(NSString *)chatID lastTimeActive:(NSString *)lastTimeActive {
-    NSLog(@"Requesting History Since: %@", lastTimeActive);
     DDXMLElement *presence = [DDXMLElement elementWithName:@"presence"];
     [presence addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:PACKET_ID_JOIN_MUC]];
     [presence addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[NSString stringWithFormat:@"%@@%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]]]];
@@ -318,7 +305,6 @@
     [x addChild:history];
     [presence addChild:x];
     
-    NSLog(@"Join MUC Packet: %@", presence.XMLString);
     
     return presence;
 }
@@ -333,7 +319,6 @@
     [query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:last"]];
     
     [iq addChild:query];
-    NSLog(@"Get last time active: %@", iq.XMLString);
     return iq;
 }
 
@@ -379,7 +364,6 @@
     [messagePacket addChild:properties];
     
     
-    NSLog(@"Message XML: %@", messagePacket.XMLString);
     return messagePacket;
 }
 
@@ -409,7 +393,6 @@
     [messagePacket addThread:message.group_id];
     [messagePacket addChild:properties];
     
-    NSLog(@"Message: %@", messagePacket.XMLString);
     return messagePacket;
 }
 
@@ -548,7 +531,6 @@
     [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
     [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[self getPacketFromString]]];
 	[iq addChild:query];
-    NSLog(@"Session ID Packet: %@", iq.XMLString);
     return iq;
 }
 
@@ -556,7 +538,6 @@
 
     DDXMLElement *since = [DDXMLElement elementWithName:@"since" stringValue:@"0"];
     DDXMLElement *iq = [self getWhoConfessionIQElementWithType:@"get" packetID:PACKET_ID_GET_CONFESSIONS children:since];
-    NSLog(@"Get Confessions Packet: %@", iq.XMLString);
     return iq;
 }
 
@@ -568,7 +549,6 @@
     [create addChild:[DDXMLNode elementWithName:@"image_url" stringValue:confession.imageURL]];
     
     DDXMLElement *iq = [self getWhoConfessionIQElementWithType:@"set" packetID:PACKET_ID_POST_CONFESSION children:create];
-    NSLog(@"Posting Confession Packet: %@", iq.XMLString);
     return iq;
 }
 
@@ -576,7 +556,6 @@
     DDXMLElement *toggleFavorite = [DDXMLElement elementWithName:@"toggle_favorite"];
     [toggleFavorite addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:confessionID]];
     DDXMLElement *iq = [self getWhoConfessionIQElementWithType:@"set" packetID:PACKET_ID_FAVORITE_CONFESSION children:toggleFavorite];
-    NSLog(@"Toggle Favorite Confession Packet: %@", iq.XMLString);
     return iq;
 }
 
@@ -602,7 +581,6 @@
     DDXMLElement *destroy = [DDXMLElement elementWithName:@"destroy"];
     [destroy addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:confessionID]];
     DDXMLElement *iq = [self getWhoConfessionIQElementWithType:@"set" packetID:PACKET_ID_DESTROY_CONFESSION children:destroy];
-    NSLog(@"Destroy Confession Packet: %@", iq.XMLString);
     return iq;
 }
 
@@ -663,7 +641,6 @@
     [search addChild:contacts];
     [iq addChild:search];
     
-    NSLog(@"User search packet: %@", iq.XMLString);
     return iq;
 }
 
@@ -692,7 +669,6 @@
     [search addChild:contacts];
     [iq addChild:search];
     
-    NSLog(@"User search packet: %@", iq.XMLString);
     return iq;
 }
 
@@ -714,7 +690,6 @@
     [query addChild:phoneElement];
     [query addChild:emailElement];
     [iq addChild:query];
-    NSLog(@"Set User Info Packet: %@", iq.XMLString);
     return iq;
 }
 
@@ -726,7 +701,6 @@
     DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
     [query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:info"]];
     [iq addChild:query];
-    NSLog(@"Get User Info Packet: %@", iq.XMLString);
     return iq;
 }
 
@@ -849,7 +823,6 @@
     
     [query addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:token"]];
     [iq addChild:query];
-    NSLog(@"Device Token Packet: %@", iq.XMLString);
     return iq;
 }
 

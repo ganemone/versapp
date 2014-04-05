@@ -55,7 +55,6 @@
 }
 
 +(void)handleMessageInvitationReceived:(NSString*)chatID groupName:(NSString *)groupName invitedBy:(NSString *)invitedBy {
-    NSLog(@"Received Group Invite Chat ID: %@ %@", chatID, groupName);
     [ChatDBManager insertChatWithID:chatID chatName:groupName chatType:CHAT_TYPE_GROUP participantString:nil status:STATUS_PENDING ownerID:invitedBy];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_NOTIFICATIONS object:nil];
 }
@@ -116,7 +115,6 @@
                 [delegate saveContext];
             }
             NSDictionary *messageDictionary = [NSDictionary dictionaryWithObject:newMessage forKey:DICTIONARY_KEY_MESSAGE_OBJECT];
-            NSLog(@"Received Message! Sending notification now...");
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
             [ChatDBManager setHasNewMessageYes:groupID];
             
@@ -134,7 +132,6 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
             [ChatDBManager setHasNewMessageYes:message.thread];
         } else {
-            NSLog(@"Received Unrecognized Message Packet Type!!");
         }
     }
 }

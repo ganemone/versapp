@@ -26,7 +26,6 @@
 
 +(void)handleIQPacket:(XMPPIQ *)iq {
     if([self isPacketWithID:PACKET_ID_CREATE_VCARD packet:iq]) {
-        NSLog(@"POSTING CREATE VCARD NOTIFICATION...");
         [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_CREATE_VCARD object:nil];
     } else if([self isPacketWithID:PACKET_ID_GET_JOINED_CHATS packet:iq]) {
         [self handleGetJoinedChatsPacket:iq];
@@ -70,7 +69,6 @@
     } else if([self isPacketWithID:PACKET_ID_SEARCH_FOR_USER packet:iq]) {
         [self handleSearchForUserPacket:iq];
     } else if([self isPacketWithID:PACKET_ID_GET_USER_INFO packet:iq]) {
-        NSLog(@"Get User Info Packet: %@", iq.XMLString);
         [self handleGetUserInfoPacket:iq];
     }
 }
@@ -91,20 +89,16 @@
 
 // This callback is only for packets searching for a single user, adds them as a friend if the user is found.
 +(void)handleSearchForUserPacket:(XMPPIQ *)iq {
-    NSLog(@"User Search Result: %@", iq.XMLString);
     NSError *error = NULL;
     NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?\(?:\\[\\]|\"(.*?)\").*?(?:\\[\\]|\"(.*?)\")\\]" options:NSRegularExpressionCaseInsensitive error:&error];
     NSTextCheckingResult *match = [regex firstMatchInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
-    NSLog(@"Number of Ranges: %lu", (unsigned long)[match numberOfRanges]);
     if ([match numberOfRanges] > 0) {
-        NSLog(@"Found Matches...");
         NSString *username = [packetXML substringWithRange:[match rangeAtIndex:1]];
         NSString *searchedEmail;
         if ([match rangeAtIndex:4].length != 0) {
             searchedEmail = [packetXML substringWithRange:[match rangeAtIndex:3]];
         }
-        NSLog(@"Found User: %@", username);
         XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
         [conn sendElement:[IQPacketManager createSubscribePacket:username]];
         [conn sendElement:[IQPacketManager createGetVCardPacket:username]];
@@ -177,7 +171,6 @@
             name = [self urlDecode:[packetXML substringWithRange:[match rangeAtIndex:5]]];
             //*createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
             participants = [participantString componentsSeparatedByString:@", "];
-            NSLog(@"Found Joined Chat! %@ %@ %@", type, owner, name);
             for (NSString *participant in participants) {
                 if ([FriendsDBManager getUserWithJID:participant moc:moc] == nil) {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -186,14 +179,12 @@
                 }
             }
             if ([type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
-                NSLog(@"Is One to One Chat!");
                 ChatMO *chat = [ChatDBManager getChatWithID:chatId withMOC:moc];
                 if (chat != nil) {
                     name = [chat getChatName];
                     type = chat.chat_type;
                 } else {
                     if ([owner isEqualToString:[ConnectionProvider getUser]]) {
-                        NSLog(@"I AM THE OWNER");
                         NSString *participant = ([[participants firstObject] isEqualToString:[ConnectionProvider getUser]]) ? [participants lastObject] : [participants firstObject];
                         type = CHAT_TYPE_ONE_TO_ONE_INVITER;
                         name = [FriendsDBManager getUserWithJID:participant moc:moc].name;
@@ -201,10 +192,8 @@
                             name = @"Loading...";
                         }
                     } else if([owner isEqualToString:@"server"]) {
-                        NSLog(@"Server is Owner!");
                         type = CHAT_TYPE_ONE_TO_ONE_CONFESSION;
                     } else {
-                        NSLog(@"I am not the owner!");
                         type = CHAT_TYPE_ONE_TO_ONE_INVITED;
                         name = ANONYMOUS_FRIEND;
                     }
@@ -310,7 +299,6 @@
             [FriendsDBManager insert:username name:name email:nil status:nil searchedPhoneNumber:nil searchedEmail:nil uid:nil];
             [ChatDBManager updateOneToOneChatNames:name username:username];
         } else {
-            NSLog(@"Adding name for temp vcard info... %@", name);
             [[ConnectionProvider getInstance] addName:name forUsername:username];
         }
     } else {
@@ -338,7 +326,6 @@
         createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
         participants = [participantString componentsSeparatedByString:@", "];
         
-        NSLog(@"%@ has owner: %@", name, owner);
         
         [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_PENDING];
     }
@@ -402,7 +389,6 @@
 }
 
 +(void)handleInviteUserToChatPacket:(XMPPIQ*)iq {
-    NSLog(@"Invited User to Chat");
 }
 
 +(void)handleCreateOneToOneChatPacket:(XMPPIQ*)iq {
@@ -422,7 +408,6 @@
     NSString *decodedPacketXML = [self getPacketXMLWithoutWhiteSpace:iq];
     decodedPacketXML = [self getDecodedPacketXML:iq];
     NSError *error = NULL;
-    NSLog(@"Decoded Packet XML: %@", decodedPacketXML);
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\",\"(.*?)\",\"(.*?)\",(?:\\[\\]|\"(.*?)\"),\"(.*?)\",(?:\\[\\]|\"(.*?)\"),\"(.*?)\"\\]" options:NSRegularExpressionCaseInsensitive error:&error];
     NSArray *matches = [regex matchesInString:decodedPacketXML options:0 range:NSMakeRange(0, decodedPacketXML.length)];
     NSString *confessionID, *jid, *body, *imageURL, *timestamp, *favoritedUsers;
@@ -466,7 +451,6 @@
 }
 
 +(void)handleToggleFavoriteConfessionPacket:(XMPPIQ *)iq {
-    //NSLog(@"Toggle Confession Response: %@", iq.XMLString);
 }
 
 +(void)handlePostConfessionPacket:(XMPPIQ *)iq {
@@ -485,7 +469,6 @@
 }
 
 +(void)handleCreatedMUCPacket:(XMPPIQ *)iq {
-    NSLog(@"Created MUC!");
 }
 
 @end

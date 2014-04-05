@@ -95,17 +95,14 @@
 }
 
 - (void)handleAuthenticated {
-    NSLog(@"Authenticated");
 }
 
 - (void)handleRegisteredUser {
-    NSLog(@"Sucessfully Registered User! Go to tutorial now");
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     [self performSegueWithIdentifier:SEGUE_ID_TUTORIAL sender:self];
 }
 
 - (void)handleFailedToRegisterUser:(NSNotification *)notification {
-    NSLog(@"Failed to register user...");
     [MBProgressHUD hideAllHUDsForView:self.view animated:NO];
     NSString *message = [notification.userInfo objectForKey:DICTIONARY_KEY_ERROR_MESSAGE];
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
@@ -141,8 +138,6 @@
     _phone = [components componentsJoinedByString:@""];
     _country = [phoneVC getSelectedCountry];
     _countryCode = [phoneVC getSelectedCountryCode];
-    NSLog(@"Country: %@", _country);
-    NSLog(@"Country Code: %@", _countryCode);
     UIAlertView *alertView;
     
     if (![Validator isValidName:_name]) {
@@ -189,7 +184,6 @@
 
 - (UIViewController*)viewControllerAtIndex:(int)index {
     NSString *storyboardID;
-    NSLog(@"Looking at Index: %d With num pages: %d", index, _numPages);
     if (index >= _numPages || index < 0) {
         return nil;
     }
@@ -210,7 +204,6 @@
         default:
             return nil;
     }
-    NSLog(@"Instantiating View Controller: %@", storyboardID);
     UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:storyboardID];
     
     return viewController;

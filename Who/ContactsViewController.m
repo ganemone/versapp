@@ -60,8 +60,6 @@
     
     self.registeredContacts = [FriendsDBManager getAllWithStatusRegisteredOrRequested];
     self.unregisteredContacts = [FriendsDBManager getAllWithStatusUnregistered];
-    NSLog(@"Num Registered Contacts: %lu", (unsigned long)[self.registeredContacts count]);
-    NSLog(@"Num Unregistered Contacts %lu", (unsigned long)[self.unregisteredContacts count]);
     
     self.selectedRegisteredContacts = [[NSMutableArray alloc] initWithCapacity:[_registeredContacts count]];
     self.selectedUnregisteredContacts = [[NSMutableArray alloc] initWithCapacity:[_unregisteredContacts count]];
@@ -151,10 +149,8 @@
     if ([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_REGISTERED]]) {
         if ([_selectedRegisteredContacts containsObject:friend]) {
             [_selectedRegisteredContacts removeObject:friend];
-            NSLog(@"Removing Registered Contacts");
             [[cell actionBtn] setImage:[UIImage imageNamed:@"cell-select-green.png"] forState:UIControlStateNormal];
         } else {
-            NSLog(@"Adding Registered Contact");
             [_selectedRegisteredContacts addObject:friend];
             [[cell actionBtn] setImage:[UIImage imageNamed:@"cell-select-green-active.png"] forState:UIControlStateNormal];
         }
@@ -162,9 +158,7 @@
         if ([_selectedUnregisteredContacts containsObject:friend]) {
             [_selectedUnregisteredContacts removeObject:friend];
             [[cell actionBtn] setImage:[UIImage imageNamed:@"cell-select-green.png"] forState:UIControlStateNormal];
-            NSLog(@"Removing Unregistered Contact");
         } else {
-            NSLog(@"Adding Unregistered Contact");
             [_selectedUnregisteredContacts addObject:friend];
             [[cell actionBtn] setImage:[UIImage imageNamed:@"cell-select-green-active.png"] forState:UIControlStateNormal];
         }
@@ -227,16 +221,12 @@
     switch (result)
     {
         case MFMailComposeResultCancelled:
-            NSLog(@"Mail cancelled");
             break;
         case MFMailComposeResultSaved:
-            NSLog(@"Mail saved");
             break;
         case MFMailComposeResultSent:
-            NSLog(@"Mail sent");
             break;
         case MFMailComposeResultFailed:
-            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
             break;
         default:
             break;

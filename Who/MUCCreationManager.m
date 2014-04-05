@@ -43,23 +43,18 @@
 }
 
 -(void)handleDidJoinRoom:(XMPPRoom *)room withNickname:(NSString *)nickname {
-    NSLog(@"Did Join Room: %@ %@", [room description], nickname);
 }
 
 -(void)handleDidLeaveRoom:(XMPPRoom *)room {
-    NSLog(@"Did leave room: %@", [room description]);
 }
 
 -(void)handleIncomingMessage:(XMPPMessage *)message room:(XMPPRoom *)room {
-    NSLog(@"Handle Incoming Message: %@ %@", message.XMLString, [room description]);
 }
 
 -(void)handleOutgoingMessage:(XMPPMessage *)message room:(XMPPRoom *)room {
-    NSLog(@"Handle Outgoing Message: %@ %@", message.XMLString, [room description]);
 }
 
 -(void)handlePresence:(XMPPPresence *)presence room:(XMPPRoom *)room {
-    NSLog(@"Handle Presence: %@ %@", presence.XMLString, [room description]);
 }
 
 @end

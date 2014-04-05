@@ -737,15 +737,13 @@ static DDTTYLogger *sharedInstance;
 		CGFloat distance = sqrtf(powf(r-inR, 2.0f) + powf(g-inG, 2.0f) + powf(b-inB, 2.0f));
 	#endif
 		
-		NSLogVerbose(@"DDTTYLogger: %3lu : %.3f,%.3f,%.3f & %.3f,%.3f,%.3f = %.6f",
-					 (unsigned long)i, inR, inG, inB, r, g, b, distance);
+					 (unsigned long)i, inR, inG, inB, r, g, b, distance;
 		
 		if (distance < lowestDistance)
 		{
 			bestIndex = i;
 			lowestDistance = distance;
 			
-			NSLogVerbose(@"DDTTYLogger: New best index = %lu", (unsigned long)bestIndex);
 		}
 		
 		i++;
@@ -797,9 +795,6 @@ static DDTTYLogger *sharedInstance;
 			}
 		}
 		
-		NSLogInfo(@"DDTTYLogger: isaColorTTY = %@", (isaColorTTY ? @"YES" : @"NO"));
-		NSLogInfo(@"DDTTYLogger: isaColor256TTY: %@", (isaColor256TTY ? @"YES" : @"NO"));
-		NSLogInfo(@"DDTTYLogger: isaXcodeColorTTY: %@", (isaXcodeColorTTY ? @"YES" : @"NO"));
 		
 		sharedInstance = [[DDTTYLogger alloc] init];
 	}
@@ -936,7 +931,6 @@ static DDTTYLogger *sharedInstance;
 		                                                        flag:mask
 		                                                     context:ctxt];
 		
-		NSLogInfo(@"DDTTYLogger: newColorProfile: %@", newColorProfile);
 		
 		NSUInteger i = 0;
 		for (DDTTYLoggerColorProfile *colorProfile in colorProfilesArray)
@@ -985,7 +979,6 @@ static DDTTYLogger *sharedInstance;
 		                                                        flag:0
 		                                                     context:0];
 		
-		NSLogInfo(@"DDTTYLogger: newColorProfile: %@", newColorProfile);
 		
 		[colorProfilesDict setObject:newColorProfile forKey:tag];
 	}};

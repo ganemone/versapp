@@ -31,55 +31,11 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>IASKButtonSpecifier</string>
+			<string>PSTitleValueSpecifier</string>
 			<key>Title</key>
-			<string>Change Email</string>
+			<string>Issues? Email support@versapp.co</string>
 			<key>Key</key>
-			<string>change_email</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>IASKButtonSpecifier</string>
-			<key>Title</key>
-			<string>Change Password</string>
-			<key>Key</key>
-			<string>change_password</string>
-		</dict>
-		<dict>
-			<key>Title</key>
-			<string>Notifications</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<true/>
-			<key>Key</key>
-			<string>notifications_preference</string>
-			<key>Title</key>
-			<string>Notifications</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<true/>
-			<key>Key</key>
-			<string>sound_preference</string>
-			<key>Title</key>
-			<string>Sound</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<true/>
-			<key>Key</key>
-			<string>vibrate_preference</string>
-			<key>Title</key>
-			<string>Vibrate</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
+			<string></string>
 		</dict>
 		<dict>
 			<key>Title</key>

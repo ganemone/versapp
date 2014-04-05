@@ -50,7 +50,6 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    NSLog(@"View did load");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:PACKET_ID_GET_VCARD object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:NOTIFICATION_UPDATE_FRIENDS object:nil];
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedInvitingUsersToMUC:) name:NOTIFICATION_FINISHED_INVITING_MUC_USERS object:nil];
@@ -149,7 +148,6 @@
         [_bottomLabel setText:@"Start Group Conversation"];
     }
     
-    NSLog(@"Selected: %@", _selectedJIDs);
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

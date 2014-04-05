@@ -55,16 +55,10 @@
 }
 
 -(void)addMessage:(MessageMO*)message {
-    NSLog(@"Adding new message here...");
     if(_messages == nil) {
-        NSLog(@"Messages were nil...");
         _messages = [[NSMutableArray alloc] initWithCapacity:20];
     }
-    NSLog(@"Current Messages: %@", [_messages description]);
-    NSLog(@"Message Count: %lu", (unsigned long)[_messages count]);
     [_messages addObject:message];
-    NSLog(@"Message Count: %lu", (unsigned long)[_messages count]);
-    NSLog(@"Current Messages: %@", [_messages description]);
 }
 
 -(void)updateMessage:(MessageMO*)message {

@@ -120,12 +120,10 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    NSLog(@"Should Begin?");
     return YES;
 }
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    NSLog(@"Gesture 1: %@ Gesture 2: %@", [gestureRecognizer description], [otherGestureRecognizer description]);
     return YES;
 }
 
@@ -454,6 +452,24 @@ static BOOL notificationsHalfHidden = NO;
     }
 }
 
+/*-(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+ if (scrollView == self.notificationTableView) {
+ if (scrollView.contentOffset.y > 60) {
+ [self hideNotifications];
+ }
+ }
+ }*/
+
+/*-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+ if (scrollView == _notificationTableView) {
+ if (scrollView.contentOffset.y > 60) {
+ [self hideNotifications];
+ } else {
+ [_notificationTableView setFrame:CGRectMake(0, 0, _notificationTableView.frame.size.width, _notificationTableView.frame.size.height - scrollView.contentOffset.y)];
+ }
+ }
+ }*/
+
 -(void)setNotificationsIcon {
     NSMutableString *imageName;
     NSMutableString *greenImageName;
@@ -625,10 +641,8 @@ static BOOL notificationsHalfHidden = NO;
     CGPoint p = [gestureRecognizer locationInView:_tableView];
     NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint:p];
     if (indexPath == nil) {
-        NSLog(@"long press on table view but not on a row");
     }
     else {
-        NSLog(@"long press on table view at row %d", indexPath.row);
         if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
             [self handleLongPressForRowAtIndexPath:indexPath];
         }
@@ -690,7 +704,6 @@ static BOOL notificationsHalfHidden = NO;
 
 - (void)handleBlockOneToOneChat {
     NSString *otherUser = ([[[_editingChat participants] firstObject] isEqualToString:[ConnectionProvider getUser]]) ? [_editingChat.participants lastObject] : [_editingChat.participants firstObject];
-    NSLog(@"Blocing User: %@", otherUser);
     [[self.cp getConnection] sendElement:[IQPacketManager createBlockImplicitUserPacket:otherUser]];
     [self.oneToOneChats removeObject:_editingChat];
     [ChatDBManager deleteChat:_editingChat];

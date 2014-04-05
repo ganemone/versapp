@@ -53,7 +53,6 @@
 - (void)goToDashboard {
     [[NSNotificationCenter defaultCenter] postNotificationName:SEGUE_ID_FINISHED_TUTORIAL object:nil];
 }
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

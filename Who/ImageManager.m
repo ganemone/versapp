@@ -30,7 +30,6 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
 }
 
 -(void)uploadImage:(UIImage *)image url:(NSString *)url {
-    NSLog(@"Uploading Image: %@ to URL %@", [image description], url);
     NSDictionary *uploadInfo = [NSDictionary dictionaryWithObjectsAndKeys:image, DICTIONARY_KEY_UPLOADED_IMAGE, url, DICTIONARY_KEY_IMAGE_URL, nil];
     //[self performSelectorInBackground:@selector(performUploadRequest:) withObject:uploadInfo];
     [self performUploadRequest:uploadInfo];

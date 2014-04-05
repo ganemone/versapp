@@ -659,7 +659,6 @@ typedef void (^RNBlurCompletion)(void);
     pixelBuffer = malloc(CGImageGetBytesPerRow(img) * CGImageGetHeight(img));
     
     if(pixelBuffer == NULL)
-        NSLog(@"No pixelbuffer");
     
     outBuffer.data = pixelBuffer;
     outBuffer.width = CGImageGetWidth(img);
@@ -680,7 +679,6 @@ typedef void (^RNBlurCompletion)(void);
     error = vImageBoxConvolve_ARGB8888(&inBuffer, &outBuffer, NULL, 0, 0, boxSize, boxSize, NULL, kvImageEdgeExtend);
 
     if (error) {
-        NSLog(@"error from convolution %ld", error);
     }
     
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
