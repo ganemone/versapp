@@ -7,9 +7,12 @@
 //
 
 #import "SupportViewController.h"
+#import "StyleManager.h"
 
 @interface SupportViewController ()
 @property (strong, nonatomic) IBOutlet UIButton *backButton;
+@property (strong, nonatomic) IBOutlet UILabel *header;
+@property (strong, nonatomic) IBOutlet UITextView *textView;
 
 @end
 
@@ -28,6 +31,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [_header setFont:[StyleManager getFontStyleLightSizeXL]];
+    [_header setTextColor:[UIColor whiteColor]];
+    [_textView setFont:[StyleManager getFontStyleLightSizeMed]];
 }
 
 - (IBAction)backButtonClicked:(id)sender {
