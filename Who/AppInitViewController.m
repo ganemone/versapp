@@ -57,7 +57,7 @@
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     _viewDidShow = YES;
-    if (_shouldTransition) {
+    if (_shouldTransition && ([self isKindOfClass:[[self presentedViewController] class]] || [self presentedViewController] == nil)) {
         [self performSegueWithIdentifier:_transitionTo sender:self];
     }
 }
@@ -69,19 +69,17 @@
 }
 
 - (void)handleAuthenticated {
-    NSLog(@"In App Init View Controller");
     _transitionTo = SEGUE_ID_AUTHENTICATED_FROM_APP_INIT;
     _shouldTransition = YES;
-    if (_viewDidShow && [self isKindOfClass:[[self presentedViewController] class]]) {
+    if (_viewDidShow && ([self isKindOfClass:[[self presentedViewController] class]] || [self presentedViewController] == nil)) {
         [self performSegueWithIdentifier:SEGUE_ID_AUTHENTICATED_FROM_APP_INIT sender:self];
     }
 }
 
 - (void)handleFailedToAuthenticate {
-    NSLog(@"In App Init View Controller");
     _transitionTo = SEGUE_ID_GO_TO_LOGIN_PAGE;
     _shouldTransition = YES;
-    if (_viewDidShow && [self isKindOfClass:[[self presentedViewController] class]]) {
+    if (_viewDidShow && ([self isKindOfClass:[[self presentedViewController] class]] || [self presentedViewController] == nil)) {
         [self performSegueWithIdentifier:SEGUE_ID_GO_TO_LOGIN_PAGE sender:self];
     }
 }

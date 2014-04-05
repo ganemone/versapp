@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "CountryPickerDelegate.h"
 
-@interface ContactSearchViewController : CountryPickerDelegate <UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface ContactSearchViewController : UIViewController <UITextFieldDelegate>
 
 @end

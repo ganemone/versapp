@@ -104,6 +104,9 @@ static ConnectionProvider *selfInstance;
     [self.xmppStream setHostName:self.SERVER_IP_ADDRESS];
     self.xmppStream.myJID = [XMPPJID jidWithString:[NSString stringWithFormat:@"%@@%@", [accountInfo objectForKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME], self.SERVER_IP_ADDRESS]];
     NSError *error = nil;
+    if ([self.xmppStream isConnected]) {
+        [self.xmppStream disconnect];
+    }
     if(![self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error]) {
         NSLog(@"Failed to connection due to some error %@", error);
     } else {

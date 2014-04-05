@@ -7,12 +7,13 @@
 //
 
 #import "ContactSearchViewController.h"
+#import "ConnectionProvider.h"
+#import "IQPacketManager.h"
 
 @interface ContactSearchViewController ()
 
-@property (weak, nonatomic) IBOutlet UIPickerView *countryPicker;
-@property (weak, nonatomic) IBOutlet UITextField *phoneField;
-@property (weak, nonatomic) IBOutlet UILabel *countryCodeLabel;
+@property (weak, nonatomic) IBOutlet UITextField *username;
+@property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 
 @end
 
@@ -30,7 +31,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [super setUp:_countryPicker countryCodeField:_countryCodeLabel];
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,7 +40,7 @@
 }
 
 - (IBAction)sendRequest:(id)sender {
-    NSLog(@"Sending Request to: %@-%@", _countryCodeLabel.text, _phoneField.text);
+    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSubscribePacket:_username.text]];
 }
 
 - (IBAction)handleBackPressed:(id)sender {

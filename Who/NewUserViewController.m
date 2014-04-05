@@ -91,6 +91,7 @@
 - (void)handlePhoneUnavailable {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"The phone number you picked has already been registered for an account" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
     [alertView show];
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
 
 - (void)handleAuthenticated {
@@ -100,6 +101,7 @@
 - (void)handleRegisteredUser {
     NSLog(@"Sucessfully Registered User! Go to tutorial now");
     [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [self performSegueWithIdentifier:SEGUE_ID_TUTORIAL sender:self];
 }
 
 - (void)handleFailedToRegisterUser:(NSNotification *)notification {

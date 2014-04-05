@@ -168,6 +168,8 @@ static BOOL notificationsHalfHidden = NO;
         }
         [_tableView reloadData];
     }
+    _friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
+    _groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingGroupChats]];
 }
 
 
@@ -283,9 +285,9 @@ static BOOL notificationsHalfHidden = NO;
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
         /*if (cell == nil) {
-            cell = [[SWTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier containingTableView:self.notificationTableView leftUtilityButtons:nil rightUtilityButtons:[self notificationsButtons]];
-            cell.delegate = self;
-        }*/
+         cell = [[SWTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier containingTableView:self.notificationTableView leftUtilityButtons:nil rightUtilityButtons:[self notificationsButtons]];
+         cell.delegate = self;
+         }*/
         
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
@@ -331,13 +333,13 @@ static BOOL notificationsHalfHidden = NO;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == _tableView) {
         self.clickedCellIndexPath = indexPath;
-        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
         if (indexPath.section == 0) {
             [self performSegueWithIdentifier:SEGUE_ID_GROUP_CONVERSATION sender:self];
         } else {
             [self performSegueWithIdentifier:SEGUE_ID_ONE_TO_ONE_CONVERSATION sender:self];
         }
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -422,7 +424,6 @@ static BOOL notificationsHalfHidden = NO;
                          self.greyOutView.alpha = 0.5;
                          self.notificationTableView.frame = notificationFrame;
                          _notificationCenter = self.notificationTableView.center.y;
-                         [self.tableView setBackgroundView:nil];
                      }
                      completion:^(BOOL finished){
                          [self.tableView setUserInteractionEnabled:NO];
@@ -496,6 +497,7 @@ static BOOL notificationsHalfHidden = NO;
  }*/
 
 -(void)setNotificationsIcon {
+    NSLog(@"Setting Notifications Icon");
     NSMutableString *imageName;
     NSMutableString *greenImageName;
     if ([self.friendRequests count] + [self.groupInvites count] > 0 && [self.friendRequests count] + [self.groupInvites count] < 6) {
@@ -569,7 +571,7 @@ static BOOL notificationsHalfHidden = NO;
     [self setNotificationSize];
     
     [self.view addSubview:self.notificationTableView];
-        
+    
     [self hideNotifications];
 }
 
@@ -580,15 +582,17 @@ static BOOL notificationsHalfHidden = NO;
         if (self.groupInvites.count == 0 || self.friendRequests.count == 0) {
             _notificationHeight = self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.sectionHeaderHeight + self.notificationsHeader.frame.size.height;
         } else {
-        _notificationHeight = self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.numberOfSections*self.notificationTableView.sectionHeaderHeight + self.notificationsHeader.frame.size.height;
+            _notificationHeight = self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.numberOfSections*self.notificationTableView.sectionHeaderHeight + self.notificationsHeader.frame.size.height;
         }
     }
     self.notificationTableView.frame = CGRectMake(0, 0, self.view.frame.size.width, _notificationHeight);
 }
 
 - (void)updateNotifications {
+    NSLog(@"Updating Notifications...");
     _groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingGroupChats]];
     _friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
+    NSLog(@"Friend Requests: %@", [_friendRequests componentsJoinedByString:@", "]);
     [self.notificationTableView reloadData];
     [self setNotificationsIcon];
 }
@@ -614,7 +618,7 @@ static BOOL notificationsHalfHidden = NO;
     CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
     NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
     
-    ChatMO*groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
+    ChatMO *groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
     [[self.cp getConnection] sendElement:[IQPacketManager createDenyChatInvitePacket:groupInvite.chat_id]];
     
     NSLog(@"Declined: %@", groupInvite.chat_id);
@@ -650,11 +654,13 @@ static BOOL notificationsHalfHidden = NO;
     NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
     
     FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
-    [FriendsDBManager updateUserSetStatusRejected:friendRequest.username];
-    
-    NSLog(@"Declined friend request: %@", friendRequest.name);
-    
+    [[self.cp getConnection] sendElement:[IQPacketManager createUnsubscribedPacket:friendRequest.username]];
     [self.friendRequests removeObjectAtIndex:indexPath.row];
+    
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [[delegate managedObjectContext] deleteObject:friendRequest];
+    [delegate saveContext];
+    
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     [self setNotificationSize];
     [self setNotificationsIcon];

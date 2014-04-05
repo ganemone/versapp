@@ -43,8 +43,6 @@
 - (void)handleFinishedRegisteringUsername {
     if ([Validator isValidUsername:_username.text]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FINISHED_REGISTERING_USERNAME object:nil];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"All Set" message:@"You're a Versapper!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Go to Tutorial", nil];
-        [alertView show];
     } else {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Usernames must only contain Letters, numbers, and underscores." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alertView show];
