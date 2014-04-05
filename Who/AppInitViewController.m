@@ -53,9 +53,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNoDefaultsStored) name:@"needToRegister" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailedToAuthenticate) name:NOTIFICATION_LOGOUT object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailedToAuthenticate) name:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];
-    
-    NSArray *test = [FriendsDBManager getAllWithStatusPending];
-    NSLog(@"Pending Friends At Init: %d", (int)[test count]);
 }
 
 -(void)viewDidAppear:(BOOL)animated {

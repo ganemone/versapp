@@ -34,7 +34,7 @@
 @property (weak, nonatomic) IBOutlet UIView *footerView;
 @property (strong, nonatomic) IBOutlet UIButton *settingsButton;
 @property (strong, nonatomic) IBOutlet UIButton *notificationsButton;
-@property (strong, nonatomic) IBOutlet UIButton *notificationsButtonGreen;
+@property (strong, nonatomic) UIButton *notificationsButtonGreen;
 @property (strong, nonatomic) UIView *notificationsHeader;
 @property (strong, nonatomic) UITableView *notificationTableView;
 @property (strong, nonatomic) NSMutableArray *friendRequests;
@@ -111,16 +111,8 @@ static BOOL notificationsHalfHidden = NO;
         UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
         [footer setBackgroundColor:[UIColor clearColor]];
         return footer;
-    } else {
-        /*UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30.0f)];
-         [footer setBackgroundColor:[UIColor blackColor]];
-         UISwipeGestureRecognizer *swipeUpGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeUpToHideNotifications:)];
-         [swipeUpGestureRecognizer setDelegate:self];
-         swipeUpGestureRecognizer.direction = UISwipeGestureRecognizerDirectionUp;
-         [footer addGestureRecognizer:swipeUpGestureRecognizer];
-         return footer;*/
-        return nil;
     }
+    return nil;
 }
 
 - (void)handleSwipeUpToHideNotifications:(UIGestureRecognizer *)gestureRecognizer {
@@ -142,14 +134,6 @@ static BOOL notificationsHalfHidden = NO;
         return section;
     }
     return 0;
-}
-
--(void)handleGroupChatMovedToTop:(NSNotification *)notification {
-    
-}
-
--(void)handleOneToOneChatMovedToTop:(NSNotification *)notification {
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -302,8 +286,6 @@ static BOOL notificationsHalfHidden = NO;
         UIButton *decline = [[UIButton alloc] initWithFrame:CGRectMake(cell.frame.size.width - padding - buttonSize, (cell.frame.size.height-(buttonSize-5))/2, buttonSize-5, buttonSize-5)];
         [decline setImage:[UIImage imageNamed:@"x-green.png"] forState:UIControlStateNormal];
         
-        NSLog(@"Cell: %@", [cell description]);
-        
         if (indexPath.section == 0) {
             ChatMO *groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
             //cell.textLabel.text = groupInvite.chat_name;
@@ -366,13 +348,11 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 -(void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Finished Editing...");
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         ChatMO *chat = (indexPath.section == 0) ? [_groupChats objectAtIndex:indexPath.row] : [_oneToOneChats objectAtIndex:indexPath.row];
-        NSLog(@"Deleting Chat! %@", chat);
         if (indexPath.section == 0) {
             [_groupChats removeObject:chat];
         } else {
@@ -402,12 +382,10 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 -(void)notificationSwipeClose:(UISwipeGestureRecognizer *)recognizer {
-    NSLog(@"Swipe");
     [self hideNotifications];
 }
 
 - (void) showNotifications {
-    NSLog(@"Show Notifications");
     
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DISABLE_SWIPE object:nil];
     
@@ -433,7 +411,6 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 - (void) hideNotifications {
-    NSLog(@"Hide Notifications");
     
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ENABLE_SWIPE object:nil];
     
@@ -477,28 +454,7 @@ static BOOL notificationsHalfHidden = NO;
     }
 }
 
-/*-(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
- if (scrollView == self.notificationTableView) {
- NSLog(@"Velocity: %f,%f Offset: %f,%f", velocity.x, velocity.y, targetContentOffset->x, targetContentOffset->y);
- NSLog(@"Current Offset: %f", scrollView.contentOffset.y);
- if (scrollView.contentOffset.y > 60) {
- [self hideNotifications];
- }
- }
- }*/
-
-/*-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
- if (scrollView == _notificationTableView) {
- if (scrollView.contentOffset.y > 60) {
- [self hideNotifications];
- } else {
- [_notificationTableView setFrame:CGRectMake(0, 0, _notificationTableView.frame.size.width, _notificationTableView.frame.size.height - scrollView.contentOffset.y)];
- }
- }
- }*/
-
 -(void)setNotificationsIcon {
-    NSLog(@"Setting Notifications Icon");
     NSMutableString *imageName;
     NSMutableString *greenImageName;
     if ([self.friendRequests count] + [self.groupInvites count] > 0 && [self.friendRequests count] + [self.groupInvites count] < 6) {
@@ -545,7 +501,6 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 -(void)loadNotifications {
-    NSLog(@"Load notifications");
     
     self.groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingGroupChats]];
     self.friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
@@ -590,10 +545,8 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 - (void)updateNotifications {
-    NSLog(@"Updating Notifications...");
     _groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingGroupChats]];
     _friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
-    NSLog(@"Friend Requests: %@", [_friendRequests componentsJoinedByString:@", "]);
     [self.notificationTableView reloadData];
     [self setNotificationsIcon];
 }
@@ -605,8 +558,6 @@ static BOOL notificationsHalfHidden = NO;
     ChatMO *groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
     [[self.cp getConnection] sendElement:[IQPacketManager createAcceptChatInvitePacket:groupInvite.chat_id]];
     [[self.cp getConnection] sendElement:[IQPacketManager createJoinMUCPacket:groupInvite.chat_id lastTimeActive:BEGINNING_OF_TIME]];
-    
-    NSLog(@"Accepted: %@", groupInvite.chat_id);
     
     [self.groupInvites removeObjectAtIndex:indexPath.row];
     [ChatDBManager setChatStatus:STATUS_JOINED chatID:groupInvite.chat_id];
@@ -621,8 +572,6 @@ static BOOL notificationsHalfHidden = NO;
     
     ChatMO *groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
     [[self.cp getConnection] sendElement:[IQPacketManager createDenyChatInvitePacket:groupInvite.chat_id]];
-    
-    NSLog(@"Declined: %@", groupInvite.chat_id);
     
     [self.groupInvites removeObjectAtIndex:indexPath.row];
     [ChatDBManager setChatStatus:STATUS_REQUEST_REJECTED chatID:groupInvite.chat_id];
@@ -642,8 +591,6 @@ static BOOL notificationsHalfHidden = NO;
     [[self.cp getConnection] sendElement:[IQPacketManager createForceCreateRosterEntryPacket:address]];
     [FriendsDBManager updateUserSetStatusFriends:friendRequest.username];
     
-    NSLog(@"Accepted friend request: %@, %@", address, friendRequest.username);
-    
     [self.friendRequests removeObjectAtIndex:indexPath.row];
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     [self setNotificationSize];
@@ -661,12 +608,6 @@ static BOOL notificationsHalfHidden = NO;
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     [[delegate managedObjectContext] deleteObject:friendRequest];
     [delegate saveContext];
-    
-    NSArray *test = [FriendsDBManager getAllWithStatusPending];
-    NSLog(@"After Deleting... :%d", (int)[test count]);
-    for (FriendMO *friend in test) {
-        NSLog(@"Found Pending Friend: %@", [friend description]);
-    }
     
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     [self setNotificationSize];
