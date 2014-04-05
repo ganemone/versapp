@@ -52,7 +52,6 @@
         [[ConfessionsManager getInstance] setPendingConfession:confession];
         [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createPostConfessionPacket:confession]];
     } else {
-        NSLog(@"No text in confession text box");
     }
 }
 

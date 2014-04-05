@@ -167,7 +167,6 @@
         default:
             return nil;
     }
-    NSLog(@"Instantiating View Controller: %@", storyboardID);
     UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:storyboardID];
     if ([viewController isKindOfClass:[ConfessionsViewController class]]) {
         self.confessionView = [viewController view];

@@ -76,8 +76,6 @@
 		
 		[self addObserver:self forKeyPath:@"maximumNumberOfLogFiles" options:kvoOptions context:nil];
 		
-		NSLogVerbose(@"DDFileLogManagerDefault: logsDirectory:\n%@", [self logsDirectory]);
-		NSLogVerbose(@"DDFileLogManagerDefault: sortedLogFileNames:\n%@", [self sortedLogFileNames]);
 	}
 	return self;
 }
@@ -107,7 +105,6 @@
 	
 	if ([keyPath isEqualToString:@"maximumNumberOfLogFiles"])
 	{
-		NSLogInfo(@"DDFileLogManagerDefault: Responding to configuration change: maximumNumberOfLogFiles");
 		
 		dispatch_async([DDLog loggingQueue], ^{ @autoreleasepool {
 			
@@ -125,7 +122,6 @@
 **/
 - (void)deleteOldLogFiles
 {
-	NSLogVerbose(@"DDLogFileManagerDefault: deleteOldLogFiles");
 	
 	NSUInteger maxNumLogFiles = self.maximumNumberOfLogFiles;
 	if (maxNumLogFiles == 0)
@@ -170,7 +166,6 @@
 	{
 		DDLogFileInfo *logFileInfo = [sortedArchivedLogFileInfos objectAtIndex:i];
 		
-		NSLogInfo(@"DDLogFileManagerDefault: Deleting file: %@", logFileInfo.fileName);
 		
 		[[NSFileManager defaultManager] removeItemAtPath:logFileInfo.filePath error:nil];
 	}
@@ -213,7 +208,6 @@
 		if (![[NSFileManager defaultManager] createDirectoryAtPath:_logsDirectory
 		                               withIntermediateDirectories:YES attributes:nil error:&err])
 		{
-			NSLogError(@"DDFileLogManagerDefault: Error creating logsDirectory: %@", err);
 		}
 	}
 	
@@ -397,7 +391,6 @@
 		
 		if (![[NSFileManager defaultManager] fileExistsAtPath:filePath])
 		{
-			NSLogVerbose(@"DDLogFileManagerDefault: Creating new log file: %@", fileName);
 			
 			[[NSFileManager defaultManager] createFileAtPath:filePath contents:nil attributes:nil];
 			
@@ -636,11 +629,6 @@
 	
 	NSDate *logFileRollingDate = [NSDate dateWithTimeIntervalSinceReferenceDate:ti];
 	
-	NSLogVerbose(@"DDFileLogger: scheduleTimerToRollLogFileDueToAge");
-	
-	NSLogVerbose(@"DDFileLogger: logFileCreationDate: %@", logFileCreationDate);
-	NSLogVerbose(@"DDFileLogger: logFileRollingDate : %@", logFileRollingDate);
-	
 	rollingTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, loggerQueue);
 	
 	dispatch_source_set_event_handler(rollingTimer, ^{ @autoreleasepool {
@@ -693,7 +681,6 @@
 
 - (void)rollLogFileNow
 {
-	NSLogVerbose(@"DDFileLogger: rollLogFileNow");
 	
 	
 	if (currentLogFileHandle == nil) return;
@@ -722,7 +709,6 @@
 {
 	if (rollingFrequency > 0.0 && currentLogFileInfo.age >= rollingFrequency)
 	{
-		NSLogVerbose(@"DDFileLogger: Rolling log file due to age...");
 		
 		[self rollLogFileNow];
 	}
@@ -746,7 +732,6 @@
 		
 		if (fileSize >= maximumFileSize)
 		{
-			NSLogVerbose(@"DDFileLogger: Rolling log file due to size (%qu)...", fileSize);
 			
 			[self rollLogFileNow];
 		}
@@ -795,7 +780,6 @@
 			
 			if (useExistingLogFile)
 			{
-				NSLogVerbose(@"DDFileLogger: Resuming logging with file %@", mostRecentLogFileInfo.fileName);
 				
 				currentLogFileInfo = mostRecentLogFileInfo;
 			}
@@ -987,7 +971,6 @@
 		}
 		else
 		{
-			NSLogError(@"DDLogFileInfo: creationDate(%@): getattrlist result = %i", self.fileName, result);
 		}
 		
 	#else
@@ -1131,12 +1114,10 @@
 		
 		NSString *newFilePath = [fileDir stringByAppendingPathComponent:newFileName];
 		
-		NSLogVerbose(@"DDLogFileInfo: Renaming file: '%@' -> '%@'", self.fileName, newFileName);
 		
 		NSError *error = nil;
 		if (![[NSFileManager defaultManager] moveItemAtPath:filePath toPath:newFilePath error:&error])
 		{
-			NSLogError(@"DDLogFileInfo: Error renaming file (%@): %@", self.fileName, error);
 		}
 		
 		filePath = newFilePath;
@@ -1318,7 +1299,6 @@
 	
 	if (result < 0)
 	{
-		NSLogError(@"DDLogFileInfo: setxattr(%@, %@): error = %i", attrName, self.fileName, result);
 	}
 }
 
@@ -1331,7 +1311,6 @@
 	
 	if (result < 0 && errno != ENOATTR)
 	{
-		NSLogError(@"DDLogFileInfo: removexattr(%@, %@): error = %i", attrName, self.fileName, result);
 	}
 }
 

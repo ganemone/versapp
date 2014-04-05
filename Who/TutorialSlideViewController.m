@@ -43,7 +43,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"Position In Tutorial %d", _indexInTutorial);
     //[self.imageView setImage:_image];
     //if (self.indexInTutorial == 5) {
         [_button setTitle:@"Get Started" forState:UIControlStateNormal];

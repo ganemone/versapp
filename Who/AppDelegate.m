@@ -128,14 +128,12 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    NSLog(@"Application Will Enter Foreground");
     _didResumeFromBackground = YES;
     [self setup];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    NSLog(@"Application Did Become Active");
     if (!(_didResumeFromBackground == YES)) {
         [self setup];
     }

@@ -17,7 +17,6 @@
 +(void)handlePresencePacket:(XMPPPresence *)presence {
     NSArray *namespaces = [presence namespaces];
     for (int i = 0; i < namespaces.count; i++) {
-        NSLog(@"Name Space: %@", [[namespaces objectAtIndex:i] description]);
     }
     
     // -----------------
@@ -36,7 +35,6 @@
         }
     }
     else if([presence.elementID isEqualToString:PACKET_ID_JOIN_MUC]) {
-        NSLog(@"joined muc...");
     }
     // -----------------------
     // Handle Friend Request (possibly...)
@@ -46,13 +44,11 @@
         NSString *jid = [[[presence fromStr] componentsSeparatedByString:@"/"] firstObject];
         NSString *username = [[[presence fromStr] componentsSeparatedByString:@"@"] firstObject];
         XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
-        NSLog(@"Possible... Friend Request Presence: %@", presence.XMLString);
         if ([FriendsDBManager hasUserWithJID:username] == NO && [username compare:[ConnectionProvider getUser]] != 0) {
             [conn sendElement:[IQPacketManager createGetVCardPacket:username]];
         }
         // Packet represents a friend request
         if ([presence.type compare:@"subscribe"] == 0) {
-            NSLog(@"Adding Pending Friend...");
             [FriendsDBManager insert:username
                                 name:nil
                                email:nil
@@ -71,7 +67,6 @@
         }
         // Remove friend from roster...
         else if([presence.type compare:@"unsubscribed"] == 0) {
-            NSLog(@"Friend Request Type unsubscribed");
             [FriendsDBManager updateUserSetStatusRejected:username];
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_FRIENDS object:nil];
         }

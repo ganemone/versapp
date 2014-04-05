@@ -40,7 +40,6 @@
 }
 
 - (IBAction)sendRequest:(id)sender {
-    NSLog(@"Sending Request to: %@-%@", _countryCodeLabel.text, _phoneField.text);
 }
 
 - (IBAction)handleBackPressed:(id)sender {

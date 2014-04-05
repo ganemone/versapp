@@ -128,12 +128,10 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    NSLog(@"Should Begin?");
     return YES;
 }
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    NSLog(@"Gesture 1: %@ Gesture 2: %@", [gestureRecognizer description], [otherGestureRecognizer description]);
     return YES;
 }
 
@@ -299,7 +297,6 @@ static BOOL notificationsHalfHidden = NO;
         UIButton *decline = [[UIButton alloc] initWithFrame:CGRectMake(cell.frame.size.width - padding - buttonSize, (cell.frame.size.height-(buttonSize-5))/2, buttonSize-5, buttonSize-5)];
         [decline setImage:[UIImage imageNamed:@"x-green.png"] forState:UIControlStateNormal];
         
-        NSLog(@"Cell: %@", [cell description]);
         
         if (indexPath.section == 0) {
             ChatMO *groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
@@ -363,13 +360,11 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 -(void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Finished Editing...");
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         ChatMO *chat = (indexPath.section == 0) ? [_groupChats objectAtIndex:indexPath.row] : [_oneToOneChats objectAtIndex:indexPath.row];
-        NSLog(@"Deleting Chat! %@", chat);
         if (indexPath.section == 0) {
             [_groupChats removeObject:chat];
         } else {
@@ -399,12 +394,10 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 -(void)notificationSwipeClose:(UISwipeGestureRecognizer *)recognizer {
-    NSLog(@"Swipe");
     [self hideNotifications];
 }
 
 - (void) showNotifications {
-    NSLog(@"Show Notifications");
     
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DISABLE_SWIPE object:nil];
     
@@ -431,7 +424,6 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 - (void) hideNotifications {
-    NSLog(@"Hide Notifications");
     
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ENABLE_SWIPE object:nil];
     
@@ -477,8 +469,6 @@ static BOOL notificationsHalfHidden = NO;
 
 /*-(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
  if (scrollView == self.notificationTableView) {
- NSLog(@"Velocity: %f,%f Offset: %f,%f", velocity.x, velocity.y, targetContentOffset->x, targetContentOffset->y);
- NSLog(@"Current Offset: %f", scrollView.contentOffset.y);
  if (scrollView.contentOffset.y > 60) {
  [self hideNotifications];
  }
@@ -542,7 +532,6 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 -(void)loadNotifications {
-    NSLog(@"Load notifications");
     
     self.groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingGroupChats]];
     self.friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
@@ -601,7 +590,6 @@ static BOOL notificationsHalfHidden = NO;
     [[self.cp getConnection] sendElement:[IQPacketManager createAcceptChatInvitePacket:groupInvite.chat_id]];
     [[self.cp getConnection] sendElement:[IQPacketManager createJoinMUCPacket:groupInvite.chat_id lastTimeActive:BEGINNING_OF_TIME]];
     
-    NSLog(@"Accepted: %@", groupInvite.chat_id);
     
     [self.groupInvites removeObjectAtIndex:indexPath.row];
     [ChatDBManager setChatStatus:STATUS_JOINED chatID:groupInvite.chat_id];
@@ -617,7 +605,6 @@ static BOOL notificationsHalfHidden = NO;
     ChatMO*groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
     [[self.cp getConnection] sendElement:[IQPacketManager createDenyChatInvitePacket:groupInvite.chat_id]];
     
-    NSLog(@"Declined: %@", groupInvite.chat_id);
     
     [self.groupInvites removeObjectAtIndex:indexPath.row];
     [ChatDBManager setChatStatus:STATUS_REQUEST_REJECTED chatID:groupInvite.chat_id];
@@ -637,7 +624,6 @@ static BOOL notificationsHalfHidden = NO;
     [[self.cp getConnection] sendElement:[IQPacketManager createForceCreateRosterEntryPacket:address]];
     [FriendsDBManager updateUserSetStatusFriends:friendRequest.username];
     
-    NSLog(@"Accepted friend request: %@, %@", address, friendRequest.username);
     
     [self.friendRequests removeObjectAtIndex:indexPath.row];
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
@@ -652,7 +638,6 @@ static BOOL notificationsHalfHidden = NO;
     FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
     [FriendsDBManager updateUserSetStatusRejected:friendRequest.username];
     
-    NSLog(@"Declined friend request: %@", friendRequest.name);
     
     [self.friendRequests removeObjectAtIndex:indexPath.row];
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
@@ -671,10 +656,8 @@ static BOOL notificationsHalfHidden = NO;
     CGPoint p = [gestureRecognizer locationInView:_tableView];
     NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint:p];
     if (indexPath == nil) {
-        NSLog(@"long press on table view but not on a row");
     }
     else {
-        NSLog(@"long press on table view at row %d", indexPath.row);
         if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
             [self handleLongPressForRowAtIndexPath:indexPath];
         }
@@ -736,7 +719,6 @@ static BOOL notificationsHalfHidden = NO;
 
 - (void)handleBlockOneToOneChat {
     NSString *otherUser = ([[[_editingChat participants] firstObject] isEqualToString:[ConnectionProvider getUser]]) ? [_editingChat.participants lastObject] : [_editingChat.participants firstObject];
-    NSLog(@"Blocing User: %@", otherUser);
     [[self.cp getConnection] sendElement:[IQPacketManager createBlockImplicitUserPacket:otherUser]];
     [self.oneToOneChats removeObject:_editingChat];
     [ChatDBManager deleteChat:_editingChat];

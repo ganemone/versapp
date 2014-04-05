@@ -97,7 +97,6 @@
 }
 
 - (void)createdVCard:(NSNotification *)notification {
-    NSLog(@"createdVCard");
     [self performSegueWithIdentifier:SEGUE_ID_AUTHENTICATED sender:self];
 }
 

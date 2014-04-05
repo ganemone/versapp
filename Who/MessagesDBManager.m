@@ -22,7 +22,6 @@
     [message setValue:time forKey:MESSAGE_PROPERTY_TIMESTAMP];
     [message setValue:senderID forKey:MESSAGE_PROPERTY_SENDER_ID];
     [message setValue:receiverID forKey:MESSAGE_PROPERTY_RECEIVER_ID];
-    NSLog(@"Inserting Message: %@", [message description]);
     [delegate saveContext];
     
     return message;
@@ -38,7 +37,6 @@
     [message setValue:senderID forKey:MESSAGE_PROPERTY_SENDER_ID];
     [message setValue:receiverID forKey:MESSAGE_PROPERTY_RECEIVER_ID];
     [message setValue:imageLink forKey:MESSAGE_PROPERTY_IMAGE_LINK];
-    NSLog(@"Inserting Message: %@", [message description]);
     [delegate saveContext];
     
     return message;
@@ -109,7 +107,6 @@
     NSError* error;
     NSArray *fetchedItems = [moc executeFetchRequest:fetchRequest error:&error];
     MessageMO *message = [fetchedItems firstObject];
-    NSLog(@"Using this message for time... %@", [message description]);
     if ([fetchedItems count] > 0) {
         NSTimeInterval interval= [[[fetchedItems firstObject] time] doubleValue] + 1;
         NSDate *gregDate = [NSDate dateWithTimeIntervalSince1970: interval];

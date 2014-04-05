@@ -61,7 +61,6 @@
 
 -(void)handleLongPress:(NSNotification *)notification
 {
-    NSLog(@"Handling Long Press!");
     UILongPressGestureRecognizer *gestureRecognizer = [notification.userInfo objectForKey:NOTIFICATION_DID_LONG_PRESS_MESSAGE];
     if (gestureRecognizer.state != UIGestureRecognizerStateBegan)
         return;
@@ -69,10 +68,8 @@
     CGPoint p = [gestureRecognizer locationInView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
     if (indexPath == nil) {
-        NSLog(@"long press on table view but not on a row");
     }
     else {
-        NSLog(@"long press on table view at row %d", indexPath.row);
         [self handleLongPressForRowAtIndexPath:indexPath];
     }
 }
@@ -167,11 +164,9 @@
         imageHeight = 0.0;
         
         if (imageAspectRatio > screenAspectRatio) {
-            NSLog(@"Image Aspect Ratio Greater than Screen");
             imageHeight = self.view.frame.size.height - 70;
             imageWidth = imageHeight / imageAspectRatio;
         } else {
-            NSLog(@"Image Aspect Ratio Less than Screen");
             imageWidth = self.view.frame.size.width - 70;
             imageHeight = imageWidth * imageAspectRatio;
         }
@@ -239,7 +234,6 @@
 }
 
 -(void)didFinishDownloadingImage:(UIImage *)image fromURL:(NSString *)url forMessage:(MessageMO *)message {
-    NSLog(@"Reached Delegate Method");
     [self.tableView reloadData];
     [self scrollToBottomAnimated:YES];
 }
