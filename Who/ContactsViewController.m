@@ -86,7 +86,7 @@
     [imageView setContentMode:UIViewContentModeScaleAspectFill];
     [imageView setImage:[UIImage imageNamed:@"contacts-background-large.png"]];
     [self.tableView setBackgroundView:imageView];
-
+    
     self.refreshControl.layer.zPosition = self.tableView.backgroundView.layer.zPosition + 1;
 }
 
@@ -147,7 +147,7 @@
 - (void)handleRowSelectedAtIndexPath:(NSIndexPath *)indexPath {
     ContactTableViewCell *cell = (ContactTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     FriendMO *friend = [self friendForIndexPath:indexPath];
-    
+    NSLog(@"Friend: %@", [friend description]);
     if ([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_REGISTERED]]) {
         if ([_selectedRegisteredContacts containsObject:friend]) {
             [_selectedRegisteredContacts removeObject:friend];
@@ -218,7 +218,9 @@
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];
-    [self showEmail:_emailContacts];
+    if([_emailContacts count] > 0) {
+        [self showEmail:_emailContacts];
+    }
 }
 
 -(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
@@ -342,9 +344,11 @@
             [_emailContacts addObject:friend.email];
         }
     }
+    NSLog(@"Searched Phone Contacts: %@", [_smsContacts componentsJoinedByString:@", "]);
+    NSLog(@"Searched Email Contacts: %@", [_emailContacts componentsJoinedByString:@", "]);
     if ([_smsContacts count] > 0) {
         [self showSMS:_smsContacts];
-    } else {
+    } else if([_emailContacts count] > 0) {
         [self showEmail:_emailContacts];
     }
 }

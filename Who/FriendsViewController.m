@@ -95,33 +95,12 @@
     
 }
 
-/*- (IBAction)beginSelectingFriendsForGroup:(id)sender {
-    if(self.isSelecting) {
-        [self.cancelButton setHidden:YES];
-        self.isSelecting = NO;
-        if (self.selectedJIDs.count > 0) {
-            self.isCreatingGroup = YES;
-            UIAlertView *groupNamePrompt = [[UIAlertView alloc] initWithTitle:@"Group Name" message:@"Enter a name for the group" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Create", nil];
-            groupNamePrompt.alertViewStyle = UIAlertViewStylePlainTextInput;
-            [groupNamePrompt show];
-        }
-    } else {
-        [self.createButton setTitle:@"Done" forState:UIControlStateNormal];
-        [self.cancelButton setHidden:NO];
-        self.isSelecting = YES;
-    }
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.allAccepted = [FriendsDBManager getAllWithStatusFriends];
+    [self.tableView reloadData];
 }
-
-- (IBAction)cancelSelectingFriendsForGroup:(id)sender {
-    [self.createButton setTitle:@"Create" forState:UIControlStateNormal];
-    [self.cancelButton setHidden:YES];
-    self.isSelecting = NO;
-    for (int i = 0; i < self.allAccepted.count; i++) {
-        NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
-        [[self.tableView cellForRowAtIndexPath:path] setAccessoryType:UITableViewCellAccessoryNone];
-    }
-    [self.selectedJIDs removeAllObjects];
-}*/
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FriendMO *currentItem = [self.searchResults objectAtIndex:indexPath.row];

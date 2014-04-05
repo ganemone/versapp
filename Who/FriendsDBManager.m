@@ -73,7 +73,7 @@
 + (void)updateRegisteredFriendAfterUserSearch:(NSDictionary *)friend withContext:(NSManagedObjectContext *)moc {
     NSString *username = [friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME];
     NSString *fullName = [NSString stringWithFormat:@"%@ %@", [friend objectForKey:VCARD_TAG_FIRST_NAME], [friend objectForKey:VCARD_TAG_LAST_NAME]];
-    NSLog(@"Updating Registered Friend After User Search %@", fullName);
+    NSLog(@"Updating Registered Friend After User Search %@", [friend description]);
     FriendMO *friendMO = [self getUserWithJID:username moc:moc];
     if (friendMO == nil) {
         friendMO = [self insertWithMOC:moc
@@ -96,10 +96,10 @@
 }
 
 + (void)updateUnregisteredFriendAfterUserSearch:(NSDictionary *)friend withContext:(NSManagedObjectContext *)moc {
-    NSString *searchedPhoneNumber = [friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER];
-    NSString *searchedEmail = [friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL];
+    NSString *searchedPhoneNumber = [[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER] firstObject];
+    NSString *searchedEmail = [[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL] firstObject];
     NSString *fullName = [NSString stringWithFormat:@"%@ %@", [friend objectForKey:VCARD_TAG_FIRST_NAME], [friend objectForKey:VCARD_TAG_LAST_NAME]];
-    NSLog(@"Updating Unregistered Friend After User Search %@", fullName);
+    NSLog(@"Updating Registered Friend After User Search %@", [friend description]);
     NSArray *friends;
     if (searchedPhoneNumber != nil && searchedPhoneNumber.length > 0) {
         friends = [self getUserWithSearchedPhoneNumber:searchedPhoneNumber withMOC:moc];
@@ -109,11 +109,11 @@
     if (friends.count > 0) {
         for (FriendMO *friendMO in friends) {
             [friendMO setValue:fullName forKeyPath:FRIENDS_TABLE_COLUMN_NAME_NAME];
-            [friendMO setValue:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL];
+            [friendMO setValue:searchedEmail forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL];
+            [friendMO setValue:searchedPhoneNumber forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER];
             if (friendMO.status == nil) {
                 [friendMO setValue:[NSNumber numberWithInt:STATUS_UNREGISTERED] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_STATUS];
             }
-            [friendMO setValue:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER];
         }
     } else {
         [self insertWithMOC:moc
@@ -121,8 +121,8 @@
                        name:fullName
                       email:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL]
                      status:[NSNumber numberWithInt:STATUS_UNREGISTERED]
-        searchedPhoneNumber:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER]
-              searchedEmail:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL]
+        searchedPhoneNumber:searchedPhoneNumber
+              searchedEmail:searchedEmail
                         uid:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_UID]];
     }
 }
