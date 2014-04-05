@@ -380,7 +380,6 @@
     
     NSError* error;
     NSArray *fetchedRecords = [moc executeFetchRequest:fetchRequest error:&error];
-    
     return fetchedRecords;
 }
 

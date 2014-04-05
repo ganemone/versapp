@@ -9,11 +9,14 @@
 #import "ContactSearchViewController.h"
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
+#import "FriendsDBManager.h"
+#import "Constants.h"
 
 @interface ContactSearchViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *username;
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
+
 
 @end
 
@@ -41,6 +44,7 @@
 
 - (IBAction)sendRequest:(id)sender {
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSubscribePacket:_username.text]];
+    [FriendsDBManager insert:_username.text name:nil email:nil status:[NSNumber numberWithInt:STATUS_SEARCHED] searchedPhoneNumber:nil searchedEmail:nil uid:nil];
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Friend Request Sent" message:nil delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
     [alertView show];
 }

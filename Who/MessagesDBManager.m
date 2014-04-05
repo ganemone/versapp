@@ -106,7 +106,6 @@
     [fetchRequest setFetchLimit:1];
     NSError* error;
     NSArray *fetchedItems = [moc executeFetchRequest:fetchRequest error:&error];
-    MessageMO *message = [fetchedItems firstObject];
     if ([fetchedItems count] > 0) {
         NSTimeInterval interval= [[[fetchedItems firstObject] time] doubleValue] + 1;
         NSDate *gregDate = [NSDate dateWithTimeIntervalSince1970: interval];

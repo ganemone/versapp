@@ -105,6 +105,16 @@ static BOOL notificationsHalfHidden = NO;
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     if ([tableView isEqual:_tableView]) {
+        if ([self tableView:_tableView numberOfRowsInSection:0] == 0 && [self tableView:_tableView numberOfRowsInSection:1] == 0 && section == 1) {
+            //UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+            UILabel *footerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
+            [footerLabel setBackgroundColor:[UIColor whiteColor]];
+            [footerLabel setTextAlignment:NSTextAlignmentCenter];
+            [footerLabel setText:@"You don't have any conversations yet :("];
+            [footerLabel setFont:[StyleManager getFontStyleBoldSizeLarge]];
+            [footerLabel setTextColor:[StyleManager getColorBlue]];
+            return footerLabel;
+        }
         if (section == 0) {
             return nil;
         }
@@ -127,8 +137,19 @@ static BOOL notificationsHalfHidden = NO;
     return YES;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if ([tableView isEqual:_tableView] && [self tableView:_tableView numberOfRowsInSection:0] == 0 && [self tableView:_tableView numberOfRowsInSection:1] == 0) {
+        return 0;
+    } else {
+        return 10.0f;
+    }
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if ([tableView isEqual:_tableView]) {
+        if (section == 1 && [self tableView:_tableView numberOfRowsInSection:0] == 0 && [self tableView:_tableView numberOfRowsInSection:1] == 0) {
+            return 50;
+        }
         return section;
     }
     return 0;

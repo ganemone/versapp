@@ -173,6 +173,7 @@ int const STATUS_REJECTED = 3;
 int const STATUS_UNREGISTERED = 4;
 int const STATUS_REQUESTED = 5;
 int const STATUS_INVITED = 6;
+int const STATUS_SEARCHED = 7;
 
 int const STATUS_JOINED = 0;
 int const STATUS_REQUEST_PENDING = 1;

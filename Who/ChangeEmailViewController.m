@@ -44,7 +44,7 @@
 
 - (IBAction)submitClicked:(id)sender {
     //Send update packet with all current info and new email
-    NSArray *names = [[UserDefaultManager loadName] componentsSeparatedByString:@" "];
+    //NSArray *names = [[UserDefaultManager loadName] componentsSeparatedByString:@" "];
     //[[self.cp getConnection] sendElement:[IQPacketManager createUpdateVCardPacket:[names objectAtIndex:0] lastname:[names objectAtIndex:1] phone:[UserDefaultManager loadUsername] email:self.updatedEmail.text]];
     [UserDefaultManager saveEmail:self.updatedEmail.text];
     [self.currentEmail setTextColor:[StyleManager getColorGreen]];

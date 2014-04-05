@@ -172,6 +172,7 @@ extern int const STATUS_REJECTED;
 extern int const STATUS_UNREGISTERED;
 extern int const STATUS_REQUESTED;
 extern int const STATUS_INVITED;
+extern int const STATUS_SEARCHED;
 
 extern int const STATUS_JOINED;
 extern int const STATUS_REQUEST_PENDING;

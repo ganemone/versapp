@@ -269,7 +269,6 @@ static ConnectionProvider *selfInstance;
 -(void)xmppStream:(XMPPStream *)sender didNotRegister:(DDXMLElement *)error {
     DDXMLElement *errorXML = [error elementForName:@"error"];
     NSString *errorCode  = [[errorXML attributeForName:@"code"] stringValue];
-    NSString *regError = [NSString stringWithFormat:@"ERROR :- %@",error.description];
     NSString *errorMessage;
     if([errorCode isEqualToString:@"409"]){
         errorMessage = @"Username already exists";
