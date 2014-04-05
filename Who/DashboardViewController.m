@@ -169,6 +169,7 @@ static BOOL notificationsHalfHidden = NO;
         [_tableView reloadData];
     }
     _friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
+    NSLog(@"Friend Requests...: %d", (int)[_friendRequests count]);
     _groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingGroupChats]];
 }
 
@@ -660,6 +661,12 @@ static BOOL notificationsHalfHidden = NO;
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     [[delegate managedObjectContext] deleteObject:friendRequest];
     [delegate saveContext];
+    
+    NSArray *test = [FriendsDBManager getAllWithStatusPending];
+    NSLog(@"After Deleting... :%d", (int)[test count]);
+    for (FriendMO *friend in test) {
+        NSLog(@"Found Pending Friend: %@", [friend description]);
+    }
     
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     [self setNotificationSize];

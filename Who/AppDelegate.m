@@ -74,7 +74,7 @@
 - (void)saveContext
 {
     NSError *error = nil;
-    NSManagedObjectContext *managedObjectContext = _managedObjectContext;
+    [_managedObjectContext save:&error];
 }
 
 - (void)saveContextForBackgroundThread {
