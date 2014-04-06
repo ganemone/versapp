@@ -95,8 +95,8 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    self.allAccepted = [FriendsDBManager getAllWithStatusFriends];
+    _allAccepted = [FriendsDBManager getAllWithStatusFriends];
+    _searchResults = _allAccepted;
     [self.tableView reloadData];
 }
 

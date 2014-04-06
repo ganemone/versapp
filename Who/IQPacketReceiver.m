@@ -276,7 +276,9 @@
     }
     if ([username compare:[ConnectionProvider getUser]] != 0) {
         NSString *name = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
+        NSLog(@"Got VCard for User: %@", name);
         if ([FriendsDBManager hasUserWithJID:username]) {
+            NSLog(@"Inserting Friend: %@", name);
             [FriendsDBManager insert:username name:name email:nil status:nil searchedPhoneNumber:nil searchedEmail:nil uid:nil];
             [ChatDBManager updateOneToOneChatNames:name username:username];
         } else {
