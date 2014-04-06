@@ -206,7 +206,6 @@
         [delegate saveContextForBackgroundThread];
         
         dispatch_sync(mainQueue, ^{
-            NSLog(@"Posting Authenticated Notification...");
             [ChatDBManager joinAllChats];
             XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
             for (NSString *username in participantsWithoutVCards) {
@@ -357,16 +356,17 @@
 }
 
 +(void)handleGetRosterPacket: (XMPPIQ *)iq {
-    XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate getManagedObjectContextForBackgroundThread];
+    __block dispatch_queue_t mainQ = dispatch_get_main_queue();
     [moc performBlock:^{
         
         NSError *error = NULL;
         DDXMLElement *query = [[iq children] firstObject];
         NSArray *items = [query children];
         DDXMLElement *item;
-        
+        NSMutableArray *itemsWithoutVCard = [NSMutableArray array];
+        NSMutableArray *itemsToSendSubscribedPacket = [NSMutableArray array];
         for (int i = 0; i < items.count; i++) {
             item = items[i];
             NSString *subscription = [[item attributeForName:@"subscription"] XMLString];
@@ -375,21 +375,27 @@
             NSRegularExpression *regexJid = [NSRegularExpression regularExpressionWithPattern:@"jid=\"(.*)@" options: 0 error:&error];
             NSTextCheckingResult *matchJid = [regexJid firstMatchInString:jid options:0 range:NSMakeRange(0,jid.length)];
             NSString *resultJid = [jid substringWithRange:[matchJid rangeAtIndex:1]];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [conn sendElement:[IQPacketManager createGetVCardPacket:resultJid]];
-            });
+            [itemsWithoutVCard addObject:resultJid];
             if ([subscription rangeOfString:@"none"].location != NSNotFound){
                 [FriendsDBManager insertWithMOC:moc username:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_REQUESTED] searchedPhoneNumber:nil searchedEmail:nil uid:nil];
             } else {
                 if([subscription rangeOfString:@"to"].location != NSNotFound) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [conn sendElement:[IQPacketManager createSubscribedPacket:resultJid]];
-                    });
+                    [itemsToSendSubscribedPacket addObject:resultJid];
                 }
                 [FriendsDBManager insertWithMOC:moc username:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_FRIENDS] searchedPhoneNumber:nil searchedEmail:nil uid:nil];
             }
         }
         [delegate saveContextForBackgroundThread];
+        dispatch_sync(mainQ, ^{
+            XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
+            for (NSString *username in itemsWithoutVCard) {
+                [conn sendElement:[IQPacketManager createGetVCardPacket:username]];
+            }
+            for (NSString *username in itemsToSendSubscribedPacket) {
+                [conn sendElement:[IQPacketManager createSubscribedPacket:username]];
+            }
+        });
+        
     }];
 }
 
