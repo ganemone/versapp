@@ -85,7 +85,7 @@ static char UIScrollViewGifPullToRefresh;
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = [UIColor clearColor];
         _refreshView = [[UIImageView alloc] initWithFrame:self.bounds];
         _refreshView.contentMode = UIViewContentModeScaleAspectFit;
         _refreshView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;

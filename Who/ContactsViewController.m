@@ -76,13 +76,13 @@
     
     NSMutableArray *drawingImages = [NSMutableArray array];
     NSMutableArray *loadingImages = [NSMutableArray array];
-    for (int i = 0; i <= 73; i++) {
-        NSString *fileName = [NSString stringWithFormat:@"PullToRefresh_%03d.png",i];
+    for (int i = 0; i <= 15; i++) {
+        NSString *fileName = [NSString stringWithFormat:@"Owl-Loading-Animation_0%03d.png",i];
         [drawingImages addObject:[UIImage imageNamed:fileName]];
     }
     
-    for (int i = 73; i <= 140; i++) {
-        NSString *fileName = [NSString stringWithFormat:@"PullToRefresh_%03d.png",i];
+    for (int i = 0; i <= 15; i++) {
+        NSString *fileName = [NSString stringWithFormat:@"Owl-Loading-Animation_0%03d.png",i];
         [loadingImages addObject:[UIImage imageNamed:fileName]];
     }
     [_tableView addPullToRefreshWithDrawingImgs:drawingImages andLoadingImgs:loadingImages andActionHandler:^{

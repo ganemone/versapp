@@ -54,7 +54,7 @@
     
     // Add a bottomBorder to the header view
     CALayer *headerBottomborder = [CALayer layer];
-    headerBottomborder.frame = CGRectMake(0.0f, self.header.frame.size.height, self.header.frame.size.width, 2.0f);
+    headerBottomborder.frame = CGRectMake(0.0f, self.header.frame.size.height - 2.0, self.header.frame.size.width, 2.0f);
     headerBottomborder.backgroundColor = [UIColor whiteColor].CGColor;
     [self.header.layer addSublayer:headerBottomborder];
     // Add a top border to the footer view
