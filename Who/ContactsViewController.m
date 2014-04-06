@@ -211,10 +211,12 @@
     for (NSString *username in _smsContacts) {
         [FriendsDBManager updateUserSetStatusInvited:username];
     }
-    
+    _smsContacts = [NSMutableArray array];
     [self dismissViewControllerAnimated:YES completion:nil];
     if([_emailContacts count] > 0) {
         [self showEmail:_emailContacts];
+    } else {
+        [_tableView reloadData];
     }
 }
 
@@ -239,6 +241,7 @@
         [friend setValue:[NSNumber numberWithInt:STATUS_INVITED] forKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];
         [delegate saveContext];
     }
+    
     _smsContacts = nil;
     _emailContacts = nil;
     
@@ -266,11 +269,12 @@
     // Present mail view controller on screen
     [self presentViewController:mc animated:YES completion:NULL];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.frame];
+    /*UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.frame];
     [imageView setClipsToBounds:YES];
     [imageView setImage:[UIImage imageNamed:@"contacts-background-large.png"]];
     [self.view addSubview:imageView];
-    [self.view sendSubviewToBack:imageView];
+    [self.view sendSubviewToBack:imageView]; */
+    
 }
 
 - (void)showSMS:(NSArray *)recipients {
@@ -289,6 +293,7 @@
     
     // Present message view controller on screen
     [self presentViewController:messageController animated:YES completion:nil];
+
     
 }
 
@@ -327,6 +332,12 @@
     }
     self.smsContacts = [[NSMutableArray alloc] initWithCapacity:[_selectedUnregisteredContacts count]];
     self.emailContacts = [[NSMutableArray alloc] initWithCapacity:[_selectedUnregisteredContacts count]];
+
+    if ([_selectedUnregisteredContacts count] == 0) {
+        [[[UIAlertView alloc] initWithTitle:@"Send Friend Requests" message:nil delegate:self cancelButtonTitle:@"Sweet" otherButtonTitles: nil] show];
+        _selectedRegisteredContacts = [NSMutableArray array];
+        [_tableView reloadData];
+    }
     
     for (FriendMO *friend in _selectedUnregisteredContacts) {
         if (friend.searchedPhoneNumber != nil) {
@@ -335,14 +346,14 @@
             [_emailContacts addObject:friend.email];
         }
     }
-
-    
     
     if ([_smsContacts count] > 0) {
         [self showSMS:_smsContacts];
     } else if([_emailContacts count] > 0) {
         [self showEmail:_emailContacts];
     }
+    _selectedRegisteredContacts = [NSMutableArray array];
+    _selectedUnregisteredContacts = [NSMutableArray array];
 }
 
 @end
