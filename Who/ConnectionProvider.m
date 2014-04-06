@@ -189,8 +189,6 @@ static ConnectionProvider *selfInstance;
     [self.xmppStream disconnect];
 }
 
-
-
 -(void)xmppStream:(XMPPStream *)sender didReceiveError:(DDXMLElement *)error {
     NSLog(@"Did Receive Error: %@", error);
 }

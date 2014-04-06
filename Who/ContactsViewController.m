@@ -119,6 +119,9 @@
 - (void)refreshData {
     _registeredContacts = [FriendsDBManager getAllWithStatusRegisteredOrRequested];
     _unregisteredContacts = [FriendsDBManager getAllWithStatusUnregistered];
+    NSLog(@"Registered Contacts: %@", [_registeredContacts componentsJoinedByString:@", "]);
+    NSLog(@"Unregistered Contacts: %@", [_unregisteredContacts componentsJoinedByString:@", "]);
+    NSLog(@"All Contacts: %@", [[FriendsDBManager getAll] componentsJoinedByString:@", "]);
     [self.tableView didFinishPullToRefresh];
     [self.tableView reloadData];
 }

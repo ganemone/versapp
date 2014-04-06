@@ -243,7 +243,7 @@
 }
 
 - (IBAction)handleDiscloseInfoBtnClicked:(id)sender {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Confessions" message:@"This is your newsfeed of confessions. Confessions are anonymous and you only see the confessions of your friends. Try favoriting a confession, or starting a chat with a confession poster! They are both done completely anonymously!" delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Confessions" message:@"This is your newsfeed of confessions. Confessions are anonymous and you only see the confessions of your friends. Both favoriting and chatting are also anonymous!" delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil];
     [alertView show];
 }
 

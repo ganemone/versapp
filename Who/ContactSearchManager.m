@@ -175,13 +175,14 @@ static ContactSearchManager *selfInstance;
 
 -(void)updateContactListAfterUserSearch:(NSArray *)contactsFound {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-    NSManagedObjectContext *mainMoc = [delegate managedObjectContext];
-    NSManagedObjectContext *moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    [moc setParentContext:mainMoc];
+    NSManagedObjectContext *moc = [delegate getManagedObjectContextForBackgroundThread];
+    __block dispatch_queue_t mainQ = dispatch_get_main_queue();
     [moc performBlock:^{
         for (NSDictionary *registeredContact in contactsFound) {
+            
             NSString *dictionaryKey = [registeredContact objectForKey:DICTIONARY_KEY_ID];
             NSMutableDictionary *contact = [_contacts objectForKey:dictionaryKey];
+            NSLog(@"Registered Contact: %@ %@", [registeredContact description], [contact description]);
             [contact setObject:[registeredContact objectForKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME] forKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME];
             [contact setObject:[NSNumber numberWithInt:STATUS_REGISTERED] forKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];
             [contact setObject:[registeredContact objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER] forKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER];
@@ -196,18 +197,10 @@ static ContactSearchManager *selfInstance;
             }
         }
         
-        NSError *err = nil;
-        if(![moc save:&err]) {
-        }
-        
-        [mainMoc performBlock:^{
-            NSError *error = nil;
-            if (![mainMoc save:&error]) {
-            }
-        }];
+        [delegate saveContextForBackgroundThread];
         
         if ([self isFinishedSearching]) {
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_sync(mainQ, ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_CONTACTS_VIEW object:nil];
             });
         }
