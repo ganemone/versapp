@@ -30,7 +30,6 @@
 @property (strong, nonatomic) UIImage *chatIcon;
 @property (strong, nonatomic) UIImage *deleteIcon;
 @property (strong, nonatomic) ChatMO *createdChat;
-@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -105,16 +104,10 @@
         NSString *fileName = [NSString stringWithFormat:@"PullToRefresh_%03d.png",i];
         [loadingImages addObject:[UIImage imageNamed:fileName]];
     }
-    __weak UIScrollView *tempScrollView = _tableView;
     [_tableView addPullToRefreshWithDrawingImgs:drawingImages andLoadingImgs:loadingImages andActionHandler:^{
         //Do your own work when refreshing, and don't forget to end the animation after work finished.
-        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:3];
-        
+        [self performSelectorOnMainThread:@selector(loadConfessions) withObject:nil waitUntilDone:NO];
     }];
-}
-
-- (void)didFinishPullToRefresh {
-    NSLog(@"Did finish pull to refresh");
 }
 
 - (void)loadConfessions {
@@ -134,10 +127,22 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if ([[ConfessionsManager getInstance] getNumberOfConfessions] == 0) {
+        return 50.0f;
+    }
     return 10.0f;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if ([[ConfessionsManager getInstance] getNumberOfConfessions] == 0) {
+        UILabel *header = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
+        [header setBackgroundColor:[UIColor whiteColor]];
+        [header setTextAlignment:NSTextAlignmentCenter];
+        [header setText:@"There are no confessions on your feed"];
+        [header setFont:[StyleManager getFontStyleBoldSizeLarge]];
+        [header setTextColor:[StyleManager getColorOrange]];
+        return header;
+    }
     return [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 10.0f)];
 }
 
@@ -204,20 +209,7 @@
 - (void)refreshListView
 {
     [_confessionsManager sortConfessions];
-    if ([self.refreshControl isRefreshing]) {
-        
-        NSMutableAttributedString *refreshTitle = [[NSMutableAttributedString alloc]initWithString:@"Refreshing..."];
-        [refreshTitle addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, refreshTitle.length)];
-        [self.refreshControl setAttributedTitle:refreshTitle];
-        [self loadConfessions];
-        [self.tableView reloadData];
-        [self.refreshControl endRefreshing];
-    }
-    else {
-        NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:@"Pull to refresh"];
-        [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, attrString.length)];
-        [self.refreshControl setAttributedTitle:attrString];
-    }
+    [self.tableView didFinishPullToRefresh];
     [self.tableView reloadData];
 }
 

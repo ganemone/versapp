@@ -17,6 +17,7 @@
 #import "StyleManager.h"
 #import "ContactTableViewCell.h"
 #import "AppDelegate.h"
+#import "UIScrollView+GifPullToRefresh.h"
 
 @interface ContactsViewController()
 
@@ -27,7 +28,6 @@
 @property (strong, nonatomic) NSMutableArray *selectedUnregisteredContacts;
 @property (strong, nonatomic) NSMutableArray *smsContacts;
 @property (strong, nonatomic) NSMutableArray *emailContacts;
-@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -67,25 +67,28 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:UPDATE_CONTACTS_VIEW object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:PACKET_ID_GET_VCARD object:nil];
     
-    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
-    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:@"Pull to Refresh"];
-    [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, 15)];
-    [refresh setAttributedTitle:attrString];
-    [refresh addTarget:self action:@selector(searchForContacts) forControlEvents:UIControlEventValueChanged];
-    [refresh setTintColor:[UIColor whiteColor]];
-    
-    UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
-    [tableViewController setRefreshControl:refresh];
-    [tableViewController setTableView:_tableView];
-    self.refreshControl = refresh;
-    
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.frame];
     [imageView setClipsToBounds:NO];
     [imageView setContentMode:UIViewContentModeScaleAspectFill];
     [imageView setImage:[UIImage imageNamed:@"contacts-background-large.png"]];
     [self.tableView setBackgroundView:imageView];
     
-    self.refreshControl.layer.zPosition = self.tableView.backgroundView.layer.zPosition + 1;
+    
+    NSMutableArray *drawingImages = [NSMutableArray array];
+    NSMutableArray *loadingImages = [NSMutableArray array];
+    for (int i = 0; i <= 73; i++) {
+        NSString *fileName = [NSString stringWithFormat:@"PullToRefresh_%03d.png",i];
+        [drawingImages addObject:[UIImage imageNamed:fileName]];
+    }
+    
+    for (int i = 73; i <= 140; i++) {
+        NSString *fileName = [NSString stringWithFormat:@"PullToRefresh_%03d.png",i];
+        [loadingImages addObject:[UIImage imageNamed:fileName]];
+    }
+    [_tableView addPullToRefreshWithDrawingImgs:drawingImages andLoadingImgs:loadingImages andActionHandler:^{
+        //Do your own work when refreshing, and don't forget to end the animation after work finished.
+        [self performSelectorOnMainThread:@selector(searchForContacts) withObject:nil waitUntilDone:NO];
+    }];
 }
 
 -(void)searchForContacts {
@@ -116,9 +119,7 @@
 - (void)refreshData {
     _registeredContacts = [FriendsDBManager getAllWithStatusRegisteredOrRequested];
     _unregisteredContacts = [FriendsDBManager getAllWithStatusUnregistered];
-    if ([_refreshControl isRefreshing]) {
-        [_refreshControl endRefreshing];
-    }
+    [self.tableView didFinishPullToRefresh];
     [self.tableView reloadData];
 }
 

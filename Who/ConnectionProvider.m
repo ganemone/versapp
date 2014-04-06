@@ -199,6 +199,7 @@ static ConnectionProvider *selfInstance;
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
+    NSLog(@"Received Message: %@", message.XMLString);
     [MessagePacketReceiver handleMessagePacket:message];
 }
 
