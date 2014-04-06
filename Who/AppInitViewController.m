@@ -36,6 +36,14 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAuthenticated) name:NOTIFICATION_AUTHENTICATED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailedToAuthenticate) name:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNoDefaultsStored) name:@"needToRegister" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailedToAuthenticate) name:NOTIFICATION_LOGOUT object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailedToAuthenticate) name:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];
+    
     CGRect screen = [[UIScreen mainScreen] bounds];
     UIImage *image = [[UIImage alloc] init];
     if (screen.size.height < 500) {
@@ -47,12 +55,8 @@
     
     self.viewDidShow = NO;
     self.shouldTransition = NO;
-    [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAuthenticated) name:@"authenticated" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailedToAuthenticate) name:@"didNotAuthenticate" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNoDefaultsStored) name:@"needToRegister" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailedToAuthenticate) name:NOTIFICATION_LOGOUT object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailedToAuthenticate) name:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];
+    
+    NSLog(@"View did Load...");
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -70,6 +74,7 @@
 }
 
 - (void)handleAuthenticated {
+    NSLog(@"Authenticated...");
     _transitionTo = SEGUE_ID_AUTHENTICATED_FROM_APP_INIT;
     _shouldTransition = YES;
     if (_viewDidShow && ([self isKindOfClass:[[self presentedViewController] class]] || [self presentedViewController] == nil)) {

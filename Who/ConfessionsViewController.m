@@ -17,6 +17,7 @@
 #import "ChatMO.h"
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
+#import "UIScrollView+GifPullToRefresh.h"
 
 @interface ConfessionsViewController ()
 
@@ -67,18 +68,18 @@
     
     [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
     
-    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
+    /*UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     //    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:@"Pull to Refresh"];
     //    [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, attrString.length)];
     [refresh addTarget:self action:@selector(refreshListView) forControlEvents:UIControlEventValueChanged];
     //    [refresh setAttributedTitle:attrString];
     
-    [refresh setTintColor:[UIColor whiteColor]];
+    [refresh setTintColor:[UIColor whiteColor]];*/
     
     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
-    [tableViewController setRefreshControl:refresh];
+    //[tableViewController setRefreshControl:refresh];
     [tableViewController setTableView:_tableView];
-    self.refreshControl = refresh;
+    //self.refreshControl = refresh;
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     [self.tableView setBackgroundColor:[StyleManager getColorOrange]];
@@ -92,6 +93,28 @@
     self.gradLineSmall = [UIImage imageNamed:@"grad-line-small.png"];
     self.chatIcon = [UIImage imageNamed:@"chat-icon-label.png"];
     self.deleteIcon = [UIImage imageNamed:@"delete-confession.png"];
+    
+    NSMutableArray *drawingImages = [NSMutableArray array];
+    NSMutableArray *loadingImages = [NSMutableArray array];
+    for (int i = 0; i <= 73; i++) {
+        NSString *fileName = [NSString stringWithFormat:@"PullToRefresh_%03d.png",i];
+        [drawingImages addObject:[UIImage imageNamed:fileName]];
+    }
+    
+    for (int i = 73; i <= 140; i++) {
+        NSString *fileName = [NSString stringWithFormat:@"PullToRefresh_%03d.png",i];
+        [loadingImages addObject:[UIImage imageNamed:fileName]];
+    }
+    __weak UIScrollView *tempScrollView = _tableView;
+    [_tableView addPullToRefreshWithDrawingImgs:drawingImages andLoadingImgs:loadingImages andActionHandler:^{
+        //Do your own work when refreshing, and don't forget to end the animation after work finished.
+        [tempScrollView performSelector:@selector(didFinishPullToRefresh) withObject:nil afterDelay:3];
+        
+    }];
+}
+
+- (void)didFinishPullToRefresh {
+    NSLog(@"Did finish pull to refresh");
 }
 
 - (void)loadConfessions {

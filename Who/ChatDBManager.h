@@ -49,7 +49,7 @@
 
 +(void)updateOneToOneChatNames:(NSString *)name username:(NSString*)username;
 
-+(void)joinAllChats:(NSManagedObjectContext *)moc;
++(void)joinAllChats;
 
 +(void)addChatParticipants:(NSMutableArray *)participants;
 

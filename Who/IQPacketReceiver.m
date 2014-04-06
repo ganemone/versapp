@@ -153,8 +153,10 @@
 }
 
 +(void)handleGetJoinedChatsPacket:(XMPPIQ *)iq {
+    NSLog(@"Handling Get Joined Chats Packet...");
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate getManagedObjectContextForBackgroundThread];
+    __block dispatch_queue_t mainQueue = dispatch_get_main_queue();
     [moc performBlock:^{
         
         NSError *error = NULL;
@@ -163,6 +165,7 @@
         NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)],
         *participants;
         NSString *participantString, *chatId, *type, *owner, *name;
+        NSMutableArray *participantsWithoutVCards = [NSMutableArray array];
         for (NSTextCheckingResult *match in matches) {
             participantString = [packetXML substringWithRange:[match rangeAtIndex:1]];
             chatId = [packetXML substringWithRange:[match rangeAtIndex:2]];
@@ -173,9 +176,7 @@
             participants = [participantString componentsSeparatedByString:@", "];
             for (NSString *participant in participants) {
                 if ([FriendsDBManager getUserWithJID:participant moc:moc] == nil) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetVCardPacket:participant]];
-                    });
+                    [participantsWithoutVCards addObject:participant];
                 }
             }
             if ([type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
@@ -204,9 +205,13 @@
         
         [delegate saveContextForBackgroundThread];
         
-        [ChatDBManager joinAllChats:moc];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_sync(mainQueue, ^{
+            NSLog(@"Posting Authenticated Notification...");
+            [ChatDBManager joinAllChats];
+            XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
+            for (NSString *username in participantsWithoutVCards) {
+                [conn sendElement:[IQPacketManager createGetVCardPacket:username]];
+            }
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_AUTHENTICATED object:nil];
         });

@@ -112,19 +112,16 @@ static int numUninvitedParticipants;
     return chat;
 }
 
-// Called from async thread...
-+(void)joinAllChats:(NSManagedObjectContext *)moc {
++(void)joinAllChats {
     NSLog(@"joining all chats...");
     NSArray *chats = [self getAllActiveGroupChats];
     NSLog(@"Going to join chats...: %lu", (unsigned long)[chats count]);
     XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
-    NSString *time = [MessagesDBManager getTimeForHistory:moc];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        for (ChatMO *chat in chats) {
-            [conn sendElement:[IQPacketManager createJoinMUCPacket:chat.chat_id lastTimeActive:time]];
-        }
-    });
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSString *time = [MessagesDBManager getTimeForHistory:[delegate managedObjectContext]];
+    for (ChatMO *chat in chats) {
+        [conn sendElement:[IQPacketManager createJoinMUCPacket:chat.chat_id lastTimeActive:time]];
+    }
 }
 
 +(NSArray*)makeFetchRequest:(NSString*)predicateString {
