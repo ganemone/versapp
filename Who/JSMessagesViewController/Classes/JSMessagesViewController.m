@@ -112,7 +112,7 @@
     
     [self.view addSubview:inputView];
     _messageInputView = inputView;
-    
+    [inputView.cameraButton setFrame:CGRectMake(1, 1, 40, 40)];
     [self resetCameraButtonImage];
     
 }
@@ -618,13 +618,13 @@
 }
 
 - (void)setCameraButtonImage:(UIImage *)image {
-    [_messageInputView.cameraButton setImageEdgeInsets:UIEdgeInsetsMake(3, 3, 3, 3)];
+    [_messageInputView.cameraButton setImageEdgeInsets:UIEdgeInsetsMake(4, 4, 4, 4)];
     [_messageInputView.cameraButton setContentMode:UIViewContentModeScaleAspectFill];
     [_messageInputView.cameraButton setImage:image forState:UIControlStateNormal];
 }
 
 - (void)resetCameraButtonImage {
-    [_messageInputView.cameraButton setImageEdgeInsets:UIEdgeInsetsMake(3, 3, 3, 3)];
+    [_messageInputView.cameraButton setImageEdgeInsets:UIEdgeInsetsMake(4, 4, 4, 4)];
     [_messageInputView.cameraButton setContentMode:UIViewContentModeScaleAspectFill];
     [_messageInputView.cameraButton setImage:[UIImage imageNamed:@"camera-icon-dark.png"] forState:UIControlStateNormal];
 }
