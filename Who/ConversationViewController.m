@@ -21,6 +21,7 @@
 #import "FriendMO.h"
 #import "AddToGroupViewController.h"
 #import "IQPacketManager.h"
+#import "JSBubbleMessageCell.h"
 
 @interface ConversationViewController ()
 
@@ -151,6 +152,18 @@
     }
     JSMessage *jmessage = [[JSMessage alloc] initWithText:messageMO.message_body sender:@"" date:date];
     return jmessage;
+}
+
+-(MessageMO *)messageMOForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [[_chatMO messages] objectAtIndex:indexPath.row];
+}
+
+-(MessageMO *)prevMessageMOForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [[_chatMO messages] objectAtIndex:indexPath.row - 1];
+}
+
+-(MessageMO *)twoPrevMessageMOForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [[_chatMO messages] objectAtIndex:indexPath.row - 2];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -300,5 +313,19 @@
         [super alertView:alertView clickedButtonAtIndex:buttonIndex];
     }
 }
+
+/*-(BOOL)shouldDisplayTimestampForRowAtIndexPath:(NSIndexPath *)indexPath {
+    MessageMO *message = [self messageMOForRowAtIndexPath:indexPath];
+    MessageMO *prevMessage = [self prevMessageMOForRowAtIndexPath:indexPath];
+    MessageMO *twoPrevMessage = [self twoPrevMessageMOForRowAtIndexPath:indexPath];
+    if (prevMessage == nil || twoPrevMessage == nil) {
+        return YES;
+    }
+    
+    if([message.time doubleValue] - [prevMessage.time doubleValue] > 5000 || [self shouldDisplayTimestampForRowAtIndexPath:[[NSIndexPath alloc] initWithIndex:indexPath.row - 2]] == NO) {
+        return YES;
+    }
+    return NO;
+}*/
 
 @end

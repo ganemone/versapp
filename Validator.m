@@ -24,7 +24,7 @@
 }
 
 +(BOOL)isValidPassword:(NSString *)password {
-    return (password.length > 6);
+    return (password.length >= 6);
 }
 
 +(BOOL)isValidPasswordPair:(NSString *)password confirmPassword:(NSString *)confirmPassword {

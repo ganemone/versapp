@@ -74,7 +74,7 @@ static BOOL notificationsHalfHidden = NO;
     self.oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveOneToOneChats]];
     [self loadNotifications];
     
-    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self.tableView action:@selector(handleLongPress:)];
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     lpgr.minimumPressDuration = 0.5; //seconds
     lpgr.delegate = self;
     [_tableView addGestureRecognizer:lpgr];

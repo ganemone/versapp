@@ -261,8 +261,6 @@ static ConnectionProvider *selfInstance;
     [UserDefaultManager savePassword:self.password];
     [UserDefaultManager saveEmail:[self.pendingAccountInfo objectForKey:FRIENDS_TABLE_COLUMN_NAME_EMAIL]];
     
-    PhoneVerificationManager *pvm = [[PhoneVerificationManager alloc] init];
-    
     NSError *error = nil;
     if ([[self xmppStream] authenticateWithPassword:self.password error:&error])
     {
@@ -284,7 +282,7 @@ static ConnectionProvider *selfInstance;
         errorMessage = @"Failed to register user. Please check your network connection";
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DID_FAIL_TO_REGISTER_USER
-                                                        object:nil\
+                                                        object:nil
                                                       userInfo:[NSDictionary dictionaryWithObjectsAndKeys:errorCode, DICTIONARY_KEY_ERROR_CODE, errorMessage, DICTIONARY_KEY_ERROR_MESSAGE, nil]];
 }
 
