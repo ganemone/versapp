@@ -99,17 +99,18 @@
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
+    NSLog(@"Did Register for Remote Notifications..");
     NSString *deviceTokenString = [[[[deviceToken description]
                                      stringByReplacingOccurrencesOfString:@" " withString:@""]
                                     stringByReplacingOccurrencesOfString:@"<" withString:@""]
                                    stringByReplacingOccurrencesOfString:@">" withString:@""];
     
     [UserDefaultManager saveDeviceID:deviceTokenString];
-    //[[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSetDeviceTokenPacket:deviceTokenString]];
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
+    NSLog(@"Failed to register for remote notifications...");
 }
 
 

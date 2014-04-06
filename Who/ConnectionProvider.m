@@ -188,7 +188,11 @@ static ConnectionProvider *selfInstance;
 {
     [self.xmppStream disconnect];
 }
+
+
+
 -(void)xmppStream:(XMPPStream *)sender didReceiveError:(DDXMLElement *)error {
+    NSLog(@"Did Receive Error: %@", error);
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveP2PFeatures:(DDXMLElement *)streamFeatures {
@@ -199,9 +203,11 @@ static ConnectionProvider *selfInstance;
 }
 
 -(void)xmppStream:(XMPPStream *)sender didSendMessage:(XMPPMessage *)message {
+    NSLog(@"Did Send Message: %@", [message description]);
 }
 
 -(void)xmppStream:(XMPPStream *)sender didSendPresence:(XMPPPresence *)presence {
+    NSLog(@"Did send presence: %@", presence.XMLString);
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
@@ -212,11 +218,13 @@ static ConnectionProvider *selfInstance;
 }
 
 -(BOOL)xmppStream:(XMPPStream *)sender didReceiveIQ:(XMPPIQ *)iq {
+    NSLog(@"Received IQ: %@", iq.XMLString);
     [IQPacketReceiver handleIQPacket:iq];
     return YES;
 }
 
 -(void)xmppStream:(XMPPStream *)sender didSendIQ:(XMPPIQ *)iq {
+    NSLog(@"Did Send IQ: %@", iq.XMLString);
 }
 
 +(NSString *)getServerIPAddress {
@@ -278,7 +286,7 @@ static ConnectionProvider *selfInstance;
         errorMessage = @"Failed to register user. Please check your network connection";
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DID_FAIL_TO_REGISTER_USER
-                                                        object:nil
+                                                        object:nil\
                                                       userInfo:[NSDictionary dictionaryWithObjectsAndKeys:errorCode, DICTIONARY_KEY_ERROR_CODE, errorMessage, DICTIONARY_KEY_ERROR_MESSAGE, nil]];
 }
 

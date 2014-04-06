@@ -169,6 +169,9 @@ static BOOL notificationsHalfHidden = NO;
             }
         }
         [_tableView reloadData];
+    } else {
+        _groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
+        _oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllOneToOneChats]];
     }
     _friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
     NSLog(@"Friend Requests...: %d", (int)[_friendRequests count]);
@@ -380,6 +383,9 @@ static BOOL notificationsHalfHidden = NO;
         [MessagesDBManager deleteMessagesFromChatWithID:chat.chat_id];
         [ChatDBManager deleteChat:chat];
         [_tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        if ([_groupChats count] == 0 && [_oneToOneChats count] == 0) {
+            [_tableView reloadData];
+        }
     }
 }
 

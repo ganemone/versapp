@@ -90,7 +90,7 @@
     [UserDefaultManager savePassword:self.passwordText];
     [UserDefaultManager saveUsername:self.usernameText];
     
-    [self.cp connect:self.usernameText password:self.password.text];
+    [self.cp connect:self.usernameText password:_passwordText];
 }
 
 - (void)createdVCard:(NSNotification *)notification {

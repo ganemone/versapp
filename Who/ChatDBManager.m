@@ -114,7 +114,9 @@ static int numUninvitedParticipants;
 
 // Called from async thread...
 +(void)joinAllChats:(NSManagedObjectContext *)moc {
-    NSArray *chats = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\" && %@ = \"%d\"",CHATS_TABLE_COLUMN_NAME_CHAT_TYPE, CHAT_TYPE_GROUP, CHATS_TABLE_COLUMN_NAME_STATUS, STATUS_JOINED] withMOC:moc];
+    NSLog(@"joining all chats...");
+    NSArray *chats = [self getAllActiveGroupChats];
+    NSLog(@"Going to join chats...: %lu", (unsigned long)[chats count]);
     XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
     NSString *time = [MessagesDBManager getTimeForHistory:moc];
     

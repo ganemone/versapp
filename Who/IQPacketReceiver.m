@@ -202,9 +202,9 @@
             [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_JOINED withContext:moc];
         }
         
-        [ChatDBManager joinAllChats:moc];
-        
         [delegate saveContextForBackgroundThread];
+        
+        [ChatDBManager joinAllChats:moc];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
