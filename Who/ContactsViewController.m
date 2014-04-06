@@ -119,9 +119,6 @@
 - (void)refreshData {
     _registeredContacts = [FriendsDBManager getAllWithStatusRegisteredOrRequested];
     _unregisteredContacts = [FriendsDBManager getAllWithStatusUnregistered];
-    NSLog(@"Registered Contacts: %@", [_registeredContacts componentsJoinedByString:@", "]);
-    NSLog(@"Unregistered Contacts: %@", [_unregisteredContacts componentsJoinedByString:@", "]);
-    NSLog(@"All Contacts: %@", [[FriendsDBManager getAll] componentsJoinedByString:@", "]);
     [self.tableView didFinishPullToRefresh];
     [self.tableView reloadData];
 }
@@ -338,8 +335,9 @@
             [_emailContacts addObject:friend.email];
         }
     }
-    NSLog(@"Searched Phone Contacts: %@", [_smsContacts componentsJoinedByString:@", "]);
-    NSLog(@"Searched Email Contacts: %@", [_emailContacts componentsJoinedByString:@", "]);
+
+    
+    
     if ([_smsContacts count] > 0) {
         [self showSMS:_smsContacts];
     } else if([_emailContacts count] > 0) {

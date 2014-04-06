@@ -174,8 +174,10 @@ static BOOL notificationsHalfHidden = NO;
         _oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllOneToOneChats]];
     }
     _friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
-    NSLog(@"Friend Requests...: %d", (int)[_friendRequests count]);
     _groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingGroupChats]];
+    [self setNotificationsIcon];
+    [_notificationTableView reloadData];
+    NSLog(@"Friend Requests...: %d", (int)[_friendRequests count]);
 }
 
 

@@ -101,7 +101,7 @@
         }
         XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
         [conn sendElement:[IQPacketManager createSubscribePacket:username]];
-        [conn sendElement:[IQPacketManager createGetVCardPacket:username]];
+        //[conn sendElement:[IQPacketManager createGetVCardPacket:username]];
         [FriendsDBManager updateEntry:username name:nil email:searchedEmail status:[NSNumber numberWithInt:STATUS_REQUESTED]];
     }
 }
