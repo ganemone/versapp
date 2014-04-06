@@ -131,6 +131,11 @@
     [self.view endEditing:YES];
 }
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return NO;
+}
+
 /*
 #pragma mark - Navigation
 

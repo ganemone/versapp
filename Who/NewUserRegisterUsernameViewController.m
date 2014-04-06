@@ -67,6 +67,12 @@
     [self.view endEditing:YES];
 }
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self handleFinishedRegisteringUsername];
+    [textField resignFirstResponder];
+    return NO;
+}
+
 /*
 #pragma mark - Navigation
 

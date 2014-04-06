@@ -273,7 +273,7 @@ static ConnectionProvider *selfInstance;
     if([errorCode isEqualToString:@"409"]){
         errorMessage = @"Username already exists";
     } else if([errorCode isEqualToString:@"500"]) {
-        errorMessage = @"Nice try buddy! You can't register for multiple accounts from a single device.";
+        errorMessage = @"You can't register for multiple accounts from a single device.";
     } else {
         errorMessage = @"Failed to register user. Please check your network connection";
     }
