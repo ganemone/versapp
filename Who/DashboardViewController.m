@@ -29,6 +29,7 @@
 @property (strong, nonatomic) NSMutableArray *groupChats;
 @property (strong, nonatomic) NSMutableArray *oneToOneChats;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UILabel *header;
 @property (weak, nonatomic) IBOutlet UILabel *footerLabel;
 @property (weak, nonatomic) IBOutlet UIView *footerView;
@@ -93,9 +94,9 @@ static BOOL notificationsHalfHidden = NO;
     
     // Add a bottomBorder to the header view
     CALayer *headerBottomborder = [CALayer layer];
-    headerBottomborder.frame = CGRectMake(0.0f, self.header.frame.size.height, self.header.frame.size.width, 2.0f);
+    headerBottomborder.frame = CGRectMake(0.0f, self.headerView.frame.size.height - 2.0, self.view.frame.size.width, 2.0f);
     headerBottomborder.backgroundColor = [UIColor whiteColor].CGColor;
-    [self.header.layer addSublayer:headerBottomborder];
+    [self.headerView.layer addSublayer:headerBottomborder];
     // Add a top border to the footer view
     CALayer *footerTopBorder = [CALayer layer];
     footerTopBorder.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 2.0f);

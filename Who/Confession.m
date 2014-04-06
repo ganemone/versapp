@@ -66,10 +66,10 @@
         return _height;
     }
     UIFont *cellFont = [StyleManager getFontStyleLightSizeMed];
-    CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
+    CGSize constraintSize = CGSizeMake(240.0f, MAXFLOAT);
     NSStringDrawingContext *ctx = [NSStringDrawingContext new];
     CGRect textRect = [_body boundingRectWithSize:constraintSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:ctx];
-    _height = textRect.size.height + 80.0f;
+    _height = MAX(textRect.size.height + 80.0f, 121.0f);
     return _height;
 }
 

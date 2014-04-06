@@ -15,6 +15,7 @@
 #import "StyleManager.h"
 
 @interface ComposeConfessionViewController ()
+
 @property (strong, nonatomic) IBOutlet UILabel *headerLabel;
 
 @end
@@ -36,6 +37,7 @@
     [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
     [self.composeTextView becomeFirstResponder];
     [self.composeTextView setFont:[StyleManager getFontStyleMediumSizeLarge]];
+    [self.composeTextView setDelegate:self];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedPostingConfession) name:PACKET_ID_POST_CONFESSION object:nil];
 }
 
@@ -51,7 +53,6 @@
         Confession *confession = [Confession create:confessionText imageURL:nil];
         [[ConfessionsManager getInstance] setPendingConfession:confession];
         [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createPostConfessionPacket:confession]];
-    } else {
     }
 }
 
@@ -61,6 +62,12 @@
 
 -(void)handleFinishedPostingConfession {
     [[self navigationController] popToRootViewControllerAnimated:YES];
+}
+
+
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    NSUInteger newLength = [textView.text length] + [text length] - range.length;
+    return (newLength > 1000) ? NO : YES;
 }
 
 @end
