@@ -292,6 +292,7 @@
 		3A068E7718F18CE500EA260E /* PullToRefresh_140.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A068D5D18F18CE500EA260E /* PullToRefresh_140.png */; };
 		3A068E7818F18CE500EA260E /* PullToRefresh_140@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A068D5E18F18CE500EA260E /* PullToRefresh_140@2x.png */; };
 		3A068E7C18F18D2100EA260E /* UIScrollView+GifPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A068E7B18F18D2100EA260E /* UIScrollView+GifPullToRefresh.m */; };
+		3A068E7F18F1CA4800EA260E /* Versapp Tutorial-01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A068E7E18F1CA4800EA260E /* Versapp Tutorial-01@2x.png */; };
 		3A07F6BF18D3C21800E82390 /* compose-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A07F6AD18D3C21800E82390 /* compose-icon.png */; };
 		3A07F6C218D3C21800E82390 /* arrow-right-bold.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A07F6B018D3C21800E82390 /* arrow-right-bold.png */; };
 		3A07F6C318D3C21800E82390 /* cell-select.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A07F6B118D3C21800E82390 /* cell-select.png */; };
@@ -323,7 +324,6 @@
 		3A25B6791881E85B00166623 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A25B6781881E85B00166623 /* ContactsViewController.m */; };
 		3A2A357E18AFC79F006402E5 /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2A357D18AFC79F006402E5 /* ImageCache.m */; };
 		3A2F7D2C18EF029400D443FC /* Encrypter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F7D2B18EF029400D443FC /* Encrypter.m */; };
-		3A2F7D2E18EF970600D443FC /* Versapp Tutorial-01.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2F7D2D18EF970600D443FC /* Versapp Tutorial-01.png */; };
 		3A39475D18A06483005730D2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A39475C18A06483005730D2 /* CoreData.framework */; };
 		3A3A0ADA18AB1126006FBAE4 /* NSString+JSMessagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3A0A8418AB1126006FBAE4 /* NSString+JSMessagesView.m */; };
 		3A3A0ADB18AB1126006FBAE4 /* UIColor+JSMessagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3A0A8618AB1126006FBAE4 /* UIColor+JSMessagesView.m */; };
@@ -408,17 +408,17 @@
 		3A91F21118EB53990006B9F8 /* confessions-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A91F21018EB53990006B9F8 /* confessions-icon.png */; };
 		3A930D3C18EE2D26006E5B5E /* search-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D3B18EE2D26006E5B5E /* search-icon.png */; };
 		3A930D4A18EE45B3006E5B5E /* x-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D4918EE45B3006E5B5E /* x-white.png */; };
-		3A930D5118EE4647006E5B5E /* Versapp Tutorial 960-01.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D4B18EE4647006E5B5E /* Versapp Tutorial 960-01.png */; };
-		3A930D5218EE4647006E5B5E /* Versapp Tutorial 960-02.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D4C18EE4647006E5B5E /* Versapp Tutorial 960-02.png */; };
-		3A930D5318EE4647006E5B5E /* Versapp Tutorial 960-03.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D4D18EE4647006E5B5E /* Versapp Tutorial 960-03.png */; };
-		3A930D5418EE4647006E5B5E /* Versapp Tutorial 960-04.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D4E18EE4647006E5B5E /* Versapp Tutorial 960-04.png */; };
-		3A930D5518EE4647006E5B5E /* Versapp Tutorial 960-05.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D4F18EE4647006E5B5E /* Versapp Tutorial 960-05.png */; };
-		3A930D5618EE4647006E5B5E /* Versapp Tutorial 960-06.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D5018EE4647006E5B5E /* Versapp Tutorial 960-06.png */; };
-		3A930D6018EE4669006E5B5E /* Versapp Tutorial-02.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D5A18EE4669006E5B5E /* Versapp Tutorial-02.png */; };
-		3A930D6118EE4669006E5B5E /* Versapp Tutorial-03.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D5B18EE4669006E5B5E /* Versapp Tutorial-03.png */; };
-		3A930D6218EE4669006E5B5E /* Versapp Tutorial-04.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D5C18EE4669006E5B5E /* Versapp Tutorial-04.png */; };
-		3A930D6318EE4669006E5B5E /* Versapp Tutorial-05.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D5D18EE4669006E5B5E /* Versapp Tutorial-05.png */; };
-		3A930D6418EE4669006E5B5E /* Versapp Tutorial-06.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D5E18EE4669006E5B5E /* Versapp Tutorial-06.png */; };
+		3A930D5118EE4647006E5B5E /* Versapp Tutorial-01.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D4B18EE4647006E5B5E /* Versapp Tutorial-01.png */; };
+		3A930D5218EE4647006E5B5E /* Versapp Tutorial-02.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D4C18EE4647006E5B5E /* Versapp Tutorial-02.png */; };
+		3A930D5318EE4647006E5B5E /* Versapp Tutorial-03.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D4D18EE4647006E5B5E /* Versapp Tutorial-03.png */; };
+		3A930D5418EE4647006E5B5E /* Versapp Tutorial-04.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D4E18EE4647006E5B5E /* Versapp Tutorial-04.png */; };
+		3A930D5518EE4647006E5B5E /* Versapp Tutorial-05.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D4F18EE4647006E5B5E /* Versapp Tutorial-05.png */; };
+		3A930D5618EE4647006E5B5E /* Versapp Tutorial-06.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D5018EE4647006E5B5E /* Versapp Tutorial-06.png */; };
+		3A930D6018EE4669006E5B5E /* Versapp Tutorial-02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D5A18EE4669006E5B5E /* Versapp Tutorial-02@2x.png */; };
+		3A930D6118EE4669006E5B5E /* Versapp Tutorial-03@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D5B18EE4669006E5B5E /* Versapp Tutorial-03@2x.png */; };
+		3A930D6218EE4669006E5B5E /* Versapp Tutorial-04@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D5C18EE4669006E5B5E /* Versapp Tutorial-04@2x.png */; };
+		3A930D6318EE4669006E5B5E /* Versapp Tutorial-05@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D5D18EE4669006E5B5E /* Versapp Tutorial-05@2x.png */; };
+		3A930D6418EE4669006E5B5E /* Versapp Tutorial-06@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D5E18EE4669006E5B5E /* Versapp Tutorial-06@2x.png */; };
 		3A930D6818EE5934006E5B5E /* fav-icon-label-single.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D6618EE5934006E5B5E /* fav-icon-label-single.png */; };
 		3A930D6918EE5934006E5B5E /* fav-icon-label.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D6718EE5934006E5B5E /* fav-icon-label.png */; };
 		3A930D6C18EE5EB2006E5B5E /* chat-icon-label.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A930D6A18EE5EB2006E5B5E /* chat-icon-label.png */; };
@@ -882,6 +882,7 @@
 		3A068D5E18F18CE500EA260E /* PullToRefresh_140@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PullToRefresh_140@2x.png"; sourceTree = "<group>"; };
 		3A068E7A18F18D2100EA260E /* UIScrollView+GifPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+GifPullToRefresh.h"; sourceTree = "<group>"; };
 		3A068E7B18F18D2100EA260E /* UIScrollView+GifPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+GifPullToRefresh.m"; sourceTree = "<group>"; };
+		3A068E7E18F1CA4800EA260E /* Versapp Tutorial-01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Versapp Tutorial-01@2x.png"; sourceTree = "<group>"; };
 		3A07F6AD18D3C21800E82390 /* compose-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose-icon.png"; sourceTree = "<group>"; };
 		3A07F6B018D3C21800E82390 /* arrow-right-bold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-right-bold.png"; sourceTree = "<group>"; };
 		3A07F6B118D3C21800E82390 /* cell-select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-select.png"; sourceTree = "<group>"; };
@@ -924,7 +925,6 @@
 		3A2A357D18AFC79F006402E5 /* ImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCache.m; sourceTree = "<group>"; };
 		3A2F7D2A18EF029400D443FC /* Encrypter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Encrypter.h; sourceTree = "<group>"; };
 		3A2F7D2B18EF029400D443FC /* Encrypter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Encrypter.m; sourceTree = "<group>"; };
-		3A2F7D2D18EF970600D443FC /* Versapp Tutorial-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Versapp Tutorial-01.png"; sourceTree = "<group>"; };
 		3A39475C18A06483005730D2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		3A3A0A8318AB1126006FBAE4 /* NSString+JSMessagesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JSMessagesView.h"; sourceTree = "<group>"; };
 		3A3A0A8418AB1126006FBAE4 /* NSString+JSMessagesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JSMessagesView.m"; sourceTree = "<group>"; };
@@ -1051,17 +1051,17 @@
 		3A91F21018EB53990006B9F8 /* confessions-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "confessions-icon.png"; sourceTree = "<group>"; };
 		3A930D3B18EE2D26006E5B5E /* search-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-icon.png"; sourceTree = "<group>"; };
 		3A930D4918EE45B3006E5B5E /* x-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-white.png"; sourceTree = "<group>"; };
-		3A930D4B18EE4647006E5B5E /* Versapp Tutorial 960-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Versapp Tutorial 960-01.png"; sourceTree = "<group>"; };
-		3A930D4C18EE4647006E5B5E /* Versapp Tutorial 960-02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Versapp Tutorial 960-02.png"; sourceTree = "<group>"; };
-		3A930D4D18EE4647006E5B5E /* Versapp Tutorial 960-03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Versapp Tutorial 960-03.png"; sourceTree = "<group>"; };
-		3A930D4E18EE4647006E5B5E /* Versapp Tutorial 960-04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Versapp Tutorial 960-04.png"; sourceTree = "<group>"; };
-		3A930D4F18EE4647006E5B5E /* Versapp Tutorial 960-05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Versapp Tutorial 960-05.png"; sourceTree = "<group>"; };
-		3A930D5018EE4647006E5B5E /* Versapp Tutorial 960-06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Versapp Tutorial 960-06.png"; sourceTree = "<group>"; };
-		3A930D5A18EE4669006E5B5E /* Versapp Tutorial-02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Versapp Tutorial-02.png"; sourceTree = "<group>"; };
-		3A930D5B18EE4669006E5B5E /* Versapp Tutorial-03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Versapp Tutorial-03.png"; sourceTree = "<group>"; };
-		3A930D5C18EE4669006E5B5E /* Versapp Tutorial-04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Versapp Tutorial-04.png"; sourceTree = "<group>"; };
-		3A930D5D18EE4669006E5B5E /* Versapp Tutorial-05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Versapp Tutorial-05.png"; sourceTree = "<group>"; };
-		3A930D5E18EE4669006E5B5E /* Versapp Tutorial-06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Versapp Tutorial-06.png"; sourceTree = "<group>"; };
+		3A930D4B18EE4647006E5B5E /* Versapp Tutorial-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Versapp Tutorial-01.png"; sourceTree = "<group>"; };
+		3A930D4C18EE4647006E5B5E /* Versapp Tutorial-02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Versapp Tutorial-02.png"; sourceTree = "<group>"; };
+		3A930D4D18EE4647006E5B5E /* Versapp Tutorial-03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Versapp Tutorial-03.png"; sourceTree = "<group>"; };
+		3A930D4E18EE4647006E5B5E /* Versapp Tutorial-04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Versapp Tutorial-04.png"; sourceTree = "<group>"; };
+		3A930D4F18EE4647006E5B5E /* Versapp Tutorial-05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Versapp Tutorial-05.png"; sourceTree = "<group>"; };
+		3A930D5018EE4647006E5B5E /* Versapp Tutorial-06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Versapp Tutorial-06.png"; sourceTree = "<group>"; };
+		3A930D5A18EE4669006E5B5E /* Versapp Tutorial-02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Versapp Tutorial-02@2x.png"; sourceTree = "<group>"; };
+		3A930D5B18EE4669006E5B5E /* Versapp Tutorial-03@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Versapp Tutorial-03@2x.png"; sourceTree = "<group>"; };
+		3A930D5C18EE4669006E5B5E /* Versapp Tutorial-04@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Versapp Tutorial-04@2x.png"; sourceTree = "<group>"; };
+		3A930D5D18EE4669006E5B5E /* Versapp Tutorial-05@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Versapp Tutorial-05@2x.png"; sourceTree = "<group>"; };
+		3A930D5E18EE4669006E5B5E /* Versapp Tutorial-06@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Versapp Tutorial-06@2x.png"; sourceTree = "<group>"; };
 		3A930D6618EE5934006E5B5E /* fav-icon-label-single.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fav-icon-label-single.png"; sourceTree = "<group>"; };
 		3A930D6718EE5934006E5B5E /* fav-icon-label.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fav-icon-label.png"; sourceTree = "<group>"; };
 		3A930D6A18EE5EB2006E5B5E /* chat-icon-label.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-icon-label.png"; sourceTree = "<group>"; };
@@ -2121,12 +2121,12 @@
 		3A930D5818EE465C006E5B5E /* 960 */ = {
 			isa = PBXGroup;
 			children = (
-				3A930D4B18EE4647006E5B5E /* Versapp Tutorial 960-01.png */,
-				3A930D4C18EE4647006E5B5E /* Versapp Tutorial 960-02.png */,
-				3A930D4D18EE4647006E5B5E /* Versapp Tutorial 960-03.png */,
-				3A930D4E18EE4647006E5B5E /* Versapp Tutorial 960-04.png */,
-				3A930D4F18EE4647006E5B5E /* Versapp Tutorial 960-05.png */,
-				3A930D5018EE4647006E5B5E /* Versapp Tutorial 960-06.png */,
+				3A930D4B18EE4647006E5B5E /* Versapp Tutorial-01.png */,
+				3A930D4C18EE4647006E5B5E /* Versapp Tutorial-02.png */,
+				3A930D4D18EE4647006E5B5E /* Versapp Tutorial-03.png */,
+				3A930D4E18EE4647006E5B5E /* Versapp Tutorial-04.png */,
+				3A930D4F18EE4647006E5B5E /* Versapp Tutorial-05.png */,
+				3A930D5018EE4647006E5B5E /* Versapp Tutorial-06.png */,
 			);
 			name = 960;
 			sourceTree = "<group>";
@@ -2134,12 +2134,12 @@
 		3A930D6518EE4670006E5B5E /* 1136 */ = {
 			isa = PBXGroup;
 			children = (
-				3A2F7D2D18EF970600D443FC /* Versapp Tutorial-01.png */,
-				3A930D5A18EE4669006E5B5E /* Versapp Tutorial-02.png */,
-				3A930D5B18EE4669006E5B5E /* Versapp Tutorial-03.png */,
-				3A930D5C18EE4669006E5B5E /* Versapp Tutorial-04.png */,
-				3A930D5D18EE4669006E5B5E /* Versapp Tutorial-05.png */,
-				3A930D5E18EE4669006E5B5E /* Versapp Tutorial-06.png */,
+				3A068E7E18F1CA4800EA260E /* Versapp Tutorial-01@2x.png */,
+				3A930D5A18EE4669006E5B5E /* Versapp Tutorial-02@2x.png */,
+				3A930D5B18EE4669006E5B5E /* Versapp Tutorial-03@2x.png */,
+				3A930D5C18EE4669006E5B5E /* Versapp Tutorial-04@2x.png */,
+				3A930D5D18EE4669006E5B5E /* Versapp Tutorial-05@2x.png */,
+				3A930D5E18EE4669006E5B5E /* Versapp Tutorial-06@2x.png */,
 			);
 			name = 1136;
 			sourceTree = "<group>";
@@ -3009,7 +3009,7 @@
 				3A068E0F18F18CE500EA260E /* PullToRefresh_088.png in Resources */,
 				3A068D6B18F18CE500EA260E /* PullToRefresh_006.png in Resources */,
 				3AF521CC18EA2E8F008320CD /* arrow-up-icon.png in Resources */,
-				3A930D6418EE4669006E5B5E /* Versapp Tutorial-06.png in Resources */,
+				3A930D6418EE4669006E5B5E /* Versapp Tutorial-06@2x.png in Resources */,
 				3A068DE318F18CE500EA260E /* PullToRefresh_066.png in Resources */,
 				3A068DD718F18CE500EA260E /* PullToRefresh_060.png in Resources */,
 				3A068DAF18F18CE500EA260E /* PullToRefresh_040.png in Resources */,
@@ -3030,7 +3030,7 @@
 				3A068E1018F18CE500EA260E /* PullToRefresh_088@2x.png in Resources */,
 				3A068DD518F18CE500EA260E /* PullToRefresh_059.png in Resources */,
 				3A068DBC18F18CE500EA260E /* PullToRefresh_046@2x.png in Resources */,
-				3A930D6118EE4669006E5B5E /* Versapp Tutorial-03.png in Resources */,
+				3A930D6118EE4669006E5B5E /* Versapp Tutorial-03@2x.png in Resources */,
 				3A068DF218F18CE500EA260E /* PullToRefresh_073@2x.png in Resources */,
 				3A068E2A18F18CE500EA260E /* PullToRefresh_101@2x.png in Resources */,
 				3AD8F48318DCCB7D002C399C /* Countries.plist in Resources */,
@@ -3054,7 +3054,7 @@
 				3A068E2618F18CE500EA260E /* PullToRefresh_099@2x.png in Resources */,
 				3A068E5A18F18CE500EA260E /* PullToRefresh_125@2x.png in Resources */,
 				3A068E1818F18CE500EA260E /* PullToRefresh_092@2x.png in Resources */,
-				3A930D6018EE4669006E5B5E /* Versapp Tutorial-02.png in Resources */,
+				3A930D6018EE4669006E5B5E /* Versapp Tutorial-02@2x.png in Resources */,
 				3A068E3818F18CE500EA260E /* PullToRefresh_108@2x.png in Resources */,
 				3A068DFA18F18CE500EA260E /* PullToRefresh_077@2x.png in Resources */,
 				3A91F20918EB534F0006B9F8 /* notification3.png in Resources */,
@@ -3086,6 +3086,7 @@
 				3A068DC018F18CE500EA260E /* PullToRefresh_048@2x.png in Resources */,
 				3A068E7118F18CE500EA260E /* PullToRefresh_137.png in Resources */,
 				3A068E3218F18CE500EA260E /* PullToRefresh_105@2x.png in Resources */,
+				3A068E7F18F1CA4800EA260E /* Versapp Tutorial-01@2x.png in Resources */,
 				3A068DD418F18CE500EA260E /* PullToRefresh_058@2x.png in Resources */,
 				3A068E4E18F18CE500EA260E /* PullToRefresh_119@2x.png in Resources */,
 				3A068D8A18F18CE500EA260E /* PullToRefresh_021@2x.png in Resources */,
@@ -3098,7 +3099,7 @@
 				3AD19ABA18E26298001B3B88 /* AppIcon120.png in Resources */,
 				3A068E0318F18CE500EA260E /* PullToRefresh_082.png in Resources */,
 				3A068E6F18F18CE500EA260E /* PullToRefresh_136.png in Resources */,
-				3A930D5418EE4647006E5B5E /* Versapp Tutorial 960-04.png in Resources */,
+				3A930D5418EE4647006E5B5E /* Versapp Tutorial-04.png in Resources */,
 				3A91F1F518EB4BF50006B9F8 /* messages-background-large.png in Resources */,
 				3A068DE718F18CE500EA260E /* PullToRefresh_068.png in Resources */,
 				3A068DEA18F18CE500EA260E /* PullToRefresh_069@2x.png in Resources */,
@@ -3107,7 +3108,7 @@
 				3A068DDD18F18CE500EA260E /* PullToRefresh_063.png in Resources */,
 				3A068DED18F18CE500EA260E /* PullToRefresh_071.png in Resources */,
 				3A068DE818F18CE500EA260E /* PullToRefresh_068@2x.png in Resources */,
-				3A930D5118EE4647006E5B5E /* Versapp Tutorial 960-01.png in Resources */,
+				3A930D5118EE4647006E5B5E /* Versapp Tutorial-01.png in Resources */,
 				3A068E0C18F18CE500EA260E /* PullToRefresh_086@2x.png in Resources */,
 				3A068D9518F18CE500EA260E /* PullToRefresh_027.png in Resources */,
 				3A930D6C18EE5EB2006E5B5E /* chat-icon-label.png in Resources */,
@@ -3133,7 +3134,7 @@
 				3A068E1118F18CE500EA260E /* PullToRefresh_089.png in Resources */,
 				3A068DC218F18CE500EA260E /* PullToRefresh_049@2x.png in Resources */,
 				3AD19AB918E26298001B3B88 /* AppIcon80.png in Resources */,
-				3A930D5318EE4647006E5B5E /* Versapp Tutorial 960-03.png in Resources */,
+				3A930D5318EE4647006E5B5E /* Versapp Tutorial-03.png in Resources */,
 				3A1EACDD18D9DC41006E4CA3 /* bubble.png in Resources */,
 				3A068E2718F18CE500EA260E /* PullToRefresh_100.png in Resources */,
 				3A068E5D18F18CE500EA260E /* PullToRefresh_127.png in Resources */,
@@ -3171,7 +3172,7 @@
 				3A068E0E18F18CE500EA260E /* PullToRefresh_087@2x.png in Resources */,
 				3A068D9318F18CE500EA260E /* PullToRefresh_026.png in Resources */,
 				3A068D6218F18CE500EA260E /* PullToRefresh_001@2x.png in Resources */,
-				3A930D6318EE4669006E5B5E /* Versapp Tutorial-05.png in Resources */,
+				3A930D6318EE4669006E5B5E /* Versapp Tutorial-05@2x.png in Resources */,
 				3A068E4218F18CE500EA260E /* PullToRefresh_113@2x.png in Resources */,
 				3A068D6118F18CE500EA260E /* PullToRefresh_001.png in Resources */,
 				3A068DB218F18CE500EA260E /* PullToRefresh_041@2x.png in Resources */,
@@ -3192,7 +3193,6 @@
 				3A068E1318F18CE500EA260E /* PullToRefresh_090.png in Resources */,
 				F7A3F96B18EE33B1006FBA0A /* x-green.png in Resources */,
 				3A068DC618F18CE500EA260E /* PullToRefresh_051@2x.png in Resources */,
-				3A2F7D2E18EF970600D443FC /* Versapp Tutorial-01.png in Resources */,
 				3A068D9218F18CE500EA260E /* PullToRefresh_025@2x.png in Resources */,
 				3A068D8418F18CE500EA260E /* PullToRefresh_018@2x.png in Resources */,
 				3A068DE618F18CE500EA260E /* PullToRefresh_067@2x.png in Resources */,
@@ -3211,7 +3211,7 @@
 				3A068E0A18F18CE500EA260E /* PullToRefresh_085@2x.png in Resources */,
 				3A068E4618F18CE500EA260E /* PullToRefresh_115@2x.png in Resources */,
 				3A068E7318F18CE500EA260E /* PullToRefresh_138.png in Resources */,
-				3A930D5218EE4647006E5B5E /* Versapp Tutorial 960-02.png in Resources */,
+				3A930D5218EE4647006E5B5E /* Versapp Tutorial-02.png in Resources */,
 				3A068D6718F18CE500EA260E /* PullToRefresh_004.png in Resources */,
 				3A068E6518F18CE500EA260E /* PullToRefresh_131.png in Resources */,
 				3A068D9B18F18CE500EA260E /* PullToRefresh_030.png in Resources */,
@@ -3301,7 +3301,7 @@
 				3A068DE118F18CE500EA260E /* PullToRefresh_065.png in Resources */,
 				3A068E2D18F18CE500EA260E /* PullToRefresh_103.png in Resources */,
 				3A068D7F18F18CE500EA260E /* PullToRefresh_016.png in Resources */,
-				3A930D5618EE4647006E5B5E /* Versapp Tutorial 960-06.png in Resources */,
+				3A930D5618EE4647006E5B5E /* Versapp Tutorial-06.png in Resources */,
 				3A068E0518F18CE500EA260E /* PullToRefresh_083.png in Resources */,
 				3A068D6018F18CE500EA260E /* PullToRefresh_000@2x.png in Resources */,
 				F7303EC918E8E3100045F9AF /* arrow-up-icon-square-green.png in Resources */,
@@ -3311,7 +3311,7 @@
 				3A930D6D18EE5EB2006E5B5E /* delete-confession.png in Resources */,
 				3A068E2B18F18CE500EA260E /* PullToRefresh_102.png in Resources */,
 				3A3A0B0C18AB1126006FBAE4 /* send-button.png in Resources */,
-				3A930D6218EE4669006E5B5E /* Versapp Tutorial-04.png in Resources */,
+				3A930D6218EE4669006E5B5E /* Versapp Tutorial-04@2x.png in Resources */,
 				3A068E6118F18CE500EA260E /* PullToRefresh_129.png in Resources */,
 				3A068DA618F18CE500EA260E /* PullToRefresh_035@2x.png in Resources */,
 				3A068D8018F18CE500EA260E /* PullToRefresh_016@2x.png in Resources */,
@@ -3346,7 +3346,7 @@
 				3A3A0B0618AB1126006FBAE4 /* input-bar-background.png in Resources */,
 				3A068E4018F18CE500EA260E /* PullToRefresh_112@2x.png in Resources */,
 				3A068E1C18F18CE500EA260E /* PullToRefresh_094@2x.png in Resources */,
-				3A930D5518EE4647006E5B5E /* Versapp Tutorial 960-05.png in Resources */,
+				3A930D5518EE4647006E5B5E /* Versapp Tutorial-05.png in Resources */,
 				3A068D6A18F18CE500EA260E /* PullToRefresh_005@2x.png in Resources */,
 				3A068E6A18F18CE500EA260E /* PullToRefresh_133@2x.png in Resources */,
 				3A068E5218F18CE500EA260E /* PullToRefresh_121@2x.png in Resources */,
