@@ -262,7 +262,6 @@ static ConnectionProvider *selfInstance;
     [UserDefaultManager saveEmail:[self.pendingAccountInfo objectForKey:FRIENDS_TABLE_COLUMN_NAME_EMAIL]];
     
     PhoneVerificationManager *pvm = [[PhoneVerificationManager alloc] init];
-    [pvm sendVerificationText];
     
     NSError *error = nil;
     if ([[self xmppStream] authenticateWithPassword:self.password error:&error])

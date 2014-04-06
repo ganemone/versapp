@@ -57,6 +57,7 @@
 
 - (IBAction)resendVerification:(id)sender {
     [_pvm sendVerificationText];
+    [[[UIAlertView alloc] initWithTitle:@"Sent!" message:@"We resent the verification code to your phone. Still having dificulties? Make sure you have the correct country selected." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
