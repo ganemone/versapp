@@ -317,7 +317,9 @@ static BOOL notificationsHalfHidden = NO;
             NSString *inviter = [FriendsDBManager getUserWithJID:groupInvite.owner_id].name;
             //cell.textLabel.text = [NSMutableString stringWithFormat:@"%@ - invited by %@", groupInvite.chat_name, inviter];
             cell.textLabel.text = groupInvite.chat_name;
-            cell.detailTextLabel.text = [NSMutableString stringWithFormat:@"invited by %@", inviter];
+            if (inviter != nil) {
+                cell.detailTextLabel.text = [NSMutableString stringWithFormat:@"invited by %@", inviter];
+            }
             [accept addTarget:self action:@selector(acceptInvitation:) forControlEvents:UIControlEventTouchUpInside];
             [decline addTarget:self action:@selector(declineInvitation:) forControlEvents:UIControlEventTouchUpInside];
         } else {
