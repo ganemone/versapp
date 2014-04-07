@@ -2629,6 +2629,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
+				PROVISIONING_PROFILE = "835D2AFD-76ED-4FCE-A256-53BA2B8E16C2";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -2665,6 +2666,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
+				PROVISIONING_PROFILE = "835D2AFD-76ED-4FCE-A256-53BA2B8E16C2";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2682,7 +2684,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
 				PRODUCT_NAME = Versapp;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "835D2AFD-76ED-4FCE-A256-53BA2B8E16C2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2691,7 +2693,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
 				FRAMEWORK_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
@@ -2699,7 +2701,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
 				PRODUCT_NAME = Versapp;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "835D2AFD-76ED-4FCE-A256-53BA2B8E16C2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
