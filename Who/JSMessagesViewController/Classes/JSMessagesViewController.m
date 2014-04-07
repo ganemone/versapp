@@ -608,10 +608,20 @@
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
         picker.delegate = self;
         picker.allowsEditing = YES;
+        
         if (buttonIndex == 1) {
-            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        } else {
+            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+                picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            } else {
+                [[[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Your device doesn't support taking pictures." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+                return;
+            }
+            
+        } else if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
             picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        } else {
+            [[[UIAlertView alloc] initWithTitle:@"Whoops" message:@"It looks like we need access to see your pictures." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+            return;
         }
         [self presentViewController:picker animated:YES completion:nil];
     }

@@ -390,7 +390,7 @@ static BOOL notificationsHalfHidden = NO;
         [[self.cp getConnection] sendElement:[IQPacketManager createLeaveChatPacket:chat.chat_id]];
         [MessagesDBManager deleteMessagesFromChatWithID:chat.chat_id];
         [ChatDBManager deleteChat:chat];
-        [_tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [_tableView deleteRowsAtIndexPaths:@[indexPath]withRowAnimation:UITableViewRowAnimationNone];
         if ([_groupChats count] == 0 && [_oneToOneChats count] == 0) {
             [_tableView reloadData];
         }
@@ -508,7 +508,7 @@ static BOOL notificationsHalfHidden = NO;
     NSMutableString *imageName;
     NSMutableString *greenImageName;
     if ([self.friendRequests count] + [self.groupInvites count] > 0 && [self.friendRequests count] + [self.groupInvites count] < 6) {
-        imageName = [NSMutableString stringWithFormat:@"notification%d.png", [self.friendRequests count] + [self.groupInvites count]];
+        imageName = [NSMutableString stringWithFormat:@"notification%d.png", (int)([self.friendRequests count] + [self.groupInvites count])];
         //greenImageName = [NSMutableString stringWithFormat:@"notification%d-green.png", [self.friendRequests count] + [self.groupInvites count]];
     } else if ([self.friendRequests count] + [self.groupInvites count] == 0) {
         imageName = [NSMutableString stringWithString:@"notification-none.png"];
@@ -518,12 +518,13 @@ static BOOL notificationsHalfHidden = NO;
         //greenImageName = [NSMutableString stringWithString:@"notification5+-green.png"];
     }
     UIImage *notificationsImage = [UIImage imageNamed:imageName];
-    UIImageView *notificationsBadgeGreen = [[UIImageView alloc] initWithFrame:CGRectMake(281, 27, 24, 24)];
+    //UIImageView *notificationsBadgeGreen = [[UIImageView alloc] initWithFrame:CGRectMake(281, 27, 36, 36)];
     [self.notificationsButton setImage:notificationsImage forState:UIControlStateNormal];
+    [self.notificationsButton setContentEdgeInsets:UIEdgeInsetsMake(7, 7, 7, 7)];
     greenImageName = [NSMutableString stringWithString:@"arrow-close-notifications.png"];
     UIImage *notificationsImageGreen = [UIImage imageNamed:greenImageName];
-    [notificationsBadgeGreen setImage:notificationsImageGreen];
-    self.notificationsButtonGreen = [[UIButton alloc] initWithFrame:CGRectMake(281, 27, 24, 24)];
+    //[notificationsBadgeGreen setImage:notificationsImageGreen];
+    self.notificationsButtonGreen = [[UIButton alloc] initWithFrame:CGRectMake(281, 27, 36, 36)];
     [self.notificationsButtonGreen setImage:notificationsImageGreen forState:UIControlStateNormal];
     [self.notificationsButtonGreen addTarget:self action:@selector(notificationsGreenClicked:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -586,9 +587,9 @@ static BOOL notificationsHalfHidden = NO;
         _notificationHeight = self.view.frame.size.height/2;
     } else {
         if (self.groupInvites.count == 0 || self.friendRequests.count == 0) {
-            _notificationHeight = self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.sectionHeaderHeight + self.notificationsHeader.frame.size.height;
+            _notificationHeight = MIN(self.view.bounds.size.height, self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.sectionHeaderHeight + self.notificationsHeader.frame.size.height);
         } else {
-            _notificationHeight = self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.numberOfSections*self.notificationTableView.sectionHeaderHeight + self.notificationsHeader.frame.size.height;
+            _notificationHeight = MIN(self.view.bounds.size.height, self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.numberOfSections*self.notificationTableView.sectionHeaderHeight + self.notificationsHeader.frame.size.height);
         }
     }
     self.notificationTableView.frame = CGRectMake(0, 0, self.view.frame.size.width, _notificationHeight);
