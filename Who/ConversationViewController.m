@@ -258,6 +258,7 @@
 }
 
 - (IBAction)onBackClicked:(id)sender {
+    [ChatDBManager setHasNewMessageNo:_chatMO.chat_id];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -315,17 +316,17 @@
 }
 
 /*-(BOOL)shouldDisplayTimestampForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MessageMO *message = [self messageMOForRowAtIndexPath:indexPath];
-    MessageMO *prevMessage = [self prevMessageMOForRowAtIndexPath:indexPath];
-    MessageMO *twoPrevMessage = [self twoPrevMessageMOForRowAtIndexPath:indexPath];
-    if (prevMessage == nil || twoPrevMessage == nil) {
-        return YES;
-    }
-    
-    if([message.time doubleValue] - [prevMessage.time doubleValue] > 5000 || [self shouldDisplayTimestampForRowAtIndexPath:[[NSIndexPath alloc] initWithIndex:indexPath.row - 2]] == NO) {
-        return YES;
-    }
-    return NO;
-}*/
+ MessageMO *message = [self messageMOForRowAtIndexPath:indexPath];
+ MessageMO *prevMessage = [self prevMessageMOForRowAtIndexPath:indexPath];
+ MessageMO *twoPrevMessage = [self twoPrevMessageMOForRowAtIndexPath:indexPath];
+ if (prevMessage == nil || twoPrevMessage == nil) {
+ return YES;
+ }
+ 
+ if([message.time doubleValue] - [prevMessage.time doubleValue] > 5000 || [self shouldDisplayTimestampForRowAtIndexPath:[[NSIndexPath alloc] initWithIndex:indexPath.row - 2]] == NO) {
+ return YES;
+ }
+ return NO;
+ }*/
 
 @end

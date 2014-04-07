@@ -157,28 +157,29 @@ static BOOL notificationsHalfHidden = NO;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (_clickedCellIndexPath != nil) {
-        ChatMO *chat = (_clickedCellIndexPath.section == 0) ? [_groupChats objectAtIndex:_clickedCellIndexPath.row] : [_oneToOneChats objectAtIndex:_clickedCellIndexPath.row];
-        MessageMO *message = [[chat messages] lastObject];
-        if (![message.time isEqualToString:_mostRecentMessageInPushedChat.time]) {
-            if (_clickedCellIndexPath.section == 0) {
-                [_groupChats removeObjectAtIndex:_clickedCellIndexPath.row];
-                [_groupChats insertObject:chat atIndex:0];
-            } else {
-                [_oneToOneChats removeObjectAtIndex:_clickedCellIndexPath.row];
-                [_oneToOneChats insertObject:chat atIndex:0];
-            }
-        }
-        [_tableView reloadData];
-    } else {
-        _groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
-        _oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllOneToOneChats]];
-    }
+    /*if (_clickedCellIndexPath != nil) {
+     ChatMO *chat = (_clickedCellIndexPath.section == 0) ? [_groupChats objectAtIndex:_clickedCellIndexPath.row] : [_oneToOneChats objectAtIndex:_clickedCellIndexPath.row];
+     MessageMO *message = [[chat messages] lastObject];
+     if (![message.time isEqualToString:_mostRecentMessageInPushedChat.time]) {
+     if (_clickedCellIndexPath.section == 0) {
+     [_groupChats removeObjectAtIndex:_clickedCellIndexPath.row];
+     [_groupChats insertObject:chat atIndex:0];
+     } else {
+     [_oneToOneChats removeObjectAtIndex:_clickedCellIndexPath.row];
+     [_oneToOneChats insertObject:chat atIndex:0];
+     }
+     }
+     [_tableView reloadData];
+     } else {*/
+    //}
+    _groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
+    _oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveOneToOneChats]];
     _friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
     _groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingGroupChats]];
     [self setNotificationsIcon];
     [_notificationTableView reloadData];
-    NSLog(@"Friend Requests...: %d", (int)[_friendRequests count]);
+    [_tableView reloadData];
+    _clickedCellIndexPath = nil;
 }
 
 
@@ -376,16 +377,20 @@ static BOOL notificationsHalfHidden = NO;
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        ChatMO *chat = (indexPath.section == 0) ? [_groupChats objectAtIndex:indexPath.row] : [_oneToOneChats objectAtIndex:indexPath.row];
-        if (indexPath.section == 0) {
-            [_groupChats removeObject:chat];
+        ChatMO *chat;
+        if (indexPath.section == 0 && [_groupChats count] > indexPath.row) {
+            chat = [_groupChats objectAtIndex:indexPath.row];
+            [_groupChats removeObjectAtIndex:indexPath.row];
+        } else if(indexPath.section == 1 && [_oneToOneChats count] > indexPath.row) {
+            chat = [_oneToOneChats objectAtIndex:indexPath.row];
+            [_oneToOneChats removeObjectAtIndex:indexPath.row];
         } else {
-            [_oneToOneChats removeObject:chat];
+            return;
         }
         [[self.cp getConnection] sendElement:[IQPacketManager createLeaveChatPacket:chat.chat_id]];
         [MessagesDBManager deleteMessagesFromChatWithID:chat.chat_id];
         [ChatDBManager deleteChat:chat];
-        [_tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        [_tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         if ([_groupChats count] == 0 && [_oneToOneChats count] == 0) {
             [_tableView reloadData];
         }
