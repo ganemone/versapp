@@ -19,12 +19,10 @@ NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_c
     
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
     NSString *code = [preferences stringForKey:NSDEFAULT_KEY_VERIFICATION_CODE];
-    NSLog(@"Loading Verification Code: %@", code);
     return code;
 }
 
 -(void)saveVerificationCode:(NSString *)code {
-    NSLog(@"Saving Verification Code: %@", code);
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
     [preferences setObject:code forKey:NSDEFAULT_KEY_VERIFICATION_CODE];
     [preferences synchronize];

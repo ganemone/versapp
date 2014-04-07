@@ -100,7 +100,7 @@
         [inputView setSendButton:sendButton];
     }
     
-    inputView.sendButton.enabled = NO;
+    inputView.sendButton.enabled = YES;
     [inputView.sendButton addTarget:self
                              action:@selector(sendPressed:)
                    forControlEvents:UIControlEventTouchUpInside];
@@ -276,6 +276,9 @@
                                                reuseIdentifier:CellIdentifier];
     }
     
+    if ([message text] == nil || [[message text] isEqualToString:@""]) {
+        [[cell bubbleView] setHidden:YES];
+    }
     [cell setMessage:message];
     [cell setAvatarImageView:avatar];
     //[cell setBackgroundColor:tableView.backgroundColor];
@@ -387,8 +390,7 @@
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-    self.messageInputView.sendButton.enabled = ([[textView.text js_stringByTrimingWhitespace] length] > 0);
-    
+    //self.messageInputView.sendButton.enabled = ([[textView.text js_stringByTrimingWhitespace] length] > 0);
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView

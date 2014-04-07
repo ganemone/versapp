@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Confession.h"
 
-@interface ConfessionTableCell : UITableViewCell
+@interface ConfessionTableCell : UITableViewCell<UIAlertViewDelegate>
 
 @property (weak, nonatomic, readonly) UIView *containerView;
 @property (weak, nonatomic, readonly) UIImageView *footerView;

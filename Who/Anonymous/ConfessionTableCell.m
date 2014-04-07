@@ -53,7 +53,6 @@ static UITapGestureRecognizer *favoriteTap;
     self = [self initWithStyle:UITableViewCellStyleDefault reuseIdentifier: reuseIdentifier];
     if (self) {
         if ([confession hasCalculatedFrames] == NO) {
-            NSLog(@"Calculating Frames on Main Thread...");
             [confession calculateFramesForTableViewCell:self.contentView.frame.size];
         }
         // Configure Background View
@@ -126,7 +125,6 @@ static UITapGestureRecognizer *favoriteTap;
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createToggleFavoriteConfessionPacket:[_confession confessionID]]];
     
     BOOL isFavorited = [_confession toggleFavorite];
-    NSLog(@"Is Favorited... %d", [_confession isFavoritedByConnectedUser]);
     if (isFavorited) {
         if ([_confession getNumForLabel] == 1) {
             [_favoriteButton setImage:[UIImage imageNamed:@"fav-icon-label-single-active.png"] forState:UIControlStateNormal];
@@ -150,7 +148,13 @@ static UITapGestureRecognizer *favoriteTap;
 }
 
 -(void)handleConfessionDeleted:(id)sender {
-    [_confession deleteConfession];
+    [[[UIAlertView alloc] initWithTitle:@"Confirmation" message:@"Are you sure you want to delete this thought?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil] show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Delete"]) {
+        [_confession deleteConfession];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

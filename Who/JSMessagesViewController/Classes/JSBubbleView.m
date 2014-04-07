@@ -191,7 +191,7 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
+
     self.bubbleImageView.frame = [self bubbleFrame];
     
     CGFloat textX = self.bubbleImageView.frame.origin.x;

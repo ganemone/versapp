@@ -146,7 +146,6 @@
 - (void)handleRowSelectedAtIndexPath:(NSIndexPath *)indexPath {
     ContactTableViewCell *cell = (ContactTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     FriendMO *friend = [self friendForIndexPath:indexPath];
-    NSLog(@"Friend: %@", [friend description]);
     if ([friend.status isEqualToNumber:[NSNumber numberWithInt:STATUS_REGISTERED]]) {
         if ([_selectedRegisteredContacts containsObject:friend]) {
             [_selectedRegisteredContacts removeObject:friend];

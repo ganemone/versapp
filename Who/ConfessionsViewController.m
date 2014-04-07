@@ -138,7 +138,7 @@
         UILabel *header = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
         [header setBackgroundColor:[UIColor whiteColor]];
         [header setTextAlignment:NSTextAlignmentCenter];
-        [header setText:@"There are no confessions on your feed"];
+        [header setText:@"There are no Thoughts on your feed"];
         [header setFont:[StyleManager getFontStyleBoldSizeLarge]];
         [header setTextColor:[StyleManager getColorOrange]];
         return header;
@@ -243,7 +243,7 @@
 }
 
 - (IBAction)handleDiscloseInfoBtnClicked:(id)sender {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Confessions" message:@"This is your newsfeed of confessions. Confessions are anonymous and you only see the confessions of your friends. Both favoriting and chatting are also anonymous!" delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Thoughts" message:@"This is your newsfeed of thoughts. Thoughts are anonymous and you only see the Thoughts of your friends. Both favoriting and chatting are also anonymous!" delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil];
     [alertView show];
 }
 

@@ -56,7 +56,6 @@
     self.viewDidShow = NO;
     self.shouldTransition = NO;
     
-    NSLog(@"View did Load...");
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -74,7 +73,6 @@
 }
 
 - (void)handleAuthenticated {
-    NSLog(@"Authenticated...");
     _transitionTo = SEGUE_ID_AUTHENTICATED_FROM_APP_INIT;
     _shouldTransition = YES;
     if (_viewDidShow && ([self isKindOfClass:[[self presentedViewController] class]] || [self presentedViewController] == nil)) {

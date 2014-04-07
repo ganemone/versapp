@@ -390,7 +390,7 @@ static BOOL notificationsHalfHidden = NO;
         [[self.cp getConnection] sendElement:[IQPacketManager createLeaveChatPacket:chat.chat_id]];
         [MessagesDBManager deleteMessagesFromChatWithID:chat.chat_id];
         [ChatDBManager deleteChat:chat];
-        [_tableView deleteRowsAtIndexPaths:@[indexPath]withRowAnimation:UITableViewRowAnimationNone];
+        [_tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         if ([_groupChats count] == 0 && [_oneToOneChats count] == 0) {
             [_tableView reloadData];
         }

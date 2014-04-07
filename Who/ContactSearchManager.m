@@ -182,7 +182,6 @@ static ContactSearchManager *selfInstance;
             
             NSString *dictionaryKey = [registeredContact objectForKey:DICTIONARY_KEY_ID];
             NSMutableDictionary *contact = [_contacts objectForKey:dictionaryKey];
-            NSLog(@"Registered Contact: %@ %@", [registeredContact description], [contact description]);
             [contact setObject:[registeredContact objectForKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME] forKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME];
             [contact setObject:[NSNumber numberWithInt:STATUS_REGISTERED] forKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];
             [contact setObject:[registeredContact objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER] forKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER];

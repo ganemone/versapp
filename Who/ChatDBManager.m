@@ -112,9 +112,7 @@ static int numUninvitedParticipants;
 }
 
 +(void)joinAllChats {
-    NSLog(@"joining all chats...");
     NSArray *chats = [self getAllActiveGroupChats];
-    NSLog(@"Going to join chats...: %lu", (unsigned long)[chats count]);
     XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSString *time = [MessagesDBManager getTimeForHistory:[delegate managedObjectContext]];

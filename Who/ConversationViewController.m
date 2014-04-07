@@ -170,7 +170,7 @@
     
     self.selectedImage = [[self avatarImageViewForRowAtIndexPath:indexPath sender:@""] image];
     if (self.selectedImage != nil) {
-        
+        [self.view endEditing:YES];
         CGFloat imageAspectRatio = self.selectedImage.size.height / self.selectedImage.size.width,
         screenAspectRatio = self.view.frame.size.height / self.view.frame.size.width,
         imageWidth = 0.0,
@@ -233,6 +233,9 @@
 
 -(void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
     while (self.isUploadingImage == YES);
+    if (self.messageImageLink == nil && (text == nil || [text isEqualToString:@""])) {
+        return;
+    }
     [self resetCameraButtonImage];
     [self.chatMO sendMUCMessageWithBody:text imageLink:self.messageImageLink];
     self.messageImage = nil;
@@ -316,17 +319,17 @@
 }
 
 /*-(BOOL)shouldDisplayTimestampForRowAtIndexPath:(NSIndexPath *)indexPath {
- MessageMO *message = [self messageMOForRowAtIndexPath:indexPath];
- MessageMO *prevMessage = [self prevMessageMOForRowAtIndexPath:indexPath];
- MessageMO *twoPrevMessage = [self twoPrevMessageMOForRowAtIndexPath:indexPath];
- if (prevMessage == nil || twoPrevMessage == nil) {
- return YES;
- }
- 
- if([message.time doubleValue] - [prevMessage.time doubleValue] > 5000 || [self shouldDisplayTimestampForRowAtIndexPath:[[NSIndexPath alloc] initWithIndex:indexPath.row - 2]] == NO) {
- return YES;
- }
- return NO;
- }*/
+    MessageMO *message = [self messageMOForRowAtIndexPath:indexPath];
+    MessageMO *prevMessage = [[_chatMO messages] objectAtIndex:indexPath.row - 1];
+    MessageMO *twoPrevMessage = [[_chatMO messages] objectAtIndex:indexPath.row - 1];
+    if (prevMessage == nil || twoPrevMessage == nil) {
+        return YES;
+    }
+    
+    if([message.time doubleValue] - [prevMessage.time doubleValue] > 5000 || [self shouldDisplayTimestampForRowAtIndexPath:[[NSIndexPath alloc] initWithIndex:indexPath.row - 2]] == NO) {
+        return YES;
+    }
+    return NO;
+}*/
 
 @end

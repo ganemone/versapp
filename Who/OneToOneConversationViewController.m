@@ -167,6 +167,9 @@
 
 -(void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
     while (self.isUploadingImage == YES);
+    if (self.messageImageLink == nil && (text == nil || [text isEqualToString:@""])) {
+        return;
+    }
     [self.chatMO sendOneToOneMessage:text imageLink:self.messageImageLink];
     [self resetCameraButtonImage];
     self.messageImage = nil;

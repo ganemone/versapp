@@ -190,23 +190,23 @@ static ConnectionProvider *selfInstance;
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveError:(DDXMLElement *)error {
-    NSLog(@"Did Receive Error: %@", error);
+    //NSLog(@"Did Receive Error: %@", error);
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveP2PFeatures:(DDXMLElement *)streamFeatures {
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
-    NSLog(@"Received Message: %@", message.XMLString);
+    //NSLog(@"Received Message: %@", message.XMLString);
     [MessagePacketReceiver handleMessagePacket:message];
 }
 
 -(void)xmppStream:(XMPPStream *)sender didSendMessage:(XMPPMessage *)message {
-    NSLog(@"Did Send Message: %@", [message description]);
+    //NSLog(@"Did Send Message: %@", [message description]);
 }
 
 -(void)xmppStream:(XMPPStream *)sender didSendPresence:(XMPPPresence *)presence {
-    NSLog(@"Did send presence: %@", presence.XMLString);
+    //NSLog(@"Did send presence: %@", presence.XMLString);
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
@@ -217,13 +217,13 @@ static ConnectionProvider *selfInstance;
 }
 
 -(BOOL)xmppStream:(XMPPStream *)sender didReceiveIQ:(XMPPIQ *)iq {
-    NSLog(@"Received IQ: %@", iq.XMLString);
+    //NSLog(@"Received IQ: %@", iq.XMLString);
     [IQPacketReceiver handleIQPacket:iq];
     return YES;
 }
 
 -(void)xmppStream:(XMPPStream *)sender didSendIQ:(XMPPIQ *)iq {
-    NSLog(@"Did Send IQ: %@", iq.XMLString);
+    //NSLog(@"Did Send IQ: %@", iq.XMLString);
 }
 
 +(NSString *)getServerIPAddress {
