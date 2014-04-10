@@ -9,6 +9,7 @@
 #import "TutorialViewController.h"
 #import "UserDefaultManager.h"
 #import "TutorialSlideViewController.h"
+#import "ContactSearchManager.h"
 #import "Constants.h"
 
 #define numPages 6
@@ -36,6 +37,8 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goToDashboard) name:SEGUE_ID_FINISHED_TUTORIAL object:nil];
+    
+    [[ContactSearchManager getInstance] accessContacts];
     
     self.viewControllers = [[NSMutableArray alloc] initWithCapacity:numPages];
     // Initialize and configure page view controller

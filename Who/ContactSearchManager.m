@@ -170,6 +170,9 @@ static ContactSearchManager *selfInstance;
                 CFRelease(addressBook);
             });
         });
+    } else {
+        [[[UIAlertView alloc] initWithTitle:@"Whoops" message:@"You need to allow Versapp to access your contacts. You can do this in your settings." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+        [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_CONTACTS_VIEW object:nil];
     }
 }
 
