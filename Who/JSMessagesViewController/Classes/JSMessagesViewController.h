@@ -21,6 +21,7 @@
 #import "JSBubbleImageViewFactory.h"
 #import "JSMessageSoundEffect.h"
 #import "UIColor+JSMessagesView.h"
+#import "ConnectionHandlingViewController.h"
 
 /**
  *  The delegate of a `JSMessagesViewController` must adopt the `JSMessagesViewDelegate` protocol.
@@ -152,7 +153,7 @@
 /**
  *  An instance of `JSMessagesViewController` is a subclass of `UIViewController` specialized to display a messaging interface.
  */
-@interface JSMessagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIAlertViewDelegate>
+@interface JSMessagesViewController : ConnectionHandlingViewController <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIAlertViewDelegate>
 
 /**
  *  The object that acts as the delegate of the receiving messages view.

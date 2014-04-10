@@ -2606,6 +2606,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2629,8 +2630,9 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "835D2AFD-76ED-4FCE-A256-53BA2B8E16C2";
+				PROVISIONING_PROFILE = "19C6F3CF-DBC2-4FF5-998B-C5DF7F5C0348";
 				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = NO;
 			};
 			name = Debug;
 		};
@@ -2650,7 +2652,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2666,7 +2669,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "835D2AFD-76ED-4FCE-A256-53BA2B8E16C2";
+				PROVISIONING_PROFILE = "19C6F3CF-DBC2-4FF5-998B-C5DF7F5C0348";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2684,7 +2687,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
 				PRODUCT_NAME = Versapp;
-				PROVISIONING_PROFILE = "835D2AFD-76ED-4FCE-A256-53BA2B8E16C2";
+				PROVISIONING_PROFILE = "19C6F3CF-DBC2-4FF5-998B-C5DF7F5C0348";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2701,7 +2704,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
 				PRODUCT_NAME = Versapp;
-				PROVISIONING_PROFILE = "835D2AFD-76ED-4FCE-A256-53BA2B8E16C2";
+				PROVISIONING_PROFILE = "19C6F3CF-DBC2-4FF5-998B-C5DF7F5C0348";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -2756,7 +2759,7 @@
 				3A25B6671881E03700166623 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		3A25B6681881E03700166623 /* Build configuration list for PBXNativeTarget "Versapp" */ = {
 			isa = XCConfigurationList;
@@ -2765,7 +2768,7 @@
 				3A25B66A1881E03700166623 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		3A25B66B1881E03700166623 /* Build configuration list for PBXNativeTarget "VersappTests" */ = {
 			isa = XCConfigurationList;
@@ -2774,7 +2777,7 @@
 				3A25B66D1881E03700166623 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 
