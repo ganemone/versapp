@@ -20,6 +20,7 @@
 #import "SWTableViewCell.h"
 #import "MainSwipeViewController.h"
 #import "AppDelegate.h"
+#import "UIImage+ImageEffects.h"
 
 #define footerSize 25
 
@@ -492,23 +493,19 @@ static BOOL notificationsHalfHidden = NO;
     }
 }
 
-/*-(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
- if (scrollView == self.notificationTableView) {
- if (scrollView.contentOffset.y > 60) {
- [self hideNotifications];
- }
- }
- }*/
-
-/*-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
- if (scrollView == _notificationTableView) {
- if (scrollView.contentOffset.y > 60) {
- [self hideNotifications];
- } else {
- [_notificationTableView setFrame:CGRectMake(0, 0, _notificationTableView.frame.size.width, _notificationTableView.frame.size.height - scrollView.contentOffset.y)];
- }
- }
- }*/
+/*- (UIImage*)getBlurredImage {
+    CGSize size = CGSizeMake(self.view.bounds.size.width, footerSize);
+    
+    UIGraphicsBeginImageContext(size);
+    [self.view drawViewHierarchyInRect:CGRectMake(0, 100, self.view.bounds.size.width, footerSize) afterScreenUpdates:NO];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    // Gaussian Blur
+    image = [image applyLightEffect];
+    
+    return image;
+}*/
 
 -(void)setNotificationsIcon {
     NSMutableString *imageName;
@@ -557,8 +554,7 @@ static BOOL notificationsHalfHidden = NO;
     [footer addSubview:footerHandle];
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
     [footer addGestureRecognizer:pan];
-    [[_notificationTableView tableFooterView] setAlpha:0.3];
-    [[_notificationTableView tableHeaderView] setBackgroundColor:[UIColor whiteColor]];
+    [[self.notificationTableView tableHeaderView] setBackgroundColor:[UIColor whiteColor]];
     [self.notificationTableView setTableHeaderView:self.notificationsHeader];
     [self.notificationTableView setTableFooterView:footer];
 }
