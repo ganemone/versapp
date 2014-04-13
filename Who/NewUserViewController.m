@@ -95,11 +95,12 @@
 }
 
 - (void)handleAuthenticated {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [self performSegueWithIdentifier:SEGUE_ID_TUTORIAL sender:self];
 }
 
 - (void)handleRegisteredUser {
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-    [self performSegueWithIdentifier:SEGUE_ID_TUTORIAL sender:self];
+    [self.loadingDialog setLabelText:@"Logging in"];
 }
 
 - (void)handleFailedToRegisterUser:(NSNotification *)notification {

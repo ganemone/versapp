@@ -33,10 +33,10 @@
     if (self) {
         self.image = image;
         self.indexInTutorial = indexInTutorial;
-        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-        [self.imageView setContentMode:UIViewContentModeScaleAspectFill];
-        [self.view addSubview:_imageView];
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+        [self.imageView setClipsToBounds:YES];
         [self.imageView setImage:_image];
+        [self.view addSubview:_imageView];
         
         if (_indexInTutorial == 5) {
             self.button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2 - 60, self.view.frame.size.height - 50, 120, 20)];

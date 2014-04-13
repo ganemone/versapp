@@ -48,7 +48,7 @@
     [self.pageViewController setViewControllers:@[[self viewControllerAtIndex:0]] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:nil];
     [self addChildViewController:_pageViewController];
     // Add the page view controller frame to the current view controller
-    [_pageViewController.view setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height + 37.0)];
+    [_pageViewController.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height + 37.0)];
     [self.view addSubview:_pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];
     
@@ -94,9 +94,6 @@
     if (index >= numPages || index < 0) {
         return nil;
     }
-    /*if ([_viewControllers count] <= index) {
-     [_viewControllers addObject:[[TutorialSlideViewController alloc] initWithImage:[self imageForViewControllerAtIndex:index] indexInTutorial:index]];
-     }*/
     return [[TutorialSlideViewController alloc] initWithImage:[self imageForViewControllerAtIndex:index] indexInTutorial:index];
 }
 
