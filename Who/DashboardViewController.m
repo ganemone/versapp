@@ -21,6 +21,8 @@
 #import "MainSwipeViewController.h"
 #import "AppDelegate.h"
 
+#define footerSize 30
+
 @interface DashboardViewController()
 
 @property (strong, nonatomic) ConnectionProvider* cp;
@@ -124,6 +126,18 @@ static BOOL notificationsHalfHidden = NO;
         return footer;
     }
     return nil;
+}
+
+- (void)handlePan:(UIPanGestureRecognizer *)recognizer {
+    CGPoint scrollToPoint = [recognizer translationInView:_notificationTableView.tableFooterView];
+    if (scrollToPoint.y + _notificationTableView.frame.origin.y + _notificationTableView.frame.size.height < self.view.frame.size.height*0.5) {
+        [_notificationTableView setCenter:CGPointMake(_notificationTableView.center.x, _notificationTableView.center.y + scrollToPoint.y)];
+        [recognizer setTranslation:CGPointMake(0, 0) inView:_notificationTableView.tableFooterView];
+    }
+    
+    if (recognizer.state == UIGestureRecognizerStateEnded && _notificationTableView.frame.origin.y < self.view.frame.size.height*0.25) {
+        [self hideNotifications];
+    }
 }
 
 - (void)handleSwipeUpToHideNotifications:(UIGestureRecognizer *)gestureRecognizer {
@@ -511,28 +525,23 @@ static BOOL notificationsHalfHidden = NO;
     NSMutableString *greenImageName;
     if ([self.friendRequests count] + [self.groupInvites count] > 0 && [self.friendRequests count] + [self.groupInvites count] < 6) {
         imageName = [NSMutableString stringWithFormat:@"notification%d.png", (int)([self.friendRequests count] + [self.groupInvites count])];
-        //greenImageName = [NSMutableString stringWithFormat:@"notification%d-green.png", [self.friendRequests count] + [self.groupInvites count]];
     } else if ([self.friendRequests count] + [self.groupInvites count] == 0) {
         imageName = [NSMutableString stringWithString:@"notification-none.png"];
-        //greenImageName = [NSMutableString stringWithString:@"arrow-close-notifications.png"];
     } else {
         imageName = [NSMutableString stringWithString:@"notification5+.png"];
-        //greenImageName = [NSMutableString stringWithString:@"notification5+-green.png"];
     }
     UIImage *notificationsImage = [UIImage imageNamed:imageName];
-    //UIImageView *notificationsBadgeGreen = [[UIImageView alloc] initWithFrame:CGRectMake(281, 27, 36, 36)];
     [self.notificationsButton setImage:notificationsImage forState:UIControlStateNormal];
     [self.notificationsButton setContentEdgeInsets:UIEdgeInsetsMake(7, 7, 7, 7)];
     greenImageName = [NSMutableString stringWithString:@"arrow-close-notifications.png"];
     UIImage *notificationsImageGreen = [UIImage imageNamed:greenImageName];
-    //[notificationsBadgeGreen setImage:notificationsImageGreen];
     self.notificationsButtonGreen = [[UIButton alloc] initWithFrame:CGRectMake(281, 27, 36, 36)];
     [self.notificationsButtonGreen setImage:notificationsImageGreen forState:UIControlStateNormal];
     [self.notificationsButtonGreen addTarget:self action:@selector(notificationsGreenClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     if ([self.friendRequests count] + [self.groupInvites count] == 0) {
-        self.notificationsHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5)];
-        UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height*0.25, 280, 21)];
+        self.notificationsHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5 - footerSize)];
+        UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height*0.25, self.view.frame.size.width, 21)];
         [notificationsLabel setText:NO_NOTIFICATIONS];
         [notificationsLabel setTextAlignment:NSTextAlignmentCenter];
         [notificationsLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
@@ -550,7 +559,16 @@ static BOOL notificationsHalfHidden = NO;
         [self.notificationsHeader addSubview:notificationsLabel];
         [self.notificationsHeader addSubview:self.notificationsButtonGreen];
     }
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, self.notificationTableView.frame.size.height - footerSize, self.view.bounds.size.width, footerSize)];
+    [footer setBackgroundColor:[UIColor blackColor]];
+    //[footer setAlpha:0.5];
+    //UIImageView *footerHandle = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"notification-none"]];
+    //[footerHandle setFrame:CGRectMake(self.view.frame.size.width/2 - 30, footerSize/2, 30, 30)];
+    //footer addSubview:footerHandle];
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+    [footer addGestureRecognizer:pan];
     [self.notificationTableView setTableHeaderView:self.notificationsHeader];
+    [self.notificationTableView setTableFooterView:footer];
 }
 
 -(void)loadNotifications {
