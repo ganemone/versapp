@@ -89,6 +89,7 @@ static ConnectionProvider *selfInstance;
     NSError *error = nil;
     if(![self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error]) {
     } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FAILED_TO_AUTHENTICATE object:self];
     }
 }
 
@@ -104,7 +105,7 @@ static ConnectionProvider *selfInstance;
         [self.xmppStream disconnect];
     }
     if(![self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error]) {
-    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DID_FAIL_TO_REGISTER_USER object:nil];
     }
 }
 
@@ -129,6 +130,7 @@ static ConnectionProvider *selfInstance;
         BOOL success = [[self xmppStream] registerWithPassword:[self.pendingAccountInfo objectForKey:USER_DEFAULTS_PASSWORD] error:&error];
         if (success) {
         } else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DID_FAIL_TO_REGISTER_USER object:nil];
         }
     }
     else {
@@ -137,6 +139,7 @@ static ConnectionProvider *selfInstance;
         }
         else
         {
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
         }
     }
     self.didConnect = YES;
@@ -153,6 +156,7 @@ static ConnectionProvider *selfInstance;
         [self.xmppStream sendElement:[IQPacketManager createSetUserInfoPacketFromDefaults]];
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_AUTHENTICATED object:nil];
     } else {
         [self.xmppStream sendElement:[IQPacketManager createGetUserInfoPacket]];
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
@@ -168,7 +172,6 @@ static ConnectionProvider *selfInstance;
     if (deviceID != nil) {
         [self.xmppStream sendElement:[IQPacketManager createSetDeviceTokenPacket:deviceID]];
     }
-    //[[NSNotificationCenter defaultCenter] postNotificationName:@"authenticated" object:nil];
 }
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error
 {
@@ -264,9 +267,11 @@ static ConnectionProvider *selfInstance;
     NSError *error = nil;
     if ([[self xmppStream] authenticateWithPassword:self.password error:&error])
     {
+        NSLog(@"Authenticating...");
     }
     else
     {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
     }
 }
 
