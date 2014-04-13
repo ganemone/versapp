@@ -113,10 +113,10 @@
 
 -(UIImage *)imageForViewControllerAtIndex:(int)index {
     switch (index) {
-        case 0: return [UIImage imageNamed:@"Versapp-Tutorial-01.png"];
-        case 1: return [UIImage imageNamed:@"Versapp-Tutorial-02.png"];
-        case 2: return [UIImage imageNamed:@"Versapp-Tutorial-03.png"];
-        case 3: return [UIImage imageNamed:@"Versapp-Tutorial-04.png"];
+        case 0: return [UIImage imageNamed:@"Versapp-Tutorial-04.png"];
+        case 1: return [UIImage imageNamed:@"Versapp-Tutorial-01.png"];
+        case 2: return [UIImage imageNamed:@"Versapp-Tutorial-02.png"];
+        case 3: return [UIImage imageNamed:@"Versapp-Tutorial-03.png"];
         case 4: return [UIImage imageNamed:@"Versapp-Tutorial-05.png"];
         default: return [UIImage imageNamed:@"Versapp-Tutorial-06.png"];
     }
