@@ -21,7 +21,7 @@
 #import "MainSwipeViewController.h"
 #import "AppDelegate.h"
 
-#define footerSize 30
+#define footerSize 25
 
 @interface DashboardViewController()
 
@@ -71,11 +71,6 @@ static BOOL notificationsHalfHidden = NO;
     [self.header setTextColor:[UIColor whiteColor]];
     [self.footerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     
-    
-    self.groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
-    self.oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveOneToOneChats]];
-    [self loadNotifications];
-    
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     lpgr.minimumPressDuration = 0.5; //seconds
     lpgr.delegate = self;
@@ -87,12 +82,21 @@ static BOOL notificationsHalfHidden = NO;
     [imageView setImage:[UIImage imageNamed:@"messages-background-large.png"]];
     [self.tableView setBackgroundView:imageView];
     
+    self.notificationTableView = [[UITableView alloc] init];
+    self.notificationTableView.hidden = YES;
+    [self.notificationTableView setDelegate:self];
+    [self.notificationTableView setDataSource:self];
+    [self.notificationTableView setSeparatorColor:[StyleManager getColorGreen]];
+    [self.notificationTableView setBackgroundColor:[UIColor clearColor]];
+    
     _greyOutView = [[UIView alloc] initWithFrame:CGRectZero];
     [_greyOutView setUserInteractionEnabled:NO];
     [_greyOutView setBackgroundColor:[UIColor blackColor]];
     [_greyOutView setAlpha:0.0];
+    
     [self.view addSubview:_greyOutView];
     [self.view bringSubviewToFront:self.notificationTableView];
+    [self loadNotifications];
     
     // Add a bottomBorder to the header view
     CALayer *headerBottomborder = [CALayer layer];
@@ -171,21 +175,6 @@ static BOOL notificationsHalfHidden = NO;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    /*if (_clickedCellIndexPath != nil) {
-     ChatMO *chat = (_clickedCellIndexPath.section == 0) ? [_groupChats objectAtIndex:_clickedCellIndexPath.row] : [_oneToOneChats objectAtIndex:_clickedCellIndexPath.row];
-     MessageMO *message = [[chat messages] lastObject];
-     if (![message.time isEqualToString:_mostRecentMessageInPushedChat.time]) {
-     if (_clickedCellIndexPath.section == 0) {
-     [_groupChats removeObjectAtIndex:_clickedCellIndexPath.row];
-     [_groupChats insertObject:chat atIndex:0];
-     } else {
-     [_oneToOneChats removeObjectAtIndex:_clickedCellIndexPath.row];
-     [_oneToOneChats insertObject:chat atIndex:0];
-     }
-     }
-     [_tableView reloadData];
-     } else {*/
-    //}
     _groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
     _oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveOneToOneChats]];
     _friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
@@ -349,6 +338,7 @@ static BOOL notificationsHalfHidden = NO;
         [cell.detailTextLabel setTextColor:[UIColor blackColor]];
         [cell.contentView addSubview:accept];
         [cell.contentView addSubview:decline];
+        [cell setBackgroundColor:[UIColor whiteColor]];
         
         return cell;
     }
@@ -561,12 +551,14 @@ static BOOL notificationsHalfHidden = NO;
     }
     UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, self.notificationTableView.frame.size.height - footerSize, self.view.bounds.size.width, footerSize)];
     [footer setBackgroundColor:[UIColor blackColor]];
-    //[footer setAlpha:0.5];
-    //UIImageView *footerHandle = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"notification-none"]];
-    //[footerHandle setFrame:CGRectMake(self.view.frame.size.width/2 - 30, footerSize/2, 30, 30)];
-    //footer addSubview:footerHandle];
+    [footer setAlpha:0.3];
+    UIImageView *footerHandle = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"notification-none"]];
+    [footerHandle setFrame:CGRectMake(self.view.frame.size.width/2 - 10, 0, 20, 20)];
+    [footer addSubview:footerHandle];
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
     [footer addGestureRecognizer:pan];
+    [[_notificationTableView tableFooterView] setAlpha:0.3];
+    [[_notificationTableView tableHeaderView] setBackgroundColor:[UIColor whiteColor]];
     [self.notificationTableView setTableHeaderView:self.notificationsHeader];
     [self.notificationTableView setTableFooterView:footer];
 }
@@ -589,12 +581,8 @@ static BOOL notificationsHalfHidden = NO;
     swipeRecognizer.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:swipeRecognizer];
     
-    self.notificationTableView = [[UITableView alloc] init];
-    self.notificationTableView.hidden = YES;
-    [self.notificationTableView setDelegate:self];
-    [self.notificationTableView setDataSource:self];
+    
     [self.notificationTableView setTableHeaderView:self.notificationsHeader];
-    [self.notificationTableView setSeparatorColor:[StyleManager getColorGreen]];
     [self setNotificationSize];
     
     [self.view addSubview:self.notificationTableView];
