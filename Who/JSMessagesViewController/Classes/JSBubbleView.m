@@ -215,26 +215,21 @@
 
 + (CGSize)textSizeForText:(NSString *)txt
 {
-    CGFloat maxWidth = [UIScreen mainScreen].applicationFrame.size.width * 0.70f;
-    CGFloat maxHeight = MAX([JSMessageTextView numberOfLinesForMessage:txt],
-                            [txt js_numberOfLines]) * [JSMessageInputView textViewLineHeight];
-    maxHeight += kJSAvatarImageSize;
+    CGFloat maxWidth = [UIScreen mainScreen].applicationFrame.size.width * 0.68f;
+    CGFloat maxHeight = CGFLOAT_MAX;//MAX([JSMessageTextView numberOfLinesForMessage:txt],
+                            //[txt js_numberOfLines]) * [JSMessageInputView textViewLineHeight];
+    //maxHeight += kJSAvatarImageSize;
     
     CGSize stringSize;
     
-    //if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_0) {
     CGRect stringRect = [txt boundingRectWithSize:CGSizeMake(maxWidth, maxHeight)
                                           options:NSStringDrawingUsesLineFragmentOrigin
-                                       attributes:@{ NSFontAttributeName : [StyleManager getFontStyleLightSizeMed] }//[[JSBubbleView appearance] font] }
+                                       attributes:@{ NSFontAttributeName : [StyleManager getFontStyleRegularSizeMed] }//[[JSBubbleView appearance] font] }
                                           context:nil];
     
     stringSize = CGRectIntegral(stringRect).size;
-    /*}
-     else {
-     stringSize = [txt sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[StyleManager getFontStyleLightSizeMed], NSFontAttributeName, nil]];
-     }*/
     
-    return CGSizeMake(roundf(stringSize.width), roundf(stringSize.height + 2.0f));
+    return CGSizeMake(roundf(stringSize.width), roundf(stringSize.height));
 }
 
 + (CGSize)neededSizeForText:(NSString *)text

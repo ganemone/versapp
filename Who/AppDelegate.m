@@ -150,7 +150,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
         NSString *username = [UserDefaultManager loadUsername];
         NSString *password = [UserDefaultManager loadPassword];
         NSLog(@"Username: %@", username);
-        NSLog(@"Password: %@", password);
+        NSLog(@"Password: %@", password);\
         if (username != nil && password != nil) {
             [cp connect:username password:password];
         } else {
@@ -192,7 +192,6 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     _completionHandler = completionHandler;
-    NSString *type = [userInfo objectForKey:@"type"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedLoadingAfterRemoteNotification) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedLoadingAfterRemoteNotification) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailedToLoadDataAfterRemoteNotification) name:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
