@@ -43,6 +43,7 @@
 @property(strong, nonatomic) NSDictionary *pendingAccountInfo;
 
 @property BOOL isCreatingAccount;
+@property BOOL isFetchingFromNotification;
 
 @end
 
@@ -90,6 +91,11 @@ static ConnectionProvider *selfInstance;
     if(![self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FAILED_TO_AUTHENTICATE object:self];
     }
+}
+
+- (void) connectForPushNotificationFetch:(NSString *)username password:(NSString *) password {
+    _isFetchingFromNotification = YES;
+    [self connect:username password:password];
 }
 
 - (void) createAccount:(NSDictionary*)accountInfo {
@@ -151,6 +157,12 @@ static ConnectionProvider *selfInstance;
         [self.xmppStream sendElement:[IQPacketManager createSetUserInfoPacketFromDefaults]];
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
+    } else if(_isFetchingFromNotification == YES) {
+        _isFetchingFromNotification = NO;
+        [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
+        [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
+        [self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];
+        //[self.xmppStream sendElement:[IQPacketManager createGetRosterPacket]];
     } else {
         [self.xmppStream sendElement:[IQPacketManager createGetUserInfoPacket]];
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];

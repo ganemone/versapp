@@ -110,28 +110,6 @@ static BOOL notificationsHalfHidden = NO;
     [self.footerView.layer addSublayer:footerTopBorder];
 }
 
--(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    if ([tableView isEqual:_tableView]) {
-        if ([self tableView:_tableView numberOfRowsInSection:0] == 0 && [self tableView:_tableView numberOfRowsInSection:1] == 0 && section == 1) {
-            //UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-            UILabel *footerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
-            [footerLabel setBackgroundColor:[UIColor whiteColor]];
-            [footerLabel setTextAlignment:NSTextAlignmentCenter];
-            [footerLabel setText:@"You don't have any conversations yet :("];
-            [footerLabel setFont:[StyleManager getFontStyleBoldSizeLarge]];
-            [footerLabel setTextColor:[StyleManager getColorBlue]];
-            return footerLabel;
-        }
-        if (section == 0) {
-            return nil;
-        }
-        UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
-        [footer setBackgroundColor:[UIColor clearColor]];
-        return footer;
-    }
-    return nil;
-}
-
 - (void)handlePan:(UIPanGestureRecognizer *)recognizer {
     CGPoint scrollToPoint = [recognizer translationInView:_notificationTableView.tableFooterView];
     if (scrollToPoint.y + _notificationTableView.frame.origin.y + _notificationTableView.frame.size.height < self.view.frame.size.height*0.5) {
@@ -163,22 +141,19 @@ static BOOL notificationsHalfHidden = NO;
     return UITableViewAutomaticDimension;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if ([tableView isEqual:_tableView]) {
-        if (section == 1 && [self tableView:_tableView numberOfRowsInSection:0] == 0 && [self tableView:_tableView numberOfRowsInSection:1] == 0) {
-            return 50;
-        }
-        return section;
-    }
-    return 0;
-}
-
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    NSArray *test = [ChatDBManager getAllActiveGroupChats];
+    for (ChatMO *chat in test) {
+        NSLog(@"Chat: %@", [chat description]);
+    }
     _groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
     _oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveOneToOneChats]];
     _friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
     _groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingGroupChats]];
+    if ([_oneToOneChats count] > 0 || [_groupChats count] > 0) {
+        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    }
     [self setNotificationsIcon];
     [_notificationTableView reloadData];
     [_tableView reloadData];
@@ -289,6 +264,7 @@ static BOOL notificationsHalfHidden = NO;
         }
         
         [cell setBackgroundColor:[UIColor whiteColor]];
+        
         return cell;
     } else {
         static NSString *cellIdentifier = @"Cell";
@@ -398,7 +374,13 @@ static BOOL notificationsHalfHidden = NO;
         [ChatDBManager deleteChat:chat];
         [_tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         if ([_groupChats count] == 0 && [_oneToOneChats count] == 0) {
-            [_tableView reloadData];
+            UILabel *footerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
+            [footerLabel setBackgroundColor:[UIColor whiteColor]];
+            [footerLabel setTextAlignment:NSTextAlignmentCenter];
+            [footerLabel setText:@"You don't have any conversations yet :("];
+            [footerLabel setFont:[StyleManager getFontStyleBoldSizeLarge]];
+            [footerLabel setTextColor:[StyleManager getColorBlue]];
+            [_tableView setTableFooterView:footerLabel];
         }
     }
 }
@@ -452,6 +434,9 @@ static BOOL notificationsHalfHidden = NO;
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ENABLE_SWIPE object:nil];
     
     self.groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
+    if ([_oneToOneChats count] > 0 || [_groupChats count] > 0) {
+        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    }
     [self.tableView reloadData];
     
     notificationsHalfHidden = NO;
@@ -482,28 +467,28 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 /*-(void)adjustAnchorPoint:(UIPanGestureRecognizer *)recognizer {
-    if (recognizer.state == UIGestureRecognizerStateBegan) {
-        CGPoint inView = [recognizer locationInView:recognizer.view];
-        CGPoint inSuperview = [recognizer locationInView:recognizer.view.superview];
-        
-        recognizer.view.layer.anchorPoint = CGPointMake(inView.x / recognizer.view.bounds.size.width, inView.y / recognizer.view.bounds.size.height);
-        recognizer.view.center = inSuperview;
-    }
-}*/
+ if (recognizer.state == UIGestureRecognizerStateBegan) {
+ CGPoint inView = [recognizer locationInView:recognizer.view];
+ CGPoint inSuperview = [recognizer locationInView:recognizer.view.superview];
+ 
+ recognizer.view.layer.anchorPoint = CGPointMake(inView.x / recognizer.view.bounds.size.width, inView.y / recognizer.view.bounds.size.height);
+ recognizer.view.center = inSuperview;
+ }
+ }*/
 
 /*- (UIImage*)getBlurredImage {
-    CGSize size = CGSizeMake(self.view.bounds.size.width, footerSize);
-    
-    UIGraphicsBeginImageContext(size);
-    [self.view drawViewHierarchyInRect:CGRectMake(0, 100, self.view.bounds.size.width, footerSize) afterScreenUpdates:NO];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    // Gaussian Blur
-    image = [image applyLightEffect];
-    
-    return image;
-}*/
+ CGSize size = CGSizeMake(self.view.bounds.size.width, footerSize);
+ 
+ UIGraphicsBeginImageContext(size);
+ [self.view drawViewHierarchyInRect:CGRectMake(0, 100, self.view.bounds.size.width, footerSize) afterScreenUpdates:NO];
+ UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+ UIGraphicsEndImageContext();
+ 
+ // Gaussian Blur
+ image = [image applyLightEffect];
+ 
+ return image;
+ }*/
 
 -(void)setNotificationsIcon {
     NSMutableString *imageName;
@@ -675,6 +660,9 @@ static BOOL notificationsHalfHidden = NO;
 -(void)handleRefreshListView {
     self.groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
     self.oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllOneToOneChats]];
+    if ([_oneToOneChats count] > 0 || [_groupChats count] > 0) {
+        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    }
     [self.tableView reloadData];
 }
 

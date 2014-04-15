@@ -189,7 +189,7 @@ static int numUninvitedParticipants;
 
 +(NSArray*)sortChats:(NSArray*)chats {
     return [chats sortedArrayUsingComparator:^NSComparisonResult(id chat1, id chat2) {
-        return [[[[chat2 messages] firstObject] time] compare:[[[chat1 messages] firstObject] time]];
+        return [[[[chat2 messages] lastObject] time] compare:[[[chat1 messages] lastObject] time]];
     }];
 }
 

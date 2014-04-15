@@ -26,8 +26,8 @@
 // Inserts message into db, adds message to chat history (either group chat or one to one chat),
 // and sends notification with dictionary containing ONLY the group id.
 +(void)handleMessagePacket:(XMPPMessage*)message {
+    NSLog(@"Received Message: %@", [message XMLString]);
     NSError *error = NULL;
-
     NSRegularExpression *chatInvitationRegex = [NSRegularExpression regularExpressionWithPattern:@"<property><name>(.*?)<\\/name><value.*?>(.*?)<\\/value><\\/property>" options:NSRegularExpressionCaseInsensitive error:&error];
     NSArray *matches = [chatInvitationRegex matchesInString:message.XMLString options:0 range:NSMakeRange(0, message.XMLString.length)];
     NSString *chatID,

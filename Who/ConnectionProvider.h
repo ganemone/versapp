@@ -30,21 +30,14 @@
 // Attempts to connect to the xmpp server with the credentials username/password
 // passed as parameters.
 - (void) connect:(NSString*)username password:(NSString*)password;
-
+- (void) connectForPushNotificationFetch:(NSString *)username password:(NSString *) password;
 - (void) disconnect;
-
 - (XMPPStream*) getConnection;
-
 - (void) addStreamDelegate: (id)streamDelegate;
-
 + (NSString*) getServerIPAddress;
-
 + (NSString*) getConferenceIPAddress;
-
 + (NSString*) getUser;
-
 - (void) createAccount:(NSDictionary*)accountInfo;
-
 - (void)addName:(NSString *)name forUsername:(NSString *)username;
 
 @end
