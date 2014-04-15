@@ -211,7 +211,6 @@
                 [conn sendElement:[IQPacketManager createGetVCardPacket:username]];
             }
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_AUTHENTICATED object:nil];
         });
     }];
 }

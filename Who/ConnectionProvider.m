@@ -88,7 +88,6 @@ static ConnectionProvider *selfInstance;
     
     NSError *error = nil;
     if(![self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error]) {
-    } else {
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FAILED_TO_AUTHENTICATE object:self];
     }
 }
@@ -134,11 +133,7 @@ static ConnectionProvider *selfInstance;
         }
     }
     else {
-        if ([[self xmppStream] authenticateWithPassword:self.password error:&error])
-        {
-        }
-        else
-        {
+        if (![[self xmppStream] authenticateWithPassword:self.password error:&error]) {
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
         }
     }
@@ -156,7 +151,6 @@ static ConnectionProvider *selfInstance;
         [self.xmppStream sendElement:[IQPacketManager createSetUserInfoPacketFromDefaults]];
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_AUTHENTICATED object:nil];
     } else {
         [self.xmppStream sendElement:[IQPacketManager createGetUserInfoPacket]];
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
@@ -167,7 +161,7 @@ static ConnectionProvider *selfInstance;
         [self.xmppStream sendElement:[IQPacketManager createGetConfessionsPacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];
     }
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_AUTHENTICATED object:nil];
     NSString *deviceID = [UserDefaultManager loadDeviceID];
     if (deviceID != nil) {
         [self.xmppStream sendElement:[IQPacketManager createSetDeviceTokenPacket:deviceID]];
@@ -265,12 +259,7 @@ static ConnectionProvider *selfInstance;
     [UserDefaultManager saveEmail:[self.pendingAccountInfo objectForKey:FRIENDS_TABLE_COLUMN_NAME_EMAIL]];
     
     NSError *error = nil;
-    if ([[self xmppStream] authenticateWithPassword:self.password error:&error])
-    {
-        NSLog(@"Authenticating...");
-    }
-    else
-    {
+    if (![[self xmppStream] authenticateWithPassword:self.password error:&error]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
     }
 }

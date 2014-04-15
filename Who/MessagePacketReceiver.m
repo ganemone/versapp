@@ -131,7 +131,6 @@
             }
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
             [ChatDBManager setHasNewMessageYes:message.thread];
-        } else {
         }
     }
 }

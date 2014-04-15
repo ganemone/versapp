@@ -58,7 +58,7 @@
 
 - (void)didReconnect {
     if (_connectionLostViewIsVisible) {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [_reconnectView removeFromSuperview];
         _shouldShowConnectionLostView = NO;
         _connectionLostViewIsVisible = NO;
     }
@@ -68,8 +68,18 @@
     XMPPStream *stream = [[ConnectionProvider getInstance] getConnection];
     if (![stream isConnecting] && ![stream isConnected] && ![stream isAuthenticated] && ![stream isAuthenticating]) {
         if (!_connectionLostViewIsVisible) {
-            ConnectionLostViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:STORYBOARD_ID_CONNECTION_LOST_VIEW_CONTROLLER];
-            [self presentViewController:vc animated:YES completion:nil];
+            /*ConnectionLostViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:STORYBOARD_ID_CONNECTION_LOST_VIEW_CONTROLLER];
+            [self presentViewController:vc animated:YES completion:nil];*/
+            UIView *connectionView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, self.view.frame.size.width - 20, 50)];
+            UILabel *reconnectLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, connectionView.frame.size.width, 50)];
+            [reconnectLabel setText:@"Trying to Reconnect..."];
+            [reconnectLabel setTextAlignment:NSTextAlignmentCenter];
+            [reconnectLabel setTextColor:[UIColor whiteColor]];
+            [connectionView setBackgroundColor:[UIColor blackColor]];
+            [reconnectLabel setBackgroundColor:[UIColor clearColor]];
+            [connectionView addSubview:reconnectLabel];
+            _reconnectView = connectionView;
+            [self.view addSubview:_reconnectView];
             _connectionLostViewIsVisible = YES;
         }
     }

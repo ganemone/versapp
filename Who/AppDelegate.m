@@ -15,7 +15,10 @@
 #import "Reachability.h"
 #import "IQPacketManager.h"
 
+
 @implementation AppDelegate
+
+void (^_completionHandler)(UIBackgroundFetchResult);
 
 - (NSManagedObjectContext *) managedObjectContext {
     @synchronized(self) {
@@ -185,10 +188,33 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.alertBody = @"Test Notification";
-    [application presentLocalNotificationNow:notification];
-    completionHandler(UIBackgroundFetchResultNewData);
+    _completionHandler = completionHandler;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedLoadingAfterRemoteNotification) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedLoadingAfterRemoteNotification) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailedToLoadDataAfterRemoteNotification) name:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
+    ConnectionProvider *cp = [ConnectionProvider getInstance];
+    XMPPStream *stream = [cp getConnection];
+    if (![stream isAuthenticated]) {
+        NSString *username = [UserDefaultManager loadUsername];
+        NSString *password = [UserDefaultManager loadPassword];
+        [cp connect:username password:password];
+    } else {
+        _completionHandler(UIBackgroundFetchResultNewData);
+    }
+}
+
+- (void)handleFinishedLoadingAfterRemoteNotification {
+    _completionHandler(UIBackgroundFetchResultNewData);
+    /*
+    int64_t delayInSeconds = 1;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        _completionHandler(UIBackgroundFetchResultNewData);
+    });*/
+}
+
+- (void)handleFailedToLoadDataAfterRemoteNotification {
+    _completionHandler(UIBackgroundFetchResultFailed);
 }
 
 @end

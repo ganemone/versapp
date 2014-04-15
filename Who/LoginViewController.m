@@ -86,6 +86,7 @@
 - (void)login {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     _passwordText = [Encrypter md5:_passwordText];
+    NSLog(@"Password Text: %@", _passwordText);
     [UserDefaultManager savePassword:self.passwordText];
     [UserDefaultManager saveUsername:self.usernameText];
     
