@@ -47,7 +47,6 @@
 @property (strong, nonatomic) UIView *greyOutView;
 @property (strong, nonatomic) ChatMO *editingChat;
 @property (nonatomic) CGFloat notificationHeight;
-@property (nonatomic) CGFloat notificationCenter;
 
 @end
 
@@ -433,15 +432,14 @@ static BOOL notificationsHalfHidden = NO;
     self.notificationTableView.hidden = NO;
     self.greyOutView.frame = self.view.frame;
     
-    [UIView animateWithDuration:0.5
+    [UIView animateWithDuration:.5
                           delay:0.0
          usingSpringWithDamping:1.0
-          initialSpringVelocity:4.0
+          initialSpringVelocity:3.0
                         options: UIViewAnimationOptionCurveEaseIn
                      animations:^{
                          self.greyOutView.alpha = 0.5;
                          self.notificationTableView.frame = notificationFrame;
-                         _notificationCenter = self.notificationTableView.center.y;
                      }
                      completion:^(BOOL finished){
                          [self.tableView setUserInteractionEnabled:NO];
@@ -458,14 +456,14 @@ static BOOL notificationsHalfHidden = NO;
     
     notificationsHalfHidden = NO;
     
-    [UIView animateWithDuration:0.5
+    [UIView animateWithDuration:.5
                           delay:0.0
          usingSpringWithDamping:1.0
-          initialSpringVelocity:4.0
+          initialSpringVelocity:1.0
                         options: UIViewAnimationOptionCurveEaseOut
                      animations:^{
                          self.greyOutView.alpha = 0;
-                         self.notificationTableView.frame = CGRectMake(0, 0, self.view.frame.size.width, 0);
+                         self.notificationTableView.center = CGPointMake(_notificationTableView.center.x, -1 * _notificationTableView.frame.size.height/2);
                      }
                      completion:^(BOOL finished){
                          self.greyOutView.frame = CGRectZero;
@@ -483,7 +481,7 @@ static BOOL notificationsHalfHidden = NO;
     }
 }
 
--(void)adjustAnchorPoint:(UIPanGestureRecognizer *)recognizer {
+/*-(void)adjustAnchorPoint:(UIPanGestureRecognizer *)recognizer {
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         CGPoint inView = [recognizer locationInView:recognizer.view];
         CGPoint inSuperview = [recognizer locationInView:recognizer.view.superview];
@@ -491,7 +489,7 @@ static BOOL notificationsHalfHidden = NO;
         recognizer.view.layer.anchorPoint = CGPointMake(inView.x / recognizer.view.bounds.size.width, inView.y / recognizer.view.bounds.size.height);
         recognizer.view.center = inSuperview;
     }
-}
+}*/
 
 /*- (UIImage*)getBlurredImage {
     CGSize size = CGSizeMake(self.view.bounds.size.width, footerSize);
@@ -545,6 +543,7 @@ static BOOL notificationsHalfHidden = NO;
         [notificationsLabel setTextColor:[StyleManager getColorGreen]];
         [self.notificationsHeader addSubview:notificationsLabel];
         [self.notificationsHeader addSubview:self.notificationsButtonGreen];
+        [self.notificationsHeader setBackgroundColor:[UIColor whiteColor]];
     }
     UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, self.notificationTableView.frame.size.height - footerSize, self.view.bounds.size.width, footerSize)];
     [footer setBackgroundColor:[UIColor blackColor]];
@@ -563,7 +562,8 @@ static BOOL notificationsHalfHidden = NO;
     
     self.groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingGroupChats]];
     self.friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
-    
+    [self setNotificationSize];
+    [_notificationTableView setCenter:CGPointMake(_notificationTableView.center.x, -1 *_notificationHeight / 2)];
     [self setNotificationsIcon];
     
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideNotificationsGesture:)];
@@ -577,13 +577,15 @@ static BOOL notificationsHalfHidden = NO;
     swipeRecognizer.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:swipeRecognizer];
     
-    
-    [self.notificationTableView setTableHeaderView:self.notificationsHeader];
-    [self setNotificationSize];
-    
     [self.view addSubview:self.notificationTableView];
     
-    [self hideNotifications];
+    //[self hideNotifications];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ENABLE_SWIPE object:nil];
+    
+    self.groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
+    [self.tableView reloadData];
+    
+    notificationsHalfHidden = NO;
 }
 
 -(void)setNotificationSize {
@@ -596,6 +598,7 @@ static BOOL notificationsHalfHidden = NO;
             _notificationHeight = MIN(self.view.bounds.size.height, self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.numberOfSections*self.notificationTableView.sectionHeaderHeight + self.notificationsHeader.frame.size.height);
         }
     }
+    _notificationHeight = MAX(_notificationHeight, self.view.frame.size.height/2);
     self.notificationTableView.frame = CGRectMake(0, 0, self.view.frame.size.width, _notificationHeight);
 }
 
