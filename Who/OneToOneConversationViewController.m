@@ -16,6 +16,7 @@
 #import "ChatMO.h"
 #import "StyleManager.h"
 #import "IQPacketManager.h"
+#import "MBProgressHUD.h"
 
 @implementation OneToOneConversationViewController
 
@@ -192,6 +193,10 @@
     self.isUploadingImage = NO;
     self.messageImage = image;
     self.messageImageLink = url;
+    if (self.messageImageLink == nil) {
+        [[[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Something went wrong when trying to upload your image." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+        self.messageImage = nil;
+    }
 }
 
 - (IBAction)onBackClicked:(id)sender {
