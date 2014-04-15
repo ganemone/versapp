@@ -54,7 +54,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createdVCard:) name:PACKET_ID_CREATE_VCARD object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registeredUser:) name:PACKET_ID_REGISTER_USER object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(streamDidDisconnect:) name:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didNotAuthenticate:) name:@"didNotAuthenticate" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didNotAuthenticate:) name:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
     
     [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
     
@@ -86,7 +86,7 @@
 - (void)login {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     _passwordText = [Encrypter md5:_passwordText];
-    NSLog(@"Password Text: %@", _passwordText);
+
     [UserDefaultManager savePassword:self.passwordText];
     [UserDefaultManager saveUsername:self.usernameText];
     
@@ -109,7 +109,7 @@
 }
 
 - (void)didNotAuthenticate:(NSNotification *) notification{
-    [UserDefaultManager clearUsernameAndPassword];
+    //[UserDefaultManager clearUsernameAndPassword];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your username and password could not be authenticated." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];

@@ -39,6 +39,8 @@
     _viewHasAppeared = YES;
     if (_shouldShowConnectionLostView) {
         [self handleConnectionLost];
+    } else {
+        [_reconnectView removeFromSuperview];
     }
 }
 

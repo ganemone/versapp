@@ -400,7 +400,7 @@
     XMPPMessage *messagePacket = [XMPPMessage messageWithType:CHAT_TYPE_ONE_TO_ONE to:[XMPPJID jidWithString:[NSString stringWithFormat:@"%@@%@", username, [ConnectionProvider getServerIPAddress]]]];
     [messagePacket addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:@"null"]];
     [messagePacket addAttribute:[DDXMLNode attributeWithName:@"from" stringValue:[NSString stringWithFormat:@"%@@%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]]]];
-    [messagePacket addBody:@"empty"];
+    [messagePacket addBody:@""];
     [messagePacket addThread:@"must_be_here"];
     
     DDXMLElement *properties = [DDXMLElement elementWithName:@"properties"];
