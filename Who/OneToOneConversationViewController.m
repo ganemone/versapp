@@ -102,7 +102,10 @@
 
 -(JSBubbleMessageType)messageTypeForRowAtIndexPath:(NSIndexPath *)indexPath {
     MessageMO * message = [self.chatMO.messages objectAtIndex:indexPath.row];
-    if ([message.sender_id compare:[ConnectionProvider getUser]] == 0) {
+    NSLog(@"Message Sender: %@", message.sender_id);
+    NSLog(@"Message: %@", [message description]);
+    if ([message.sender_id isEqualToString:[ConnectionProvider getUser]]) {
+        
         return JSBubbleMessageTypeOutgoing;
     }
     return JSBubbleMessageTypeIncoming;
