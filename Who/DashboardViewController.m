@@ -75,6 +75,7 @@ static BOOL notificationsHalfHidden = NO;
     lpgr.minimumPressDuration = 0.5; //seconds
     lpgr.delegate = self;
     [_tableView addGestureRecognizer:lpgr];
+    [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.frame];
     [imageView setClipsToBounds:NO];
@@ -152,7 +153,7 @@ static BOOL notificationsHalfHidden = NO;
     _friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
     _groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingGroupChats]];
     if ([_oneToOneChats count] > 0 || [_groupChats count] > 0) {
-        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+        [_tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectZero]];
     }
     [self setNotificationsIcon];
     [_notificationTableView reloadData];
@@ -380,7 +381,7 @@ static BOOL notificationsHalfHidden = NO;
             [footerLabel setText:@"You don't have any conversations yet :("];
             [footerLabel setFont:[StyleManager getFontStyleBoldSizeLarge]];
             [footerLabel setTextColor:[StyleManager getColorBlue]];
-            [_tableView setTableFooterView:footerLabel];
+            [_tableView setTableHeaderView:footerLabel];
         }
     }
 }
@@ -435,7 +436,7 @@ static BOOL notificationsHalfHidden = NO;
     
     self.groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
     if ([_oneToOneChats count] > 0 || [_groupChats count] > 0) {
-        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+        [_tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectZero]];
     }
     [self.tableView reloadData];
     
@@ -661,7 +662,7 @@ static BOOL notificationsHalfHidden = NO;
     self.groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
     self.oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllOneToOneChats]];
     if ([_oneToOneChats count] > 0 || [_groupChats count] > 0) {
-        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+        [_tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectZero]];
     }
     [self.tableView reloadData];
 }
