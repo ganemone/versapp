@@ -87,6 +87,7 @@
 		3A47C847189F1F02003020D7 /* MessagesDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A47C846189F1F02003020D7 /* MessagesDBManager.m */; };
 		3A49E9EA18FF146C00AFCB8E /* ThoughtTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A49E9E918FF146C00AFCB8E /* ThoughtTableViewCell.m */; };
 		3A49E9EC18FF155500AFCB8E /* ThoughtTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A49E9EB18FF155500AFCB8E /* ThoughtTableViewCell.xib */; };
+		3A49E9EE18FF2DFB00AFCB8E /* AppIconTransparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A49E9ED18FF2DFB00AFCB8E /* AppIconTransparent.png */; };
 		3A5538BF18E86A08003DD6CF /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5538BE18E86A08003DD6CF /* Reachability.m */; };
 		3A5699A81886CE8300746CC8 /* IQPacketReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5699A71886CE8300746CC8 /* IQPacketReceiver.m */; };
 		3A59D5EB18B2D4C800CE7B7B /* MainSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A59D5EA18B2D4C800CE7B7B /* MainSwipeViewController.m */; };
@@ -439,6 +440,7 @@
 		3A49E9E818FF146C00AFCB8E /* ThoughtTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThoughtTableViewCell.h; sourceTree = "<group>"; };
 		3A49E9E918FF146C00AFCB8E /* ThoughtTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThoughtTableViewCell.m; sourceTree = "<group>"; };
 		3A49E9EB18FF155500AFCB8E /* ThoughtTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThoughtTableViewCell.xib; sourceTree = "<group>"; };
+		3A49E9ED18FF2DFB00AFCB8E /* AppIconTransparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIconTransparent.png; sourceTree = "<group>"; };
 		3A5538BD18E86A08003DD6CF /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		3A5538BE18E86A08003DD6CF /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		3A5699A61886CE8300746CC8 /* IQPacketReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQPacketReceiver.h; sourceTree = "<group>"; };
@@ -1896,6 +1898,7 @@
 		3AF521CA18EA2DC5008320CD /* App Images */ = {
 			isa = PBXGroup;
 			children = (
+				3A49E9ED18FF2DFB00AFCB8E /* AppIconTransparent.png */,
 				3A068E8018F1E85000EA260E /* owl-left.png */,
 				3A068E8118F1E85000EA260E /* owl-right.png */,
 				3A91F1F718EB4C040006B9F8 /* contacts-background-large.png */,
@@ -2278,6 +2281,7 @@
 				3A7CDB7F18EB9E5D006A4BBF /* settings-icon.png in Resources */,
 				3A068E8218F1E85000EA260E /* owl-left.png in Resources */,
 				3ABD66D218FB325900E72B09 /* Owl-Loading-Animation_0007.png in Resources */,
+				3A49E9EE18FF2DFB00AFCB8E /* AppIconTransparent.png in Resources */,
 				3A91F1F218EB4BE50006B9F8 /* loadingScreenSmall.png in Resources */,
 				F7303EC918E8E3100045F9AF /* arrow-up-icon-square-green.png in Resources */,
 				3AB8D19218C259B00082B77C /* MavenProRegular.ttf in Resources */,
