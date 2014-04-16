@@ -18,6 +18,7 @@
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
 #import "UIScrollView+GifPullToRefresh.h"
+#import "ThoughtTableViewCell.h"
 
 @interface ConfessionsViewController ()
 
@@ -153,9 +154,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"ConfessionCellIdentifier";
+    static NSString *CellIdentifier = @"ThoughtCellIdentifier";
     Confession *confession = [_confessionsManager getConfessionAtIndex:(int)indexPath.row];
-    ConfessionTableCell *cell = [[ConfessionTableCell alloc] initWithConfession:confession reuseIdentifier:CellIdentifier];
+    ThoughtTableViewCell *cell = (ThoughtTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"ThoughtTableViewCell" owner:self options:nil] firstObject];
+    }
+    /*ConfessionTableCell *cell = [[ConfessionTableCell alloc] initWithConfession:confession reuseIdentifier:CellIdentifier];
     if ([confession isFavoritedByConnectedUser]) {
         if ([confession getNumForLabel] == 1) {
             [cell.favoriteButton setImage:self.favIconSingleActive forState:UIControlStateNormal];
@@ -179,7 +184,7 @@
         [cell.deleteButton removeFromSuperview];
         [cell.chatButton setImage:self.chatIcon forState:UIControlStateNormal];
     }
-    return cell;
+    return cell;*/
 }
 
 - (ConfessionTableCell *)confessionTableCellForConfession:(Confession *)confession {

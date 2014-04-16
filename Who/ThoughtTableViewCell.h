@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Confession.h"
 
 @interface ThoughtTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UITextView *body;
@@ -14,4 +15,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *favBtn;
 @property (weak, nonatomic) IBOutlet UILabel *favLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timestampLabel;
+@property (strong, nonatomic) Confession  *confession;
+
+-(void)setUpWithConfession:(Confession *)confession;
+
 @end
