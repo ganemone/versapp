@@ -198,6 +198,7 @@
 		3A98DA6318BD1A7E00B69049 /* XMPPXFacebookPlatformAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98DA5918BD1A7E00B69049 /* XMPPXFacebookPlatformAuthentication.m */; };
 		3A98DA6418BD1A7E00B69049 /* XMPPXOAuth2Google.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98DA5C18BD1A7E00B69049 /* XMPPXOAuth2Google.m */; };
 		3A98DA6718BD1B9D00B69049 /* NSString+DDXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98DA6618BD1B9D00B69049 /* NSString+DDXML.m */; };
+		3AAD02E918FE106400EE7879 /* bubble-square.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAD02E818FE106400EE7879 /* bubble-square.png */; };
 		3AAE9B1A1894A049003B4560 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAE9B191894A049003B4560 /* ConversationViewController.m */; };
 		3AB8D18818C23DF00082B77C /* MavenProLight-100.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AB8D18518C23DF00082B77C /* MavenProLight-100.ttf */; };
 		3AB8D18918C23DF00082B77C /* MavenProLight-200.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AB8D18618C23DF00082B77C /* MavenProLight-200.ttf */; };
@@ -640,6 +641,7 @@
 		3A98DA5D18BD1A7E00B69049 /* XMPPSASLAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPSASLAuthentication.h; sourceTree = "<group>"; };
 		3A98DA6518BD1B9D00B69049 /* NSString+DDXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DDXML.h"; sourceTree = "<group>"; };
 		3A98DA6618BD1B9D00B69049 /* NSString+DDXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DDXML.m"; sourceTree = "<group>"; };
+		3AAD02E818FE106400EE7879 /* bubble-square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-square.png"; sourceTree = "<group>"; };
 		3AAE9B181894A049003B4560 /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
 		3AAE9B191894A049003B4560 /* ConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
 		3AB8D18518C23DF00082B77C /* MavenProLight-100.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MavenProLight-100.ttf"; sourceTree = "<group>"; };
@@ -1123,6 +1125,7 @@
 		3A3A0AA618AB1126006FBAE4 /* bubble-classic */ = {
 			isa = PBXGroup;
 			children = (
+				3AAD02E818FE106400EE7879 /* bubble-square.png */,
 				3A1EACDC18D9DC41006E4CA3 /* bubble.png */,
 				3A1EACDE18D9DCF6006E4CA3 /* bubble@2x.png */,
 				3AF86D2718B504CF00033495 /* bubble-old.png */,
@@ -2286,6 +2289,7 @@
 				3A7CDB8118EBA20D006A4BBF /* add-contact-icon.png in Resources */,
 				3A3A0B0D18AB1126006FBAE4 /* send-button@2x.png in Resources */,
 				3AB8D18918C23DF00082B77C /* MavenProLight-200.ttf in Resources */,
+				3AAD02E918FE106400EE7879 /* bubble-square.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2540,8 +2544,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2564,7 +2568,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "23C89F9B-8665-42C0-BFF0-22FA5D8B75C0";
+				PROVISIONING_PROFILE = "2C0E2DD8-8A36-46EA-A8EC-9461FDD3A60E";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = NO;
 			};
@@ -2586,8 +2590,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2603,7 +2607,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "23C89F9B-8665-42C0-BFF0-22FA5D8B75C0";
+				PROVISIONING_PROFILE = "2C0E2DD8-8A36-46EA-A8EC-9461FDD3A60E";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2612,8 +2616,8 @@
 		3A25B6691881E03700166623 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				FRAMEWORK_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
@@ -2621,7 +2625,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
 				PRODUCT_NAME = Versapp;
-				PROVISIONING_PROFILE = "23C89F9B-8665-42C0-BFF0-22FA5D8B75C0";
+				PROVISIONING_PROFILE = "2C0E2DD8-8A36-46EA-A8EC-9461FDD3A60E";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2629,8 +2633,8 @@
 		3A25B66A1881E03700166623 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				FRAMEWORK_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
@@ -2638,7 +2642,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
 				PRODUCT_NAME = Versapp;
-				PROVISIONING_PROFILE = "23C89F9B-8665-42C0-BFF0-22FA5D8B75C0";
+				PROVISIONING_PROFILE = "2C0E2DD8-8A36-46EA-A8EC-9461FDD3A60E";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -123,7 +123,7 @@
 {
     [super viewDidLoad];
     [self setup];
-    [[JSBubbleView appearance] setFont:[StyleManager getFontStyleLightSizeMed]];
+    [[JSBubbleView appearance] setFont:[UIFont systemFontOfSize:14]];
     
 }
 

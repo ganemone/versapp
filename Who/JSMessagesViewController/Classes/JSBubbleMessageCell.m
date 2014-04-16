@@ -86,7 +86,7 @@ static const CGFloat kJSSubtitleLabelHeight = 15.0f;
     label.textColor = [UIColor js_messagesTimestampColorClassic];
     label.shadowColor = [UIColor whiteColor];
     label.shadowOffset = CGSizeMake(0.0f, 1.0f);
-    label.font = [StyleManager getFontStyleLightSizeMed];
+    label.font = [UIFont systemFontOfSize:14];
     
     [self.contentView addSubview:label];
     [self.contentView bringSubviewToFront:label];
@@ -143,7 +143,7 @@ static const CGFloat kJSSubtitleLabelHeight = 15.0f;
     label.backgroundColor = [UIColor clearColor];
     label.textAlignment = (type == JSBubbleMessageTypeOutgoing) ? NSTextAlignmentRight : NSTextAlignmentLeft;
     label.textColor = [UIColor js_messagesTimestampColorClassic];
-    label.font = [StyleManager getFontStyleLightSizeMed];
+    label.font = [UIFont systemFontOfSize:14];
     
     [self.contentView addSubview:label];
     _subtitleLabel = label;

@@ -69,7 +69,7 @@
         _bubbleImageView = bubbleImageView;
         
         UITextView *textView = [[UITextView alloc] init];
-        textView.font = [StyleManager getFontStyleLightSizeMed];
+        textView.font = [UIFont systemFontOfSize:14];
         textView.textColor = [UIColor blackColor];
         textView.editable = NO;
         textView.userInteractionEnabled = YES;
@@ -164,14 +164,14 @@
 - (UIFont *)font
 {
     if (_font == nil) {
-        _font = [[[self class] appearance] font];
+        _font = [UIFont systemFontOfSize:14];
     }
     
     if (_font != nil) {
         return _font;
     }
     
-    return [StyleManager getFontStyleLightSizeMed];
+    return [UIFont systemFontOfSize:14];
 }
 
 #pragma mark - Getters
@@ -180,7 +180,7 @@
 {
     CGSize bubbleSize = [JSBubbleView neededSizeForText:self.textView.text];
     
-    return CGRectIntegral(CGRectMake((self.type == JSBubbleMessageTypeOutgoing ? self.frame.size.width - bubbleSize.width - 10.0f : 10.0f),
+    return CGRectIntegral(CGRectMake((self.type == JSBubbleMessageTypeOutgoing ? self.frame.size.width - bubbleSize.width - 5.0 : 5.0f),
                                      kMarginTop,
                                      bubbleSize.width,
                                      bubbleSize.height + kMarginTop));
@@ -215,7 +215,7 @@
 
 + (CGSize)textSizeForText:(NSString *)txt
 {
-    CGFloat maxWidth = [UIScreen mainScreen].applicationFrame.size.width * 0.68f;
+    CGFloat maxWidth = [UIScreen mainScreen].applicationFrame.size.width * 0.62f;
     CGFloat maxHeight = CGFLOAT_MAX;//MAX([JSMessageTextView numberOfLinesForMessage:txt],
                             //[txt js_numberOfLines]) * [JSMessageInputView textViewLineHeight];
     //maxHeight += kJSAvatarImageSize;
@@ -224,7 +224,7 @@
     
     CGRect stringRect = [txt boundingRectWithSize:CGSizeMake(maxWidth, maxHeight)
                                           options:NSStringDrawingUsesLineFragmentOrigin
-                                       attributes:@{ NSFontAttributeName : [StyleManager getFontStyleRegularSizeMed] }//[[JSBubbleView appearance] font] }
+                                       attributes:@{ NSFontAttributeName : [[JSBubbleView appearance] font] }
                                           context:nil];
     
     stringSize = CGRectIntegral(stringRect).size;

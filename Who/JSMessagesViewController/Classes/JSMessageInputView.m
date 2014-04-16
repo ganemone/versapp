@@ -105,7 +105,7 @@
     [sendButton setTitleColor:[UIColor js_bubbleBlueColor] forState:UIControlStateHighlighted];
     [sendButton setTitleColor:[UIColor js_bubbleLightGrayColor] forState:UIControlStateDisabled];
     
-    sendButton.titleLabel.font = [StyleManager getFontStyleLightSizeMed];
+    sendButton.titleLabel.font = [UIFont systemFontOfSize:14];
     
     NSString *title = NSLocalizedString(@"Send", nil);
     [sendButton setTitle:title forState:UIControlStateNormal];

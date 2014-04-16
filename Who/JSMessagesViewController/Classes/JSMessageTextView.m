@@ -46,7 +46,7 @@
     self.scrollEnabled = YES;
     self.scrollsToTop = NO;
     self.userInteractionEnabled = YES;
-    self.font = [StyleManager getFontStyleLightSizeMed];
+    self.font = [UIFont systemFontOfSize:14];
     self.textColor = [UIColor blackColor];
     self.backgroundColor = [UIColor whiteColor];
     self.keyboardAppearance = UIKeyboardAppearanceDefault;
