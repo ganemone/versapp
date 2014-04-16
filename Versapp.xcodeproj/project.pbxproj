@@ -85,6 +85,8 @@
 		3A3A0B1618AB118A006FBAE4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A3A0B1518AB118A006FBAE4 /* AudioToolbox.framework */; };
 		3A47C844189F1A52003020D7 /* FriendsDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A47C843189F1A52003020D7 /* FriendsDBManager.m */; };
 		3A47C847189F1F02003020D7 /* MessagesDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A47C846189F1F02003020D7 /* MessagesDBManager.m */; };
+		3A49E9EA18FF146C00AFCB8E /* ThoughtTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A49E9E918FF146C00AFCB8E /* ThoughtTableViewCell.m */; };
+		3A49E9EC18FF155500AFCB8E /* ThoughtTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A49E9EB18FF155500AFCB8E /* ThoughtTableViewCell.xib */; };
 		3A5538BF18E86A08003DD6CF /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5538BE18E86A08003DD6CF /* Reachability.m */; };
 		3A5699A81886CE8300746CC8 /* IQPacketReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5699A71886CE8300746CC8 /* IQPacketReceiver.m */; };
 		3A59D5EB18B2D4C800CE7B7B /* MainSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A59D5EA18B2D4C800CE7B7B /* MainSwipeViewController.m */; };
@@ -434,6 +436,9 @@
 		3A47C843189F1A52003020D7 /* FriendsDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsDBManager.m; sourceTree = "<group>"; };
 		3A47C845189F1F02003020D7 /* MessagesDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesDBManager.h; sourceTree = "<group>"; };
 		3A47C846189F1F02003020D7 /* MessagesDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesDBManager.m; sourceTree = "<group>"; };
+		3A49E9E818FF146C00AFCB8E /* ThoughtTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThoughtTableViewCell.h; sourceTree = "<group>"; };
+		3A49E9E918FF146C00AFCB8E /* ThoughtTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThoughtTableViewCell.m; sourceTree = "<group>"; };
+		3A49E9EB18FF155500AFCB8E /* ThoughtTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThoughtTableViewCell.xib; sourceTree = "<group>"; };
 		3A5538BD18E86A08003DD6CF /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		3A5538BE18E86A08003DD6CF /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		3A5699A61886CE8300746CC8 /* IQPacketReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQPacketReceiver.h; sourceTree = "<group>"; };
@@ -1268,6 +1273,9 @@
 		3A8BCF7618B5961F00D4B7CE /* Confessions */ = {
 			isa = PBXGroup;
 			children = (
+				3A49E9EB18FF155500AFCB8E /* ThoughtTableViewCell.xib */,
+				3A49E9E818FF146C00AFCB8E /* ThoughtTableViewCell.h */,
+				3A49E9E918FF146C00AFCB8E /* ThoughtTableViewCell.m */,
 				3A00168018B82BB200C54059 /* ComposeConfessionViewController.h */,
 				3A00168118B82BB200C54059 /* ComposeConfessionViewController.m */,
 				3A8BCF7318B5960300D4B7CE /* ConfessionsViewController.h */,
@@ -2278,6 +2286,7 @@
 				3AF86D2918B504CF00033495 /* bubble-old.png in Resources */,
 				3A07F6D718D3EFC200E82390 /* check-icon.png in Resources */,
 				3AF521D118EA3072008320CD /* friends-icon.png in Resources */,
+				3A49E9EC18FF155500AFCB8E /* ThoughtTableViewCell.xib in Resources */,
 				F7977B6418DBA25B000E955C /* check-icon-green.png in Resources */,
 				3A25B64A1881E03700166623 /* Main.storyboard in Resources */,
 				3ABD66D718FB325900E72B09 /* Owl-Loading-Animation_0012.png in Resources */,
@@ -2331,6 +2340,7 @@
 				3A67DB4F18E4D08200DA6691 /* ConnectionHandlingViewController.m in Sources */,
 				F744856318DB61C500460FBC /* SWTableViewCell.m in Sources */,
 				3AEFB76E18E8EF980039B5B0 /* NewUserRegisterPhoneViewController.m in Sources */,
+				3A49E9EA18FF146C00AFCB8E /* ThoughtTableViewCell.m in Sources */,
 				3AB9E67E18A45573001EFDB8 /* LoadingDialogManager.m in Sources */,
 				3AFF778718C415BE003277F9 /* FriendMO.m in Sources */,
 				3A98D8E318BD19B200B69049 /* XMPPElement.m in Sources */,
