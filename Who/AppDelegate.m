@@ -14,7 +14,7 @@
 #import "DashboardViewController.h"
 #import "Reachability.h"
 #import "IQPacketManager.h"
-
+#import <FacebookSDK/FacebookSDK.h>
 
 @implementation AppDelegate
 
@@ -94,6 +94,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Let the device know we want to receive push notifications
+    [FBSettings setLoggingBehavior:[NSSet setWithObject:FBLoggingBehaviorDeveloperErrors]];
 	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:
      (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     

@@ -16,6 +16,7 @@
 #import "StyleManager.h"
 #import "MBProgressHUD.h"
 #import "Encrypter.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface LoginViewController()
 
@@ -78,15 +79,28 @@
 }
 
 - (IBAction)loginClick:(id)sender {
-        self.passwordText = self.password.text;
-        self.usernameText = self.username.text;
-        [self login];
+    self.passwordText = self.password.text;
+    self.usernameText = self.username.text;
+    [self login];
+}
+
+// A function for parsing URL parameters returned by the Feed Dialog.
+- (NSDictionary*)parseURLParams:(NSString *)query {
+    NSArray *pairs = [query componentsSeparatedByString:@"&"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    for (NSString *pair in pairs) {
+        NSArray *kv = [pair componentsSeparatedByString:@"="];
+        NSString *val =
+        [kv[1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        params[kv[0]] = val;
+    }
+    return params;
 }
 
 - (void)login {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     _passwordText = [Encrypter md5:_passwordText];
-
+    
     [UserDefaultManager savePassword:self.passwordText];
     [UserDefaultManager saveUsername:self.usernameText];
     

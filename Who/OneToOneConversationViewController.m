@@ -167,6 +167,7 @@
 }
 
 -(void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
+    NSLog(@"isUploadingImage: %d", self.isUploadingImage);
     while (self.isUploadingImage == YES);
     if (self.messageImageLink == nil && (text == nil || [text isEqualToString:@""])) {
         return;
@@ -181,6 +182,9 @@
 
 
 -(void)didSelectImage:(UIImage *)image {
+    NSLog(@"Beginning Image Upload...");
+    MBProgressHUD *loadingScreen = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [loadingScreen setLabelText:@"Loading image..."];
     self.isUploadingImage = YES;
     [self.im uploadImage:image url:@"http://media.versapp.co"];
 }
@@ -190,6 +194,8 @@
 }
 
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {
+    NSLog(@"Finished Image Upload...");
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     self.isUploadingImage = NO;
     self.messageImage = image;
     self.messageImageLink = url;
