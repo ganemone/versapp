@@ -17,6 +17,7 @@
 @property (strong, nonatomic) NSManagedObjectContext *childObjectContext;
 @property (strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (strong, nonatomic) NSString *sessionID;
+@property (strong, nonatomic) NSString *localNotificationMessage;
 
 @property BOOL didResumeFromBackground;
 

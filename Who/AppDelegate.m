@@ -143,15 +143,12 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 }
 
 - (void)setup {
-    NSLog(@"Setting up in app delegate...");
     ConnectionProvider *cp = [ConnectionProvider getInstance];
     XMPPStream *stream = [cp getConnection];
     [self setupReachability];
     if ([stream isDisconnected]) {
         NSString *username = [UserDefaultManager loadUsername];
         NSString *password = [UserDefaultManager loadPassword];
-        NSLog(@"Username: %@", username);
-        NSLog(@"Password: %@", password);\
         if (username != nil && password != nil) {
             [cp connect:username password:password];
         } else {
@@ -193,6 +190,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     _completionHandler = completionHandler;
+    _localNotificationMessage = [userInfo objectForKey:@"message"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedLoadingAfterRemoteNotification) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedLoadingAfterRemoteNotification) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailedToLoadDataAfterRemoteNotification) name:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
@@ -201,20 +199,19 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     if (![stream isAuthenticated]) {
         NSString *username = [UserDefaultManager loadUsername];
         NSString *password = [UserDefaultManager loadPassword];
-        [cp connect:username password:password];
+        [cp connectForPushNotificationFetch:username password:password];
     } else {
         _completionHandler(UIBackgroundFetchResultNewData);
     }
 }
 
 - (void)handleFinishedLoadingAfterRemoteNotification {
+    UILocalNotification* localNotification = [[UILocalNotification alloc] init];
+    localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1];
+    localNotification.alertBody = _localNotificationMessage;
+    localNotification.timeZone = [NSTimeZone defaultTimeZone];
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
     _completionHandler(UIBackgroundFetchResultNewData);
-    /*
-    int64_t delayInSeconds = 1;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        _completionHandler(UIBackgroundFetchResultNewData);
-    });*/
 }
 
 - (void)handleFailedToLoadDataAfterRemoteNotification {

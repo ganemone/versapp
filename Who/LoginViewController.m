@@ -79,13 +79,9 @@
 }
 
 - (IBAction)loginClick:(id)sender {
-    [self presentViewController:[SocialSharingManager getTweetSheet] animated:YES completion:^{
-        NSLog(@"Completed...");
-    }];
-    /*
     self.passwordText = self.password.text;
     self.usernameText = self.username.text;
-    [self login];*/
+    [self login];
 }
 
 // A function for parsing URL parameters returned by the Feed Dialog.
