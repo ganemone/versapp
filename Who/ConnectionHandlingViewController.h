@@ -13,7 +13,6 @@
 @property BOOL shouldShowConnectionLostView;
 @property BOOL viewHasAppeared;
 @property BOOL connectionLostViewIsVisible;
-@property(nonatomic, strong) UIView *reconnectView;
 
 - (void)showDisconnectedView;
 

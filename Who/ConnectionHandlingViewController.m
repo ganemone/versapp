@@ -10,6 +10,7 @@
 #import "ConnectionLostViewController.h"
 #import "Constants.h"
 #import "ConnectionProvider.h"
+#import "MBProgressHUD.h"
 
 @implementation ConnectionHandlingViewController
 
@@ -40,7 +41,7 @@
     if (_shouldShowConnectionLostView) {
         [self handleConnectionLost];
     } else {
-        [_reconnectView removeFromSuperview];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
     }
 }
 
@@ -60,7 +61,7 @@
 
 - (void)didReconnect {
     if (_connectionLostViewIsVisible) {
-        [_reconnectView removeFromSuperview];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         _shouldShowConnectionLostView = NO;
         _connectionLostViewIsVisible = NO;
     }
@@ -72,16 +73,8 @@
         if (!_connectionLostViewIsVisible) {
             /*ConnectionLostViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:STORYBOARD_ID_CONNECTION_LOST_VIEW_CONTROLLER];
             [self presentViewController:vc animated:YES completion:nil];*/
-            UIView *connectionView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, self.view.frame.size.width - 20, 50)];
-            UILabel *reconnectLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, connectionView.frame.size.width, 50)];
-            [reconnectLabel setText:@"Trying to Reconnect..."];
-            [reconnectLabel setTextAlignment:NSTextAlignmentCenter];
-            [reconnectLabel setTextColor:[UIColor whiteColor]];
-            [connectionView setBackgroundColor:[UIColor blackColor]];
-            [reconnectLabel setBackgroundColor:[UIColor clearColor]];
-            [connectionView addSubview:reconnectLabel];
-            _reconnectView = connectionView;
-            [self.view addSubview:_reconnectView];
+            MBProgressHUD *progressHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            [progressHud setLabelText:@"Reconnecting"];
             _connectionLostViewIsVisible = YES;
         }
     }
