@@ -13,6 +13,7 @@
 #import "IQPacketManager.h"
 #import "Constants.h"
 #import "StyleManager.h"
+#import "MBProgressHUD.h"
 
 @interface ComposeConfessionViewController ()
 
@@ -48,11 +49,17 @@
 }
 
 - (IBAction)postConfession:(id)sender {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self.view setUserInteractionEnabled:NO];
     NSString *confessionText = [_composeTextView text];
     if (confessionText.length > 0) {
         Confession *confession = [Confession create:confessionText imageURL:nil];
         [[ConfessionsManager getInstance] setPendingConfession:confession];
         [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createPostConfessionPacket:confession]];
+    } else {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.view setUserInteractionEnabled:YES];
+        [[[UIAlertView alloc] initWithTitle:@"Whoops" message:@"You didn't write anything!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
     }
 }
 
@@ -61,6 +68,8 @@
 }
 
 -(void)handleFinishedPostingConfession {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [self.view setUserInteractionEnabled:YES];
     [[self navigationController] popToRootViewControllerAnimated:YES];
 }
 
