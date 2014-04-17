@@ -30,6 +30,7 @@
 #import "ChatDBManager.h"
 #import "StyleManager.h"
 
+#import "MBProgressHUD.h"
 @interface FriendsViewController()
 
 @property (strong, nonatomic) ConnectionProvider* cp;
@@ -38,7 +39,6 @@
 @property (strong, nonatomic) NSMutableArray *selectedJIDs;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (strong, nonatomic) ChatMO *createdChat;
-@property (strong, nonatomic) LoadingDialogManager *ldm;
 @property (strong, nonatomic) NSString *invitedUser;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
@@ -68,7 +68,6 @@
     self.isCreatingGroup = NO;
     self.selectedJIDs = [[NSMutableArray alloc] initWithCapacity:10];
     self.cp = [ConnectionProvider getInstance];
-    self.ldm = [LoadingDialogManager create:self.view];
     self.allAccepted = [FriendsDBManager getAllWithStatusFriends];
     self.searchResults = _allAccepted;
     
@@ -164,16 +163,18 @@
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
     if (self.isCreatingGroup == YES) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         NSString *groupName = [alertView textFieldAtIndex:0].text;
         if (buttonIndex == 1 && groupName.length > 0) {
-            [self.ldm showLoadingDialogWithoutProgress];
             ChatMO *gc = [MUCCreationManager createMUC:groupName participants:self.selectedJIDs];
             _createdChat = [ChatDBManager insertChatWithID:gc.chat_id chatName:groupName chatType:CHAT_TYPE_GROUP participantString:[self.selectedJIDs componentsJoinedByString:@", "] status:STATUS_JOINED];
             [self handleFinishedInvitingUsersToMUC];
         }
         self.isCreatingGroup = NO;
     } else if (buttonIndex == 1) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
         NSString *chatID = [ChatMO createGroupID];
         [conn sendElement:[IQPacketManager createCreateOneToOneChatPacket:chatID invitedUser:self.invitedUser roomName:@"Anonymous Friend"]];
@@ -186,7 +187,7 @@
 }
 
 -(void)handleFinishedInvitingUsersToMUC {
-    [self.ldm hideLoadingDialogWithoutProgress];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     [self performSegueWithIdentifier:SEGUE_ID_CREATED_MUC sender:self];
 }
 
@@ -194,7 +195,7 @@
     XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
     [conn sendElement:[IQPacketManager createInviteToChatPacket:_createdChat.chat_id invitedUsername:self.invitedUser]];
     [conn sendElement:[IQPacketManager createInviteToChatPacket:_createdChat.chat_id invitedUsername:[ConnectionProvider getUser]]];
-    [self.ldm hideLoadingDialogWithoutProgress];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     [self performSegueWithIdentifier:SEGUE_ID_CREATED_CHAT sender:self];
 }
 
