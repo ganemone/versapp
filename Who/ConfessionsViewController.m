@@ -152,6 +152,10 @@
     return [_confessionsManager getNumberOfConfessions];
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"ThoughtCellIdentifier";
@@ -160,6 +164,8 @@
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"ThoughtTableViewCell" owner:self options:nil] firstObject];
     }
+    [cell setUpWithConfession:confession];
+    return cell;
     /*ConfessionTableCell *cell = [[ConfessionTableCell alloc] initWithConfession:confession reuseIdentifier:CellIdentifier];
     if ([confession isFavoritedByConnectedUser]) {
         if ([confession getNumForLabel] == 1) {
@@ -202,13 +208,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    Confession *confession = [[self confessionsManager] getConfessionAtIndex:(int)indexPath.row];
-    return [confession heightForConfession] - 8.0f;
-}
-
--(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    Confession *confession = [[self confessionsManager] getConfessionAtIndex:(int)indexPath.row];
-    return [confession heightForConfession] - 8.0f;
+    return 230;
 }
 
 - (void)refreshListView
