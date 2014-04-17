@@ -13,14 +13,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="232"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="confessions-icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="JIq-za-nGf">
-                        <rect key="frame" x="188" y="195" width="30" height="30"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="messages-icon-white.png" translatesAutoresizingMaskIntoConstraints="NO" id="qR0-Uc-juK">
-                        <rect key="frame" x="270" y="195" width="30" height="30"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    </imageView>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" editable="NO" text="Thought Goes Here" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x54-lS-xaS">
                         <rect key="frame" x="20" y="0.0" width="280" height="191"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -32,31 +24,41 @@
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pgj-4Q-hwg">
-                        <rect key="frame" x="20" y="199" width="160" height="21"/>
+                        <rect key="frame" x="20" y="199" width="112" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="100" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Td2-4k-xQW">
-                        <rect key="frame" x="226" y="199" width="29" height="21"/>
+                        <rect key="frame" x="226" y="195" width="29" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aF5-wV-ZVW">
+                        <rect key="frame" x="160" y="195" width="65" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <state key="normal" title="Favorite">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FJS-BB-2m5">
+                        <rect key="frame" x="267" y="195" width="33" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <state key="normal" title="Chat">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
                 </subviews>
             </tableViewCellContentView>
             <connections>
                 <outlet property="body" destination="x54-lS-xaS" id="daK-8p-vNu"/>
-                <outlet property="chatBtn" destination="qR0-Uc-juK" id="ypR-82-XPz"/>
-                <outlet property="favBtn" destination="JIq-za-nGf" id="tW4-Gs-jHR"/>
+                <outlet property="chatBtn" destination="FJS-BB-2m5" id="9TS-Ar-SkV"/>
+                <outlet property="favBtn" destination="aF5-wV-ZVW" id="Lhs-2d-Foa"/>
                 <outlet property="favLabel" destination="Td2-4k-xQW" id="bbE-6n-ylM"/>
                 <outlet property="timestampLabel" destination="Pgj-4Q-hwg" id="pXM-eU-VKv"/>
             </connections>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="confessions-icon.png" width="60" height="60"/>
-        <image name="messages-icon-white.png" width="60" height="60"/>
-    </resources>
 </document>

@@ -8,6 +8,10 @@
 
 #import "ThoughtTableViewCell.h"
 #import "StyleManager.h"
+#import "ConnectionProvider.h"
+#import "Confession.h"
+#import "IQPacketManager.h"
+#import "ConfessionsManager.h"
 
 @implementation ThoughtTableViewCell
 
@@ -61,6 +65,60 @@
     [_favLabel setUserInteractionEnabled:NO];
     [_body setTextAlignment:NSTextAlignmentCenter];
     [_body setTextContainerInset:UIEdgeInsetsMake((190 - [_confession heightForConfession]) / 2.0f, 0, 0, 0)];
+    
+    [_favBtn addTarget:self action:@selector(handleConfessionFavorited:) forControlEvents:UIControlEventTouchUpInside];
+    
+    if ([_confession isFavoritedByConnectedUser]) {
+        [_favBtn setTintColor:[UIColor blackColor]];
+    } else {
+        [_favBtn setTintColor:[UIColor whiteColor]];
+    }
+    
+    if ([_confession isPostedByConnectedUser]) {
+        [_chatBtn addTarget:self action:@selector(handleConfessionDeleted:) forControlEvents:UIControlEventTouchUpInside];
+        [_chatBtn setTitle:@"Remove" forState:UIControlStateNormal];
+    } else {
+        [_chatBtn setTitle:@"Chat" forState:UIControlStateNormal];
+        [_chatBtn addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
+    }
+}
+
+-(void)handleConfessionFavorited:(id)sender {
+    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createToggleFavoriteConfessionPacket:[_confession confessionID]]];
+    
+    BOOL isFavorited = [_confession toggleFavorite];
+    if (isFavorited) {
+        [_favBtn setTintColor:[UIColor blackColor]];
+        if ([_confession getNumForLabel] == 1) {
+            //[_favBtn setImage:[UIImage imageNamed:@"fav-icon-label-single-active.png"] forState:UIControlStateNormal];
+        } else {
+            //[_favBtn setImage:[UIImage imageNamed:@"fav-icon-label-active.png"] forState:UIControlStateNormal];
+        }
+    } else {
+        [_favBtn setTintColor:[UIColor whiteColor]];
+        if ([_confession getNumForLabel] == 1) {
+            //[_favBtn setImage:[UIImage imageNamed:@"fav-icon-label-single.png"] forState:UIControlStateNormal];
+        } else {
+            //[_favBtn setImage:[UIImage imageNamed:@"fav-icon-label.png"] forState:UIControlStateNormal];
+        }
+    }
+    [_favLabel setText:[_confession getTextForLabel]];
+    ConfessionsManager *confessionsManager = [ConfessionsManager getInstance];
+    [confessionsManager updateConfession:_confession];
+}
+
+-(void)handleConfessionChatStarted:(id)sender {
+    [_confession startChat];
+}
+
+-(void)handleConfessionDeleted:(id)sender {
+    [[[UIAlertView alloc] initWithTitle:@"Confirmation" message:@"Are you sure you want to delete this thought?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil] show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Delete"]) {
+        [_confession deleteConfession];
+    }
 }
 
 @end

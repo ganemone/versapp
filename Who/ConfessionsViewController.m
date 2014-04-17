@@ -82,7 +82,6 @@
     //self.refreshControl = refresh;
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
-    [self.tableView setBackgroundColor:[StyleManager getColorOrange]];
     [self.tableView setBackgroundView:nil];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
@@ -141,7 +140,6 @@
         [header setTextAlignment:NSTextAlignmentCenter];
         [header setText:@"There are no Thoughts on your feed"];
         [header setFont:[StyleManager getFontStyleBoldSizeLarge]];
-        [header setTextColor:[StyleManager getColorOrange]];
         return header;
     }
     return [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 10.0f)];

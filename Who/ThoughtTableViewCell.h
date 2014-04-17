@@ -11,8 +11,8 @@
 
 @interface ThoughtTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UITextView *body;
-@property (weak, nonatomic) IBOutlet UIImageView *chatBtn;
-@property (weak, nonatomic) IBOutlet UIImageView *favBtn;
+@property (weak, nonatomic) IBOutlet UIButton *chatBtn;
+@property (weak, nonatomic) IBOutlet UIButton *favBtn;
 @property (weak, nonatomic) IBOutlet UILabel *favLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timestampLabel;
 @property (strong, nonatomic) Confession  *confession;

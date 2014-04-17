@@ -1255,7 +1255,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.95686274509803915" green="0.5725490196078431" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="aeu-EJ-Rlq">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
@@ -1291,7 +1291,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.95686274510000002" green="0.57254901960000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -2007,6 +2007,6 @@
         <segue reference="pHb-Kf-4qo"/>
         <segue reference="WHz-1g-xNx"/>
         <segue reference="YCw-e7-spT"/>
-        <segue reference="rOT-zb-Yrt"/>
+        <segue reference="qGQ-aw-vgl"/>
     </inferredMetricsTieBreakers>
 </document>
