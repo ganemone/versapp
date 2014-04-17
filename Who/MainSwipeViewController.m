@@ -83,10 +83,11 @@
     [self.view addSubview:_backgroundImageView];
     [self.view sendSubviewToBack:_backgroundImageView];
     
-    if ([[ConfessionsManager getInstance] getNumberOfConfessions] > 0) {
+    /*if ([[ConfessionsManager getInstance] getNumberOfConfessions] > 0) {
         [self setUpInBackground];
-    }
-    //[self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"owl-left.png"]]];
+    }*/
+    
+    
 }
 
 - (void)setUpInBackground {

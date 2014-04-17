@@ -61,7 +61,7 @@
 
 +(void)handleChatMessageReceived:(XMPPMessage*)message {
     NSError *error = NULL;
-    
+    NSLog(@"Message Received: %@", message.XMLString);
     NSRegularExpression *groupIDRegex = [NSRegularExpression regularExpressionWithPattern:@"(.*?)@" options:NSRegularExpressionCaseInsensitive error:&error];
     NSTextCheckingResult *groupIDMatch = [groupIDRegex firstMatchInString:message.fromStr options:0 range:NSMakeRange(0, message.fromStr.length)];
     NSString *groupID = [message.fromStr substringWithRange:[groupIDMatch rangeAtIndex:1]];

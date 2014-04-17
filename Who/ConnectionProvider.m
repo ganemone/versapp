@@ -89,8 +89,9 @@ static ConnectionProvider *selfInstance;
     
     NSError *error = nil;
     if(![self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FAILED_TO_AUTHENTICATE object:self];
+        //[[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FAILED_TO_AUTHENTICATE object:self];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CONNECTING object:self];
 }
 
 - (void) connectForPushNotificationFetch:(NSString *)username password:(NSString *) password {
@@ -140,7 +141,7 @@ static ConnectionProvider *selfInstance;
     }
     else {
         if (![[self xmppStream] authenticateWithPassword:self.password error:&error]) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
+            //[[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
         }
     }
     self.didConnect = YES;
@@ -272,7 +273,7 @@ static ConnectionProvider *selfInstance;
     
     NSError *error = nil;
     if (![[self xmppStream] authenticateWithPassword:self.password error:&error]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
+        //[[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
     }
 }
 

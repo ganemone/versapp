@@ -196,7 +196,11 @@ static int numUninvitedParticipants;
 +(void)setHasNewMessageNo:(NSString *)chatID {
     ChatMO *chatEntry = [self getChatWithID:chatID];
     [chatEntry setValue:@"NO" forKey:CHATS_TABLE_COLUMN_NAME_HAS_NEW_MESSAGE];
-    [(AppDelegate*)[UIApplication sharedApplication].delegate saveContext];
+    UIApplication *sharedApp = [UIApplication sharedApplication];
+    [(AppDelegate*)sharedApp.delegate saveContext];
+    if (sharedApp.applicationIconBadgeNumber > 0) {
+        [sharedApp setApplicationIconBadgeNumber:sharedApp.applicationIconBadgeNumber - 1];
+    }
 }
 
 +(void)setHasNewMessageYes:(NSString *)chatID {
@@ -214,6 +218,10 @@ static int numUninvitedParticipants;
     ChatMO *chatEntry = [self getChatWithID:chatID];
     [chatEntry setValue:[NSNumber numberWithInt:status] forKey:CHATS_TABLE_COLUMN_NAME_STATUS];
     [(AppDelegate*)[UIApplication sharedApplication].delegate saveContext];
+}
+
++(int)getNumForBadge {
+    return [[self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\" || %@ = \"%@\"", CHATS_TABLE_COLUMN_NAME_HAS_NEW_MESSAGE, @"YES", CHATS_TABLE_COLUMN_NAME_STATUS, [NSNumber numberWithInt:STATUS_PENDING]]] count];
 }
 
 +(void)updateOneToOneChatNames:(NSString *)name username:(NSString*)username {

@@ -67,4 +67,6 @@
 
 +(void)deleteChat:(ChatMO *)chat;
 
++(int)getNumForBadge;
+
 @end

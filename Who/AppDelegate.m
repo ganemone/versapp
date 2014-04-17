@@ -15,6 +15,9 @@
 #import "Reachability.h"
 #import "IQPacketManager.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import "MainSwipeViewController.h"
+#import "MessageMO.h"
+#import "ChatDBManager.h"
 
 @implementation AppDelegate
 
@@ -94,7 +97,9 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Let the device know we want to receive push notifications
-    [FBSettings setLoggingBehavior:[NSSet setWithObject:FBLoggingBehaviorDeveloperErrors]];
+    NSDictionary *pushDict = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    NSLog(@"Push Dict: %@", [pushDict description]);
+    
 	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:
      (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
@@ -191,12 +196,19 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     _completionHandler = completionHandler;
     _localNotificationMessage = [userInfo objectForKey:@"message"];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedLoadingAfterRemoteNotification) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedLoadingAfterRemoteNotification) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
+    NSLog(@"Received remote notification");
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedLoadingContentForNotification:) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
+    NSLog(@"Registered First Receiver");
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedLoadingContentForNotification:) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
+    NSLog(@"Registered Second Receiver");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailedToLoadDataAfterRemoteNotification) name:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
+    NSLog(@"Registered Third Receiver");
     ConnectionProvider *cp = [ConnectionProvider getInstance];
+    NSLog(@"Got CP");
     XMPPStream *stream = [cp getConnection];
+    NSLog(@"Got Stream");
     if (![stream isAuthenticated]) {
+        NSLog(@"Going to connect...");
         NSString *username = [UserDefaultManager loadUsername];
         NSString *password = [UserDefaultManager loadPassword];
         [cp connectForPushNotificationFetch:username password:password];
@@ -205,12 +217,16 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     }
 }
 
-- (void)handleFinishedLoadingAfterRemoteNotification {
+- (void)handleFinishedLoadingContentForNotification:(NSNotification *)notification {
     UILocalNotification* localNotification = [[UILocalNotification alloc] init];
-    localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1];
+    localNotification.userInfo = notification.userInfo;
+    localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:0.001];
     localNotification.alertBody = _localNotificationMessage;
     localNotification.timeZone = [NSTimeZone defaultTimeZone];
-    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    localNotification.soundName = UILocalNotificationDefaultSoundName;
+    UIApplication *sharedApp = [UIApplication sharedApplication];
+    [sharedApp scheduleLocalNotification:localNotification];
+    [sharedApp setApplicationIconBadgeNumber:[ChatDBManager getNumForBadge]];
     _completionHandler(UIBackgroundFetchResultNewData);
 }
 
