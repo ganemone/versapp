@@ -234,6 +234,7 @@
 		3AC6D0D218C22A9500091539 /* StyleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6D0D118C22A9500091539 /* StyleManager.m */; };
 		3ACF496C1900076200D982F4 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ACF496B1900076200D982F4 /* FacebookSDK.framework */; };
 		3ACF496F1900181F00D982F4 /* SocialSharingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACF496E1900181F00D982F4 /* SocialSharingManager.m */; };
+		3ACF497119001B7800D982F4 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ACF497019001B7800D982F4 /* Social.framework */; };
 		3AD19AB818E26298001B3B88 /* AppIcon58.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD19AB518E26298001B3B88 /* AppIcon58.png */; };
 		3AD19AB918E26298001B3B88 /* AppIcon80.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD19AB618E26298001B3B88 /* AppIcon80.png */; };
 		3AD19ABA18E26298001B3B88 /* AppIcon120.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD19AB718E26298001B3B88 /* AppIcon120.png */; };
@@ -691,6 +692,7 @@
 		3ACF496B1900076200D982F4 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		3ACF496D1900181F00D982F4 /* SocialSharingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialSharingManager.h; sourceTree = "<group>"; };
 		3ACF496E1900181F00D982F4 /* SocialSharingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialSharingManager.m; sourceTree = "<group>"; };
+		3ACF497019001B7800D982F4 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		3AD19AB518E26298001B3B88 /* AppIcon58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon58.png; sourceTree = "<group>"; };
 		3AD19AB618E26298001B3B88 /* AppIcon80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon80.png; sourceTree = "<group>"; };
 		3AD19AB718E26298001B3B88 /* AppIcon120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon120.png; sourceTree = "<group>"; };
@@ -839,6 +841,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3ACF497119001B7800D982F4 /* Social.framework in Frameworks */,
 				3A59D5F118B2F32200CE7B7B /* Accelerate.framework in Frameworks */,
 				3A3A0B1618AB118A006FBAE4 /* AudioToolbox.framework in Frameworks */,
 				3A0FE1C518A9A4C7003692EB /* CoreText.framework in Frameworks */,
@@ -952,6 +955,7 @@
 		3A25B6351881E03700166623 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3ACF497019001B7800D982F4 /* Social.framework */,
 				3ACF496B1900076200D982F4 /* FacebookSDK.framework */,
 				3A59D5F018B2F32200CE7B7B /* Accelerate.framework */,
 				3A3A0B1518AB118A006FBAE4 /* AudioToolbox.framework */,

@@ -8,6 +8,7 @@
 
 #import "SocialSharingManager.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import <Social/Social.h>
 
 @implementation SocialSharingManager
 
@@ -103,6 +104,35 @@ NSString *const DESCRIPTION = @"Share and chat anonymously, with the people you 
         params[kv[0]] = val;
     }
     return params;
+}
+
++ (SLComposeViewController *)getTweetSheet
+{
+    //  Create an instance of the Tweet Sheet
+    SLComposeViewController *tweetSheet = [SLComposeViewController
+                                           composeViewControllerForServiceType:
+                                           SLServiceTypeTwitter];
+    
+    tweetSheet.completionHandler = ^(SLComposeViewControllerResult result) {
+        switch(result) {
+                //  This means the user cancelled without sending the Tweet
+            case SLComposeViewControllerResultCancelled:
+                break;
+                //  This means the user hit 'Send'
+            case SLComposeViewControllerResultDone:
+                break;
+        }
+    };
+    
+    //  Set the initial body of the Tweet
+    [tweetSheet setInitialText:@"Check out this cool semi-anonymous social media app @getversapp #Versapp"];
+    
+    //  Add an URL to the Tweet.  You can add multiple URLs.
+    if (![tweetSheet addURL:[NSURL URLWithString:@"http://versapp.co"]]){
+        NSLog(@"Unable to add the URL!");
+    }
+    
+    return tweetSheet;
 }
 
 @end

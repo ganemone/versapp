@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Social/Social.h>
 
 @interface SocialSharingManager : NSObject
 
 + (void) shareVersappFBLink;
-
++ (SLComposeViewController *)getTweetSheet;
 @end
