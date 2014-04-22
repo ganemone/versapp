@@ -32,6 +32,7 @@
 @property (strong, nonatomic) UIImage *deleteIcon;
 @property (strong, nonatomic) ChatMO *createdChat;
 
+
 @end
 
 @implementation ConfessionsViewController
@@ -41,6 +42,41 @@
         OneToOneConversationViewController *dest = segue.destinationViewController;
         [dest setChatMO:_createdChat];
     }
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    self.gradient = [CAGradientLayer layer];
+    self.gradient.frame = self.view.bounds;
+    self.gradient.colors = @[(id)[UIColor purpleColor].CGColor,
+                             (id)[UIColor redColor].CGColor];
+    
+    [self.view.layer insertSublayer:self.gradient atIndex:0];
+    
+    [self animateLayer];
+}
+
+-(void)animateLayer
+{
+    
+    NSArray *fromColors = self.gradient.colors;
+    NSArray *toColors = @[(id)[UIColor redColor].CGColor,
+                          (id)[UIColor orangeColor].CGColor];
+    
+    [self.gradient setColors:toColors];
+    
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"colors"];
+    
+    animation.fromValue             = fromColors;
+    animation.toValue               = toColors;
+    animation.duration              = 3.00;
+    animation.removedOnCompletion   = YES;
+    animation.fillMode              = kCAFillModeForwards;
+    animation.timingFunction        = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    animation.delegate              = self;
+    
+    // Add the animation to our layer
+    
+    [self.gradient addAnimation:animation forKey:@"animateGradient"];
 }
 
 - (void)viewDidLoad

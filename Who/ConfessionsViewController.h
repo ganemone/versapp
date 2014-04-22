@@ -17,5 +17,5 @@
 @property (weak, nonatomic) IBOutlet UIButton *friendsBtn;
 @property (weak, nonatomic) IBOutlet UITextField *bottomTextField;
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
-
+@property (strong, nonatomic) CAGradientLayer *gradient;
 @end

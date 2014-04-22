@@ -1207,7 +1207,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="jZx-yj-7oZ">
-                                <rect key="frame" x="0.0" y="64" width="320" height="376"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" red="0.99432015419006348" green="0.94996464245015189" blue="0.6198138383075269" alpha="1" colorSpace="calibratedRGB"/>
@@ -1222,7 +1222,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" id="xNe-oj-gI8">
+                            <view hidden="YES" contentMode="scaleToFill" id="xNe-oj-gI8">
                                 <rect key="frame" x="0.0" y="440" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <subviews>
