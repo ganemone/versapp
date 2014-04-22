@@ -75,6 +75,14 @@
     //return _height;
 }
 
+- (CGFloat)heightForConfessionWithFont:(UIFont *)cellFont {
+    CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
+    NSStringDrawingContext *ctx = [NSStringDrawingContext new];
+    CGRect textRect = [_body boundingRectWithSize:constraintSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:ctx];
+    _height = textRect.size.height;
+    return _height;
+}
+
 -(void)encodeBody {
     [self setBody: [self urlencode:_body]];
 }

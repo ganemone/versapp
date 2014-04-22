@@ -30,31 +30,19 @@
 @property BOOL hasCalculatedFrames;
 
 +(instancetype)create:(NSString*)body imageURL:(NSString*)imageURL;
-
 +(instancetype)create:(NSString*)body posterJID:(NSString*)posterJID imageURL:(NSString*)imageURL confessionID:(NSString*)confessionID createdTimestamp:(NSString*)createdTimestamp favoritedUsers:(NSMutableArray*)favoritedUsers;
-
 -(void)calculateFramesForTableViewCell:(CGSize)contentSize;
-    
 - (BOOL)toggleFavorite;
-
 - (void)encodeBody;
-
 - (void)decodeBody;
-
 - (BOOL)isFavoritedByConnectedUser;
-
 - (BOOL)isPostedByConnectedUser;
-
 - (NSString*)getTimePosted;
-
 - (void)startChat;
-
 -(NSString *)getTextForLabel;
-
 -(NSUInteger)getNumForLabel;
-
 - (CGFloat)heightForConfession;
-
+- (CGFloat)heightForConfessionWithFont:(UIFont *)cellFont;
 -(void)deleteConfession;
 
 @end

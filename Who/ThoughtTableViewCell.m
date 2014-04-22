@@ -53,8 +53,8 @@
     [_favLabel setFont:[StyleManager getFontStyleLightSizeSmall]];
     [_favLabel setTextColor:[UIColor whiteColor]];
     
-    UIColor *color = [[UIColor alloc] initWithRed:arc4random_uniform(100)/101.0f green:arc4random_uniform(100)/101.0f blue:arc4random_uniform(100)/101.0f alpha:1];
-    [self setBackgroundColor:color];
+    /*UIColor *color = [[UIColor alloc] initWithRed:arc4random_uniform(100)/101.0f green:arc4random_uniform(100)/101.0f blue:arc4random_uniform(100)/101.0f alpha:1];
+    [self setBackgroundColor:color];*/
     
     [_body setBackgroundColor:[UIColor clearColor]];
     [_timestampLabel setBackgroundColor:[UIColor clearColor]];
@@ -64,7 +64,12 @@
     [_timestampLabel setUserInteractionEnabled:NO];
     [_favLabel setUserInteractionEnabled:NO];
     [_body setTextAlignment:NSTextAlignmentCenter];
-    [_body setTextContainerInset:UIEdgeInsetsMake((190 - [_confession heightForConfession]) / 2.0f, 0, 0, 0)];
+    [_body setTextContainerInset:UIEdgeInsetsMake((_body.frame.size.height - [_confession heightForConfession] - 5) / 2.0f, 0, 0, 0)];
+    NSLog(@"Confession: %@ \n Height: %f", _body, _confession.height);
+    if ([_confession heightForConfession] > 120) {
+        [_body setFont:[StyleManager getFontStyleBoldSizeMed]];
+        [_body setTextContainerInset:UIEdgeInsetsMake((_body.frame.size.height - [_confession heightForConfessionWithFont:[StyleManager getFontStyleBoldSizeMed]] - 5) / 2.0f, 0, 0, 0)];
+    }
     
     [_favBtn addTarget:self action:@selector(handleConfessionFavorited:) forControlEvents:UIControlEventTouchUpInside];
     
