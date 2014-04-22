@@ -87,7 +87,7 @@
         [self setUpInBackground];
     }*/
     
-    
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[ChatDBManager getNumForBadge]];
 }
 
 - (void)setUpInBackground {

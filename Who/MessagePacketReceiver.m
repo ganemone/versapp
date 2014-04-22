@@ -100,8 +100,9 @@
     if ([senderID isEqualToString:[ConnectionProvider getUser]]) {
         [MessagesDBManager updateMessageWithGroupID:groupID time:timestamp];
     } else if (inviteFlag == nil) {
+        MessageMO *newMessage;
         if ([message.type compare:CHAT_TYPE_GROUP] == 0) {
-            MessageMO *newMessage;
+            
             if (imageLink != nil) {
                 newMessage = [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:receiverID imageLink:imageLink];
             } else {
@@ -120,11 +121,11 @@
             
         } else if([message.type compare:CHAT_TYPE_ONE_TO_ONE] == 0) {
             if (imageLink != nil) {
-                [MessagesDBManager insert:message.body groupID:message.thread time:timestamp senderID:senderID receiverID:receiverID imageLink:imageLink];
+                newMessage = [MessagesDBManager insert:message.body groupID:message.thread time:timestamp senderID:senderID receiverID:receiverID imageLink:imageLink];
             } else {
-                [MessagesDBManager insert:message.body groupID:message.thread time:timestamp senderID:senderID receiverID:receiverID];
+                newMessage = [MessagesDBManager insert:message.body groupID:message.thread time:timestamp senderID:senderID receiverID:receiverID];
             }
-            NSDictionary *messageDictionary = [NSDictionary dictionaryWithObject:message.thread forKey:MESSAGE_PROPERTY_GROUP_ID];
+            NSDictionary *messageDictionary = [NSDictionary dictionaryWithObjectsAndKeys:message.thread, MESSAGE_PROPERTY_GROUP_ID, newMessage, DICTIONARY_KEY_MESSAGE_OBJECT, nil];
             if ([ChatDBManager hasChatWithID:message.thread] == NO) {
                 [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetJoinedChatsPacket]];
                 /*[ChatDBManager insertChatWithID:message.thread chatName:@"Anonymous Friend" chatType:CHAT_TYPE_ONE_TO_ONE participantString:senderID status:STATUS_JOINED];*/

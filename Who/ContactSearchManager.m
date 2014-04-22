@@ -209,4 +209,56 @@ static ContactSearchManager *selfInstance;
     }];
 }
 
+-(void)postContactsToServer {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        NSDictionary *firstJsonDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                             @"10.010490", @"latitude",
+                                             @"76.360779", @"longitude",
+                                             @"30.833334", @"altitude",
+                                             @"11:17:23", @"timestamp",
+                                             @"0.00", @"speed",
+                                             @"0.00", @"distance",
+                                             nil];
+        
+        NSDictionary *secondJsonDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                              @"10.010490", @"latitude",
+                                              @"76.360779", @"longitude",
+                                              @"30.833334", @"altitude",
+                                              @"11:17:23", @"timestamp",
+                                              @"0.00", @"speed",
+                                              @"0.00", @"distance",
+                                              nil];
+        
+        NSMutableArray * arr = [[NSMutableArray alloc] init];
+        
+        [arr addObject:firstJsonDictionary];
+        [arr addObject:secondJsonDictionary];
+        NSError *error = NULL;
+        NSData *jsonData2 = [NSJSONSerialization dataWithJSONObject:arr options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData2 encoding:NSUTF8StringEncoding];
+        NSLog(@"jsonData as string:\n%@", jsonString);
+        
+        NSURL *url = [NSURL URLWithString:@"http://media.versapp.co/contacts/"];
+        NSMutableURLRequest *uploadRequest = [NSMutableURLRequest requestWithURL:url];
+        [uploadRequest setHTTPMethod:@"POST"];
+        [uploadRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+        NSString *postString = [NSString stringWithFormat:@"contacts=%@", jsonString];
+        postString = [postString stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
+        NSData *postData = [NSData dataWithBytes:[postString UTF8String] length:[postString length]];
+        [uploadRequest setValue:[NSString stringWithFormat:@"%lu", (unsigned long)postString.length] forHTTPHeaderField:@"Content-Length"];
+        [uploadRequest setHTTPBody:postData];
+        NSHTTPURLResponse *response = nil;
+        error = NULL;
+        [NSURLConnection sendSynchronousRequest:uploadRequest returningResponse:&response error:&error];
+        /*dispatch_async(dispatch_get_main_queue(), ^{
+            if ([response statusCode] == 200) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SENT_VERIFICATION_TEXT object:nil];
+            } else {
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
+            }
+        });*/
+    });
+}
+
 @end

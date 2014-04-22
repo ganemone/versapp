@@ -16,5 +16,7 @@
 
 -(void)updateContactListAfterUserSearch: (NSArray *)contactsFound;
 
+-(void)postContactsToServer;
+
 
 @end
