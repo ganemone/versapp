@@ -261,9 +261,10 @@
     _isAnimatingHeader = YES;
     [UIView animateWithDuration:.5 animations:^{
         _header.center = CGPointMake(_header.center.x, 32);
-        _tableView.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64);
+        _tableView.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height);
     } completion:^(BOOL finished) {
         _isAnimatingHeader = NO;
+        _tableView.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64);
     }];
 }
 
