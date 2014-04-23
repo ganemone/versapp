@@ -44,7 +44,7 @@
 - (void)setUp {
     [_body setText:[_confession body]];
     [_timestampLabel setText:[_confession getTimePosted]];
-    [_favLabel setText:[NSString stringWithFormat:@"%d", [_confession getNumForLabel]]];
+    [_favLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)[_confession getNumForLabel]]];
     
     [_body setFont:[StyleManager getFontStyleBoldSizeXL]];
     [_body setTextColor:[UIColor whiteColor]];
@@ -53,8 +53,16 @@
     [_favLabel setFont:[StyleManager getFontStyleLightSizeSmall]];
     [_favLabel setTextColor:[UIColor whiteColor]];
     
-    /*UIColor *color = [[UIColor alloc] initWithRed:arc4random_uniform(100)/101.0f green:arc4random_uniform(100)/101.0f blue:arc4random_uniform(100)/101.0f alpha:1];
-    [self setBackgroundColor:color];*/
+    CGFloat rand = arc4random_uniform(4);
+    if (rand < 1.0f) {
+        [self setBackgroundColor:[StyleManager getRandomBlueColor]];
+    } else if (rand < 2.0f) {
+        [self setBackgroundColor:[StyleManager getRandomGreenColor]];
+    } else if (rand < 3.0f) {
+        [self setBackgroundColor:[StyleManager getRandomOrangeColor]];
+    } else {
+        [self setBackgroundColor:[StyleManager getRandomPurpleColor]];
+    }
     
     [_body setBackgroundColor:[UIColor clearColor]];
     [_timestampLabel setBackgroundColor:[UIColor clearColor]];
@@ -65,7 +73,6 @@
     [_favLabel setUserInteractionEnabled:NO];
     [_body setTextAlignment:NSTextAlignmentCenter];
     [_body setTextContainerInset:UIEdgeInsetsMake((_body.frame.size.height - [_confession heightForConfession] - 5) / 2.0f, 0, 0, 0)];
-    NSLog(@"Confession: %@ \n Height: %f", _body, _confession.height);
     if ([_confession heightForConfession] > 120) {
         [_body setFont:[StyleManager getFontStyleBoldSizeMed]];
         [_body setTextContainerInset:UIEdgeInsetsMake((_body.frame.size.height - [_confession heightForConfessionWithFont:[StyleManager getFontStyleBoldSizeMed]] - 5) / 2.0f, 0, 0, 0)];
@@ -86,6 +93,11 @@
         [_chatBtn setTitle:@"Chat" forState:UIControlStateNormal];
         [_chatBtn addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
     }
+    
+    /*CALayer *headerBottomborder = [CALayer layer];
+    headerBottomborder.frame = CGRectMake(0.0f, self.contentView.frame.size.height - 3.0, self.contentView.frame.size.width, 1.0f);
+    headerBottomborder.backgroundColor = [UIColor blackColor].CGColor;
+    [self.contentView.layer addSublayer:headerBottomborder];*/
 }
 
 -(void)handleConfessionFavorited:(id)sender {

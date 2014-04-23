@@ -31,7 +31,10 @@
 @property (strong, nonatomic) UIImage *chatIcon;
 @property (strong, nonatomic) UIImage *deleteIcon;
 @property (strong, nonatomic) ChatMO *createdChat;
-
+@property (strong, nonatomic) UIView *tableBackgroundView;
+@property CGFloat initialContentOffset;
+@property CGFloat previousContentDelta;
+@property BOOL isAnimatingHeader;
 
 @end
 
@@ -42,41 +45,6 @@
         OneToOneConversationViewController *dest = segue.destinationViewController;
         [dest setChatMO:_createdChat];
     }
-}
-
--(void)viewDidAppear:(BOOL)animated {
-    self.gradient = [CAGradientLayer layer];
-    self.gradient.frame = self.view.bounds;
-    self.gradient.colors = @[(id)[UIColor purpleColor].CGColor,
-                             (id)[UIColor redColor].CGColor];
-    
-    [self.view.layer insertSublayer:self.gradient atIndex:0];
-    
-    [self animateLayer];
-}
-
--(void)animateLayer
-{
-    
-    NSArray *fromColors = self.gradient.colors;
-    NSArray *toColors = @[(id)[UIColor redColor].CGColor,
-                          (id)[UIColor orangeColor].CGColor];
-    
-    [self.gradient setColors:toColors];
-    
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"colors"];
-    
-    animation.fromValue             = fromColors;
-    animation.toValue               = toColors;
-    animation.duration              = 3.00;
-    animation.removedOnCompletion   = YES;
-    animation.fillMode              = kCAFillModeForwards;
-    animation.timingFunction        = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-    animation.delegate              = self;
-    
-    // Add the animation to our layer
-    
-    [self.gradient addAnimation:animation forKey:@"animateGradient"];
 }
 
 - (void)viewDidLoad
@@ -104,21 +72,14 @@
     
     [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
     
-    /*UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
-    //    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:@"Pull to Refresh"];
-    //    [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, attrString.length)];
-    [refresh addTarget:self action:@selector(refreshListView) forControlEvents:UIControlEventValueChanged];
-    //    [refresh setAttributedTitle:attrString];
-    
-    [refresh setTintColor:[UIColor whiteColor]];*/
-    
     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
     //[tableViewController setRefreshControl:refresh];
     [tableViewController setTableView:_tableView];
     //self.refreshControl = refresh;
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
-    [self.tableView setBackgroundView:nil];
+    _tableBackgroundView = [[UIView alloc] init];
+    [self.tableView setBackgroundView:_tableBackgroundView];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     self.favIcon = [UIImage imageNamed:@"fav-icon-label.png"];
@@ -201,30 +162,30 @@
     [cell setUpWithConfession:confession];
     return cell;
     /*ConfessionTableCell *cell = [[ConfessionTableCell alloc] initWithConfession:confession reuseIdentifier:CellIdentifier];
-    if ([confession isFavoritedByConnectedUser]) {
-        if ([confession getNumForLabel] == 1) {
-            [cell.favoriteButton setImage:self.favIconSingleActive forState:UIControlStateNormal];
-        } else {
-            [cell.favoriteButton setImage:self.favIconActive forState:UIControlStateNormal];
-        }
-    } else {
-        if ([confession getNumForLabel] == 1) {
-            [cell.favoriteButton setImage:self.favIconSingle forState:UIControlStateNormal];
-        } else {
-            [cell.favoriteButton setImage:self.favIcon forState:UIControlStateNormal];
-        }
-    }
-    [cell.timestampLabel setText:[confession getTimePosted]];
-    [cell.favoriteLabel setText:[confession getTextForLabel]];
-    
-    if ([confession isPostedByConnectedUser]) {
-        [cell.chatButton removeFromSuperview];
-        [cell.deleteButton setImage:self.deleteIcon forState:UIControlStateNormal];
-    } else {
-        [cell.deleteButton removeFromSuperview];
-        [cell.chatButton setImage:self.chatIcon forState:UIControlStateNormal];
-    }
-    return cell;*/
+     if ([confession isFavoritedByConnectedUser]) {
+     if ([confession getNumForLabel] == 1) {
+     [cell.favoriteButton setImage:self.favIconSingleActive forState:UIControlStateNormal];
+     } else {
+     [cell.favoriteButton setImage:self.favIconActive forState:UIControlStateNormal];
+     }
+     } else {
+     if ([confession getNumForLabel] == 1) {
+     [cell.favoriteButton setImage:self.favIconSingle forState:UIControlStateNormal];
+     } else {
+     [cell.favoriteButton setImage:self.favIcon forState:UIControlStateNormal];
+     }
+     }
+     [cell.timestampLabel setText:[confession getTimePosted]];
+     [cell.favoriteLabel setText:[confession getTextForLabel]];
+     
+     if ([confession isPostedByConnectedUser]) {
+     [cell.chatButton removeFromSuperview];
+     [cell.deleteButton setImage:self.deleteIcon forState:UIControlStateNormal];
+     } else {
+     [cell.deleteButton removeFromSuperview];
+     [cell.chatButton setImage:self.chatIcon forState:UIControlStateNormal];
+     }
+     return cell;*/
 }
 
 - (ConfessionTableCell *)confessionTableCellForConfession:(Confession *)confession {
@@ -285,6 +246,66 @@
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Thoughts" message:@"This is your newsfeed of thoughts. Thoughts are anonymous and you only see the Thoughts of your friends. Both favoriting and chatting are also anonymous!" delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil];
     [alertView show];
 }
+
+- (void)animateHideHeader {
+    _isAnimatingHeader = YES;
+    [UIView animateWithDuration:.5 animations:^{
+        _header.center = CGPointMake(_header.center.x, -32);
+        _tableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    } completion:^(BOOL finished) {
+        _isAnimatingHeader = NO;
+    }];
+}
+
+- (void)animateShowHeader {
+    _isAnimatingHeader = YES;
+    [UIView animateWithDuration:.5 animations:^{
+        _header.center = CGPointMake(_header.center.x, 32);
+        _tableView.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64);
+    } completion:^(BOOL finished) {
+        _isAnimatingHeader = NO;
+    }];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat delta = scrollView.contentOffset.y - self.initialContentOffset;
+    if (scrollView.contentOffset.y < 0) {
+        _header.center = CGPointMake(_header.center.x, 32);
+        _tableView.frame = CGRectMake(0, 64, _tableView.frame.size.width, self.view.frame.size.height - 64);
+        return;
+    }
+    CGFloat velocity = [[scrollView panGestureRecognizer] velocityInView:self.view].y;
+    if (velocity > 300 && _isAnimatingHeader == NO) {
+        [self animateShowHeader];
+    } else if (velocity < - 300 && _isAnimatingHeader == NO) {
+        [self animateHideHeader];
+    }
+    if (_isAnimatingHeader == NO) {
+        if (delta > 0.f) {
+            if (_header.center.y > -32) {
+                _header.center = CGPointMake(_header.center.x, _header.center.y - delta);
+            }
+            if (_tableView.frame.origin.y > 0 || _tableView.frame.size.height < self.view.frame.size.height) {
+                [_tableView setFrame:CGRectMake(0, MAX(0, abs(_tableView.frame.origin.y - delta)), _tableView.frame.size.width, MIN(self.view.frame.size.height, _tableView.frame.size.height + delta))];
+            }
+        } else if (delta < 0.f) {
+            if (_header.center.y < 32) {
+                _header.center = CGPointMake(_header.center.x, MIN(_header.center.y - delta, 32));
+            }
+            if (_tableView.frame.origin.y < 64 || _tableView.frame.size.height < (self.view.frame.size.height - 64)) {
+                [_tableView setFrame:CGRectMake(0, MIN(64, _tableView.frame.origin.y - delta), _tableView.frame.size.width, MAX(self.view.frame.size.height - 64, _tableView.frame.size.height + delta))];
+            }
+        }
+    }
+    self.initialContentOffset = scrollView.contentOffset.y;
+    self.previousContentDelta = delta;
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    self.initialContentOffset = scrollView.contentOffset.y;
+    self.previousContentDelta = 0.f;
+}
+
 
 
 @end
