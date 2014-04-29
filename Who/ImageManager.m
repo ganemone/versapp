@@ -51,8 +51,8 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
     
     NSURL *destURL = [NSURL URLWithString:[uploadInfo objectForKey:DICTIONARY_KEY_IMAGE_URL]];
     NSMutableURLRequest *uploadRequest = [NSMutableURLRequest requestWithURL:destURL
-                                                               cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                           timeoutInterval:60.0];
+                                                                 cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                             timeoutInterval:60.0];
     
     //Set request to post
     [uploadRequest setHTTPMethod:@"POST"];
@@ -66,7 +66,7 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
     NSData *postData = [NSData dataWithBytes:[postString UTF8String] length:[postString length]];
     [uploadRequest setValue:[NSString stringWithFormat:@"%lu", (unsigned long)postString.length] forHTTPHeaderField:@"Content-Length"];
     [uploadRequest setHTTPBody:postData];
-
+    
     // create connection and set delegate if needed
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:uploadRequest delegate:self];
     [conn start];
@@ -84,10 +84,25 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
     
 }
 
+- (NSURL*)getUploadURL {
+    return [NSURL URLWithString:@"http://ejabberd.versapp.co/gcs/upload.php"];
+}
+
+- (NSURL*)getDownloadURL {
+    return [NSURL URLWithString:@"http://ejabberd.versapp.co/gcs/download.php"];
+}
 
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    NSString *imageURL = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-    NSLog(@"didReceiveData: %@", imageURL);
+    NSLog(@"didReceiveData: %@", data);
+    
+    if ([[[connection currentRequest] URL] isEqual:[self getUploadURL]]) {
+        NSString *imageName = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+        NSLog(@"didReceiveData: %@", imageName);
+    } else {
+        //UIImage *image = [UIImage imageWithData:data];
+        //NSLog(@"didReceiveData: %@", image);
+        NSLog(@"Downloading Image");
+    }
     //[self.delegate didFinishUploadingImage:self.uploadingImage toURL:imageURL];
 }
 
@@ -95,7 +110,7 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
     NSData *imageData = UIImageJPEGRepresentation(image, 0.5f);
     NSString *encodedImageString = [Base64 encode:imageData];
     
-    NSURL *destURL = [NSURL URLWithString:@"http://ejabberd.versapp.co/gcs/index.php"];
+    NSURL *destURL = [self getUploadURL];
     NSMutableURLRequest *uploadRequest = [NSMutableURLRequest requestWithURL:destURL
                                                                  cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                              timeoutInterval:60.0];
@@ -109,13 +124,43 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
     NSString *imageName = [NSString stringWithFormat:@"%@%d", [ConnectionProvider getUser], (int)timeStamp];
-    NSString *postString = [NSString stringWithFormat:@"client_id=%@&service_account_name=%@&key=%@&name=%@&session=%@&data=%@", CLIENT_ID, SERVICE_ACCOUNT_NAME, KEY_FILE_PATH, imageName, delegate.sessionID, encodedImageString];
+    NSString *postString = [NSString stringWithFormat:@"username=%@&session=%@&client_id=%@&service_account_name=%@&key=%@&name=%@&data=%@", [ConnectionProvider getUser], delegate.sessionID, CLIENT_ID, SERVICE_ACCOUNT_NAME, KEY_FILE_PATH, imageName, encodedImageString];
     postString = [postString stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
     NSData *postData = [NSData dataWithBytes:[postString UTF8String] length:[postString length]];
     [uploadRequest setValue:[NSString stringWithFormat:@"%lu", (unsigned long)postString.length] forHTTPHeaderField:@"Content-Length"];
     [uploadRequest setHTTPBody:postData];
     
     // create connection and set delegate if needed
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:uploadRequest delegate:self];
+    [conn start];
+}
+
+-(void)downloadImageForThoughtWithName:(NSString *)name {
+    [self downloadImageFromGCSWithName:name fromBucket:BUCKET_THOUGHTS];
+}
+
+-(void)downloadImageForMessageWithName:(NSString *)name {
+    [self downloadImageFromGCSWithName:name fromBucket:BUCKET_MESSAGES];
+}
+
+-(void)downloadImageFromGCSWithName:(NSString *)name fromBucket:(NSString *)bucket {
+    NSURL *destURL = [self getDownloadURL];
+    NSMutableURLRequest *uploadRequest = [NSMutableURLRequest requestWithURL:destURL
+                                                                 cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                             timeoutInterval:60.0];
+    
+    //Set request to post
+    [uploadRequest setHTTPMethod:@"POST"];
+    
+    //Set content type
+    [uploadRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSString *postString = [NSString stringWithFormat:@"username=%@&session=%@&client_id=%@&service_account_name=%@&key=%@&name=%@&bucket=%@", [ConnectionProvider getUser], delegate.sessionID, CLIENT_ID, SERVICE_ACCOUNT_NAME, KEY_FILE_PATH, name, bucket];
+    postString = [postString stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
+    NSData *postData = [NSData dataWithBytes:[postString UTF8String] length:[postString length]];
+    [uploadRequest setValue:[NSString stringWithFormat:@"%lu", (unsigned long)postString.length] forHTTPHeaderField:@"Content-Length"];
+    [uploadRequest setHTTPBody:postData];
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:uploadRequest delegate:self];
     [conn start];
 }

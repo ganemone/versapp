@@ -246,5 +246,6 @@ extern NSString *const SALT_TWO;
 extern NSString *const CLIENT_ID;
 extern NSString *const SERVICE_ACCOUNT_NAME;
 extern NSString *const KEY_FILE_PATH;
-
+extern NSString *const BUCKET_MESSAGES;
+extern NSString *const BUCKET_THOUGHTS;
 @end

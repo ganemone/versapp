@@ -24,9 +24,9 @@
 @property (weak, nonatomic) id <ImageManagerDelegate> delegate;
 
 - (void)downloadImageForMessage:(MessageMO*)message;
-
 - (void)uploadImage:(UIImage *)image url:(NSString*)url;
-
 - (void)uploadImageToGCS:(UIImage *)image;
+- (void)downloadImageForThoughtWithName:(NSString *)name;
+- (void)downloadImageForMessageWithName:(NSString *)name;
 
 @end

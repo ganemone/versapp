@@ -92,8 +92,7 @@
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[ChatDBManager getNumForBadge]];
     
     ImageManager *im = [[ImageManager alloc] init];
-    [im uploadImageToGCS:[UIImage imageNamed:@"Versapp-Tutorial-01.png"]];
-
+    [im downloadImageForMessageWithName:@"g1398693790"];
 }
 
 - (void)setUpInBackground {
