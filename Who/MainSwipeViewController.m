@@ -24,6 +24,8 @@
 #import "Confession.h"
 #import "FriendsDBManager.h"
 
+#import "ImageManager.h"
+
 #define NumViewPages 4
 
 @interface MainSwipeViewController ()
@@ -88,6 +90,10 @@
     }*/
     
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[ChatDBManager getNumForBadge]];
+    
+    ImageManager *im = [[ImageManager alloc] init];
+    [im uploadImageToGCS:[UIImage imageNamed:@"Versapp-Tutorial-01.png"]];
+
 }
 
 - (void)setUpInBackground {

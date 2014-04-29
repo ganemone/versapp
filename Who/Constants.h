@@ -243,4 +243,8 @@ extern NSString *const BLOCKING_TYPE_GROUP;
 extern NSString *const SALT_ONE;
 extern NSString *const SALT_TWO;
 
+extern NSString *const CLIENT_ID;
+extern NSString *const SERVICE_ACCOUNT_NAME;
+extern NSString *const KEY_FILE_PATH;
+
 @end

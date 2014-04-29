@@ -243,4 +243,9 @@ NSString *const BLOCKING_TYPE_GROUP = @"user_in_group";
 NSString *const SALT_ONE = @"xJYa!Pc_UQ}TYV}hN}/;FZO$+j]ySF-SsG?=FJy++*g>qbG Yp>-|$c3d&p*FdRN";
 NSString *const SALT_TWO = @"C3G{l9z KG7#CXMv-N8sn1m_[0LjT(co&qu,h4!oFr.@BX1MFB |>)</@fah.ATt";
 
+NSString *const CLIENT_ID = @"630369039619-ro1eat8s07fs3dfjqf2dt316lti0qqf6.apps.googleusercontent.com";
+NSString *const SERVICE_ACCOUNT_NAME = @"630369039619-ro1eat8s07fs3dfjqf2dt316lti0qqf6@developer.gserviceaccount.com";
+NSString *const KEY_FILE_PATH = @"../pkey.p12";
+
+
 @end

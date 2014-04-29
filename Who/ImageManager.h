@@ -27,4 +27,6 @@
 
 - (void)uploadImage:(UIImage *)image url:(NSString*)url;
 
+- (void)uploadImageToGCS:(UIImage *)image;
+
 @end
