@@ -246,12 +246,20 @@
 
 -(void)didSelectImage:(UIImage *)image {
     self.isUploadingImage = YES;
-    [self.im uploadImage:image url:@"http://media.versapp.co"];
+    [_im uploadImageToGCS:image delegate:self];
 }
 
--(void)didFinishDownloadingImage:(UIImage *)image fromURL:(NSString *)url forMessage:(MessageMO *)message {
+-(void)didFinishDownloadingImage:(UIImage *)image withIdentifier:(NSString *)identifier {
     [self.tableView reloadData];
     [self scrollToBottomAnimated:YES];
+}
+
+-(void)didFailToDownloadImageWithIdentifier:(NSString *)identifier {
+    
+}
+
+-(void)didFailToUploadImage:(UIImage *)image toURL:(NSString *)url {
+    
 }
 
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {

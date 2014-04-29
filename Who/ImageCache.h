@@ -13,9 +13,10 @@
 +(ImageCache*)getInstance;
 
 -(UIImage*)getImageByMessageSender:(NSString*)sender timestamp:(NSString*)timestamp;
-
+-(UIImage *)getImageWithIdentifier:(NSString *)identifier;
 -(BOOL)hasImageWithMessageSender:(NSString*)sender timestamp:(NSString*)timestamp;
-
+-(BOOL)hasImageWithIdentifier:(NSString *)identifier;
 -(void)setImage:(UIImage*)image sender:(NSString*)sender timestamp:(NSString*)timestamp;
+-(void)setImage:(UIImage *)image withIdentifier:(NSString *)identifier;
 
 @end

@@ -186,11 +186,19 @@
     MBProgressHUD *loadingScreen = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [loadingScreen setLabelText:@"Loading image..."];
     self.isUploadingImage = YES;
-    [self.im uploadImage:image url:@"http://media.versapp.co"];
+    [self.im uploadImageToGCS:image delegate:self];
 }
 
--(void)didFinishDownloadingImage:(UIImage *)image fromURL:(NSString *)url forMessage:(MessageMO *)message {
+-(void)didFinishDownloadingImage:(UIImage *)image withIdentifier:(NSString *)identifier {
     [self.tableView reloadData];
+}
+
+-(void)didFailToDownloadImageWithIdentifier:(NSString *)identifier {
+    
+}
+
+-(void)didFailToUploadImage:(UIImage *)image toURL:(NSString *)url {
+    
 }
 
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {

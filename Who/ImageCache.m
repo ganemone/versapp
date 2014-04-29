@@ -33,12 +33,24 @@ static ImageCache *selfInstance;
     [self.images setObject:image forKey:[NSString stringWithFormat:@"%@%@", sender, timestamp]];
 }
 
+-(void)setImage:(UIImage *)image withIdentifier:(NSString *)identifier {
+    [self.images setObject:image forKey:identifier];
+}
+
 -(BOOL)hasImageWithMessageSender:(NSString *)sender timestamp:(NSString *)timestamp {
     return ([self.images objectForKey:[NSString stringWithFormat:@"%@%@", sender, timestamp]] != nil);
 }
 
 -(UIImage *)getImageByMessageSender:(NSString *)sender timestamp:(NSString *)timestamp {
     return [self.images objectForKey:[NSString stringWithFormat:@"%@%@", sender, timestamp]];
+}
+
+-(BOOL)hasImageWithIdentifier:(NSString *)identifier {
+    return ([self.images objectForKey:identifier] != nil);
+}
+
+-(UIImage *)getImageWithIdentifier:(NSString *)identifier {
+    return [self.images objectForKey:identifier];
 }
 
 @end

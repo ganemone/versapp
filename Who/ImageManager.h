@@ -8,14 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import "MessageMO.h"
+#import "Confession.h"
 
 @protocol ImageManagerDelegate <NSObject>
 
 @required
 
--(void)didFinishDownloadingImage:(UIImage*)image fromURL:(NSString*)url forMessage:(MessageMO*)message;
-
+-(void)didFinishDownloadingImage:(UIImage*)image withIdentifier:(NSString*)identifier;
+-(void)didFailToDownloadImageWithIdentifier:(NSString *)identifier;
 -(void)didFinishUploadingImage:(UIImage*)image toURL:(NSString*)url;
+-(void)didFailToUploadImage:(UIImage*)image toURL:(NSString*)url;
 
 @end
 
@@ -24,9 +26,7 @@
 @property (weak, nonatomic) id <ImageManagerDelegate> delegate;
 
 - (void)downloadImageForMessage:(MessageMO*)message;
-- (void)uploadImage:(UIImage *)image url:(NSString*)url;
-- (void)uploadImageToGCS:(UIImage *)image;
-- (void)downloadImageForThoughtWithName:(NSString *)name;
-- (void)downloadImageForMessageWithName:(NSString *)name;
+- (void)downloadImageForThought:(Confession *)confession;
+- (void)uploadImageToGCS:(UIImage *)image delegate:(id<ImageManagerDelegate>)delegate;
 
 @end

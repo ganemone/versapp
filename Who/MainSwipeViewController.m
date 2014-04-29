@@ -90,9 +90,6 @@
     }*/
     
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[ChatDBManager getNumForBadge]];
-    
-    ImageManager *im = [[ImageManager alloc] init];
-    [im downloadImageForMessageWithName:@"g1398693790"];
 }
 
 - (void)setUpInBackground {

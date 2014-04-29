@@ -248,4 +248,7 @@ extern NSString *const SERVICE_ACCOUNT_NAME;
 extern NSString *const KEY_FILE_PATH;
 extern NSString *const BUCKET_MESSAGES;
 extern NSString *const BUCKET_THOUGHTS;
+extern NSString *const UPLOAD_URL;
+extern NSString *const DOWNLOAD_URL;
+
 @end
