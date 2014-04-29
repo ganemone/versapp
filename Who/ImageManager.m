@@ -27,12 +27,12 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
 
 @implementation ImageManager
 
--(void)downloadImageForMessage:(MessageMO *)message {
-    
+-(void)downloadImageForMessage:(MessageMO *)message delegate:(id<ImageManagerDelegate>)delegate {
+    [self downloadImageFromGCSWithName:message.image_link fromBucket:BUCKET_MESSAGES delegate:delegate identifier:[NSString stringWithFormat:@"%@%@", message.sender_id, message.time]];
 }
 
--(void)downloadImageForThought:(Confession *)confession {
-    
+-(void)downloadImageForThought:(Confession *)confession delegate:(id<ImageManagerDelegate>)delegate {
+    [self downloadImageFromGCSWithName:confession.imageURL fromBucket:BUCKET_MESSAGES delegate:delegate identifier:confession.confessionID];
 }
 
 - (NSURL*)getUploadURL {
@@ -58,7 +58,7 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
                                  @"name" : imageName,
                                  @"data" : encodedImageString};
     NSError *error = NULL;
-    NSMutableURLRequest *req = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:DOWNLOAD_URL parameters:parameters error:&error];
+    NSMutableURLRequest *req = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:UPLOAD_URL parameters:parameters error:&error];
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:req success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [delegate didFinishUploadingImage:image toURL:imageName];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

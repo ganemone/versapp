@@ -152,7 +152,7 @@
     } else if((image = [self.imageCache getImageByMessageSender:message.sender_id timestamp:message.time]) != nil) {
         return [[UIImageView alloc] initWithImage:image];
     } else if(![self.downloadingImageURLs containsObject:message.image_link]) {
-        [self.im downloadImageForMessage:message];
+        [self.im downloadImageForMessage:message delegate:self];
         [self.downloadingImageURLs addObject:message.image_link];
     }
     UIImageView *emptyImageView = [[UIImageView alloc] init];
