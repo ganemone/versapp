@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="emE-SZ-5gQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="emE-SZ-5gQ">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -1207,7 +1207,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="jZx-yj-7oZ">
-                                <rect key="frame" x="0.0" y="63" width="320" height="417"/>
+                                <rect key="frame" x="0.0" y="63" width="320" height="376"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" red="0.99432015419006348" green="0.94996464245015189" blue="0.6198138383075269" alpha="1" colorSpace="calibratedRGB"/>
@@ -1222,7 +1222,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view hidden="YES" contentMode="scaleToFill" id="xNe-oj-gI8">
+                            <view contentMode="scaleToFill" id="xNe-oj-gI8">
                                 <rect key="frame" x="0.0" y="440" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <subviews>
@@ -1280,7 +1280,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="92W-wD-Fv0">
-                                        <rect key="frame" x="272" y="23" width="38" height="38"/>
+                                        <rect key="frame" x="269" y="23" width="38" height="38"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                         <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                         <state key="normal" image="friends-icon.png">
@@ -1425,7 +1425,7 @@
                 <viewController id="lnb-gW-AWX" customClass="ComposeConfessionViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dCU-MI-WK9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="Jwo-jl-9y1">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
@@ -1463,19 +1463,36 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.95686274509803915" green="0.5725490196078431" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="9q9-kx-gdJ">
-                                <rect key="frame" x="20" y="72" width="280" height="170"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="gPj-7d-Z20">
+                                <rect key="frame" x="0.0" y="63" width="320" height="232"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="9q9-kx-gdJ">
+                                <rect key="frame" x="0.0" y="63" width="320" height="232"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2mt-aT-sFw">
+                                <rect key="frame" x="20" y="224" width="40" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="photo-icon.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cameraBtnClicked:" destination="lnb-gW-AWX" eventType="touchUpInside" id="Qie-jU-XgD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="bRR-D9-Nnz"/>
                     <connections>
-                        <outlet property="composeTextView" destination="9q9-kx-gdJ" id="uj1-Me-W3H"/>
+                        <outlet property="composeTextView" destination="9q9-kx-gdJ" id="9Qx-DX-97m"/>
                         <outlet property="headerLabel" destination="EMq-Cz-oPS" id="R5i-my-eCS"/>
+                        <outlet property="imageView" destination="gPj-7d-Z20" id="QXd-SG-4rn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tA4-AL-IFV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1986,6 +2003,7 @@
         <image name="friends-icon.png" width="60" height="60"/>
         <image name="messages-icon-white.png" width="60" height="60"/>
         <image name="notification-none.png" width="250" height="250"/>
+        <image name="photo-icon.png" width="183" height="145"/>
         <image name="search-icon.png" width="60" height="60"/>
         <image name="settings-icon.png" width="60" height="60"/>
     </resources>

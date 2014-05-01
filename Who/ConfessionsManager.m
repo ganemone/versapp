@@ -70,4 +70,8 @@ static ConfessionsManager *selfInstance;
     [_confessions removeObjectForKey:confessionID];
 }
 
+-(NSUInteger)getIndexOfConfession:(NSString *)confessionID {
+    return [_confessionIDValues indexOfObject:confessionID];
+}
+
 @end

@@ -82,14 +82,6 @@
     [self.tableView setBackgroundView:_tableBackgroundView];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
-    self.favIcon = [UIImage imageNamed:@"fav-icon-label.png"];
-    self.favIconActive = [UIImage imageNamed:@"fav-icon-label-active.png"];
-    self.favIconSingle = [UIImage imageNamed:@"fav-icon-label-single.png"];
-    self.favIconSingleActive = [UIImage imageNamed:@"fav-icon-label-single-active.png"];
-    self.gradLineSmall = [UIImage imageNamed:@"grad-line-small.png"];
-    self.chatIcon = [UIImage imageNamed:@"chat-icon-label.png"];
-    self.deleteIcon = [UIImage imageNamed:@"delete-confession.png"];
-    
     NSMutableArray *drawingImages = [NSMutableArray array];
     NSMutableArray *loadingImages = [NSMutableArray array];
     for (int i = 0; i <= 15; i++) {
@@ -155,6 +147,7 @@
 {
     static NSString *CellIdentifier = @"ThoughtCellIdentifier";
     Confession *confession = [_confessionsManager getConfessionAtIndex:(int)indexPath.row];
+    
     ThoughtTableViewCell *cell = (ThoughtTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"ThoughtTableViewCell" owner:self options:nil] firstObject];
@@ -184,8 +177,23 @@
 - (void)refreshListView
 {
     [_confessionsManager sortConfessions];
+    [self loadImagesForThoughts];
     [self.tableView didFinishPullToRefresh];
     [self.tableView reloadData];
+}
+
+- (void)loadImagesForThoughts {
+    int numConfessions = [_confessionsManager getNumberOfConfessions];
+    ImageCache *cache = [ImageCache getInstance];
+    ImageManager *imageManager = [[ImageManager alloc] init];
+    Confession *confession;
+    for (int i = 0; i < numConfessions; i++) {
+        confession = [_confessionsManager getConfessionAtIndex:i];
+        if (![cache hasImageWithIdentifier:confession.confessionID] && ![[confession.imageURL substringToIndex:1] isEqualToString:@"#"]) {
+            NSLog(@"Downloading image...");
+            [imageManager downloadImageForThought:confession delegate:self];
+        }
+    }
 }
 
 - (void)handleOneToOneChatCreatedFromConfession {
@@ -243,7 +251,7 @@
     }];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+/*- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat delta = scrollView.contentOffset.y - self.initialContentOffset;
     if (scrollView.contentOffset.y < 0) {
         _header.center = CGPointMake(_header.center.x, 32);
@@ -280,7 +288,30 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     self.initialContentOffset = scrollView.contentOffset.y;
     self.previousContentDelta = 0.f;
+}*/
+
+#pragma ImageManagerDelegate
+
+-(void)didFinishDownloadingImage:(UIImage *)image withIdentifier:(NSString *)identifier {
+    NSLog(@"Did finish downloading image for thought with id: %@", identifier);
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    [imageView setContentMode:UIViewContentModeScaleAspectFill];
+    Confession *confession = [self.confessionsManager getConfessionWithID:identifier];
+    NSUInteger index = [self.confessionsManager getIndexOfConfession:confession.confessionID];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(NSInteger)index inSection:0];
+    if ([_tableView numberOfRowsInSection:0] > 0) {
+        ThoughtTableViewCell *cell = (ThoughtTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+        [cell setBackgroundView:imageView];
+    }
+
 }
+
+-(void)didFailToDownloadImageWithIdentifier:(NSString *)identifier {
+    NSLog(@"Failed to download image...");
+}
+
+-(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {}
+-(void)didFailToUploadImage:(UIImage *)image toURL:(NSString *)url {}
 
 
 @end

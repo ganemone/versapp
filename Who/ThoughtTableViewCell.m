@@ -59,7 +59,7 @@
     [_body setBackgroundColor:[UIColor clearColor]];
     [_timestampLabel setBackgroundColor:[UIColor clearColor]];
     [_favLabel setBackgroundColor:[UIColor clearColor]];
-
+    
     [_body setUserInteractionEnabled:NO];
     [_timestampLabel setUserInteractionEnabled:NO];
     [_favLabel setUserInteractionEnabled:NO];
@@ -73,9 +73,9 @@
     [_favBtn addTarget:self action:@selector(handleConfessionFavorited:) forControlEvents:UIControlEventTouchUpInside];
     
     if ([_confession isFavoritedByConnectedUser]) {
-        [_favBtn setTintColor:[UIColor blackColor]];
+        [_favBtn setImage:[UIImage imageNamed:@"fav-icon-active.png"] forState:UIControlStateNormal];
     } else {
-        [_favBtn setTintColor:[UIColor whiteColor]];
+        [_favBtn setImage:[UIImage imageNamed:@"fav-icon.png"] forState:UIControlStateNormal];
     }
     
     if ([_confession isPostedByConnectedUser]) {
@@ -92,14 +92,11 @@
         [self setBackgroundColor:[StyleManager getRandomBlueColor]];
     } else if(!([_confession.imageURL isEqualToString:@""] || _confession.imageURL == nil)) {
         ImageCache *cache = [ImageCache getInstance];
-        ImageManager *im = [[ImageManager alloc] init];
         if ([cache hasImageWithIdentifier:_confession.confessionID]) {
             _backgroundImage = [cache getImageWithIdentifier:_confession.confessionID];
             UIImageView *imageView = [[UIImageView alloc] initWithImage:_backgroundImage];
             [imageView setContentMode:UIViewContentModeScaleAspectFill];
             [self setBackgroundView:imageView];
-        } else {
-            [im downloadImageForThought:_confession delegate:self];
         }
     }
 }
@@ -109,19 +106,9 @@
     
     BOOL isFavorited = [_confession toggleFavorite];
     if (isFavorited) {
-        [_favBtn setTintColor:[UIColor blackColor]];
-        if ([_confession getNumForLabel] == 1) {
-            //[_favBtn setImage:[UIImage imageNamed:@"fav-icon-label-single-active.png"] forState:UIControlStateNormal];
-        } else {
-            //[_favBtn setImage:[UIImage imageNamed:@"fav-icon-label-active.png"] forState:UIControlStateNormal];
-        }
+        [_favBtn setImage:[UIImage imageNamed:@"fav-icon-active.png"] forState:UIControlStateNormal];
     } else {
-        [_favBtn setTintColor:[UIColor whiteColor]];
-        if ([_confession getNumForLabel] == 1) {
-            //[_favBtn setImage:[UIImage imageNamed:@"fav-icon-label-single.png"] forState:UIControlStateNormal];
-        } else {
-            //[_favBtn setImage:[UIImage imageNamed:@"fav-icon-label.png"] forState:UIControlStateNormal];
-        }
+        [_favBtn setImage:[UIImage imageNamed:@"fav-icon.png"] forState:UIControlStateNormal];
     }
     [_favLabel setText:[_confession getTextForLabel]];
     ConfessionsManager *confessionsManager = [ConfessionsManager getInstance];
@@ -141,20 +128,5 @@
         [_confession deleteConfession];
     }
 }
-
-#pragma ImageManagerDelegate
-
--(void)didFinishDownloadingImage:(UIImage *)image withIdentifier:(NSString *)identifier {
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:_backgroundImage];
-    [imageView setContentMode:UIViewContentModeScaleAspectFill];
-    [self setBackgroundView:imageView];
-}
-
--(void)didFailToDownloadImageWithIdentifier:(NSString *)identifier {
-    NSLog(@"Failed to download image...");
-}
-
--(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {}
--(void)didFailToUploadImage:(UIImage *)image toURL:(NSString *)url {}
 
 @end

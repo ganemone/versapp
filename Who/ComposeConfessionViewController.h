@@ -8,10 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "JSMessagesViewController/Classes/JSBubbleView.h"
+#import "ImageManager.h"
 
-@interface ComposeConfessionViewController : UIViewController<UITextViewDelegate>
-
-@property (weak, nonatomic) IBOutlet UITextView *composeTextView;
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@interface ComposeConfessionViewController : UIViewController<UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ImageManagerDelegate>
 
 @end

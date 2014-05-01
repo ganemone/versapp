@@ -16,23 +16,15 @@
 @property (strong, nonatomic) Confession *pendingConfession;
 
 +(instancetype)getInstance;
-
 -(int)getNumberOfConfessions;
-
 -(Confession*)getConfessionAtIndex:(int)index;
-
 -(Confession*)getConfessionWithID:(NSString*)confessionID;
-
+-(NSUInteger)getIndexOfConfession:(NSString*)confessionID;
 -(void)addConfession:(Confession*)confession;
-
 -(void)updateConfession:(Confession*)confession;
-
 -(void)updatePendingConfession:(NSString*)confessionID timestamp:(NSString*)timestamp;
-
 -(void)sortConfessions;
-
 -(void)clearConfessions;
-
 -(void)deleteConfession:(NSString *)confessionID;
 
 @end

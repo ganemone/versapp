@@ -20,5 +20,4 @@
 @property (strong, nonatomic) Confession  *confession;
 
 - (void)setUpWithConfession:(Confession *)confession;
-
 @end
