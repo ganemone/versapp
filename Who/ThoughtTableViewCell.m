@@ -12,6 +12,8 @@
 #import "Confession.h"
 #import "IQPacketManager.h"
 #import "ConfessionsManager.h"
+#import "ImageManager.h"
+#import "ImageCache.h"
 
 @implementation ThoughtTableViewCell
 
@@ -39,6 +41,7 @@
 - (void)setUpWithConfession:(Confession *)confession {
     _confession = confession;
     [self setUp];
+    [self setUpBackgroundView];
 }
 
 - (void)setUp {
@@ -53,21 +56,10 @@
     [_favLabel setFont:[StyleManager getFontStyleLightSizeSmall]];
     [_favLabel setTextColor:[UIColor whiteColor]];
     
-    CGFloat rand = arc4random_uniform(4);
-    if (rand < 1.0f) {
-        [self setBackgroundColor:[StyleManager getRandomBlueColor]];
-    } else if (rand < 2.0f) {
-        [self setBackgroundColor:[StyleManager getRandomGreenColor]];
-    } else if (rand < 3.0f) {
-        [self setBackgroundColor:[StyleManager getRandomOrangeColor]];
-    } else {
-        [self setBackgroundColor:[StyleManager getRandomPurpleColor]];
-    }
-    
     [_body setBackgroundColor:[UIColor clearColor]];
     [_timestampLabel setBackgroundColor:[UIColor clearColor]];
     [_favLabel setBackgroundColor:[UIColor clearColor]];
-    
+
     [_body setUserInteractionEnabled:NO];
     [_timestampLabel setUserInteractionEnabled:NO];
     [_favLabel setUserInteractionEnabled:NO];
@@ -93,11 +85,23 @@
         [_chatBtn setTitle:@"Chat" forState:UIControlStateNormal];
         [_chatBtn addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
     }
-    
-    /*CALayer *headerBottomborder = [CALayer layer];
-    headerBottomborder.frame = CGRectMake(0.0f, self.contentView.frame.size.height - 3.0, self.contentView.frame.size.width, 1.0f);
-    headerBottomborder.backgroundColor = [UIColor blackColor].CGColor;
-    [self.contentView.layer addSublayer:headerBottomborder];*/
+}
+
+- (void)setUpBackgroundView {
+    if ([[_confession.imageURL substringToIndex:1] isEqualToString:@"#"]) {
+        [self setBackgroundColor:[StyleManager getRandomBlueColor]];
+    } else if(!([_confession.imageURL isEqualToString:@""] || _confession.imageURL == nil)) {
+        ImageCache *cache = [ImageCache getInstance];
+        ImageManager *im = [[ImageManager alloc] init];
+        if ([cache hasImageWithIdentifier:_confession.confessionID]) {
+            _backgroundImage = [cache getImageWithIdentifier:_confession.confessionID];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:_backgroundImage];
+            [imageView setContentMode:UIViewContentModeScaleAspectFill];
+            [self setBackgroundView:imageView];
+        } else {
+            [im downloadImageForThought:_confession delegate:self];
+        }
+    }
 }
 
 -(void)handleConfessionFavorited:(id)sender {
@@ -137,5 +141,20 @@
         [_confession deleteConfession];
     }
 }
+
+#pragma ImageManagerDelegate
+
+-(void)didFinishDownloadingImage:(UIImage *)image withIdentifier:(NSString *)identifier {
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:_backgroundImage];
+    [imageView setContentMode:UIViewContentModeScaleAspectFill];
+    [self setBackgroundView:imageView];
+}
+
+-(void)didFailToDownloadImageWithIdentifier:(NSString *)identifier {
+    NSLog(@"Failed to download image...");
+}
+
+-(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {}
+-(void)didFailToUploadImage:(UIImage *)image toURL:(NSString *)url {}
 
 @end

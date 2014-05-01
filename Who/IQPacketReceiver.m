@@ -426,7 +426,7 @@
         } else {
             favoritedUsersArray = [[NSMutableArray alloc] init];
         }
-        confession = [Confession create:body posterJID:jid imageURL:imageURL confessionID:confessionID createdTimestamp:timestamp favoritedUsers:favoritedUsersArray];
+        confession = [Confession create:body posterJID:jid imageURL:@"g1398792552" confessionID:confessionID createdTimestamp:timestamp favoritedUsers:favoritedUsersArray];
         [confessionsManager addConfession:confession];
     }
     

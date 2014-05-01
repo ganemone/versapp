@@ -161,31 +161,6 @@
     }
     [cell setUpWithConfession:confession];
     return cell;
-    /*ConfessionTableCell *cell = [[ConfessionTableCell alloc] initWithConfession:confession reuseIdentifier:CellIdentifier];
-     if ([confession isFavoritedByConnectedUser]) {
-     if ([confession getNumForLabel] == 1) {
-     [cell.favoriteButton setImage:self.favIconSingleActive forState:UIControlStateNormal];
-     } else {
-     [cell.favoriteButton setImage:self.favIconActive forState:UIControlStateNormal];
-     }
-     } else {
-     if ([confession getNumForLabel] == 1) {
-     [cell.favoriteButton setImage:self.favIconSingle forState:UIControlStateNormal];
-     } else {
-     [cell.favoriteButton setImage:self.favIcon forState:UIControlStateNormal];
-     }
-     }
-     [cell.timestampLabel setText:[confession getTimePosted]];
-     [cell.favoriteLabel setText:[confession getTextForLabel]];
-     
-     if ([confession isPostedByConnectedUser]) {
-     [cell.chatButton removeFromSuperview];
-     [cell.deleteButton setImage:self.deleteIcon forState:UIControlStateNormal];
-     } else {
-     [cell.deleteButton removeFromSuperview];
-     [cell.chatButton setImage:self.chatIcon forState:UIControlStateNormal];
-     }
-     return cell;*/
 }
 
 - (ConfessionTableCell *)confessionTableCellForConfession:(Confession *)confession {
@@ -306,7 +281,6 @@
     self.initialContentOffset = scrollView.contentOffset.y;
     self.previousContentDelta = 0.f;
 }
-
 
 
 @end
