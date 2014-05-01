@@ -77,18 +77,20 @@
 
 - (IBAction)cameraBtnClicked:(id)sender {
     if (_backgroundImage == nil) {
-        [[[UIAlertView alloc] initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Take Photo", @"Choose from library", nil] show];
+        [[[UIAlertView alloc] initWithTitle:@"Background Image" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Take Photo", @"Choose from library", nil] show];
     } else {
-        [[[UIAlertView alloc] initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Take Photo", @"Choose from library", "Remove Image", nil] show];
+        [[[UIAlertView alloc] initWithTitle:@"Background Image" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Take Photo", @"Choose from library", "Remove Image", nil] show];
     }
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    UIImage *image = info[UIImagePickerControllerEditedImage];
-    self.backgroundImage = image;
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[[ImageManager alloc] init] uploadImageToGCS:image delegate:self];
-    [picker dismissViewControllerAnimated:YES completion:nil];
+    UIImage *prescaledImage = info[UIImagePickerControllerEditedImage];
+    UIImage *image = [self imageWithImage:prescaledImage scaledToSize:_imageView.frame.size];
+    [picker dismissViewControllerAnimated:YES completion:^{
+        self.backgroundImage = image;
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [[[ImageManager alloc] init] uploadImageToGCS:image delegate:self];
+    }];
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -145,7 +147,7 @@
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     _backgroundImageLink = url;
-    [_imageView setContentMode:UIViewContentModeScaleAspectFit];
+    [_imageView setContentMode:UIViewContentModeScaleAspectFill];
     [_imageView setImage:_backgroundImage];
     [_composeTextView setBackgroundColor:[UIColor clearColor]];
 }
@@ -158,5 +160,33 @@
 
 -(void)didFinishDownloadingImage:(UIImage *)image withIdentifier:(NSString *)identifier {}
 -(void)didFailToDownloadImageWithIdentifier:(NSString *)identifier {}
+
+#pragma ImageResizing
+
+- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)size {
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
+        UIGraphicsBeginImageContextWithOptions(size, NO, [[UIScreen mainScreen] scale]);
+    } else {
+        UIGraphicsBeginImageContext(size);
+    }
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
+- (UIImage *)imageWithImage:(UIImage *)image scaledToMaxWidth:(CGFloat)width maxHeight:(CGFloat)height {
+    CGFloat oldWidth = image.size.width;
+    CGFloat oldHeight = image.size.height;
+    
+    CGFloat scaleFactor = (oldWidth > oldHeight) ? width / oldWidth : height / oldHeight;
+    
+    CGFloat newHeight = oldHeight * scaleFactor;
+    CGFloat newWidth = oldWidth * scaleFactor;
+    CGSize newSize = CGSizeMake(newWidth, newHeight);
+    
+    return [self imageWithImage:image scaledToSize:newSize];
+}
 
 @end
