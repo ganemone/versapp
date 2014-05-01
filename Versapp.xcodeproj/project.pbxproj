@@ -32,6 +32,8 @@
 		3A1EACDD18D9DC41006E4CA3 /* bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A1EACDC18D9DC41006E4CA3 /* bubble.png */; };
 		3A1EACDF18D9DCF6006E4CA3 /* bubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A1EACDE18D9DCF6006E4CA3 /* bubble@2x.png */; };
 		3A1EACE218D9E7A0006E4CA3 /* ContactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1EACE118D9E7A0006E4CA3 /* ContactTableViewCell.m */; };
+		3A22D72F1912736B00AD58DC /* fav-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A22D72E1912736B00AD58DC /* fav-icon.png */; };
+		3A22D7311912737300AD58DC /* fav-icon-filled.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A22D7301912737300AD58DC /* fav-icon-filled.png */; };
 		3A25B6371881E03700166623 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A25B6361881E03700166623 /* Foundation.framework */; };
 		3A25B6391881E03700166623 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A25B6381881E03700166623 /* CoreGraphics.framework */; };
 		3A25B63B1881E03700166623 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A25B63A1881E03700166623 /* UIKit.framework */; };
@@ -377,6 +379,8 @@
 		3A1EACDE18D9DCF6006E4CA3 /* bubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble@2x.png"; sourceTree = "<group>"; };
 		3A1EACE018D9E7A0006E4CA3 /* ContactTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactTableViewCell.h; sourceTree = "<group>"; };
 		3A1EACE118D9E7A0006E4CA3 /* ContactTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactTableViewCell.m; sourceTree = "<group>"; };
+		3A22D72E1912736B00AD58DC /* fav-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fav-icon.png"; sourceTree = "<group>"; };
+		3A22D7301912737300AD58DC /* fav-icon-filled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fav-icon-filled.png"; sourceTree = "<group>"; };
 		3A25B6331881E03700166623 /* Versapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Versapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A25B6361881E03700166623 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3A25B6381881E03700166623 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -2086,6 +2090,8 @@
 		3AF521D718EA3162008320CD /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				3A22D7301912737300AD58DC /* fav-icon-filled.png */,
+				3A22D72E1912736B00AD58DC /* fav-icon.png */,
 				3A068E8418F1E92300EA260E /* camera-icon-dark.png */,
 				3A930D3B18EE2D26006E5B5E /* search-icon.png */,
 				3A7CDB8018EBA20D006A4BBF /* add-contact-icon.png */,
@@ -2314,6 +2320,7 @@
 				3A068ED518F24FC200EA260E /* Versapp-Tutorial-04.png in Resources */,
 				3AF521CC18EA2E8F008320CD /* arrow-up-icon.png in Resources */,
 				3A07F6D518D3DB0300E82390 /* confession-cell-bottom.png in Resources */,
+				3A22D7311912737300AD58DC /* fav-icon-filled.png in Resources */,
 				3A07F6BF18D3C21800E82390 /* compose-icon.png in Resources */,
 				3A068ED318F24FC200EA260E /* Versapp-Tutorial-02.png in Resources */,
 				3AD19AB818E26298001B3B88 /* AppIcon58.png in Resources */,
@@ -2327,6 +2334,7 @@
 				3A91F1EE18EB4BD10006B9F8 /* friends-background-small.png in Resources */,
 				3A91F20918EB534F0006B9F8 /* notification3.png in Resources */,
 				3A930D6918EE5934006E5B5E /* fav-icon-label.png in Resources */,
+				3A22D72F1912736B00AD58DC /* fav-icon.png in Resources */,
 				3ABD66D018FB325900E72B09 /* Owl-Loading-Animation_0005.png in Resources */,
 				3ABD66CB18FB325900E72B09 /* Owl-Loading-Animation_0000.png in Resources */,
 				3AB8D18F18C259B00082B77C /* MavenProBlack.ttf in Resources */,
