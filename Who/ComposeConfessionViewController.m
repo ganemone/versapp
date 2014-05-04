@@ -16,6 +16,7 @@
 #import "MBProgressHUD.h"
 #import "ImageManager.h"
 #import "UIColor+Hex.h"
+#import "UIImage+FiltrrCompositions.h"
 
 @interface ComposeConfessionViewController ()
 
@@ -26,9 +27,16 @@
 @property (strong, nonatomic) NSString *backgroundColor;
 @property (strong, nonatomic) NSString *backgroundImageLink;
 @property (strong, nonatomic) NSArray *colors;
-@property (strong, nonatomic) NSArray *filters;
+@property (strong, nonatomic) UIImage *e1;
+@property (strong, nonatomic) UIImage *e2;
+@property (strong, nonatomic) UIImage *e3;
+@property (strong, nonatomic) UIImage *e4;
+@property (strong, nonatomic) UIImage *e5;
 @property int colorIndex;
 @property int filterIndex;
+@property int numFilters;
+@property int shouldApplyFilter;
+
 @end
 
 @implementation ComposeConfessionViewController
@@ -47,6 +55,8 @@
     [super viewDidLoad];
     self.colorIndex = 0;
     self.filterIndex = 0;
+    self.numFilters = 5;
+    self.shouldApplyFilter = 0;
     self.colors = @[[StyleManager getColorBlue], [StyleManager getColorGreen], [StyleManager getColorOrange], [StyleManager getColorPurple]];
     
     UISwipeGestureRecognizer *leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeLeft:)];
@@ -96,7 +106,7 @@
     if (_backgroundImage == nil) {
         [[[UIAlertView alloc] initWithTitle:@"Background Image" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Take Photo", @"Choose from library", nil] show];
     } else {
-        [[[UIAlertView alloc] initWithTitle:@"Background Image" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Take Photo", @"Choose from library", "Remove Image", nil] show];
+        [[[UIAlertView alloc] initWithTitle:@"Background Image" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Take Photo", @"Choose from library", @"Remove Image", nil] show];
     }
 }
 
@@ -104,10 +114,53 @@
     UIImage *prescaledImage = info[UIImagePickerControllerEditedImage];
     UIImage *image = [self imageWithImage:prescaledImage scaledToSize:_imageView.frame.size];
     [picker dismissViewControllerAnimated:YES completion:^{
-        self.backgroundImage = image;
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [[[ImageManager alloc] init] uploadImageToGCS:image delegate:self];
+        _backgroundImage = image;
+        _backgroundImageLink = @"test";
+        [_imageView setContentMode:UIViewContentModeScaleAspectFill];
+        [_imageView setImage:_backgroundImage];
+        [_composeTextView setBackgroundColor:[UIColor clearColor]];
+        [self getFilteredImages];
     }];
+}
+
+-(void)getFilteredImages {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        _e1 = [_backgroundImage e6];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (_shouldApplyFilter == 1) {
+                [self.imageView setImage:_e1];
+            }
+        });
+        _e2 = [_backgroundImage e2];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (_shouldApplyFilter == 2) {
+                [self.imageView setImage:_e2];
+            }
+        });
+        _e3 = [_backgroundImage e3];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (_shouldApplyFilter == 3) {
+                [self.imageView setImage:_e3];
+            }
+        });
+        _e4 = [_backgroundImage e4];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (_shouldApplyFilter == 4) {
+                [self.imageView setImage:_e4];
+            }
+        });
+        _e5 = [_backgroundImage e5];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (_shouldApplyFilter == 5) {
+                [self.imageView setImage:_e5];
+            }
+            if (_shouldApplyFilter > 0) {
+                _shouldApplyFilter = 0;
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            }
+        });
+        
+    });
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -183,7 +236,7 @@
 #pragma mark - ImageManagerDelegate
 
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {
-    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    //[MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     _backgroundColor = nil;
     _backgroundImageLink = url;
     [_imageView setContentMode:UIViewContentModeScaleAspectFill];
@@ -262,9 +315,44 @@
     if (direction == UISwipeGestureRecognizerDirectionRight) {
         [self incrementFilterIndex];
     } else {
-        [self decrementColorIndex];
+        [self decrementFilterIndex];
     }
-    // Set filter here...
+    if (_filterIndex == 0) {
+        if (_e1 == nil) {
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            _shouldApplyFilter = 1;
+        } else {
+            [self.imageView setImage:_e1];
+        }
+    } else if (_filterIndex == 1) {
+        if (_e2 == nil) {
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            _shouldApplyFilter = 2;
+        } else {
+            [self.imageView setImage:_e2];
+        }
+    } else if (_filterIndex == 2) {
+        if (_e3 == nil) {
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            _shouldApplyFilter = 3;
+        } else {
+            [self.imageView setImage:_e3];
+        }
+    } else if (_filterIndex == 3) {
+        if (_e4 == nil) {
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            _shouldApplyFilter = 4;
+        } else {
+            [self.imageView setImage:_e4];
+        }
+    } else if (_filterIndex == 4) {
+        if (_e5 == nil) {
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            _shouldApplyFilter = 5;
+        } else {
+            [self.imageView setImage:_e5];
+        }
+    }
 }
 
 - (void)incrementColorIndex {
@@ -276,11 +364,11 @@
 }
 
 - (void)incrementFilterIndex {
-    _filterIndex = (_filterIndex == [_filters count] - 1) ? 0 : _filterIndex + 1;
+    _filterIndex = (_filterIndex == _numFilters - 1) ? 0 : _filterIndex + 1;
 }
 
 - (void)decrementFilterIndex {
-    _filterIndex = (_filterIndex == 0) ? [_filters count] - 1 : _filterIndex - 1;
+    _filterIndex = (_filterIndex == 0) ? _numFilters - 1 : _filterIndex - 1;
 }
 
 @end
