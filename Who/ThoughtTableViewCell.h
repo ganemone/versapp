@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *favBtn;
 @property (weak, nonatomic) IBOutlet UILabel *favLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timestampLabel;
+@property (weak, nonatomic) IBOutlet UIView *greyView;
 @property (strong, nonatomic) UIImage *backgroundImage;
 @property (strong, nonatomic) Confession  *confession;
 

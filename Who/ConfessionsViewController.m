@@ -129,14 +129,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"ThoughtCellIdentifier";
     Confession *confession = [_confessionsManager getConfessionAtIndex:(int)indexPath.row];
-    
+    NSString *CellIdentifier = [NSString stringWithFormat:@"ThoughtTableViewCell%@", confession.confessionID];
     ThoughtTableViewCell *cell = (ThoughtTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"ThoughtTableViewCell" owner:self options:nil] firstObject];
+        [cell setUpWithConfession:confession];
     }
-    [cell setUpWithConfession:confession];
     return cell;
 }
 
@@ -155,7 +154,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 230;
+    return 234;
 }
 
 - (void)refreshListView
@@ -237,43 +236,43 @@
 }
 
 /*- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGFloat delta = scrollView.contentOffset.y - self.initialContentOffset;
-    if (scrollView.contentOffset.y < 0) {
-        _header.center = CGPointMake(_header.center.x, 32);
-        _tableView.frame = CGRectMake(0, 64, _tableView.frame.size.width, self.view.frame.size.height - 64);
-        return;
-    }
-    CGFloat velocity = [[scrollView panGestureRecognizer] velocityInView:self.view].y;
-    if (velocity > 300 && _isAnimatingHeader == NO) {
-        [self animateShowHeader];
-    } else if (velocity < - 300 && _isAnimatingHeader == NO) {
-        [self animateHideHeader];
-    }
-    if (_isAnimatingHeader == NO) {
-        if (delta > 0.f) {
-            if (_header.center.y > -32) {
-                _header.center = CGPointMake(_header.center.x, _header.center.y - delta);
-            }
-            if (_tableView.frame.origin.y > 0 || _tableView.frame.size.height < self.view.frame.size.height) {
-                [_tableView setFrame:CGRectMake(0, MAX(0, abs(_tableView.frame.origin.y - delta)), _tableView.frame.size.width, MIN(self.view.frame.size.height, _tableView.frame.size.height + delta))];
-            }
-        } else if (delta < 0.f) {
-            if (_header.center.y < 32) {
-                _header.center = CGPointMake(_header.center.x, MIN(_header.center.y - delta, 32));
-            }
-            if (_tableView.frame.origin.y < 64 || _tableView.frame.size.height < (self.view.frame.size.height - 64)) {
-                [_tableView setFrame:CGRectMake(0, MIN(64, _tableView.frame.origin.y - delta), _tableView.frame.size.width, MAX(self.view.frame.size.height - 64, _tableView.frame.size.height + delta))];
-            }
-        }
-    }
-    self.initialContentOffset = scrollView.contentOffset.y;
-    self.previousContentDelta = delta;
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    self.initialContentOffset = scrollView.contentOffset.y;
-    self.previousContentDelta = 0.f;
-}*/
+ CGFloat delta = scrollView.contentOffset.y - self.initialContentOffset;
+ if (scrollView.contentOffset.y < 0) {
+ _header.center = CGPointMake(_header.center.x, 32);
+ _tableView.frame = CGRectMake(0, 64, _tableView.frame.size.width, self.view.frame.size.height - 64);
+ return;
+ }
+ CGFloat velocity = [[scrollView panGestureRecognizer] velocityInView:self.view].y;
+ if (velocity > 300 && _isAnimatingHeader == NO) {
+ [self animateShowHeader];
+ } else if (velocity < - 300 && _isAnimatingHeader == NO) {
+ [self animateHideHeader];
+ }
+ if (_isAnimatingHeader == NO) {
+ if (delta > 0.f) {
+ if (_header.center.y > -32) {
+ _header.center = CGPointMake(_header.center.x, _header.center.y - delta);
+ }
+ if (_tableView.frame.origin.y > 0 || _tableView.frame.size.height < self.view.frame.size.height) {
+ [_tableView setFrame:CGRectMake(0, MAX(0, abs(_tableView.frame.origin.y - delta)), _tableView.frame.size.width, MIN(self.view.frame.size.height, _tableView.frame.size.height + delta))];
+ }
+ } else if (delta < 0.f) {
+ if (_header.center.y < 32) {
+ _header.center = CGPointMake(_header.center.x, MIN(_header.center.y - delta, 32));
+ }
+ if (_tableView.frame.origin.y < 64 || _tableView.frame.size.height < (self.view.frame.size.height - 64)) {
+ [_tableView setFrame:CGRectMake(0, MIN(64, _tableView.frame.origin.y - delta), _tableView.frame.size.width, MAX(self.view.frame.size.height - 64, _tableView.frame.size.height + delta))];
+ }
+ }
+ }
+ self.initialContentOffset = scrollView.contentOffset.y;
+ self.previousContentDelta = delta;
+ }
+ 
+ - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+ self.initialContentOffset = scrollView.contentOffset.y;
+ self.previousContentDelta = 0.f;
+ }*/
 
 #pragma ImageManagerDelegate
 
@@ -291,7 +290,7 @@
 
 -(void)didFailToDownloadImageWithIdentifier:(NSString *)identifier {
     NSLog(@"Failed to download image...");
-}   
+}
 
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {}
 -(void)didFailToUploadImage:(UIImage *)image toURL:(NSString *)url {}

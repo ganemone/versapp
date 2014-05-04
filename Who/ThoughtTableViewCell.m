@@ -83,9 +83,11 @@
     if ([_confession isPostedByConnectedUser]) {
         [_chatBtn addTarget:self action:@selector(handleConfessionDeleted:) forControlEvents:UIControlEventTouchUpInside];
         [_chatBtn setImage:[UIImage imageNamed:@"x-white.png"] forState:UIControlStateNormal];
+        //[_chatBtn setContentEdgeInsets:UIEdgeInsetsMake(3, 3, 3, 3)];
     } else {
         [_chatBtn setImage:[UIImage imageNamed:@"messages-icon-white.png"] forState:UIControlStateNormal];
         [_chatBtn addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
+        //[_chatBtn setContentEdgeInsets:UIEdgeInsetsZero];
     }
 }
 
@@ -100,7 +102,7 @@
             [MBProgressHUD hideHUDForView:self.contentView animated:YES];
             _backgroundImage = [cache getImageWithIdentifier:_confession.confessionID];
             UIImageView *imageView = [[UIImageView alloc] initWithImage:_backgroundImage];
-            [imageView setContentMode:UIViewContentModeScaleAspectFill];
+            [imageView setContentMode:UIViewContentModeScaleToFill];
             [self setBackgroundView:imageView];
         } else {
             [MBProgressHUD showHUDAddedTo:self.contentView animated:YES];

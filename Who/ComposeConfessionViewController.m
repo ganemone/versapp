@@ -49,10 +49,13 @@
     self.filterIndex = 0;
     self.colors = @[[StyleManager getColorBlue], [StyleManager getColorGreen], [StyleManager getColorOrange], [StyleManager getColorPurple]];
     
-    UISwipeGestureRecognizer *swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
-    [swipeRecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft |
-                                   UISwipeGestureRecognizerDirectionRight)];
-    [self.composeTextView addGestureRecognizer:swipeRecognizer];
+    UISwipeGestureRecognizer *leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeLeft:)];
+    [leftSwipe setDirection:UISwipeGestureRecognizerDirectionLeft];
+    [self.composeTextView addGestureRecognizer:leftSwipe];
+    
+    UISwipeGestureRecognizer *rightSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeRight:)];
+    [rightSwipe setDirection:UISwipeGestureRecognizerDirectionRight];
+    [self.composeTextView addGestureRecognizer:rightSwipe];
     
     [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
     [self.composeTextView becomeFirstResponder];
@@ -221,26 +224,36 @@
 
 #pragma mark - SwipeManagement
 
-- (void)handleSwipe:(UISwipeGestureRecognizer *)gestureRecognizer {
+- (void)handleSwipeRight:(UISwipeGestureRecognizer *)gestureRecognizer {
     if (_backgroundImage == nil) {
-        [self handleSwipeWithColor:gestureRecognizer];
+        [self handleSwipeWithColor:UISwipeGestureRecognizerDirectionRight];
     } else {
-        [self handleSwipeWithImage:gestureRecognizer];
+        [self handleSwipeWithImage:UISwipeGestureRecognizerDirectionRight];
     }
 }
 
-- (void)handleSwipeWithColor:(UISwipeGestureRecognizer *)gestureRecognizer {
-    if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
+- (void)handleSwipeLeft:(UISwipeGestureRecognizer *)gestureRecognizer {
+    if (_backgroundImage == nil) {
+        [self handleSwipeWithColor:UISwipeGestureRecognizerDirectionLeft];
+    } else {
+        [self handleSwipeWithImage:UISwipeGestureRecognizerDirectionLeft];
+    }
+}
+
+- (void)handleSwipeWithColor:(UISwipeGestureRecognizerDirection)direction {
+    if (direction == UISwipeGestureRecognizerDirectionRight) {
+        NSLog(@"Incrementing...");
         [self incrementColorIndex];
     } else {
+        NSLog(@"Decrementing...");
         [self decrementColorIndex];
     }
     [_composeTextView setBackgroundColor:[_colors objectAtIndex:_colorIndex]];
     _backgroundColor = [UIColor hexStringWithUIColor:_composeTextView.backgroundColor];
 }
 
-- (void)handleSwipeWithImage:(UISwipeGestureRecognizer *)gestureRecognizer {
-    if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
+- (void)handleSwipeWithImage:(UISwipeGestureRecognizerDirection)direction {
+    if (direction == UISwipeGestureRecognizerDirectionRight) {
         [self incrementFilterIndex];
     } else {
         [self decrementColorIndex];
