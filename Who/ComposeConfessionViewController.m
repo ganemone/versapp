@@ -32,6 +32,7 @@
 @property (strong, nonatomic) UIImage *e3;
 @property (strong, nonatomic) UIImage *e4;
 @property (strong, nonatomic) UIImage *e5;
+@property CGFloat darkness;
 @property int colorIndex;
 @property int filterIndex;
 @property int numFilters;
@@ -55,17 +56,26 @@
     [super viewDidLoad];
     self.colorIndex = 0;
     self.filterIndex = 0;
-    self.numFilters = 5;
+    self.numFilters = 6;
     self.shouldApplyFilter = 0;
+    self.darkness = 0.0;
     self.colors = @[[StyleManager getColorBlue], [StyleManager getColorGreen], [StyleManager getColorOrange], [StyleManager getColorPurple]];
     
     UISwipeGestureRecognizer *leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeLeft:)];
     [leftSwipe setDirection:UISwipeGestureRecognizerDirectionLeft];
-    [self.composeTextView addGestureRecognizer:leftSwipe];
+    [self.view addGestureRecognizer:leftSwipe];
     
     UISwipeGestureRecognizer *rightSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeRight:)];
     [rightSwipe setDirection:UISwipeGestureRecognizerDirectionRight];
-    [self.composeTextView addGestureRecognizer:rightSwipe];
+    [self.view addGestureRecognizer:rightSwipe];
+    
+    UISwipeGestureRecognizer *upSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeUp)];
+    [upSwipe setDirection:UISwipeGestureRecognizerDirectionUp];
+    [self.view addGestureRecognizer:upSwipe];
+    
+    UISwipeGestureRecognizer *downSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeDown)];
+    [downSwipe setDirection:UISwipeGestureRecognizerDirectionDown];
+    [self.view addGestureRecognizer:downSwipe];
     
     [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
     [self.composeTextView becomeFirstResponder];
@@ -124,43 +134,99 @@
 }
 
 -(void)getFilteredImages {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         _e1 = [_backgroundImage e6];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (_shouldApplyFilter == 1) {
                 [self.imageView setImage:_e1];
-            }
-        });
-        _e2 = [_backgroundImage e2];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (_shouldApplyFilter == 2) {
-                [self.imageView setImage:_e2];
-            }
-        });
-        _e3 = [_backgroundImage e3];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (_shouldApplyFilter == 3) {
-                [self.imageView setImage:_e3];
-            }
-        });
-        _e4 = [_backgroundImage e4];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (_shouldApplyFilter == 4) {
-                [self.imageView setImage:_e4];
-            }
-        });
-        _e5 = [_backgroundImage e5];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (_shouldApplyFilter == 5) {
-                [self.imageView setImage:_e5];
-            }
-            if (_shouldApplyFilter > 0) {
                 _shouldApplyFilter = 0;
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
             }
         });
-        
     });
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        _e5 = [_backgroundImage e5];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (_shouldApplyFilter == 5) {
+                [self.imageView setImage:_e5];
+                _shouldApplyFilter = 0;
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                
+            }
+        });
+    });
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        _e2 = [_backgroundImage e10];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (_shouldApplyFilter == 2) {
+                [self.imageView setImage:_e2];
+                _shouldApplyFilter = 0;
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            }
+        });
+    });
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        _e3 = [_backgroundImage e3];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (_shouldApplyFilter == 3) {
+                [self.imageView setImage:_e3];
+                _shouldApplyFilter = 0;
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            }
+        });
+    });
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        _e4 = [_backgroundImage e4];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (_shouldApplyFilter == 4) {
+                [self.imageView setImage:_e4];
+                _shouldApplyFilter = 0;
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            }
+        });
+    });
+}
+
+-(void)darkenImageWithValue:(NSNumber *)number {
+    CIContext *context = [CIContext contextWithOptions:nil];
+    CIImage *inputImage = [[CIImage alloc] initWithImage:self.imageView.image]; //your input image
+    
+    CIFilter *filter= [CIFilter filterWithName:@"CIColorControls"];
+    [filter setValue:inputImage forKey:@"inputImage"];
+    [filter setValue:[NSNumber numberWithFloat:0.5] forKey:@"inputBrightness"];
+    
+    // Your output image
+    UIImage *outputImage = [UIImage imageWithCGImage:[context createCGImage:filter.outputImage fromRect:filter.outputImage.extent]];
+    [_imageView setImage:outputImage];
+}
+
+- (UIImage *)colorizeImage:(UIImage *)image withColor:(UIColor *)color {
+    UIGraphicsBeginImageContext(image.size);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGRect area = CGRectMake(0, 0, image.size.width, image.size.height);
+    
+    CGContextScaleCTM(context, 1, -1);
+    CGContextTranslateCTM(context, 0, -area.size.height);
+    
+    CGContextSaveGState(context);
+    CGContextClipToMask(context, area, image.CGImage);
+    
+    [color set];
+    CGContextFillRect(context, area);
+    
+    CGContextRestoreGState(context);
+    
+    CGContextSetBlendMode(context, kCGBlendModeMultiply);
+    
+    CGContextDrawImage(context, area, image.CGImage);
+    
+    UIImage *colorizedImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return colorizedImage;
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -207,7 +273,6 @@
         return NO;
     }
     NSUInteger newLength = [textView.text length] + [text length] - range.length;
-    NSLog(@"New Length: %d", newLength);
     if (newLength > 200) {
         [textView setFont:[StyleManager getFontStyleBoldSizeMed]];
     } else if (newLength > 125) {
@@ -317,35 +382,38 @@
     } else {
         [self decrementFilterIndex];
     }
+    NSLog(@"Filter Index: %d", _filterIndex);
     if (_filterIndex == 0) {
+        [_imageView setImage:_backgroundImage];
+    } else if (_filterIndex == 1) {
         if (_e1 == nil) {
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             _shouldApplyFilter = 1;
         } else {
             [self.imageView setImage:_e1];
         }
-    } else if (_filterIndex == 1) {
+    } else if (_filterIndex == 2) {
         if (_e2 == nil) {
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             _shouldApplyFilter = 2;
         } else {
             [self.imageView setImage:_e2];
         }
-    } else if (_filterIndex == 2) {
+    } else if (_filterIndex == 3) {
         if (_e3 == nil) {
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             _shouldApplyFilter = 3;
         } else {
             [self.imageView setImage:_e3];
         }
-    } else if (_filterIndex == 3) {
+    } else if (_filterIndex == 4) {
         if (_e4 == nil) {
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             _shouldApplyFilter = 4;
         } else {
             [self.imageView setImage:_e4];
         }
-    } else if (_filterIndex == 4) {
+    } else if (_filterIndex == 5) {
         if (_e5 == nil) {
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             _shouldApplyFilter = 5;
@@ -369,6 +437,46 @@
 
 - (void)decrementFilterIndex {
     _filterIndex = (_filterIndex == 0) ? _numFilters - 1 : _filterIndex - 1;
+}
+
+- (void)decrementDarkess {
+    _darkness = MAX(0, _darkness - 0.1);
+}
+
+- (void)incrementDarkness {
+    _darkness = MIN(1, _darkness + 0.1);
+}
+
+- (void)handleSwipeUp {
+    if (_backgroundImage != nil) {
+        [self incrementDarkness];
+        UIImage *image = [self colorizeImage:[self getCurrentImage] withColor:[self getColorForDarkness]];
+        [_imageView setImage:image];
+    }
+    
+}
+
+- (void)handleSwipeDown {
+    if (_backgroundImage != nil) {
+        [self decrementDarkess];
+        UIImage *image = [self colorizeImage:[self getCurrentImage] withColor:[self getColorForDarkness]];
+        [_imageView setImage:image];
+    }
+}
+
+- (UIColor *)getColorForDarkness {
+    return [UIColor colorWithRed:0 green:0 blue:0 alpha:_darkness];
+}
+
+- (UIImage *)getCurrentImage {
+    switch (_filterIndex) {
+        case 0:return _backgroundImage;
+        case 1:return _e1;
+        case 2:return _e2;
+        case 3:return _e3;
+        case 4:return _e4;
+        default: return _e5;
+    }
 }
 
 @end
