@@ -154,22 +154,28 @@
         return NO;
     }
     NSUInteger newLength = [textView.text length] + [text length] - range.length;
-    [self adjustInsetsForTextfield:textView];
+    NSLog(@"New Length: %d", newLength);
     if (newLength > 200) {
         [textView setFont:[StyleManager getFontStyleBoldSizeMed]];
+    } else if (newLength > 125) {
+        [textView setFont:[StyleManager getFontStyleBoldSizeLarge]];
     } else {
         [textView setFont:[StyleManager getFontStyleBoldSizeXL]];
     }
-    return (newLength > 500) ? NO : YES;
+    return (newLength > 300) ? NO : YES;
+}
+
+-(void)textViewDidChange:(UITextView *)textView {
+    [self adjustInsetsForTextfield:textView];
 }
 
 -(void)adjustInsetsForTextfield:(UITextView *)textView {
     UIFont *cellFont = [StyleManager getFontStyleBoldSizeXL];
-    CGSize constraintSize = CGSizeMake(self.view.frame.size.width, MAXFLOAT);
+    CGSize constraintSize = CGSizeMake(self.view.frame.size.width - 30, MAXFLOAT);
     NSStringDrawingContext *ctx = [NSStringDrawingContext new];
     CGRect textRect = [textView.text boundingRectWithSize:constraintSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:ctx];
-    CGFloat top = textView.frame.size.height/2 - textRect.size.height;
-    [textView setContentInset:UIEdgeInsetsMake(top, 10, 0, 10)];
+    CGFloat top = textView.frame.size.height/2 - textRect.size.height/2 - 10;
+    [textView setTextContainerInset:UIEdgeInsetsMake(top, 10, 0, 10)];
 }
 
 

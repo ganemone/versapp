@@ -66,10 +66,12 @@
     [_timestampLabel setUserInteractionEnabled:NO];
     [_favLabel setUserInteractionEnabled:NO];
     [_body setTextAlignment:NSTextAlignmentCenter];
-    [_body setTextContainerInset:UIEdgeInsetsMake((_body.frame.size.height - [_confession heightForConfession] - 5) / 2.0f, 0, 0, 0)];
+    
     if ([_confession heightForConfession] > 120) {
         [_body setFont:[StyleManager getFontStyleBoldSizeMed]];
-        [_body setTextContainerInset:UIEdgeInsetsMake((_body.frame.size.height - [_confession heightForConfessionWithFont:[StyleManager getFontStyleBoldSizeMed]] - 5) / 2.0f, 0, 0, 0)];
+        [_body setTextContainerInset:UIEdgeInsetsMake((_body.frame.size.height - [_confession heightForConfessionWithFont:[StyleManager getFontStyleBoldSizeMed]] - 50) / 2.0f, 0, 0, 0)];
+    } else {
+        [_body setTextContainerInset:UIEdgeInsetsMake((_body.frame.size.height - [_confession heightForConfession] - 40) / 2.0f, 0, 0, 0)];
     }
     
     [_favBtn addTarget:self action:@selector(handleConfessionFavorited:) forControlEvents:UIControlEventTouchUpInside];
