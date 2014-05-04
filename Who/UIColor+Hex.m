@@ -44,8 +44,7 @@
         alpha = (int)(components[1] * 255.0);
     }
     
-    NSString *hexString  = [NSString stringWithFormat:@"#%02x%02x%02x%02x",
-                            alpha,red,green,blue];
+    NSString *hexString  = [NSString stringWithFormat:@"#%02x%02x%02x",red,green,blue];
     return hexString;
 }
 

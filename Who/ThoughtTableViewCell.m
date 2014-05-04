@@ -15,6 +15,7 @@
 #import "ImageManager.h"
 #import "ImageCache.h"
 #import "MBProgressHUD.h"
+#import "UIColor+Hex.h"
 
 @implementation ThoughtTableViewCell
 
@@ -90,8 +91,9 @@
 
 - (void)setUpBackgroundView {
     if ([[_confession.imageURL substringToIndex:1] isEqualToString:@"#"]) {
+        NSLog(@"Image Color: %@", _confession.imageURL);
         [MBProgressHUD hideHUDForView:self.contentView animated:YES];
-        [self setBackgroundColor:[StyleManager getRandomBlueColor]];
+        [self setBackgroundColor:[UIColor colorWithHexString:_confession.imageURL]];
     } else if(!([_confession.imageURL isEqualToString:@""] || _confession.imageURL == nil)) {
         ImageCache *cache = [ImageCache getInstance];
         if ([cache hasImageWithIdentifier:_confession.confessionID]) {

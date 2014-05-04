@@ -15,6 +15,7 @@
 #import "StyleManager.h"
 #import "MBProgressHUD.h"
 #import "ImageManager.h"
+#import "UIColor+Hex.h"
 
 @interface ComposeConfessionViewController ()
 
@@ -125,7 +126,8 @@
             }
         } else if(buttonIndex == 3) {
             [_imageView setImage:nil];
-            [_composeTextView setBackgroundColor:[StyleManager getRandomBlueColor]];
+            [_composeTextView setBackgroundColor:[_colors objectAtIndex:_colorIndex]];
+            _backgroundColor = [UIColor hexStringWithUIColor:_composeTextView.backgroundColor];
             _backgroundImage = nil;
             _backgroundImageLink = nil;
         } else if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
@@ -173,6 +175,7 @@
 
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    _backgroundColor = nil;
     _backgroundImageLink = url;
     [_imageView setContentMode:UIViewContentModeScaleAspectFill];
     [_imageView setImage:_backgroundImage];
@@ -232,7 +235,8 @@
     } else {
         [self decrementColorIndex];
     }
-    [self.composeTextView setBackgroundColor:[_colors objectAtIndex:_colorIndex]];
+    [_composeTextView setBackgroundColor:[_colors objectAtIndex:_colorIndex]];
+    _backgroundColor = [UIColor hexStringWithUIColor:_composeTextView.backgroundColor];
 }
 
 - (void)handleSwipeWithImage:(UISwipeGestureRecognizer *)gestureRecognizer {

@@ -549,6 +549,7 @@
     [create addChild:[DDXMLNode elementWithName:@"image_url" stringValue:confession.imageURL]];
     
     DDXMLElement *iq = [self getWhoConfessionIQElementWithType:@"set" packetID:PACKET_ID_POST_CONFESSION children:create];
+    NSLog(@"Confession IQ: %@", iq.XMLString);
     return iq;
 }
 
