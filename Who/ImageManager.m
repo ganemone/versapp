@@ -81,8 +81,12 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
     NSError *error = NULL;
     NSMutableURLRequest *req = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:DOWNLOAD_URL parameters:parameters error:&error];
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:req success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[ImageCache getInstance] setImage:responseObject withIdentifier:identifier];
-        [delegate didFinishDownloadingImage:responseObject withIdentifier:identifier];
+        if (responseObject == nil) {
+            NSLog(@"Nil Response with Request parameters: %@", [parameters description]);
+        } else {
+            [[ImageCache getInstance] setImage:responseObject withIdentifier:identifier];
+            [delegate didFinishDownloadingImage:responseObject withIdentifier:identifier];
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [delegate didFailToDownloadImageWithIdentifier:identifier];
     }];

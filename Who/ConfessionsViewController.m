@@ -19,6 +19,7 @@
 #import "IQPacketManager.h"
 #import "UIScrollView+GifPullToRefresh.h"
 #import "ThoughtTableViewCell.h"
+#import "MBProgressHUD.h"
 
 @interface ConfessionsViewController ()
 
@@ -51,7 +52,9 @@
 {
     [super viewDidLoad];
     self.confessionsManager = [ConfessionsManager getInstance];
-    
+    if ([self.confessionsManager getNumberOfConfessions] == 0) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name: PACKET_ID_GET_CONFESSIONS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name:PACKET_ID_POST_CONFESSION object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name:NOTIFICATION_CONFESSION_DELETED object:nil];
@@ -115,25 +118,6 @@
     return 1;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if ([[ConfessionsManager getInstance] getNumberOfConfessions] == 0) {
-        return 50.0f;
-    }
-    return 10.0f;
-}
-
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if ([[ConfessionsManager getInstance] getNumberOfConfessions] == 0) {
-        UILabel *header = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
-        [header setBackgroundColor:[UIColor whiteColor]];
-        [header setTextAlignment:NSTextAlignmentCenter];
-        [header setText:@"There are no Thoughts on your feed"];
-        [header setFont:[StyleManager getFontStyleBoldSizeLarge]];
-        return header;
-    }
-    return [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 10.0f)];
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [_confessionsManager getNumberOfConfessions];
@@ -176,6 +160,7 @@
 
 - (void)refreshListView
 {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     [_confessionsManager sortConfessions];
     [self loadImagesForThoughts];
     [self.tableView didFinishPullToRefresh];
@@ -293,7 +278,6 @@
 #pragma ImageManagerDelegate
 
 -(void)didFinishDownloadingImage:(UIImage *)image withIdentifier:(NSString *)identifier {
-    NSLog(@"Did finish downloading image for thought with id: %@", identifier);
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     [imageView setContentMode:UIViewContentModeScaleAspectFill];
     Confession *confession = [self.confessionsManager getConfessionWithID:identifier];
@@ -301,14 +285,13 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(NSInteger)index inSection:0];
     if ([_tableView numberOfRowsInSection:0] > 0) {
         ThoughtTableViewCell *cell = (ThoughtTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-        [cell setBackgroundView:imageView];
+        [cell setUpBackgroundView];
     }
-
 }
 
 -(void)didFailToDownloadImageWithIdentifier:(NSString *)identifier {
     NSLog(@"Failed to download image...");
-}
+}   
 
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {}
 -(void)didFailToUploadImage:(UIImage *)image toURL:(NSString *)url {}

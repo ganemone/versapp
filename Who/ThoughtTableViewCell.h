@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Confession.h"
 #import "ImageManager.h"
-@interface ThoughtTableViewCell : UITableViewCell<ImageManagerDelegate>
+@interface ThoughtTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UITextView *body;
 @property (weak, nonatomic) IBOutlet UIButton *chatBtn;
@@ -20,4 +20,6 @@
 @property (strong, nonatomic) Confession  *confession;
 
 - (void)setUpWithConfession:(Confession *)confession;
+- (void)setUpBackgroundView;
+
 @end

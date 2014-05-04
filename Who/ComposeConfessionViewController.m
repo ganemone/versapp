@@ -47,6 +47,7 @@
     [self.composeTextView setTextAlignment:NSTextAlignmentCenter];
     [self.composeTextView setDelegate:self];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedPostingConfession) name:PACKET_ID_POST_CONFESSION object:nil];
+    [self adjustInsetsForTextfield:self.composeTextView];		
 }
 
 - (void)didReceiveMemoryWarning
@@ -131,9 +132,12 @@
     [[self navigationController] popToRootViewControllerAnimated:YES];
 }
 
-
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"] || [text isEqualToString:@"\r"]) {
+        return NO;
+    }
     NSUInteger newLength = [textView.text length] + [text length] - range.length;
+    [self adjustInsetsForTextfield:textView];
     if (newLength > 200) {
         [textView setFont:[StyleManager getFontStyleBoldSizeMed]];
     } else {
@@ -141,6 +145,17 @@
     }
     return (newLength > 500) ? NO : YES;
 }
+
+-(void)adjustInsetsForTextfield:(UITextView *)textView {
+    UIFont *cellFont = [StyleManager getFontStyleBoldSizeXL];
+    CGSize constraintSize = CGSizeMake(self.view.frame.size.width, MAXFLOAT);
+    NSStringDrawingContext *ctx = [NSStringDrawingContext new];
+    CGRect textRect = [textView.text boundingRectWithSize:constraintSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:ctx];
+    CGFloat top = textView.frame.size.height/2 - textRect.size.height;
+    [textView setContentInset:UIEdgeInsetsMake(top, 10, 0, 10)];
+}
+
+
 
 #pragma ImageManagerDelegate
 

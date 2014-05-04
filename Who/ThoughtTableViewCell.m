@@ -14,6 +14,7 @@
 #import "ConfessionsManager.h"
 #import "ImageManager.h"
 #import "ImageCache.h"
+#import "MBProgressHUD.h"
 
 @implementation ThoughtTableViewCell
 
@@ -52,8 +53,8 @@
     [_body setFont:[StyleManager getFontStyleBoldSizeXL]];
     [_body setTextColor:[UIColor whiteColor]];
     [_timestampLabel setTextColor:[UIColor whiteColor]];
-    [_timestampLabel setFont:[StyleManager getFontStyleLightSizeSmall]];
-    [_favLabel setFont:[StyleManager getFontStyleLightSizeSmall]];
+    [_timestampLabel setFont:[StyleManager getFontStyleBoldSizeSmall]];
+    [_favLabel setFont:[StyleManager getFontStyleBoldSizeSmall]];
     [_favLabel setTextColor:[UIColor whiteColor]];
     
     [_body setBackgroundColor:[UIColor clearColor]];
@@ -80,23 +81,27 @@
     
     if ([_confession isPostedByConnectedUser]) {
         [_chatBtn addTarget:self action:@selector(handleConfessionDeleted:) forControlEvents:UIControlEventTouchUpInside];
-        [_chatBtn setTitle:@"Remove" forState:UIControlStateNormal];
+        [_chatBtn setImage:[UIImage imageNamed:@"x-white.png"] forState:UIControlStateNormal];
     } else {
-        [_chatBtn setTitle:@"Chat" forState:UIControlStateNormal];
+        [_chatBtn setImage:[UIImage imageNamed:@"messages-icon-white.png"] forState:UIControlStateNormal];
         [_chatBtn addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
     }
 }
 
 - (void)setUpBackgroundView {
     if ([[_confession.imageURL substringToIndex:1] isEqualToString:@"#"]) {
+        [MBProgressHUD hideHUDForView:self.contentView animated:YES];
         [self setBackgroundColor:[StyleManager getRandomBlueColor]];
     } else if(!([_confession.imageURL isEqualToString:@""] || _confession.imageURL == nil)) {
         ImageCache *cache = [ImageCache getInstance];
         if ([cache hasImageWithIdentifier:_confession.confessionID]) {
+            [MBProgressHUD hideHUDForView:self.contentView animated:YES];
             _backgroundImage = [cache getImageWithIdentifier:_confession.confessionID];
             UIImageView *imageView = [[UIImageView alloc] initWithImage:_backgroundImage];
             [imageView setContentMode:UIViewContentModeScaleAspectFill];
             [self setBackgroundView:imageView];
+        } else {
+            [MBProgressHUD showHUDAddedTo:self.contentView animated:YES];
         }
     }
 }
