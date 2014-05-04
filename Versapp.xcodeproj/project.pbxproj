@@ -257,6 +257,7 @@
 		3AD8F48118DC9DD8002C399C /* UserRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD8F48018DC9DD8002C399C /* UserRegistrationViewController.m */; };
 		3AD8F48318DCCB7D002C399C /* Countries.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3AD8F48218DCCB7D002C399C /* Countries.plist */; };
 		3AE1E35F18E9A9AA00E2347F /* Validator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE1E35E18E9A9AA00E2347F /* Validator.m */; };
+		3AE46EDC191697540058DCBA /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE46EDB191697540058DCBA /* UIColor+Hex.m */; };
 		3AEE80BE18D8FD5B0098F2D1 /* FriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEE80BD18D8FD5B0098F2D1 /* FriendTableViewCell.m */; };
 		3AEFB76418E8BE5C0039B5B0 /* cell-select-green-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AEFB76118E8BE5C0039B5B0 /* cell-select-green-active.png */; };
 		3AEFB76518E8BE5C0039B5B0 /* cell-select-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AEFB76218E8BE5C0039B5B0 /* cell-select-green.png */; };
@@ -749,6 +750,8 @@
 		3AD8F48218DCCB7D002C399C /* Countries.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Countries.plist; sourceTree = "<group>"; };
 		3AE1E35D18E9A9AA00E2347F /* Validator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Validator.h; path = ../Validator.h; sourceTree = "<group>"; };
 		3AE1E35E18E9A9AA00E2347F /* Validator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Validator.m; path = ../Validator.m; sourceTree = "<group>"; };
+		3AE46EDA191697540058DCBA /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
+		3AE46EDB191697540058DCBA /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
 		3AEE80BC18D8FD5B0098F2D1 /* FriendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendTableViewCell.h; sourceTree = "<group>"; };
 		3AEE80BD18D8FD5B0098F2D1 /* FriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendTableViewCell.m; sourceTree = "<group>"; };
 		3AEFB76118E8BE5C0039B5B0 /* cell-select-green-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-select-green-active.png"; sourceTree = "<group>"; };
@@ -1046,6 +1049,8 @@
 				3A67DB5118E4D64700DA6691 /* ConnectionLostViewController.m */,
 				3A67DB4D18E4D08200DA6691 /* ConnectionHandlingViewController.h */,
 				3A67DB4E18E4D08200DA6691 /* ConnectionHandlingViewController.m */,
+				3AE46EDA191697540058DCBA /* UIColor+Hex.h */,
+				3AE46EDB191697540058DCBA /* UIColor+Hex.m */,
 			);
 			path = Who;
 			sourceTree = "<group>";
@@ -2589,6 +2594,7 @@
 				3A793D43190FF6CA00303457 /* UIButton+AFNetworking.m in Sources */,
 				3A98DA6418BD1A7E00B69049 /* XMPPXOAuth2Google.m in Sources */,
 				3A91F1E618EB28430006B9F8 /* TutorialSlideViewController.m in Sources */,
+				3AE46EDC191697540058DCBA /* UIColor+Hex.m in Sources */,
 				3A98DA6318BD1A7E00B69049 /* XMPPXFacebookPlatformAuthentication.m in Sources */,
 				3A67DB5218E4D64700DA6691 /* ConnectionLostViewController.m in Sources */,
 				3AF19A6A1881F34A00F3E4D3 /* DDXMLElement.m in Sources */,

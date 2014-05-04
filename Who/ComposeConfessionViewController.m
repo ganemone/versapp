@@ -24,7 +24,10 @@
 @property (strong, nonatomic) UIImage *backgroundImage;
 @property (strong, nonatomic) NSString *backgroundColor;
 @property (strong, nonatomic) NSString *backgroundImageLink;
-
+@property (strong, nonatomic) NSArray *colors;
+@property (strong, nonatomic) NSArray *filters;
+@property int colorIndex;
+@property int filterIndex;
 @end
 
 @implementation ComposeConfessionViewController
@@ -41,13 +44,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.colorIndex = 0;
+    self.filterIndex = 0;
+    self.colors = @[[StyleManager getColorBlue], [StyleManager getColorGreen], [StyleManager getColorOrange], [StyleManager getColorPurple]];
+    
+    UISwipeGestureRecognizer *swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+    [swipeRecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft |
+                                   UISwipeGestureRecognizerDirectionRight)];
+    [self.composeTextView addGestureRecognizer:swipeRecognizer];
+    
     [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
     [self.composeTextView becomeFirstResponder];
     [self.composeTextView setFont:[StyleManager getFontStyleBoldSizeXL]];
     [self.composeTextView setTextAlignment:NSTextAlignmentCenter];
     [self.composeTextView setDelegate:self];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedPostingConfession) name:PACKET_ID_POST_CONFESSION object:nil];
-    [self adjustInsetsForTextfield:self.composeTextView];		
+    [self adjustInsetsForTextfield:self.composeTextView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -157,7 +169,7 @@
 
 
 
-#pragma ImageManagerDelegate
+#pragma mark - ImageManagerDelegate
 
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
@@ -176,7 +188,7 @@
 -(void)didFinishDownloadingImage:(UIImage *)image withIdentifier:(NSString *)identifier {}
 -(void)didFailToDownloadImageWithIdentifier:(NSString *)identifier {}
 
-#pragma ImageResizing
+#pragma mark - ImageResizing
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)size {
     if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
@@ -202,6 +214,50 @@
     CGSize newSize = CGSizeMake(newWidth, newHeight);
     
     return [self imageWithImage:image scaledToSize:newSize];
+}
+
+#pragma mark - SwipeManagement
+
+- (void)handleSwipe:(UISwipeGestureRecognizer *)gestureRecognizer {
+    if (_backgroundImage == nil) {
+        [self handleSwipeWithColor:gestureRecognizer];
+    } else {
+        [self handleSwipeWithImage:gestureRecognizer];
+    }
+}
+
+- (void)handleSwipeWithColor:(UISwipeGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
+        [self incrementColorIndex];
+    } else {
+        [self decrementColorIndex];
+    }
+    [self.composeTextView setBackgroundColor:[_colors objectAtIndex:_colorIndex]];
+}
+
+- (void)handleSwipeWithImage:(UISwipeGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
+        [self incrementFilterIndex];
+    } else {
+        [self decrementColorIndex];
+    }
+    // Set filter here...
+}
+
+- (void)incrementColorIndex {
+    _colorIndex = (_colorIndex == [_colors count] - 1) ? 0 : _colorIndex + 1;
+}
+
+- (void)decrementColorIndex {
+    _colorIndex = (_colorIndex == 0) ? [_colors count] - 1 : _colorIndex - 1;
+}
+
+- (void)incrementFilterIndex {
+    _filterIndex = (_filterIndex == [_filters count] - 1) ? 0 : _filterIndex + 1;
+}
+
+- (void)decrementFilterIndex {
+    _filterIndex = (_filterIndex == 0) ? [_filters count] - 1 : _filterIndex - 1;
 }
 
 @end
