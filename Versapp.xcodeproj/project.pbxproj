@@ -51,6 +51,9 @@
 		3A25B6791881E85B00166623 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A25B6781881E85B00166623 /* ContactsViewController.m */; };
 		3A2A357E18AFC79F006402E5 /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2A357D18AFC79F006402E5 /* ImageCache.m */; };
 		3A2F7D2C18EF029400D443FC /* Encrypter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F7D2B18EF029400D443FC /* Encrypter.m */; };
+		3A3097A71916C56800CA5657 /* UIImage+Filtrr.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3097A21916C56800CA5657 /* UIImage+Filtrr.m */; };
+		3A3097A81916C56800CA5657 /* UIImage+FiltrrCompositions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3097A41916C56800CA5657 /* UIImage+FiltrrCompositions.m */; };
+		3A3097A91916C56800CA5657 /* UIImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3097A61916C56800CA5657 /* UIImage+Scale.m */; };
 		3A39475D18A06483005730D2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A39475C18A06483005730D2 /* CoreData.framework */; };
 		3A3A0ADA18AB1126006FBAE4 /* NSString+JSMessagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3A0A8418AB1126006FBAE4 /* NSString+JSMessagesView.m */; };
 		3A3A0ADB18AB1126006FBAE4 /* UIColor+JSMessagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3A0A8618AB1126006FBAE4 /* UIColor+JSMessagesView.m */; };
@@ -401,6 +404,12 @@
 		3A2A357D18AFC79F006402E5 /* ImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCache.m; sourceTree = "<group>"; };
 		3A2F7D2A18EF029400D443FC /* Encrypter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Encrypter.h; sourceTree = "<group>"; };
 		3A2F7D2B18EF029400D443FC /* Encrypter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Encrypter.m; sourceTree = "<group>"; };
+		3A3097A11916C56800CA5657 /* UIImage+Filtrr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Filtrr.h"; sourceTree = "<group>"; };
+		3A3097A21916C56800CA5657 /* UIImage+Filtrr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Filtrr.m"; sourceTree = "<group>"; };
+		3A3097A31916C56800CA5657 /* UIImage+FiltrrCompositions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FiltrrCompositions.h"; sourceTree = "<group>"; };
+		3A3097A41916C56800CA5657 /* UIImage+FiltrrCompositions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FiltrrCompositions.m"; sourceTree = "<group>"; };
+		3A3097A51916C56800CA5657 /* UIImage+Scale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Scale.h"; sourceTree = "<group>"; };
+		3A3097A61916C56800CA5657 /* UIImage+Scale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Scale.m"; sourceTree = "<group>"; };
 		3A39475C18A06483005730D2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		3A3A0A8318AB1126006FBAE4 /* NSString+JSMessagesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JSMessagesView.h"; sourceTree = "<group>"; };
 		3A3A0A8418AB1126006FBAE4 /* NSString+JSMessagesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JSMessagesView.m"; sourceTree = "<group>"; };
@@ -1094,6 +1103,19 @@
 				3ABA80D918AE5F87002012C7 /* ImageManager.m */,
 			);
 			name = "Image Handling";
+			sourceTree = "<group>";
+		};
+		3A3097AA1916C56C00CA5657 /* Filtrr */ = {
+			isa = PBXGroup;
+			children = (
+				3A3097A11916C56800CA5657 /* UIImage+Filtrr.h */,
+				3A3097A21916C56800CA5657 /* UIImage+Filtrr.m */,
+				3A3097A31916C56800CA5657 /* UIImage+FiltrrCompositions.h */,
+				3A3097A41916C56800CA5657 /* UIImage+FiltrrCompositions.m */,
+				3A3097A51916C56800CA5657 /* UIImage+Scale.h */,
+				3A3097A61916C56800CA5657 /* UIImage+Scale.m */,
+			);
+			name = Filtrr;
 			sourceTree = "<group>";
 		};
 		3A3A0A8018AB1126006FBAE4 /* JSMessagesViewController */ = {
@@ -1973,6 +1995,7 @@
 		3AF19ACE1881F86000F3E4D3 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				3A3097AA1916C56C00CA5657 /* Filtrr */,
 				3A793D2E190FF6CA00303457 /* UIKit+AFNetworking */,
 				3A793D11190FF6C200303457 /* AFNetworking */,
 				3ABD66BA18FB187D00E72B09 /* Image Effects */,
@@ -2510,6 +2533,7 @@
 				3A47C844189F1A52003020D7 /* FriendsDBManager.m in Sources */,
 				3A98D9EE18BD1A2600B69049 /* XMPPRoomMemoryStorage.m in Sources */,
 				3A00168218B82BB200C54059 /* ComposeConfessionViewController.m in Sources */,
+				3A3097A81916C56800CA5657 /* UIImage+FiltrrCompositions.m in Sources */,
 				3A720CBA18A28ECB00423959 /* MessagePacketReceiver.m in Sources */,
 				3A3A0AE418AB1126006FBAE4 /* JSMessageSoundEffect.m in Sources */,
 				3A793D44190FF6CA00303457 /* UIImageView+AFNetworking.m in Sources */,
@@ -2562,6 +2586,7 @@
 				3A3A0AE318AB1126006FBAE4 /* JSMessageInputView.m in Sources */,
 				3A98DA4518BD1A6500B69049 /* NSNumber+XMPP.m in Sources */,
 				3A98DA3C18BD1A4B00B69049 /* XMPPStringPrep.m in Sources */,
+				3A3097A71916C56800CA5657 /* UIImage+Filtrr.m in Sources */,
 				3A98D9E918BD1A2600B69049 /* XMPPRoomOccupantCoreDataStorageObject.m in Sources */,
 				3A47C847189F1F02003020D7 /* MessagesDBManager.m in Sources */,
 				3A98D9DB18BD1A2600B69049 /* XMPPResourceMemoryStorageObject.m in Sources */,
@@ -2586,6 +2611,7 @@
 				3A98D9D818BD1A2600B69049 /* XMPPRoster.xcdatamodel in Sources */,
 				3AF5113D1885D79E002383D3 /* Constants.m in Sources */,
 				3AF19A6B1881F34A00F3E4D3 /* DDXMLNode.m in Sources */,
+				3A3097A91916C56800CA5657 /* UIImage+Scale.m in Sources */,
 				F751015F18ABE101001F1E7F /* IASKSpecifierValuesViewController.m in Sources */,
 				3A98DA0818BD1A2600B69049 /* NSDate+XMPPDateTimeProfiles.m in Sources */,
 				3A98D9DC18BD1A2600B69049 /* XMPPRosterMemoryStorage.m in Sources */,
