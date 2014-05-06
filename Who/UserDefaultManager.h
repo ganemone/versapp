@@ -30,4 +30,13 @@
 +(NSString *)loadDeviceID;
 +(BOOL)isValidated;
 
++(BOOL)isFirstLogin;
++(BOOL)hasCreatedOneToOne;
++(BOOL)hasCreatedGroup;
++(BOOL)hasPostedThought;
++(BOOL)hasSeenThoughts;
++(BOOL)hasStartedThoughtChat;
++(BOOL)hasReceivedOneToOneInvitation;
++(BOOL)hasReceivedThoughtConversation;
+
 @end

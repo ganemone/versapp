@@ -130,5 +130,36 @@
     [preferences synchronize];
 }
 
++(BOOL)isFirstLogin {
+    return YES;
+}
+
++(BOOL)hasCreatedOneToOne {
+    return NO;
+}
+
++(BOOL)hasCreatedGroup {
+    return NO;
+}
+
++(BOOL)hasPostedThought {
+    return NO;
+}
+
++(BOOL)hasSeenThoughts {
+    return NO;
+}
+
++(BOOL)hasStartedThoughtChat {
+    return NO;
+}
+
++(BOOL)hasReceivedOneToOneInvitation {
+    return NO;
+}
+
++(BOOL)hasReceivedThoughtConversation {
+    return NO;
+}
 
 @end
