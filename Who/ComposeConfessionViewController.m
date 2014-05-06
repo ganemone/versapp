@@ -17,12 +17,14 @@
 #import "ImageManager.h"
 #import "UIColor+Hex.h"
 #import "UIImage+FiltrrCompositions.h"
+#import "PECropViewController.h"
 
 @interface ComposeConfessionViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextView *composeTextView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UILabel *headerLabel;
+@property (weak, nonatomic) IBOutlet UIView *footerView;
 @property (strong, nonatomic) UIImage *backgroundImage;
 @property (strong, nonatomic) NSString *backgroundColor;
 @property (strong, nonatomic) NSString *backgroundImageLink;
@@ -78,12 +80,32 @@
     [self.view addGestureRecognizer:downSwipe];
     
     [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
-    [self.composeTextView becomeFirstResponder];
     [self.composeTextView setFont:[StyleManager getFontStyleBoldSizeXL]];
     [self.composeTextView setTextAlignment:NSTextAlignmentCenter];
     [self.composeTextView setDelegate:self];
+    [self.composeTextView setText:@"Share a thought..."];
+    [self.composeTextView setTextColor:[UIColor lightGrayColor]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedPostingConfession) name:PACKET_ID_POST_CONFESSION object:nil];
     [self adjustInsetsForTextfield:self.composeTextView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardDidHideNotification object:nil];
+}
+
+#pragma mark - KeyboardNotifications
+
+- (void)keyboardDidShow:(NSNotification *)notification {
+    NSDictionary *userInfo = [notification userInfo];
+    CGSize size = [[userInfo objectForKey: UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    [UIView animateWithDuration:0.25 animations:^{
+        [_footerView setFrame:CGRectMake(0, self.view.frame.size.height - size.height - _footerView.frame.size.height, self.view.frame.size.height, _footerView.frame.size.height)];
+    }];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    [UIView animateWithDuration:0.25 animations:^{
+        [_footerView setFrame:CGRectMake(0, self.view.frame.size.height - _footerView.frame.size.height, self.view.frame.size.height, _footerView.frame.size.height)];
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -121,16 +143,66 @@
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    UIImage *prescaledImage = info[UIImagePickerControllerEditedImage];
-    UIImage *image = [self imageWithImage:prescaledImage scaledToSize:_imageView.frame.size];
+    
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    self.imageView.image = image;
+    
     [picker dismissViewControllerAnimated:YES completion:^{
-        _backgroundImage = image;
-        _backgroundImageLink = @"test";
-        [_imageView setContentMode:UIViewContentModeScaleAspectFill];
-        [_imageView setImage:_backgroundImage];
-        [_composeTextView setBackgroundColor:[UIColor clearColor]];
-        [self getFilteredImages];
+        [self openEditor];
     }];
+    /*UIImage *prescaledImage = info[UIImagePickerControllerEditedImage];
+     UIImage *image = [self imageWithImage:prescaledImage scaledToSize:_imageView.frame.size];
+     [picker dismissViewControllerAnimated:YES completion:^{
+     _backgroundImage = image;
+     _backgroundImageLink = @"test";
+     [_imageView setContentMode:UIViewContentModeScaleAspectFill];
+     [_imageView setImage:_backgroundImage];
+     [_composeTextView setBackgroundColor:[UIColor clearColor]];
+     [self getFilteredImages];
+     }];*/
+}
+
+- (IBAction)openEditor
+{
+    PECropViewController *controller = [[PECropViewController alloc] init];
+    controller.delegate = self;
+    controller.image = self.imageView.image;
+    
+    UIImage *image = self.imageView.image;
+    CGFloat width = image.size.width;
+    CGFloat height = image.size.height;
+    CGFloat x, y;
+    CGFloat aspectRatio = 320.0f/230.0f;
+    if (width/height > aspectRatio) {
+        width = height * aspectRatio;
+        x = (image.size.width - width)/2;
+        y = 0;
+    } else {
+        height = width/aspectRatio;
+        y = (image.size.height - height)/2;
+        x = 0;
+    }
+    controller.imageCropRect = CGRectMake(x,
+                                          y,
+                                          width,
+                                          height);
+    controller.toolbarHidden = YES;
+    controller.keepingCropAspectRatio = YES;
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+    [self presentViewController:navigationController animated:YES completion:NULL];
+}
+
+#pragma mark - PECropViewControllerDelegate methods
+
+- (void)cropViewController:(PECropViewController *)controller didFinishCroppingImage:(UIImage *)croppedImage
+{
+    [controller dismissViewControllerAnimated:YES completion:NULL];
+    self.imageView.image = croppedImage;
+}
+
+- (void)cropViewControllerDidCancel:(PECropViewController *)controller
+{
+    [controller dismissViewControllerAnimated:YES completion:NULL];
 }
 
 -(void)getFilteredImages {
@@ -237,7 +309,7 @@
     if ([alertView cancelButtonIndex] != buttonIndex) {
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
         picker.delegate = self;
-        picker.allowsEditing = YES;
+        picker.allowsEditing = NO;
         
         if (buttonIndex == 1) {
             if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -262,14 +334,34 @@
     }
 }
 
+- (void)showCamera
+{
+    UIImagePickerController *controller = [[UIImagePickerController alloc] init];
+    controller.delegate = self;
+    controller.sourceType = UIImagePickerControllerSourceTypeCamera;
+
+    [self presentViewController:controller animated:YES completion:NULL];
+}
+
+- (void)openPhotoAlbum
+{
+    UIImagePickerController *controller = [[UIImagePickerController alloc] init];
+    controller.delegate = self;
+    controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:controller animated:YES completion:NULL];
+}
+
 -(void)handleFinishedPostingConfession {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     [self.view setUserInteractionEnabled:YES];
     [[self navigationController] popToRootViewControllerAnimated:YES];
 }
 
+#pragma mark - TextViewDelegate
+
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if ([text isEqualToString:@"\n"] || [text isEqualToString:@"\r"]) {
+        [textView resignFirstResponder];
         return NO;
     }
     NSUInteger newLength = [textView.text length] + [text length] - range.length;
@@ -285,6 +377,22 @@
 
 -(void)textViewDidChange:(UITextView *)textView {
     [self adjustInsetsForTextfield:textView];
+}
+
+-(void)textViewDidBeginEditing:(UITextView *)textView {
+    if ([textView.text isEqualToString:@"Share a thought..."]) {
+        textView.text = @"";
+        textView.textColor = [UIColor whiteColor];
+    }
+    [textView becomeFirstResponder];
+}
+
+-(void)textViewDidEndEditing:(UITextView *)textView {
+    if ([textView.text isEqualToString:@""]) {
+        textView.text = @"Share a thought...";
+        textView.textColor = [UIColor lightGrayColor];
+    }
+    [textView resignFirstResponder];
 }
 
 -(void)adjustInsetsForTextfield:(UITextView *)textView {

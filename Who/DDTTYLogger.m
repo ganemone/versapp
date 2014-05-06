@@ -5,13 +5,13 @@
 
 /**
  * Welcome to Cocoa Lumberjack!
- * 
+ *
  * The project page has a wealth of documentation if you have any questions.
  * https://github.com/robbiehanson/CocoaLumberjack
- * 
+ *
  * If you're new to the project you may wish to read the "Getting Started" wiki.
  * https://github.com/robbiehanson/CocoaLumberjack/wiki/GettingStarted
-**/
+ **/
 
 #if ! __has_feature(objc_arc)
 #warning This file must be compiled with ARC. Use -fobjc-arc flag (or convert project to ARC).
@@ -20,7 +20,7 @@
 // We probably shouldn't be using DDLog() statements within the DDLog implementation.
 // But we still want to leave our log statements for any future debugging,
 // and to allow other developers to trace the implementation (which is a great learning tool).
-// 
+//
 // So we use primitive logging macros around NSLog.
 // We maintain the NS prefix on the macros to be explicit about the fact that we're using NSLog.
 
@@ -34,24 +34,24 @@
 // Xcode does NOT natively support colors in the Xcode debugging console.
 // You'll need to install the XcodeColors plugin to see colors in the Xcode console.
 // https://github.com/robbiehanson/XcodeColors
-// 
+//
 // The following is documentation from the XcodeColors project:
-// 
-// 
+//
+//
 // How to apply color formatting to your log statements:
-// 
+//
 // To set the foreground color:
 // Insert the ESCAPE_SEQ into your string, followed by "fg124,12,255;" where r=124, g=12, b=255.
-// 
+//
 // To set the background color:
 // Insert the ESCAPE_SEQ into your string, followed by "bg12,24,36;" where r=12, g=24, b=36.
-// 
+//
 // To reset the foreground color (to default value):
 // Insert the ESCAPE_SEQ into your string, followed by "fg;"
-// 
+//
 // To reset the background color (to default value):
 // Insert the ESCAPE_SEQ into your string, followed by "bg;"
-// 
+//
 // To reset the foreground and background color (to default values) in one operation:
 // Insert the ESCAPE_SEQ into your string, followed by ";"
 
@@ -64,22 +64,22 @@
 // Some simple defines to make life easier on ourself
 
 #if TARGET_OS_IPHONE
-  #define MakeColor(r, g, b) [UIColor colorWithRed:(r/255.0f) green:(g/255.0f) blue:(b/255.0f) alpha:1.0f]
+#define MakeColor(r, g, b) [UIColor colorWithRed:(r/255.0f) green:(g/255.0f) blue:(b/255.0f) alpha:1.0f]
 #else
-  #define MakeColor(r, g, b) [NSColor colorWithCalibratedRed:(r/255.0f) green:(g/255.0f) blue:(b/255.0f) alpha:1.0f]
+#define MakeColor(r, g, b) [NSColor colorWithCalibratedRed:(r/255.0f) green:(g/255.0f) blue:(b/255.0f) alpha:1.0f]
 #endif
 
 #if TARGET_OS_IPHONE
-  #define OSColor UIColor
+#define OSColor UIColor
 #else
-  #define OSColor NSColor
+#define OSColor NSColor
 #endif
 
 // If running in a shell, not all RGB colors will be supported.
 // In this case we automatically map to the closest available color.
 // In order to provide this mapping, we have a hard-coded set of the standard RGB values available in the shell.
 // However, not every shell is the same, and Apple likes to think different even when it comes to shell colors.
-// 
+//
 // Map to standard Terminal.app colors (1), or
 // map to standard xterm colors (0).
 
@@ -137,10 +137,10 @@ static DDTTYLogger *sharedInstance;
 
 /**
  * Initializes the colors array, as well as the codes_fg and codes_bg arrays, for 16 color mode.
- * 
+ *
  * This method is used when the application is running from within a shell that only supports 16 color mode.
  * This method is not invoked if the application is running within Xcode, or via normal UI app launch.
-**/
+ **/
 + (void)initialize_colors_16
 {
 	if (codes_fg || codes_bg || colors) return;
@@ -150,7 +150,7 @@ static DDTTYLogger *sharedInstance;
 	NSMutableArray *m_colors   = [NSMutableArray arrayWithCapacity:16];
 	
 	// In a standard shell only 16 colors are supported.
-	// 
+	//
 	// More information about ansi escape codes can be found online.
 	// http://en.wikipedia.org/wiki/ANSI_escape_code
 	
@@ -191,7 +191,7 @@ static DDTTYLogger *sharedInstance;
 #if MAP_TO_TERMINAL_APP_COLORS
 	
 	// Standard Terminal.app colors:
-	// 
+	//
 	// These are the default colors used by Apple's Terminal.app.
 	
 	[m_colors addObject:MakeColor(  0,   0,   0)]; // normal - black
@@ -214,7 +214,7 @@ static DDTTYLogger *sharedInstance;
 #else
 	
 	// Standard xterm colors:
-	// 
+	//
 	// These are the default colors used by most xterm shells.
 	
 	[m_colors addObject:MakeColor(  0,   0,   0)]; // normal - black
@@ -246,10 +246,10 @@ static DDTTYLogger *sharedInstance;
 
 /**
  * Initializes the colors array, as well as the codes_fg and codes_bg arrays, for 256 color mode.
- * 
+ *
  * This method is used when the application is running from within a shell that supports 256 color mode.
  * This method is not invoked if the application is running within Xcode, or via normal UI app launch.
-**/
+ **/
 + (void)initialize_colors_256
 {
 	if (codes_fg || codes_bg || colors) return;
@@ -258,29 +258,29 @@ static DDTTYLogger *sharedInstance;
 	NSMutableArray *m_codes_bg = [NSMutableArray arrayWithCapacity:(256-16)];
 	NSMutableArray *m_colors   = [NSMutableArray arrayWithCapacity:(256-16)];
 	
-	#if MAP_TO_TERMINAL_APP_COLORS
+#if MAP_TO_TERMINAL_APP_COLORS
 	
 	// Standard Terminal.app colors:
-	// 
+	//
 	// These are the colors the Terminal.app uses in xterm-256color mode.
 	// In this mode, the terminal supports 256 different colors, specified by 256 color codes.
-	// 
+	//
 	// The first 16 color codes map to the original 16 color codes supported by the earlier xterm-color mode.
 	// These are actually configurable, and thus we ignore them for the purposes of mapping,
 	// as we can't rely on them being constant. They are largely duplicated anyway.
-	// 
+	//
 	// The next 216 color codes are designed to run the spectrum, with several shades of every color.
 	// While the color codes are standardized, the actual RGB values for each color code is not.
 	// Apple's Terminal.app uses different RGB values from that of a standard xterm.
 	// Apple's choices in colors are designed to be a little nicer on the eyes.
-	// 
+	//
 	// The last 24 color codes represent a grayscale.
-	// 
+	//
 	// Unfortunately, unlike the standard xterm color chart,
 	// Apple's RGB values cannot be calculated using a simple formula (at least not that I know of).
 	// Also, I don't know of any ways to programmatically query the shell for the RGB values.
 	// So this big giant color chart had to be made by hand.
-	// 
+	//
 	// More information about ansi escape codes can be found online.
 	// http://en.wikipedia.org/wiki/ANSI_escape_code
 	
@@ -580,24 +580,24 @@ static DDTTYLogger *sharedInstance;
 		index++;
 	}
 	
-	#else
+#else
 	
 	// Standard xterm colors:
-	// 
+	//
 	// These are the colors xterm shells use in xterm-256color mode.
 	// In this mode, the shell supports 256 different colors, specified by 256 color codes.
-	// 
+	//
 	// The first 16 color codes map to the original 16 color codes supported by the earlier xterm-color mode.
 	// These are generally configurable, and thus we ignore them for the purposes of mapping,
 	// as we can't rely on them being constant. They are largely duplicated anyway.
-	// 
+	//
 	// The next 216 color codes are designed to run the spectrum, with several shades of every color.
 	// The last 24 color codes represent a grayscale.
-	// 
+	//
 	// While the color codes are standardized, the actual RGB values for each color code is not.
 	// However most standard xterms follow a well known color chart,
 	// which can easily be calculated using the simple formula below.
-	// 
+	//
 	// More information about ansi escape codes can be found online.
 	// http://en.wikipedia.org/wiki/ANSI_escape_code
 	
@@ -657,19 +657,19 @@ static DDTTYLogger *sharedInstance;
 		index++;
 	}
 	
-	#endif
+#endif
 	
 	codes_fg = [m_codes_fg copy];
 	codes_bg = [m_codes_bg copy];
 	colors   = [m_colors   copy];
-			 
+    
 	NSAssert([codes_fg count] == [codes_bg count], @"Invalid colors/codes array(s)");
 	NSAssert([codes_fg count] == [colors count],   @"Invalid colors/codes array(s)");
 }
 
 + (void)getRed:(CGFloat *)rPtr green:(CGFloat *)gPtr blue:(CGFloat *)bPtr fromColor:(OSColor *)color
 {
-	#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
 	
 	// iOS
 	
@@ -698,23 +698,23 @@ static DDTTYLogger *sharedInstance;
 		CGColorSpaceRelease(rgbColorSpace);
 	}
 	
-	#else
+#else
 	
 	// Mac OS X
 	
 	[color getRed:rPtr green:gPtr blue:bPtr alpha:NULL];
 	
-	#endif
+#endif
 }
 
 /**
  * Maps the given color to the closest available color supported by the shell.
  * The shell may support 256 colors, or only 16.
- * 
+ *
  * This method loops through the known supported color set, and calculates the closest color.
  * The array index of that color, within the colors array, is then returned.
  * This array index may also be used as the index within the codes_fg and codes_bg arrays.
-**/
+ **/
 + (NSUInteger)codeIndexForColor:(OSColor *)inColor
 {
 	CGFloat inR, inG, inB;
@@ -731,13 +731,13 @@ static DDTTYLogger *sharedInstance;
 		CGFloat r, g, b;
 		[self getRed:&r green:&g blue:&b fromColor:color];
 		
-	#if CGFLOAT_IS_DOUBLE
+#if CGFLOAT_IS_DOUBLE
 		CGFloat distance = sqrt(pow(r-inR, 2.0) + pow(g-inG, 2.0) + pow(b-inB, 2.0));
-	#else
+#else
 		CGFloat distance = sqrtf(powf(r-inR, 2.0f) + powf(g-inG, 2.0f) + powf(b-inB, 2.0f));
-	#endif
+#endif
 		
-					 (unsigned long)i, inR, inG, inB, r, g, b, distance;
+        (unsigned long)i, inR, inG, inB, r, g, b, distance;
 		
 		if (distance < lowestDistance)
 		{
@@ -759,7 +759,7 @@ static DDTTYLogger *sharedInstance;
  * classes in a thread-safe manner. Superclasses receive this message before their subclasses.
  *
  * This method may also be called directly (assumably by accident), hence the safety mechanism.
-**/
+ **/
 + (void)initialize
 {
 	static BOOL initialized = NO;
@@ -785,7 +785,7 @@ static DDTTYLogger *sharedInstance;
 		{
 			// Xcode does NOT natively support colors in the Xcode debugging console.
 			// You'll need to install the XcodeColors plugin to see colors in the Xcode console.
-			// 
+			//
 			// PS - Please read the header file before diving into the source code.
 			
 			char *xcode_colors = getenv("XcodeColors");
@@ -926,10 +926,10 @@ static DDTTYLogger *sharedInstance;
 	dispatch_block_t block = ^{ @autoreleasepool {
 		
 		DDTTYLoggerColorProfile *newColorProfile =
-		    [[DDTTYLoggerColorProfile alloc] initWithForegroundColor:txtColor
-		                                             backgroundColor:bgColor
-		                                                        flag:mask
-		                                                     context:ctxt];
+        [[DDTTYLoggerColorProfile alloc] initWithForegroundColor:txtColor
+                                                 backgroundColor:bgColor
+                                                            flag:mask
+                                                         context:ctxt];
 		
 		
 		NSUInteger i = 0;
@@ -974,10 +974,10 @@ static DDTTYLogger *sharedInstance;
 	dispatch_block_t block = ^{ @autoreleasepool {
 		
 		DDTTYLoggerColorProfile *newColorProfile =
-		    [[DDTTYLoggerColorProfile alloc] initWithForegroundColor:txtColor
-		                                             backgroundColor:bgColor
-		                                                        flag:0
-		                                                     context:0];
+        [[DDTTYLoggerColorProfile alloc] initWithForegroundColor:txtColor
+                                                 backgroundColor:bgColor
+                                                            flag:0
+                                                         context:0];
 		
 		
 		[colorProfilesDict setObject:newColorProfile forKey:tag];
@@ -1185,7 +1185,7 @@ static DDTTYLogger *sharedInstance;
 		}
 		
 		// Convert log message to C string.
-		// 
+		//
 		// We use the stack instead of the heap for speed if possible.
 		// But we're extra cautious to avoid a stack overflow.
 		
@@ -1209,10 +1209,10 @@ static DDTTYLogger *sharedInstance;
 			{
 				v[0].iov_base = colorProfile->fgCode;
 				v[0].iov_len = colorProfile->fgCodeLen;
-
+                
 				v[1].iov_base = colorProfile->bgCode;
 				v[1].iov_len = colorProfile->bgCodeLen;
-
+                
 				v[4].iov_base = colorProfile->resetCode;
 				v[4].iov_len = colorProfile->resetCodeLen;
 			}
@@ -1262,10 +1262,10 @@ static DDTTYLogger *sharedInstance;
 			size_t tsLen = MIN(24-1, len);
 			
 			// Calculate thread ID
-			// 
+			//
 			// How many characters do we need for the thread id?
 			// logMessage->machThreadID is of type mach_port_t, which is an unsigned int.
-			// 
+			//
 			// 1 hex char = 4 bits
 			// 8 hex chars for 32 bit, plus ending '\0' = 9
 			
@@ -1282,10 +1282,10 @@ static DDTTYLogger *sharedInstance;
 			{
 				v[0].iov_base = colorProfile->fgCode;
 				v[0].iov_len = colorProfile->fgCodeLen;
-
+                
 				v[1].iov_base = colorProfile->bgCode;
 				v[1].iov_len = colorProfile->bgCodeLen;
-
+                
 				v[12].iov_base = colorProfile->resetCode;
 				v[12].iov_len = colorProfile->resetCodeLen;
 			}
@@ -1293,10 +1293,10 @@ static DDTTYLogger *sharedInstance;
 			{
 				v[0].iov_base = "";
 				v[0].iov_len = 0;
-
+                
 				v[1].iov_base = "";
 				v[1].iov_len = 0;
-
+                
 				v[12].iov_base = "";
 				v[12].iov_len = 0;
 			}

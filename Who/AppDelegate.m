@@ -219,7 +219,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 
 - (void)handleFinishedLoadingContentForNotification:(NSNotification *)notification {
     UILocalNotification* localNotification = [[UILocalNotification alloc] init];
-    MessageMO *message = [notification.userInfo objectForKey:DICTIONARY_KEY_MESSAGE_OBJECT];
+    //MessageMO *message = [notification.userInfo objectForKey:DICTIONARY_KEY_MESSAGE_OBJECT];
     //localNotification.userInfo = [NSDictionary dictionaryWithObject:message.group_id forKey:CHATS_TABLE_COLUMN_NAME_CHAT_ID];
     localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:0.001];
     localNotification.alertBody = _localNotificationMessage;

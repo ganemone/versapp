@@ -295,6 +295,8 @@
 		3AF68FC2191937C100ABA9C5 /* PECropViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF68FBB191937C100ABA9C5 /* PECropViewController.m */; };
 		3AF68FC3191937C100ABA9C5 /* PEResizeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF68FBD191937C100ABA9C5 /* PEResizeControl.m */; };
 		3AF68FC4191937C100ABA9C5 /* UIImage+PECrop.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF68FBF191937C100ABA9C5 /* UIImage+PECrop.m */; };
+		3AF68FC619193A2700ABA9C5 /* PEPhotoCropEditor.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3AF68FC519193A2700ABA9C5 /* PEPhotoCropEditor.bundle */; };
+		3AF68FC8191947AD00ABA9C5 /* send-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF68FC7191947AD00ABA9C5 /* send-icon.png */; };
 		3AF86D2918B504CF00033495 /* bubble-old.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF86D2718B504CF00033495 /* bubble-old.png */; };
 		3AF86D2A18B504CF00033495 /* bubble-old@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF86D2818B504CF00033495 /* bubble-old@2x.png */; };
 		3AFF778118C415BD003277F9 /* MessageMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778018C415BD003277F9 /* MessageMO.m */; };
@@ -828,6 +830,8 @@
 		3AF68FBD191937C100ABA9C5 /* PEResizeControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEResizeControl.m; sourceTree = "<group>"; };
 		3AF68FBE191937C100ABA9C5 /* UIImage+PECrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+PECrop.h"; sourceTree = "<group>"; };
 		3AF68FBF191937C100ABA9C5 /* UIImage+PECrop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+PECrop.m"; sourceTree = "<group>"; };
+		3AF68FC519193A2700ABA9C5 /* PEPhotoCropEditor.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PEPhotoCropEditor.bundle; sourceTree = "<group>"; };
+		3AF68FC7191947AD00ABA9C5 /* send-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "send-icon.png"; sourceTree = "<group>"; };
 		3AF86D2718B504CF00033495 /* bubble-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-old.png"; sourceTree = "<group>"; };
 		3AF86D2818B504CF00033495 /* bubble-old@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-old@2x.png"; sourceTree = "<group>"; };
 		3AFF777F18C415BD003277F9 /* MessageMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageMO.h; sourceTree = "<group>"; };
@@ -2115,6 +2119,7 @@
 		3AF521D718EA3162008320CD /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				3AF68FC7191947AD00ABA9C5 /* send-icon.png */,
 				3A068E8418F1E92300EA260E /* camera-icon-dark.png */,
 				3A930D3B18EE2D26006E5B5E /* search-icon.png */,
 				3A7CDB8018EBA20D006A4BBF /* add-contact-icon.png */,
@@ -2133,6 +2138,7 @@
 		3AF68FB5191937C000ABA9C5 /* PEPhotoCropEditor */ = {
 			isa = PBXGroup;
 			children = (
+				3AF68FC519193A2700ABA9C5 /* PEPhotoCropEditor.bundle */,
 				3AF68FB6191937C100ABA9C5 /* PECropRectView.h */,
 				3AF68FB7191937C100ABA9C5 /* PECropRectView.m */,
 				3AF68FB8191937C100ABA9C5 /* PECropView.h */,
@@ -2368,6 +2374,7 @@
 				3ABD66D518FB325900E72B09 /* Owl-Loading-Animation_0010.png in Resources */,
 				3A91F20C18EB534F0006B9F8 /* notification5+.png in Resources */,
 				3A068ED418F24FC200EA260E /* Versapp-Tutorial-03.png in Resources */,
+				3AF68FC619193A2700ABA9C5 /* PEPhotoCropEditor.bundle in Resources */,
 				3A91F1F618EB4BF50006B9F8 /* messages-background-small.png in Resources */,
 				F7A3F96C18EE33B1006FBA0A /* x-orange.png in Resources */,
 				3AD8F48318DCCB7D002C399C /* Countries.plist in Resources */,
@@ -2456,6 +2463,7 @@
 				3ABD66D718FB325900E72B09 /* Owl-Loading-Animation_0012.png in Resources */,
 				3A3A0B0618AB1126006FBAE4 /* input-bar-background.png in Resources */,
 				3A3A0B1318AB1126006FBAE4 /* message-sent.aiff in Resources */,
+				3AF68FC8191947AD00ABA9C5 /* send-icon.png in Resources */,
 				3AF521D518EA30A5008320CD /* messages-icon-white.png in Resources */,
 				F7A3F96218EE3052006FBA0A /* arrow-close-notifications.png in Resources */,
 				F7A3F96418EE306A006FBA0A /* check-icon-green-square.png in Resources */,
