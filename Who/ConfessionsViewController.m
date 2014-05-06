@@ -65,13 +65,6 @@
     headerBottomborder.frame = CGRectMake(0.0f, self.header.frame.size.height - 2.0, self.header.frame.size.width, 2.0f);
     headerBottomborder.backgroundColor = [UIColor whiteColor].CGColor;
     [self.header.layer addSublayer:headerBottomborder];
-    // Add a top border to the footer view
-    CALayer *footerTopBorder = [CALayer layer];
-    footerTopBorder.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 2.0f);
-    footerTopBorder.backgroundColor = [UIColor whiteColor].CGColor;
-    [self.bottomView.layer addSublayer:footerTopBorder];
-    
-    [self.bottomTextField setDelegate:self];
     
     [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
     
@@ -191,7 +184,7 @@
     return NO;
 }
 
-- (IBAction)messageIconClicked:(id)sender {
+/*- (IBAction)messageIconClicked:(id)sender {
     NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                               [NSNumber numberWithInt:UIPageViewControllerNavigationDirectionReverse], @"direction", nil];
     
@@ -207,7 +200,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_TO_FRIENDS
                                                         object:nil
                                                       userInfo:userInfo];
-}
+}*/
 
 - (IBAction)handleDiscloseInfoBtnClicked:(id)sender {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Thoughts" message:@"This is your newsfeed of thoughts. Thoughts are anonymous and you only see the Thoughts of your friends. Both favoriting and chatting are also anonymous!" delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil];
