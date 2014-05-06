@@ -769,7 +769,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="bZg-V8-zi7">
-                                <rect key="frame" x="0.0" y="64" width="320" height="376"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" red="0.21960784310000001" green="0.65490196079999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -812,7 +812,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7ln-9F-xZt">
-                                        <rect key="frame" x="272" y="22" width="38" height="38"/>
+                                        <rect key="frame" x="54" y="21" width="38" height="38"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                         <state key="normal" image="notification-none.png">
@@ -820,17 +820,6 @@
                                         </state>
                                         <connections>
                                             <action selector="notificationsClicked:" destination="HoZ-Rh-4HR" eventType="touchUpInside" id="bl4-Pc-N5i"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ed2-Z8-EHa">
-                                        <rect key="frame" x="54" y="24" width="36" height="36"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                        <state key="normal" image="settings-icon.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="settingsClicked:" destination="HoZ-Rh-4HR" eventType="touchUpInside" id="tca-UO-OGQ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5Dp-pv-Nsb">
@@ -845,26 +834,12 @@
                                             <action selector="toggleEditing:" destination="HoZ-Rh-4HR" eventType="touchUpInside" id="lsc-qO-XBK"/>
                                         </connections>
                                     </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.21960784310000001" green="0.65490196079999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
-                            <view contentMode="scaleToFill" id="YTd-vx-gd2">
-                                <rect key="frame" x="0.0" y="440" width="320" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start a conversation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NrB-mq-V7g">
-                                        <rect key="frame" x="20" y="9" width="236" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vJM-Rr-56W">
-                                        <rect key="frame" x="276" y="0.0" width="24" height="40"/>
+                                        <rect key="frame" x="271" y="21" width="40" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                        <state key="normal" image="arrow-right-bold.png">
+                                        <state key="normal" image="compose-icon.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -878,12 +853,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="footerLabel" destination="NrB-mq-V7g" id="x1G-O8-wvQ"/>
-                        <outlet property="footerView" destination="YTd-vx-gd2" id="zuE-zb-KUE"/>
                         <outlet property="header" destination="W3K-qU-JeC" id="NlN-dY-0zG"/>
                         <outlet property="headerView" destination="IDi-bI-E32" id="eOa-yo-zgc"/>
                         <outlet property="notificationsButton" destination="7ln-9F-xZt" id="rFN-XL-in9"/>
-                        <outlet property="settingsButton" destination="ed2-Z8-EHa" id="om4-w6-kVJ"/>
                         <outlet property="tableView" destination="bZg-V8-zi7" id="YN9-TT-PZ3"/>
                         <segue destination="iDZ-uG-Ep6" kind="push" identifier="SegueOneToOneConversation" id="Y5D-AL-CYy"/>
                         <segue destination="LSk-rM-HTJ" kind="push" identifier="SegueGroupConversation" id="AGt-Q0-zDh"/>
@@ -1207,7 +1179,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="jZx-yj-7oZ">
-                                <rect key="frame" x="0.0" y="63" width="320" height="376"/>
+                                <rect key="frame" x="0.0" y="63" width="320" height="417"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" red="0.99432015419006348" green="0.94996464245015189" blue="0.6198138383075269" alpha="1" colorSpace="calibratedRGB"/>
@@ -1222,12 +1194,19 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" id="xNe-oj-gI8">
-                                <rect key="frame" x="0.0" y="440" width="320" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                            <view contentMode="scaleToFill" id="aeu-EJ-Rlq">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thoughts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="17h-Mf-fgS">
+                                        <rect key="frame" x="59" y="20" width="202" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="IIL-et-yzh">
-                                        <rect key="frame" x="281" y="5" width="30" height="30"/>
+                                        <rect key="frame" x="277" y="27" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                         <state key="normal" image="compose-icon.png">
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1237,14 +1216,8 @@
                                             <segue destination="lnb-gW-AWX" kind="push" identifier="SegueIDComposeConfession" id="YCw-e7-spT"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="What's going on?" borderStyle="roundedRect" placeholder="Whats going on?" minimumFontSize="17" id="r1H-mN-7k3">
-                                        <rect key="frame" x="40" y="5" width="233" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" id="AfO-AP-jbz">
-                                        <rect key="frame" x="10" y="8" width="22" height="22"/>
+                                        <rect key="frame" x="13" y="31" width="22" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
                                         <state key="normal">
@@ -1257,53 +1230,13 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.57254901960000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <view contentMode="scaleToFill" id="aeu-EJ-Rlq">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thoughts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="17h-Mf-fgS">
-                                        <rect key="frame" x="59" y="20" width="202" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="o4s-rW-K3v">
-                                        <rect key="frame" x="10" y="23" width="38" height="38"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                        <state key="normal" image="messages-icon-white.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="messageIconClicked:" destination="jpr-Ku-F24" eventType="touchUpInside" id="VQE-ek-Hpy"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="92W-wD-Fv0">
-                                        <rect key="frame" x="269" y="23" width="38" height="38"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                        <state key="normal" image="friends-icon.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="friendIconClicked:" destination="jpr-Ku-F24" eventType="touchUpInside" id="hbl-wa-csh"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.95686274510000002" green="0.57254901960000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Confessions" id="1d5-ZF-uSM"/>
                     <connections>
-                        <outlet property="bottomTextField" destination="r1H-mN-7k3" id="kAD-lu-bTP"/>
-                        <outlet property="bottomView" destination="xNe-oj-gI8" id="sWY-3R-ygq"/>
-                        <outlet property="friendsBtn" destination="92W-wD-Fv0" id="tDb-Da-lWB"/>
                         <outlet property="header" destination="aeu-EJ-Rlq" id="73w-F7-1A1"/>
                         <outlet property="headerLabel" destination="17h-Mf-fgS" id="GCY-d8-ntY"/>
-                        <outlet property="messagesBtn" destination="o4s-rW-K3v" id="YRh-AF-BIm"/>
                         <outlet property="tableView" destination="jZx-yj-7oZ" id="UqM-pt-QRe"/>
                         <segue destination="iDZ-uG-Ep6" kind="push" identifier="SegueIDCreatedOneToOneChatFromConfession" id="qGQ-aw-vgl"/>
                     </connections>
@@ -2004,19 +1937,16 @@
     <resources>
         <image name="add-contact-icon.png" width="60" height="60"/>
         <image name="arrow-left-icon.png" width="60" height="60"/>
-        <image name="arrow-right-bold.png" width="97" height="185"/>
         <image name="check-icon.png" width="192" height="129"/>
         <image name="compose-icon.png" width="233" height="227"/>
         <image name="confessions-icon.png" width="60" height="60"/>
         <image name="edit-icon.png" width="60" height="60"/>
         <image name="first" width="30" height="30"/>
         <image name="friends-icon.png" width="60" height="60"/>
-        <image name="messages-icon-white.png" width="60" height="60"/>
         <image name="notification-none.png" width="250" height="250"/>
         <image name="photo-icon.png" width="183" height="145"/>
         <image name="search-icon.png" width="60" height="60"/>
         <image name="send-icon.png" width="310" height="310"/>
-        <image name="settings-icon.png" width="60" height="60"/>
         <image name="x-blue.png" width="60" height="60"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -2025,18 +1955,18 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="YCw-e7-spT"/>
+        <segue reference="SII-hP-sMz"/>
         <segue reference="oXT-5M-zi9"/>
         <segue reference="Ve6-mS-bkp"/>
-        <segue reference="SII-hP-sMz"/>
         <segue reference="YEX-bB-bO6"/>
-        <segue reference="zTQ-Mf-6oX"/>
-        <segue reference="z6h-qs-HbB"/>
+        <segue reference="AGt-Q0-zDh"/>
+        <segue reference="Y5D-AL-CYy"/>
         <segue reference="tVn-SP-Hc9"/>
-        <segue reference="hVX-XL-lBE"/>
-        <segue reference="BCc-dv-kG7"/>
         <segue reference="pHb-Kf-4qo"/>
+        <segue reference="BCc-dv-kG7"/>
+        <segue reference="hVX-XL-lBE"/>
+        <segue reference="z6h-qs-HbB"/>
         <segue reference="WHz-1g-xNx"/>
-        <segue reference="YCw-e7-spT"/>
-        <segue reference="qGQ-aw-vgl"/>
     </inferredMetricsTieBreakers>
 </document>

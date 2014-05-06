@@ -34,9 +34,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UILabel *header;
-@property (weak, nonatomic) IBOutlet UILabel *footerLabel;
-@property (weak, nonatomic) IBOutlet UIView *footerView;
-@property (strong, nonatomic) IBOutlet UIButton *settingsButton;
 @property (strong, nonatomic) IBOutlet UIButton *notificationsButton;
 @property (strong, nonatomic) UIButton *notificationsButtonGreen;
 @property (strong, nonatomic) UIView *notificationsHeader;
@@ -69,7 +66,6 @@ static BOOL notificationsHalfHidden = NO;
     
     [self.header setFont:[StyleManager getFontStyleMediumSizeXL]];
     [self.header setTextColor:[UIColor whiteColor]];
-    [self.footerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     lpgr.minimumPressDuration = 0.5; //seconds
@@ -104,11 +100,6 @@ static BOOL notificationsHalfHidden = NO;
     headerBottomborder.frame = CGRectMake(0.0f, self.headerView.frame.size.height - 2.0, self.view.frame.size.width, 2.0f);
     headerBottomborder.backgroundColor = [UIColor whiteColor].CGColor;
     [self.headerView.layer addSublayer:headerBottomborder];
-    // Add a top border to the footer view
-    CALayer *footerTopBorder = [CALayer layer];
-    footerTopBorder.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 2.0f);
-    footerTopBorder.backgroundColor = [UIColor whiteColor].CGColor;
-    [self.footerView.layer addSublayer:footerTopBorder];
 }
 
 - (void)handlePan:(UIPanGestureRecognizer *)recognizer {

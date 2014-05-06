@@ -190,8 +190,8 @@
         [_imageView setContentMode:UIViewContentModeScaleAspectFill];
         [_imageView setImage:croppedImage];
         [_composeTextView setBackgroundColor:[UIColor clearColor]];
-        [self getFilteredImages];
         _backgroundImage = croppedImage;
+        [self getFilteredImages];
     }];
 }
 
@@ -201,7 +201,7 @@
 }
 
 -(void)getFilteredImages {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         _e1 = [_backgroundImage e6];
         dispatch_async(dispatch_get_main_queue(), ^{
             NSLog(@"Finished e1");
@@ -212,7 +212,7 @@
             }
         });
     });
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         _e5 = [_backgroundImage e5];
         dispatch_async(dispatch_get_main_queue(), ^{
             NSLog(@"Finished e5");
@@ -220,41 +220,31 @@
                 [self.imageView setImage:_e5];
                 _shouldApplyFilter = 0;
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
-                
             }
         });
     });
-    /*
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         _e2 = [_backgroundImage e10];
+        _e3 = [_backgroundImage e3];
+        _e4 = [_backgroundImage e4];
         dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"Finished others");
             if (_shouldApplyFilter == 2) {
                 [self.imageView setImage:_e2];
                 _shouldApplyFilter = 0;
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
-            }
-        });
-    });
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        _e3 = [_backgroundImage e3];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (_shouldApplyFilter == 3) {
+            } else if (_shouldApplyFilter == 3) {
                 [self.imageView setImage:_e3];
                 _shouldApplyFilter = 0;
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
-            }
-        });
-    });
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        _e4 = [_backgroundImage e4];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (_shouldApplyFilter == 4) {
+            } else if (_shouldApplyFilter == 4) {
                 [self.imageView setImage:_e4];
                 _shouldApplyFilter = 0;
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
             }
         });
-    });*/
+    });
 }
 
 -(void)darkenImageWithValue:(NSNumber *)number {
@@ -321,6 +311,12 @@
             _backgroundColor = [UIColor hexStringWithUIColor:_composeTextView.backgroundColor];
             _backgroundImage = nil;
             _backgroundImageLink = nil;
+            _e1 = nil;
+            _e2 = nil;
+            _e3 = nil;
+            _e4 = nil;
+            _e5 = nil;
+            return;
         } else if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
             picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         } else {
@@ -488,6 +484,11 @@
         [self decrementFilterIndex];
     }
     NSLog(@"Filter Index: %d", _filterIndex);
+    NSLog(@"E1: %@", _e1);
+    NSLog(@"E1: %@", _e2);
+    NSLog(@"E1: %@", _e3);
+    NSLog(@"E1: %@", _e4);
+    NSLog(@"E1: %@", _e5);
     if (_filterIndex == 0) {
         [_imageView setImage:_backgroundImage];
     } else if (_filterIndex == 1) {
