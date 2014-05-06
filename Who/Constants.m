@@ -58,6 +58,14 @@ NSString *const USER_DEFAULTS_COUNTRY_CODE = @"nsdefault_key_country_code";
 NSString *const USER_DEFAULTS_EMAIL = @"nsdefault_key_email";
 NSString *const USER_DEFAULTS_PHONE = @"nsdefault_key_phone";
 NSString *const USER_DEFAULTS_DEVICE_ID = @"nsdefault_key_device_id";
+NSString *const USER_DEFAULTS_FIRST_LOGIN = @"first";
+NSString *const USER_DEFAULTS_HAS_POSTED_THOUGHT = @"thought";
+NSString *const USER_DEFAULTS_HAS_CREATED_ONE_TO_ONE = @"inviter";
+NSString *const USER_DEFAULTS_HAS_RECEIVED_ONE_TO_ONE = @"invited";
+NSString *const USER_DEFAULTS_HAS_CREATED_GROUP = @"group";
+NSString *const USER_DEFAULTS_HAS_SEEN_THOUGHTS = @"seen_thoughts";
+NSString *const USER_DEFAULTS_HAS_SEEN_FRIENDS = @"friends";
+NSString *const USER_DEFAULTS_HAS_CREATED_THOUGHT_CHAT = @"thought_chat";
 
 NSString *const CHAT_TYPE_GROUP = @"groupchat";
 NSString *const CHAT_TYPE_ONE_TO_ONE = @"chat";

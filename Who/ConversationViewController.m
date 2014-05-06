@@ -22,6 +22,7 @@
 #import "AddToGroupViewController.h"
 #import "IQPacketManager.h"
 #import "JSBubbleMessageCell.h"
+#import "UserDefaultManager.h"
 
 @interface ConversationViewController ()
 
@@ -30,6 +31,12 @@
 @end
 
 @implementation ConversationViewController
+
+-(void)viewDidAppear:(BOOL)animated {
+    if ([UserDefaultManager hasCreatedGroup] == NO) {
+        [self discloseInfoButtonClicked:nil];
+    }
+}
 
 - (void)viewDidLoad
 {
@@ -309,7 +316,7 @@
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if ([alertView numberOfButtons] == 1) {
+    if ([alertView cancelButtonIndex] == buttonIndex) {
         return;
     }
     if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Add Users"]) {

@@ -18,6 +18,7 @@
 #import "UIColor+Hex.h"
 #import "UIImage+FiltrrCompositions.h"
 #import "PECropViewController.h"
+#import "UserDefaultManager.h"
 
 @interface ComposeConfessionViewController ()
 
@@ -51,6 +52,12 @@
         // Custom initialization
     }
     return self;
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    if ([UserDefaultManager hasPostedThought] == NO) {
+        [[[UIAlertView alloc] initWithTitle:@"Thoughts" message:@"Post a thought to be seen anonymously by your friends. Swipe to change background colors, or add a picture and swipe to change filters and brightness" delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil] show];
+    }
 }
 
 - (void)viewDidLoad

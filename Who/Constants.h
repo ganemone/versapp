@@ -56,6 +56,14 @@ extern NSString *const USER_DEFAULTS_COUNTRY_CODE;
 extern NSString *const USER_DEFAULTS_EMAIL;
 extern NSString *const USER_DEFAULTS_PHONE;
 extern NSString *const USER_DEFAULTS_DEVICE_ID;
+extern NSString *const USER_DEFAULTS_FIRST_LOGIN;
+extern NSString *const USER_DEFAULTS_HAS_POSTED_THOUGHT;
+extern NSString *const USER_DEFAULTS_HAS_CREATED_ONE_TO_ONE;
+extern NSString *const USER_DEFAULTS_HAS_RECEIVED_ONE_TO_ONE;
+extern NSString *const USER_DEFAULTS_HAS_CREATED_GROUP;
+extern NSString *const USER_DEFAULTS_HAS_SEEN_THOUGHTS;
+extern NSString *const USER_DEFAULTS_HAS_SEEN_FRIENDS;
+extern NSString *const USER_DEFAULTS_HAS_CREATED_THOUGHT_CHAT;
 
 extern NSString *const CHAT_TYPE_GROUP;
 extern NSString *const CHAT_TYPE_ONE_TO_ONE;

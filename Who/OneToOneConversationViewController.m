@@ -17,8 +17,39 @@
 #import "StyleManager.h"
 #import "IQPacketManager.h"
 #import "MBProgressHUD.h"
-
+#import "UserDefaultManager.h"
 @implementation OneToOneConversationViewController
+
+- (void)viewDidAppear:(BOOL)animated {
+    if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION] && [UserDefaultManager hasStartedThoughtChat] == NO) {
+        [self alertConfessionChat];
+    } else if([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITED] && [UserDefaultManager hasReceivedOneToOneInvitation] == NO) {
+        [self alertInvitedOneToOne];
+    } else if([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITER] && [UserDefaultManager hasCreatedOneToOne] == NO) {
+        [self alertInviterOneToOne];
+    }
+}
+
+- (void)alertConfessionChat {
+    NSString *title = @"What's the deal?";
+    NSString *message = @"This is a one to one chat started from a confession. This chat is two-way anonymous! Neither of you know exactly who the other user is, but you are connected by a confession";
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:@"View Confession", nil];
+    [alertView show];
+}
+
+- (void)alertInvitedOneToOne {
+    NSString *title = @"What's the deal?";
+    NSString *message = @"This is a one to one chat started by one of your friends. Since they started the chat, they know who you are but you don't know who they are.";
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:nil];
+    [alertView show];
+}
+
+- (void)alertInviterOneToOne {
+    NSString *title = @"What's the deal?";
+    NSString *message = [NSString stringWithFormat:@"This is a one to one chat between you and %@. This chat is one-way anonymous. Since you started the chat, you know who they are, but they don't know who you are!", _chatMO.chat_name];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:nil];
+    [alertView show];
+}
 
 - (void)viewDidLoad
 {

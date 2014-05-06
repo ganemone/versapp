@@ -21,6 +21,7 @@
 #import "MainSwipeViewController.h"
 #import "AppDelegate.h"
 #import "UIImage+ImageEffects.h"
+#import "UserDefaultManager.h"
 
 #define footerSize 25
 
@@ -50,6 +51,12 @@
 @implementation DashboardViewController
 
 static BOOL notificationsHalfHidden = NO;
+
+-(void)viewDidAppear:(BOOL)animated {
+    if ([UserDefaultManager isFirstLogin]) {
+        [[[UIAlertView alloc] initWithTitle:@"Welcome to Versapp" message:@"We will guide you through all of Versapps features. This page is your message dashboard. All of your conversations will appear here. Swipe to checkout the other screens." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+    }
+}
 
 -(void)viewDidLoad {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];

@@ -1400,7 +1400,7 @@
                             </textView>
                             <view contentMode="scaleToFill" id="Fmg-Ox-IgU">
                                 <rect key="frame" x="0.0" y="440" width="320" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2mt-aT-sFw">
                                         <rect key="frame" x="14" y="4" width="40" height="31"/>

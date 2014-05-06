@@ -30,6 +30,7 @@
 #import "ChatDBManager.h"
 #import "StyleManager.h"
 
+#import "UserDefaultManager.h"
 #import "MBProgressHUD.h"
 @interface FriendsViewController()
 
@@ -48,6 +49,12 @@
 @end
 
 @implementation FriendsViewController
+
+- (void)viewDidAppear:(BOOL)animated {
+    if ([UserDefaultManager hasSeenFriends] == NO) {
+        [[[UIAlertView alloc] initWithTitle:@"Friends" message:@"This is your friends page. Your friends are chosen based on your phone contacts. Start conversations by selecting one or more friends on this page." delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:nil] show];
+    }
+}
 
 -(void)viewDidLoad{
     [super viewDidLoad];
@@ -163,7 +170,9 @@
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
+    if (buttonIndex == [alertView cancelButtonIndex]) {
+        return;
+    }
     if (self.isCreatingGroup == YES) {
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         NSString *groupName = [alertView textFieldAtIndex:0].text;

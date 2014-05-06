@@ -37,6 +37,15 @@
 +(BOOL)hasSeenThoughts;
 +(BOOL)hasStartedThoughtChat;
 +(BOOL)hasReceivedOneToOneInvitation;
-+(BOOL)hasReceivedThoughtConversation;
++(BOOL)hasSeenFriends;
+
++(void)setFirstLoginTrue;
++(void)setCreatedOneToOneTrue;
++(void)setCreatedGroupTrue;
++(void)setPostedThoughtTrue;
++(void)setSeenThoughtsTrue;
++(void)setStartedThoughtChatTrue;
++(void)setReceivedOneToOneInvitationTrue;
++(void)setSeenFriendsTrue;
 
 @end

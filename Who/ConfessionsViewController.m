@@ -5,7 +5,7 @@
 //  Created by Giancarlo Anemone on 2/19/14.
 //  Copyright (c) 2014 Giancarlo Anemone. All rights reserved.
 //
-
+#import "UserDefaultManager.h"
 #import "ConfessionsViewController.h"
 #import "Confession.h"
 #import "ConfessionsManager.h"
@@ -45,6 +45,12 @@
     if ([segue.identifier isEqualToString:SEGUE_ID_CREATED_ONE_TO_ONE_CHAT_FROM_CONFESSION]) {
         OneToOneConversationViewController *dest = segue.destinationViewController;
         [dest setChatMO:_createdChat];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    if ([UserDefaultManager hasSeenThoughts] == NO) {
+        [self handleDiscloseInfoBtnClicked:nil];
     }
 }
 

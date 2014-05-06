@@ -130,36 +130,83 @@
     [preferences synchronize];
 }
 
++(BOOL)isUserDefaultValueTrue:(NSString *)key {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([[preferences stringForKey:key] compare:@"yes"] == 0) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
++(void)setUserDefaultValueTrue:(NSString *)key {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setObject:@"yes" forKey:key];
+    [preferences synchronize];
+}
+
 +(BOOL)isFirstLogin {
-    return YES;
+    return [self isUserDefaultValueTrue:USER_DEFAULTS_FIRST_LOGIN];
 }
 
 +(BOOL)hasCreatedOneToOne {
-    return NO;
+    return [self isUserDefaultValueTrue:USER_DEFAULTS_HAS_CREATED_ONE_TO_ONE];
 }
 
 +(BOOL)hasCreatedGroup {
-    return NO;
+    return [self isUserDefaultValueTrue:USER_DEFAULTS_HAS_CREATED_GROUP];
 }
 
 +(BOOL)hasPostedThought {
-    return NO;
+    return [self isUserDefaultValueTrue:USER_DEFAULTS_HAS_POSTED_THOUGHT];
 }
 
 +(BOOL)hasSeenThoughts {
-    return NO;
+    return [self isUserDefaultValueTrue:USER_DEFAULTS_HAS_SEEN_THOUGHTS];
 }
 
 +(BOOL)hasStartedThoughtChat {
-    return NO;
+    return [self isUserDefaultValueTrue:USER_DEFAULTS_HAS_CREATED_THOUGHT_CHAT];
 }
 
 +(BOOL)hasReceivedOneToOneInvitation {
-    return NO;
+    return [self isUserDefaultValueTrue:USER_DEFAULTS_HAS_RECEIVED_ONE_TO_ONE];
 }
 
-+(BOOL)hasReceivedThoughtConversation {
-    return NO;
++(BOOL)hasSeenFriends {
+    return [self isUserDefaultValueTrue:USER_DEFAULTS_HAS_SEEN_FRIENDS];
+}
+
++(void)setFirstLoginTrue {
+    [self setUserDefaultValueTrue:USER_DEFAULTS_FIRST_LOGIN];
+}
+
++(void)setCreatedOneToOneTrue {
+    [self setUserDefaultValueTrue:USER_DEFAULTS_HAS_CREATED_ONE_TO_ONE];
+}
+
++(void)setCreatedGroupTrue {
+    [self setUserDefaultValueTrue:USER_DEFAULTS_HAS_CREATED_GROUP];
+}
+
++(void)setPostedThoughtTrue {
+    [self setUserDefaultValueTrue:USER_DEFAULTS_HAS_POSTED_THOUGHT];
+}
+
++(void)setSeenThoughtsTrue {
+    [self setUserDefaultValueTrue:USER_DEFAULTS_HAS_SEEN_THOUGHTS];
+}
+
++(void)setStartedThoughtChatTrue {
+    [self setUserDefaultValueTrue:USER_DEFAULTS_HAS_CREATED_THOUGHT_CHAT];
+}
+
++(void)setReceivedOneToOneInvitationTrue {
+    [self setUserDefaultValueTrue:USER_DEFAULTS_HAS_RECEIVED_ONE_TO_ONE];
+}
+
++(void)setSeenFriendsTrue {
+    [self setUserDefaultValueTrue:USER_DEFAULTS_HAS_SEEN_FRIENDS];
 }
 
 @end
