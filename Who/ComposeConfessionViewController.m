@@ -150,16 +150,6 @@
     [picker dismissViewControllerAnimated:YES completion:^{
         [self openEditor];
     }];
-    /*UIImage *prescaledImage = info[UIImagePickerControllerEditedImage];
-     UIImage *image = [self imageWithImage:prescaledImage scaledToSize:_imageView.frame.size];
-     [picker dismissViewControllerAnimated:YES completion:^{
-     _backgroundImage = image;
-     _backgroundImageLink = @"test";
-     [_imageView setContentMode:UIViewContentModeScaleAspectFill];
-     [_imageView setImage:_backgroundImage];
-     [_composeTextView setBackgroundColor:[UIColor clearColor]];
-     [self getFilteredImages];
-     }];*/
 }
 
 - (IBAction)openEditor
@@ -196,8 +186,13 @@
 
 - (void)cropViewController:(PECropViewController *)controller didFinishCroppingImage:(UIImage *)croppedImage
 {
-    [controller dismissViewControllerAnimated:YES completion:NULL];
-    self.imageView.image = croppedImage;
+    [controller dismissViewControllerAnimated:YES completion:^{
+        [_imageView setContentMode:UIViewContentModeScaleAspectFill];
+        [_imageView setImage:croppedImage];
+        [_composeTextView setBackgroundColor:[UIColor clearColor]];
+        [self getFilteredImages];
+        _backgroundImage = croppedImage;
+    }];
 }
 
 - (void)cropViewControllerDidCancel:(PECropViewController *)controller
@@ -209,6 +204,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         _e1 = [_backgroundImage e6];
         dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"Finished e1");
             if (_shouldApplyFilter == 1) {
                 [self.imageView setImage:_e1];
                 _shouldApplyFilter = 0;
@@ -219,6 +215,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         _e5 = [_backgroundImage e5];
         dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"Finished e5");
             if (_shouldApplyFilter == 5) {
                 [self.imageView setImage:_e5];
                 _shouldApplyFilter = 0;
@@ -227,7 +224,7 @@
             }
         });
     });
-    
+    /*
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         _e2 = [_backgroundImage e10];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -257,7 +254,7 @@
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
             }
         });
-    });
+    });*/
 }
 
 -(void)darkenImageWithValue:(NSNumber *)number {
