@@ -290,6 +290,11 @@
 		3AF521CC18EA2E8F008320CD /* arrow-up-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF521CB18EA2E8F008320CD /* arrow-up-icon.png */; };
 		3AF521D118EA3072008320CD /* friends-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF521D018EA3072008320CD /* friends-icon.png */; };
 		3AF521D518EA30A5008320CD /* messages-icon-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF521D418EA30A5008320CD /* messages-icon-white.png */; };
+		3AF68FC0191937C100ABA9C5 /* PECropRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF68FB7191937C100ABA9C5 /* PECropRectView.m */; };
+		3AF68FC1191937C100ABA9C5 /* PECropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF68FB9191937C100ABA9C5 /* PECropView.m */; };
+		3AF68FC2191937C100ABA9C5 /* PECropViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF68FBB191937C100ABA9C5 /* PECropViewController.m */; };
+		3AF68FC3191937C100ABA9C5 /* PEResizeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF68FBD191937C100ABA9C5 /* PEResizeControl.m */; };
+		3AF68FC4191937C100ABA9C5 /* UIImage+PECrop.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF68FBF191937C100ABA9C5 /* UIImage+PECrop.m */; };
 		3AF86D2918B504CF00033495 /* bubble-old.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF86D2718B504CF00033495 /* bubble-old.png */; };
 		3AF86D2A18B504CF00033495 /* bubble-old@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF86D2818B504CF00033495 /* bubble-old@2x.png */; };
 		3AFF778118C415BD003277F9 /* MessageMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778018C415BD003277F9 /* MessageMO.m */; };
@@ -813,6 +818,16 @@
 		3AF521CB18EA2E8F008320CD /* arrow-up-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-up-icon.png"; sourceTree = "<group>"; };
 		3AF521D018EA3072008320CD /* friends-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "friends-icon.png"; sourceTree = "<group>"; };
 		3AF521D418EA30A5008320CD /* messages-icon-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "messages-icon-white.png"; sourceTree = "<group>"; };
+		3AF68FB6191937C100ABA9C5 /* PECropRectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PECropRectView.h; sourceTree = "<group>"; };
+		3AF68FB7191937C100ABA9C5 /* PECropRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PECropRectView.m; sourceTree = "<group>"; };
+		3AF68FB8191937C100ABA9C5 /* PECropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PECropView.h; sourceTree = "<group>"; };
+		3AF68FB9191937C100ABA9C5 /* PECropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PECropView.m; sourceTree = "<group>"; };
+		3AF68FBA191937C100ABA9C5 /* PECropViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PECropViewController.h; sourceTree = "<group>"; };
+		3AF68FBB191937C100ABA9C5 /* PECropViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PECropViewController.m; sourceTree = "<group>"; };
+		3AF68FBC191937C100ABA9C5 /* PEResizeControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEResizeControl.h; sourceTree = "<group>"; };
+		3AF68FBD191937C100ABA9C5 /* PEResizeControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEResizeControl.m; sourceTree = "<group>"; };
+		3AF68FBE191937C100ABA9C5 /* UIImage+PECrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+PECrop.h"; sourceTree = "<group>"; };
+		3AF68FBF191937C100ABA9C5 /* UIImage+PECrop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+PECrop.m"; sourceTree = "<group>"; };
 		3AF86D2718B504CF00033495 /* bubble-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-old.png"; sourceTree = "<group>"; };
 		3AF86D2818B504CF00033495 /* bubble-old@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-old@2x.png"; sourceTree = "<group>"; };
 		3AFF777F18C415BD003277F9 /* MessageMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageMO.h; sourceTree = "<group>"; };
@@ -1995,6 +2010,7 @@
 		3AF19ACE1881F86000F3E4D3 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				3AF68FB5191937C000ABA9C5 /* PEPhotoCropEditor */,
 				3A3097AA1916C56C00CA5657 /* Filtrr */,
 				3A793D2E190FF6CA00303457 /* UIKit+AFNetworking */,
 				3A793D11190FF6C200303457 /* AFNetworking */,
@@ -2112,6 +2128,24 @@
 				3A07F6AD18D3C21800E82390 /* compose-icon.png */,
 			);
 			name = Icons;
+			sourceTree = "<group>";
+		};
+		3AF68FB5191937C000ABA9C5 /* PEPhotoCropEditor */ = {
+			isa = PBXGroup;
+			children = (
+				3AF68FB6191937C100ABA9C5 /* PECropRectView.h */,
+				3AF68FB7191937C100ABA9C5 /* PECropRectView.m */,
+				3AF68FB8191937C100ABA9C5 /* PECropView.h */,
+				3AF68FB9191937C100ABA9C5 /* PECropView.m */,
+				3AF68FBA191937C100ABA9C5 /* PECropViewController.h */,
+				3AF68FBB191937C100ABA9C5 /* PECropViewController.m */,
+				3AF68FBC191937C100ABA9C5 /* PEResizeControl.h */,
+				3AF68FBD191937C100ABA9C5 /* PEResizeControl.m */,
+				3AF68FBE191937C100ABA9C5 /* UIImage+PECrop.h */,
+				3AF68FBF191937C100ABA9C5 /* UIImage+PECrop.m */,
+			);
+			name = PEPhotoCropEditor;
+			path = Lib;
 			sourceTree = "<group>";
 		};
 		3AF86D3218B5070200033495 /* Images */ = {
@@ -2500,6 +2534,7 @@
 				F751018D18AE8D5E001F1E7F /* PrivacyPolicyViewController.m in Sources */,
 				3A3A0AE218AB1126006FBAE4 /* JSMessage.m in Sources */,
 				F751019718B134DE001F1E7F /* ChangeEmailViewController.m in Sources */,
+				3AF68FC0191937C100ABA9C5 /* PECropRectView.m in Sources */,
 				3A98D9DA18BD1A2600B69049 /* XMPPUserCoreDataStorageObject.m in Sources */,
 				3AF19A461881EF1600F3E4D3 /* DDASLLogger.m in Sources */,
 				3A98D9EB18BD1A2600B69049 /* XMPPRoomHybridStorage.m in Sources */,
@@ -2516,6 +2551,7 @@
 				3ABD66B918FB187700E72B09 /* UIImage+ImageEffects.m in Sources */,
 				3A98D9D118BD1A2600B69049 /* XMPPBandwidthMonitor.m in Sources */,
 				3A98DA3918BD1A4B00B69049 /* RFImageToDataTransformer.m in Sources */,
+				3AF68FC3191937C100ABA9C5 /* PEResizeControl.m in Sources */,
 				3A7D577318D14E47004F90B8 /* ContactSearchManager.m in Sources */,
 				3AEFB77118E8EFA90039B5B0 /* NewUserRegisterUsernameViewController.m in Sources */,
 				3A793D25190FF6C200303457 /* AFHTTPRequestOperation.m in Sources */,
@@ -2545,6 +2581,7 @@
 				3A98DA0918BD1A2600B69049 /* XMPPDateTimeProfiles.m in Sources */,
 				3A25B6791881E85B00166623 /* ContactsViewController.m in Sources */,
 				3A98DA5F18BD1A7E00B69049 /* XMPPDeprecatedDigestAuthentication.m in Sources */,
+				3AF68FC1191937C100ABA9C5 /* PECropView.m in Sources */,
 				3AEE80BE18D8FD5B0098F2D1 /* FriendTableViewCell.m in Sources */,
 				3A2A357E18AFC79F006402E5 /* ImageCache.m in Sources */,
 				3A98DA2118BD1A2600B69049 /* XMPPTime.m in Sources */,
@@ -2589,6 +2626,7 @@
 				3A3097A71916C56800CA5657 /* UIImage+Filtrr.m in Sources */,
 				3A98D9E918BD1A2600B69049 /* XMPPRoomOccupantCoreDataStorageObject.m in Sources */,
 				3A47C847189F1F02003020D7 /* MessagesDBManager.m in Sources */,
+				3AF68FC4191937C100ABA9C5 /* UIImage+PECrop.m in Sources */,
 				3A98D9DB18BD1A2600B69049 /* XMPPResourceMemoryStorageObject.m in Sources */,
 				3AF19AD11882075D00F3E4D3 /* ConnectionProvider.m in Sources */,
 				3AF19A451881EF1600F3E4D3 /* DDAbstractDatabaseLogger.m in Sources */,
@@ -2598,6 +2636,7 @@
 				F751016A18ABE101001F1E7F /* IASKTextField.m in Sources */,
 				3A98DA6118BD1A7E00B69049 /* XMPPDigestMD5Authentication.m in Sources */,
 				3A98D9E718BD1A2600B69049 /* XMPPRoomCoreDataStorage.m in Sources */,
+				3AF68FC2191937C100ABA9C5 /* PECropViewController.m in Sources */,
 				3A793D2A190FF6C200303457 /* AFURLConnectionOperation.m in Sources */,
 				3A793D26190FF6C200303457 /* AFHTTPRequestOperationManager.m in Sources */,
 				3A98D9E618BD1A2600B69049 /* XMPPRoom.xcdatamodeld in Sources */,
