@@ -459,6 +459,10 @@
 		3AF691D11919581600ABA9C5 /* GPUImageMovieWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF6911D1919581600ABA9C5 /* GPUImageMovieWriter.m */; };
 		3AF691D21919581600ABA9C5 /* GPUImagePicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF6911F1919581600ABA9C5 /* GPUImagePicture.m */; };
 		3AF691D31919581600ABA9C5 /* GPUImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF691211919581600ABA9C5 /* GPUImageView.m */; };
+		3AF692011919B7E400ABA9C5 /* lookup_amatorka.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF691FD1919B7E400ABA9C5 /* lookup_amatorka.png */; };
+		3AF692021919B7E400ABA9C5 /* lookup_miss_etikate.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF691FE1919B7E400ABA9C5 /* lookup_miss_etikate.png */; };
+		3AF692031919B7E400ABA9C5 /* lookup_soft_elegance_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF691FF1919B7E400ABA9C5 /* lookup_soft_elegance_1.png */; };
+		3AF692041919B7E400ABA9C5 /* lookup_soft_elegance_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF692001919B7E400ABA9C5 /* lookup_soft_elegance_2.png */; };
 		3AF86D2918B504CF00033495 /* bubble-old.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF86D2718B504CF00033495 /* bubble-old.png */; };
 		3AF86D2A18B504CF00033495 /* bubble-old@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF86D2818B504CF00033495 /* bubble-old@2x.png */; };
 		3AFF778118C415BD003277F9 /* MessageMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778018C415BD003277F9 /* MessageMO.m */; };
@@ -1320,6 +1324,10 @@
 		3AF6911F1919581600ABA9C5 /* GPUImagePicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImagePicture.m; sourceTree = "<group>"; };
 		3AF691201919581600ABA9C5 /* GPUImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageView.h; sourceTree = "<group>"; };
 		3AF691211919581600ABA9C5 /* GPUImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageView.m; sourceTree = "<group>"; };
+		3AF691FD1919B7E400ABA9C5 /* lookup_amatorka.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_amatorka.png; sourceTree = "<group>"; };
+		3AF691FE1919B7E400ABA9C5 /* lookup_miss_etikate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_miss_etikate.png; sourceTree = "<group>"; };
+		3AF691FF1919B7E400ABA9C5 /* lookup_soft_elegance_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_soft_elegance_1.png; sourceTree = "<group>"; };
+		3AF692001919B7E400ABA9C5 /* lookup_soft_elegance_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_soft_elegance_2.png; sourceTree = "<group>"; };
 		3AF86D2718B504CF00033495 /* bubble-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-old.png"; sourceTree = "<group>"; };
 		3AF86D2818B504CF00033495 /* bubble-old@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-old@2x.png"; sourceTree = "<group>"; };
 		3AFF777F18C415BD003277F9 /* MessageMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageMO.h; sourceTree = "<group>"; };
@@ -2646,6 +2654,10 @@
 		3AF68FDA1919581400ABA9C5 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				3AF691FD1919B7E400ABA9C5 /* lookup_amatorka.png */,
+				3AF691FE1919B7E400ABA9C5 /* lookup_miss_etikate.png */,
+				3AF691FF1919B7E400ABA9C5 /* lookup_soft_elegance_1.png */,
+				3AF692001919B7E400ABA9C5 /* lookup_soft_elegance_2.png */,
 				3AF68FDB1919581400ABA9C5 /* GLProgram.h */,
 				3AF68FDC1919581400ABA9C5 /* GLProgram.m */,
 				3AF68FDD1919581400ABA9C5 /* GPUImage.h */,
@@ -3210,6 +3222,7 @@
 				3AD8F48318DCCB7D002C399C /* Countries.plist in Resources */,
 				3A91F1EE18EB4BD10006B9F8 /* friends-background-small.png in Resources */,
 				3A91F20918EB534F0006B9F8 /* notification3.png in Resources */,
+				3AF692021919B7E400ABA9C5 /* lookup_miss_etikate.png in Resources */,
 				3A22D72F1912736B00AD58DC /* fav-icon.png in Resources */,
 				3ABD66D018FB325900E72B09 /* Owl-Loading-Animation_0005.png in Resources */,
 				3ABD66CB18FB325900E72B09 /* Owl-Loading-Animation_0000.png in Resources */,
@@ -3224,6 +3237,7 @@
 				3A25B6521881E03700166623 /* Images.xcassets in Resources */,
 				3AD19ABA18E26298001B3B88 /* AppIcon120.png in Resources */,
 				3A91F1F518EB4BF50006B9F8 /* messages-background-large.png in Resources */,
+				3AF692011919B7E400ABA9C5 /* lookup_amatorka.png in Resources */,
 				F7A3F96D18EE33B1006FBA0A /* x-purple.png in Resources */,
 				3A3A0B0718AB1126006FBAE4 /* input-bar-background@2x.png in Resources */,
 				3A3A0AE918AB1126006FBAE4 /* avatar-placeholder@2x.png in Resources */,
@@ -3245,6 +3259,7 @@
 				F7A3F96B18EE33B1006FBA0A /* x-green.png in Resources */,
 				3ABD66D618FB325900E72B09 /* Owl-Loading-Animation_0011.png in Resources */,
 				F7A3F96A18EE33B1006FBA0A /* x-blue.png in Resources */,
+				3AF692041919B7E400ABA9C5 /* lookup_soft_elegance_2.png in Resources */,
 				3AD19AC518E266F0001B3B88 /* Default-568h@2x.png in Resources */,
 				3A3A0B1218AB1126006FBAE4 /* message-received.aiff in Resources */,
 				F751016C18ABE8A2001F1E7F /* Settings.bundle in Resources */,
@@ -3295,6 +3310,7 @@
 				3A3A0B1318AB1126006FBAE4 /* message-sent.aiff in Resources */,
 				3AF68FC8191947AD00ABA9C5 /* send-icon.png in Resources */,
 				3AF521D518EA30A5008320CD /* messages-icon-white.png in Resources */,
+				3AF692031919B7E400ABA9C5 /* lookup_soft_elegance_1.png in Resources */,
 				F7A3F96218EE3052006FBA0A /* arrow-close-notifications.png in Resources */,
 				F7A3F96418EE306A006FBA0A /* check-icon-green-square.png in Resources */,
 				3A7CDB8118EBA20D006A4BBF /* add-contact-icon.png in Resources */,

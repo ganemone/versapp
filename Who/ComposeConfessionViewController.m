@@ -19,6 +19,7 @@
 #import "UIImage+FiltrrCompositions.h"
 #import "PECropViewController.h"
 #import "UserDefaultManager.h"
+#import "GPUImage.h"
 
 @interface ComposeConfessionViewController ()
 
@@ -209,8 +210,16 @@
 }
 
 -(void)getFilteredImages {
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        _e1 = [_backgroundImage e6];
+        //_e1 = [_backgroundImage e6];
+        GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:_backgroundImage];
+        GPUImageSepiaFilter *sepiaFilter = [[GPUImageSepiaFilter alloc] init];
+        [stillImageSource addTarget:sepiaFilter];
+        [sepiaFilter useNextFrameForImageCapture];
+        [stillImageSource processImage];
+        _e1 = [sepiaFilter imageFromCurrentFramebuffer];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             NSLog(@"Finished e1");
             if (_shouldApplyFilter == 1) {
@@ -221,7 +230,13 @@
         });
     });
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        _e5 = [_backgroundImage e5];
+        //_e5 = [_backgroundImage e5];
+        GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:_backgroundImage];
+        GPUImageSoftEleganceFilter *filter = [[GPUImageSoftEleganceFilter alloc] init];
+        [stillImageSource addTarget:filter];
+        [filter useNextFrameForImageCapture];
+        [stillImageSource processImage];
+        _e5 = [filter imageFromCurrentFramebuffer];
         dispatch_async(dispatch_get_main_queue(), ^{
             NSLog(@"Finished e5");
             if (_shouldApplyFilter == 5) {
@@ -233,9 +248,26 @@
     });
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        _e2 = [_backgroundImage e10];
-        _e3 = [_backgroundImage e3];
-        _e4 = [_backgroundImage e4];
+        GPUImagePicture *stillImageSource1 = [[GPUImagePicture alloc] initWithImage:_backgroundImage];
+        GPUImageMissEtikateFilter *filter1 = [[GPUImageMissEtikateFilter alloc] init];
+        [stillImageSource1 addTarget:filter1];
+        [filter1 useNextFrameForImageCapture];
+        [stillImageSource1 processImage];
+        _e2 = [filter1 imageFromCurrentFramebuffer];
+        
+        GPUImagePicture *stillImageSource2 = [[GPUImagePicture alloc] initWithImage:_backgroundImage];
+        GPUImageAmatorkaFilter *filter2 = [[GPUImageAmatorkaFilter alloc] init];
+        [stillImageSource2 addTarget:filter2];
+        [filter2 useNextFrameForImageCapture];
+        [stillImageSource2 processImage];
+        _e3 = [filter2 imageFromCurrentFramebuffer];
+        
+        GPUImagePicture *stillImageSource3 = [[GPUImagePicture alloc] initWithImage:_backgroundImage];
+        GPUImageSmoothToonFilter *filter3 = [[GPUImageSmoothToonFilter alloc] init];
+        [stillImageSource3 addTarget:filter3];
+        [filter3 useNextFrameForImageCapture];
+        [stillImageSource3 processImage];
+        _e4 = [filter3 imageFromCurrentFramebuffer];
         dispatch_async(dispatch_get_main_queue(), ^{
             NSLog(@"Finished others");
             if (_shouldApplyFilter == 2) {
