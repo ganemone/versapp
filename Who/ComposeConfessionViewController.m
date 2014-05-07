@@ -70,7 +70,9 @@
     self.numFilters = 6;
     self.shouldApplyFilter = 0;
     self.darkness = 0.0;
+
     self.colors = @[[StyleManager getColorBlue], [StyleManager getColorGreen], [StyleManager getColorOrange], [StyleManager getColorPurple]];
+    self.backgroundColor = [UIColor hexStringWithUIColor:[self.colors firstObject]];
     
     UISwipeGestureRecognizer *leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeLeft:)];
     [leftSwipe setDirection:UISwipeGestureRecognizerDirectionLeft];
@@ -124,19 +126,23 @@
 }
 
 - (IBAction)postConfession:(id)sender {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [self.view setUserInteractionEnabled:NO];
     NSString *confessionText = [_composeTextView text];
     if (confessionText.length > 0) {
-        NSString *imageURL = (_backgroundImageLink == nil) ? _backgroundColor : _backgroundImageLink;
-        Confession *confession = [Confession create:confessionText imageURL:imageURL];
-        [[ConfessionsManager getInstance] setPendingConfession:confession];
-        [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createPostConfessionPacket:confession]];
+        if (_backgroundImage == nil) {
+            Confession *confession = [Confession create:confessionText imageURL:_backgroundColor];
+            [[ConfessionsManager getInstance] setPendingConfession:confession];
+            [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createPostConfessionPacket:confession]];
+        } else {
+            [[[ImageManager alloc] init] uploadImageToGCS:_imageView.image delegate:self];
+        }
     } else {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        //[MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view setUserInteractionEnabled:YES];
         [[[UIAlertView alloc] initWithTitle:@"Whoops" message:@"You didn't write anything!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
     }
+    [self handleFinishedPostingConfession];
 }
 
 - (IBAction)onBackPressed:(id)sender {
@@ -385,8 +391,8 @@
 }
 
 -(void)handleFinishedPostingConfession {
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-    [self.view setUserInteractionEnabled:YES];
+    //[MBProgressHUD hideHUDForView:self.view animated:YES];
+    //[self.view setUserInteractionEnabled:YES];
     [[self navigationController] popToRootViewControllerAnimated:YES];
 }
 
@@ -442,12 +448,10 @@
 #pragma mark - ImageManagerDelegate
 
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {
-    //[MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-    _backgroundColor = nil;
-    _backgroundImageLink = url;
-    [_imageView setContentMode:UIViewContentModeScaleAspectFill];
-    [_imageView setImage:_backgroundImage];
-    [_composeTextView setBackgroundColor:[UIColor clearColor]];
+    NSLog(@"Finished Uploading Image");
+    Confession *confession = [Confession create:_composeTextView.text imageURL:url];
+    [[ConfessionsManager getInstance] setPendingConfession:confession];
+    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createPostConfessionPacket:confession]];
 }
 
 - (void)didFailToUploadImage:(UIImage *)image toURL:(NSString *)url {

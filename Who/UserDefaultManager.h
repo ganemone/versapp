@@ -30,7 +30,7 @@
 +(NSString *)loadDeviceID;
 +(BOOL)isValidated;
 
-+(BOOL)isFirstLogin;
++(BOOL)hasLoggedIn;
 +(BOOL)hasCreatedOneToOne;
 +(BOOL)hasCreatedGroup;
 +(BOOL)hasPostedThought;
@@ -39,7 +39,7 @@
 +(BOOL)hasReceivedOneToOneInvitation;
 +(BOOL)hasSeenFriends;
 
-+(void)setFirstLoginTrue;
++(void)setLoggedInTrue;
 +(void)setCreatedOneToOneTrue;
 +(void)setCreatedGroupTrue;
 +(void)setPostedThoughtTrue;

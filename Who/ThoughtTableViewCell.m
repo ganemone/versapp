@@ -103,8 +103,9 @@
         if ([cache hasImageWithIdentifier:_confession.confessionID]) {
             [MBProgressHUD hideHUDForView:self.contentView animated:YES];
             _backgroundImage = [cache getImageWithIdentifier:_confession.confessionID];
-            UIImageView *imageView = [[UIImageView alloc] initWithImage:_backgroundImage];
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.contentView.frame];
             [imageView setContentMode:UIViewContentModeScaleToFill];
+            [imageView setImage:_backgroundImage];
             [self setBackgroundView:imageView];
         } else {
             [MBProgressHUD showHUDAddedTo:self.contentView animated:YES];

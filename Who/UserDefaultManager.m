@@ -145,7 +145,7 @@
     [preferences synchronize];
 }
 
-+(BOOL)isFirstLogin {
++(BOOL)hasLoggedIn {
     return [self isUserDefaultValueTrue:USER_DEFAULTS_FIRST_LOGIN];
 }
 
@@ -177,7 +177,7 @@
     return [self isUserDefaultValueTrue:USER_DEFAULTS_HAS_SEEN_FRIENDS];
 }
 
-+(void)setFirstLoginTrue {
++(void)setLoggedInTrue {
     [self setUserDefaultValueTrue:USER_DEFAULTS_FIRST_LOGIN];
 }
 
