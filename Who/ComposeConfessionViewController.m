@@ -310,9 +310,8 @@
         });
     });
 }
-
 - (void)updateImageWithCurrentExposure {
-    GPUImagePicture *imageSource = [[GPUImagePicture alloc] initWithImage:_backgroundImage];
+    GPUImagePicture *imageSource = [[GPUImagePicture alloc] initWithImage:[self getCurrentImage]];
     GPUImageExposureFilter *filter = [[GPUImageExposureFilter alloc] init];
     [filter setExposure:_exposure];
     [imageSource addTarget:filter];
