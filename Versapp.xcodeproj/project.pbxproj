@@ -216,6 +216,7 @@
 		3A98DA6318BD1A7E00B69049 /* XMPPXFacebookPlatformAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98DA5918BD1A7E00B69049 /* XMPPXFacebookPlatformAuthentication.m */; };
 		3A98DA6418BD1A7E00B69049 /* XMPPXOAuth2Google.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98DA5C18BD1A7E00B69049 /* XMPPXOAuth2Google.m */; };
 		3A98DA6718BD1B9D00B69049 /* NSString+DDXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A98DA6618BD1B9D00B69049 /* NSString+DDXML.m */; };
+		3AA4952F191A6DC7003C9453 /* BlacklistManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4952E191A6DC7003C9453 /* BlacklistManager.m */; };
 		3AAD02E918FE106400EE7879 /* bubble-square.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAD02E818FE106400EE7879 /* bubble-square.png */; };
 		3AAE9B1A1894A049003B4560 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAE9B191894A049003B4560 /* ConversationViewController.m */; };
 		3AB8D18818C23DF00082B77C /* MavenProLight-100.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AB8D18518C23DF00082B77C /* MavenProLight-100.ttf */; };
@@ -877,6 +878,8 @@
 		3A98DA5D18BD1A7E00B69049 /* XMPPSASLAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPSASLAuthentication.h; sourceTree = "<group>"; };
 		3A98DA6518BD1B9D00B69049 /* NSString+DDXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DDXML.h"; sourceTree = "<group>"; };
 		3A98DA6618BD1B9D00B69049 /* NSString+DDXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DDXML.m"; sourceTree = "<group>"; };
+		3AA4952D191A6DC7003C9453 /* BlacklistManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlacklistManager.h; sourceTree = "<group>"; };
+		3AA4952E191A6DC7003C9453 /* BlacklistManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlacklistManager.m; sourceTree = "<group>"; };
 		3AAD02E818FE106400EE7879 /* bubble-square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-square.png"; sourceTree = "<group>"; };
 		3AAE9B181894A049003B4560 /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
 		3AAE9B191894A049003B4560 /* ConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
@@ -1546,6 +1549,8 @@
 		3A25B63C1881E03700166623 /* Who */ = {
 			isa = PBXGroup;
 			children = (
+				3AA4952D191A6DC7003C9453 /* BlacklistManager.h */,
+				3AA4952E191A6DC7003C9453 /* BlacklistManager.m */,
 				3AE1E35D18E9A9AA00E2347F /* Validator.h */,
 				3AE1E35E18E9A9AA00E2347F /* Validator.m */,
 				3A7D577118D14E47004F90B8 /* ContactSearchManager.h */,
@@ -3430,6 +3435,7 @@
 				3AF6914F1919581600ABA9C5 /* GPUImageDarkenBlendFilter.m in Sources */,
 				3A91F1E318EB27ED0006B9F8 /* TutorialViewController.m in Sources */,
 				3A3A0ADF18AB1126006FBAE4 /* JSBubbleMessageCell.m in Sources */,
+				3AA4952F191A6DC7003C9453 /* BlacklistManager.m in Sources */,
 				3AF19A481881EF1600F3E4D3 /* DDLog.m in Sources */,
 				F751016018ABE101001F1E7F /* IASKSettingsReader.m in Sources */,
 				3AF691B31919581600ABA9C5 /* GPUImageSourceOverBlendFilter.m in Sources */,

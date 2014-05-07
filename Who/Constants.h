@@ -258,5 +258,7 @@ extern NSString *const BUCKET_MESSAGES;
 extern NSString *const BUCKET_THOUGHTS;
 extern NSString *const UPLOAD_URL;
 extern NSString *const DOWNLOAD_URL;
+extern NSString *const BLACKLIST_URL;
+extern NSString *const BLACKLIST_AUTH_CODE;
 
 @end

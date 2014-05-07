@@ -259,4 +259,7 @@ NSString *const BUCKET_THOUGHTS = @"thoughtpics";
 NSString *const UPLOAD_URL = @"http://ejabberd.versapp.co/gcs/upload.php";
 NSString *const DOWNLOAD_URL = @"http://ejabberd.versapp.co/gcs/download.php";
 
+NSString *const BLACKLIST_URL = @"http://ce.dev.versapp.co:5280/contacts/store";
+NSString *const BLACKLIST_AUTH_CODE = @"Authentication";
+
 @end
