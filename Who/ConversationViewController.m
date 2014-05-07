@@ -34,6 +34,7 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     if ([UserDefaultManager hasCreatedGroup] == NO) {
+        [UserDefaultManager setCreatedGroupTrue];
         [self discloseInfoButtonClicked:nil];
     }
 }

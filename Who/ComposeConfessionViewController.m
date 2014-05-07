@@ -56,6 +56,7 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     if ([UserDefaultManager hasPostedThought] == NO) {
+        [UserDefaultManager setPostedThoughtTrue];
         [[[UIAlertView alloc] initWithTitle:@"Thoughts" message:@"Post a thought to be seen anonymously by your friends. Swipe to change background colors, or add a picture and swipe to change filters and brightness" delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil] show];
     }
 }

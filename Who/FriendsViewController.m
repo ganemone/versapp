@@ -52,6 +52,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     if ([UserDefaultManager hasSeenFriends] == NO) {
+        [UserDefaultManager setSeenFriendsTrue];
         [[[UIAlertView alloc] initWithTitle:@"Friends" message:@"This is your friends page. Your friends are chosen based on your phone contacts. Start conversations by selecting one or more friends on this page." delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:nil] show];
     }
 }

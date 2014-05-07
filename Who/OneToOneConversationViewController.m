@@ -22,10 +22,13 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION] && [UserDefaultManager hasStartedThoughtChat] == NO) {
+        [UserDefaultManager setStartedThoughtChatTrue];
         [self alertConfessionChat];
     } else if([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITED] && [UserDefaultManager hasReceivedOneToOneInvitation] == NO) {
+        [UserDefaultManager setReceivedOneToOneInvitationTrue];
         [self alertInvitedOneToOne];
     } else if([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITER] && [UserDefaultManager hasCreatedOneToOne] == NO) {
+        [UserDefaultManager setCreatedOneToOneTrue];
         [self alertInviterOneToOne];
     }
 }

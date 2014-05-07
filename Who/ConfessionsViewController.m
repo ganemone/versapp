@@ -50,6 +50,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     if ([UserDefaultManager hasSeenThoughts] == NO) {
+        [UserDefaultManager setSeenThoughtsTrue];
         [self handleDiscloseInfoBtnClicked:nil];
     }
 }

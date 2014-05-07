@@ -54,6 +54,7 @@ static BOOL notificationsHalfHidden = NO;
 
 -(void)viewDidAppear:(BOOL)animated {
     if ([UserDefaultManager isFirstLogin]) {
+        [UserDefaultManager setFirstLoginTrue];
         [[[UIAlertView alloc] initWithTitle:@"Welcome to Versapp" message:@"We will guide you through all of Versapps features. This page is your message dashboard. All of your conversations will appear here. Swipe to checkout the other screens." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
     }
 }
