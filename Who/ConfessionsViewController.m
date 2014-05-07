@@ -60,7 +60,7 @@
     [super viewDidLoad];
     self.confessionsManager = [ConfessionsManager getInstance];
     if ([self.confessionsManager getNumberOfConfessions] == 0) {
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name: PACKET_ID_GET_CONFESSIONS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name:PACKET_ID_POST_CONFESSION object:nil];

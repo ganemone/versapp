@@ -11,6 +11,6 @@
 #import "ImageManager.h"
 #import "PECropViewController.h"
 
-@interface ComposeConfessionViewController : UIViewController<UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ImageManagerDelegate, PECropViewControllerDelegate>
+@interface ComposeConfessionViewController : UIViewController<UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ImageManagerDelegate, PECropViewControllerDelegate, UIGestureRecognizerDelegate>
 
 @end

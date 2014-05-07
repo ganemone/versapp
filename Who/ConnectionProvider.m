@@ -166,12 +166,11 @@ static ConnectionProvider *selfInstance;
         //[self.xmppStream sendElement:[IQPacketManager createGetRosterPacket]];
     } else {
         [self.xmppStream sendElement:[IQPacketManager createGetUserInfoPacket]];
+        [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetRosterPacket]];
-        [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
-        [self.xmppStream sendElement:[IQPacketManager createGetConfessionsPacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_AUTHENTICATED object:nil];
@@ -227,13 +226,13 @@ static ConnectionProvider *selfInstance;
 }
 
 -(BOOL)xmppStream:(XMPPStream *)sender didReceiveIQ:(XMPPIQ *)iq {
-    //NSLog(@"Received IQ: %@", iq.XMLString);
+    NSLog(@"Received IQ: %@", iq.XMLString);
     [IQPacketReceiver handleIQPacket:iq];
     return YES;
 }
 
 -(void)xmppStream:(XMPPStream *)sender didSendIQ:(XMPPIQ *)iq {
-    //NSLog(@"Did Send IQ: %@", iq.XMLString);
+    NSLog(@"Did Send IQ: %@", iq.XMLString);
 }
 
 +(NSString *)getServerIPAddress {

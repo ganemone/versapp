@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UILabel *headerLabel;
 @property (weak, nonatomic) IBOutlet UIView *footerView;
+@property (weak, nonatomic) IBOutlet UILabel *effectLabel;
 @property (strong, nonatomic) UIImage *backgroundImage;
 @property (strong, nonatomic) NSString *backgroundColor;
 @property (strong, nonatomic) NSString *backgroundImageLink;
@@ -36,7 +37,7 @@
 @property (strong, nonatomic) UIImage *e3;
 @property (strong, nonatomic) UIImage *e4;
 @property (strong, nonatomic) UIImage *e5;
-@property CGFloat darkness;
+@property CGFloat exposure;
 @property int colorIndex;
 @property int filterIndex;
 @property int numFilters;
@@ -69,8 +70,8 @@
     self.filterIndex = 0;
     self.numFilters = 6;
     self.shouldApplyFilter = 0;
-    self.darkness = 0.0;
-
+    self.exposure = 0.5;
+    
     self.colors = @[[StyleManager getColorBlue], [StyleManager getColorGreen], [StyleManager getColorOrange], [StyleManager getColorPurple]];
     self.backgroundColor = [UIColor hexStringWithUIColor:[self.colors firstObject]];
     
@@ -90,12 +91,19 @@
     [downSwipe setDirection:UISwipeGestureRecognizerDirectionDown];
     [self.view addGestureRecognizer:downSwipe];
     
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap)];
+    [doubleTap setNumberOfTapsRequired:2];
+    [self.view addGestureRecognizer:doubleTap];
+    
     [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
     [self.composeTextView setFont:[StyleManager getFontStyleBoldSizeXL]];
     [self.composeTextView setTextAlignment:NSTextAlignmentCenter];
     [self.composeTextView setDelegate:self];
     [self.composeTextView setText:@"Share a thought..."];
     [self.composeTextView setTextColor:[UIColor lightGrayColor]];
+    
+    [_effectLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedPostingConfession) name:PACKET_ID_POST_CONFESSION object:nil];
     [self adjustInsetsForTextfield:self.composeTextView];
     
@@ -202,10 +210,17 @@
 - (void)cropViewController:(PECropViewController *)controller didFinishCroppingImage:(UIImage *)croppedImage
 {
     [controller dismissViewControllerAnimated:YES completion:^{
+        
+        UIGraphicsBeginImageContext(CGSizeMake(320, 230));
+        [croppedImage drawInRect:CGRectMake(0, 0, 320, 230)];
+        UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        _backgroundImage = smallImage;
+        [self updateImageWithCurrentExposure];
         [_imageView setContentMode:UIViewContentModeScaleAspectFill];
-        [_imageView setImage:croppedImage];
+        [_imageView setImage:smallImage];
         [_composeTextView setBackgroundColor:[UIColor clearColor]];
-        _backgroundImage = croppedImage;
+        
         [self getFilteredImages];
     }];
 }
@@ -218,7 +233,6 @@
 -(void)getFilteredImages {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        //_e1 = [_backgroundImage e6];
         GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:_backgroundImage];
         GPUImageSepiaFilter *sepiaFilter = [[GPUImageSepiaFilter alloc] init];
         [stillImageSource addTarget:sepiaFilter];
@@ -232,11 +246,11 @@
                 [self.imageView setImage:_e1];
                 _shouldApplyFilter = 0;
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
+                [self updateEffectLabelFilter];
             }
         });
     });
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        //_e5 = [_backgroundImage e5];
         GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:_backgroundImage];
         GPUImageSoftEleganceFilter *filter = [[GPUImageSoftEleganceFilter alloc] init];
         [stillImageSource addTarget:filter];
@@ -249,6 +263,7 @@
                 [self.imageView setImage:_e5];
                 _shouldApplyFilter = 0;
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
+                [self updateEffectLabelFilter];
             }
         });
     });
@@ -280,58 +295,30 @@
                 [self.imageView setImage:_e2];
                 _shouldApplyFilter = 0;
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
+                [self updateEffectLabelFilter];
             } else if (_shouldApplyFilter == 3) {
                 [self.imageView setImage:_e3];
                 _shouldApplyFilter = 0;
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
+                [self updateEffectLabelFilter];
             } else if (_shouldApplyFilter == 4) {
                 [self.imageView setImage:_e4];
                 _shouldApplyFilter = 0;
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
+                [self updateEffectLabelFilter];
             }
         });
     });
 }
 
--(void)darkenImageWithValue:(NSNumber *)number {
-    CIContext *context = [CIContext contextWithOptions:nil];
-    CIImage *inputImage = [[CIImage alloc] initWithImage:self.imageView.image]; //your input image
-    
-    CIFilter *filter= [CIFilter filterWithName:@"CIColorControls"];
-    [filter setValue:inputImage forKey:@"inputImage"];
-    [filter setValue:[NSNumber numberWithFloat:0.5] forKey:@"inputBrightness"];
-    
-    // Your output image
-    UIImage *outputImage = [UIImage imageWithCGImage:[context createCGImage:filter.outputImage fromRect:filter.outputImage.extent]];
-    [_imageView setImage:outputImage];
-}
-
-- (UIImage *)colorizeImage:(UIImage *)image withColor:(UIColor *)color {
-    UIGraphicsBeginImageContext(image.size);
-    
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGRect area = CGRectMake(0, 0, image.size.width, image.size.height);
-    
-    CGContextScaleCTM(context, 1, -1);
-    CGContextTranslateCTM(context, 0, -area.size.height);
-    
-    CGContextSaveGState(context);
-    CGContextClipToMask(context, area, image.CGImage);
-    
-    [color set];
-    CGContextFillRect(context, area);
-    
-    CGContextRestoreGState(context);
-    
-    CGContextSetBlendMode(context, kCGBlendModeMultiply);
-    
-    CGContextDrawImage(context, area, image.CGImage);
-    
-    UIImage *colorizedImage = UIGraphicsGetImageFromCurrentImageContext();
-    
-    UIGraphicsEndImageContext();
-    
-    return colorizedImage;
+- (void)updateImageWithCurrentExposure {
+    GPUImagePicture *imageSource = [[GPUImagePicture alloc] initWithImage:_backgroundImage];
+    GPUImageExposureFilter *filter = [[GPUImageExposureFilter alloc] init];
+    [filter setExposure:_exposure];
+    [imageSource addTarget:filter];
+    [filter useNextFrameForImageCapture];
+    [imageSource processImage];
+    [_imageView setImage:[filter imageFromCurrentFramebuffer]];
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -378,7 +365,7 @@
     UIImagePickerController *controller = [[UIImagePickerController alloc] init];
     controller.delegate = self;
     controller.sourceType = UIImagePickerControllerSourceTypeCamera;
-
+    
     [self presentViewController:controller animated:YES completion:NULL];
 }
 
@@ -491,7 +478,11 @@
     return [self imageWithImage:image scaledToSize:newSize];
 }
 
-#pragma mark - SwipeManagement
+#pragma mark - GestureManagement
+
+- (void)handleDoubleTap {
+    NSLog(@"View double tapped");
+}
 
 - (void)handleSwipeRight:(UISwipeGestureRecognizer *)gestureRecognizer {
     if (_backgroundImage == nil) {
@@ -519,6 +510,7 @@
     }
     [_composeTextView setBackgroundColor:[_colors objectAtIndex:_colorIndex]];
     _backgroundColor = [UIColor hexStringWithUIColor:_composeTextView.backgroundColor];
+    [self updateEffectLabelColor];
 }
 
 - (void)handleSwipeWithImage:(UISwipeGestureRecognizerDirection)direction {
@@ -571,6 +563,9 @@
             [self.imageView setImage:_e5];
         }
     }
+    if (_shouldApplyFilter == 0) {
+        [self updateEffectLabelFilter];
+    }
 }
 
 - (void)incrementColorIndex {
@@ -589,33 +584,27 @@
     _filterIndex = (_filterIndex == 0) ? _numFilters - 1 : _filterIndex - 1;
 }
 
-- (void)decrementDarkess {
-    _darkness = MAX(0, _darkness - 0.1);
+- (void)decrementExposure {
+    _exposure = MAX(-4, _exposure - 0.5);
 }
 
-- (void)incrementDarkness {
-    _darkness = MIN(1, _darkness + 0.1);
+- (void)incrementExposure {
+    _exposure = MIN(1, _exposure + 0.5);
 }
 
 - (void)handleSwipeUp {
     if (_backgroundImage != nil) {
-        [self incrementDarkness];
-        UIImage *image = [self colorizeImage:[self getCurrentImage] withColor:[self getColorForDarkness]];
-        [_imageView setImage:image];
+        [self incrementExposure];
+        [self updateImageWithCurrentExposure];
     }
     
 }
 
 - (void)handleSwipeDown {
     if (_backgroundImage != nil) {
-        [self decrementDarkess];
-        UIImage *image = [self colorizeImage:[self getCurrentImage] withColor:[self getColorForDarkness]];
-        [_imageView setImage:image];
+        [self decrementExposure];
+        [self updateImageWithCurrentExposure];
     }
-}
-
-- (UIColor *)getColorForDarkness {
-    return [UIColor colorWithRed:0 green:0 blue:0 alpha:_darkness];
 }
 
 - (UIImage *)getCurrentImage {
@@ -628,5 +617,71 @@
         default: return _e5;
     }
 }
+
+#pragma mark - EffectLabelMethods
+
+- (NSString *)getExposureString {
+    if (_exposure >= 0) {
+        if (_exposure == 0) {
+            return @"Normal Brightness";
+        } else {
+            int percent = (int)_exposure*10;
+            return [NSString stringWithFormat:@"%d%@ Brightened", percent, @"%"];
+        }
+    } else {
+        int percent = abs((int)_exposure*10);
+        return [NSString stringWithFormat:@"%d%@ Darkened", percent, @"%"];
+    }
+}
+
+- (void)updateEffectLabelClear {
+    [_effectLabel setText:@""];
+}
+
+- (void)updateEffectLabelExposure {
+    [_effectLabel setText:[self getExposureString]];
+}
+
+- (void)updateEffectLabelFilter {
+    [_effectLabel setText:[[[self class] filters] objectAtIndex:_filterIndex]];
+}
+
+- (void)updateEffectLabelBlur {
+    
+}
+
+- (void)updateEffectLabelColor {
+    [_effectLabel setText:[[[self class] colors] objectAtIndex:_colorIndex]];
+}
+
++ (NSArray *)filters
+{
+    static NSArray *_titles;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _titles = @[@"No Filter",
+                    @"Filter 1",
+                    @"Filter 2",
+                    @"Filter 3",
+                    @"Filter 4",
+                    @"Filter 5"];
+    });
+    return _titles;
+}
+
++ (NSArray *)colors
+{
+    static NSArray *_colors;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _colors = @[@"Blue",
+                    @"Purple",
+                    @"Green",
+                    @"Orange"];
+    });
+    return _colors;
+}
+
+#pragma mark - GestureRecognizerDelegate
 
 @end

@@ -384,12 +384,14 @@
 }
 
 +(void)handleGetSessionIDPacket:(XMPPIQ*)iq {
+    NSLog(@"Handling get session id packet");
     NSError *error = NULL;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<value>(.*?)<\\/value>" options:NSRegularExpressionCaseInsensitive error:&error];
     
     NSTextCheckingResult *match = [regex firstMatchInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     [delegate setSessionID:[iq.XMLString substringWithRange:[match rangeAtIndex:1]]];
+    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacket]];
 }
 
 +(void)handleGetConfessionsPacket:(XMPPIQ *)iq {

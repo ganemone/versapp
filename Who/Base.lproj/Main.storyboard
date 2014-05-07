@@ -1423,6 +1423,13 @@
                                             <action selector="postConfession:" destination="lnb-gW-AWX" eventType="touchUpInside" id="pkY-AC-hig"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FX7-nh-FYi">
+                                        <rect key="frame" x="62" y="9" width="201" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -1433,6 +1440,7 @@
                     <navigationItem key="navigationItem" id="bRR-D9-Nnz"/>
                     <connections>
                         <outlet property="composeTextView" destination="9q9-kx-gdJ" id="9Qx-DX-97m"/>
+                        <outlet property="effectLabel" destination="FX7-nh-FYi" id="CK3-7j-ed0"/>
                         <outlet property="footerView" destination="Fmg-Ox-IgU" id="72B-f0-zzC"/>
                         <outlet property="headerLabel" destination="EMq-Cz-oPS" id="R5i-my-eCS"/>
                         <outlet property="imageView" destination="gPj-7d-Z20" id="QXd-SG-4rn"/>
