@@ -467,6 +467,9 @@
 		3AF92580191BC0EF00795FC6 /* double-arrow-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF9257F191BC0EF00795FC6 /* double-arrow-blue.png */; };
 		3AF92582191BC21400795FC6 /* double-arrow-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF92581191BC21400795FC6 /* double-arrow-white.png */; };
 		3AF92585191BC2D400795FC6 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF92584191BC2D400795FC6 /* WelcomeViewController.m */; };
+		3AF92591191BD1C300795FC6 /* lock-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF92590191BD1C300795FC6 /* lock-icon.png */; };
+		3AF92595191BD31A00795FC6 /* SecurityTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF92593191BD31A00795FC6 /* SecurityTutorialViewController.m */; };
+		3AF92596191BD31A00795FC6 /* SecurityTutorialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AF92594191BD31A00795FC6 /* SecurityTutorialViewController.xib */; };
 		3AFF778118C415BD003277F9 /* MessageMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778018C415BD003277F9 /* MessageMO.m */; };
 		3AFF778418C415BD003277F9 /* ChatMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778318C415BD003277F9 /* ChatMO.m */; };
 		3AFF778718C415BE003277F9 /* FriendMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778618C415BE003277F9 /* FriendMO.m */; };
@@ -1333,6 +1336,10 @@
 		3AF92581191BC21400795FC6 /* double-arrow-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "double-arrow-white.png"; sourceTree = "<group>"; };
 		3AF92583191BC2D400795FC6 /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
 		3AF92584191BC2D400795FC6 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
+		3AF92590191BD1C300795FC6 /* lock-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock-icon.png"; sourceTree = "<group>"; };
+		3AF92592191BD31A00795FC6 /* SecurityTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecurityTutorialViewController.h; sourceTree = "<group>"; };
+		3AF92593191BD31A00795FC6 /* SecurityTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecurityTutorialViewController.m; sourceTree = "<group>"; };
+		3AF92594191BD31A00795FC6 /* SecurityTutorialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecurityTutorialViewController.xib; sourceTree = "<group>"; };
 		3AFF777F18C415BD003277F9 /* MessageMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageMO.h; sourceTree = "<group>"; };
 		3AFF778018C415BD003277F9 /* MessageMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageMO.m; sourceTree = "<group>"; };
 		3AFF778218C415BD003277F9 /* ChatMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMO.h; sourceTree = "<group>"; };
@@ -2354,6 +2361,9 @@
 		3AB8D19318C2A42B0082B77C /* New User */ = {
 			isa = PBXGroup;
 			children = (
+				3AF92592191BD31A00795FC6 /* SecurityTutorialViewController.h */,
+				3AF92593191BD31A00795FC6 /* SecurityTutorialViewController.m */,
+				3AF92594191BD31A00795FC6 /* SecurityTutorialViewController.xib */,
 				3AF9257D191BBB8D00795FC6 /* WelcomeViewController.xib */,
 				3AF92583191BC2D400795FC6 /* WelcomeViewController.h */,
 				3AF92584191BC2D400795FC6 /* WelcomeViewController.m */,
@@ -2540,6 +2550,7 @@
 		3AF521CA18EA2DC5008320CD /* App Images */ = {
 			isa = PBXGroup;
 			children = (
+				3AF92590191BD1C300795FC6 /* lock-icon.png */,
 				3A49E9ED18FF2DFB00AFCB8E /* AppIconTransparent.png */,
 				3A068E8018F1E85000EA260E /* owl-left.png */,
 				3A068E8118F1E85000EA260E /* owl-right.png */,
@@ -3205,6 +3216,7 @@
 				3A068ED518F24FC200EA260E /* Versapp-Tutorial-04.png in Resources */,
 				3AF521CC18EA2E8F008320CD /* arrow-up-icon.png in Resources */,
 				3A22D7311912737300AD58DC /* fav-icon-active.png in Resources */,
+				3AF92591191BD1C300795FC6 /* lock-icon.png in Resources */,
 				3A07F6BF18D3C21800E82390 /* compose-icon.png in Resources */,
 				3A068ED318F24FC200EA260E /* Versapp-Tutorial-02.png in Resources */,
 				3AD19AB818E26298001B3B88 /* AppIcon58.png in Resources */,
@@ -3301,6 +3313,7 @@
 				3AF86D2918B504CF00033495 /* bubble-old.png in Resources */,
 				3A07F6D718D3EFC200E82390 /* check-icon.png in Resources */,
 				3AF521D118EA3072008320CD /* friends-icon.png in Resources */,
+				3AF92596191BD31A00795FC6 /* SecurityTutorialViewController.xib in Resources */,
 				3A49E9EC18FF155500AFCB8E /* ThoughtTableViewCell.xib in Resources */,
 				F7977B6418DBA25B000E955C /* check-icon-green.png in Resources */,
 				3A25B64A1881E03700166623 /* Main.storyboard in Resources */,
@@ -3416,6 +3429,7 @@
 				3AF691761919581600ABA9C5 /* GPUImageKuwaharaRadius3Filter.m in Sources */,
 				3AF6918B1919581600ABA9C5 /* GPUImageMovie.m in Sources */,
 				3ACF496F1900181F00D982F4 /* SocialSharingManager.m in Sources */,
+				3AF92595191BD31A00795FC6 /* SecurityTutorialViewController.m in Sources */,
 				3AF691B91919581600ABA9C5 /* GPUImageTextureInput.m in Sources */,
 				3A98D9F018BD1A2600B69049 /* XMPPRoomOccupantMemoryStorageObject.m in Sources */,
 				3A98D8E818BD19B200B69049 /* XMPPParser.m in Sources */,
