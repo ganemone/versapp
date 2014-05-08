@@ -476,6 +476,8 @@
 		3AF925A1191BDADC00795FC6 /* ThoughtsTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF9259F191BDADB00795FC6 /* ThoughtsTutorialViewController.m */; };
 		3AF925A2191BDADC00795FC6 /* ThoughtsTutorialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AF925A0191BDADC00795FC6 /* ThoughtsTutorialViewController.xib */; };
 		3AF925A4191BDBA800795FC6 /* thoughts-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF925A3191BDBA800795FC6 /* thoughts-white.png */; };
+		3AFED46A191BF83900356363 /* GetStartedTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFED468191BF83900356363 /* GetStartedTutorialViewController.m */; };
+		3AFED46B191BF83900356363 /* GetStartedTutorialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AFED469191BF83900356363 /* GetStartedTutorialViewController.xib */; };
 		3AFF778118C415BD003277F9 /* MessageMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778018C415BD003277F9 /* MessageMO.m */; };
 		3AFF778418C415BD003277F9 /* ChatMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778318C415BD003277F9 /* ChatMO.m */; };
 		3AFF778718C415BE003277F9 /* FriendMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778618C415BE003277F9 /* FriendMO.m */; };
@@ -1354,6 +1356,9 @@
 		3AF9259F191BDADB00795FC6 /* ThoughtsTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThoughtsTutorialViewController.m; sourceTree = "<group>"; };
 		3AF925A0191BDADC00795FC6 /* ThoughtsTutorialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThoughtsTutorialViewController.xib; sourceTree = "<group>"; };
 		3AF925A3191BDBA800795FC6 /* thoughts-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thoughts-white.png"; sourceTree = "<group>"; };
+		3AFED467191BF83900356363 /* GetStartedTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetStartedTutorialViewController.h; sourceTree = "<group>"; };
+		3AFED468191BF83900356363 /* GetStartedTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetStartedTutorialViewController.m; sourceTree = "<group>"; };
+		3AFED469191BF83900356363 /* GetStartedTutorialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GetStartedTutorialViewController.xib; sourceTree = "<group>"; };
 		3AFF777F18C415BD003277F9 /* MessageMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageMO.h; sourceTree = "<group>"; };
 		3AFF778018C415BD003277F9 /* MessageMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageMO.m; sourceTree = "<group>"; };
 		3AFF778218C415BD003277F9 /* ChatMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMO.h; sourceTree = "<group>"; };
@@ -2409,6 +2414,9 @@
 				3AF9259E191BDADB00795FC6 /* ThoughtsTutorialViewController.h */,
 				3AF9259F191BDADB00795FC6 /* ThoughtsTutorialViewController.m */,
 				3AF925A0191BDADC00795FC6 /* ThoughtsTutorialViewController.xib */,
+				3AFED467191BF83900356363 /* GetStartedTutorialViewController.h */,
+				3AFED468191BF83900356363 /* GetStartedTutorialViewController.m */,
+				3AFED469191BF83900356363 /* GetStartedTutorialViewController.xib */,
 			);
 			name = "New User";
 			sourceTree = "<group>";
@@ -3355,6 +3363,7 @@
 				3A3A0B0D18AB1126006FBAE4 /* send-button@2x.png in Resources */,
 				3AB8D18918C23DF00082B77C /* MavenProLight-200.ttf in Resources */,
 				3AAD02E918FE106400EE7879 /* bubble-square.png in Resources */,
+				3AFED46B191BF83900356363 /* GetStartedTutorialViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3668,6 +3677,7 @@
 				3AF68FC2191937C100ABA9C5 /* PECropViewController.m in Sources */,
 				3AF691681919581600ABA9C5 /* GPUImageHardLightBlendFilter.m in Sources */,
 				3AF691861919581600ABA9C5 /* GPUImageMissEtikateFilter.m in Sources */,
+				3AFED46A191BF83900356363 /* GetStartedTutorialViewController.m in Sources */,
 				3AF691381919581600ABA9C5 /* GPUImageAmatorkaFilter.m in Sources */,
 				3AF691441919581600ABA9C5 /* GPUImageClosingFilter.m in Sources */,
 				3AF691881919581600ABA9C5 /* GPUImageMosaicFilter.m in Sources */,

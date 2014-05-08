@@ -15,6 +15,7 @@
 #import "ThoughtsTutorialViewController.h"
 #import "FriendsTutorialViewController.h"
 #import "SecurityTutorialViewController.h"
+#import "GetStartedTutorialViewController.h"
 
 #define numPages 6
 
@@ -23,6 +24,7 @@
 @property UIPageViewController *pageViewController;
 @property NSMutableArray *viewControllers;
 @property UIPageControl *pageControl;
+
 @end
 
 @implementation TutorialViewController
@@ -71,6 +73,9 @@
     //[_pageControl setCurrentPageIndicatorTintColor:[UIColor blueColor]];
     [_pageControl setNumberOfPages:5];
     [self.view addSubview:_pageControl];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleGoToLoginPage) name:SEGUE_ID_LOGIN_FROM_TUTORIAL object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleGoToRegisterPage) name:SEGUE_ID_REGISTER_FROM_TUTORIAL object:nil];
 }
 
 - (void)goToDashboard {
@@ -104,6 +109,7 @@
         case 1:vc = [[ThoughtsTutorialViewController alloc] initWithNibName:@"ThoughtsTutorialViewController" bundle:nil]; break;
         case 2:vc = [[FriendsTutorialViewController alloc] initWithNibName:@"FriendsTutorialViewController" bundle:nil]; break;
         case 3:vc = [[SecurityTutorialViewController alloc] initWithNibName:@"SecurityTutorialViewController" bundle:nil]; break;
+        case 4:vc = [[GetStartedTutorialViewController alloc] initWithNibName:@"GetStartedTutorialViewController" bundle:nil]; break;
         default:vc = [[WelcomeViewController alloc] initWithNibName:@"WelcomeViewController" bundle:nil]; break;
     }
     [vc setIndexInTutorial:index];
@@ -149,6 +155,14 @@
 
 -(void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed {
     [_pageControl setCurrentPage:[(TutorialSlideViewController *)[pageViewController.viewControllers firstObject] indexInTutorial]];
+}
+
+-(void)handleGoToRegisterPage {
+    [self performSegueWithIdentifier:SEGUE_ID_REGISTER_FROM_TUTORIAL sender:nil];
+}
+
+-(void)handleGoToLoginPage {
+    [self performSegueWithIdentifier:SEGUE_ID_LOGIN_FROM_TUTORIAL sender:nil];
 }
 
 @end
