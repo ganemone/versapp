@@ -15,6 +15,7 @@
 +(UIFont*)getFontStyleLightSizeMed;
 +(UIFont*)getFontStyleLightSizeLarge;
 +(UIFont*)getFontStyleLightSizeXL;
++(UIFont*)getFontStyleLightSizeTitle;
 +(UIFont*)getFontStyleRegularSizeSmall;
 +(UIFont*)getFontStyleRegularSizeMed;
 +(UIFont*)getFontStyleRegularSizeLarge;
@@ -27,6 +28,7 @@
 +(UIFont*)getFontStyleBoldSizeMed;
 +(UIFont*)getFontStyleBoldSizeLarge;
 +(UIFont*)getFontStyleBoldSizeXL;
++(UIFont*)getFontStyleBoldSizeTitle;
 +(UIColor*)getColorOrange;
 +(UIColor*)getColorBlue;
 +(UIColor*)getColorPurple;

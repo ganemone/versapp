@@ -28,6 +28,14 @@
     return self;
 }
 
+- (id)initWithIndexInTutorial:(int)indexInTutorial {
+    self = [super init];
+    if (self) {
+        self.indexInTutorial = indexInTutorial;
+    }
+    return self;
+}
+
 - (id)initWithImage:(UIImage *)image indexInTutorial:(int)indexInTutorial {
     self = [super init];
     if (self) {

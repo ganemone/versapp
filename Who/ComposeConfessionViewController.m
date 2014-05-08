@@ -16,7 +16,6 @@
 #import "MBProgressHUD.h"
 #import "ImageManager.h"
 #import "UIColor+Hex.h"
-#import "UIImage+FiltrrCompositions.h"
 #import "PECropViewController.h"
 #import "UserDefaultManager.h"
 #import "GPUImage.h"
@@ -168,6 +167,7 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     UIImage *image = info[UIImagePickerControllerOriginalImage];
+    _backgroundImage = image;
     self.imageView.image = image;
     
     [picker dismissViewControllerAnimated:YES completion:^{
@@ -355,6 +355,7 @@
             [[[UIAlertView alloc] initWithTitle:@"Whoops" message:@"It looks like we need access to see your pictures." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
             return;
         }
+        [_composeTextView resignFirstResponder];
         [self presentViewController:picker animated:YES completion:nil];
     }
 }

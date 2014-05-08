@@ -14,5 +14,6 @@
 @property (strong, nonatomic) UIImage *image;
 
 - (id)initWithImage:(UIImage *)image indexInTutorial:(int)indexInTutorial;
+- (id)initWithIndexInTutorial:(int)indexInTutorial;
 
 @end

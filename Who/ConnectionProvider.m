@@ -56,8 +56,8 @@ static ConnectionProvider *selfInstance;
     @synchronized(self) {
         if(selfInstance == nil) {
             selfInstance = [[self alloc] init];
-            selfInstance.SERVER_IP_ADDRESS = @"ejabberd.versapp.co";
-            selfInstance.CONFERENCE_IP_ADDRESS = @"conference.ejabberd.versapp.co";
+            selfInstance.SERVER_IP_ADDRESS = @"ce.dev.versapp.co";
+            selfInstance.CONFERENCE_IP_ADDRESS = @"conference.ce.dev.versapp.co";
             selfInstance.tempVCardInfo = [[NSMutableDictionary alloc] initWithCapacity:5];
             selfInstance.xmppReconnect = [[XMPPReconnect alloc] initWithDispatchQueue:dispatch_get_main_queue()];
             [selfInstance.xmppReconnect addDelegate:self delegateQueue:dispatch_get_main_queue()];
@@ -89,6 +89,7 @@ static ConnectionProvider *selfInstance;
     
     NSError *error = nil;
     if(![self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error]) {
+        NSLog(@"Something went wrong here...: %@", error);
         //[[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FAILED_TO_AUTHENTICATE object:self];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CONNECTING object:self];
@@ -189,6 +190,7 @@ static ConnectionProvider *selfInstance;
 {
     //AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     //[delegate handleConnectionLost];
+    NSLog(@"did disconnect with error: %@", error);
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];
 }
 
@@ -199,30 +201,32 @@ static ConnectionProvider *selfInstance;
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveError:(DDXMLElement *)error {
-    //NSLog(@"Did Receive Error: %@", error);
+    NSLog(@"Did Receive Error: %@", error);
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveP2PFeatures:(DDXMLElement *)streamFeatures {
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
-    //NSLog(@"Received Message: %@", message.XMLString);
+    NSLog(@"Received Message: %@", message.XMLString);
     [MessagePacketReceiver handleMessagePacket:message];
 }
 
 -(void)xmppStream:(XMPPStream *)sender didSendMessage:(XMPPMessage *)message {
-    //NSLog(@"Did Send Message: %@", [message description]);
+    NSLog(@"Did Send Message: %@", [message description]);
 }
 
 -(void)xmppStream:(XMPPStream *)sender didSendPresence:(XMPPPresence *)presence {
-    //NSLog(@"Did send presence: %@", presence.XMLString);
+    NSLog(@"Did send presence: %@", presence.XMLString);
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
+    NSLog(@"Did receive presence: %@", presence.XMLString);
     [PresencePacketReceiver handlePresencePacket:presence];
 }
 
 -(void)xmppStream:(XMPPStream *)sender didFailToSendIQ:(XMPPIQ *)iq error:(NSError *)error {
+    NSLog(@"Failed to send IQ: %@", iq.XMLString);
 }
 
 -(BOOL)xmppStream:(XMPPStream *)sender didReceiveIQ:(XMPPIQ *)iq {

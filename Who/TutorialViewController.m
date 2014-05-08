@@ -11,6 +11,7 @@
 #import "TutorialSlideViewController.h"
 #import "ContactSearchManager.h"
 #import "Constants.h"
+#import "WelcomeViewController.h"
 
 #define numPages 6
 
@@ -93,6 +94,11 @@
 - (UIViewController*)viewControllerAtIndex:(int)index {
     if (index >= numPages || index < 0) {
         return nil;
+    }
+    if (index == 0) {
+        WelcomeViewController *vc = [[WelcomeViewController alloc] initWithNibName:@"WelcomeViewController" bundle:nil];
+        [vc setIndexInTutorial:0];
+        return vc;
     }
     return [[TutorialSlideViewController alloc] initWithImage:[self imageForViewControllerAtIndex:index] indexInTutorial:index];
 }

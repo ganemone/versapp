@@ -48,6 +48,11 @@ static UIColor *colorBlue;
     return lightXL;
 }
 
++(UIFont*)getFontStyleLightSizeTitle {
+    return [UIFont fontWithName:@"MavenProLight300-Regular" size:36];
+}
+
+
 +(UIFont*)getFontStyleRegularSizeSmall {
     return [UIFont fontWithName:@"MavenProMedium" size:12];
 }
@@ -94,6 +99,10 @@ static UIColor *colorBlue;
 
 +(UIFont*)getFontStyleBoldSizeXL {
     return [UIFont fontWithName:@"MavenProBold" size:18];
+}
+
++(UIFont*)getFontStyleBoldSizeTitle {
+    return [UIFont fontWithName:@"MavenProBold" size:36];
 }
 
 +(UIColor*)getColorOrange {
