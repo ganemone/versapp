@@ -305,7 +305,7 @@
                                     <segue destination="Dcg-Mp-WjV" kind="modal" id="WHz-1g-xNx"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already a Versapper?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SKw-Q8-WXg">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Have an account?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SKw-Q8-WXg">
                                 <rect key="frame" x="20" y="434" width="166" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -350,6 +350,8 @@
                     </view>
                     <connections>
                         <segue destination="vbz-HT-1aK" kind="modal" identifier="SegueIDFinishedTutorial" id="SII-hP-sMz"/>
+                        <segue destination="VDA-7L-oK4" kind="modal" identifier="SegueIDRegisterFromTutorial" id="ZFM-hS-YJx"/>
+                        <segue destination="Dcg-Mp-WjV" kind="modal" identifier="SegueIDLoginFromTutorial" id="Ydd-d5-d62"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j3e-Im-Uub" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1963,18 +1965,18 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="YCw-e7-spT"/>
-        <segue reference="SII-hP-sMz"/>
+        <segue reference="Ydd-d5-d62"/>
         <segue reference="oXT-5M-zi9"/>
         <segue reference="Ve6-mS-bkp"/>
-        <segue reference="YEX-bB-bO6"/>
-        <segue reference="AGt-Q0-zDh"/>
-        <segue reference="Y5D-AL-CYy"/>
+        <segue reference="SII-hP-sMz"/>
+        <segue reference="YCw-e7-spT"/>
         <segue reference="tVn-SP-Hc9"/>
-        <segue reference="pHb-Kf-4qo"/>
-        <segue reference="BCc-dv-kG7"/>
+        <segue reference="Y5D-AL-CYy"/>
+        <segue reference="AGt-Q0-zDh"/>
+        <segue reference="YEX-bB-bO6"/>
         <segue reference="hVX-XL-lBE"/>
+        <segue reference="pHb-Kf-4qo"/>
         <segue reference="z6h-qs-HbB"/>
-        <segue reference="WHz-1g-xNx"/>
+        <segue reference="BCc-dv-kG7"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -1,5 +1,5 @@
 //
-//  FriendsTutorialViewController.h
+//  ThoughtsTutorialViewController.h
 //  Versapp
 //
 //  Created by Giancarlo Anemone on 5/8/14.
@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TutorialSlideViewController.h"
-@interface FriendsTutorialViewController : TutorialSlideViewController
+
+@interface ThoughtsTutorialViewController : TutorialSlideViewController
 
 @end

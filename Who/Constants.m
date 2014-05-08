@@ -143,6 +143,8 @@ NSString *const SEGUE_ID_AUTHENTICATED_FROM_APP_INIT = @"SegueIDAuthenticatedFro
 NSString *const SEGUE_ID_ADD_TO_GROUP = @"SegueIDAddToGroup";
 NSString *const SEGUE_ID_TUTORIAL = @"SegueIDTutorial";
 NSString *const SEGUE_ID_FINISHED_TUTORIAL = @"SegueIDFinishedTutorial";
+NSString *const SEGUE_ID_REGISTER_FROM_TUTORIAL = @"SegueIDRegisterFromTutorial";
+NSString *const SEGUE_ID_LOGIN_FROM_TUTORIAL = @"SegueIDLoginFromTutorial";
 
 NSString *const CELL_ID_CONVERSATION_PROTOTYPE = @"ConversationCellPrototype";
 NSString *const CELL_ID_FRIENDS_PROTOTYPE = @"FriendsCellPrototype";

@@ -473,6 +473,9 @@
 		3AF9259A191BD60B00795FC6 /* FriendsTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF92598191BD60B00795FC6 /* FriendsTutorialViewController.m */; };
 		3AF9259B191BD60B00795FC6 /* FriendsTutorialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AF92599191BD60B00795FC6 /* FriendsTutorialViewController.xib */; };
 		3AF9259D191BD7A200795FC6 /* friends-icon-large.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF9259C191BD7A200795FC6 /* friends-icon-large.png */; };
+		3AF925A1191BDADC00795FC6 /* ThoughtsTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF9259F191BDADB00795FC6 /* ThoughtsTutorialViewController.m */; };
+		3AF925A2191BDADC00795FC6 /* ThoughtsTutorialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AF925A0191BDADC00795FC6 /* ThoughtsTutorialViewController.xib */; };
+		3AF925A4191BDBA800795FC6 /* thoughts-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF925A3191BDBA800795FC6 /* thoughts-white.png */; };
 		3AFF778118C415BD003277F9 /* MessageMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778018C415BD003277F9 /* MessageMO.m */; };
 		3AFF778418C415BD003277F9 /* ChatMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778318C415BD003277F9 /* ChatMO.m */; };
 		3AFF778718C415BE003277F9 /* FriendMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778618C415BE003277F9 /* FriendMO.m */; };
@@ -1347,6 +1350,10 @@
 		3AF92598191BD60B00795FC6 /* FriendsTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsTutorialViewController.m; sourceTree = "<group>"; };
 		3AF92599191BD60B00795FC6 /* FriendsTutorialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FriendsTutorialViewController.xib; sourceTree = "<group>"; };
 		3AF9259C191BD7A200795FC6 /* friends-icon-large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "friends-icon-large.png"; sourceTree = "<group>"; };
+		3AF9259E191BDADB00795FC6 /* ThoughtsTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThoughtsTutorialViewController.h; sourceTree = "<group>"; };
+		3AF9259F191BDADB00795FC6 /* ThoughtsTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThoughtsTutorialViewController.m; sourceTree = "<group>"; };
+		3AF925A0191BDADC00795FC6 /* ThoughtsTutorialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThoughtsTutorialViewController.xib; sourceTree = "<group>"; };
+		3AF925A3191BDBA800795FC6 /* thoughts-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thoughts-white.png"; sourceTree = "<group>"; };
 		3AFF777F18C415BD003277F9 /* MessageMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageMO.h; sourceTree = "<group>"; };
 		3AFF778018C415BD003277F9 /* MessageMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageMO.m; sourceTree = "<group>"; };
 		3AFF778218C415BD003277F9 /* ChatMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMO.h; sourceTree = "<group>"; };
@@ -2399,6 +2406,9 @@
 				3AF92597191BD60B00795FC6 /* FriendsTutorialViewController.h */,
 				3AF92598191BD60B00795FC6 /* FriendsTutorialViewController.m */,
 				3AF92599191BD60B00795FC6 /* FriendsTutorialViewController.xib */,
+				3AF9259E191BDADB00795FC6 /* ThoughtsTutorialViewController.h */,
+				3AF9259F191BDADB00795FC6 /* ThoughtsTutorialViewController.m */,
+				3AF925A0191BDADC00795FC6 /* ThoughtsTutorialViewController.xib */,
 			);
 			name = "New User";
 			sourceTree = "<group>";
@@ -2560,8 +2570,6 @@
 		3AF521CA18EA2DC5008320CD /* App Images */ = {
 			isa = PBXGroup;
 			children = (
-				3AF9259C191BD7A200795FC6 /* friends-icon-large.png */,
-				3AF92590191BD1C300795FC6 /* lock-icon.png */,
 				3A49E9ED18FF2DFB00AFCB8E /* AppIconTransparent.png */,
 				3A068E8018F1E85000EA260E /* owl-left.png */,
 				3A068E8118F1E85000EA260E /* owl-right.png */,
@@ -2632,6 +2640,9 @@
 		3AF521D718EA3162008320CD /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				3AF9259C191BD7A200795FC6 /* friends-icon-large.png */,
+				3AF92590191BD1C300795FC6 /* lock-icon.png */,
+				3AF925A3191BDBA800795FC6 /* thoughts-white.png */,
 				3AF92581191BC21400795FC6 /* double-arrow-white.png */,
 				3AF9257F191BC0EF00795FC6 /* double-arrow-blue.png */,
 				3AF68FC7191947AD00ABA9C5 /* send-icon.png */,
@@ -3289,6 +3300,7 @@
 				3ABD66DA18FB325900E72B09 /* Owl-Loading-Animation_0015.png in Resources */,
 				3AD19AC218E26356001B3B88 /* loading640x960.png in Resources */,
 				3AD19AC318E26356001B3B88 /* loading640x1136.png in Resources */,
+				3AF925A4191BDBA800795FC6 /* thoughts-white.png in Resources */,
 				3A7CDB8318EBA482006A4BBF /* arrow-left-icon.png in Resources */,
 				3A7D535A18E2376E00BFF569 /* add-icon.png in Resources */,
 				3A068E8518F1E92300EA260E /* camera-icon-dark.png in Resources */,
@@ -3323,6 +3335,7 @@
 				3AB8D19218C259B00082B77C /* MavenProRegular.ttf in Resources */,
 				3A3A0B0C18AB1126006FBAE4 /* send-button.png in Resources */,
 				3AF86D2918B504CF00033495 /* bubble-old.png in Resources */,
+				3AF925A2191BDADC00795FC6 /* ThoughtsTutorialViewController.xib in Resources */,
 				3A07F6D718D3EFC200E82390 /* check-icon.png in Resources */,
 				3AF521D118EA3072008320CD /* friends-icon.png in Resources */,
 				3AF92596191BD31A00795FC6 /* SecurityTutorialViewController.xib in Resources */,
@@ -3614,6 +3627,7 @@
 				3A3A0AE318AB1126006FBAE4 /* JSMessageInputView.m in Sources */,
 				3A98DA4518BD1A6500B69049 /* NSNumber+XMPP.m in Sources */,
 				3AF691A71919581600ABA9C5 /* GPUImageSaturationFilter.m in Sources */,
+				3AF925A1191BDADC00795FC6 /* ThoughtsTutorialViewController.m in Sources */,
 				3A98DA3C18BD1A4B00B69049 /* XMPPStringPrep.m in Sources */,
 				3AF691781919581600ABA9C5 /* GPUImageLaplacianFilter.m in Sources */,
 				3AF6915B1919581600ABA9C5 /* GPUImageFASTCornerDetectionFilter.m in Sources */,

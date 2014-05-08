@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface SecurityTutorialViewController : UIViewController
+#import "TutorialSlideViewController.h"
+@interface SecurityTutorialViewController : TutorialSlideViewController
 
 @end
