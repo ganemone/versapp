@@ -12,9 +12,9 @@
 
 @implementation SocialSharingManager
 
-NSString *const WEBSITE = @"http://versapp.co";
-NSString *const PRIVACY = @"http://versapp.co/privacy";
-NSString *const SUPPORT = @"http://versapp.co/support";
+NSString *const WEBSITE = @"https://versapp.co";
+NSString *const PRIVACY = @"https://versapp.co/privacy";
+NSString *const SUPPORT = @"https://versapp.co/support";
 NSString *const CAPTION = @"Bringing together anonymity and comunity";
 NSString *const DESCRIPTION = @"Share and chat anonymously, with the people you trust";
 

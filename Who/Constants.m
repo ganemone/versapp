@@ -258,10 +258,10 @@ NSString *const SERVICE_ACCOUNT_NAME = @"630369039619-ro1eat8s07fs3dfjqf2dt316lt
 NSString *const KEY_FILE_PATH = @"../pkey.p12";
 NSString *const BUCKET_MESSAGES = @"msgpics";
 NSString *const BUCKET_THOUGHTS = @"thoughtpics";
-NSString *const UPLOAD_URL = @"http://ejabberd.versapp.co/gcs/upload.php";
-NSString *const DOWNLOAD_URL = @"http://ejabberd.versapp.co/gcs/download.php";
+NSString *const UPLOAD_URL = @"https://versapp.co/gcs/upload.php";
+NSString *const DOWNLOAD_URL = @"https://versapp.co/gcs/download.php";
 
-NSString *const BLACKLIST_URL = @"http://ce.dev.versapp.co:5280/contacts/store";
+NSString *const BLACKLIST_URL = @"https://versapp.co/contacts/store";
 NSString *const BLACKLIST_AUTH_CODE = @"Authentication";
 
 @end

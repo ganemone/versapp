@@ -10,6 +10,7 @@
 #import "PhoneVerificationManager.h"
 #import "UserDefaultManager.h"
 #import "Constants.h"
+#import "AFNetworking/"
 
 NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_code";
 
@@ -30,7 +31,7 @@ NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_c
 
 -(void)sendVerificationText {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSURL *url = [NSURL URLWithString:@"http://media.versapp.co/verify/"];
+        NSURL *url = [NSURL URLWithString:@"https://versapp.co/verify/"];
         NSMutableURLRequest *uploadRequest = [NSMutableURLRequest requestWithURL:url];
         [uploadRequest setHTTPMethod:@"POST"];
         [uploadRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
@@ -61,7 +62,7 @@ NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_c
 
 -(void)checkForPhoneRegisteredOnServer:(NSString *)countryCode phone:(NSString *)phone {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://ejabberd.versapp.co/validate.php?ccode=%@&phone=%@",countryCode, phone]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://versapp.co/validate.php?ccode=%@&phone=%@",countryCode, phone]];
         NSMutableURLRequest *uploadRequest = [NSMutableURLRequest requestWithURL:url];
         [uploadRequest setHTTPMethod:@"GET"];
         [uploadRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
