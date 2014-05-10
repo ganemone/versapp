@@ -254,7 +254,7 @@
 
 -(void)didSelectImage:(UIImage *)image {
     self.isUploadingImage = YES;
-    [_im uploadImageToGCS:image delegate:self];
+    [_im uploadImageToGCS:image delegate:self bucket:BUCKET_MESSAGES];
 }
 
 -(void)didFinishDownloadingImage:(UIImage *)image withIdentifier:(NSString *)identifier {

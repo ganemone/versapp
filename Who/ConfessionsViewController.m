@@ -277,8 +277,6 @@
 #pragma ImageManagerDelegate
 
 -(void)didFinishDownloadingImage:(UIImage *)image withIdentifier:(NSString *)identifier {
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    [imageView setContentMode:UIViewContentModeScaleAspectFill];
     Confession *confession = [self.confessionsManager getConfessionWithID:identifier];
     NSUInteger index = [self.confessionsManager getIndexOfConfession:confession.confessionID];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(NSInteger)index inSection:0];

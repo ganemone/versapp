@@ -32,7 +32,7 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
 }
 
 -(void)downloadImageForThought:(Confession *)confession delegate:(id<ImageManagerDelegate>)delegate {
-    [self downloadImageFromGCSWithName:confession.imageURL fromBucket:BUCKET_MESSAGES delegate:delegate identifier:confession.confessionID];
+    [self downloadImageFromGCSWithName:confession.imageURL fromBucket:BUCKET_THOUGHTS delegate:delegate identifier:confession.confessionID];
 }
 
 - (NSURL*)getUploadURL {
@@ -43,7 +43,7 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
     return [NSURL URLWithString:DOWNLOAD_URL];
 }
 
--(void)uploadImageToGCS:(UIImage *)image delegate:(id<ImageManagerDelegate>)delegate {
+-(void)uploadImageToGCS:(UIImage *)image delegate:(id<ImageManagerDelegate>)delegate bucket:(NSString *)bucket {
     NSData *imageData = UIImageJPEGRepresentation(image, 0.5f);
     NSString *encodedImageString = [Base64 encode:imageData];
     NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
@@ -52,11 +52,9 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *parameters = @{@"username" : [ConnectionProvider getUser],
                                  @"session" : appDelegate.sessionID,
-                                 @"client_id" : CLIENT_ID,
-                                 @"service_account_name" : SERVICE_ACCOUNT_NAME,
-                                 @"key" : KEY_FILE_PATH,
                                  @"name" : imageName,
-                                 @"data" : encodedImageString};
+                                 @"data" : encodedImageString,
+                                 @"bucket" : bucket};
     NSError *error = NULL;
     NSMutableURLRequest *req = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:UPLOAD_URL parameters:parameters error:&error];
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:req success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -73,14 +71,12 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *parameters = @{@"username" : [ConnectionProvider getUser],
                                  @"session" : appDelegate.sessionID,
-                                 @"client_id" : CLIENT_ID,
-                                 @"service_account_name" : SERVICE_ACCOUNT_NAME,
-                                 @"key" : KEY_FILE_PATH,
                                  @"name" : name,
                                  @"bucket" : bucket};
     NSError *error = NULL;
     NSMutableURLRequest *req = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:DOWNLOAD_URL parameters:parameters error:&error];
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:req success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Response: %@", responseObject);
         if (responseObject == nil) {
             NSLog(@"Nil Response with Request parameters: %@", [parameters description]);
         } else {
@@ -88,6 +84,7 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
             [delegate didFinishDownloadingImage:responseObject withIdentifier:identifier];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Failed download operation: %@", error);
         [delegate didFailToDownloadImageWithIdentifier:identifier];
     }];
     [operation setResponseSerializer:[AFImageResponseSerializer serializer]];

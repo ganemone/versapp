@@ -142,7 +142,7 @@
             [[ConfessionsManager getInstance] setPendingConfession:confession];
             [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createPostConfessionPacket:confession]];
         } else {
-            [[[ImageManager alloc] init] uploadImageToGCS:_imageView.image delegate:self];
+            [[[ImageManager alloc] init] uploadImageToGCS:_imageView.image delegate:self bucket:BUCKET_THOUGHTS];
         }
     } else {
         //[MBProgressHUD hideHUDForView:self.view animated:YES];

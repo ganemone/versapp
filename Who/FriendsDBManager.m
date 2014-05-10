@@ -52,6 +52,10 @@
     return friend;
 }
 
++ (BOOL)hasEnoughFriends {
+    return ([[self getAllWithStatusFriends] count] > 3);
+}
+
 + (void)updateFriendAfterUserSearch:(NSDictionary *)friend withContext:(NSManagedObjectContext *)moc {
     NSNumber *status = [friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];
     if ([status isEqualToNumber:[NSNumber numberWithInt:STATUS_REGISTERED]]) {

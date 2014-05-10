@@ -220,7 +220,7 @@
     MBProgressHUD *loadingScreen = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [loadingScreen setLabelText:@"Loading image..."];
     self.isUploadingImage = YES;
-    [self.im uploadImageToGCS:image delegate:self];
+    [self.im uploadImageToGCS:image delegate:self bucket:BUCKET_MESSAGES];
 }
 
 -(void)didFinishDownloadingImage:(UIImage *)image withIdentifier:(NSString *)identifier {

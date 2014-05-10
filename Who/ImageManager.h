@@ -27,6 +27,6 @@
 
 - (void)downloadImageForMessage:(MessageMO*)message delegate:(id<ImageManagerDelegate>)delegate;
 - (void)downloadImageForThought:(Confession *)confession delegate:(id<ImageManagerDelegate>)delegate;
-- (void)uploadImageToGCS:(UIImage *)image delegate:(id<ImageManagerDelegate>)delegate;
+-(void)uploadImageToGCS:(UIImage *)image delegate:(id<ImageManagerDelegate>)delegate bucket:(NSString *)bucket;
 
 @end

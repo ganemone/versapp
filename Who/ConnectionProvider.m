@@ -33,8 +33,8 @@
 #import "ContactSearchManager.h"
 @interface ConnectionProvider ()
 
-@property(strong, nonatomic) XMPPReconnect *xmppReconnect;
-@property(strong, nonatomic) XMPPAutoPing *xmppPing;
+//@property(strong, nonatomic) XMPPReconnect *xmppReconnect;
+//@property(strong, nonatomic) XMPPAutoPing *xmppPing;
 @property(strong, nonatomic) XMPPStream* xmppStream;
 @property(strong, nonatomic) NSString* username;
 @property(strong, nonatomic) NSString* password;
@@ -56,15 +56,15 @@ static ConnectionProvider *selfInstance;
     @synchronized(self) {
         if(selfInstance == nil) {
             selfInstance = [[self alloc] init];
-            selfInstance.SERVER_IP_ADDRESS = @"ce.dev.versapp.co";
-            selfInstance.CONFERENCE_IP_ADDRESS = @"conference.ce.dev.versapp.co";
+            selfInstance.SERVER_IP_ADDRESS = @"versapp.co";
+            selfInstance.CONFERENCE_IP_ADDRESS = @"conference.versapp.co";
             selfInstance.tempVCardInfo = [[NSMutableDictionary alloc] initWithCapacity:5];
-            selfInstance.xmppReconnect = [[XMPPReconnect alloc] initWithDispatchQueue:dispatch_get_main_queue()];
-            [selfInstance.xmppReconnect addDelegate:self delegateQueue:dispatch_get_main_queue()];
-            selfInstance.xmppPing = [[XMPPAutoPing alloc] initWithDispatchQueue:dispatch_get_main_queue()];
-            selfInstance.xmppPing.pingInterval = 25.f; // default is 60
-            selfInstance.xmppPing.pingTimeout = 10.f; // default is 10
-            [selfInstance.xmppPing addDelegate:self delegateQueue:dispatch_get_main_queue()];
+            /*selfInstance.xmppReconnect = [[XMPPReconnect alloc] initWithDispatchQueue:dispatch_get_main_queue()];
+             [selfInstance.xmppReconnect addDelegate:self delegateQueue:dispatch_get_main_queue()];
+             selfInstance.xmppPing = [[XMPPAutoPing alloc] initWithDispatchQueue:dispatch_get_main_queue()];
+             selfInstance.xmppPing.pingInterval = 25.f; // default is 60
+             selfInstance.xmppPing.pingTimeout = 10.f; // default is 10
+             [selfInstance.xmppPing addDelegate:self delegateQueue:dispatch_get_main_queue()];*/
             [selfInstance addSelfStreamDelegate];
         }
     }
@@ -153,23 +153,23 @@ static ConnectionProvider *selfInstance;
 {
     //[self.xmppReconnect activate:self.xmppStream];
     self.authenticated = YES;
+    self.shouldAlertUserWithAddedFriends = YES;
     if (self.isCreatingAccount == YES) {
         [self.xmppStream sendElement:[IQPacketManager createCreateVCardPacket:[_pendingAccountInfo objectForKey:VCARD_TAG_FIRST_NAME] lastname:[_pendingAccountInfo objectForKey:VCARD_TAG_LAST_NAME]]];
         self.isCreatingAccount = NO;
         [self.xmppStream sendElement:[IQPacketManager createSetUserInfoPacketFromDefaults]];
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
-        [[[ContactSearchManager alloc] init] accessContacts];
     } else if(_isFetchingFromNotification == YES) {
         _isFetchingFromNotification = NO;
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];
         //[self.xmppStream sendElement:[IQPacketManager createGetRosterPacket]];
-    } else {
-        [self.xmppStream sendElement:[IQPacketManager createGetUserInfoPacket]];
-        [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
+    } else {        
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
+        [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]]; // MUST SEND AFTER PRESENCE PACKET
+        [self.xmppStream sendElement:[IQPacketManager createGetUserInfoPacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetRosterPacket]];
@@ -206,6 +206,7 @@ static ConnectionProvider *selfInstance;
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveP2PFeatures:(DDXMLElement *)streamFeatures {
+    NSLog(@"Did receive p2p features: %@", streamFeatures.XMLString);
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
@@ -252,18 +253,21 @@ static ConnectionProvider *selfInstance;
     return [[self getInstance] username];
 }
 
--(void)xmppAutoPingDidSendPing:(XMPPAutoPing *)sender {
-}
-
--(void)xmppAutoPingDidReceivePong:(XMPPAutoPing *)sender {
-}
-
--(BOOL)xmppReconnect:(XMPPReconnect *)sender shouldAttemptAutoReconnect:(SCNetworkConnectionFlags)connectionFlags {
-    return true;
-}
-
--(void)xmppReconnect:(XMPPReconnect *)sender didDetectAccidentalDisconnect:(SCNetworkConnectionFlags)connectionFlags {
-}
+/*-(void)xmppAutoPingDidSendPing:(XMPPAutoPing *)sender {
+ NSLog(@"Did send ping");
+ }
+ 
+ -(void)xmppAutoPingDidReceivePong:(XMPPAutoPing *)sender {
+ NSLog(@"Did Receive Pong");
+ }
+ 
+ -(BOOL)xmppReconnect:(XMPPReconnect *)sender shouldAttemptAutoReconnect:(SCNetworkConnectionFlags)connectionFlags {
+ return false;
+ }
+ 
+ -(void)xmppReconnect:(XMPPReconnect *)sender didDetectAccidentalDisconnect:(SCNetworkConnectionFlags)connectionFlags {
+ NSLog(@"Did Detect Accidental disconnect");
+ }*/
 
 -(void)xmppStreamDidRegister:(XMPPStream *)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DID_REGISTER_USER object:nil];
