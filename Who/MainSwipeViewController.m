@@ -23,7 +23,7 @@
 #import "ConfessionsManager.h"
 #import "Confession.h"
 #import "FriendsDBManager.h"
-
+#import "ContactSearchManager.h"
 #import "ImageManager.h"
 
 #define NumViewPages 4

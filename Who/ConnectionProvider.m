@@ -159,6 +159,7 @@ static ConnectionProvider *selfInstance;
         [self.xmppStream sendElement:[IQPacketManager createSetUserInfoPacketFromDefaults]];
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
+        [[[ContactSearchManager alloc] init] accessContacts];
     } else if(_isFetchingFromNotification == YES) {
         _isFetchingFromNotification = NO;
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];

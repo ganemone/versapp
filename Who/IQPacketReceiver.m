@@ -344,7 +344,9 @@
         DDXMLElement *item;
         NSMutableArray *itemsWithoutVCard = [NSMutableArray array];
         NSMutableArray *itemsToSendSubscribedPacket = [NSMutableArray array];
-        for (int i = 0; i < items.count; i++) {
+        NSMutableArray *allItems = [NSMutableArray array];
+        for (int i = 0; i < items.count; i++)
+        {
             item = items[i];
             NSString *subscription = [[item attributeForName:@"subscription"] XMLString];
             //Parse jid
@@ -352,27 +354,62 @@
             NSRegularExpression *regexJid = [NSRegularExpression regularExpressionWithPattern:@"jid=\"(.*)@" options: 0 error:&error];
             NSTextCheckingResult *matchJid = [regexJid firstMatchInString:jid options:0 range:NSMakeRange(0,jid.length)];
             NSString *resultJid = [jid substringWithRange:[matchJid rangeAtIndex:1]];
-            [itemsWithoutVCard addObject:resultJid];
+            [allItems addObject:resultJid];
             if ([subscription rangeOfString:@"none"].location != NSNotFound){
-                [FriendsDBManager insertWithMOC:moc username:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_REQUESTED] searchedPhoneNumber:nil searchedEmail:nil uid:nil];
-            } else {
-                if([subscription rangeOfString:@"to"].location != NSNotFound) {
+                if ([FriendsDBManager insertWithMOC:moc
+                                           username:resultJid
+                                               name:nil
+                                              email:nil
+                                             status:[NSNumber numberWithInt:STATUS_REQUESTED]
+                                searchedPhoneNumber:nil
+                                      searchedEmail:nil
+                                                uid:nil])
+                {
+                    [itemsWithoutVCard addObject:resultJid];
+                }
+            }
+            else
+            {
+                if([subscription rangeOfString:@"to"].location != NSNotFound)
+                {
                     [itemsToSendSubscribedPacket addObject:resultJid];
                 }
-                [FriendsDBManager insertWithMOC:moc username:resultJid name:nil email:nil status:[NSNumber numberWithInt:STATUS_FRIENDS] searchedPhoneNumber:nil searchedEmail:nil uid:nil];
+                [FriendsDBManager insertWithMOC:moc
+                                       username:resultJid
+                                           name:nil
+                                          email:nil
+                                         status:[NSNumber numberWithInt:STATUS_FRIENDS]
+                            searchedPhoneNumber:nil
+                                  searchedEmail:nil
+                                            uid:nil];
             }
         }
         [delegate saveContextForBackgroundThread];
         dispatch_sync(mainQ, ^{
-            XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
-            for (NSString *username in itemsWithoutVCard) {
+            ConnectionProvider *cp = [ConnectionProvider getInstance];
+            XMPPStream *conn = [cp getConnection];
+            if (cp.shouldAlertUserWithAddedFriends)
+            {
+                [cp setShouldAlertUserWithAddedFriends:NO];
+                if ([allItems count] > 0)
+                {
+                    NSString *message = ([allItems count] > 1) ? @"Friends": @"Friend";
+                    [[[UIAlertView alloc] initWithTitle:@""
+                                                message:[NSString stringWithFormat:@"%d %@ have been added to your friends list.", [allItems count], message]
+                                               delegate:self
+                                      cancelButtonTitle:@"Ok"
+                                      otherButtonTitles:nil] show];
+                }
+            }
+            for (NSString *username in itemsWithoutVCard)
+            {
                 [conn sendElement:[IQPacketManager createGetVCardPacket:username]];
             }
-            for (NSString *username in itemsToSendSubscribedPacket) {
+            for (NSString *username in itemsToSendSubscribedPacket)
+            {
                 [conn sendElement:[IQPacketManager createSubscribedPacket:username]];
             }
         });
-        
     }];
 }
 

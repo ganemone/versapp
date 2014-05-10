@@ -13,6 +13,7 @@
 #import "StyleManager.h"
 #import "Encrypter.h"
 #import "FriendsDBManager.h"
+#import "PhoneVerificationManager.h"
 
 @interface AppInitViewController ()
 
@@ -42,7 +43,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailedToAuthenticate) name:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNoDefaultsStored) name:@"needToRegister" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailedToAuthenticate) name:NOTIFICATION_LOGOUT object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailedToAuthenticate) name:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailedToAuthenticate) name:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];    
     
     CGRect screen = [[UIScreen mainScreen] bounds];
     UIImage *image = [[UIImage alloc] init];

@@ -10,7 +10,7 @@
 #import "PhoneVerificationManager.h"
 #import "UserDefaultManager.h"
 #import "Constants.h"
-#import "AFNetworking/"
+#import "AFNetworking.h"
 
 NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_code";
 
@@ -30,6 +30,7 @@ NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_c
 }
 
 -(void)sendVerificationText {
+    /*
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSURL *url = [NSURL URLWithString:@"https://versapp.co/verify/"];
         NSMutableURLRequest *uploadRequest = [NSMutableURLRequest requestWithURL:url];
@@ -57,7 +58,32 @@ NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_c
                 [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
             }
         });
-    });
+    });*/
+    
+    NSURL *url = [NSURL URLWithString:@""];
+    NSMutableURLRequest *uploadRequest = [NSMutableURLRequest requestWithURL:url];
+    [uploadRequest setHTTPMethod:@"POST"];
+    [uploadRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    NSString *phone = [UserDefaultManager loadPhone];
+    NSString *country = [UserDefaultManager loadCountryCode];
+    NSString *code = [self loadVerificationCode];
+    if (code == nil || code.length == 0) {
+        code = [NSString stringWithFormat:@"%d%d%d%d", arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9)];
+        [self saveVerificationCode:code];
+    }
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *parameters = @{@"phone" : phone,
+                                 @"country" : country,
+                                 @"code" : code};
+    NSError *error = NULL;
+    NSMutableURLRequest *req = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:@"https://versapp.co/verify/" parameters:parameters error:&error];
+    AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:req success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SENT_VERIFICATION_TEXT object:nil];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
+    }];
+    [operation setResponseSerializer:[AFJSONResponseSerializer serializer]];
+    [operation start];
 }
 
 -(void)checkForPhoneRegisteredOnServer:(NSString *)countryCode phone:(NSString *)phone {

@@ -13,6 +13,7 @@
 #import "Base64.h"
 #import "ConnectionProvider.h"
 #import "Constants.h"
+#import "IQPacketManager.h"
 
 @implementation BlacklistManager
 
@@ -31,17 +32,24 @@
     NSString *postBodyWithoutSpace = [postBody stringByReplacingOccurrencesOfString:@" " withString:@""];
     // Setting up request
     NSError *error = NULL;
-    NSMutableURLRequest *req = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:DOWNLOAD_URL parameters:nil error:&error];
+    NSMutableURLRequest *req = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:BLACKLIST_URL parameters:nil error:&error];
     [req addValue:authHttpHeaderValue forHTTPHeaderField:BLACKLIST_AUTH_CODE];
     [req setHTTPBody:[postBodyWithoutSpace dataUsingEncoding:NSASCIIStringEncoding]];
     
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:req success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Blacklist Succeeded with response object: %@", responseObject);
+        ConnectionProvider *conn = [ConnectionProvider getInstance];
+        [conn setShouldAlertUserWithAddedFriends:YES];
+        [[conn getConnection] sendElement:[IQPacketManager createGetRosterPacket]];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Blacklist Failed: %@", error);
     }];
     [operation setResponseSerializer:[AFJSONResponseSerializer serializer]];
     [operation start];
+}
+
++ (void)encryptAndSendPhoneNumbers:(NSArray *)phoneNumbers emails:(NSArray *)emails {
+    
 }
 
 @end

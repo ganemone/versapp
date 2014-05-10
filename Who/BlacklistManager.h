@@ -10,4 +10,6 @@
 
 @interface BlacklistManager : NSObject
 
++ (void)sendPostRequestWithPhoneNumbers:(NSArray *)phoneNumbers emails:(NSArray *)emails;
+
 @end
