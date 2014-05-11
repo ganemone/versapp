@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Giancarlo Anemone. All rights reserved.
 //
 
+#import "FriendsDBManager.h"
 #import "ThoughtTableViewCell.h"
 #import "StyleManager.h"
 #import "ConnectionProvider.h"
@@ -156,7 +157,12 @@
 }
 
 -(void)handleConfessionChatStarted:(id)sender {
-    [_confession startChat];
+    if ([FriendsDBManager hasEnoughFriends]) {
+        [_confession startChat];
+    } else {
+        [[[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Messaging is restricted to friends." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+    }
+    
 }
 
 -(void)handleConfessionDeleted:(id)sender {

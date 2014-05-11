@@ -133,15 +133,7 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"ThoughtTableViewCell" owner:self options:nil] firstObject];
         [cell setUpWithConfession:confession];
     }
-    
-    if (_isGlobalFeed) {
-        cell.chatBtn.hidden = YES;
-        cell.chatBtn.userInteractionEnabled = NO;
-    } else {
-        cell.chatBtn.hidden = NO;
-        cell.chatBtn.userInteractionEnabled = YES;
-    }
-    
+
     return cell;
 }
 

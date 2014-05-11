@@ -311,7 +311,12 @@
             [list addObject:friend.name];
         }
     }
-    NSString *participantString = [list componentsJoinedByString:@"\n"];
+    NSString *participantString;
+    if ([list count] == 0) {
+        participantString = @"No one has joined this chat just yet.";
+    } else {
+        participantString = [list componentsJoinedByString:@"\n"];
+    }
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:self.headerLabel.text message:participantString delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"Add Users", nil];
     [alert show];
 }
