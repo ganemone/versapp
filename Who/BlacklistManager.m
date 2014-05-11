@@ -49,6 +49,8 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Blacklist Failed: %@", error);
     }];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     [operation start];
 }
 

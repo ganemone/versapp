@@ -103,7 +103,7 @@
     
     [UserDefaultManager savePassword:self.passwordText];
     [UserDefaultManager saveUsername:self.usernameText];
-    
+    NSLog(@"Password: %@", _passwordText);
     [self.cp connect:self.usernameText password:_passwordText];
 }
 

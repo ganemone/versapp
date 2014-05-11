@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="w0O-6j-SeY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="emE-SZ-5gQ">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -947,7 +947,6 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="confessionsIconClicked:" destination="q0A-9I-XMY" eventType="touchUpInside" id="qA0-aA-2eJ"/>
                                             <segue destination="bp7-7c-bhQ" kind="push" identifier="SegueIDSettings" id="aWy-Gn-AdD"/>
                                         </connections>
                                     </button>
@@ -1977,17 +1976,17 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="AGt-Q0-zDh"/>
-        <segue reference="Y5D-AL-CYy"/>
-        <segue reference="YEX-bB-bO6"/>
-        <segue reference="SII-hP-sMz"/>
-        <segue reference="7SH-c7-oeZ"/>
-        <segue reference="Ve6-mS-bkp"/>
-        <segue reference="Ydd-d5-d62"/>
+        <segue reference="zTQ-Mf-6oX"/>
+        <segue reference="8c7-Mw-K5g"/>
         <segue reference="hVX-XL-lBE"/>
         <segue reference="pHb-Kf-4qo"/>
         <segue reference="BCc-dv-kG7"/>
         <segue reference="z6h-qs-HbB"/>
         <segue reference="tVn-SP-Hc9"/>
+        <segue reference="YEX-bB-bO6"/>
+        <segue reference="Hva-pz-dYE"/>
+        <segue reference="7SH-c7-oeZ"/>
+        <segue reference="Ve6-mS-bkp"/>
+        <segue reference="Ydd-d5-d62"/>
     </inferredMetricsTieBreakers>
 </document>
