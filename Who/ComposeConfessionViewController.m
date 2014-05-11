@@ -677,9 +677,9 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _colors = @[@"Blue",
-                    @"Purple",
                     @"Green",
-                    @"Orange"];
+                    @"Orange",
+                    @"Purple"];
     });
     return _colors;
 }

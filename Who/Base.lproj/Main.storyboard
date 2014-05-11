@@ -948,6 +948,11 @@
                                             <action selector="handleNoFriendsBtnClicked:" destination="q0A-9I-XMY" eventType="touchUpInside" id="9zQ-D1-fP8"/>
                                         </connections>
                                     </button>
+                                    <view hidden="YES" alpha="0.69999999999999973" contentMode="scaleToFill" id="2jy-83-DC9">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
                                 </subviews>
                             </view>
                             <view contentMode="scaleToFill" id="DnC-T6-Hmx">
@@ -1017,11 +1022,6 @@
                                     <outlet property="delegate" destination="NsY-JL-92d" id="oY3-KZ-Pcj"/>
                                 </connections>
                             </searchBar>
-                            <view hidden="YES" alpha="0.69999999999999973" contentMode="scaleToFill" id="2jy-83-DC9">
-                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -1271,6 +1271,9 @@
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="lnb-gW-AWX" kind="push" id="m95-nf-RcH"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" id="AfO-AP-jbz">
                                         <rect key="frame" x="13" y="31" width="22" height="22"/>
@@ -1610,6 +1613,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="Cux-g5-SSx" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="wtb-fG-EeV"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="TJc-vs-KVz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1998,17 +2002,18 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="AGt-Q0-zDh"/>
-        <segue reference="Y5D-AL-CYy"/>
-        <segue reference="YEX-bB-bO6"/>
-        <segue reference="Hva-pz-dYE"/>
-        <segue reference="7SH-c7-oeZ"/>
-        <segue reference="Ve6-mS-bkp"/>
-        <segue reference="Ydd-d5-d62"/>
+        <segue reference="zTQ-Mf-6oX"/>
         <segue reference="hVX-XL-lBE"/>
         <segue reference="pHb-Kf-4qo"/>
         <segue reference="BCc-dv-kG7"/>
         <segue reference="z6h-qs-HbB"/>
         <segue reference="tVn-SP-Hc9"/>
+        <segue reference="YEX-bB-bO6"/>
+        <segue reference="Hva-pz-dYE"/>
+        <segue reference="7SH-c7-oeZ"/>
+        <segue reference="Ve6-mS-bkp"/>
+        <segue reference="Ydd-d5-d62"/>
+        <segue reference="qGQ-aw-vgl"/>
+        <segue reference="m95-nf-RcH"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -61,6 +61,14 @@ static BOOL notificationsHalfHidden = NO;
         [UserDefaultManager setLoggedInTrue];
         [[[UIAlertView alloc] initWithTitle:@"Welcome to Versapp" message:@"We will guide you through all of Versapps features. This page is your message dashboard. All of your conversations will appear here. Swipe to checkout the other screens." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
     }
+    if ([self.tableView numberOfRowsInSection:0] + [self.tableView numberOfRowsInSection:1] == 0)
+    {
+        [self showNoConversationsView];
+    }
+    else
+    {
+        [self hideNoConfersationsView];
+    }
 }
 
 -(void)viewDidLoad {
@@ -110,15 +118,6 @@ static BOOL notificationsHalfHidden = NO;
     
     [self.noConversationsDarkView setFrame:CGRectMake(0, self.headerView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.headerView.frame.size.height)];
     [self.noConversationsView setFrame:_noConversationsDarkView.frame];
-    
-    if ([self.tableView numberOfRowsInSection:0] + [self.tableView numberOfRowsInSection:1] == 0)
-    {
-        [self showNoConversationsView];
-    }
-    else
-    {
-        [self hideNoConfersationsView];
-    }
 }
 
 - (void)showNoConversationsView
