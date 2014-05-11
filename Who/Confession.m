@@ -131,7 +131,7 @@
 
 - (BOOL)isPostedByConnectedUser {
     NSString *jid = [NSString stringWithFormat:@"%@@%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]];
-    return ([_posterJID compare:jid] == 0);
+    return ([_posterJID isEqualToString:jid]);
 }
 
 -(NSString *)getTimePosted {

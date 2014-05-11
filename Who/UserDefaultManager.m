@@ -132,7 +132,7 @@
 
 +(BOOL)isUserDefaultValueTrue:(NSString *)key {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([[preferences stringForKey:key] compare:@"yes"] == 0) {
+    if ([[preferences stringForKey:key] isEqualToString:@"yes"]) {
         return YES;
     } else {
         return NO;

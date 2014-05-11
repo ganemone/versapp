@@ -83,15 +83,15 @@
         name = [message.XMLString substringWithRange:[match rangeAtIndex:1]];
         //NSString *type = [message.XMLString substringWithRange:[match rangeAtIndex:2]];
         value = [message.XMLString substringWithRange:[match rangeAtIndex:3]];
-        if ([name compare:MESSAGE_PROPERTY_SENDER_ID] == 0) {
+        if ([name isEqualToString:MESSAGE_PROPERTY_SENDER_ID]) {
             senderID = value;
-        } else if([name compare:MESSAGE_PROPERTY_TIMESTAMP] == 0) {
+        } else if([name isEqualToString:MESSAGE_PROPERTY_TIMESTAMP]) {
             timestamp = value;
-        } else if([name compare:MESSAGE_PROPERTY_IMAGE_LINK] == 0) {
+        } else if([name isEqualToString:MESSAGE_PROPERTY_IMAGE_LINK]) {
             imageLink = value;
-        } else if([name compare:MESSAGE_PROPERTY_RECEIVER_ID] == 0) {
+        } else if([name isEqualToString:MESSAGE_PROPERTY_RECEIVER_ID]) {
             receiverID = value;
-        } else if([name compare:@"CHAT_ID"] == 0) {
+        } else if([name isEqualToString:@"CHAT_ID"]) {
             inviteFlag = value;
             break;
         }
@@ -101,7 +101,7 @@
         [MessagesDBManager updateMessageWithGroupID:groupID time:timestamp];
     } else if (inviteFlag == nil) {
         MessageMO *newMessage;
-        if ([message.type compare:CHAT_TYPE_GROUP] == 0) {
+        if ([message.type isEqualToString:CHAT_TYPE_GROUP]) {
             
             if (imageLink != nil) {
                 newMessage = [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:receiverID imageLink:imageLink];
@@ -119,7 +119,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
             [ChatDBManager setHasNewMessageYes:groupID];
             
-        } else if([message.type compare:CHAT_TYPE_ONE_TO_ONE] == 0) {
+        } else if([message.type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
             if (imageLink != nil) {
                 newMessage = [MessagesDBManager insert:message.body groupID:message.thread time:timestamp senderID:senderID receiverID:receiverID imageLink:imageLink];
             } else {

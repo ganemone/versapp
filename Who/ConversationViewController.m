@@ -121,9 +121,9 @@
 -(void)messageReceived:(NSNotification*)notification {
     NSDictionary *userInfo = notification.userInfo;
     MessageMO *newMessage = [userInfo objectForKey:DICTIONARY_KEY_MESSAGE_OBJECT];
-    if ([newMessage.group_id compare:self.chatMO.chat_id] == 0) {
+    if ([newMessage.group_id isEqualToString:self.chatMO.chat_id]) {
         [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
-        if ([newMessage.sender_id compare:[ConnectionProvider getUser]] == 0) {
+        if ([newMessage.sender_id isEqualToString:[ConnectionProvider getUser]]) {
             [self.chatMO updateMessage:newMessage];
         } else {
             if([self.chatMO getNumberOfMessages] <= 1) {
@@ -288,7 +288,7 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier compare:SEGUE_ID_ADD_TO_GROUP] == 0) {
+    if ([segue.identifier isEqualToString:SEGUE_ID_ADD_TO_GROUP]) {
         id destination = segue.destinationViewController;
         if ([destination conformsToProtocol:@protocol(AddToGroupViewController)]) {
             [destination setChatID:_chatMO.chat_id];

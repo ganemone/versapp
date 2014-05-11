@@ -211,7 +211,7 @@ static int numUninvitedParticipants;
 
 +(BOOL)doesChatHaveNewMessage:(NSString *)chatID {
     ChatMO *chatEntry = [self getChatWithID:chatID];
-    return ([chatEntry.has_new_message compare:@"YES"] == 0);
+    return ([chatEntry.has_new_message isEqualToString:@"YES"]);
 }
 
 +(void)setChatStatus:(int)status chatID:(NSString*)chatID {

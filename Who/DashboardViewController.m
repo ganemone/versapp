@@ -197,11 +197,11 @@ static BOOL notificationsHalfHidden = NO;
 
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if([segue.identifier compare:SEGUE_ID_GROUP_CONVERSATION] == 0) {
+    if([segue.identifier isEqualToString:SEGUE_ID_GROUP_CONVERSATION]) {
         ConversationViewController *dest = segue.destinationViewController;
         dest.chatMO = [[self groupChats] objectAtIndex:self.clickedCellIndexPath.row];
         _mostRecentMessageInPushedChat = [[dest.chatMO messages] lastObject];
-    } else if([segue.identifier compare:SEGUE_ID_ONE_TO_ONE_CONVERSATION] == 0) {
+    } else if([segue.identifier isEqualToString:SEGUE_ID_ONE_TO_ONE_CONVERSATION]) {
         OneToOneConversationViewController *dest = segue.destinationViewController;
         dest.chatMO = [self.oneToOneChats objectAtIndex:self.clickedCellIndexPath.row];
         _mostRecentMessageInPushedChat = [[dest.chatMO messages] lastObject];

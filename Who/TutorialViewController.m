@@ -16,8 +16,9 @@
 #import "FriendsTutorialViewController.h"
 #import "SecurityTutorialViewController.h"
 #import "GetStartedTutorialViewController.h"
+#import "ConversationTypesViewController.h"
 
-#define numPages 5
+#define numPages 6
 
 @interface TutorialViewController ()
 
@@ -69,7 +70,7 @@
     //[_pageControl setTintColor:[UIColor blackColor]];
     //[_pageControl setPageIndicatorTintColor:[UIColor blackColor]];
     //[_pageControl setCurrentPageIndicatorTintColor:[UIColor blueColor]];
-    [_pageControl setNumberOfPages:5];
+    [_pageControl setNumberOfPages:numPages];
     [self.view addSubview:_pageControl];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleGoToLoginPage) name:SEGUE_ID_LOGIN_FROM_TUTORIAL object:nil];
@@ -104,11 +105,11 @@
     TutorialSlideViewController *vc;
     switch (index) {
         case 0:vc = [[WelcomeViewController alloc] initWithNibName:@"WelcomeViewController" bundle:nil]; break;
-        case 1:vc = [[ThoughtsTutorialViewController alloc] initWithNibName:@"ThoughtsTutorialViewController" bundle:nil]; break;
-        case 2:vc = [[FriendsTutorialViewController alloc] initWithNibName:@"FriendsTutorialViewController" bundle:nil]; break;
-        case 3:vc = [[SecurityTutorialViewController alloc] initWithNibName:@"SecurityTutorialViewController" bundle:nil]; break;
-        case 4:vc = [[GetStartedTutorialViewController alloc] initWithNibName:@"GetStartedTutorialViewController" bundle:nil]; break;
-        default:vc = [[WelcomeViewController alloc] initWithNibName:@"WelcomeViewController" bundle:nil]; break;
+        case 1:vc = [[ConversationTypesViewController alloc] initWithNibName:@"ConversationTypesViewController" bundle:nil]; break;
+        case 2:vc = [[ThoughtsTutorialViewController alloc] initWithNibName:@"ThoughtsTutorialViewController" bundle:nil]; break;
+        case 3:vc = [[FriendsTutorialViewController alloc] initWithNibName:@"FriendsTutorialViewController" bundle:nil]; break;
+        case 4:vc = [[SecurityTutorialViewController alloc] initWithNibName:@"SecurityTutorialViewController" bundle:nil]; break;
+        default:vc = [[GetStartedTutorialViewController alloc] initWithNibName:@"GetStartedTutorialViewController" bundle:nil]; break;
     }
     [vc setIndexInTutorial:index];
     return vc;
@@ -126,17 +127,6 @@
 
 -(int)indexForViewController:(TutorialSlideViewController *)viewController {
     return [viewController indexInTutorial];
-}
-
--(UIImage *)imageForViewControllerAtIndex:(int)index {
-    switch (index) {
-        case 0: return [UIImage imageNamed:@"Versapp-Tutorial-04.png"];
-        case 1: return [UIImage imageNamed:@"Versapp-Tutorial-01.png"];
-        case 2: return [UIImage imageNamed:@"Versapp-Tutorial-02.png"];
-        case 3: return [UIImage imageNamed:@"Versapp-Tutorial-03.png"];
-        case 4: return [UIImage imageNamed:@"Versapp-Tutorial-05.png"];
-        default: return [UIImage imageNamed:@"Versapp-Tutorial-06.png"];
-    }
 }
 
 -(NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {

@@ -84,6 +84,8 @@
 		3A3A0B1318AB1126006FBAE4 /* message-sent.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 3A3A0AD518AB1126006FBAE4 /* message-sent.aiff */; };
 		3A3A0B1418AB1126006FBAE4 /* JSQSystemSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3A0AD918AB1126006FBAE4 /* JSQSystemSoundPlayer.m */; };
 		3A3A0B1618AB118A006FBAE4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A3A0B1518AB118A006FBAE4 /* AudioToolbox.framework */; };
+		3A3E2EFE191FD3A300210536 /* ConversationTypesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3E2EFC191FD3A300210536 /* ConversationTypesViewController.m */; };
+		3A3E2EFF191FD3A300210536 /* ConversationTypesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A3E2EFD191FD3A300210536 /* ConversationTypesViewController.xib */; };
 		3A47C844189F1A52003020D7 /* FriendsDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A47C843189F1A52003020D7 /* FriendsDBManager.m */; };
 		3A47C847189F1F02003020D7 /* MessagesDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A47C846189F1F02003020D7 /* MessagesDBManager.m */; };
 		3A49E9EA18FF146C00AFCB8E /* ThoughtTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A49E9E918FF146C00AFCB8E /* ThoughtTableViewCell.m */; };
@@ -657,6 +659,9 @@
 		3A3A0AD818AB1126006FBAE4 /* JSQSystemSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSQSystemSoundPlayer.h; sourceTree = "<group>"; };
 		3A3A0AD918AB1126006FBAE4 /* JSQSystemSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSQSystemSoundPlayer.m; sourceTree = "<group>"; };
 		3A3A0B1518AB118A006FBAE4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		3A3E2EFB191FD3A300210536 /* ConversationTypesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationTypesViewController.h; sourceTree = "<group>"; };
+		3A3E2EFC191FD3A300210536 /* ConversationTypesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationTypesViewController.m; sourceTree = "<group>"; };
+		3A3E2EFD191FD3A300210536 /* ConversationTypesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConversationTypesViewController.xib; sourceTree = "<group>"; };
 		3A47C842189F1A52003020D7 /* FriendsDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsDBManager.h; sourceTree = "<group>"; };
 		3A47C843189F1A52003020D7 /* FriendsDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsDBManager.m; sourceTree = "<group>"; };
 		3A47C845189F1F02003020D7 /* MessagesDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesDBManager.h; sourceTree = "<group>"; };
@@ -2450,6 +2455,9 @@
 			children = (
 				3A5065F3191ED99D00EED804 /* SharingViewController.h */,
 				3A5065F4191ED99D00EED804 /* SharingViewController.m */,
+				3A3E2EFB191FD3A300210536 /* ConversationTypesViewController.h */,
+				3A3E2EFC191FD3A300210536 /* ConversationTypesViewController.m */,
+				3A3E2EFD191FD3A300210536 /* ConversationTypesViewController.xib */,
 				3AF92592191BD31A00795FC6 /* SecurityTutorialViewController.h */,
 				3AF92593191BD31A00795FC6 /* SecurityTutorialViewController.m */,
 				3AF92594191BD31A00795FC6 /* SecurityTutorialViewController.xib */,
@@ -3321,6 +3329,7 @@
 				3A22D7311912737300AD58DC /* fav-icon-active.png in Resources */,
 				3AF92591191BD1C300795FC6 /* lock-icon.png in Resources */,
 				3A07F6BF18D3C21800E82390 /* compose-icon.png in Resources */,
+				3A3E2EFF191FD3A300210536 /* ConversationTypesViewController.xib in Resources */,
 				3A068ED318F24FC200EA260E /* Versapp-Tutorial-02.png in Resources */,
 				3AD19AB818E26298001B3B88 /* AppIcon58.png in Resources */,
 				3A07F6C318D3C21800E82390 /* cell-select.png in Resources */,
@@ -3542,6 +3551,7 @@
 				3AF691751919581600ABA9C5 /* GPUImageKuwaharaFilter.m in Sources */,
 				3AF691A81919581600ABA9C5 /* GPUImageScreenBlendFilter.m in Sources */,
 				3AFFC93D18A06AE3009D7F13 /* db.xcdatamodeld in Sources */,
+				3A3E2EFE191FD3A300210536 /* ConversationTypesViewController.m in Sources */,
 				F751018718AE856C001F1E7F /* ChangePasswordViewController.m in Sources */,
 				3AF691701919581600ABA9C5 /* GPUImageHSBFilter.m in Sources */,
 				3A8BCF7518B5960300D4B7CE /* ConfessionsViewController.m in Sources */,

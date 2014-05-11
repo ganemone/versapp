@@ -38,7 +38,7 @@
         NSString *check = @"";
         for (NSDictionary *dict in _countries) {
             check = [dict objectForKey:@"country"];
-            if ([check compare:_country] == 0) {
+            if ([check isEqualToString:_country]) {
                 row = [_countries indexOfObject:dict];
                 _countryCode = [dict objectForKey:@"code"];
                 break;
