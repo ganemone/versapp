@@ -133,7 +133,8 @@ static ContactSearchManager *selfInstance;
                             //[self.contacts setObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:personIDString, DICTIONARY_KEY_ID, firstName, VCARD_TAG_FIRST_NAME, lastName, VCARD_TAG_LAST_NAME, emailBufferArray, VCARD_TAG_EMAIL, phoneBufferArray, FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER, [NSNumber numberWithInt:STATUS_UNREGISTERED], FRIENDS_TABLE_COLUMN_NAME_STATUS, [NSNumber numberWithInt:personID], FRIENDS_TABLE_COLUMN_NAME_UID, nil] forKey:personIDString];
                         }
                     }
-                    //[BlacklistManager sendPostRequestWithPhoneNumbers:allPhoneNumbers emails:allEmails];
+                    
+                    [BlacklistManager sendPostRequestWithPhoneNumbers:allPhoneNumbers emails:allEmails];
                     
                     /*
                     int numToSplit = (int)MIN(35, [allIDS count]);

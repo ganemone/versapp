@@ -38,10 +38,14 @@
 @property (strong, nonatomic) NSArray *searchResults;
 @property (strong, nonatomic) NSArray *allAccepted;
 @property (strong, nonatomic) NSMutableArray *selectedJIDs;
-@property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (strong, nonatomic) ChatMO *createdChat;
 @property (strong, nonatomic) NSString *invitedUser;
+@property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet UIView *noFriendsView;
+@property (weak, nonatomic) IBOutlet UIView *noFriendsBlackView;
+@property (weak, nonatomic) IBOutlet UIButton *findFriendsBtn;
+@property (weak, nonatomic) IBOutlet UILabel *noFriendsLabel;
 
 @property BOOL isCreatingGroup;
 @property BOOL isSearching;
@@ -88,6 +92,44 @@
     [imageView setImage:[UIImage imageNamed:@"friends-background-large.png"]];
     [self.tableView setBackgroundView:imageView];
     
+    
+    [self.findFriendsBtn.layer setCornerRadius:5.0];
+    [self.findFriendsBtn.layer setBorderWidth:0.0];
+    
+    [self.noFriendsBlackView setFrame:CGRectMake(0, self.headerView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.headerView.frame.size.height)];
+    [self.noFriendsView setFrame:self.noFriendsBlackView.frame];
+    [self.noFriendsLabel setFont:[StyleManager getFontStyleMediumSizeLarge]];
+    if ([_allAccepted count] > 0)
+    {
+        NSLog(@"Setting hidden");
+        [self.noFriendsView setHidden:YES];
+        [self.noFriendsView setUserInteractionEnabled:NO];
+        [self.noFriendsBlackView setHidden:YES];
+        [self.noFriendsBlackView setUserInteractionEnabled:NO];
+    }
+    else
+    {
+        NSLog(@"Setting not hidden");
+        [self.noFriendsView setHidden:NO];
+        [self.noFriendsView setUserInteractionEnabled:YES];
+        [self.noFriendsBlackView setHidden:NO];
+        [self.noFriendsBlackView setUserInteractionEnabled:YES];
+        [self.view bringSubviewToFront:self.noFriendsView];
+    }
+}
+
+- (IBAction)handleNoFriendsBtnClicked:(id)sender
+{
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [NSNumber numberWithInt:UIPageViewControllerNavigationDirectionForward], @"direction", nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_TO_CONTACTS
+                                                        object:nil
+                                                      userInfo:userInfo];
+}
+
+-(void)addBorders
+{
     // Add a bottomBorder to the header view
     CALayer *headerBottomborder = [CALayer layer];
     headerBottomborder.frame = CGRectMake(0.0f, self.headerView.frame.size.height - 2.0f, self.view.frame.size.width, 2.0f);
@@ -98,7 +140,6 @@
     footerTopBorder.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 2.0f);
     footerTopBorder.backgroundColor = [UIColor whiteColor].CGColor;
     [self.bottomView.layer addSublayer:footerTopBorder];
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -210,10 +251,10 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if([segue.identifier compare:SEGUE_ID_CREATED_MUC] == 0) {
+    if([segue.identifier isEqualToString:SEGUE_ID_CREATED_MUC]) {
         ConversationViewController *dest = segue.destinationViewController;
         [dest setChatMO:_createdChat];
-    } else if([segue.identifier compare:SEGUE_ID_CREATED_CHAT] == 0) {
+    } else if([segue.identifier isEqualToString:SEGUE_ID_CREATED_CHAT]) {
         OneToOneConversationViewController *dest = segue.destinationViewController;
         [dest setChatMO:_createdChat];
     }
@@ -242,23 +283,23 @@
     [self.searchBar resignFirstResponder];
 }
 
-- (IBAction)confessionsIconClicked:(id)sender {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                              [NSNumber numberWithInt:UIPageViewControllerNavigationDirectionReverse], @"direction", nil];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_TO_CONFESSIONS
-                                                        object:nil
-                                                      userInfo:userInfo];
-}
-
-- (IBAction)addIconClicked:(id)sender {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                              [NSNumber numberWithInt:UIPageViewControllerNavigationDirectionForward], @"direction", nil];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_TO_CONTACTS
-                                                        object:nil
-                                                      userInfo:userInfo];
-}
+/*- (IBAction)confessionsIconClicked:(id)sender {
+ NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+ [NSNumber numberWithInt:UIPageViewControllerNavigationDirectionReverse], @"direction", nil];
+ 
+ [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_TO_CONFESSIONS
+ object:nil
+ userInfo:userInfo];
+ }
+ 
+ - (IBAction)addIconClicked:(id)sender {
+ NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+ [NSNumber numberWithInt:UIPageViewControllerNavigationDirectionForward], @"direction", nil];
+ 
+ [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_TO_CONTACTS
+ object:nil
+ userInfo:userInfo];
+ }*/
 
 - (IBAction)createButtonClicked:(id)sender {
     if ([_selectedJIDs count] == 0) {

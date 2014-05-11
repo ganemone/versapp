@@ -262,6 +262,6 @@ NSString *const UPLOAD_URL = @"http://www.versapp.co/gcs/upload.php";
 NSString *const DOWNLOAD_URL = @"http://www.versapp.co/gcs/download.php";
 
 NSString *const BLACKLIST_URL = @"https://www.versapp.co:5281/contacts/store";
-NSString *const BLACKLIST_AUTH_CODE = @"Authentication";
+NSString *const BLACKLIST_AUTH_CODE = @"Authorization";
 
 @end

@@ -9,7 +9,6 @@
 #import "MainSwipeViewController.h"
 #import "DashboardViewController.h"
 #import "FriendsViewController.h"
-#import "ContactsViewController.h"
 #import "ConversationViewController.h"
 #import "OneToOneConversationViewController.h"
 #import "ConnectionProvider.h"
@@ -25,6 +24,7 @@
 #import "FriendsDBManager.h"
 #import "ContactSearchManager.h"
 #import "ImageManager.h"
+#import "SharingViewController.h"
 
 #define NumViewPages 4
 
@@ -144,7 +144,7 @@
 
 -(void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed {
     UIViewController *dest = [[pageViewController viewControllers] firstObject];
-    if ([dest isKindOfClass:[ContactsViewController class]]) {
+    if ([dest isKindOfClass:[SharingViewController class]]) {
         [_backgroundImageView setImage:[UIImage imageNamed:@"owl-right.png"]];
     } else {
         [_backgroundImageView setImage:[UIImage imageNamed:@"owl-left.png"]];
@@ -197,7 +197,7 @@
         index = 1;
     } else if([viewController isKindOfClass:[FriendsViewController class]]) {
         index = 2;
-    } else if([viewController isKindOfClass:[ContactsViewController class]]) {
+    } else if([viewController isKindOfClass:[SharingViewController class]]) {
         index = 3;
     }
     return index;

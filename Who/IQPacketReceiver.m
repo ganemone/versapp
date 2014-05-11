@@ -430,6 +430,9 @@
     [delegate setSessionID:[iq.XMLString substringWithRange:[match rangeAtIndex:1]]];
     [[[ContactSearchManager alloc] init] accessContacts];
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacket]];
+    if ([UserDefaultManager hasLoggedIn] == NO || YES) {
+        [[[ContactSearchManager alloc] init] accessContacts];
+    }
 }
 
 +(void)handleGetConfessionsPacket:(XMPPIQ *)iq {

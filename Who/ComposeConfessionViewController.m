@@ -220,7 +220,7 @@
         [_imageView setContentMode:UIViewContentModeScaleAspectFill];
         [_imageView setImage:smallImage];
         [_composeTextView setBackgroundColor:[UIColor clearColor]];
-        
+        [self.view setBackgroundColor:[UIColor clearColor]];
         [self getFilteredImages];
     }];
 }
@@ -340,6 +340,7 @@
         } else if(buttonIndex == 3) {
             [_imageView setImage:nil];
             [_composeTextView setBackgroundColor:[_colors objectAtIndex:_colorIndex]];
+            [self.view setBackgroundColor:[_colors objectAtIndex:_colorIndex]];
             _backgroundColor = [UIColor hexStringWithUIColor:_composeTextView.backgroundColor];
             _backgroundImage = nil;
             _backgroundImageLink = nil;
@@ -509,6 +510,7 @@
         [self decrementColorIndex];
     }
     [_composeTextView setBackgroundColor:[_colors objectAtIndex:_colorIndex]];
+    [self.view setBackgroundColor:[_colors objectAtIndex:_colorIndex]];
     _backgroundColor = [UIColor hexStringWithUIColor:_composeTextView.backgroundColor];
     [self updateEffectLabelColor];
 }

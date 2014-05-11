@@ -73,7 +73,6 @@ static BOOL notificationsHalfHidden = NO;
     self.cp = [ConnectionProvider getInstance];
     
     [self.header setFont:[StyleManager getFontStyleMediumSizeXL]];
-    [self.header setTextColor:[UIColor whiteColor]];
     
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     lpgr.minimumPressDuration = 0.5; //seconds

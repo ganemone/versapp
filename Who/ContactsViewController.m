@@ -46,18 +46,6 @@
     [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
     [self.footerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     
-    // Add a bottomBorder to the header view
-    CALayer *headerBottomborder = [CALayer layer];
-    headerBottomborder.frame = CGRectMake(0.0f, self.header.frame.size.height - 2.0f, self.view.frame.size.width, 2.0f);
-    headerBottomborder.backgroundColor = [UIColor whiteColor].CGColor;
-    [self.header.layer addSublayer:headerBottomborder];
-    
-    // Add a topBorder to the footer view
-    CALayer *footerTopBorder = [CALayer layer];
-    footerTopBorder.frame = CGRectMake(0.0f, 0, self.view.frame.size.width, 2.0f);
-    footerTopBorder.backgroundColor = [UIColor whiteColor].CGColor;
-    [self.footer.layer addSublayer:footerTopBorder];
-    
     self.registeredContacts = [FriendsDBManager getAllWithStatusRegisteredOrRequested];
     self.unregisteredContacts = [FriendsDBManager getAllWithStatusUnregistered];
     

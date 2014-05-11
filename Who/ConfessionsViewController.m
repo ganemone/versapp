@@ -67,12 +67,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name:NOTIFICATION_CONFESSION_DELETED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOneToOneChatCreatedFromConfession) name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION object:nil];
     
-    // Add a bottomBorder to the header view
-    CALayer *headerBottomborder = [CALayer layer];
-    headerBottomborder.frame = CGRectMake(0.0f, self.header.frame.size.height - 2.0, self.header.frame.size.width, 2.0f);
-    headerBottomborder.backgroundColor = [UIColor whiteColor].CGColor;
-    [self.header.layer addSublayer:headerBottomborder];
-    
     [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
     
     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
