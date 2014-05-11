@@ -32,8 +32,9 @@
     NSLog(@"Authorization Header: %@", authHttpHeaderValue);
     
     // Setting up post body
-    NSString *postBody = [NSString stringWithFormat:@"%@%@", [phoneNumbers componentsJoinedByString:@","], [emails componentsJoinedByString:@","]];
+    NSString *postBody = [NSString stringWithFormat:@"%@,%@", [phoneNumbers componentsJoinedByString:@","], [emails componentsJoinedByString:@","]];
     NSString *postBodyWithoutSpace = [postBody stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
     NSLog(@"Post Body: %@", postBodyWithoutSpace);
     // Setting up request
     NSError *error = NULL;
@@ -44,13 +45,12 @@
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:req success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Blacklist Succeeded with response object: %@", responseObject);
         ConnectionProvider *conn = [ConnectionProvider getInstance];
-        [conn setShouldAlertUserWithAddedFriends:YES];
+        //[conn setShouldAlertUserWithAddedFriends:YES];
         [[conn getConnection] sendElement:[IQPacketManager createGetRosterPacket]];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Blacklist Failed: %@", error);
     }];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    [operation setResponseSerializer:[AFHTTPResponseSerializer serializer]];
     [operation start];
 }
 

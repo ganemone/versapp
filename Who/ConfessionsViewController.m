@@ -20,6 +20,7 @@
 #import "UIScrollView+GifPullToRefresh.h"
 #import "ThoughtTableViewCell.h"
 #import "MBProgressHUD.h"
+#import "FriendsDBManager.h"
 
 @interface ConfessionsViewController ()
 
@@ -36,6 +37,7 @@
 @property CGFloat initialContentOffset;
 @property CGFloat previousContentDelta;
 @property BOOL isAnimatingHeader;
+@property BOOL isGlobalFeed;
 
 @end
 
@@ -53,6 +55,7 @@
         [UserDefaultManager setSeenThoughtsTrue];
         [self handleDiscloseInfoBtnClicked:nil];
     }
+    _isGlobalFeed = ![FriendsDBManager hasEnoughFriends];
 }
 
 - (void)viewDidLoad
@@ -130,6 +133,15 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"ThoughtTableViewCell" owner:self options:nil] firstObject];
         [cell setUpWithConfession:confession];
     }
+    
+    if (_isGlobalFeed) {
+        cell.chatBtn.hidden = YES;
+        cell.chatBtn.userInteractionEnabled = NO;
+    } else {
+        cell.chatBtn.hidden = NO;
+        cell.chatBtn.userInteractionEnabled = YES;
+    }
+    
     return cell;
 }
 

@@ -46,6 +46,10 @@
 @property (strong, nonatomic) ChatMO *editingChat;
 @property (nonatomic) CGFloat notificationHeight;
 
+@property (weak, nonatomic) IBOutlet UIView *noConversationsDarkView;
+@property (weak, nonatomic) IBOutlet UIView *noConversationsView;
+@property (weak, nonatomic) IBOutlet UITextView *noConversationsTextView;
+
 @end
 
 @implementation DashboardViewController
@@ -102,11 +106,35 @@ static BOOL notificationsHalfHidden = NO;
     [self.view bringSubviewToFront:self.notificationTableView];
     [self loadNotifications];
     
-    // Add a bottomBorder to the header view
-    CALayer *headerBottomborder = [CALayer layer];
-    headerBottomborder.frame = CGRectMake(0.0f, self.headerView.frame.size.height - 2.0, self.view.frame.size.width, 2.0f);
-    headerBottomborder.backgroundColor = [UIColor whiteColor].CGColor;
-    [self.headerView.layer addSublayer:headerBottomborder];
+    [self.noConversationsTextView setFont:[StyleManager getFontStyleRegularSizeLarge]];
+    
+    [self.noConversationsDarkView setFrame:CGRectMake(0, self.headerView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.headerView.frame.size.height)];
+    [self.noConversationsView setFrame:_noConversationsDarkView.frame];
+    
+    if ([self.tableView numberOfRowsInSection:0] + [self.tableView numberOfRowsInSection:1] == 0)
+    {
+        [self showNoConversationsView];
+    }
+    else
+    {
+        [self hideNoConfersationsView];
+    }
+}
+
+- (void)showNoConversationsView
+{
+    _noConversationsDarkView.hidden = NO;
+    _noConversationsView.hidden = NO;
+    [self.view bringSubviewToFront:_noConversationsDarkView];
+    [self.view bringSubviewToFront:_noConversationsView];
+}
+
+- (void)hideNoConfersationsView
+{
+    _noConversationsDarkView.hidden = YES;
+    _noConversationsView.hidden = YES;
+    [self.view sendSubviewToBack:_noConversationsDarkView];
+    [self.view sendSubviewToBack:_noConversationsView];
 }
 
 - (void)handlePan:(UIPanGestureRecognizer *)recognizer {
@@ -185,11 +213,11 @@ static BOOL notificationsHalfHidden = NO;
     UIButton *button = (UIButton*)sender;
     if ([_tableView isEditing]) {
         [button setTitle:@"" forState:UIControlStateNormal];
-        [button setImage:[UIImage imageNamed:@"edit-icon.png"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"trash-icon-blue.png"] forState:UIControlStateNormal];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DISABLE_DASHBOARD_EDITING object:nil];
         [_tableView setEditing:NO animated:YES];
     } else {
-        [button setImage:[UIImage imageNamed:@"x-white.png"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"x-blue.png"] forState:UIControlStateNormal];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ENABLE_DASHBOARD_EDITING object:nil];
         [_tableView setEditing:YES animated:YES];
     }

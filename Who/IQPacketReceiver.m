@@ -345,6 +345,7 @@
         NSMutableArray *itemsWithoutVCard = [NSMutableArray array];
         NSMutableArray *itemsToSendSubscribedPacket = [NSMutableArray array];
         NSMutableArray *allItems = [NSMutableArray array];
+        int numContactsAddedThroughBlacklist = 0;
         for (int i = 0; i < items.count; i++)
         {
             item = items[i];
@@ -374,33 +375,40 @@
                 {
                     [itemsToSendSubscribedPacket addObject:resultJid];
                 }
-                [FriendsDBManager insertWithMOC:moc
-                                       username:resultJid
-                                           name:nil
-                                          email:nil
-                                         status:[NSNumber numberWithInt:STATUS_FRIENDS]
-                            searchedPhoneNumber:nil
-                                  searchedEmail:nil
-                                            uid:nil];
+                if ([FriendsDBManager insertWithMOC:moc
+                                           username:resultJid
+                                               name:nil
+                                              email:nil
+                                             status:[NSNumber numberWithInt:STATUS_FRIENDS]
+                                searchedPhoneNumber:nil
+                                      searchedEmail:nil
+                                                uid:nil])
+                {
+                    numContactsAddedThroughBlacklist++;
+                    [itemsWithoutVCard addObject:resultJid];
+                }
+                
             }
         }
         [delegate saveContextForBackgroundThread];
         dispatch_sync(mainQ, ^{
             ConnectionProvider *cp = [ConnectionProvider getInstance];
             XMPPStream *conn = [cp getConnection];
-            if (cp.shouldAlertUserWithAddedFriends)
+            /*if (cp.shouldAlertUserWithAddedFriends)
             {
                 [cp setShouldAlertUserWithAddedFriends:NO];
                 if ([allItems count] > 0)
                 {
                     NSString *message = ([allItems count] > 1) ? @"Friends": @"Friend";
+                    NSString *message2 = ([allItems count] > 1) ? @"have": @"has";
+                    
                     [[[UIAlertView alloc] initWithTitle:@""
-                                                message:[NSString stringWithFormat:@"%d %@ have been added to your friends list.", [allItems count], message]
+                                                message:[NSString stringWithFormat:@"%d %@ %@ been added to your friends list.", [allItems count], message, message2]
                                                delegate:self
                                       cancelButtonTitle:@"Ok"
                                       otherButtonTitles:nil] show];
                 }
-            }
+            }*/
             for (NSString *username in itemsWithoutVCard)
             {
                 [conn sendElement:[IQPacketManager createGetVCardPacket:username]];
@@ -428,9 +436,8 @@
     NSTextCheckingResult *match = [regex firstMatchInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     [delegate setSessionID:[iq.XMLString substringWithRange:[match rangeAtIndex:1]]];
-    [[[ContactSearchManager alloc] init] accessContacts];
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacket]];
-    if ([UserDefaultManager hasLoggedIn] == NO || YES) {
+    if ([UserDefaultManager hasLoggedIn] == NO) {
         [[[ContactSearchManager alloc] init] accessContacts];
     }
 }

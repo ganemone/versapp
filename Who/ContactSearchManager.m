@@ -121,56 +121,18 @@ static ContactSearchManager *selfInstance;
                         for (int i = 0; i < MAX([emailBufferArray count], [phoneBufferArray count]); i++) {
                             if (i < emailCount) {
                                 [allEmails addObject:[emailBufferArray objectAtIndex:i]];
-                            } else {
-                                [allEmails addObject:@""];
                             }
                             if (i < [phoneBufferArray count]) {
                                 [allPhoneNumbers addObject:[phoneBufferArray objectAtIndex:i]];
-                            } else {
-                                [allPhoneNumbers addObject:@""];
                             }
                             [allIDS addObject:personIDString];
                             //[self.contacts setObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:personIDString, DICTIONARY_KEY_ID, firstName, VCARD_TAG_FIRST_NAME, lastName, VCARD_TAG_LAST_NAME, emailBufferArray, VCARD_TAG_EMAIL, phoneBufferArray, FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER, [NSNumber numberWithInt:STATUS_UNREGISTERED], FRIENDS_TABLE_COLUMN_NAME_STATUS, [NSNumber numberWithInt:personID], FRIENDS_TABLE_COLUMN_NAME_UID, nil] forKey:personIDString];
                         }
                     }
-                    
-                    [BlacklistManager sendPostRequestWithPhoneNumbers:allPhoneNumbers emails:allEmails];
-                    
-                    /*
-                    int numToSplit = (int)MIN(35, [allIDS count]);
-                    int startingIndex = 0;
-                    [self resetNumPacketsSent];
-                    while ([allIDS count] >= startingIndex + numToSplit) {
-                        NSMutableArray *tempPhoneNumbers = [[NSMutableArray alloc] initWithCapacity:numToSplit];
-                        NSMutableArray *tempEmails = [[NSMutableArray alloc] initWithCapacity:numToSplit];
-                        NSMutableArray *tempIDS = [[NSMutableArray alloc] initWithCapacity:numToSplit];
-                        for (int i = startingIndex; i < startingIndex + numToSplit; i++) {
-                            [tempPhoneNumbers addObject:[allPhoneNumbers objectAtIndex:i]];
-                            [tempEmails addObject:[allEmails objectAtIndex:i]];
-                            [tempIDS addObject:[allIDS objectAtIndex:i]];
-                        }
-                        [self incrementNumPacketsSent];
-                        startingIndex = startingIndex + numToSplit;
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createUserSearchPacketWithPhoneNumbers:tempPhoneNumbers emails:tempEmails personIDS:tempIDS]];
-                        });
-                    }
-                    startingIndex = startingIndex - numToSplit;
-                    int capacity = ((int)[allIDS count]) - startingIndex;
-                    NSMutableArray *tempPhoneNumbers = [[NSMutableArray alloc] initWithCapacity:capacity];
-                    NSMutableArray *tempEmails = [[NSMutableArray alloc] initWithCapacity:capacity];
-                    NSMutableArray *tempIDS = [[NSMutableArray alloc] initWithCapacity:capacity];
-                    for (int i = startingIndex - numToSplit; i < [allIDS count]; i++) {
-                        [tempPhoneNumbers addObject:[allPhoneNumbers objectAtIndex:i]];
-                        [tempEmails addObject:[allEmails objectAtIndex:i]];
-                        [tempIDS addObject:[allIDS objectAtIndex:i]];
-                    }
-                    if ([tempIDS count] > 0) {
-                        [self incrementNumPacketsSent];
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createUserSearchPacketWithPhoneNumbers:tempPhoneNumbers emails:tempEmails personIDS:tempIDS]];
-                        });
-                    }*/
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        NSLog(@"Sending Blacklist post request from contacts access");
+                        [BlacklistManager sendPostRequestWithPhoneNumbers:allPhoneNumbers emails:allEmails];
+                    });
                 }
                 CFRelease(addressBook);
             });

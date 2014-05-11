@@ -23,7 +23,7 @@
 @property(strong, nonatomic) NSMutableDictionary *tempVCardInfo;
 @property BOOL authenticated;
 @property BOOL didConnect;
-@property BOOL shouldAlertUserWithAddedFriends;
+//@property BOOL shouldAlertUserWithAddedFriends;
 
 // Singleton pattern - returns shared instance of connectionProvider.
 + (id) getInstance;

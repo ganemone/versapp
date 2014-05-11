@@ -153,7 +153,6 @@ static ConnectionProvider *selfInstance;
 {
     //[self.xmppReconnect activate:self.xmppStream];
     self.authenticated = YES;
-    self.shouldAlertUserWithAddedFriends = YES;
     if (self.isCreatingAccount == YES) {
         [self.xmppStream sendElement:[IQPacketManager createCreateVCardPacket:[_pendingAccountInfo objectForKey:VCARD_TAG_FIRST_NAME] lastname:[_pendingAccountInfo objectForKey:VCARD_TAG_LAST_NAME]]];
         self.isCreatingAccount = NO;
