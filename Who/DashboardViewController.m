@@ -126,6 +126,7 @@ static BOOL notificationsHalfHidden = NO;
     _noConversationsView.hidden = NO;
     [self.view bringSubviewToFront:_noConversationsDarkView];
     [self.view bringSubviewToFront:_noConversationsView];
+    [self.view bringSubviewToFront:self.notificationTableView];
 }
 
 - (void)hideNoConfersationsView
