@@ -680,6 +680,7 @@ static BOOL notificationsHalfHidden = NO;
     self.oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllOneToOneChats]];
     if ([_oneToOneChats count] > 0 || [_groupChats count] > 0) {
         [_tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectZero]];
+        [self hideNoConfersationsView];
     }
     [self.tableView reloadData];
 }

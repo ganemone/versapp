@@ -10,7 +10,7 @@
             <objects>
                 <viewController storyboardIdentifier="LoginViewController" title="LoginViewController" id="Dcg-Mp-WjV" customClass="LoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5RH-4f-tUs">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" id="NHs-F6-AKY">
@@ -35,13 +35,13 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Need an account?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MnZ-3h-bNE">
-                                <rect key="frame" x="20" y="434" width="145" height="21"/>
+                                <rect key="frame" x="20" y="370" width="145" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="rOR-tN-y8O">
-                                <rect key="frame" x="238" y="430" width="62" height="30"/>
+                                <rect key="frame" x="238" y="366" width="62" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <state key="normal" title="Register">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -242,12 +242,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <segue destination="FvA-Qe-GrR" kind="modal" identifier="SegueIDRegisteredAccount" id="gqE-oT-Cus"/>
+                        <segue destination="vbz-HT-1aK" kind="modal" identifier="SegueIDFinishedTutorial" id="4YJ-VO-gaE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QqF-nM-1l1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-330" y="811"/>
+            <point key="canvasLocation" x="-226" y="817"/>
         </scene>
         <!--New User Register Name View Controller-->
         <scene sceneID="nmh-le-cdE">
@@ -350,14 +350,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <segue destination="vbz-HT-1aK" kind="modal" identifier="SegueIDFinishedTutorial" id="SII-hP-sMz"/>
-                        <segue destination="Dcg-Mp-WjV" kind="modal" identifier="SegueIDLoginFromTutorial" id="Ydd-d5-d62"/>
                         <segue destination="U9q-qD-j1R" kind="modal" identifier="SegueIDRegisterFromTutorial" id="wAA-nu-VKs"/>
+                        <segue destination="vkc-le-IcM" kind="modal" identifier="SegueIDLoginFromTutorial" id="xkE-O7-97C"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j3e-Im-Uub" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-330" y="1441"/>
+            <point key="canvasLocation" x="-1308" y="831"/>
         </scene>
         <!--New User Register Username View Controller-->
         <scene sceneID="wNI-Qa-1s0">
@@ -434,7 +433,7 @@
             <objects>
                 <viewController storyboardIdentifier="MainSwipeViewController" id="FvA-Qe-GrR" customClass="MainSwipeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qgn-rc-9ur">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -863,8 +862,8 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" id="0Wa-Rr-qf5">
-                                        <rect key="frame" x="20" y="20" width="280" height="87"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" selectable="NO" id="0Wa-Rr-qf5">
+                                        <rect key="frame" x="20" y="20" width="280" height="160"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <string key="text">You don't have any conversations just yet. Start a conversation with the messages icon in the top right.  Or, swipe to the right to look at your thoughts feed.</string>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1977,7 +1976,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9v4-Nc-P3y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1256" y="180"/>
+            <point key="canvasLocation" x="1264" y="180"/>
         </scene>
     </scenes>
     <resources>
@@ -2002,19 +2001,18 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="zTQ-Mf-6oX"/>
-        <segue reference="8c7-Mw-K5g"/>
+        <segue reference="AGt-Q0-zDh"/>
+        <segue reference="Y5D-AL-CYy"/>
+        <segue reference="YEX-bB-bO6"/>
+        <segue reference="4YJ-VO-gaE"/>
+        <segue reference="wAA-nu-VKs"/>
+        <segue reference="xkE-O7-97C"/>
+        <segue reference="bRX-TH-pHe"/>
         <segue reference="hVX-XL-lBE"/>
         <segue reference="pHb-Kf-4qo"/>
         <segue reference="BCc-dv-kG7"/>
         <segue reference="z6h-qs-HbB"/>
         <segue reference="tVn-SP-Hc9"/>
-        <segue reference="YEX-bB-bO6"/>
-        <segue reference="gqE-oT-Cus"/>
-        <segue reference="wAA-nu-VKs"/>
-        <segue reference="Ve6-mS-bkp"/>
-        <segue reference="SII-hP-sMz"/>
-        <segue reference="Ydd-d5-d62"/>
         <segue reference="m95-nf-RcH"/>
     </inferredMetricsTieBreakers>
 </document>

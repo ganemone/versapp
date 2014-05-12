@@ -442,10 +442,10 @@
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createPostConfessionPacket:confession]];
 }
 
-- (void)didFailToUploadImage:(UIImage *)image toURL:(NSString *)url {
+- (void)didFailToUploadImage:(UIImage *)image toURL:(NSString *)url withError:(NSError *)error {
     self.backgroundImage = nil;
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-    [[[UIAlertView alloc] initWithTitle:@"Whoops" message:@"An error occurred when trying to upload your image.  Please check your network connection and try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+    [[[UIAlertView alloc] initWithTitle:@"Whoops" message:[NSString stringWithFormat:@"An error occurred when trying to upload your image.  Please check your network connection and try again. %@", error] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
 }
 
 -(void)didFinishDownloadingImage:(UIImage *)image withIdentifier:(NSString *)identifier {}

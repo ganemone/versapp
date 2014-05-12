@@ -60,7 +60,8 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:req success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [delegate didFinishUploadingImage:image toURL:imageName];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [delegate didFailToUploadImage:image toURL:imageName];
+        NSLog(@"Failed with error: %@", error);
+        [delegate didFailToUploadImage:image toURL:imageName withError:error];
     }];
     [operation setResponseSerializer:[AFJSONResponseSerializer serializer]];
     [operation start];

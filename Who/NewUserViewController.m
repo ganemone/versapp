@@ -96,7 +96,7 @@
 
 - (void)handleAuthenticated {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
-    [self performSegueWithIdentifier:SEGUE_ID_REGISTERED_ACCOUNT sender:self];
+    [self performSegueWithIdentifier:SEGUE_ID_FINISHED_TUTORIAL sender:self];
 }
 
 - (void)handleRegisteredUser {

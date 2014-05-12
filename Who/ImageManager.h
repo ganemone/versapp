@@ -17,7 +17,7 @@
 -(void)didFinishDownloadingImage:(UIImage*)image withIdentifier:(NSString*)identifier;
 -(void)didFailToDownloadImageWithIdentifier:(NSString *)identifier;
 -(void)didFinishUploadingImage:(UIImage*)image toURL:(NSString*)url;
--(void)didFailToUploadImage:(UIImage*)image toURL:(NSString*)url;
+-(void)didFailToUploadImage:(UIImage*)image toURL:(NSString*)url withError:(NSError *)error;
 
 @end
 
