@@ -242,7 +242,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <segue destination="w0O-6j-SeY" kind="modal" identifier="SegueIDTutorial" id="HIX-3N-ekv"/>
+                        <segue destination="FvA-Qe-GrR" kind="modal" identifier="SegueIDRegisteredAccount" id="gqE-oT-Cus"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QqF-nM-1l1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -434,7 +434,7 @@
             <objects>
                 <viewController storyboardIdentifier="MainSwipeViewController" id="FvA-Qe-GrR" customClass="MainSwipeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qgn-rc-9ur">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -2005,10 +2005,10 @@
         <segue reference="AGt-Q0-zDh"/>
         <segue reference="Y5D-AL-CYy"/>
         <segue reference="YEX-bB-bO6"/>
-        <segue reference="SII-hP-sMz"/>
-        <segue reference="7SH-c7-oeZ"/>
-        <segue reference="Ve6-mS-bkp"/>
+        <segue reference="gqE-oT-Cus"/>
         <segue reference="Ydd-d5-d62"/>
+        <segue reference="Ve6-mS-bkp"/>
+        <segue reference="SII-hP-sMz"/>
         <segue reference="hVX-XL-lBE"/>
         <segue reference="pHb-Kf-4qo"/>
         <segue reference="BCc-dv-kG7"/>
