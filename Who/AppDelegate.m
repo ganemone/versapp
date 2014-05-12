@@ -218,7 +218,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 }
 
 - (void)handleFinishedLoadingContentForNotification:(NSNotification *)notification {
-    UILocalNotification* localNotification = [[UILocalNotification alloc] init];
+    /*UILocalNotification* localNotification = [[UILocalNotification alloc] init];
     //MessageMO *message = [notification.userInfo objectForKey:DICTIONARY_KEY_MESSAGE_OBJECT];
     //localNotification.userInfo = [NSDictionary dictionaryWithObject:message.group_id forKey:CHATS_TABLE_COLUMN_NAME_CHAT_ID];
     localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:0.001];
@@ -227,7 +227,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
     localNotification.soundName = UILocalNotificationDefaultSoundName;
     UIApplication *sharedApp = [UIApplication sharedApplication];
     [sharedApp scheduleLocalNotification:localNotification];
-    [sharedApp setApplicationIconBadgeNumber:sharedApp.applicationIconBadgeNumber + 1];
+    [sharedApp setApplicationIconBadgeNumber:sharedApp.applicationIconBadgeNumber + 1];*/
     _completionHandler(UIBackgroundFetchResultNewData);
 }
 

@@ -191,7 +191,6 @@ static ContactSearchManager *selfInstance;
         NSError *error = NULL;
         NSData *jsonData2 = [NSJSONSerialization dataWithJSONObject:arr options:NSJSONWritingPrettyPrinted error:&error];
         NSString *jsonString = [[NSString alloc] initWithData:jsonData2 encoding:NSUTF8StringEncoding];
-        NSLog(@"jsonData as string:\n%@", jsonString);
         
         NSURL *url = [NSURL URLWithString:@"http://media.versapp.co/contacts/"];
         NSMutableURLRequest *uploadRequest = [NSMutableURLRequest requestWithURL:url];
