@@ -72,19 +72,19 @@ static ContactSearchManager *selfInstance;
                 if (!granted) {
                     //failure((__bridge NSError *)error);
                 } else {
-                    [UserDefaultManager saveCountryCode:@"1"];
+                    if ([UserDefaultManager loadCountryCode] == nil) {
+                        [UserDefaultManager saveCountryCode:@"1"];
+                    }
                     NSString *countryCode = [UserDefaultManager loadCountryCode];
                     NSString *phoneNumberWithoutCountry = [UserDefaultManager loadPhone]; 
                     NSMutableArray *allPhoneNumbers = [[NSMutableArray alloc] initWithCapacity:100];
                     NSMutableArray *allEmails = [[NSMutableArray alloc] initWithCapacity:100];
-                    NSMutableArray *allIDS = [[NSMutableArray alloc] initWithCapacity:100];
                     NSArray *people = (__bridge NSArray *)(ABAddressBookCopyArrayOfAllPeople(addressBook));
                     for (id person in people) {
                         ABRecordRef personRecordReference = (__bridge ABRecordRef)person;
                         NSString *firstName = (__bridge_transfer NSString*)ABRecordCopyValue(personRecordReference, kABPersonFirstNameProperty);
                         NSString *lastName = (__bridge_transfer NSString*)ABRecordCopyValue(personRecordReference, kABPersonLastNameProperty);
-                        ABRecordID personID = ABRecordGetRecordID(personRecordReference);
-                        NSString *personIDString = [NSString stringWithFormat:@"%d", personID];
+                        //ABRecordID personID = ABRecordGetRecordID(personRecordReference);
                         if (firstName == nil && lastName == nil) {
                             continue;
                         } else if(firstName == nil) {
@@ -94,8 +94,6 @@ static ContactSearchManager *selfInstance;
                             lastName = @"";
                         }
                         
-                        NSMutableArray *phoneBufferArray = [[NSMutableArray alloc] init],
-                        *emailBufferArray = [[NSMutableArray alloc] init];
                         // Get all phone numbers of a contact
                         ABMultiValueRef phoneNumbers = ABRecordCopyValue(personRecordReference, kABPersonPhoneProperty);
                         ABMultiValueRef emailList = ABRecordCopyValue(personRecordReference, kABPersonEmailProperty);
@@ -103,7 +101,7 @@ static ContactSearchManager *selfInstance;
                         NSString *tempEmail;
                         for (int i = 0; i < emailCount; i++) {
                             tempEmail = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(emailList, i);
-                            [emailBufferArray addObject:tempEmail];
+                            [allEmails addObject:tempEmail];
                         }
                         
                         NSInteger phoneNumberCount = ABMultiValueGetCount(phoneNumbers);
@@ -116,21 +114,10 @@ static ContactSearchManager *selfInstance;
                             if (phone.length == phoneNumberWithoutCountry.length) {
                                 phone = [NSString stringWithFormat:@"%@%@", countryCode, phone];
                             }
-                            [phoneBufferArray addObject:phone];
-                        }
-                        for (int i = 0; i < MAX([emailBufferArray count], [phoneBufferArray count]); i++) {
-                            if (i < emailCount) {
-                                [allEmails addObject:[emailBufferArray objectAtIndex:i]];
-                            }
-                            if (i < [phoneBufferArray count]) {
-                                [allPhoneNumbers addObject:[phoneBufferArray objectAtIndex:i]];
-                            }
-                            [allIDS addObject:personIDString];
-                            //[self.contacts setObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:personIDString, DICTIONARY_KEY_ID, firstName, VCARD_TAG_FIRST_NAME, lastName, VCARD_TAG_LAST_NAME, emailBufferArray, VCARD_TAG_EMAIL, phoneBufferArray, FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER, [NSNumber numberWithInt:STATUS_UNREGISTERED], FRIENDS_TABLE_COLUMN_NAME_STATUS, [NSNumber numberWithInt:personID], FRIENDS_TABLE_COLUMN_NAME_UID, nil] forKey:personIDString];
+                            [allPhoneNumbers addObject:phone];
                         }
                     }
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        NSLog(@"Sending Blacklist post request from contacts access");
                         [BlacklistManager sendPostRequestWithPhoneNumbers:allPhoneNumbers emails:allEmails];
                     });
                 }
