@@ -158,11 +158,10 @@
 
 -(void)handleConfessionChatStarted:(id)sender {
     if ([FriendsDBManager hasEnoughFriends]) {
-        [_confession startChat];
+        [[[UIAlertView alloc] initWithTitle:@"" message:@"Would you like to start a chat with the poster of this thought?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] show];
     } else {
         [[[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Messaging is restricted to friends." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
     }
-    
 }
 
 -(void)handleConfessionDeleted:(id)sender {
@@ -172,6 +171,8 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Delete"]) {
         [_confession deleteConfession];
+    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Yes"]) {
+        [_confession startChat];
     }
 }
 
