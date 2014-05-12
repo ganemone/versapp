@@ -22,7 +22,7 @@
 #import "AppDelegate.h"
 
 @implementation MessagePacketReceiver
-
+    
 // Inserts message into db, adds message to chat history (either group chat or one to one chat),
 // and sends notification with dictionary containing ONLY the group id.
 +(void)handleMessagePacket:(XMPPMessage*)message {
@@ -31,6 +31,7 @@
     NSError *error = NULL;
     NSRegularExpression *broadcastRegex = [NSRegularExpression regularExpressionWithPattern:@"^<message .*?><body>(.*?)<\\/body><broadcast.*?><type>new_user<\\/type><\\/broadcast><\\/message>$"options:NSRegularExpressionCaseInsensitive error:&error];
     if ([[broadcastRegex matchesInString:message.XMLString options:0 range:NSMakeRange(0, message.XMLString.length)] count] > 0) {
+        NSLog(@"Matches Blacklist");
         return;
     }
 
