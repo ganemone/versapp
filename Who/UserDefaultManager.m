@@ -209,4 +209,13 @@
     [self setUserDefaultValueTrue:USER_DEFAULTS_HAS_SEEN_FRIENDS];
 }
 
++(BOOL)hasSentBlacklist; {
+    return [self isUserDefaultValueTrue:USER_DEFAULTS_HAS_SENT_BLACKLIST];
+}
+
++(void)setSentBlacklistTrue {
+    [self setUserDefaultValueTrue:USER_DEFAULTS_HAS_SENT_BLACKLIST];
+}
+
+
 @end

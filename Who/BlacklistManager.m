@@ -45,7 +45,6 @@
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:req success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Blacklist Succeeded with response object: %@", responseObject);
         ConnectionProvider *conn = [ConnectionProvider getInstance];
-        //[conn setShouldAlertUserWithAddedFriends:YES];
         [[conn getConnection] sendElement:[IQPacketManager createGetRosterPacket]];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Blacklist Failed: %@", error);

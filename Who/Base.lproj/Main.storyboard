@@ -351,8 +351,8 @@
                     </view>
                     <connections>
                         <segue destination="vbz-HT-1aK" kind="modal" identifier="SegueIDFinishedTutorial" id="SII-hP-sMz"/>
-                        <segue destination="VDA-7L-oK4" kind="modal" identifier="SegueIDRegisterFromTutorial" id="ZFM-hS-YJx"/>
                         <segue destination="Dcg-Mp-WjV" kind="modal" identifier="SegueIDLoginFromTutorial" id="Ydd-d5-d62"/>
+                        <segue destination="U9q-qD-j1R" kind="modal" identifier="SegueIDRegisterFromTutorial" id="wAA-nu-VKs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j3e-Im-Uub" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -900,6 +900,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <view hidden="YES" alpha="0.69999999999999973" contentMode="scaleToFill" id="2jy-83-DC9">
+                                <rect key="frame" x="0.0" y="32" width="320" height="416"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="wKq-yO-HDY">
                                 <rect key="frame" x="0.0" y="108" width="320" height="332"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -948,11 +953,6 @@
                                             <action selector="handleNoFriendsBtnClicked:" destination="q0A-9I-XMY" eventType="touchUpInside" id="9zQ-D1-fP8"/>
                                         </connections>
                                     </button>
-                                    <view hidden="YES" alpha="0.69999999999999973" contentMode="scaleToFill" id="2jy-83-DC9">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
                                 </subviews>
                             </view>
                             <view contentMode="scaleToFill" id="DnC-T6-Hmx">
@@ -2002,18 +2002,19 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="AGt-Q0-zDh"/>
-        <segue reference="Y5D-AL-CYy"/>
-        <segue reference="YEX-bB-bO6"/>
-        <segue reference="gqE-oT-Cus"/>
-        <segue reference="Ydd-d5-d62"/>
-        <segue reference="Ve6-mS-bkp"/>
-        <segue reference="SII-hP-sMz"/>
+        <segue reference="zTQ-Mf-6oX"/>
+        <segue reference="8c7-Mw-K5g"/>
         <segue reference="hVX-XL-lBE"/>
         <segue reference="pHb-Kf-4qo"/>
         <segue reference="BCc-dv-kG7"/>
         <segue reference="z6h-qs-HbB"/>
         <segue reference="tVn-SP-Hc9"/>
+        <segue reference="YEX-bB-bO6"/>
+        <segue reference="gqE-oT-Cus"/>
+        <segue reference="wAA-nu-VKs"/>
+        <segue reference="Ve6-mS-bkp"/>
+        <segue reference="SII-hP-sMz"/>
+        <segue reference="Ydd-d5-d62"/>
         <segue reference="m95-nf-RcH"/>
     </inferredMetricsTieBreakers>
 </document>

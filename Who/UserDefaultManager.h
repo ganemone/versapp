@@ -30,6 +30,7 @@
 +(NSString *)loadDeviceID;
 +(BOOL)isValidated;
 
++(BOOL)hasSentBlacklist;
 +(BOOL)hasLoggedIn;
 +(BOOL)hasCreatedOneToOne;
 +(BOOL)hasCreatedGroup;
@@ -47,5 +48,6 @@
 +(void)setStartedThoughtChatTrue;
 +(void)setReceivedOneToOneInvitationTrue;
 +(void)setSeenFriendsTrue;
++(void)setSentBlacklistTrue;
 
 @end

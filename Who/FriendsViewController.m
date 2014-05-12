@@ -59,6 +59,25 @@
         [UserDefaultManager setSeenFriendsTrue];
         [[[UIAlertView alloc] initWithTitle:@"Friends" message:@"This is your friends page. Your friends are chosen based on your phone contacts. Start conversations by selecting one or more friends on this page." delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:nil] show];
     }
+    if ([_allAccepted count] > 0)
+    {
+        [self.view sendSubviewToBack:self.noFriendsBlackView];
+        [self.view sendSubviewToBack:self.noFriendsView];
+        [self.noFriendsView setHidden:YES];
+        [self.noFriendsView setUserInteractionEnabled:NO];
+        [self.noFriendsBlackView setHidden:YES];
+        [self.noFriendsBlackView setUserInteractionEnabled:NO];
+    }
+    else
+    {
+        [self.view bringSubviewToFront:self.noFriendsBlackView];
+        [self.view bringSubviewToFront:self.noFriendsView];
+        [self.noFriendsView setHidden:NO];
+        [self.noFriendsView setUserInteractionEnabled:YES];
+        [self.noFriendsBlackView setHidden:NO];
+        [self.noFriendsBlackView setUserInteractionEnabled:YES];
+        [self.view bringSubviewToFront:self.noFriendsView];
+    }
 }
 
 -(void)viewDidLoad{
@@ -99,23 +118,6 @@
     [self.noFriendsBlackView setFrame:CGRectMake(0, self.headerView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.headerView.frame.size.height)];
     [self.noFriendsView setFrame:self.noFriendsBlackView.frame];
     [self.noFriendsLabel setFont:[StyleManager getFontStyleMediumSizeLarge]];
-    if ([_allAccepted count] > 0)
-    {
-        NSLog(@"Setting hidden");
-        [self.noFriendsView setHidden:YES];
-        [self.noFriendsView setUserInteractionEnabled:NO];
-        [self.noFriendsBlackView setHidden:YES];
-        [self.noFriendsBlackView setUserInteractionEnabled:NO];
-    }
-    else
-    {
-        NSLog(@"Setting not hidden");
-        [self.noFriendsView setHidden:NO];
-        [self.noFriendsView setUserInteractionEnabled:YES];
-        [self.noFriendsBlackView setHidden:NO];
-        [self.noFriendsBlackView setUserInteractionEnabled:YES];
-        [self.view bringSubviewToFront:self.noFriendsView];
-    }
 }
 
 - (IBAction)handleNoFriendsBtnClicked:(id)sender

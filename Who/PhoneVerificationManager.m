@@ -59,7 +59,7 @@ NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_c
             }
         });
     });*/
-    
+
     NSURL *url = [NSURL URLWithString:@""];
     NSMutableURLRequest *uploadRequest = [NSMutableURLRequest requestWithURL:url];
     [uploadRequest setHTTPMethod:@"POST"];
@@ -71,6 +71,7 @@ NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_c
         code = [NSString stringWithFormat:@"%d%d%d%d", arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9), arc4random_uniform(9)];
         [self saveVerificationCode:code];
     }
+    NSLog(@"Verification Code: %@", code);
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *parameters = @{@"phone" : phone,
                                  @"country" : country,
