@@ -399,15 +399,6 @@ static BOOL notificationsHalfHidden = NO;
         [MessagesDBManager deleteMessagesFromChatWithID:chat.chat_id];
         [ChatDBManager deleteChat:chat];
         [_tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-        if ([_groupChats count] == 0 && [_oneToOneChats count] == 0) {
-            UILabel *footerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
-            [footerLabel setBackgroundColor:[UIColor whiteColor]];
-            [footerLabel setTextAlignment:NSTextAlignmentCenter];
-            [footerLabel setText:@"You don't have any conversations yet :("];
-            [footerLabel setFont:[StyleManager getFontStyleBoldSizeLarge]];
-            [footerLabel setTextColor:[StyleManager getColorBlue]];
-            [_tableView setTableHeaderView:footerLabel];
-        }
     }
 }
 

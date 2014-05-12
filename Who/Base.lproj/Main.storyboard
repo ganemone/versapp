@@ -863,7 +863,7 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="0Wa-Rr-qf5">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" id="0Wa-Rr-qf5">
                                         <rect key="frame" x="20" y="20" width="280" height="87"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <string key="text">You don't have any conversations just yet. Start a conversation with the messages icon in the top right.  Or, swipe to the right to look at your thoughts feed.</string>
@@ -1227,7 +1227,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mNb-6q-amH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1790" y="781"/>
+            <point key="canvasLocation" x="1778" y="817"/>
         </scene>
         <!--Confessions View Controller - Confessions-->
         <scene sceneID="g8k-18-lyM">
@@ -2002,18 +2002,18 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="zTQ-Mf-6oX"/>
+        <segue reference="AGt-Q0-zDh"/>
+        <segue reference="Y5D-AL-CYy"/>
+        <segue reference="YEX-bB-bO6"/>
+        <segue reference="SII-hP-sMz"/>
+        <segue reference="7SH-c7-oeZ"/>
+        <segue reference="Ve6-mS-bkp"/>
+        <segue reference="Ydd-d5-d62"/>
         <segue reference="hVX-XL-lBE"/>
         <segue reference="pHb-Kf-4qo"/>
         <segue reference="BCc-dv-kG7"/>
         <segue reference="z6h-qs-HbB"/>
         <segue reference="tVn-SP-Hc9"/>
-        <segue reference="YEX-bB-bO6"/>
-        <segue reference="Hva-pz-dYE"/>
-        <segue reference="7SH-c7-oeZ"/>
-        <segue reference="Ve6-mS-bkp"/>
-        <segue reference="Ydd-d5-d62"/>
-        <segue reference="qGQ-aw-vgl"/>
         <segue reference="m95-nf-RcH"/>
     </inferredMetricsTieBreakers>
 </document>

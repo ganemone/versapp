@@ -27,7 +27,14 @@
 // and sends notification with dictionary containing ONLY the group id.
 +(void)handleMessagePacket:(XMPPMessage*)message {
     NSLog(@"Received Message: %@", [message XMLString]);
+    
     NSError *error = NULL;
+    NSRegularExpression *broadcastRegex = [NSRegularExpression regularExpressionWithPattern:@"^<message .*?><body>(.*?)<\\/body><broadcast.*?><type>new_user<\\/type><\\/broadcast><\\/message>$"options:NSRegularExpressionCaseInsensitive error:&error];
+    if ([[broadcastRegex matchesInString:message.XMLString options:0 range:NSMakeRange(0, message.XMLString.length)] count] > 0) {
+        return;
+    }
+
+    error = NULL;
     NSRegularExpression *chatInvitationRegex = [NSRegularExpression regularExpressionWithPattern:@"<property><name>(.*?)<\\/name><value.*?>(.*?)<\\/value><\\/property>" options:NSRegularExpressionCaseInsensitive error:&error];
     NSArray *matches = [chatInvitationRegex matchesInString:message.XMLString options:0 range:NSMakeRange(0, message.XMLString.length)];
     NSString *chatID,
@@ -60,6 +67,7 @@
 }
 
 +(void)handleChatMessageReceived:(XMPPMessage*)message {
+    
     NSError *error = NULL;
     NSLog(@"Message Received: %@", message.XMLString);
     NSRegularExpression *groupIDRegex = [NSRegularExpression regularExpressionWithPattern:@"(.*?)@" options:NSRegularExpressionCaseInsensitive error:&error];

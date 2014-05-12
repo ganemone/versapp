@@ -86,6 +86,7 @@
 		3A3A0B1618AB118A006FBAE4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A3A0B1518AB118A006FBAE4 /* AudioToolbox.framework */; };
 		3A3E2EFE191FD3A300210536 /* ConversationTypesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3E2EFC191FD3A300210536 /* ConversationTypesViewController.m */; };
 		3A3E2EFF191FD3A300210536 /* ConversationTypesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A3E2EFD191FD3A300210536 /* ConversationTypesViewController.xib */; };
+		3A3E2F011920381B00210536 /* compose-orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3E2F001920381B00210536 /* compose-orange.png */; };
 		3A47C844189F1A52003020D7 /* FriendsDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A47C843189F1A52003020D7 /* FriendsDBManager.m */; };
 		3A47C847189F1F02003020D7 /* MessagesDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A47C846189F1F02003020D7 /* MessagesDBManager.m */; };
 		3A49E9EA18FF146C00AFCB8E /* ThoughtTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A49E9E918FF146C00AFCB8E /* ThoughtTableViewCell.m */; };
@@ -97,7 +98,7 @@
 		3A5065D6191EB94300EED804 /* chat-type-thoughts-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A5065D2191EB94300EED804 /* chat-type-thoughts-icon.png */; };
 		3A5065E5191EB9A100EED804 /* add-friend-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A5065D8191EB9A100EED804 /* add-friend-icon.png */; };
 		3A5065E6191EB9A100EED804 /* compose-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A5065D9191EB9A100EED804 /* compose-blue.png */; };
-		3A5065E7191EB9A100EED804 /* compose-orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A5065DA191EB9A100EED804 /* compose-orange.png */; };
+		3A5065E7191EB9A100EED804 /* compose-orange-old.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A5065DA191EB9A100EED804 /* compose-orange-old.png */; };
 		3A5065E8191EB9A100EED804 /* group-icon-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A5065DB191EB9A100EED804 /* group-icon-white.png */; };
 		3A5065E9191EB9A100EED804 /* notifications1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A5065DC191EB9A100EED804 /* notifications1.png */; };
 		3A5065EA191EB9A100EED804 /* notifications2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A5065DD191EB9A100EED804 /* notifications2.png */; };
@@ -662,6 +663,7 @@
 		3A3E2EFB191FD3A300210536 /* ConversationTypesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationTypesViewController.h; sourceTree = "<group>"; };
 		3A3E2EFC191FD3A300210536 /* ConversationTypesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationTypesViewController.m; sourceTree = "<group>"; };
 		3A3E2EFD191FD3A300210536 /* ConversationTypesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConversationTypesViewController.xib; sourceTree = "<group>"; };
+		3A3E2F001920381B00210536 /* compose-orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose-orange.png"; sourceTree = "<group>"; };
 		3A47C842189F1A52003020D7 /* FriendsDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsDBManager.h; sourceTree = "<group>"; };
 		3A47C843189F1A52003020D7 /* FriendsDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsDBManager.m; sourceTree = "<group>"; };
 		3A47C845189F1F02003020D7 /* MessagesDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesDBManager.h; sourceTree = "<group>"; };
@@ -676,7 +678,7 @@
 		3A5065D2191EB94300EED804 /* chat-type-thoughts-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-type-thoughts-icon.png"; sourceTree = "<group>"; };
 		3A5065D8191EB9A100EED804 /* add-friend-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-friend-icon.png"; sourceTree = "<group>"; };
 		3A5065D9191EB9A100EED804 /* compose-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose-blue.png"; sourceTree = "<group>"; };
-		3A5065DA191EB9A100EED804 /* compose-orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose-orange.png"; sourceTree = "<group>"; };
+		3A5065DA191EB9A100EED804 /* compose-orange-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose-orange-old.png"; sourceTree = "<group>"; };
 		3A5065DB191EB9A100EED804 /* group-icon-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "group-icon-white.png"; sourceTree = "<group>"; };
 		3A5065DC191EB9A100EED804 /* notifications1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notifications1.png; sourceTree = "<group>"; };
 		3A5065DD191EB9A100EED804 /* notifications2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notifications2.png; sourceTree = "<group>"; };
@@ -1897,9 +1899,10 @@
 		3A5065F2191EB9A600EED804 /* colored-icons */ = {
 			isa = PBXGroup;
 			children = (
+				3A3E2F001920381B00210536 /* compose-orange.png */,
 				3A5065D8191EB9A100EED804 /* add-friend-icon.png */,
 				3A5065D9191EB9A100EED804 /* compose-blue.png */,
-				3A5065DA191EB9A100EED804 /* compose-orange.png */,
+				3A5065DA191EB9A100EED804 /* compose-orange-old.png */,
 				3A5065DB191EB9A100EED804 /* group-icon-white.png */,
 				3A5065DC191EB9A100EED804 /* notifications1.png */,
 				3A5065DD191EB9A100EED804 /* notifications2.png */,
@@ -3389,6 +3392,7 @@
 				3A5065D6191EB94300EED804 /* chat-type-thoughts-icon.png in Resources */,
 				3A3A0B1218AB1126006FBAE4 /* message-received.aiff in Resources */,
 				F751016C18ABE8A2001F1E7F /* Settings.bundle in Resources */,
+				3A3E2F011920381B00210536 /* compose-orange.png in Resources */,
 				3AB8D19018C259B00082B77C /* MavenProBold.ttf in Resources */,
 				3AF19A6E1881F34A00F3E4D3 /* README.txt in Resources */,
 				3AF92582191BC21400795FC6 /* double-arrow-white.png in Resources */,
@@ -3435,7 +3439,7 @@
 				3A5065EA191EB9A100EED804 /* notifications2.png in Resources */,
 				3A3A0B0C18AB1126006FBAE4 /* send-button.png in Resources */,
 				3AF86D2918B504CF00033495 /* bubble-old.png in Resources */,
-				3A5065E7191EB9A100EED804 /* compose-orange.png in Resources */,
+				3A5065E7191EB9A100EED804 /* compose-orange-old.png in Resources */,
 				3AF925A2191BDADC00795FC6 /* ThoughtsTutorialViewController.xib in Resources */,
 				3A07F6D718D3EFC200E82390 /* check-icon.png in Resources */,
 				3A5065E6191EB9A100EED804 /* compose-blue.png in Resources */,
