@@ -91,6 +91,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
+      customArchiveName = "VersappBetaV0.2"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

@@ -221,7 +221,7 @@ static int numUninvitedParticipants;
 }
 
 +(int)getNumForBadge {
-    return [[self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\" || %@ = \"%@\"", CHATS_TABLE_COLUMN_NAME_HAS_NEW_MESSAGE, @"YES", CHATS_TABLE_COLUMN_NAME_STATUS, [NSNumber numberWithInt:STATUS_PENDING]]] count];
+    return (int)[[self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\" || %@ = \"%@\"", CHATS_TABLE_COLUMN_NAME_HAS_NEW_MESSAGE, @"YES", CHATS_TABLE_COLUMN_NAME_STATUS, [NSNumber numberWithInt:STATUS_PENDING]]] count];
 }
 
 +(void)updateOneToOneChatNames:(NSString *)name username:(NSString*)username {

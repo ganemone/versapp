@@ -13,18 +13,26 @@
 @implementation Encrypter
 
 +(NSString *)md5:(NSString *)input {
+    
     input = [self saltString:input];
+    NSLog(@"Input: %@", input);
     
-    const char *cStr = [input UTF8String];
-    unsigned char digest[16];
-    CC_MD5( cStr, (CC_LONG)strlen(cStr), digest ); // This is the md5 call
+    // Create pointer to the string as UTF8
+    const char *ptr = [input UTF8String];
     
+    // Create byte array of unsigned chars
+    unsigned char md5Buffer[CC_MD5_DIGEST_LENGTH];
+    
+    // Create 16 byte MD5 hash value, store in buffer
+    CC_MD5(ptr, strlen(ptr), md5Buffer);
+    
+    // Convert MD5 value in the buffer to NSString of hex values
     NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
-    
     for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
-        [output appendFormat:@"%02x", digest[i]];
+        [output appendFormat:@"%02x",md5Buffer[i]];
     
-    return  output;
+    NSLog(@"Returning Password: %@", output);
+    return output;
 }
 
 +(NSString *)sha1:(NSString *)input {

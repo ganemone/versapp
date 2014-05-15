@@ -26,6 +26,8 @@
 		3A07F6C618D3C21800E82390 /* messages-icon-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A07F6B418D3C21800E82390 /* messages-icon-blue.png */; };
 		3A07F6D718D3EFC200E82390 /* check-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A07F6D618D3EFC200E82390 /* check-icon.png */; };
 		3A08D1FA18BFD3BB002A7C8E /* UserDefaultManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A08D1F918BFD3BB002A7C8E /* UserDefaultManager.m */; };
+		3A0EC4D7192435EA0036AB43 /* RSAESCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0EC4D6192435EA0036AB43 /* RSAESCryptor.m */; };
+		3A0EC4DB192435EF0036AB43 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0EC4DA192435EF0036AB43 /* NSData+CommonCrypto.m */; };
 		3A0FE1C118A99EB2003692EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C018A99EB2003692EB /* QuartzCore.framework */; };
 		3A0FE1C518A9A4C7003692EB /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C418A9A4C7003692EB /* CoreText.framework */; };
 		3A1EACDD18D9DC41006E4CA3 /* bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A1EACDC18D9DC41006E4CA3 /* bubble.png */; };
@@ -576,6 +578,11 @@
 		3A07F6D618D3EFC200E82390 /* check-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon.png"; sourceTree = "<group>"; };
 		3A08D1F818BFD3BB002A7C8E /* UserDefaultManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultManager.h; sourceTree = "<group>"; };
 		3A08D1F918BFD3BB002A7C8E /* UserDefaultManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultManager.m; sourceTree = "<group>"; };
+		3A0EC4D5192435EA0036AB43 /* RSAESCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSAESCryptor.h; sourceTree = "<group>"; };
+		3A0EC4D6192435EA0036AB43 /* RSAESCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSAESCryptor.m; sourceTree = "<group>"; };
+		3A0EC4D9192435EF0036AB43 /* NSData+CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CommonCrypto.h"; sourceTree = "<group>"; };
+		3A0EC4DA192435EF0036AB43 /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
+		3A0EC4E7192450D50036AB43 /* certificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = certificate.cer; sourceTree = "<group>"; };
 		3A0FE1C018A99EB2003692EB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3A0FE1C418A9A4C7003692EB /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		3A1EACDC18D9DC41006E4CA3 /* bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bubble.png; path = ../../../../bubble.png; sourceTree = "<group>"; };
@@ -1544,6 +1551,26 @@
 				3A068E7B18F18D2100EA260E /* UIScrollView+GifPullToRefresh.m */,
 			);
 			name = GIFRefreshControl;
+			sourceTree = "<group>";
+		};
+		3A0EC4D8192435EF0036AB43 /* CommonCrypto */ = {
+			isa = PBXGroup;
+			children = (
+				3A0EC4D9192435EF0036AB43 /* NSData+CommonCrypto.h */,
+				3A0EC4DA192435EF0036AB43 /* NSData+CommonCrypto.m */,
+			);
+			path = CommonCrypto;
+			sourceTree = "<group>";
+		};
+		3A0EC4DC192435FC0036AB43 /* RSA */ = {
+			isa = PBXGroup;
+			children = (
+				3A0EC4E7192450D50036AB43 /* certificate.cer */,
+				3A0EC4D8192435EF0036AB43 /* CommonCrypto */,
+				3A0EC4D5192435EA0036AB43 /* RSAESCryptor.h */,
+				3A0EC4D6192435EA0036AB43 /* RSAESCryptor.m */,
+			);
+			name = RSA;
 			sourceTree = "<group>";
 		};
 		3A0FE1CC18A9B6DA003692EB /* Resources */ = {
@@ -2624,6 +2651,7 @@
 		3AF19ACE1881F86000F3E4D3 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				3A0EC4DC192435FC0036AB43 /* RSA */,
 				3AF68FDA1919581400ABA9C5 /* Source */,
 				3AF68FB5191937C000ABA9C5 /* PEPhotoCropEditor */,
 				3A793D2E190FF6CA00303457 /* UIKit+AFNetworking */,
@@ -3548,6 +3576,7 @@
 				3AFF778718C415BE003277F9 /* FriendMO.m in Sources */,
 				3AF691851919581600ABA9C5 /* GPUImageMedianFilter.m in Sources */,
 				3AF6913A1919581600ABA9C5 /* GPUImageAverageLuminanceThresholdFilter.m in Sources */,
+				3A0EC4DB192435EF0036AB43 /* NSData+CommonCrypto.m in Sources */,
 				3AF6917B1919581600ABA9C5 /* GPUImageLinearBurnBlendFilter.m in Sources */,
 				3A793D2B190FF6C200303457 /* AFURLRequestSerialization.m in Sources */,
 				3A793D42190FF6CA00303457 /* UIAlertView+AFNetworking.m in Sources */,
@@ -3716,6 +3745,7 @@
 				3A793D2D190FF6C200303457 /* AFURLSessionManager.m in Sources */,
 				3AF691991919581600ABA9C5 /* GPUImagePixellatePositionFilter.m in Sources */,
 				3AF691371919581600ABA9C5 /* GPUImageAlphaBlendFilter.m in Sources */,
+				3A0EC4D7192435EA0036AB43 /* RSAESCryptor.m in Sources */,
 				3AF691581919581600ABA9C5 /* GPUImageExclusionBlendFilter.m in Sources */,
 				3A1EACE218D9E7A0006E4CA3 /* ContactTableViewCell.m in Sources */,
 				3A793D29190FF6C200303457 /* AFSecurityPolicy.m in Sources */,
@@ -3939,7 +3969,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "2C0E2DD8-8A36-46EA-A8EC-9461FDD3A60E";
+				PROVISIONING_PROFILE = "89D86B8B-EDA6-4822-9A74-B8ACD31B79EB";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = NO;
 			};
@@ -3978,7 +4008,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "2C0E2DD8-8A36-46EA-A8EC-9461FDD3A60E";
+				PROVISIONING_PROFILE = "89D86B8B-EDA6-4822-9A74-B8ACD31B79EB";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -4000,7 +4030,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
 				PRODUCT_NAME = Versapp;
-				PROVISIONING_PROFILE = "2C0E2DD8-8A36-46EA-A8EC-9461FDD3A60E";
+				PROVISIONING_PROFILE = "89D86B8B-EDA6-4822-9A74-B8ACD31B79EB";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -4021,7 +4051,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
 				PRODUCT_NAME = Versapp;
-				PROVISIONING_PROFILE = "2C0E2DD8-8A36-46EA-A8EC-9461FDD3A60E";
+				PROVISIONING_PROFILE = "89D86B8B-EDA6-4822-9A74-B8ACD31B79EB";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
