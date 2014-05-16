@@ -22,6 +22,7 @@
 @dynamic chat_type;
 @dynamic participant_string;
 @dynamic owner_id;
+@dynamic degree;
 
 @synthesize messages = _messages;
 @synthesize participants = _participants;

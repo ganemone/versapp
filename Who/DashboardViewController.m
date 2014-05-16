@@ -7,6 +7,7 @@
 //
 
 #import "DashboardViewController.h"
+#import "DashboardTableViewCell.h"
 #import "ConversationViewController.h"
 #import "OneToOneConversationViewController.h"
 #import "Constants.h"
@@ -265,48 +266,20 @@ static BOOL notificationsHalfHidden = NO;
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.tableView) {
-        static NSString *CellIdentifier = @"ChatCellIdentifier";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        [cell.textLabel setText:@""];
-        [cell.textLabel setFrame:CGRectZero];
-        UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(35, 5, self.view.frame.size.width - 40, 10)];
-        [textLabel setTextColor:[StyleManager getColorBlue]];
-        [cell.detailTextLabel setTextColor:[UIColor blackColor]];
-        [cell.detailTextLabel setHidden:NO];
-        
         ChatMO *chatMo;
         if(indexPath.section == 0) {
             chatMo = [self.groupChats objectAtIndex:indexPath.row];
         } else {
             chatMo = [self.oneToOneChats objectAtIndex:indexPath.row];
         }
-        
-        [textLabel setText:[chatMo getChatName]];
-        [cell.detailTextLabel setText:[chatMo getLastMessage]];
-        
-        if ([ChatDBManager doesChatHaveNewMessage:chatMo.chat_id]) {
-            [textLabel setFont:[StyleManager getFontStyleBoldSizeLarge]];
-            [cell.detailTextLabel setFont:[StyleManager getFontStyleBoldSizeMed]];
-        } else {
-            [textLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
-            [cell.detailTextLabel setFont:[StyleManager getFontStyleLightSizeMed]];
+    
+        DashboardTableViewCell *cell = (DashboardTableViewCell *)[tableView dequeueReusableCellWithIdentifier:chatMo.chat_id];
+        if (cell == nil) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"DashboardTableViewCell" owner:self options:nil] firstObject];
+            [cell setUpWithChatMO:chatMo];
         }
-        
-        [cell setBackgroundColor:[UIColor whiteColor]];
-        UIImageView *chatTypeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(1, 1, 30, 30)];
-        [chatTypeImageView setContentMode:UIViewContentModeScaleAspectFit];
-        if([chatMo.chat_type isEqualToString:CHAT_TYPE_GROUP]) {
-            [chatTypeImageView setImage:[UIImage imageNamed:@"chat-type-group-icon.png"]];
-        } else if([chatMo.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITER]) {
-            [chatTypeImageView setImage:[UIImage imageNamed:@"chat-type-inviter-icon.png"]];
-        } else if([chatMo.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITED]) {
-            [chatTypeImageView setImage:[UIImage imageNamed:@"chat-type-invited-icon.png"]];
-        } else if([chatMo.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION]) {
-            [chatTypeImageView setImage:[UIImage imageNamed:@"chat-type-thoughts-icon.png"]];
-        }
-        [cell addSubview:chatTypeImageView];
-        [cell addSubview:textLabel];
         return cell;
+        
     } else {
         static NSString *cellIdentifier = @"Cell";
         

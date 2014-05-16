@@ -21,6 +21,7 @@
     [instance setBody:body];
     [instance setImageURL:imageURL];
     [instance setFavoritedUsers:[[NSMutableArray alloc] init]];
+    [instance setDegree:@"1"];
     return instance;
 }
 
@@ -103,7 +104,7 @@
     NSString *participants = [NSString stringWithFormat:@"%@, %@", [ConnectionProvider getUser], invitedID];
     [ChatDBManager setChatIDPendingCreation:chatID];
     [self decodeBody];
-    [ChatDBManager insertChatWithID:chatID chatName:_body chatType:CHAT_TYPE_ONE_TO_ONE_CONFESSION participantString:participants status:STATUS_JOINED];
+    [ChatDBManager insertChatWithID:chatID chatName:_body chatType:CHAT_TYPE_ONE_TO_ONE_CONFESSION participantString:participants status:STATUS_JOINED degree:_degree];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
 }
 

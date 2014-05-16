@@ -181,7 +181,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="next"/>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="We send a text message to your phone with a confirmation code. Please enter that code below." selectable="NO" id="YTC-bw-ksh">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="We sent a text message to your phone with a confirmation code. Please enter that code below." selectable="NO" id="YTC-bw-ksh">
                                 <rect key="frame" x="20" y="72" width="280" height="67"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -784,28 +784,12 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" red="0.21960784310000001" green="0.65490196079999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ChatCellIdentifier" textLabel="v2A-tl-ub0" detailTextLabel="nW9-vC-GGP" style="IBUITableViewCellStyleSubtitle" id="VBY-mw-oGl">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ChatCellIdentifier" id="VBY-mw-oGl">
                                         <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VBY-mw-oGl" id="IjZ-tW-mK6">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="v2A-tl-ub0">
-                                                    <rect key="frame" x="15" y="3" width="34" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nW9-vC-GGP">
-                                                    <rect key="frame" x="15" y="25" width="32" height="15"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -1126,7 +1110,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HUc-cS-3Ub">
-                                        <rect key="frame" x="79" y="20" width="163" height="44"/>
+                                        <rect key="frame" x="48" y="20" width="174" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1141,26 +1125,27 @@
                                             <action selector="onBackClicked:" destination="LSk-rM-HTJ" eventType="touchUpInside" id="0ds-Bj-FaE"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" id="J3u-R3-Wbe">
-                                        <rect key="frame" x="287" y="31" width="22" height="22"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" id="e0z-7U-xjL">
+                                        <rect key="frame" x="225" y="26" width="32" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                        <color key="tintColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="discloseInfoButtonClicked:" destination="LSk-rM-HTJ" eventType="touchUpInside" id="PYd-sz-RWd"/>
+                                            <action selector="showGroupParticipants:" destination="LSk-rM-HTJ" eventType="touchUpInside" id="TJB-Mw-Rwx"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="e0z-7U-xjL">
-                                        <rect key="frame" x="240" y="25" width="34" height="34"/>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="J3u-R3-Wbe">
+                                        <rect key="frame" x="262" y="30" width="50" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                        <state key="normal" image="friends-icon.png">
+                                        <color key="tintColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <state key="normal" image="chat-type-group-icon.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="showGroupParticipants:" destination="LSk-rM-HTJ" eventType="touchUpInside" id="TJB-Mw-Rwx"/>
+                                            <action selector="discloseInfoButtonClicked:" destination="LSk-rM-HTJ" eventType="touchUpInside" id="PYd-sz-RWd"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1587,10 +1572,11 @@
                                             <action selector="onBackClicked:" destination="iDZ-uG-Ep6" eventType="touchUpInside" id="KTi-cY-2i2"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" id="x9Y-gK-Yya">
-                                        <rect key="frame" x="288" y="31" width="22" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="x9Y-gK-Yya">
+                                        <rect key="frame" x="257" y="31" width="52" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <state key="normal" image="chat-type-thoughts-icon-colored.png"/>
                                         <connections>
                                             <action selector="handleDiscloseInfoBtnClicked:" destination="iDZ-uG-Ep6" eventType="touchUpInside" id="gXH-eJ-ic3"/>
                                         </connections>
@@ -1606,6 +1592,7 @@
                     <connections>
                         <outlet property="header" destination="Cey-fd-2nt" id="grD-jx-qU1"/>
                         <outlet property="headerLabel" destination="l1b-JD-9CX" id="rmE-BW-DHc"/>
+                        <outlet property="infoBtn" destination="x9Y-gK-Yya" id="scu-7Z-ODR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g7A-1E-cma" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2038,12 +2025,13 @@
     <resources>
         <image name="add-friend-icon.png" width="250" height="250"/>
         <image name="arrow-left-icon.png" width="60" height="60"/>
+        <image name="chat-type-group-icon.png" width="355" height="180"/>
+        <image name="chat-type-thoughts-icon-colored.png" width="436" height="182"/>
         <image name="check-icon-purple.png" width="193" height="134"/>
         <image name="check-icon.png" width="192" height="129"/>
         <image name="compose-blue.png" width="250" height="250"/>
         <image name="compose-orange.png" width="250" height="250"/>
         <image name="first" width="30" height="30"/>
-        <image name="friends-icon.png" width="60" height="60"/>
         <image name="notification-none.png" width="250" height="250"/>
         <image name="photo-icon.png" width="183" height="145"/>
         <image name="send-icon.png" width="310" height="310"/>

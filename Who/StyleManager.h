@@ -11,28 +11,33 @@
 @interface StyleManager : NSObject
 
 +(UIFont*)getFontStyleLightSizeSmall;
-
 +(UIFont*)getFontStyleLightSizeMed;
 +(UIFont*)getFontStyleLightSizeLarge;
 +(UIFont*)getFontStyleLightSizeXL;
++(UIFont *)getFontStyleLightSizeThought;
 +(UIFont*)getFontStyleLightSizeTitle;
+
 +(UIFont*)getFontStyleRegularSizeSmall;
 +(UIFont*)getFontStyleRegularSizeMed;
 +(UIFont*)getFontStyleRegularSizeLarge;
 +(UIFont*)getFontStyleRegularSizeXL;
+
 +(UIFont*)getFontStyleMediumSizeSmall;
 +(UIFont*)getFontStyleMediumSizeMed;
 +(UIFont*)getFontStyleMediumSizeLarge;
 +(UIFont*)getFontStyleMediumSizeXL;
+
 +(UIFont*)getFontStyleBoldSizeSmall;
 +(UIFont*)getFontStyleBoldSizeMed;
 +(UIFont*)getFontStyleBoldSizeLarge;
 +(UIFont*)getFontStyleBoldSizeXL;
 +(UIFont*)getFontStyleBoldSizeTitle;
+
 +(UIColor*)getColorOrange;
 +(UIColor*)getColorBlue;
 +(UIColor*)getColorPurple;
 +(UIColor*)getColorGreen;
+
 +(UIColor *)getRandomOrangeColor;
 +(UIColor *)getRandomPurpleColor;
 +(UIColor *)getRandomGreenColor;

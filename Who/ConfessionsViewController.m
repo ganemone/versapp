@@ -192,23 +192,9 @@
 {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     [_confessionsManager sortConfessions];
-    [self loadImagesForThoughts];
+    //[self loadImagesForThoughts];
     [self.tableView didFinishPullToRefresh];
     [self.tableView reloadData];
-}
-
-- (void)loadImagesForThoughts {
-    int numConfessions = [_confessionsManager getNumberOfConfessions];
-    ImageCache *cache = [ImageCache getInstance];
-    ImageManager *imageManager = [[ImageManager alloc] init];
-    Confession *confession;
-    for (int i = 0; i < numConfessions; i++) {
-        confession = [_confessionsManager getConfessionAtIndex:i];
-        if (![cache hasImageWithIdentifier:confession.confessionID] && ![[confession.imageURL substringToIndex:1] isEqualToString:@"#"]) {
-            NSLog(@"Downloading image...");
-            [imageManager downloadImageForThought:confession delegate:self];
-        }
-    }
 }
 
 - (void)handleOneToOneChatCreatedFromConfession {
@@ -306,6 +292,20 @@
  }*/
 
 #pragma ImageManagerDelegate
+
+- (void)loadImagesForThoughts {
+    int numConfessions = [_confessionsManager getNumberOfConfessions];
+    ImageCache *cache = [ImageCache getInstance];
+    ImageManager *imageManager = [[ImageManager alloc] init];
+    Confession *confession;
+    for (int i = 0; i < numConfessions; i++) {
+        confession = [_confessionsManager getConfessionAtIndex:i];
+        if (![cache hasImageWithIdentifier:confession.confessionID] && ![[confession.imageURL substringToIndex:1] isEqualToString:@"#"]) {
+            NSLog(@"Downloading image...");
+            [imageManager downloadImageForThought:confession delegate:self];
+        }
+    }
+}
 
 -(void)didFinishDownloadingImage:(UIImage *)image withIdentifier:(NSString *)identifier {
     Confession *confession = [self.confessionsManager getConfessionWithID:identifier];

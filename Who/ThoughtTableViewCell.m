@@ -52,7 +52,7 @@
     [_timestampLabel setText:[_confession getTimePosted]];
     [_favLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)[_confession getNumForLabel]]];
     
-    [_body setFont:[StyleManager getFontStyleBoldSizeXL]];
+    [_body setFont:[StyleManager getFontStyleLightSizeThought]];
     [_body setTextColor:[UIColor whiteColor]];
     [_timestampLabel setTextColor:[UIColor whiteColor]];
     [_timestampLabel setFont:[StyleManager getFontStyleBoldSizeSmall]];
@@ -71,9 +71,9 @@
     
     if ([self heightForConfession] > 120) {
         [_body setFont:[StyleManager getFontStyleBoldSizeMed]];
-        [_body setTextContainerInset:UIEdgeInsetsMake((_body.frame.size.height - [self heightForConfessionWithFont:[StyleManager getFontStyleBoldSizeMed]] - 50) / 2.0f, 0, 0, 0)];
+        [_body setTextContainerInset:UIEdgeInsetsMake((_body.frame.size.height - [self heightForConfessionWithFont:[StyleManager getFontStyleBoldSizeMed]] - 30) / 2.0f, 0, 0, 0)];
     } else {
-        [_body setTextContainerInset:UIEdgeInsetsMake((_body.frame.size.height - [self heightForConfession] - 40) / 2.0f, 0, 0, 0)];
+        [_body setTextContainerInset:UIEdgeInsetsMake((_body.frame.size.height - [self heightForConfession] - 20) / 2.0f, 0, 0, 0)];
     }
     
     [_favBtn addTarget:self action:@selector(handleConfessionFavorited:) forControlEvents:UIControlEventTouchUpInside];
@@ -113,8 +113,23 @@
             [self setBackgroundView:imageView];
         } else {
             [MBProgressHUD showHUDAddedTo:self.contentView animated:YES];
+            ImageManager *im = [[ImageManager alloc] init];
+            [im downloadImageForThought:_confession delegate:self];
         }
     }
+}
+
+- (void)setUpBackgroundViewWithImage:(UIImage *)image {
+    _backgroundImage = [self imageWithImage:image scaledToMaxWidth:320 maxHeight:320];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.contentView.frame];
+    imageView.alpha = 0;
+    imageView.image = _backgroundImage;
+    [self setBackgroundView:imageView];
+    [UIView beginAnimations:@"fadeIn" context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationDuration:1];
+    imageView.alpha = 1;
+    [UIView commitAnimations];
 }
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)size {
@@ -178,17 +193,7 @@
 }
 
 - (CGFloat)heightForConfession {
-    if (_height > 0.0f) {
-        return _height;
-    }
-    UIFont *cellFont = [StyleManager getFontStyleBoldSizeXL];
-    CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
-    NSStringDrawingContext *ctx = [NSStringDrawingContext new];
-    CGRect textRect = [_body.text boundingRectWithSize:constraintSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:ctx];
-    _height = textRect.size.height;
-    return _height;
-    //_height = MAX(textRect.size.height + 80.0f, 121.0f);
-    //return _height;
+    return [self heightForConfessionWithFont:[StyleManager getFontStyleLightSizeThought]];
 }
 
 - (CGFloat)heightForConfessionWithFont:(UIFont *)cellFont {
@@ -199,6 +204,22 @@
     return _height;
     //_height = MAX(textRect.size.height + 80.0f, 121.0f);
     //return _height;
+}
+
+#pragma ImageManagerDelegate
+
+-(void)didFinishDownloadingImage:(UIImage *)image withIdentifier:(NSString *)identifier {
+    [MBProgressHUD hideAllHUDsForView:self.contentView animated:YES];
+    [self setUpBackgroundViewWithImage:image];
+}
+
+-(void)didFailToDownloadImageWithIdentifier:(NSString *)identifier {
+    NSLog(@"Failed to download image...");
+}
+
+-(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {}
+-(void)didFailToUploadImage:(UIImage *)image toURL:(NSString *)url withError:(NSError *)error {
+    NSLog(@"Failed to upload image...");
 }
 
 @end

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5063" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13C1021" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="ChatMO" representedClassName="ChatMO" syncable="YES">
         <attribute name="chat_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="chat_name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="chat_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="degree" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="has_new_message" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="owner_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="participant_string" optional="YES" attributeType="String" syncable="YES"/>
@@ -28,7 +29,7 @@
         <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="ChatMO" positionX="0" positionY="0" width="128" height="165"/>
+        <element name="ChatMO" positionX="0" positionY="0" width="128" height="180"/>
         <element name="FriendMO" positionX="0" positionY="0" width="128" height="148"/>
         <element name="MessageMO" positionX="0" positionY="0" width="128" height="135"/>
     </elements>

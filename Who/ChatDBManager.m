@@ -26,7 +26,7 @@ static int numUninvitedParticipants;
     return ([self getChatWithID:chatID] != nil);
 }
 
-+(ChatMO*)insertChatWithID:(NSString *)chatID chatName:(NSString *)chatName chatType:(NSString*)chatType participantString:(NSString*)participantString status:(int)status {
++(ChatMO*)insertChatWithID:(NSString *)chatID chatName:(NSString *)chatName chatType:(NSString*)chatType participantString:(NSString*)participantString status:(int)status degree:(NSString *)degree {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     
@@ -45,7 +45,7 @@ static int numUninvitedParticipants;
     return chatEntry;
 }
 
-+(ChatMO*)insertChatWithID:(NSString *)chatID chatName:(NSString *)chatName chatType:(NSString*)chatType participantString:(NSString*)participantString status:(int)status withContext:(NSManagedObjectContext *)moc {
++(ChatMO*)insertChatWithID:(NSString *)chatID chatName:(NSString *)chatName chatType:(NSString*)chatType participantString:(NSString*)participantString status:(int)status degree:(NSString *)degree withContext:(NSManagedObjectContext *)moc {
     ChatMO *chatEntry = [self getChatWithID:chatID];
     if (chatEntry == nil) {
         chatEntry = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_CHATS inManagedObjectContext:moc];
@@ -60,7 +60,7 @@ static int numUninvitedParticipants;
     return chatEntry;
 }
 
-+(ChatMO *)insertChatWithID:(NSString *)chatID chatName:(NSString *)chatName chatType:(NSString *)chatType participantString:(NSString *)participantString status:(int)status ownerID:(NSString *)ownerID {
++(ChatMO *)insertChatWithID:(NSString *)chatID chatName:(NSString *)chatName chatType:(NSString *)chatType participantString:(NSString *)participantString status:(int)status degree:(NSString *)degree ownerID:(NSString *)ownerID {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     

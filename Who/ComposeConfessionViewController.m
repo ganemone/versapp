@@ -95,7 +95,7 @@
     [self.view addGestureRecognizer:doubleTap];
     
     [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
-    [self.composeTextView setFont:[StyleManager getFontStyleBoldSizeXL]];
+    [self.composeTextView setFont:[StyleManager getFontStyleLightSizeThought]];
     [self.composeTextView setTextAlignment:NSTextAlignmentCenter];
     [self.composeTextView setDelegate:self];
     [self.composeTextView setText:@"Share a thought..."];
@@ -393,11 +393,9 @@
     }
     NSUInteger newLength = [textView.text length] + [text length] - range.length;
     if (newLength > 200) {
-        [textView setFont:[StyleManager getFontStyleBoldSizeMed]];
-    } else if (newLength > 125) {
-        [textView setFont:[StyleManager getFontStyleBoldSizeLarge]];
+        [textView setFont:[StyleManager getFontStyleLightSizeXL]];
     } else {
-        [textView setFont:[StyleManager getFontStyleBoldSizeXL]];
+        [textView setFont:[StyleManager getFontStyleLightSizeThought]];
     }
     return (newLength > 300) ? NO : YES;
 }
@@ -423,11 +421,17 @@
 }
 
 -(void)adjustInsetsForTextfield:(UITextView *)textView {
-    UIFont *cellFont = [StyleManager getFontStyleBoldSizeXL];
+    UIFont *cellFont = [StyleManager getFontStyleLightSizeThought];
     CGSize constraintSize = CGSizeMake(self.view.frame.size.width - 30, MAXFLOAT);
     NSStringDrawingContext *ctx = [NSStringDrawingContext new];
     CGRect textRect = [textView.text boundingRectWithSize:constraintSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:ctx];
     CGFloat top = textView.frame.size.height/2 - textRect.size.height/2 - 10;
+    CGFloat lowestPoint = _headerLabel.superview.frame.size.height + top + textRect.size.height;
+    NSLog(@"Lowest Point: %f", lowestPoint);
+    NSLog(@"Footer Frame Origin: %f", _footerView.frame.origin.y);
+    if (lowestPoint >= _footerView.frame.origin.y) {
+        top = top - 20;
+    }
     [textView setTextContainerInset:UIEdgeInsetsMake(top, 10, 0, 10)];
 }
 

@@ -10,42 +10,54 @@
 
 @implementation StyleManager
 
-static UIFont *lightSmall;
-static UIFont *lightMed;
-static UIFont *lightLarge;
-static UIFont *lightXL;
-
 static UIColor *colorOrange;
 static UIColor *colorPurple;
 static UIColor *colorGreen;
 static UIColor *colorBlue;
 
 +(UIFont*)getFontStyleLightSizeSmall {
-    if (lightSmall == nil) {
-        lightSmall = [UIFont fontWithName:@"MavenProLight300-Regular" size:12];
-    }
-    return lightSmall;
+    static dispatch_once_t onceToken;
+    static UIFont *_font;
+    dispatch_once(&onceToken, ^{
+        _font = [UIFont fontWithName:@"MavenProLight300-Regular" size:12];
+    });
+    return _font;
 }
 
 +(UIFont*)getFontStyleLightSizeMed {
-    if (lightMed == nil) {
-        lightMed = [UIFont fontWithName:@"MavenProLight300-Regular" size:14];
-    }
-    return lightMed;
+    static dispatch_once_t onceToken;
+    static UIFont *_font;
+    dispatch_once(&onceToken, ^{
+        _font = [UIFont fontWithName:@"MavenProLight300-Regular" size:14];
+    });
+    return _font;
 }
 
 +(UIFont*)getFontStyleLightSizeLarge {
-    if (lightLarge == nil) {
-        lightLarge = [UIFont fontWithName:@"MavenProLight300-Regular" size:16];
-    }
-    return lightLarge;
+    static dispatch_once_t onceToken;
+    static UIFont *_font;
+    dispatch_once(&onceToken, ^{
+        _font = [UIFont fontWithName:@"MavenProLight300-Regular" size:16];
+    });
+    return _font;
 }
 
 +(UIFont*)getFontStyleLightSizeXL {
-    if (lightXL == nil) {
-        lightXL = [UIFont fontWithName:@"MavenProLight300-Regular" size:18];
-    }
-    return lightXL;
+    static dispatch_once_t onceToken;
+    static UIFont *_font;
+    dispatch_once(&onceToken, ^{
+        _font = [UIFont fontWithName:@"MavenProLight300-Regular" size:18];
+    });
+    return _font;
+}
+
++(UIFont *)getFontStyleLightSizeThought {
+    static dispatch_once_t onceToken;
+    static UIFont *_font;
+    dispatch_once(&onceToken, ^{
+        _font = [UIFont fontWithName:@"MavenProLight300-Regular" size:22];
+    });
+    return _font;
 }
 
 +(UIFont*)getFontStyleLightSizeTitle {

@@ -18,6 +18,7 @@
 #import "IQPacketManager.h"
 #import "MBProgressHUD.h"
 #import "UserDefaultManager.h"
+
 @implementation OneToOneConversationViewController
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -81,6 +82,21 @@
     headerBottomborder.backgroundColor = [UIColor whiteColor].CGColor;
     [self.view.layer addSublayer:headerBottomborder];
     [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
+    [self setUpInfoBtn];
+}
+
+- (void)setUpInfoBtn {
+    if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION]) {
+        [_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 60, 30, 52, 21)];
+        [_infoBtn setImage:[UIImage imageNamed:@"chat-type-thoughts-icon.png"] forState:UIControlStateNormal];
+        [_headerLabel setFrame:CGRectMake(_header.frame.origin.x, _header.frame.origin.y, _header.frame.size.width - 25, _header.frame.size.height)];
+    } else if([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITED]) {
+        [_infoBtn setImage:[UIImage imageNamed:@"chat-type-invited-icon.png"] forState:UIControlStateNormal];
+        [_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 35, 30, 28, 26)];
+    } else if([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITER]) {
+        [_infoBtn setImage:[UIImage imageNamed:@"chat-type-inviter-icon.png"] forState:UIControlStateNormal];
+        [_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 35, 30, 28, 26)];
+    }
 }
 
 -(void)messageReceived:(NSNotification*)notification {

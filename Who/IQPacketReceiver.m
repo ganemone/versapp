@@ -160,10 +160,10 @@
         
         NSError *error = NULL;
         NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
-        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\"\\]" options:NSRegularExpressionCaseInsensitive error:&error];
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\",(?:\\[\\]|\"(.*?)\")\\]" options:NSRegularExpressionCaseInsensitive error:&error];
         NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)],
         *participants;
-        NSString *participantString, *chatId, *type, *owner, *name;
+        NSString *participantString, *chatId, *type, *owner, *name, *degree;
         NSMutableArray *participantsWithoutVCards = [NSMutableArray array];
         for (NSTextCheckingResult *match in matches) {
             participantString = [packetXML substringWithRange:[match rangeAtIndex:1]];
@@ -172,6 +172,13 @@
             owner = [packetXML substringWithRange:[match rangeAtIndex:4]];
             name = [self urlDecode:[packetXML substringWithRange:[match rangeAtIndex:5]]];
             //*createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
+            
+            if ([match rangeAtIndex:7].length != 0) {
+                degree = [packetXML substringWithRange:[match rangeAtIndex:7]];
+            } else {
+                degree = @"1";
+            }
+        
             participants = [participantString componentsSeparatedByString:@", "];
             for (NSString *participant in participants) {
                 if ([FriendsDBManager getUserWithJID:participant moc:moc] == nil) {
@@ -199,7 +206,7 @@
                     }
                 }
             }
-            [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_JOINED withContext:moc];
+            [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_JOINED degree:degree withContext:moc];
         }
         
         [delegate saveContextForBackgroundThread];
@@ -307,8 +314,7 @@
         createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
         participants = [participantString componentsSeparatedByString:@", "];
         
-        
-        [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_PENDING];
+        [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_PENDING degree:@"1"];
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_PENDING_CHATS object:nil];

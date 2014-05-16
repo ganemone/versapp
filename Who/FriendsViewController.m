@@ -222,7 +222,7 @@
         NSString *groupName = [alertView textFieldAtIndex:0].text;
         if (buttonIndex == 1 && groupName.length > 0) {
             ChatMO *gc = [MUCCreationManager createMUC:groupName participants:self.selectedJIDs];
-            _createdChat = [ChatDBManager insertChatWithID:gc.chat_id chatName:groupName chatType:CHAT_TYPE_GROUP participantString:[self.selectedJIDs componentsJoinedByString:@", "] status:STATUS_JOINED];
+            _createdChat = [ChatDBManager insertChatWithID:gc.chat_id chatName:groupName chatType:CHAT_TYPE_GROUP participantString:[self.selectedJIDs componentsJoinedByString:@", "] status:STATUS_JOINED degree:@"1"];
             [self handleFinishedInvitingUsersToMUC];
         }
         self.isCreatingGroup = NO;
@@ -232,7 +232,7 @@
         NSString *chatID = [ChatMO createGroupID];
         [conn sendElement:[IQPacketManager createCreateOneToOneChatPacket:chatID invitedUser:self.invitedUser roomName:@"Anonymous Friend"]];
         NSString *chatName = [FriendsDBManager getUserWithJID:self.invitedUser].name;
-        _createdChat = [ChatDBManager insertChatWithID:chatID chatName:chatName chatType:CHAT_TYPE_ONE_TO_ONE_INVITER participantString:[NSString stringWithFormat:@"%@, %@", [ConnectionProvider getUser], self.invitedUser] status:STATUS_JOINED];
+        _createdChat = [ChatDBManager insertChatWithID:chatID chatName:chatName chatType:CHAT_TYPE_ONE_TO_ONE_INVITER participantString:[NSString stringWithFormat:@"%@, %@", [ConnectionProvider getUser], self.invitedUser] status:STATUS_JOINED degree:@"1"];
     }
     self.selectedJIDs = [[NSMutableArray alloc] init];
     [self.bottomLabel setText:@"Select Some Friends"];

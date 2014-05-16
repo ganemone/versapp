@@ -63,7 +63,7 @@
 }
 
 +(void)handleMessageInvitationReceived:(NSString*)chatID groupName:(NSString *)groupName invitedBy:(NSString *)invitedBy {
-    [ChatDBManager insertChatWithID:chatID chatName:groupName chatType:CHAT_TYPE_GROUP participantString:nil status:STATUS_PENDING ownerID:invitedBy];
+    [ChatDBManager insertChatWithID:chatID chatName:groupName chatType:CHAT_TYPE_GROUP participantString:nil status:STATUS_PENDING degree:@"1" ownerID:invitedBy];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_NOTIFICATIONS object:nil];
 }
 
