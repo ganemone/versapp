@@ -21,11 +21,10 @@
     [instance setBody:body];
     [instance setImageURL:imageURL];
     [instance setFavoritedUsers:[[NSMutableArray alloc] init]];
-    [instance setHasCalculatedFrames:NO];
     return instance;
 }
 
-+(instancetype)create:(NSString *)body posterJID:(NSString *)posterJID imageURL:(NSString *)imageURL confessionID:(NSString *)confessionID createdTimestamp:(NSString *)createdTimestamp favoritedUsers:(NSMutableArray *)favoritedUsers {
++(instancetype)create:(NSString *)body posterJID:(NSString *)posterJID imageURL:(NSString *)imageURL confessionID:(NSString *)confessionID createdTimestamp:(NSString *)createdTimestamp degreeOfConnection:(NSString *)degree favoritedUsers:(NSMutableArray *)favoritedUsers {
     Confession *instance = [[Confession alloc] init];
     [instance setBody:body];
     [instance setPosterJID:posterJID];
@@ -33,54 +32,8 @@
     [instance setConfessionID:confessionID];
     [instance setCreatedTimestamp:createdTimestamp];
     [instance setFavoritedUsers:favoritedUsers];
-    [instance setHasCalculatedFrames:NO];
+    [instance setDegree:degree];
     return instance;
-}
-
--(void)calculateFramesForTableViewCell:(CGSize)contentSize {
-    CGFloat cellX = 8.0f;
-    CGFloat cellY = 0.0f;
-    CGFloat cellHeight = [self heightForConfession];
-    CGFloat textHeight = cellHeight - 50;
-    _cellFrame = CGRectMake(cellX, cellY, contentSize.width - 2*cellX, cellHeight);
-    _textViewFrame = CGRectMake(cellX, cellY, contentSize.width - 2*cellX, textHeight);
-    _footerViewFrame = CGRectMake(cellX, textHeight, contentSize.width - 2*cellX, _cellFrame.size.width * 0.1176);
-    _timestampLabelFrame = CGRectMake(cellX, textHeight - 15.0f, contentSize.width - 25.0f, 15.0f);
-    // Configuring Chat Buttons
-    CGFloat iconSize = 25.0f, paddingSmall = 5.0f, chatWidth = 505.0f/(201.0f/iconSize), favWidth = 795.0f/(196.0f/iconSize), deleteWidth = 550.0f/(188.0f/iconSize);
-    
-    _chatButtonFrame = CGRectMake(cellX + paddingSmall, textHeight + paddingSmall, chatWidth, iconSize);
-    //_chatLabel = [[UILabel alloc] initWithFrame:chatLabelFrame];
-    
-    // Configure Favorites
-    //CGRect favoriteButtonFrame = CGRectMake(contentSize.width - iconSize - cellX - 2 * paddingSmall, textHeight + paddingSmall, favWidth, iconSize);
-    
-    _favoriteButtonFrame = CGRectMake(contentSize.width - cellX - paddingSmall - favWidth, textHeight + paddingSmall, favWidth, iconSize);
-    _favoriteLabelFrame = CGRectMake(_favoriteButtonFrame.origin.x - 25, _favoriteButtonFrame.origin.y + 2, 20, 20);//CGRectMake(contentSize.width / 2, textHeight + paddingSmall - 1.0f, contentSize.width / 2 - cellX - 2*paddingSmall - favWidth, iconSize);
-    _deleteButtonFrame = CGRectMake(cellX + paddingSmall, textHeight + paddingSmall, deleteWidth, iconSize);
-    _hasCalculatedFrames = YES;
-}
-
-- (CGFloat)heightForConfession {
-    if (_height > 0.0f) {
-        return _height;
-    }
-    UIFont *cellFont = [StyleManager getFontStyleBoldSizeXL];
-    CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
-    NSStringDrawingContext *ctx = [NSStringDrawingContext new];
-    CGRect textRect = [_body boundingRectWithSize:constraintSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:ctx];
-    _height = textRect.size.height;
-    return _height;
-    //_height = MAX(textRect.size.height + 80.0f, 121.0f);
-    //return _height;
-}
-
-- (CGFloat)heightForConfessionWithFont:(UIFont *)cellFont {
-    CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
-    NSStringDrawingContext *ctx = [NSStringDrawingContext new];
-    CGRect textRect = [_body boundingRectWithSize:constraintSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:ctx];
-    _height = textRect.size.height;
-    return _height;
 }
 
 -(void)encodeBody {

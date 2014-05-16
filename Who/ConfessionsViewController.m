@@ -9,7 +9,6 @@
 #import "ConfessionsViewController.h"
 #import "Confession.h"
 #import "ConfessionsManager.h"
-#import "ConfessionTableCell.h"
 #import "Constants.h"
 #import "OneToOneConversationViewController.h"
 #import "StyleManager.h"
@@ -25,6 +24,7 @@
 @interface ConfessionsViewController ()
 
 @property ConfessionsManager *confessionsManager;
+@property (weak, nonatomic) IBOutlet UIView *dropDownView;
 @property (strong, nonatomic) UIImage *favIcon;
 @property (strong, nonatomic) UIImage *favIconActive;
 @property (strong, nonatomic) UIImage *favIconSingle;
@@ -57,13 +57,59 @@
     }
     _isGlobalFeed = ![FriendsDBManager hasEnoughFriends];
 }
+- (IBAction)handleFirstConnectionBtnPressed:(id)sender
+{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:@"1"]];
+    [self hideDropDown];
+}
+
+- (IBAction)handleSecondConnectionBtnPressed:(id)sender
+{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:@"2"]];
+    [self hideDropDown];
+}
+
+- (IBAction)handleThirdConnectionBtnPressed:(id)sender
+{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:@"3"]];
+    [self hideDropDown];
+}
+
+- (IBAction)handleGlobalConnectionBtnPressed:(id)sender
+{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:@"global"]];
+    [self hideDropDown];
+}
+
+- (void)hideDropDown
+{
+    [UIView animateWithDuration:0.25 animations:^{
+        _dropDownView.center = _header.center;
+    }];
+}
+
+- (IBAction)showConfessionOptions:(id)sender
+{
+    if (_dropDownView.center.y > _header.center.y) {
+        [self hideDropDown];
+    } else {
+        [UIView animateWithDuration:0.25 animations:^{
+            _dropDownView.center = CGPointMake(_dropDownView.center.x, _dropDownView.center.y + _dropDownView.frame.size.height);
+        }];
+    }
+}
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.confessionsManager = [ConfessionsManager getInstance];
     if ([self.confessionsManager getNumberOfConfessions] == 0) {
-        //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name: PACKET_ID_GET_CONFESSIONS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name:PACKET_ID_POST_CONFESSION object:nil];
@@ -99,8 +145,9 @@
     }];
 }
 
+
 - (void)loadConfessions {
-    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacket]];
+    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:@"3"]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -133,26 +180,12 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"ThoughtTableViewCell" owner:self options:nil] firstObject];
         [cell setUpWithConfession:confession];
     }
-
-    return cell;
-}
-
-- (ConfessionTableCell *)confessionTableCellForConfession:(Confession *)confession {
-    static NSString *CellIdentifier = @"ConfessionCellIdentifier";
-    ConfessionTableCell *cell = [[ConfessionTableCell alloc] initWithConfession:confession reuseIdentifier:CellIdentifier];
-    if ([confession isFavoritedByConnectedUser]) {
-        [cell.favoriteButton setImage:self.favIconActive forState:UIControlStateNormal];
-    } else {
-        [cell.favoriteButton setImage:self.favIcon forState:UIControlStateNormal];
-    }
-    [cell.timestampLabel setText:[confession getTimePosted]];
-    [cell.favoriteLabel setText:[confession getTextForLabel]];
-    [cell.chatButton setImage:self.chatIcon forState:UIControlStateNormal];
+    
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 234;
+    return 320;
 }
 
 - (void)refreshListView
@@ -190,22 +223,22 @@
 }
 
 /*- (IBAction)messageIconClicked:(id)sender {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                              [NSNumber numberWithInt:UIPageViewControllerNavigationDirectionReverse], @"direction", nil];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_TO_MESSAGES
-                                                        object:nil
-                                                      userInfo:userInfo];
-}
-
-- (IBAction)friendIconClicked:(id)sender {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                              [NSNumber numberWithInt:UIPageViewControllerNavigationDirectionForward], @"direction", nil];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_TO_FRIENDS
-                                                        object:nil
-                                                      userInfo:userInfo];
-}*/
+ NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+ [NSNumber numberWithInt:UIPageViewControllerNavigationDirectionReverse], @"direction", nil];
+ 
+ [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_TO_MESSAGES
+ object:nil
+ userInfo:userInfo];
+ }
+ 
+ - (IBAction)friendIconClicked:(id)sender {
+ NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+ [NSNumber numberWithInt:UIPageViewControllerNavigationDirectionForward], @"direction", nil];
+ 
+ [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_TO_FRIENDS
+ object:nil
+ userInfo:userInfo];
+ }*/
 
 - (IBAction)handleDiscloseInfoBtnClicked:(id)sender {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Thoughts" message:@"This is your newsfeed of thoughts. Thoughts are anonymous and you only see the Thoughts of your friends. Both favoriting and chatting are also anonymous!" delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil];
@@ -290,7 +323,7 @@
 
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {}
 -(void)didFailToUploadImage:(UIImage *)image toURL:(NSString *)url withError:(NSError *)error {
-
+    
 }
 
 

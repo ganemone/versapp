@@ -436,7 +436,7 @@
     NSTextCheckingResult *match = [regex firstMatchInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     [delegate setSessionID:[iq.XMLString substringWithRange:[match rangeAtIndex:1]]];
-    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacket]];
+    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:@"3"]];
     if ([UserDefaultManager hasSentBlacklist] == NO) {
         [[[ContactSearchManager alloc] init] accessContacts];
         [UserDefaultManager setSentBlacklistTrue];
@@ -444,12 +444,13 @@
 }
 
 +(void)handleGetConfessionsPacket:(XMPPIQ *)iq {
+    NSLog(@"Got Confessions Packet: %@", iq.XMLString);
     NSString *decodedPacketXML = [self getPacketXMLWithoutWhiteSpace:iq];
     decodedPacketXML = [self getDecodedPacketXML:iq];
     NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\",\"(.*?)\",\"(.*?)\",(?:\\[\\]|\"(.*?)\"),\"(.*?)\",(?:\\[\\]|\"(.*?)\"),\"(.*?)\"\\]" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\",\"(.*?)\",\"(.*?)\",(?:\\[\\]|\"(.*?)\"),\"(.*?)\",(?:\\[\\]|\"(.*?)\"),\"(.*?)\",\"(.*?)\"\\]" options:NSRegularExpressionCaseInsensitive error:&error];
     NSArray *matches = [regex matchesInString:decodedPacketXML options:0 range:NSMakeRange(0, decodedPacketXML.length)];
-    NSString *confessionID, *jid, *body, *imageURL, *timestamp, *favoritedUsers;
+    NSString *confessionID, *jid, *body, *imageURL, *timestamp, *favoritedUsers, *degree;
     NSNumber *favoriteCount;
     NSMutableArray *favoritedUsersArray;
     Confession *confession;
@@ -471,6 +472,8 @@
             favoriteCount = [NSNumber numberWithInteger:[[decodedPacketXML substringWithRange:[match rangeAtIndex:7]] integerValue]];
         }
         
+        degree = [decodedPacketXML substringWithRange:[match rangeAtIndex:8]];
+        
         if (favoriteCount != nil && [favoriteCount isEqualToNumber:[NSNumber numberWithInt:0]] == FALSE) {
             favoritedUsers = [favoritedUsers stringByReplacingOccurrencesOfString:@"\"" withString:@""];
             favoritedUsersArray = [NSMutableArray arrayWithArray:[favoritedUsers componentsSeparatedByString:@","]];
@@ -480,7 +483,7 @@
         if (!(imageURL.length > 0) || [imageURL isEqualToString:@"null"]) {
             imageURL = @"g1398792552";
         }
-        confession = [Confession create:body posterJID:jid imageURL:imageURL confessionID:confessionID createdTimestamp:timestamp favoritedUsers:favoritedUsersArray];
+        confession = [Confession create:body posterJID:jid imageURL:imageURL confessionID:confessionID createdTimestamp:timestamp degreeOfConnection:degree favoritedUsers:favoritedUsersArray];
         [confessionsManager addConfession:confession];
     }
     

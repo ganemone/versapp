@@ -19,8 +19,10 @@
 @property (weak, nonatomic) IBOutlet UIView *greyView;
 @property (strong, nonatomic) UIImage *backgroundImage;
 @property (strong, nonatomic) Confession  *confession;
+@property CGFloat height;
 
 - (void)setUpWithConfession:(Confession *)confession;
 - (void)setUpBackgroundView;
+- (CGFloat)heightForConfession;
 
 @end

@@ -152,7 +152,6 @@
 		3A8BCF7518B5960300D4B7CE /* ConfessionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BCF7418B5960300D4B7CE /* ConfessionsViewController.m */; };
 		3A8BCF7918B5964400D4B7CE /* ConfessionsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BCF7818B5964400D4B7CE /* ConfessionsManager.m */; };
 		3A8BCF7F18B59C5400D4B7CE /* Confession.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BCF7E18B59C5400D4B7CE /* Confession.m */; };
-		3A8BCF8218B6DFBB00D4B7CE /* ConfessionTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BCF8118B6DFBB00D4B7CE /* ConfessionTableCell.m */; };
 		3A91F1DC18EAFEF10006B9F8 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A91F1DB18EAFEF10006B9F8 /* MBProgressHUD.m */; };
 		3A91F1E018EB189C0006B9F8 /* NewUserConfirmationCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A91F1DF18EB189C0006B9F8 /* NewUserConfirmationCodeViewController.m */; };
 		3A91F1E318EB27ED0006B9F8 /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A91F1E218EB27ED0006B9F8 /* TutorialViewController.m */; };
@@ -776,8 +775,6 @@
 		3A8BCF7818B5964400D4B7CE /* ConfessionsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfessionsManager.m; sourceTree = "<group>"; };
 		3A8BCF7D18B59C5400D4B7CE /* Confession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Confession.h; sourceTree = "<group>"; };
 		3A8BCF7E18B59C5400D4B7CE /* Confession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Confession.m; sourceTree = "<group>"; };
-		3A8BCF8018B6DFBB00D4B7CE /* ConfessionTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConfessionTableCell.h; path = Anonymous/ConfessionTableCell.h; sourceTree = "<group>"; };
-		3A8BCF8118B6DFBB00D4B7CE /* ConfessionTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConfessionTableCell.m; path = Anonymous/ConfessionTableCell.m; sourceTree = "<group>"; };
 		3A91F1DA18EAFEF10006B9F8 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		3A91F1DB18EAFEF10006B9F8 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		3A91F1DE18EB189C0006B9F8 /* NewUserConfirmationCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewUserConfirmationCodeViewController.h; sourceTree = "<group>"; };
@@ -2053,8 +2050,6 @@
 				3A8BCF7818B5964400D4B7CE /* ConfessionsManager.m */,
 				3A8BCF7D18B59C5400D4B7CE /* Confession.h */,
 				3A8BCF7E18B59C5400D4B7CE /* Confession.m */,
-				3A8BCF8018B6DFBB00D4B7CE /* ConfessionTableCell.h */,
-				3A8BCF8118B6DFBB00D4B7CE /* ConfessionTableCell.m */,
 			);
 			name = Confessions;
 			sourceTree = "<group>";
@@ -3739,7 +3734,6 @@
 				3AF6916E1919581600ABA9C5 /* GPUImageHistogramGenerator.m in Sources */,
 				3A98DA5E18BD1A7E00B69049 /* XMPPAnonymousAuthentication.m in Sources */,
 				3AF691A21919581600ABA9C5 /* GPUImageRGBDilationFilter.m in Sources */,
-				3A8BCF8218B6DFBB00D4B7CE /* ConfessionTableCell.m in Sources */,
 				3A98D9D318BD1A2600B69049 /* XMPPGoogleSharedStatus.m in Sources */,
 				3A25B6471881E03700166623 /* AppDelegate.m in Sources */,
 				3A793D2D190FF6C200303457 /* AFURLSessionManager.m in Sources */,

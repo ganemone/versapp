@@ -16,22 +16,10 @@
 @property (strong, nonatomic) NSString *imageURL;
 @property (strong, nonatomic) NSString *createdTimestamp;
 @property (strong, nonatomic) NSMutableArray *favoritedUsers;
-@property CGFloat height;
-@property CGRect cellFrame;
-@property CGRect textViewFrame;
-@property CGRect footerViewFrame;
-@property CGRect chatButtonFrame;
-@property CGRect favoriteButtonFrame;
-//@property CGRect *chatLabel;
-@property CGRect favoriteLabelFrame;
-@property CGRect timestampLabelFrame;
-@property CGRect deleteButtonFrame;
-
-@property BOOL hasCalculatedFrames;
+@property (strong, nonatomic) NSString *degree;
 
 +(instancetype)create:(NSString*)body imageURL:(NSString*)imageURL;
-+(instancetype)create:(NSString*)body posterJID:(NSString*)posterJID imageURL:(NSString*)imageURL confessionID:(NSString*)confessionID createdTimestamp:(NSString*)createdTimestamp favoritedUsers:(NSMutableArray*)favoritedUsers;
--(void)calculateFramesForTableViewCell:(CGSize)contentSize;
++(instancetype)create:(NSString*)body posterJID:(NSString*)posterJID imageURL:(NSString*)imageURL confessionID:(NSString*)confessionID createdTimestamp:(NSString*)createdTimestamp degreeOfConnection:(NSString *)degree favoritedUsers:(NSMutableArray*)favoritedUsers;
 - (BOOL)toggleFavorite;
 - (void)encodeBody;
 - (void)decodeBody;
@@ -39,10 +27,8 @@
 - (BOOL)isPostedByConnectedUser;
 - (NSString*)getTimePosted;
 - (void)startChat;
--(NSString *)getTextForLabel;
--(NSUInteger)getNumForLabel;
-- (CGFloat)heightForConfession;
-- (CGFloat)heightForConfessionWithFont:(UIFont *)cellFont;
--(void)deleteConfession;
+- (NSString *)getTextForLabel;
+- (NSUInteger)getNumForLabel;
+- (void)deleteConfession;
 
 @end

@@ -536,10 +536,11 @@
     return iq;
 }
 
-+(DDXMLElement *)createGetConfessionsPacket {
++(DDXMLElement *)createGetConfessionsPacketWithDegree:(NSString *)degree {
 
     DDXMLElement *since = [DDXMLElement elementWithName:@"since" stringValue:@"0"];
-    DDXMLElement *iq = [self getWhoConfessionIQElementWithType:@"get" packetID:PACKET_ID_GET_CONFESSIONS children:since];
+    DDXMLElement *degreeElement = [DDXMLElement elementWithName:@"degree" stringValue:degree];
+    DDXMLElement *iq = [self getWhoConfessionIQElementWithType:@"get" packetID:PACKET_ID_GET_CONFESSIONS children:since moreChilden:degreeElement];
     return iq;
 }
 
@@ -808,6 +809,22 @@
     
     [chat addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:confession"]];
     [chat addChild:element];
+    
+    [iq addChild:chat];
+    return iq;
+}
+
++(DDXMLElement*)getWhoConfessionIQElementWithType:(NSString*)type packetID: (NSString*)packetID children:(DDXMLElement *)element moreChilden:(DDXMLElement*)moreChildren {
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"],
+    *chat = [DDXMLElement elementWithName:@"confession"];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"id" stringValue:packetID]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"type" stringValue:type]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]]];
+    [iq addAttribute:[DDXMLNode attributeWithName:@"from" stringValue: [self getPacketFromString]]];
+    
+    [chat addAttribute:[DDXMLNode attributeWithName:@"xmlns" stringValue:@"who:iq:confession"]];
+    [chat addChild:element];
+    [chat addChild:moreChildren];
     
     [iq addChild:chat];
     return iq;

@@ -185,7 +185,7 @@
     CGFloat width = image.size.width;
     CGFloat height = image.size.height;
     CGFloat x, y;
-    CGFloat aspectRatio = 320.0f/230.0f;
+    CGFloat aspectRatio = 1;
     if (width/height > aspectRatio) {
         width = height * aspectRatio;
         x = (image.size.width - width)/2;
@@ -211,8 +211,8 @@
 {
     [controller dismissViewControllerAnimated:YES completion:^{
         
-        UIGraphicsBeginImageContext(CGSizeMake(320, 230));
-        [croppedImage drawInRect:CGRectMake(0, 0, 320, 230)];
+        UIGraphicsBeginImageContext(CGSizeMake(320, 320));
+        [croppedImage drawInRect:CGRectMake(0, 0, 320, 320)];
         UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         _backgroundImage = smallImage;

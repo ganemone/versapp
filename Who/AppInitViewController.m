@@ -58,11 +58,12 @@
     self.viewDidShow = NO;
     self.shouldTransition = NO;
     
-    [self testRSA];
+    //[self testRSA];
     
 }
 
 - (void)testRSA {
+    
     NSString *pubKeyPath = [[NSBundle mainBundle] pathForResource:@"certificate" ofType:@"cer"];
     NSString *stringToEncrypt = @"meniscotherium";
     NSData *plainData = [stringToEncrypt dataUsingEncoding:NSASCIIStringEncoding];

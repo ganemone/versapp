@@ -68,11 +68,12 @@
     [_favLabel setUserInteractionEnabled:NO];
     [_body setTextAlignment:NSTextAlignmentCenter];
     
-    if ([_confession heightForConfession] > 120) {
+    
+    if ([self heightForConfession] > 120) {
         [_body setFont:[StyleManager getFontStyleBoldSizeMed]];
-        [_body setTextContainerInset:UIEdgeInsetsMake((_body.frame.size.height - [_confession heightForConfessionWithFont:[StyleManager getFontStyleBoldSizeMed]] - 50) / 2.0f, 0, 0, 0)];
+        [_body setTextContainerInset:UIEdgeInsetsMake((_body.frame.size.height - [self heightForConfessionWithFont:[StyleManager getFontStyleBoldSizeMed]] - 50) / 2.0f, 0, 0, 0)];
     } else {
-        [_body setTextContainerInset:UIEdgeInsetsMake((_body.frame.size.height - [_confession heightForConfession] - 40) / 2.0f, 0, 0, 0)];
+        [_body setTextContainerInset:UIEdgeInsetsMake((_body.frame.size.height - [self heightForConfession] - 40) / 2.0f, 0, 0, 0)];
     }
     
     [_favBtn addTarget:self action:@selector(handleConfessionFavorited:) forControlEvents:UIControlEventTouchUpInside];
@@ -106,7 +107,7 @@
             _backgroundImage = [cache getImageWithIdentifier:_confession.confessionID];
             UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.contentView.frame];
             NSLog(@"Pre Image Size: %f %f", _backgroundImage.size.width, _backgroundImage.size.height);
-            _backgroundImage = [self imageWithImage:_backgroundImage scaledToMaxWidth:320 maxHeight:230];
+            _backgroundImage = [self imageWithImage:_backgroundImage scaledToMaxWidth:320 maxHeight:320];
             NSLog(@"Post Image Size: %f %f", _backgroundImage.size.width, _backgroundImage.size.height);
             [imageView setImage:_backgroundImage];
             [self setBackgroundView:imageView];
@@ -174,6 +175,30 @@
     } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Yes"]) {
         [_confession startChat];
     }
+}
+
+- (CGFloat)heightForConfession {
+    if (_height > 0.0f) {
+        return _height;
+    }
+    UIFont *cellFont = [StyleManager getFontStyleBoldSizeXL];
+    CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
+    NSStringDrawingContext *ctx = [NSStringDrawingContext new];
+    CGRect textRect = [_body.text boundingRectWithSize:constraintSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:ctx];
+    _height = textRect.size.height;
+    return _height;
+    //_height = MAX(textRect.size.height + 80.0f, 121.0f);
+    //return _height;
+}
+
+- (CGFloat)heightForConfessionWithFont:(UIFont *)cellFont {
+    CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
+    NSStringDrawingContext *ctx = [NSStringDrawingContext new];
+    CGRect textRect = [_body.text boundingRectWithSize:constraintSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:ctx];
+    _height = textRect.size.height;
+    return _height;
+    //_height = MAX(textRect.size.height + 80.0f, 121.0f);
+    //return _height;
 }
 
 @end

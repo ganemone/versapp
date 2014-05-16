@@ -42,7 +42,7 @@
 +(DDXMLElement *)createInviteToMUCMessage:(NSString*)chatID username:(NSString*)username chatName:(NSString *)chatName;
 +(DDXMLElement *)createCreateOneToOneChatPacket:(NSString*)chatID invitedUser:(NSString*)invitedUser roomName:(NSString*)roomName;
 +(DDXMLElement *)createGetSessionIDPacket;
-+(DDXMLElement *)createGetConfessionsPacket;
++(DDXMLElement *)createGetConfessionsPacketWithDegree:(NSString *)degree;
 +(DDXMLElement *)createPostConfessionPacket:(Confession *)confession;
 +(DDXMLElement *)createToggleFavoriteConfessionPacket:(NSString*)confessionID;
 +(DDXMLElement *)createGetMyConfessionsPacket;
