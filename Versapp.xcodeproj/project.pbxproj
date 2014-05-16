@@ -28,6 +28,10 @@
 		3A08D1FA18BFD3BB002A7C8E /* UserDefaultManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A08D1F918BFD3BB002A7C8E /* UserDefaultManager.m */; };
 		3A0EC4D7192435EA0036AB43 /* RSAESCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0EC4D6192435EA0036AB43 /* RSAESCryptor.m */; };
 		3A0EC4DB192435EF0036AB43 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0EC4DA192435EF0036AB43 /* NSData+CommonCrypto.m */; };
+		3A0EC4E919263BC40036AB43 /* chat-type-group-icon-colored.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A0EC4E819263BC40036AB43 /* chat-type-group-icon-colored.png */; };
+		3A0EC4ED19263C280036AB43 /* chat-type-invited-icon-colored.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A0EC4EA19263C280036AB43 /* chat-type-invited-icon-colored.png */; };
+		3A0EC4EE19263C280036AB43 /* chat-type-inviter-icon-colored.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A0EC4EB19263C280036AB43 /* chat-type-inviter-icon-colored.png */; };
+		3A0EC4EF19263C280036AB43 /* chat-type-thoughts-icon-colored.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A0EC4EC19263C280036AB43 /* chat-type-thoughts-icon-colored.png */; };
 		3A0FE1C118A99EB2003692EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C018A99EB2003692EB /* QuartzCore.framework */; };
 		3A0FE1C518A9A4C7003692EB /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C418A9A4C7003692EB /* CoreText.framework */; };
 		3A1EACDD18D9DC41006E4CA3 /* bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A1EACDC18D9DC41006E4CA3 /* bubble.png */; };
@@ -582,6 +586,10 @@
 		3A0EC4D9192435EF0036AB43 /* NSData+CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CommonCrypto.h"; sourceTree = "<group>"; };
 		3A0EC4DA192435EF0036AB43 /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
 		3A0EC4E7192450D50036AB43 /* certificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = certificate.cer; sourceTree = "<group>"; };
+		3A0EC4E819263BC40036AB43 /* chat-type-group-icon-colored.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-type-group-icon-colored.png"; sourceTree = "<group>"; };
+		3A0EC4EA19263C280036AB43 /* chat-type-invited-icon-colored.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-type-invited-icon-colored.png"; sourceTree = "<group>"; };
+		3A0EC4EB19263C280036AB43 /* chat-type-inviter-icon-colored.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-type-inviter-icon-colored.png"; sourceTree = "<group>"; };
+		3A0EC4EC19263C280036AB43 /* chat-type-thoughts-icon-colored.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-type-thoughts-icon-colored.png"; sourceTree = "<group>"; };
 		3A0FE1C018A99EB2003692EB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3A0FE1C418A9A4C7003692EB /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		3A1EACDC18D9DC41006E4CA3 /* bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bubble.png; path = ../../../../bubble.png; sourceTree = "<group>"; };
@@ -1912,6 +1920,10 @@
 		3A5065D7191EB95000EED804 /* Chat Type Icons */ = {
 			isa = PBXGroup;
 			children = (
+				3A0EC4EA19263C280036AB43 /* chat-type-invited-icon-colored.png */,
+				3A0EC4EB19263C280036AB43 /* chat-type-inviter-icon-colored.png */,
+				3A0EC4EC19263C280036AB43 /* chat-type-thoughts-icon-colored.png */,
+				3A0EC4E819263BC40036AB43 /* chat-type-group-icon-colored.png */,
 				3A5065CF191EB94300EED804 /* chat-type-group-icon.png */,
 				3A5065D0191EB94300EED804 /* chat-type-invited-icon.png */,
 				3A5065D1191EB94300EED804 /* chat-type-inviter-icon.png */,
@@ -3340,6 +3352,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A0EC4E919263BC40036AB43 /* chat-type-group-icon-colored.png in Resources */,
+				3A0EC4EF19263C280036AB43 /* chat-type-thoughts-icon-colored.png in Resources */,
+				3A0EC4EE19263C280036AB43 /* chat-type-inviter-icon-colored.png in Resources */,
 				3A3A0B0918AB1126006FBAE4 /* input-field-cover@2x.png in Resources */,
 				3A07F6C618D3C21800E82390 /* messages-icon-blue.png in Resources */,
 				3A91F20618EB534F0006B9F8 /* notification-none-old.png in Resources */,
@@ -3486,6 +3501,7 @@
 				3AF9259D191BD7A200795FC6 /* friends-icon-large.png in Resources */,
 				3A7CDB8118EBA20D006A4BBF /* add-contact-icon.png in Resources */,
 				3A3A0B0D18AB1126006FBAE4 /* send-button@2x.png in Resources */,
+				3A0EC4ED19263C280036AB43 /* chat-type-invited-icon-colored.png in Resources */,
 				3AB8D18918C23DF00082B77C /* MavenProLight-200.ttf in Resources */,
 				3AAD02E918FE106400EE7879 /* bubble-square.png in Resources */,
 				3AFED46B191BF83900356363 /* GetStartedTutorialViewController.xib in Resources */,
