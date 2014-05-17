@@ -15,6 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 @property (weak, nonatomic) IBOutlet UIButton *actionBtn;
+@property (weak, nonatomic) IBOutlet UIButton *signInBtn;
 
 @end
 
@@ -42,6 +43,9 @@
     [_email setTag:2];
     [_password setTag:3];
     [_confirmPassword setTag:4];
+    
+    [_actionBtn.layer setCornerRadius:5.0];
+    [_signInBtn.layer setCornerRadius:5.0];
     
     [_actionBtn addTarget:self action:@selector(handleActionBtnClicked) forControlEvents:UIControlEventTouchUpInside];
 }
