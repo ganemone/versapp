@@ -8,6 +8,7 @@
 
 #import "CountryPickerDelegate.h"
 #import "UserDefaultManager.h"
+#import "StyleManager.h"
 
 @interface CountryPickerDelegate ()
 
@@ -65,14 +66,29 @@
     return 1;
 }
 
--(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+/*-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     return [[_countries objectAtIndex:row] objectForKey:@"country"];
-}
+}*/
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     _countryCode = [[_countries objectAtIndex:row] objectForKey:@"code"];
     _country = [[_countries objectAtIndex:row] objectForKey:@"country"];
     [_countryCodeField setText:_countryCode];
+}
+
+-(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
+    if (row > [_countries count] || [_countries count] == 0) {
+        return nil;
+    }
+    NSString *title = [self getCountryAtIndex:row];
+    UILabel *label = (UILabel *)view;
+    if (!label) {
+        label = [[UILabel alloc] init];
+        [label setFont:[StyleManager getFontStyleLightSizeXL]];
+        [label setTextAlignment:NSTextAlignmentCenter];
+    }
+    [label setText:title];
+    return label;
 }
 
 @end

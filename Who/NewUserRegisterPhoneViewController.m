@@ -10,6 +10,7 @@
 #import "Constants.h"
 #import "PhoneVerificationManager.h"
 #import "UserDefaultManager.h"
+#import "StyleManager.h"
 
 @interface NewUserRegisterPhoneViewController ()
 
@@ -17,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *actionBtn;
 @property (weak, nonatomic) IBOutlet UILabel *countryCodeLabel;
 @property (weak, nonatomic) IBOutlet UIPickerView *countryPicker;
+@property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 
 @end
 
@@ -36,6 +38,14 @@
     [super viewDidLoad];
     [super setUp:_countryPicker countryCodeField:_countryCodeLabel];
     [_phone setDelegate:self];
+    
+    [_headerLabel setFont:[StyleManager getFontStyleLightSizeHeader]];
+    [_phone setFont:[StyleManager getFontStyleLightSizeLarge]];
+    [_countryCodeLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
+    [_actionBtn.titleLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+    [_descriptionTextView setFont:[StyleManager getFontStyleLightSizeLarge]];
+    
+    [_actionBtn.layer setCornerRadius:5.0];
     [_actionBtn addTarget:self action:@selector(handleFinishedRegisteringPhone) forControlEvents:UIControlEventTouchUpInside];
 }
 

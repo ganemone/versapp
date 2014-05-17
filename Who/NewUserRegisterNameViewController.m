@@ -33,7 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [_headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
+    [_headerLabel setFont:[StyleManager getFontStyleLightSizeHeader]];
     [_name setDelegate:self];
     [_email setDelegate:self];
     [_password setDelegate:self];
@@ -44,8 +44,15 @@
     [_password setTag:3];
     [_confirmPassword setTag:4];
     
+    [_name setFont:[StyleManager getFontStyleLightSizeLarge]];
+    [_email setFont:[StyleManager getFontStyleLightSizeLarge]];
+    [_password setFont:[StyleManager getFontStyleLightSizeLarge]];
+    [_confirmPassword setFont:[StyleManager getFontStyleLightSizeLarge]];
+    
     [_actionBtn.layer setCornerRadius:5.0];
     [_signInBtn.layer setCornerRadius:5.0];
+    [_actionBtn.titleLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+    [_signInBtn.titleLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     
     [_actionBtn addTarget:self action:@selector(handleActionBtnClicked) forControlEvents:UIControlEventTouchUpInside];
 }

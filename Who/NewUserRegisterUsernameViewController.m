@@ -9,11 +9,14 @@
 #import "NewUserRegisterUsernameViewController.h"
 #import "Constants.h"
 #import "Validator.h"
+#import "StyleManager.h"
 
 @interface NewUserRegisterUsernameViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 @property (weak, nonatomic) IBOutlet UIButton *actionBtn;
+@property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
+@property (weak, nonatomic) IBOutlet UIButton *registerBtn;
 
 @end
 
@@ -33,6 +36,15 @@
     [super viewDidLoad];
     [_username setDelegate:self];
     [_actionBtn addTarget:self action:@selector(handleFinishedRegisteringUsername) forControlEvents:UIControlEventTouchUpInside];
+    
+    [_headerLabel setFont:[StyleManager getFontStyleLightSizeTitle]];
+    [_actionBtn.titleLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+    [_registerBtn.titleLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+    [_username setFont:[StyleManager getFontStyleLightSizeLarge]];
+    [_descriptionTextView setFont:[StyleManager getFontStyleLightSizeLarge]];
+    
+    [_actionBtn.layer setCornerRadius:5.0];
+    [_registerBtn.layer setCornerRadius:5.0];
 }
 
 -(void)viewDidAppear:(BOOL)animated {

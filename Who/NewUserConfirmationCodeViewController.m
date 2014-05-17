@@ -10,15 +10,17 @@
 #import "UserDefaultManager.h"
 #import "PhoneVerificationManager.h"
 #import "Constants.h"
+#import "StyleManager.h"
 
 @interface NewUserConfirmationCodeViewController ()
 
-@property (weak, nonatomic) IBOutlet UIPickerView *confirmationPicker;
-@property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 @property (strong, nonatomic) PhoneVerificationManager *pvm;
+@property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 @property (weak, nonatomic) IBOutlet UITextView *textFieldBottom;
 @property (weak, nonatomic) IBOutlet UITextView *textFieldTop;
 @property (strong, nonatomic) IBOutlet UITextField *confirmationField;
+@property (weak, nonatomic) IBOutlet UIButton *nextBtn;
+@property (weak, nonatomic) IBOutlet UIButton *resendBtn;
 
 @end
 
@@ -37,7 +39,16 @@
 {
     [super viewDidLoad];
     self.pvm = [[PhoneVerificationManager alloc] init];
-    // Do any additional setup after loading the view.
+    [_headerLabel setFont:[StyleManager getFontStyleLightSizeTitle]];
+    [_textFieldBottom setFont:[StyleManager getFontStyleLightSizeLarge]];
+    [_textFieldTop setFont:[StyleManager getFontStyleLightSizeLarge]];
+    [_confirmationField setFont:[StyleManager getFontStyleLightSizeLarge]];
+    
+    [_nextBtn.titleLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+    [_resendBtn.titleLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+    
+    [_nextBtn.layer setCornerRadius:5.0];
+    [_resendBtn.layer setCornerRadius:5.0];
 }
 
 - (void)didReceiveMemoryWarning

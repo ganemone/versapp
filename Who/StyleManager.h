@@ -16,6 +16,7 @@
 +(UIFont*)getFontStyleLightSizeXL;
 +(UIFont *)getFontStyleLightSizeThought;
 +(UIFont*)getFontStyleLightSizeTitle;
++(UIFont *)getFontStyleLightSizeHeader;
 
 +(UIFont*)getFontStyleRegularSizeSmall;
 +(UIFont*)getFontStyleRegularSizeMed;

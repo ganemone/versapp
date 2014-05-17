@@ -60,6 +60,15 @@ static UIColor *colorBlue;
     return _font;
 }
 
++(UIFont *)getFontStyleLightSizeHeader {
+    static dispatch_once_t onceToken;
+    static UIFont *_font;
+    dispatch_once(&onceToken, ^{
+        _font = [UIFont fontWithName:@"MavenProLight300-Regular" size:30];
+    });
+    return _font;
+}
+
 +(UIFont*)getFontStyleLightSizeTitle {
     return [UIFont fontWithName:@"MavenProLight300-Regular" size:36];
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="emE-SZ-5gQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="emE-SZ-5gQ">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -22,8 +22,11 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="X1a-tq-Qp4">
                                 <rect key="frame" x="242" y="163" width="55" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.38431372549999998" green="0.17254901959999999" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                <state key="normal" title="Login"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="loginClick:" destination="Dcg-Mp-WjV" eventType="touchUpInside" id="UP4-7u-l8G"/>
                                 </connections>
@@ -127,7 +130,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jkS-L3-gNB">
-                                <rect key="frame" x="261" y="144" width="50" height="35"/>
+                                <rect key="frame" x="261" y="147" width="50" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.078431372550000003" green="0.70196078429999997" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -146,6 +149,7 @@
                         <outlet property="actionBtn" destination="jkS-L3-gNB" id="aK2-4a-gMH"/>
                         <outlet property="countryCodeLabel" destination="KIu-Lo-qHx" id="dih-rf-NgW"/>
                         <outlet property="countryPicker" destination="5OI-zw-ULP" id="wBs-Z7-jhB"/>
+                        <outlet property="descriptionTextView" destination="jQ9-Of-7w5" id="8g7-QH-Vfa"/>
                         <outlet property="headerLabel" destination="u6c-vB-YhE" id="iRn-bz-xIm"/>
                         <outlet property="phone" destination="R4y-cq-8Xo" id="HfD-Cf-NRy"/>
                     </connections>
@@ -197,7 +201,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="707-ki-k2z">
-                                <rect key="frame" x="125" y="425" width="70" height="35"/>
+                                <rect key="frame" x="125" y="425" width="70" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="0.078431372550000003" green="0.70196078429999997" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -210,7 +214,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="YpE-8x-3F1">
-                                <rect key="frame" x="255" y="144" width="50" height="35"/>
+                                <rect key="frame" x="255" y="144" width="50" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.078431372550000003" green="0.70196078429999997" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -229,6 +233,8 @@
                     <connections>
                         <outlet property="confirmationField" destination="ZhU-fI-C1c" id="OZd-Us-ZAU"/>
                         <outlet property="headerLabel" destination="zMJ-Ga-zPa" id="w2G-gW-Z95"/>
+                        <outlet property="nextBtn" destination="YpE-8x-3F1" id="9EN-hh-fAH"/>
+                        <outlet property="resendBtn" destination="707-ki-k2z" id="GnI-dq-saZ"/>
                         <outlet property="textFieldBottom" destination="Nx8-Nx-brZ" id="wcB-ga-u5u"/>
                         <outlet property="textFieldTop" destination="YTC-bw-ksh" id="len-HX-ooZ"/>
                     </connections>
@@ -312,7 +318,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="NLF-rq-AMe">
-                                <rect key="frame" x="251" y="230" width="49" height="37"/>
+                                <rect key="frame" x="251" y="230" width="49" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.078431372550000003" green="0.70196078429999997" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -412,7 +418,9 @@
                     </view>
                     <connections>
                         <outlet property="actionBtn" destination="wLH-eS-7bo" id="IuA-ij-Wkx"/>
+                        <outlet property="descriptionTextView" destination="nAn-Xf-MTA" id="02d-yx-PVA"/>
                         <outlet property="headerLabel" destination="xrC-Ab-83Q" id="HmQ-aG-4hM"/>
+                        <outlet property="registerBtn" destination="wLH-eS-7bo" id="k9n-94-afQ"/>
                         <outlet property="username" destination="azD-BE-2xW" id="GtI-n7-OVi"/>
                     </connections>
                 </viewController>
@@ -2047,18 +2055,18 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="xkE-O7-97C"/>
-        <segue reference="wAA-nu-VKs"/>
-        <segue reference="4YJ-VO-gaE"/>
-        <segue reference="pHb-Kf-4qo"/>
-        <segue reference="tVn-SP-Hc9"/>
-        <segue reference="hVX-XL-lBE"/>
-        <segue reference="BCc-dv-kG7"/>
-        <segue reference="z6h-qs-HbB"/>
-        <segue reference="WHz-1g-xNx"/>
-        <segue reference="AGt-Q0-zDh"/>
         <segue reference="Y5D-AL-CYy"/>
+        <segue reference="AGt-Q0-zDh"/>
         <segue reference="YEX-bB-bO6"/>
         <segue reference="m95-nf-RcH"/>
+        <segue reference="tVn-SP-Hc9"/>
+        <segue reference="pHb-Kf-4qo"/>
+        <segue reference="hVX-XL-lBE"/>
+        <segue reference="z6h-qs-HbB"/>
+        <segue reference="BCc-dv-kG7"/>
+        <segue reference="WHz-1g-xNx"/>
+        <segue reference="XeD-6M-yxq"/>
+        <segue reference="OKb-WW-kzU"/>
+        <segue reference="xkE-O7-97C"/>
     </inferredMetricsTieBreakers>
 </document>
