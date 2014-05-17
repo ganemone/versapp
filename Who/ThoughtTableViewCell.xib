@@ -19,7 +19,7 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <textView autoresizesSubviews="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" editable="NO" text="Thought Goes Here" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x54-lS-xaS">
-                        <rect key="frame" x="20" y="9" width="280" height="265"/>
+                        <rect key="frame" x="11" y="9" width="299" height="265"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <accessibility key="accessibilityConfiguration">
                             <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
@@ -29,24 +29,17 @@
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                     <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="100" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Td2-4k-xQW">
-                        <rect key="frame" x="195" y="287" width="29" height="30"/>
+                        <rect key="frame" x="281" y="286" width="29" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aF5-wV-ZVW">
-                        <rect key="frame" x="232" y="287" width="30" height="30"/>
+                        <rect key="frame" x="250" y="287" width="30" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
+                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                         <state key="normal" image="fav-icon.png">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                    </button>
-                    <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FJS-BB-2m5">
-                        <rect key="frame" x="270" y="287" width="30" height="30"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <state key="normal" image="messages-icon-white.png">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
@@ -57,11 +50,28 @@
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FJS-BB-2m5">
+                        <rect key="frame" x="212" y="287" width="30" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <inset key="contentEdgeInsets" minX="3" minY="1" maxX="3" maxY="1"/>
+                        <state key="normal" image="messages-icon-white.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cko-9r-Wm6">
+                        <rect key="frame" x="175" y="287" width="30" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <state key="normal" title="1">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
                 </subviews>
             </tableViewCellContentView>
             <connections>
                 <outlet property="body" destination="x54-lS-xaS" id="daK-8p-vNu"/>
                 <outlet property="chatBtn" destination="FJS-BB-2m5" id="9TS-Ar-SkV"/>
+                <outlet property="degreeBtn" destination="cko-9r-Wm6" id="DCF-kf-3LY"/>
                 <outlet property="favBtn" destination="aF5-wV-ZVW" id="Lhs-2d-Foa"/>
                 <outlet property="favLabel" destination="Td2-4k-xQW" id="bbE-6n-ylM"/>
                 <outlet property="greyView" destination="EBV-Bw-nTy" id="Y3N-y1-zPc"/>

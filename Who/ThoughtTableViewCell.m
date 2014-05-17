@@ -93,6 +93,13 @@
         [_chatBtn addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
         //[_chatBtn setContentEdgeInsets:UIEdgeInsetsZero];
     }
+    
+    [_degreeBtn setTitle:_confession.degree forState:UIControlStateNormal];
+    [_degreeBtn addTarget:self action:@selector(handleDegreeBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)handleDegreeBtnClicked {
+    [[[UIAlertView alloc] initWithTitle:@"Thought" message:[NSString stringWithFormat:@"This is a thought posted by a %@ degree connection.", _confession.degree] delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil] show];
 }
 
 - (void)setUpBackgroundView {

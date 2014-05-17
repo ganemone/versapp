@@ -261,15 +261,17 @@
     *name = [DDXMLElement elementWithName:@"name" stringValue:confession.body],
     *owner = [DDXMLElement elementWithName:@"owner_id" stringValue:@"server"],
     *type = [DDXMLElement elementWithName:@"type" stringValue:CHAT_TYPE_ONE_TO_ONE],
-    *participantsElement = [DDXMLElement elementWithName:@"participants"];
+    *participantsElement = [DDXMLElement elementWithName:@"participants"],
+    *degree = [DDXMLElement elementWithName:@"degree" stringValue:confession.degree];
+    
     NSString *invitedID = [[confession.posterJID componentsSeparatedByString:@"@"] firstObject];
 
     [participantsElement addChild:[DDXMLNode elementWithName:@"participant" stringValue:invitedID]];
-    
     [create addChild:chatIDElement];
     [create addChild:name];
     [create addChild:owner];
     [create addChild:type];
+    [create addChild:degree];
     [create addChild:participantsElement];
     
     DDXMLElement *iq = [self getWhoChatIQElementWithType:@"set" packetID:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION children:create];

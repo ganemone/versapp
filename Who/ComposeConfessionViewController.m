@@ -99,7 +99,7 @@
     [self.composeTextView setTextAlignment:NSTextAlignmentCenter];
     [self.composeTextView setDelegate:self];
     [self.composeTextView setText:@"Share a thought..."];
-    [self.composeTextView setTextColor:[UIColor lightGrayColor]];
+    [self.composeTextView setTextColor:[UIColor lightTextColor]];
     
     [_effectLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
     
@@ -415,7 +415,7 @@
 -(void)textViewDidEndEditing:(UITextView *)textView {
     if ([textView.text isEqualToString:@""]) {
         textView.text = @"Share a thought...";
-        textView.textColor = [UIColor lightGrayColor];
+        textView.textColor = [UIColor lightTextColor];
     }
     [textView resignFirstResponder];
 }

@@ -206,6 +206,7 @@
                     }
                 }
             }
+            NSLog(@"Degree: %@", degree);
             [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_JOINED degree:degree withContext:moc];
         }
         

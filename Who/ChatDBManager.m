@@ -40,6 +40,7 @@ static int numUninvitedParticipants;
     [chatEntry setValue:chatName forKey:CHATS_TABLE_COLUMN_NAME_CHAT_NAME];
     [chatEntry setValue:[NSNumber numberWithInt:status] forKey:CHATS_TABLE_COLUMN_NAME_STATUS];
     [chatEntry setValue:participantString forKey:CHATS_TABLE_COLUMN_NAME_PARTICIPANT_STRING];
+    [chatEntry setValue:degree forKey:CHATS_TABLE_COLUMN_NAME_DEGREE];
     [chatEntry setParticipants:[[NSMutableArray alloc] initWithArray:[participantString componentsSeparatedByString:@", "]]];
     [delegate saveContext];
     return chatEntry;
@@ -55,6 +56,7 @@ static int numUninvitedParticipants;
     [chatEntry setValue:chatName forKey:CHATS_TABLE_COLUMN_NAME_CHAT_NAME];
     [chatEntry setValue:[NSNumber numberWithInt:status] forKey:CHATS_TABLE_COLUMN_NAME_STATUS];
     [chatEntry setValue:participantString forKey:CHATS_TABLE_COLUMN_NAME_PARTICIPANT_STRING];
+    [chatEntry setValue:degree forKey:CHATS_TABLE_COLUMN_NAME_DEGREE];
     [chatEntry setParticipants:[[NSMutableArray alloc] initWithArray:[participantString componentsSeparatedByString:@", "]]];
     
     return chatEntry;
@@ -75,6 +77,7 @@ static int numUninvitedParticipants;
     [chatEntry setValue:[NSNumber numberWithInt:status] forKey:CHATS_TABLE_COLUMN_NAME_STATUS];
     [chatEntry setValue:participantString forKey:CHATS_TABLE_COLUMN_NAME_PARTICIPANT_STRING];
     [chatEntry setValue:ownerID forKeyPath:CHATS_TABLE_COLUMN_NAME_OWNER_ID];
+    [chatEntry setValue:degree forKey:CHATS_TABLE_COLUMN_NAME_DEGREE];
     [delegate saveContext];
     if (participantString != nil) {
         [chatEntry setParticipants:[[NSMutableArray alloc] initWithArray:[participantString componentsSeparatedByString:@", "]]];

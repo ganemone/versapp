@@ -1375,8 +1375,8 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view alpha="0.69999999999999973" contentMode="scaleToFill" id="mao-l6-2Jh">
-                                <rect key="frame" x="0.0" y="64" width="320" height="200"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Help your friends find out about Versapp through Facebook and Twitter." textAlignment="center" selectable="NO" id="cyS-V2-p1T">

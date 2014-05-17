@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *favLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timestampLabel;
 @property (weak, nonatomic) IBOutlet UIView *greyView;
+@property (weak, nonatomic) IBOutlet UIButton *degreeBtn;
 @property (strong, nonatomic) UIImage *backgroundImage;
 @property (strong, nonatomic) Confession  *confession;
 @property CGFloat height;
