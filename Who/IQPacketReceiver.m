@@ -453,9 +453,9 @@
 +(void)handleGetConfessionsPacket:(XMPPIQ *)iq {
     NSLog(@"Got Confessions Packet: %@", iq.XMLString);
     NSString *decodedPacketXML = [self getPacketXMLWithoutWhiteSpace:iq];
-    decodedPacketXML = [self getDecodedPacketXML:iq];
+    //decodedPacketXML = [self getDecodedPacketXML:iq];
     NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\",\"(.*?)\",\"(.*?)\",(?:\\[\\]|\"(.*?)\"),\"(.*?)\",(?:\\[\\]|\"(.*?)\"),\"(.*?)\",\"(.*?)\"\\]" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\",\"(.*?)\",\"(.*?)\",(?:\\[\\]|\"(.*?)\"),\"(.*?)\",(?:\\[\\]|\"(.*?)\"),\"(.*?)\",\"(.*?)\",\"(.*?)\"\\]" options:NSRegularExpressionCaseInsensitive error:&error];
     NSArray *matches = [regex matchesInString:decodedPacketXML options:0 range:NSMakeRange(0, decodedPacketXML.length)];
     NSString *confessionID, *jid, *body, *imageURL, *timestamp, *favoritedUsers, *degree;
     NSNumber *favoriteCount;
@@ -490,6 +490,7 @@
         if (!(imageURL.length > 0) || [imageURL isEqualToString:@"null"]) {
             imageURL = @"g1398792552";
         }
+        body = [[body stringByReplacingOccurrencesOfString:@"+" withString:@" "] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         confession = [Confession create:body posterJID:jid imageURL:imageURL confessionID:confessionID createdTimestamp:timestamp degreeOfConnection:degree favoritedUsers:favoritedUsersArray];
         [confessionsManager addConfession:confession];
     }
