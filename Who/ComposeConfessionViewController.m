@@ -94,7 +94,7 @@
     [doubleTap setNumberOfTapsRequired:2];
     [self.view addGestureRecognizer:doubleTap];
     
-    [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
+    [self.headerLabel setFont:[StyleManager getFontStyleLightSizeHeader]];
     [self.composeTextView setFont:[StyleManager getFontStyleLightSizeThought]];
     [self.composeTextView setTextAlignment:NSTextAlignmentCenter];
     [self.composeTextView setDelegate:self];

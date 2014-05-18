@@ -85,7 +85,7 @@ static BOOL notificationsHalfHidden = NO;
     
     self.cp = [ConnectionProvider getInstance];
     
-    [self.header setFont:[StyleManager getFontStyleMediumSizeXL]];
+    [self.header setFont:[StyleManager getFontStyleLightSizeHeader]];
     
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     lpgr.minimumPressDuration = 0.5; //seconds
@@ -119,6 +119,8 @@ static BOOL notificationsHalfHidden = NO;
     
     [self.noConversationsDarkView setFrame:CGRectMake(0, self.headerView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.headerView.frame.size.height)];
     [self.noConversationsView setFrame:_noConversationsDarkView.frame];
+    
+
 }
 
 - (void)showNoConversationsView
@@ -519,7 +521,7 @@ static BOOL notificationsHalfHidden = NO;
         UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height*0.25, self.view.frame.size.width, 21)];
         [notificationsLabel setText:NO_NOTIFICATIONS];
         [notificationsLabel setTextAlignment:NSTextAlignmentCenter];
-        [notificationsLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
+        [notificationsLabel setFont:[StyleManager getFontStyleLightSizeHeader]];
         [notificationsLabel setTextColor:[StyleManager getColorBlue]];
         [self.notificationsHeader addSubview:notificationsLabel];
         [self.notificationsHeader addSubview:self.notificationsButtonGreen];
@@ -529,7 +531,7 @@ static BOOL notificationsHalfHidden = NO;
         UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 32, 280, 21)];
         [notificationsLabel setText:NOTIFICATIONS];
         [notificationsLabel setTextAlignment:NSTextAlignmentCenter];
-        [notificationsLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
+        [notificationsLabel setFont:[StyleManager getFontStyleLightSizeHeader]];
         [notificationsLabel setTextColor:[StyleManager getColorGreen]];
         [self.notificationsHeader addSubview:notificationsLabel];
         [self.notificationsHeader addSubview:self.notificationsButtonGreen];

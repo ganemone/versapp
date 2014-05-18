@@ -37,7 +37,7 @@
     [_username setDelegate:self];
     [_actionBtn addTarget:self action:@selector(handleFinishedRegisteringUsername) forControlEvents:UIControlEventTouchUpInside];
     
-    [_headerLabel setFont:[StyleManager getFontStyleLightSizeTitle]];
+    [_headerLabel setFont:[StyleManager getFontStyleLightSizeHeader]];
     [_actionBtn.titleLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     [_registerBtn.titleLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     [_username setFont:[StyleManager getFontStyleLightSizeLarge]];

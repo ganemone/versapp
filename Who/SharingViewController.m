@@ -35,7 +35,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
+    [self.headerLabel setFont:[StyleManager getFontStyleLightSizeHeader]];
     [self.descriptionTextView setFont:[StyleManager getFontStyleRegularSizeLarge]];
     [self.facebookBtn.titleLabel setFont:[StyleManager getFontStyleRegularSizeLarge]];
     [self.twitterBtn.titleLabel setFont:[StyleManager getFontStyleRegularSizeLarge]];

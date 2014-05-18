@@ -102,7 +102,7 @@
     self.allAccepted = [FriendsDBManager getAllWithStatusFriends];
     self.searchResults = _allAccepted;
     
-    [self.header setFont:[StyleManager getFontStyleMediumSizeXL]];
+    [self.header setFont:[StyleManager getFontStyleLightSizeHeader]];
     [self.bottomLabel setFont:[StyleManager getFontStyleLightSizeLarge]];
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.frame];

@@ -39,7 +39,7 @@
 {
     [super viewDidLoad];
     self.pvm = [[PhoneVerificationManager alloc] init];
-    [_headerLabel setFont:[StyleManager getFontStyleLightSizeTitle]];
+    [_headerLabel setFont:[StyleManager getFontStyleLightSizeHeader]];
     [_textFieldBottom setFont:[StyleManager getFontStyleLightSizeLarge]];
     [_textFieldTop setFont:[StyleManager getFontStyleLightSizeLarge]];
     [_confirmationField setFont:[StyleManager getFontStyleLightSizeLarge]];

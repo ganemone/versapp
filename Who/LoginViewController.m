@@ -22,17 +22,12 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *username;
 @property (weak, nonatomic) IBOutlet UITextField *password;
-
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
+@property (strong, nonatomic) IBOutlet UILabel *headerLabel;
+@property (weak, nonatomic) IBOutlet UIButton *registerBtn;
 
 @property (strong, nonatomic) NSString *usernameText;
 @property (strong, nonatomic) NSString *passwordText;
-@property (strong, nonatomic) IBOutlet UILabel *message;
-@property (weak, nonatomic) IBOutlet UIPickerView *countryPicker;
-@property (strong, nonatomic) NSString *countryCode;
-@property (strong, nonatomic) NSArray *countries;
-@property (strong, nonatomic) IBOutlet UILabel *headerLabel;
-
 @property BOOL createVCardWhenAuthenticated;
 @property (strong, nonatomic) ConnectionProvider *cp;
 
@@ -57,8 +52,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(streamDidDisconnect:) name:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didNotAuthenticate:) name:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
     
-    [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
-    
     self.createVCardWhenAuthenticated = NO;
     self.cp = [ConnectionProvider getInstance];
     [_username setTag:0];
@@ -69,7 +62,17 @@
     
     self.passwordText = [UserDefaultManager loadPassword];
     [self.username setText:_usernameText];
-    //[self.password setText:_passwordText];
+    
+    
+    // Set up fonts
+    [_headerLabel setFont:[StyleManager getFontStyleLightSizeHeader]];
+    [_username setFont:[StyleManager getFontStyleLightSizeLarge]];
+    [_password setFont:[StyleManager getFontStyleLightSizeLarge]];
+    [_loginButton.titleLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+    [_registerBtn.titleLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+    
+    [_loginButton.layer setCornerRadius:5.0];
+    [_registerBtn.layer setCornerRadius:5.0];
 }
 
 -(void)authenticated

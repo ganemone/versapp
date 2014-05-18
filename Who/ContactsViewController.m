@@ -43,7 +43,7 @@
     [self.tableView setSeparatorColor:[StyleManager getColorGreen]];
     [self.tableView setBackgroundColor:[StyleManager getColorGreen]];
     
-    [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
+    [self.headerLabel setFont:[StyleManager getFontStyleLightSizeHeader]];
     [self.footerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     
     self.registeredContacts = [FriendsDBManager getAllWithStatusRegisteredOrRequested];
