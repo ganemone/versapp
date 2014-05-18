@@ -443,7 +443,8 @@
     NSTextCheckingResult *match = [regex firstMatchInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     [delegate setSessionID:[iq.XMLString substringWithRange:[match rangeAtIndex:1]]];
-    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:@"3"]];
+    NSString *degree = [UserDefaultManager getThoughtDegree];
+    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:degree]];
     if ([UserDefaultManager hasSentBlacklist] == NO) {
         [[[ContactSearchManager alloc] init] accessContacts];
         [UserDefaultManager setSentBlacklistTrue];
@@ -455,7 +456,7 @@
     NSString *decodedPacketXML = [self getPacketXMLWithoutWhiteSpace:iq];
     //decodedPacketXML = [self getDecodedPacketXML:iq];
     NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\",\"(.*?)\",\"(.*?)\",(?:\\[\\]|\"(.*?)\"),\"(.*?)\",(?:\\[\\]|\"(.*?)\"),\"(.*?)\",\"(.*?)\",\"(.*?)\"\\]" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\",\"(.*?)\",\"(.*?)\",(?:\\[\\]|\"(.*?)\"),\"(.*?)\",(?:\\[\\]|\"(.*?)\"),\"(.*?)\",\"(.*?)\"\\]" options:NSRegularExpressionCaseInsensitive error:&error];
     NSArray *matches = [regex matchesInString:decodedPacketXML options:0 range:NSMakeRange(0, decodedPacketXML.length)];
     NSString *confessionID, *jid, *body, *imageURL, *timestamp, *favoritedUsers, *degree;
     NSNumber *favoriteCount;

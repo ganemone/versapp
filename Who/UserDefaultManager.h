@@ -20,6 +20,7 @@
 +(void)saveCountry:(NSString *)country;
 +(void)savePhone:(NSString *)phone;
 +(void)saveDeviceID:(NSString *)deviceID;
+
 +(NSString*)loadPassword;
 +(NSString*)loadUsername;
 +(NSString *)loadName;
@@ -28,6 +29,8 @@
 +(NSString *)loadPhone;
 +(NSString *)loadCountry;
 +(NSString *)loadDeviceID;
++(NSString *)getThoughtDegree;
+
 +(BOOL)isValidated;
 
 +(BOOL)hasSentBlacklist;
@@ -49,5 +52,6 @@
 +(void)setReceivedOneToOneInvitationTrue;
 +(void)setSeenFriendsTrue;
 +(void)setSentBlacklistTrue;
++(void)setThoughtDegree:(NSString *)degree;
 
 @end

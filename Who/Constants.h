@@ -65,6 +65,7 @@ extern NSString *const USER_DEFAULTS_HAS_SEEN_THOUGHTS;
 extern NSString *const USER_DEFAULTS_HAS_SEEN_FRIENDS;
 extern NSString *const USER_DEFAULTS_HAS_CREATED_THOUGHT_CHAT;
 extern NSString *const USER_DEFAULTS_HAS_SENT_BLACKLIST;
+extern NSString *const USER_DEFAULTS_THOUGHTS_DEGREE;
 
 extern NSString *const CHAT_TYPE_GROUP;
 extern NSString *const CHAT_TYPE_ONE_TO_ONE;

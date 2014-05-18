@@ -60,6 +60,7 @@
 - (IBAction)handleFirstConnectionBtnPressed:(id)sender
 {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [UserDefaultManager setThoughtDegree:@"1"];
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:@"1"]];
     [self hideDropDown];
 }
@@ -67,6 +68,7 @@
 - (IBAction)handleSecondConnectionBtnPressed:(id)sender
 {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [UserDefaultManager setThoughtDegree:@"2"];
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:@"2"]];
     [self hideDropDown];
 }
@@ -74,6 +76,7 @@
 - (IBAction)handleThirdConnectionBtnPressed:(id)sender
 {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [UserDefaultManager setThoughtDegree:@"3"];
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:@"3"]];
     [self hideDropDown];
 }
@@ -81,6 +84,7 @@
 - (IBAction)handleGlobalConnectionBtnPressed:(id)sender
 {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [UserDefaultManager setThoughtDegree:@"global"];
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:@"global"]];
     [self hideDropDown];
 }
