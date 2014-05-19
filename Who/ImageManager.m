@@ -28,7 +28,7 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
 @implementation ImageManager
 
 -(void)downloadImageForMessage:(MessageMO *)message delegate:(id<ImageManagerDelegate>)delegate {
-    [self downloadImageFromGCSWithName:message.image_link fromBucket:BUCKET_MESSAGES delegate:delegate identifier:[NSString stringWithFormat:@"%@%@", message.sender_id, message.time]];
+    [self downloadImageFromGCSWithName:message.image_link fromBucket:BUCKET_MESSAGES delegate:delegate identifier:message.image_link];
 }
 
 -(void)downloadImageForThought:(Confession *)confession delegate:(id<ImageManagerDelegate>)delegate {
@@ -81,8 +81,10 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
         if (responseObject == nil) {
             NSLog(@"Nil Response with Request parameters: %@", [parameters description]);
         } else {
-            [[ImageCache getInstance] setImage:responseObject withIdentifier:identifier];
-            [delegate didFinishDownloadingImage:responseObject withIdentifier:identifier];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[ImageCache getInstance] setImage:responseObject withIdentifier:identifier];
+                [delegate didFinishDownloadingImage:responseObject withIdentifier:identifier];
+            });
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failed download operation: %@", error);

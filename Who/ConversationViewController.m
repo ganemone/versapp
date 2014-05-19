@@ -54,7 +54,6 @@
     self.dataSource = self;
     self.im = [[ImageManager alloc] init];
     [self.im setDelegate:self];
-    self.imageCache = [ImageCache getInstance];
     self.downloadingImageURLs = [[NSMutableArray alloc] initWithCapacity:20];
     [self.headerLabel setText:[self.chatMO getChatName]];
     [self.headerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
@@ -140,6 +139,8 @@
     NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
     [self.tableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationFade];
     [self scrollToBottomAnimated:YES];
+    self.messageImage = nil;
+    self.messageImageLink = nil;
 }
 
 -(JSBubbleMessageType)messageTypeForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -226,10 +227,11 @@
 
 -(UIImageView *)avatarImageViewForRowAtIndexPath:(NSIndexPath *)indexPath sender:(NSString *)sender {
     MessageMO *message = [self.chatMO.messages objectAtIndex:indexPath.row];
+    ImageCache *imageCache = [ImageCache getInstance];
     UIImage *image;
     if (message.image_link == nil) {
         return nil;
-    } else if((image = [self.imageCache getImageByMessageSender:message.sender_id timestamp:message.time]) != nil) {
+    } else if((image = [imageCache getImageWithIdentifier:message.image_link]) != nil) {
         return [[UIImageView alloc] initWithImage:image];
     } else if(![self.downloadingImageURLs containsObject:message.image_link]) {
         [self.im downloadImageForMessage:message delegate:self];
@@ -240,14 +242,15 @@
 }
 
 -(void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
-    while (self.isUploadingImage == YES);
+    if (self.isUploadingImage == YES) {
+        [[[UIAlertView alloc] initWithTitle:@"Hold on..." message:@"Wait just a sec, we are still loading your picture." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+        return;
+    }
     if (self.messageImageLink == nil && (text == nil || [text isEqualToString:@""])) {
         return;
     }
     [self resetCameraButtonImage];
     [self.chatMO sendMUCMessageWithBody:text imageLink:self.messageImageLink];
-    self.messageImage = nil;
-    self.messageImageLink = nil;
     [self animateAddNewestMessage];
     [self finishSend];
 }
@@ -258,19 +261,21 @@
 }
 
 -(void)didFinishDownloadingImage:(UIImage *)image withIdentifier:(NSString *)identifier {
+    NSLog(@"Finished downloading image: %@", identifier);
     [self.tableView reloadData];
     [self scrollToBottomAnimated:YES];
 }
 
 -(void)didFailToDownloadImageWithIdentifier:(NSString *)identifier {
-    
+    NSLog(@"Failed to download image");
 }
 
 -(void)didFailToUploadImage:(UIImage *)image toURL:(NSString *)url withError:(NSError *)error {
-    
+    NSLog(@"Failed to upload image");
 }
 
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {
+    NSLog(@"Finished uploading image");
     self.isUploadingImage = NO;
     self.messageImage = image;
     self.messageImageLink = url;

@@ -83,7 +83,7 @@
 
 - (IBAction)loginClick:(id)sender {
     self.passwordText = self.password.text;
-    self.usernameText = self.username.text;
+    self.usernameText = [self.username.text lowercaseString];
     [self login];
 }
 

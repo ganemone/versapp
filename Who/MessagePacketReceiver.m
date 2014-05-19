@@ -52,6 +52,7 @@
             chatName = tempValue;
         }
     }
+    NSLog(@"Chat ID: %@", chatID);
     if (chatID != nil) {
         invitedBy = [[message.fromStr componentsSeparatedByString:@"@"] firstObject];
         [self handleMessageInvitationReceived:chatID groupName:chatName invitedBy:invitedBy];
@@ -70,7 +71,7 @@
 +(void)handleChatMessageReceived:(XMPPMessage*)message {
     
     NSError *error = NULL;
-    NSLog(@"Message Received: %@", message.XMLString);
+    NSLog(@"Handling Chat Message");
     NSRegularExpression *groupIDRegex = [NSRegularExpression regularExpressionWithPattern:@"(.*?)@" options:NSRegularExpressionCaseInsensitive error:&error];
     NSTextCheckingResult *groupIDMatch = [groupIDRegex firstMatchInString:message.fromStr options:0 range:NSMakeRange(0, message.fromStr.length)];
     NSString *groupID = [message.fromStr substringWithRange:[groupIDMatch rangeAtIndex:1]];
@@ -105,13 +106,19 @@
             break;
         }
     }
-    
+    NSLog(@"Timestamp: %@", timestamp);
+    NSLog(@"Image Link: %@", imageLink);
+    NSLog(@"Name: %@", name);
+    NSLog(@"Receiver ID: %@", receiverID);
+    NSLog(@"Invite Flag: %@", inviteFlag);
     if ([senderID isEqualToString:[ConnectionProvider getUser]]) {
+        NSLog(@"Updating Message");
         [MessagesDBManager updateMessageWithGroupID:groupID time:timestamp];
     } else if (inviteFlag == nil) {
+        NSLog(@"Inserting new message");
         MessageMO *newMessage;
         if ([message.type isEqualToString:CHAT_TYPE_GROUP]) {
-            
+            NSLog(@"Message type group");
             if (imageLink != nil) {
                 newMessage = [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:receiverID imageLink:imageLink];
             } else {
@@ -129,6 +136,7 @@
             [ChatDBManager setHasNewMessageYes:groupID];
             
         } else if([message.type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
+            NSLog(@"Message type one to one");
             if (imageLink != nil) {
                 newMessage = [MessagesDBManager insert:message.body groupID:message.thread time:timestamp senderID:senderID receiverID:receiverID imageLink:imageLink];
             } else {

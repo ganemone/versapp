@@ -134,7 +134,7 @@
     _password = [[nameVC password] text];
     _confirm = [[nameVC confirmPassword] text];
     _phone = [[phoneVC phone] text];
-    _username = [[usernameVC username] text];
+    _username = [[[usernameVC username] text] lowercaseString];
     NSArray *components = [_phone componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
     _phone = [components componentsJoinedByString:@""];
     _country = [phoneVC getSelectedCountry];

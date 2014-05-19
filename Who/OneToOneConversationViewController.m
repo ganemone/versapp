@@ -199,7 +199,7 @@
     UIImage *image;
     if (message.image_link == nil) {
         return nil;
-    } else if((image = [self.imageCache getImageByMessageSender:message.sender_id timestamp:message.time]) != nil) {
+    } else if((image = [self.imageCache getImageWithIdentifier:message.image_link]) != nil) {
         return [[UIImageView alloc] initWithImage:image];
     } else if(![self.downloadingImageURLs containsObject:message.image_link]) {
         [self.im downloadImageForMessage:message delegate:self];
@@ -217,8 +217,10 @@
 }
 
 -(void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
-    NSLog(@"isUploadingImage: %d", self.isUploadingImage);
-    while (self.isUploadingImage == YES);
+    if (self.isUploadingImage == YES) {
+        [[[UIAlertView alloc] initWithTitle:@"Hold on..." message:@"Wait just a sec, we are still loading your picture." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+        return;
+    }
     if (self.messageImageLink == nil && (text == nil || [text isEqualToString:@""])) {
         return;
     }
