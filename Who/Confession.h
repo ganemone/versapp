@@ -31,5 +31,6 @@
 - (NSString *)getTextForLabel;
 - (NSUInteger)getNumForLabel;
 - (void)deleteConfession;
+- (UIImage *)imageForDegree;
 
 @end

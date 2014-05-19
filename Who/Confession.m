@@ -123,4 +123,16 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CONFESSION_DELETED object:nil];
 }
 
+-(UIImage *)imageForDegree {
+    if ([_degree isEqualToString:@"1"]) {
+        return [UIImage imageNamed:@"thoughts-white-1.png"];
+    } else if ([_degree isEqualToString:@"2"]) {
+        return [UIImage imageNamed:@"thoughts-white-2.png"];
+    } else if ([_degree isEqualToString:@"3"]) {
+        return [UIImage imageNamed:@"thoughts-white-3.png"];
+    } else {
+        return [UIImage imageNamed:@"thoughts-global.png"];
+    }
+}
+
 @end

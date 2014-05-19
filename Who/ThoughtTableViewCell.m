@@ -94,7 +94,8 @@
         //[_chatBtn setContentEdgeInsets:UIEdgeInsetsZero];
     }
     
-    [_degreeBtn setTitle:_confession.degree forState:UIControlStateNormal];
+    [_degreeBtn setTitle:@"" forState:UIControlStateNormal];
+    [_degreeBtn setImage:[_confession imageForDegree] forState:UIControlStateNormal];
     [_degreeBtn addTarget:self action:@selector(handleDegreeBtnClicked) forControlEvents:UIControlEventTouchUpInside];
 }
 

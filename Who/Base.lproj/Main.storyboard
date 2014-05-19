@@ -1248,40 +1248,40 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="W32-bg-Yhg">
-                                        <rect key="frame" x="28" y="17" width="30" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="W32-bg-Yhg">
+                                        <rect key="frame" x="20" y="16" width="32" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="1st">
+                                        <state key="normal" image="thoughts-blue-1.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="handleFirstConnectionBtnPressed:" destination="jpr-Ku-F24" eventType="touchUpInside" id="gaA-Xz-G4Y"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="XPp-x1-U1S">
-                                        <rect key="frame" x="101" y="17" width="30" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="XPp-x1-U1S">
+                                        <rect key="frame" x="103" y="16" width="32" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="2nd">
+                                        <state key="normal" image="thoughts-blue-2.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="handleSecondConnectionBtnPressed:" destination="jpr-Ku-F24" eventType="touchUpInside" id="BQt-ah-z22"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="4q0-3z-xqg">
-                                        <rect key="frame" x="182" y="17" width="30" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4q0-3z-xqg">
+                                        <rect key="frame" x="190" y="16" width="32" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="3rd">
+                                        <state key="normal" image="thoughts-blue-3.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="handleThirdConnectionBtnPressed:" destination="jpr-Ku-F24" eventType="touchUpInside" id="rrS-Ol-Umh"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VhZ-yr-0aN">
-                                        <rect key="frame" x="255" y="17" width="45" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VhZ-yr-0aN">
+                                        <rect key="frame" x="268" y="16" width="32" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Global">
+                                        <state key="normal" image="thoughts-global.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1313,19 +1313,12 @@
                                             <segue destination="lnb-gW-AWX" kind="push" id="m95-nf-RcH"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" id="AfO-AP-jbz">
-                                        <rect key="frame" x="13" y="31" width="22" height="22"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wmf-S7-R52">
+                                        <rect key="frame" x="20" y="27" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="tintColor" red="0.95686274510000002" green="0.57254901960000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" image="thoughts-blue-1.png"/>
                                         <connections>
-                                            <action selector="handleDiscloseInfoBtnClicked:" destination="jpr-Ku-F24" eventType="touchUpInside" id="UEn-7q-HNz"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" id="wmf-S7-R52">
-                                        <rect key="frame" x="49" y="31" width="22" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <connections>
-                                            <action selector="showConfessionOptions:" destination="jpr-Ku-F24" eventType="touchUpInside" id="FnW-Fh-MM3"/>
+                                            <action selector="showConfessionOptions:" destination="jpr-Ku-F24" eventType="touchUpInside" id="1gM-Gk-7Jh"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1340,12 +1333,13 @@
                         <outlet property="header" destination="aeu-EJ-Rlq" id="73w-F7-1A1"/>
                         <outlet property="headerLabel" destination="17h-Mf-fgS" id="GCY-d8-ntY"/>
                         <outlet property="tableView" destination="jZx-yj-7oZ" id="UqM-pt-QRe"/>
+                        <outlet property="thoughtDegreeBtn" destination="wmf-S7-R52" id="fK2-C0-3dW"/>
                         <segue destination="iDZ-uG-Ep6" kind="push" identifier="SegueIDCreatedOneToOneChatFromConfession" id="qGQ-aw-vgl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VJW-15-iT1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2279" y="188"/>
+            <point key="canvasLocation" x="2251" y="198"/>
         </scene>
         <!--Sharing View Controller-->
         <scene sceneID="xh4-Dp-XWl">
@@ -2043,6 +2037,10 @@
         <image name="photo-icon.png" width="183" height="145"/>
         <image name="send-icon.png" width="310" height="310"/>
         <image name="settings-icon-purple.png" width="250" height="250"/>
+        <image name="thoughts-blue-1.png" width="250" height="250"/>
+        <image name="thoughts-blue-2.png" width="250" height="250"/>
+        <image name="thoughts-blue-3.png" width="250" height="250"/>
+        <image name="thoughts-global.png" width="250" height="250"/>
         <image name="trash-icon-blue.png" width="250" height="250"/>
         <image name="x-blue.png" width="60" height="60"/>
     </resources>
@@ -2052,15 +2050,15 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="8c7-Mw-K5g"/>
+        <segue reference="qGQ-aw-vgl"/>
+        <segue reference="m95-nf-RcH"/>
+        <segue reference="tVn-SP-Hc9"/>
         <segue reference="zTQ-Mf-6oX"/>
         <segue reference="YEX-bB-bO6"/>
         <segue reference="pHb-Kf-4qo"/>
-        <segue reference="tVn-SP-Hc9"/>
         <segue reference="hVX-XL-lBE"/>
         <segue reference="z6h-qs-HbB"/>
         <segue reference="BCc-dv-kG7"/>
-        <segue reference="m95-nf-RcH"/>
         <segue reference="WHz-1g-xNx"/>
         <segue reference="XeD-6M-yxq"/>
         <segue reference="OKb-WW-kzU"/>

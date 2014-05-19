@@ -25,6 +25,7 @@
 
 @property ConfessionsManager *confessionsManager;
 @property (weak, nonatomic) IBOutlet UIView *dropDownView;
+@property (weak, nonatomic) IBOutlet UIButton *thoughtDegreeBtn;
 @property (strong, nonatomic) UIImage *favIcon;
 @property (strong, nonatomic) UIImage *favIconActive;
 @property (strong, nonatomic) UIImage *favIconSingle;
@@ -63,6 +64,7 @@
     [UserDefaultManager setThoughtDegree:@"1"];
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:@"1"]];
     [self hideDropDown];
+    [self.thoughtDegreeBtn setImage:[UIImage imageNamed:@"thoughts-blue-1.png"] forState:UIControlStateNormal];
 }
 
 - (IBAction)handleSecondConnectionBtnPressed:(id)sender
@@ -71,6 +73,7 @@
     [UserDefaultManager setThoughtDegree:@"2"];
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:@"2"]];
     [self hideDropDown];
+    [self.thoughtDegreeBtn setImage:[UIImage imageNamed:@"thoughts-blue-2.png"] forState:UIControlStateNormal];
 }
 
 - (IBAction)handleThirdConnectionBtnPressed:(id)sender
@@ -79,6 +82,7 @@
     [UserDefaultManager setThoughtDegree:@"3"];
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:@"3"]];
     [self hideDropDown];
+    [self.thoughtDegreeBtn setImage:[UIImage imageNamed:@"thoughts-blue-3.png"] forState:UIControlStateNormal];
 }
 
 - (IBAction)handleGlobalConnectionBtnPressed:(id)sender
@@ -87,6 +91,7 @@
     [UserDefaultManager setThoughtDegree:@"global"];
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:@"global"]];
     [self hideDropDown];
+    [self.thoughtDegreeBtn setImage:[UIImage imageNamed:@"thoughts-global.png"] forState:UIControlStateNormal];
 }
 
 - (void)hideDropDown
@@ -147,11 +152,21 @@
         //Do your own work when refreshing, and don't forget to end the animation after work finished.
         [self performSelectorOnMainThread:@selector(loadConfessions) withObject:nil waitUntilDone:NO];
     }];
+    
+    NSString *degree = [UserDefaultManager getThoughtDegree];
+    if ([degree isEqualToString:@"1"]) {
+        [_thoughtDegreeBtn setImage:[UIImage imageNamed:@"thoughts-blue-1.png"] forState:UIControlStateNormal];
+    } else if ([degree isEqualToString:@"2"]) {
+        [_thoughtDegreeBtn setImage:[UIImage imageNamed:@"thoughts-blue-2.png"] forState:UIControlStateNormal];
+    } else if ([degree isEqualToString:@"3"]) {
+        [_thoughtDegreeBtn setImage:[UIImage imageNamed:@"thoughts-blue-3.png"] forState:UIControlStateNormal];
+    } else {
+        [_thoughtDegreeBtn setImage:[UIImage imageNamed:@"thoughts-global.png"] forState:UIControlStateNormal];
+    }
 }
 
-
 - (void)loadConfessions {
-    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:@"3"]];
+    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:[UserDefaultManager getThoughtDegree]]];
 }
 
 - (void)didReceiveMemoryWarning
