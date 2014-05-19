@@ -416,16 +416,16 @@ static BOOL notificationsHalfHidden = NO;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DISABLE_SWIPE object:nil];
     
-    CGRect notificationFrame = CGRectMake(0, 0, self.view.frame.size.width, _notificationHeight);
+    CGRect notificationFrame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/2);
     
     self.notificationTableView.hidden = NO;
     self.greyOutView.frame = self.view.frame;
     
     [UIView animateWithDuration:.5
                           delay:0.0
-         usingSpringWithDamping:1.0
+         usingSpringWithDamping:0.6
           initialSpringVelocity:3.0
-                        options: UIViewAnimationOptionCurveEaseIn
+                        options:UIViewAnimationOptionTransitionFlipFromTop
                      animations:^{
                          self.greyOutView.alpha = 0.5;
                          self.notificationTableView.frame = notificationFrame;

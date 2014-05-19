@@ -458,9 +458,8 @@
     NSError *error = NULL;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\",\"(.*?)\",\"(.*?)\",(?:\\[\\]|\"(.*?)\"),\"(.*?)\",(?:\\[\\]|\"(.*?)\"),\"(.*?)\",\"(.*?)\"\\]" options:NSRegularExpressionCaseInsensitive error:&error];
     NSArray *matches = [regex matchesInString:decodedPacketXML options:0 range:NSMakeRange(0, decodedPacketXML.length)];
-    NSString *confessionID, *jid, *body, *imageURL, *timestamp, *favoritedUsers, *degree;
+    NSString *confessionID, *jid, *body, *imageURL, *timestamp, *hasFavoritedString, *degree;
     NSNumber *favoriteCount;
-    NSMutableArray *favoritedUsersArray;
     Confession *confession;
     ConfessionsManager *confessionsManager = [ConfessionsManager getInstance];
     [confessionsManager clearConfessions];
@@ -474,25 +473,20 @@
         }
         timestamp = [decodedPacketXML substringWithRange:[match rangeAtIndex:5]];
         if ([match rangeAtIndex:6].length != 0) {
-            favoritedUsers = [decodedPacketXML substringWithRange:[match rangeAtIndex:6]];
+            hasFavoritedString = [decodedPacketXML substringWithRange:[match rangeAtIndex:6]];
         }
         if ([match rangeAtIndex:7].length != 0) {
             favoriteCount = [NSNumber numberWithInteger:[[decodedPacketXML substringWithRange:[match rangeAtIndex:7]] integerValue]];
         }
         
         degree = [decodedPacketXML substringWithRange:[match rangeAtIndex:8]];
+        BOOL hasFavorited = ([hasFavoritedString isEqualToString:@"YES"]) ? YES : NO;
         
-        if (favoriteCount != nil && [favoriteCount isEqualToNumber:[NSNumber numberWithInt:0]] == FALSE) {
-            favoritedUsers = [favoritedUsers stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-            favoritedUsersArray = [NSMutableArray arrayWithArray:[favoritedUsers componentsSeparatedByString:@","]];
-        } else {
-            favoritedUsersArray = [[NSMutableArray alloc] init];
-        }
         if (!(imageURL.length > 0) || [imageURL isEqualToString:@"null"]) {
             imageURL = @"g1398792552";
         }
         body = [[body stringByReplacingOccurrencesOfString:@"+" withString:@" "] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        confession = [Confession create:body posterJID:jid imageURL:imageURL confessionID:confessionID createdTimestamp:timestamp degreeOfConnection:degree favoritedUsers:favoritedUsersArray];
+        confession = [Confession create:body posterJID:jid imageURL:imageURL confessionID:confessionID createdTimestamp:timestamp degreeOfConnection:degree hasFavorited:hasFavorited numFavorites:[favoriteCount intValue]];
         [confessionsManager addConfession:confession];
     }
     

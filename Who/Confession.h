@@ -15,11 +15,12 @@
 @property (strong, nonatomic) NSString *body;
 @property (strong, nonatomic) NSString *imageURL;
 @property (strong, nonatomic) NSString *createdTimestamp;
-@property (strong, nonatomic) NSMutableArray *favoritedUsers;
 @property (strong, nonatomic) NSString *degree;
+@property int numFavorites;
+@property BOOL hasFavorited;
 
 +(instancetype)create:(NSString*)body imageURL:(NSString*)imageURL;
-+(instancetype)create:(NSString*)body posterJID:(NSString*)posterJID imageURL:(NSString*)imageURL confessionID:(NSString*)confessionID createdTimestamp:(NSString*)createdTimestamp degreeOfConnection:(NSString *)degree favoritedUsers:(NSMutableArray*)favoritedUsers;
++(instancetype)create:(NSString*)body posterJID:(NSString*)posterJID imageURL:(NSString*)imageURL confessionID:(NSString*)confessionID createdTimestamp:(NSString*)createdTimestamp degreeOfConnection:(NSString *)degree hasFavorited:(BOOL)hasFavorited numFavorites:(int)numFavorites;
 - (BOOL)toggleFavorite;
 - (void)encodeBody;
 - (void)decodeBody;

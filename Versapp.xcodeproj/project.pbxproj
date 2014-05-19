@@ -129,6 +129,13 @@
 		3A67DB4F18E4D08200DA6691 /* ConnectionHandlingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A67DB4E18E4D08200DA6691 /* ConnectionHandlingViewController.m */; };
 		3A67DB5218E4D64700DA6691 /* ConnectionLostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A67DB5118E4D64700DA6691 /* ConnectionLostViewController.m */; };
 		3A6C3BBB1884AD61003B162B /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6C3BBA1884AD61003B162B /* LoginViewController.m */; };
+		3A7039BA1929AF5E002AC3A4 /* thoughts-blue-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7039B31929AF5E002AC3A4 /* thoughts-blue-1.png */; };
+		3A7039BB1929AF5E002AC3A4 /* thoughts-blue-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7039B41929AF5E002AC3A4 /* thoughts-blue-2.png */; };
+		3A7039BC1929AF5E002AC3A4 /* thoughts-blue-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7039B51929AF5E002AC3A4 /* thoughts-blue-3.png */; };
+		3A7039BD1929AF5E002AC3A4 /* thoughts-global.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7039B61929AF5E002AC3A4 /* thoughts-global.png */; };
+		3A7039BE1929AF5E002AC3A4 /* thoughts-white-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7039B71929AF5E002AC3A4 /* thoughts-white-1.png */; };
+		3A7039BF1929AF5E002AC3A4 /* thoughts-white-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7039B81929AF5E002AC3A4 /* thoughts-white-2.png */; };
+		3A7039C01929AF5E002AC3A4 /* thoughts-white-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7039B91929AF5E002AC3A4 /* thoughts-white-3.png */; };
 		3A720CB418A1C2E200423959 /* MUCCreationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A720CB318A1C2E200423959 /* MUCCreationManager.m */; };
 		3A720CB718A28DAD00423959 /* PresencePacketReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A720CB618A28DAD00423959 /* PresencePacketReceiver.m */; };
 		3A720CBA18A28ECB00423959 /* MessagePacketReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A720CB918A28ECB00423959 /* MessagePacketReceiver.m */; };
@@ -731,6 +738,13 @@
 		3A67DB5118E4D64700DA6691 /* ConnectionLostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionLostViewController.m; sourceTree = "<group>"; };
 		3A6C3BB91884AD61003B162B /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		3A6C3BBA1884AD61003B162B /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		3A7039B31929AF5E002AC3A4 /* thoughts-blue-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thoughts-blue-1.png"; sourceTree = "<group>"; };
+		3A7039B41929AF5E002AC3A4 /* thoughts-blue-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thoughts-blue-2.png"; sourceTree = "<group>"; };
+		3A7039B51929AF5E002AC3A4 /* thoughts-blue-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thoughts-blue-3.png"; sourceTree = "<group>"; };
+		3A7039B61929AF5E002AC3A4 /* thoughts-global.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thoughts-global.png"; sourceTree = "<group>"; };
+		3A7039B71929AF5E002AC3A4 /* thoughts-white-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thoughts-white-1.png"; sourceTree = "<group>"; };
+		3A7039B81929AF5E002AC3A4 /* thoughts-white-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thoughts-white-2.png"; sourceTree = "<group>"; };
+		3A7039B91929AF5E002AC3A4 /* thoughts-white-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thoughts-white-3.png"; sourceTree = "<group>"; };
 		3A720CB118A1C1D400423959 /* XMPPFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPFramework.h; path = Who/XMPPFramework.h; sourceTree = "<group>"; };
 		3A720CB218A1C2E200423959 /* MUCCreationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCCreationManager.h; sourceTree = "<group>"; };
 		3A720CB318A1C2E200423959 /* MUCCreationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCCreationManager.m; sourceTree = "<group>"; };
@@ -1940,6 +1954,7 @@
 		3A5065F2191EB9A600EED804 /* colored-icons */ = {
 			isa = PBXGroup;
 			children = (
+				3A7039C11929AF68002AC3A4 /* thoughts */,
 				3A3E2F001920381B00210536 /* compose-orange.png */,
 				3A5065D8191EB9A100EED804 /* add-friend-icon.png */,
 				3A5065D9191EB9A100EED804 /* compose-blue.png */,
@@ -1974,6 +1989,20 @@
 				3A59D5ED18B2F2FE00CE7B7B /* RNBlurModalView.m */,
 			);
 			name = RNBlurModalView;
+			sourceTree = "<group>";
+		};
+		3A7039C11929AF68002AC3A4 /* thoughts */ = {
+			isa = PBXGroup;
+			children = (
+				3A7039B31929AF5E002AC3A4 /* thoughts-blue-1.png */,
+				3A7039B41929AF5E002AC3A4 /* thoughts-blue-2.png */,
+				3A7039B51929AF5E002AC3A4 /* thoughts-blue-3.png */,
+				3A7039B61929AF5E002AC3A4 /* thoughts-global.png */,
+				3A7039B71929AF5E002AC3A4 /* thoughts-white-1.png */,
+				3A7039B81929AF5E002AC3A4 /* thoughts-white-2.png */,
+				3A7039B91929AF5E002AC3A4 /* thoughts-white-3.png */,
+			);
+			name = thoughts;
 			sourceTree = "<group>";
 		};
 		3A720CBB18A28EDF00423959 /* Packet Receivers */ = {
@@ -3366,6 +3395,7 @@
 				3A3A0B0918AB1126006FBAE4 /* input-field-cover@2x.png in Resources */,
 				3A0EC4F419263FE00036AB43 /* DashboardTableViewCell.xib in Resources */,
 				3A07F6C618D3C21800E82390 /* messages-icon-blue.png in Resources */,
+				3A7039BD1929AF5E002AC3A4 /* thoughts-global.png in Resources */,
 				3A91F20618EB534F0006B9F8 /* notification-none-old.png in Resources */,
 				3A00167F18B8231000C54059 /* photo-icon.png in Resources */,
 				3A07F6C218D3C21800E82390 /* arrow-right-bold.png in Resources */,
@@ -3397,7 +3427,9 @@
 				3AF692021919B7E400ABA9C5 /* lookup_miss_etikate.png in Resources */,
 				3A22D72F1912736B00AD58DC /* fav-icon.png in Resources */,
 				3ABD66D018FB325900E72B09 /* Owl-Loading-Animation_0005.png in Resources */,
+				3A7039BC1929AF5E002AC3A4 /* thoughts-blue-3.png in Resources */,
 				3ABD66CB18FB325900E72B09 /* Owl-Loading-Animation_0000.png in Resources */,
+				3A7039BA1929AF5E002AC3A4 /* thoughts-blue-1.png in Resources */,
 				3AB8D18F18C259B00082B77C /* MavenProBlack.ttf in Resources */,
 				3A068ED218F24FC200EA260E /* Versapp-Tutorial-01.png in Resources */,
 				3A930D4A18EE45B3006E5B5E /* x-white.png in Resources */,
@@ -3420,6 +3452,7 @@
 				3A91F1F918EB4C040006B9F8 /* contacts-background-large.png in Resources */,
 				3A91F20818EB534F0006B9F8 /* notification2-old.png in Resources */,
 				3AD19AB918E26298001B3B88 /* AppIcon80.png in Resources */,
+				3A7039C01929AF5E002AC3A4 /* thoughts-white-3.png in Resources */,
 				3A1EACDD18D9DC41006E4CA3 /* bubble.png in Resources */,
 				3ABD66CD18FB325900E72B09 /* Owl-Loading-Animation_0002.png in Resources */,
 				3A068E8318F1E85000EA260E /* owl-right.png in Resources */,
@@ -3440,6 +3473,7 @@
 				3A3A0B1218AB1126006FBAE4 /* message-received.aiff in Resources */,
 				F751016C18ABE8A2001F1E7F /* Settings.bundle in Resources */,
 				3A3E2F011920381B00210536 /* compose-orange.png in Resources */,
+				3A7039BE1929AF5E002AC3A4 /* thoughts-white-1.png in Resources */,
 				3AB8D19018C259B00082B77C /* MavenProBold.ttf in Resources */,
 				3AF19A6E1881F34A00F3E4D3 /* README.txt in Resources */,
 				3AF92582191BC21400795FC6 /* double-arrow-white.png in Resources */,
@@ -3494,6 +3528,7 @@
 				3AF521D118EA3072008320CD /* friends-icon.png in Resources */,
 				3AF92596191BD31A00795FC6 /* SecurityTutorialViewController.xib in Resources */,
 				3A49E9EC18FF155500AFCB8E /* ThoughtTableViewCell.xib in Resources */,
+				3A7039BF1929AF5E002AC3A4 /* thoughts-white-2.png in Resources */,
 				F7977B6418DBA25B000E955C /* check-icon-green.png in Resources */,
 				3A25B64A1881E03700166623 /* Main.storyboard in Resources */,
 				3ABD66D718FB325900E72B09 /* Owl-Loading-Animation_0012.png in Resources */,
@@ -3503,6 +3538,7 @@
 				3AF68FC8191947AD00ABA9C5 /* send-icon.png in Resources */,
 				3AF521D518EA30A5008320CD /* messages-icon-white.png in Resources */,
 				3A5065EC191EB9A100EED804 /* notification4.png in Resources */,
+				3A7039BB1929AF5E002AC3A4 /* thoughts-blue-2.png in Resources */,
 				3AF692031919B7E400ABA9C5 /* lookup_soft_elegance_1.png in Resources */,
 				F7A3F96218EE3052006FBA0A /* arrow-close-notifications.png in Resources */,
 				F7A3F96418EE306A006FBA0A /* check-icon-green-square.png in Resources */,

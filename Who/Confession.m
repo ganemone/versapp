@@ -20,20 +20,22 @@
     Confession *instance = [[Confession alloc] init];
     [instance setBody:body];
     [instance setImageURL:imageURL];
-    [instance setFavoritedUsers:[[NSMutableArray alloc] init]];
+    [instance setHasFavorited:NO];
     [instance setDegree:@"1"];
+    [instance setNumFavorites:0];
     return instance;
 }
 
-+(instancetype)create:(NSString *)body posterJID:(NSString *)posterJID imageURL:(NSString *)imageURL confessionID:(NSString *)confessionID createdTimestamp:(NSString *)createdTimestamp degreeOfConnection:(NSString *)degree favoritedUsers:(NSMutableArray *)favoritedUsers {
++(instancetype)create:(NSString *)body posterJID:(NSString *)posterJID imageURL:(NSString *)imageURL confessionID:(NSString *)confessionID createdTimestamp:(NSString *)createdTimestamp degreeOfConnection:(NSString *)degree hasFavorited:(BOOL)hasFavorited numFavorites:(int)numFavorites {
     Confession *instance = [[Confession alloc] init];
     [instance setBody:body];
     [instance setPosterJID:posterJID];
     [instance setImageURL:imageURL];
     [instance setConfessionID:confessionID];
     [instance setCreatedTimestamp:createdTimestamp];
-    [instance setFavoritedUsers:favoritedUsers];
+    [instance setHasFavorited:hasFavorited];
     [instance setDegree:degree];
+    [instance setNumFavorites:numFavorites];
     return instance;
 }
 
@@ -67,20 +69,17 @@
 }
 
 -(BOOL)toggleFavorite {
-    NSInteger selfIndex;
-    NSString *jid = [NSString stringWithFormat:@"%@@%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]];
-    if ((selfIndex = [_favoritedUsers indexOfObject:jid]) != NSNotFound) {
-        [_favoritedUsers removeObjectAtIndex:selfIndex];
-        return false;
+    _hasFavorited = !_hasFavorited;
+    if (_hasFavorited) {
+        _numFavorites++;
     } else {
-        [_favoritedUsers addObject:jid];
-        return true;
+        _numFavorites--;
     }
+    return _hasFavorited;
 }
 
 - (BOOL)isFavoritedByConnectedUser {
-    NSString *jid = [NSString stringWithFormat:@"%@@%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]];
-    return [_favoritedUsers containsObject:jid];
+    return _hasFavorited;
 }
 
 - (BOOL)isPostedByConnectedUser {
@@ -110,11 +109,11 @@
 
 -(NSString *)getTextForLabel {
     //return (_favoritedUsers.count == 1) ? @"1 Favorite" : [NSString stringWithFormat:@"%lu Favorites", (unsigned long)_favoritedUsers.count];
-    return [NSString stringWithFormat:@"%lu", (unsigned long)_favoritedUsers.count];
+    return [NSString stringWithFormat:@"%d", _numFavorites];
 }
 
 -(NSUInteger)getNumForLabel {
-    return _favoritedUsers.count;
+    return _numFavorites;
 }
 
 -(void)deleteConfession {
