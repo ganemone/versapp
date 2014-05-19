@@ -341,6 +341,7 @@
 
 +(void)handleGetRosterPacket: (XMPPIQ *)iq {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSString *username = [ConnectionProvider getUser];
     NSManagedObjectContext *moc = [delegate getManagedObjectContextForBackgroundThread];
     __block dispatch_queue_t mainQ = dispatch_get_main_queue();
     [moc performBlock:^{
@@ -362,6 +363,10 @@
             NSRegularExpression *regexJid = [NSRegularExpression regularExpressionWithPattern:@"jid=\"(.*)@" options: 0 error:&error];
             NSTextCheckingResult *matchJid = [regexJid firstMatchInString:jid options:0 range:NSMakeRange(0,jid.length)];
             NSString *resultJid = [jid substringWithRange:[matchJid rangeAtIndex:1]];
+            NSLog(@"Found Roster User: %@", resultJid);
+            if ([[resultJid lowercaseString] isEqualToString:[username lowercaseString]]) {
+                continue;
+            }
             [allItems addObject:resultJid];
             if ([subscription rangeOfString:@"none"].location != NSNotFound){
                 if ([FriendsDBManager insertWithMOC:moc

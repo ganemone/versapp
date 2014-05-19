@@ -155,6 +155,11 @@
     FriendMO *currentItem = [self.searchResults objectAtIndex:indexPath.row];
     FriendTableViewCell *cell = [[FriendTableViewCell alloc] initWithText:currentItem.name reuseIdentifier:CELL_ID_FRIENDS_PROTOTYPE];
     
+    if (currentItem.name == nil) {
+        NSLog(@"Current Item: %@ %@", currentItem.username, currentItem.name);
+        [[_cp getConnection] sendElement:[IQPacketManager createGetVCardPacket:currentItem.username]];
+    }
+    
     if ([self.selectedJIDs containsObject:currentItem.username]) {
         [cell.isSelectedImageView setImage:[UIImage imageNamed:@"cell-select-active.png"]];
     } else {

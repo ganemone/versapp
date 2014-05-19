@@ -225,7 +225,7 @@
 
 +(NSString *)getThoughtDegree {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *degree = [preferences stringForKey:USER_DEFAULTS_VALID];
+    NSString *degree = [preferences stringForKey:USER_DEFAULTS_THOUGHTS_DEGREE];
     if (degree) {
         return degree;
     } else {

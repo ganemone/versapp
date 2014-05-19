@@ -49,6 +49,7 @@
     [imageView setImage:[UIImage imageNamed:@"contacts-background-large.png"]];
     [self.view addSubview:imageView];
     [self.view sendSubviewToBack:imageView];
+    
 }
 
 - (void)didReceiveMemoryWarning
