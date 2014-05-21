@@ -26,7 +26,6 @@
 		3A07F6C618D3C21800E82390 /* messages-icon-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A07F6B418D3C21800E82390 /* messages-icon-blue.png */; };
 		3A07F6D718D3EFC200E82390 /* check-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A07F6D618D3EFC200E82390 /* check-icon.png */; };
 		3A08D1FA18BFD3BB002A7C8E /* UserDefaultManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A08D1F918BFD3BB002A7C8E /* UserDefaultManager.m */; };
-		3A0EC4D7192435EA0036AB43 /* RSAESCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0EC4D6192435EA0036AB43 /* RSAESCryptor.m */; };
 		3A0EC4DB192435EF0036AB43 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0EC4DA192435EF0036AB43 /* NSData+CommonCrypto.m */; };
 		3A0EC4E919263BC40036AB43 /* chat-type-group-icon-colored.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A0EC4E819263BC40036AB43 /* chat-type-group-icon-colored.png */; };
 		3A0EC4ED19263C280036AB43 /* chat-type-invited-icon-colored.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A0EC4EA19263C280036AB43 /* chat-type-invited-icon-colored.png */; };
@@ -97,6 +96,9 @@
 		3A3E2F011920381B00210536 /* compose-orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3E2F001920381B00210536 /* compose-orange.png */; };
 		3A47C844189F1A52003020D7 /* FriendsDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A47C843189F1A52003020D7 /* FriendsDBManager.m */; };
 		3A47C847189F1F02003020D7 /* MessagesDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A47C846189F1F02003020D7 /* MessagesDBManager.m */; };
+		3A4822AB192C189200D5BBC0 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4822AA192C189200D5BBC0 /* NSData+Base64.m */; };
+		3A4822AF192D088900D5BBC0 /* RSAESCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4822AE192D088900D5BBC0 /* RSAESCryptor.m */; };
+		3A4822B1192D0E0C00D5BBC0 /* certificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = 3A4822B0192D0E0C00D5BBC0 /* certificate.cer */; };
 		3A49E9EA18FF146C00AFCB8E /* ThoughtTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A49E9E918FF146C00AFCB8E /* ThoughtTableViewCell.m */; };
 		3A49E9EC18FF155500AFCB8E /* ThoughtTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A49E9EB18FF155500AFCB8E /* ThoughtTableViewCell.xib */; };
 		3A49E9EE18FF2DFB00AFCB8E /* AppIconTransparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A49E9ED18FF2DFB00AFCB8E /* AppIconTransparent.png */; };
@@ -590,11 +592,8 @@
 		3A07F6D618D3EFC200E82390 /* check-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon.png"; sourceTree = "<group>"; };
 		3A08D1F818BFD3BB002A7C8E /* UserDefaultManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultManager.h; sourceTree = "<group>"; };
 		3A08D1F918BFD3BB002A7C8E /* UserDefaultManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultManager.m; sourceTree = "<group>"; };
-		3A0EC4D5192435EA0036AB43 /* RSAESCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSAESCryptor.h; sourceTree = "<group>"; };
-		3A0EC4D6192435EA0036AB43 /* RSAESCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSAESCryptor.m; sourceTree = "<group>"; };
 		3A0EC4D9192435EF0036AB43 /* NSData+CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CommonCrypto.h"; sourceTree = "<group>"; };
 		3A0EC4DA192435EF0036AB43 /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
-		3A0EC4E7192450D50036AB43 /* certificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = certificate.cer; sourceTree = "<group>"; };
 		3A0EC4E819263BC40036AB43 /* chat-type-group-icon-colored.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-type-group-icon-colored.png"; sourceTree = "<group>"; };
 		3A0EC4EA19263C280036AB43 /* chat-type-invited-icon-colored.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-type-invited-icon-colored.png"; sourceTree = "<group>"; };
 		3A0EC4EB19263C280036AB43 /* chat-type-inviter-icon-colored.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-type-inviter-icon-colored.png"; sourceTree = "<group>"; };
@@ -694,6 +693,11 @@
 		3A47C843189F1A52003020D7 /* FriendsDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsDBManager.m; sourceTree = "<group>"; };
 		3A47C845189F1F02003020D7 /* MessagesDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesDBManager.h; sourceTree = "<group>"; };
 		3A47C846189F1F02003020D7 /* MessagesDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesDBManager.m; sourceTree = "<group>"; };
+		3A4822A9192C189200D5BBC0 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		3A4822AA192C189200D5BBC0 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		3A4822AD192D088900D5BBC0 /* RSAESCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSAESCryptor.h; sourceTree = "<group>"; };
+		3A4822AE192D088900D5BBC0 /* RSAESCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSAESCryptor.m; sourceTree = "<group>"; };
+		3A4822B0192D0E0C00D5BBC0 /* certificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = certificate.cer; sourceTree = "<group>"; };
 		3A49E9E818FF146C00AFCB8E /* ThoughtTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThoughtTableViewCell.h; sourceTree = "<group>"; };
 		3A49E9E918FF146C00AFCB8E /* ThoughtTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThoughtTableViewCell.m; sourceTree = "<group>"; };
 		3A49E9EB18FF155500AFCB8E /* ThoughtTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThoughtTableViewCell.xib; sourceTree = "<group>"; };
@@ -1589,10 +1593,9 @@
 		3A0EC4DC192435FC0036AB43 /* RSA */ = {
 			isa = PBXGroup;
 			children = (
-				3A0EC4E7192450D50036AB43 /* certificate.cer */,
+				3A4822AD192D088900D5BBC0 /* RSAESCryptor.h */,
+				3A4822AE192D088900D5BBC0 /* RSAESCryptor.m */,
 				3A0EC4D8192435EF0036AB43 /* CommonCrypto */,
-				3A0EC4D5192435EA0036AB43 /* RSAESCryptor.h */,
-				3A0EC4D6192435EA0036AB43 /* RSAESCryptor.m */,
 			);
 			name = RSA;
 			sourceTree = "<group>";
@@ -1628,6 +1631,7 @@
 		3A25B62A1881E03700166623 = {
 			isa = PBXGroup;
 			children = (
+				3A4822B0192D0E0C00D5BBC0 /* certificate.cer */,
 				3AD19AC418E266F0001B3B88 /* Default-568h@2x.png */,
 				3A720CB118A1C1D400423959 /* XMPPFramework.h */,
 				3A25B63C1881E03700166623 /* Who */,
@@ -2695,6 +2699,8 @@
 		3AF19ACE1881F86000F3E4D3 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				3A4822A9192C189200D5BBC0 /* NSData+Base64.h */,
+				3A4822AA192C189200D5BBC0 /* NSData+Base64.m */,
 				3A0EC4DC192435FC0036AB43 /* RSA */,
 				3AF68FDA1919581400ABA9C5 /* Source */,
 				3AF68FB5191937C000ABA9C5 /* PEPhotoCropEditor */,
@@ -3465,6 +3471,7 @@
 				3AB8D18818C23DF00082B77C /* MavenProLight-100.ttf in Resources */,
 				3AB8D19118C259B00082B77C /* MavenProMedium.ttf in Resources */,
 				F7A3F96B18EE33B1006FBA0A /* x-green.png in Resources */,
+				3A4822B1192D0E0C00D5BBC0 /* certificate.cer in Resources */,
 				3ABD66D618FB325900E72B09 /* Owl-Loading-Animation_0011.png in Resources */,
 				F7A3F96A18EE33B1006FBA0A /* x-blue.png in Resources */,
 				3AF692041919B7E400ABA9C5 /* lookup_soft_elegance_2.png in Resources */,
@@ -3639,6 +3646,7 @@
 				3A98D8E318BD19B200B69049 /* XMPPElement.m in Sources */,
 				3AF691751919581600ABA9C5 /* GPUImageKuwaharaFilter.m in Sources */,
 				3AF691A81919581600ABA9C5 /* GPUImageScreenBlendFilter.m in Sources */,
+				3A4822AB192C189200D5BBC0 /* NSData+Base64.m in Sources */,
 				3AFFC93D18A06AE3009D7F13 /* db.xcdatamodeld in Sources */,
 				3A3E2EFE191FD3A300210536 /* ConversationTypesViewController.m in Sources */,
 				F751018718AE856C001F1E7F /* ChangePasswordViewController.m in Sources */,
@@ -3766,6 +3774,7 @@
 				3A25B6791881E85B00166623 /* ContactsViewController.m in Sources */,
 				3AF6919F1919581600ABA9C5 /* GPUImageRawDataInput.m in Sources */,
 				3AF691C91919581600ABA9C5 /* GPUImageVideoCamera.m in Sources */,
+				3A4822AF192D088900D5BBC0 /* RSAESCryptor.m in Sources */,
 				3AF691821919581600ABA9C5 /* GPUImageLuminosity.m in Sources */,
 				3A98DA5F18BD1A7E00B69049 /* XMPPDeprecatedDigestAuthentication.m in Sources */,
 				3AF68FC1191937C100ABA9C5 /* PECropView.m in Sources */,
@@ -3800,7 +3809,6 @@
 				3A793D2D190FF6C200303457 /* AFURLSessionManager.m in Sources */,
 				3AF691991919581600ABA9C5 /* GPUImagePixellatePositionFilter.m in Sources */,
 				3AF691371919581600ABA9C5 /* GPUImageAlphaBlendFilter.m in Sources */,
-				3A0EC4D7192435EA0036AB43 /* RSAESCryptor.m in Sources */,
 				3AF691581919581600ABA9C5 /* GPUImageExclusionBlendFilter.m in Sources */,
 				3A1EACE218D9E7A0006E4CA3 /* ContactTableViewCell.m in Sources */,
 				3A793D29190FF6C200303457 /* AFSecurityPolicy.m in Sources */,
@@ -4001,8 +4009,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -4025,7 +4033,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "9A7ED6B7-F81E-40C8-A855-91D66D6AEF92";
+				PROVISIONING_PROFILE = "2EA359C7-37D9-4EF2-A3B0-9A80A7674867";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = NO;
 			};
@@ -4047,8 +4055,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4064,7 +4072,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "9A7ED6B7-F81E-40C8-A855-91D66D6AEF92";
+				PROVISIONING_PROFILE = "2EA359C7-37D9-4EF2-A3B0-9A80A7674867";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -4073,8 +4081,8 @@
 		3A25B6691881E03700166623 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				FRAMEWORK_SEARCH_PATHS = (
 					/users/giancarloanemone/desktop/ios/who,
 					"$(PROJECT_DIR)",
@@ -4086,7 +4094,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
 				PRODUCT_NAME = Versapp;
-				PROVISIONING_PROFILE = "9A7ED6B7-F81E-40C8-A855-91D66D6AEF92";
+				PROVISIONING_PROFILE = "2EA359C7-37D9-4EF2-A3B0-9A80A7674867";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -4094,8 +4102,8 @@
 		3A25B66A1881E03700166623 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				FRAMEWORK_SEARCH_PATHS = (
 					/users/giancarloanemone/desktop/ios/who,
 					"$(PROJECT_DIR)",
@@ -4107,7 +4115,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = /users/giancarloanemone/desktop/ios/who/who;
 				PRODUCT_NAME = Versapp;
-				PROVISIONING_PROFILE = "9A7ED6B7-F81E-40C8-A855-91D66D6AEF92";
+				PROVISIONING_PROFILE = "2EA359C7-37D9-4EF2-A3B0-9A80A7674867";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

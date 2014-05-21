@@ -19,6 +19,7 @@
 +(void)updateMessageWithGroupID:(NSString *)groupID time:(NSString *)time;
 
 +(NSMutableArray*)getMessagesByChat:(NSString*)chatID;
++(NSMutableArray *)getMessagesByChat:(NSString *)chatID since:(MessageMO *)message;
 
 +(NSString*)getTimeForHistory:(NSManagedObjectContext *)moc;
 

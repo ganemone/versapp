@@ -69,16 +69,37 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:CORE_DATA_TABLE_MESSAGES inManagedObjectContext:moc];
     [fetchRequest setEntity:entity];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%@ = \"%@\"", MESSAGE_PROPERTY_GROUP_ID, chatID]];
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:MESSAGE_PROPERTY_TIMESTAMP ascending:YES];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", MESSAGE_PROPERTY_GROUP_ID, chatID];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:MESSAGE_PROPERTY_TIMESTAMP ascending:NO];
+    [fetchRequest setFetchLimit:10];
+    [fetchRequest setPredicate:predicate];
+    
+    [fetchRequest setSortDescriptors:@[sort]];
+    NSError* error;
+    NSArray *fetchedItems = [moc executeFetchRequest:fetchRequest error:&error];
+    return [NSMutableArray arrayWithArray:[[fetchedItems reverseObjectEnumerator] allObjects]];
+}
+
++(NSMutableArray *)getMessagesByChat:(NSString *)chatID since:(MessageMO *)message {
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *moc = [delegate managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:CORE_DATA_TABLE_MESSAGES inManagedObjectContext:moc];
+    [fetchRequest setEntity:entity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(%K == %@) AND (%K <= %@) AND (%K != %@)", MESSAGE_PROPERTY_GROUP_ID, chatID, MESSAGE_PROPERTY_TIMESTAMP, message.time, MESSAGE_PROPERTY_BODY, message.message_body];
+    
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:MESSAGE_PROPERTY_TIMESTAMP ascending:NO];
     [fetchRequest setFetchLimit:100];
     [fetchRequest setPredicate:predicate];
     
     [fetchRequest setSortDescriptors:@[sort]];
     NSError* error;
     NSArray *fetchedItems = [moc executeFetchRequest:fetchRequest error:&error];
-    return [NSMutableArray arrayWithArray:fetchedItems];
+    return [NSMutableArray arrayWithArray:[[fetchedItems reverseObjectEnumerator] allObjects]];
 }
+
+
 
 +(NSString*)getLastMessageForChatWithID:(NSString*)chatID {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
@@ -86,7 +107,7 @@
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:CORE_DATA_TABLE_MESSAGES inManagedObjectContext:moc];
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:MESSAGE_PROPERTY_TIMESTAMP ascending:YES];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%@ = \"%@\"", MESSAGE_PROPERTY_GROUP_ID, chatID]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", MESSAGE_PROPERTY_GROUP_ID, chatID];
     [fetchRequest setSortDescriptors:@[sort]];
     [fetchRequest setEntity:entity];
     [fetchRequest setFetchLimit:1];

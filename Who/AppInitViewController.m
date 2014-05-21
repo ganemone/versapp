@@ -14,7 +14,7 @@
 #import "Encrypter.h"
 #import "FriendsDBManager.h"
 #import "PhoneVerificationManager.h"
-#import "RSAESCryptor.h"
+#import "AFNetworking.h"
 
 @interface AppInitViewController ()
 
@@ -58,24 +58,22 @@
     self.viewDidShow = NO;
     self.shouldTransition = NO;
     
-    //[self testRSA];
+    [self testRSA];
     
 }
 
 - (void)testRSA {
     
-    NSString *pubKeyPath = [[NSBundle mainBundle] pathForResource:@"certificate" ofType:@"cer"];
-    NSString *stringToEncrypt = @"meniscotherium";
-    NSData *plainData = [stringToEncrypt dataUsingEncoding:NSASCIIStringEncoding];
-    NSLog(@"Data to encrypt: %@", plainData);
-    RSAESCryptor *cryptor = [RSAESCryptor sharedCryptor];
-    [cryptor loadPublicKey:pubKeyPath];
-    NSData *encData = [cryptor encryptData:plainData];
-    NSLog(@"Encrypted Data: %@", encData);
-    NSString *encryptedString = [[NSString alloc] initWithData:encData encoding:NSASCIIStringEncoding];
-    NSLog(@"Encrypted String: %@", encryptedString);
-    // encrypted data format:
-    // [16 bytes IV] + [256 bytes encrypted Key] + [AES encrypted data].
+    //NSString *publicKey = [NSString stringWithContentsOfURL:[[NSURL alloc] initWithString:@"https://versapp.co/key/index.php"] encoding:NSASCIIStringEncoding error:NULL];
+    NSString *encryptingString = @"meniscotherium";
+    NSData *resultData = [Encrypter encryptStringWithRSAES:encryptingString];
+    NSString *stringResult = [[NSString alloc] initWithData:resultData encoding:NSUTF8StringEncoding];
+    NSString *asciiResult = [[NSString alloc] initWithData:resultData encoding:NSASCIIStringEncoding];
+    NSString *utf32Result = [[NSString alloc] initWithData:resultData encoding:NSUTF32StringEncoding];
+    NSLog(@"Encrypting String: %@", encryptingString);
+    NSLog(@"Encryption Result: %@", stringResult);
+    NSLog(@"ASCII Result: %@", asciiResult);
+    NSLog(@"UTF32 Result: %@", utf32Result);
 }
 
 -(void)viewDidAppear:(BOOL)animated {

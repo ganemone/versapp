@@ -13,5 +13,7 @@
 @interface IQPacketReceiver : NSObject
 
 +(void)handleIQPacket:(XMPPIQ*)iq;
++(void)setShouldClearConfessionsYes;
++(void)setShouldClearConfessionsNO;
 
 @end

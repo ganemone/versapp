@@ -20,8 +20,18 @@
 
 @implementation IQPacketReceiver
 
+static BOOL shouldClearConfessions = YES;
+
 +(bool)isPacketWithID:(NSString *)packetID packet:(XMPPIQ *)packet {
     return ([packet.elementID compare:packetID] == 0 && packet.elementID != nil);
+}
+
++(void)setShouldClearConfessionsYes {
+    shouldClearConfessions = YES;
+}
+
++(void)setShouldClearConfessionsNO {
+    shouldClearConfessions = NO;
 }
 
 +(void)handleIQPacket:(XMPPIQ *)iq {

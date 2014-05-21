@@ -40,6 +40,7 @@
     NSMutableData *data = [NSMutableData dataWithLength:length];
     
     int result = SecRandomCopyBytes(kSecRandomDefault, length, data.mutableBytes);
+    NSLog(@"Result: %d", result);
     NSAssert(result == 0, @"Unable to generate random bytes: %d", errno);
     
     return data;
@@ -92,7 +93,7 @@
     [self releaseSecVars];
     
     NSData *certificateData = [NSData dataWithContentsOfFile:keyPath];
-    NSLog(@"Certificate Data: %@", certificateData);
+    
     SecCertificateRef certificateRef = SecCertificateCreateWithData(kCFAllocatorDefault, (__bridge CFDataRef)certificateData);
     SecPolicyRef policyRef = SecPolicyCreateBasicX509();
     SecTrustRef trustRef;
@@ -114,14 +115,15 @@
 
 - (NSData *)encryptData:(NSData *)content {
     NSData *aesKey = [self generateKey];
-    NSLog(@"AES Key: %@", aesKey);
     NSData *iv = [self generateIV];
-    NSLog(@"IV: %@", iv);
+    NSLog(@"Generated AES Key: %@", [aesKey description]);
+    NSLog(@"Generated IV: %@", [iv description]);
     NSData *encryptedData = [content AES256EncryptedDataUsingKey:aesKey andIV:iv error:nil];
-    NSLog(@"Encrypted Data: %@", encryptedData);
+    
     // encrypt aesKey with publicKey
     NSData *encryptedAESKey = [self wrapSymmetricKey:aesKey keyRef:_publicKeyRef];
-    NSLog(@"Encrypted AES Key: %@", encryptedAESKey);
+    NSLog(@"Encrypted Data: %@", [encryptedData description]);
+    NSLog(@"Encrypted Key: %@", [encryptedAESKey description]);
     NSMutableData *result = [NSMutableData data];
     [result appendData:iv];
     [result appendData:encryptedAESKey];

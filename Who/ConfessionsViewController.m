@@ -200,7 +200,16 @@
         [cell setUpWithConfession:confession];
     }
     
+    if (indexPath.row == [_confessionsManager getNumberOfConfessions] - 2) {
+        
+    }
+    
     return cell;
+}
+
+-(void)loadLatterConfessions {
+    [IQPacketReceiver setShouldClearConfessionsNO];
+
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
