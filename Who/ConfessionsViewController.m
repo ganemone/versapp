@@ -39,6 +39,7 @@
 @property CGFloat previousContentDelta;
 @property BOOL isAnimatingHeader;
 @property BOOL isGlobalFeed;
+@property BOOL isFetchingOlderThoughts;
 
 @end
 
@@ -163,6 +164,9 @@
     } else {
         [_thoughtDegreeBtn setImage:[UIImage imageNamed:@"thoughts-global.png"] forState:UIControlStateNormal];
     }
+    
+    _isFetchingOlderThoughts = NO;
+
 }
 
 - (void)loadConfessions {
@@ -200,16 +204,22 @@
         [cell setUpWithConfession:confession];
     }
     
-    if (indexPath.row == [_confessionsManager getNumberOfConfessions] - 2) {
-        
-    }
+    /*if (indexPath.row == [_confessionsManager getNumberOfConfessions] - 2) {
+        [self loadLatterConfessions];
+    }*/
     
     return cell;
 }
 
 -(void)loadLatterConfessions {
+    if (_isFetchingOlderThoughts == YES) {
+        return;
+    }
+    _isFetchingOlderThoughts = YES;
     [IQPacketReceiver setShouldClearConfessionsNO];
-
+    NSString *since = [[_confessionsManager getConfessionAtIndex:[_confessionsManager getNumberOfConfessions] - 1] createdTimestamp];
+    NSString *degree = [UserDefaultManager getThoughtDegree];
+    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:degree since:since]];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -218,11 +228,13 @@
 
 - (void)refreshListView
 {
+    [IQPacketReceiver setShouldClearConfessionsYes];
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     [_confessionsManager sortConfessions];
     //[self loadImagesForThoughts];
     [self.tableView didFinishPullToRefresh];
     [self.tableView reloadData];
+    _isFetchingOlderThoughts = NO;
 }
 
 - (void)handleOneToOneChatCreatedFromConfession {

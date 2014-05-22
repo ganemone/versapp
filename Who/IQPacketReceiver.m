@@ -477,7 +477,9 @@ static BOOL shouldClearConfessions = YES;
     NSNumber *favoriteCount;
     Confession *confession;
     ConfessionsManager *confessionsManager = [ConfessionsManager getInstance];
-    [confessionsManager clearConfessions];
+    if (shouldClearConfessions) {
+        [confessionsManager clearConfessions];
+    }
     
     for(NSTextCheckingResult *match in matches) {
         confessionID = [decodedPacketXML substringWithRange:[match rangeAtIndex:1]];

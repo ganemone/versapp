@@ -546,6 +546,14 @@
     return iq;
 }
 
++(DDXMLElement *)createGetConfessionsPacketWithDegree:(NSString *)degree since:(NSString *)sinceString {
+    
+    DDXMLElement *since = [DDXMLElement elementWithName:@"since" stringValue:sinceString];
+    DDXMLElement *degreeElement = [DDXMLElement elementWithName:@"degree" stringValue:degree];
+    DDXMLElement *iq = [self getWhoConfessionIQElementWithType:@"get" packetID:PACKET_ID_GET_CONFESSIONS children:since moreChilden:degreeElement];
+    return iq;
+}
+
 +(DDXMLElement *)createPostConfessionPacket:(Confession *)confession {
     [confession encodeBody];
     

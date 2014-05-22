@@ -58,7 +58,7 @@
     self.viewDidShow = NO;
     self.shouldTransition = NO;
     
-    [self testRSA];
+//    [self testRSA];
     
 }
 
