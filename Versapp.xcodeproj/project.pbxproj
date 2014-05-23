@@ -102,6 +102,7 @@
 		3A49E9EA18FF146C00AFCB8E /* ThoughtTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A49E9E918FF146C00AFCB8E /* ThoughtTableViewCell.m */; };
 		3A49E9EC18FF155500AFCB8E /* ThoughtTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A49E9EB18FF155500AFCB8E /* ThoughtTableViewCell.xib */; };
 		3A49E9EE18FF2DFB00AFCB8E /* AppIconTransparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A49E9ED18FF2DFB00AFCB8E /* AppIconTransparent.png */; };
+		3A4E7847192F8B79008F024C /* NSMutableArray+QueueAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4E7846192F8B79008F024C /* NSMutableArray+QueueAdditions.m */; };
 		3A5065D3191EB94300EED804 /* chat-type-group-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A5065CF191EB94300EED804 /* chat-type-group-icon.png */; };
 		3A5065D4191EB94300EED804 /* chat-type-invited-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A5065D0191EB94300EED804 /* chat-type-invited-icon.png */; };
 		3A5065D5191EB94300EED804 /* chat-type-inviter-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A5065D1191EB94300EED804 /* chat-type-inviter-icon.png */; };
@@ -702,6 +703,8 @@
 		3A49E9E918FF146C00AFCB8E /* ThoughtTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThoughtTableViewCell.m; sourceTree = "<group>"; };
 		3A49E9EB18FF155500AFCB8E /* ThoughtTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThoughtTableViewCell.xib; sourceTree = "<group>"; };
 		3A49E9ED18FF2DFB00AFCB8E /* AppIconTransparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIconTransparent.png; sourceTree = "<group>"; };
+		3A4E7845192F8B79008F024C /* NSMutableArray+QueueAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+QueueAdditions.h"; sourceTree = "<group>"; };
+		3A4E7846192F8B79008F024C /* NSMutableArray+QueueAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+QueueAdditions.m"; sourceTree = "<group>"; };
 		3A5065CF191EB94300EED804 /* chat-type-group-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-type-group-icon.png"; sourceTree = "<group>"; };
 		3A5065D0191EB94300EED804 /* chat-type-invited-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-type-invited-icon.png"; sourceTree = "<group>"; };
 		3A5065D1191EB94300EED804 /* chat-type-inviter-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-type-inviter-icon.png"; sourceTree = "<group>"; };
@@ -1674,6 +1677,8 @@
 		3A25B63C1881E03700166623 /* Who */ = {
 			isa = PBXGroup;
 			children = (
+				3A4E7845192F8B79008F024C /* NSMutableArray+QueueAdditions.h */,
+				3A4E7846192F8B79008F024C /* NSMutableArray+QueueAdditions.m */,
 				3AA4952D191A6DC7003C9453 /* BlacklistManager.h */,
 				3AA4952E191A6DC7003C9453 /* BlacklistManager.m */,
 				3AE1E35D18E9A9AA00E2347F /* Validator.h */,
@@ -3636,6 +3641,7 @@
 				3AF691401919581600ABA9C5 /* GPUImageCannyEdgeDetectionFilter.m in Sources */,
 				3AF691A01919581600ABA9C5 /* GPUImageRawDataOutput.m in Sources */,
 				3AB9E67E18A45573001EFDB8 /* LoadingDialogManager.m in Sources */,
+				3A4E7847192F8B79008F024C /* NSMutableArray+QueueAdditions.m in Sources */,
 				3AFF778718C415BE003277F9 /* FriendMO.m in Sources */,
 				3AF691851919581600ABA9C5 /* GPUImageMedianFilter.m in Sources */,
 				3AF6913A1919581600ABA9C5 /* GPUImageAverageLuminanceThresholdFilter.m in Sources */,
