@@ -42,8 +42,8 @@
 +(DDXMLElement *)createInviteToMUCMessage:(NSString*)chatID username:(NSString*)username chatName:(NSString *)chatName;
 +(DDXMLElement *)createCreateOneToOneChatPacket:(NSString*)chatID invitedUser:(NSString*)invitedUser roomName:(NSString*)roomName;
 +(DDXMLElement *)createGetSessionIDPacket;
-+(DDXMLElement *)createGetConfessionsPacketWithDegree:(NSString *)degree;
-+(DDXMLElement *)createGetConfessionsPacketWithDegree:(NSString *)degree since:(NSString *)sinceString;
+//+(DDXMLElement *)createGetConfessionsPacketWithDegree:(NSString *)degree;
+//+(DDXMLElement *)createGetConfessionsPacketWithDegree:(NSString *)degree since:(NSString *)sinceString;
 +(DDXMLElement *)createPostConfessionPacket:(Confession *)confession;
 +(DDXMLElement *)createToggleFavoriteConfessionPacket:(NSString*)confessionID;
 +(DDXMLElement *)createGetMyConfessionsPacket;

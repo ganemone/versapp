@@ -901,21 +901,12 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" red="0.38431372549999998" green="0.17254901959999999" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendsCellPrototype" textLabel="s3B-ug-9mP" style="IBUITableViewCellStyleDefault" id="LPA-T2-row">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendsCellPrototype" id="LPA-T2-row">
                                         <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LPA-T2-row" id="fbS-7e-s1a">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="s3B-ug-9mP">
-                                                    <rect key="frame" x="15" y="0.0" width="290" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -1228,6 +1219,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" id="aeu-EJ-Rlq">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="IIL-et-yzh">
+                                        <rect key="frame" x="275" y="26" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                        <state key="normal" image="compose-orange.png">
+                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="lnb-gW-AWX" kind="push" id="m95-nf-RcH"/>
+                                        </connections>
+                                    </button>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="YBc-xM-ZaJ">
+                                        <rect key="frame" x="90" y="28" width="141" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <segments>
+                                            <segment title="Friends"/>
+                                            <segment title="Global">
+                                                <size key="contentOffset" width="-1" height="0.0"/>
+                                            </segment>
+                                        </segments>
+                                        <connections>
+                                            <action selector="handleThoughtsTypeChanged:" destination="jpr-Ku-F24" eventType="valueChanged" id="gAt-IA-gta"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" id="S2w-Wd-NjF">
+                                        <rect key="frame" x="20" y="30" width="22" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="handleDiscloseInfoBtnClicked:" destination="jpr-Ku-F24" eventType="touchUpInside" id="bRG-c4-aM7"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="jZx-yj-7oZ">
                                 <rect key="frame" x="0.0" y="63" width="320" height="417"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1244,102 +1276,19 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" id="Vvd-g4-pCT">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="W32-bg-Yhg">
-                                        <rect key="frame" x="20" y="16" width="32" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="thoughts-blue-1.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="handleFirstConnectionBtnPressed:" destination="jpr-Ku-F24" eventType="touchUpInside" id="gaA-Xz-G4Y"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="XPp-x1-U1S">
-                                        <rect key="frame" x="103" y="16" width="32" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="thoughts-blue-2.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="handleSecondConnectionBtnPressed:" destination="jpr-Ku-F24" eventType="touchUpInside" id="BQt-ah-z22"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4q0-3z-xqg">
-                                        <rect key="frame" x="190" y="16" width="32" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="thoughts-blue-3.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="handleThirdConnectionBtnPressed:" destination="jpr-Ku-F24" eventType="touchUpInside" id="rrS-Ol-Umh"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VhZ-yr-0aN">
-                                        <rect key="frame" x="268" y="16" width="32" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="thoughts-global.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="handleGlobalConnectionBtnPressed:" destination="jpr-Ku-F24" eventType="touchUpInside" id="b38-lc-SRF"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" id="aeu-EJ-Rlq">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thoughts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="17h-Mf-fgS">
-                                        <rect key="frame" x="59" y="20" width="202" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                        <color key="textColor" red="0.95686274510000002" green="0.57254901960000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="IIL-et-yzh">
-                                        <rect key="frame" x="277" y="27" width="30" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                        <state key="normal" image="compose-orange.png">
-                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="lnb-gW-AWX" kind="push" id="m95-nf-RcH"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wmf-S7-R52">
-                                        <rect key="frame" x="20" y="27" width="30" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="thoughts-blue-1.png"/>
-                                        <connections>
-                                            <action selector="showConfessionOptions:" destination="jpr-Ku-F24" eventType="touchUpInside" id="1gM-Gk-7Jh"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Confessions" id="1d5-ZF-uSM"/>
                     <connections>
-                        <outlet property="dropDownView" destination="Vvd-g4-pCT" id="p8f-m1-vrs"/>
                         <outlet property="header" destination="aeu-EJ-Rlq" id="73w-F7-1A1"/>
-                        <outlet property="headerLabel" destination="17h-Mf-fgS" id="GCY-d8-ntY"/>
                         <outlet property="tableView" destination="jZx-yj-7oZ" id="UqM-pt-QRe"/>
-                        <outlet property="thoughtDegreeBtn" destination="wmf-S7-R52" id="fK2-C0-3dW"/>
                         <segue destination="iDZ-uG-Ep6" kind="push" identifier="SegueIDCreatedOneToOneChatFromConfession" id="qGQ-aw-vgl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VJW-15-iT1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2251" y="198"/>
+            <point key="canvasLocation" x="2266" y="204"/>
         </scene>
         <!--Sharing View Controller-->
         <scene sceneID="xh4-Dp-XWl">
@@ -2037,10 +1986,6 @@
         <image name="photo-icon.png" width="183" height="145"/>
         <image name="send-icon.png" width="310" height="310"/>
         <image name="settings-icon-purple.png" width="250" height="250"/>
-        <image name="thoughts-blue-1.png" width="250" height="250"/>
-        <image name="thoughts-blue-2.png" width="250" height="250"/>
-        <image name="thoughts-blue-3.png" width="250" height="250"/>
-        <image name="thoughts-global.png" width="250" height="250"/>
         <image name="trash-icon-blue.png" width="250" height="250"/>
         <image name="x-blue.png" width="60" height="60"/>
     </resources>
@@ -2050,18 +1995,18 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="qGQ-aw-vgl"/>
-        <segue reference="m95-nf-RcH"/>
-        <segue reference="tVn-SP-Hc9"/>
+        <segue reference="hVX-XL-lBE"/>
         <segue reference="zTQ-Mf-6oX"/>
         <segue reference="YEX-bB-bO6"/>
-        <segue reference="pHb-Kf-4qo"/>
-        <segue reference="hVX-XL-lBE"/>
-        <segue reference="z6h-qs-HbB"/>
         <segue reference="BCc-dv-kG7"/>
+        <segue reference="z6h-qs-HbB"/>
+        <segue reference="tVn-SP-Hc9"/>
+        <segue reference="pHb-Kf-4qo"/>
         <segue reference="WHz-1g-xNx"/>
-        <segue reference="XeD-6M-yxq"/>
         <segue reference="OKb-WW-kzU"/>
+        <segue reference="XeD-6M-yxq"/>
+        <segue reference="m95-nf-RcH"/>
+        <segue reference="qGQ-aw-vgl"/>
         <segue reference="xkE-O7-97C"/>
     </inferredMetricsTieBreakers>
 </document>

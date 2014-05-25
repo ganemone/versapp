@@ -67,7 +67,6 @@ NSString *const USER_DEFAULTS_HAS_SEEN_THOUGHTS = @"seen_thoughts";
 NSString *const USER_DEFAULTS_HAS_SEEN_FRIENDS = @"friends";
 NSString *const USER_DEFAULTS_HAS_CREATED_THOUGHT_CHAT = @"thought_chat";
 NSString *const USER_DEFAULTS_HAS_SENT_BLACKLIST = @"blacklist";
-NSString *const USER_DEFAULTS_THOUGHTS_DEGREE = @"degree";
 
 NSString *const CHAT_TYPE_GROUP = @"groupchat";
 NSString *const CHAT_TYPE_ONE_TO_ONE = @"chat";

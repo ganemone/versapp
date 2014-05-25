@@ -8,6 +8,7 @@
 
 #import "FriendTableViewCell.h"
 #import "StyleManager.h"
+#import "FriendMO.h"
 
 @implementation FriendTableViewCell
 
@@ -20,14 +21,17 @@
     return self;
 }
 
-- (instancetype)initWithText:(NSString*)name reuseIdentifier:(NSString*)reuseIdentifier {
-    self = [self initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+- (instancetype)initWithFriend:(FriendMO*)friendMO reuseIdentifier:(NSString*)reuseIdentifier {
+    self = [self initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if(self) {
-        if (name != nil) {
-            [self.textLabel setText:name];
+        if (friendMO.name != nil) {
+            [self.textLabel setText:friendMO.name];
         } else {
             [self.textLabel setText:@"Loading..."];
         }
+        
+        [self.detailTextLabel setText:friendMO.username];
+        
         CGFloat btnSize = 18.0f;
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.frame.size.width - 50.0f, self.frame.size.height / 2 - btnSize/2, btnSize, btnSize)];
         
@@ -58,8 +62,10 @@
     self.textLabel.font = [StyleManager getFontStyleLightSizeLarge];
     self.textLabel.textColor = [StyleManager getColorPurple];
     self.textLabel.hidden = NO;
-    self.detailTextLabel.text = nil;
-    self.detailTextLabel.hidden = YES;
+    
+    self.detailTextLabel.hidden = NO;
+    self.detailTextLabel.font = [StyleManager getFontStyleLightSizeMed];
+    self.detailTextLabel.textColor = [StyleManager getColorPurple];
 }
 
 - (void)awakeFromNib

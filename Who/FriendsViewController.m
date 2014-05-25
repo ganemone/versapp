@@ -153,7 +153,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FriendMO *currentItem = [self.searchResults objectAtIndex:indexPath.row];
-    FriendTableViewCell *cell = [[FriendTableViewCell alloc] initWithText:currentItem.name reuseIdentifier:CELL_ID_FRIENDS_PROTOTYPE];
+    FriendTableViewCell *cell = [[FriendTableViewCell alloc] initWithFriend:currentItem reuseIdentifier:CELL_ID_FRIENDS_PROTOTYPE];
     
     if (currentItem.name == nil) {
         NSLog(@"Current Item: %@ %@", currentItem.username, currentItem.name);

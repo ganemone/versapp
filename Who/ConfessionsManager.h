@@ -14,6 +14,7 @@
 @property (strong, nonatomic) NSMutableDictionary *confessions;
 @property (strong, nonatomic) NSMutableArray *confessionIDValues;
 @property (strong, nonatomic) Confession *pendingConfession;
+@property BOOL shouldClearConfessions;
 
 +(instancetype)getInstance;
 -(int)getNumberOfConfessions;
@@ -26,5 +27,7 @@
 -(void)sortConfessions;
 -(void)clearConfessions;
 -(void)deleteConfession:(NSString *)confessionID;
+-(void)loadConfessionsWithMethod:(NSString *)method;
+-(void)loadConfessionsWithMethod:(NSString *)method since:(NSString *)since;
 
 @end
