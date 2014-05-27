@@ -11,6 +11,7 @@
 #import "AFNetworking.h"
 #import "ConnectionProvider.h"
 #import "Constants.h"
+#import "Base64.h"
 
 static ConfessionsManager *selfInstance;
 
@@ -82,6 +83,8 @@ static ConfessionsManager *selfInstance;
 }
 
 -(void)loadConfessionsWithMethod:(NSString *)method since:(NSString *)since {
+    NSLog(@"Loading thoughts with method: %@ since: %@", method, since);
+    
     if ([since isEqualToString:@"0"]) {
         _shouldClearConfessions = YES;
     } else {
@@ -89,9 +92,7 @@ static ConfessionsManager *selfInstance;
     }
     AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary *parameters = @{@"username" : [ConnectionProvider getUser],
-                                 @"session" : appDelegate.sessionID,
-                                 @"method" : method,
+    NSDictionary *parameters = @{@"method" : method,
                                  @"since" : since};
     NSError *error = NULL;
     NSMutableURLRequest *req = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:@"https://versapp.co/thoughts/index.php" parameters:parameters error:&error];
@@ -102,6 +103,12 @@ static ConfessionsManager *selfInstance;
         NSLog(@"Failed with response: %@", operation.responseString);
         NSLog(@"Failed Thought request: %@", error);
     }];
+    // Setting up authorization header
+    NSString *authCode = [NSString stringWithFormat:@"%@:%@", [ConnectionProvider getUser], appDelegate.sessionID];
+    NSData *data = [authCode dataUsingEncoding:NSASCIIStringEncoding];
+    NSString *base64AuthCode = [Base64 encode:data];
+    NSString *authHttpHeaderValue = [NSString stringWithFormat:@"Basic %@", base64AuthCode];
+    [req addValue:authHttpHeaderValue forHTTPHeaderField:BLACKLIST_AUTH_CODE];
     [operation setResponseSerializer:[AFXMLParserResponseSerializer serializer]];
     [operation start];
 }

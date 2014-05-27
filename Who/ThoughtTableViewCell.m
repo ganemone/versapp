@@ -97,6 +97,10 @@
     [_degreeBtn setTitle:@"" forState:UIControlStateNormal];
     [_degreeBtn setImage:[_confession imageForDegree] forState:UIControlStateNormal];
     [_degreeBtn addTarget:self action:@selector(handleDegreeBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    
+    if ([_confession.degree isEqualToString:@"global"]) {
+        _chatBtn.hidden = YES;
+    }
 }
 
 - (void)handleDegreeBtnClicked {
@@ -105,8 +109,6 @@
         message = @"This is a thought posted by a direct friend.";
     } else if ([_confession.degree isEqualToString:@"2"]) {
         message = @"This is a thought posted by a friend of a friend. In other words, a 2nd degree connection.";
-    } else if ([_confession.degree isEqualToString:@"3"]) {
-        message = @"This is a thought posted by a 3rd degree connection.";
     } else {
         message = @"This is a global thought. It isn't necessarily posted by anyone in your friends list.";
     }

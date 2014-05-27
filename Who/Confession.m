@@ -83,8 +83,7 @@
 }
 
 - (BOOL)isPostedByConnectedUser {
-    NSString *jid = [NSString stringWithFormat:@"%@@%@", [ConnectionProvider getUser], [ConnectionProvider getServerIPAddress]];
-    return ([_posterJID isEqualToString:jid]);
+    return ([_posterJID isEqualToString:[ConnectionProvider getUser]]);
 }
 
 -(NSString *)getTimePosted {
@@ -128,8 +127,6 @@
         return [UIImage imageNamed:@"thoughts-white-1.png"];
     } else if ([_degree isEqualToString:@"2"]) {
         return [UIImage imageNamed:@"thoughts-white-2.png"];
-    } else if ([_degree isEqualToString:@"3"]) {
-        return [UIImage imageNamed:@"thoughts-white-3.png"];
     } else {
         return [UIImage imageNamed:@"thoughts-global.png"];
     }

@@ -180,7 +180,7 @@
             NSString *since = [_confessionsManager getConfessionAtIndex:[_confessionsManager getNumberOfConfessions] - 1].createdTimestamp;
             if (![since isEqualToString:_prevSince]) {
                 _prevSince = since;
-                [_confessionsManager loadConfessionsWithMethod:@"friends" since:since];
+                [_confessionsManager loadConfessionsWithMethod:_currentMethod since:since];
                 _isFetchingOlderThoughts = YES;
             }
         }

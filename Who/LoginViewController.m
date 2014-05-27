@@ -105,6 +105,7 @@
     _passwordText = [Encrypter md5:_passwordText];
     
     [UserDefaultManager savePassword:self.passwordText];
+    _usernameText = [_usernameText lowercaseString];
     [UserDefaultManager saveUsername:self.usernameText];
     NSLog(@"Password: %@", _passwordText);
     [self.cp connect:self.usernameText password:_passwordText];
