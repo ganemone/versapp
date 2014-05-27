@@ -531,8 +531,8 @@ static BOOL notificationsHalfHidden = NO;
         UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 32, 280, 21)];
         [notificationsLabel setText:NOTIFICATIONS];
         [notificationsLabel setTextAlignment:NSTextAlignmentCenter];
-        [notificationsLabel setFont:[StyleManager getFontStyleLightSizeHeader]];
-        [notificationsLabel setTextColor:[StyleManager getColorGreen]];
+        [notificationsLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+        [notificationsLabel setTextColor:[StyleManager getColorBlue]];
         [self.notificationsHeader addSubview:notificationsLabel];
         [self.notificationsHeader addSubview:self.notificationsButtonGreen];
         [self.notificationsHeader setBackgroundColor:[UIColor whiteColor]];
@@ -611,6 +611,11 @@ static BOOL notificationsHalfHidden = NO;
     
     [self.groupInvites removeObjectAtIndex:indexPath.row];
     [ChatDBManager setChatStatus:STATUS_JOINED chatID:groupInvite.chat_id];
+    
+    if ([_friendRequests count] + [_groupInvites count] == 0) {
+        [self hideNotifications];
+    }
+    
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     [self setNotificationSize];
     [self setNotificationsIcon];
@@ -625,6 +630,10 @@ static BOOL notificationsHalfHidden = NO;
     
     [self.groupInvites removeObjectAtIndex:indexPath.row];
     [ChatDBManager setChatStatus:STATUS_REQUEST_REJECTED chatID:groupInvite.chat_id];
+    
+    if ([_friendRequests count] + [_groupInvites count] == 0) {
+        [self hideNotifications];
+    }
     
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     [self setNotificationSize];
@@ -642,12 +651,22 @@ static BOOL notificationsHalfHidden = NO;
     [FriendsDBManager updateUserSetStatusFriends:friendRequest.username];
     
     [self.friendRequests removeObjectAtIndex:indexPath.row];
+    
+    if ([_friendRequests count] + [_groupInvites count] == 0) {
+        [self hideNotifications];
+    }
+    
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     [self setNotificationSize];
     [self setNotificationsIcon];
 }
 
 - (IBAction)declineFriendRequest:(id)sender {
+    
+    if ([_friendRequests count] + [_groupInvites count] == 1) {
+        [self hideNotifications];
+    }
+    
     CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
     NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
     
@@ -665,13 +684,14 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 -(void)handleRefreshListView {
-    self.groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
-    self.oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllOneToOneChats]];
+    _groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
+    _oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllOneToOneChats]];
     if ([_oneToOneChats count] > 0 || [_groupChats count] > 0) {
         [_tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectZero]];
         [self hideNoConfersationsView];
     }
-    [self.tableView reloadData];
+    [_tableView reloadData];
+    [_notificationTableView reloadData];
 }
 
 -(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer

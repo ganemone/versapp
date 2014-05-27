@@ -43,8 +43,9 @@
 }
 
 - (IBAction)sendRequest:(id)sender {
+    NSString *usernameText = [_username.text lowercaseString];
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSubscribePacket:_username.text]];
-    [FriendsDBManager insert:_username.text name:nil email:nil status:[NSNumber numberWithInt:STATUS_SEARCHED] searchedPhoneNumber:nil searchedEmail:nil uid:nil];
+    [FriendsDBManager insert:usernameText name:nil email:nil status:[NSNumber numberWithInt:STATUS_SEARCHED] searchedPhoneNumber:nil searchedEmail:nil uid:nil];
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Friend Request Sent" message:nil delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
     [alertView show];
 }
