@@ -333,4 +333,11 @@
     [groupNamePrompt show];
 }
 
+-(void)handleUnfriend:(FriendMO*)friend {
+    XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
+    [conn sendElement:[IQPacketManager createUnsubscribePacket:friend.username]];
+    
+    [FriendsDBManager updateUserSetStatusRejected:friend.username];
+}
+
 @end
