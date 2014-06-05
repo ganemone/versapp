@@ -42,7 +42,6 @@ NSString *const PACKET_ID_SEARCH_FOR_USERS = @"packet_id_search_for_users";
 NSString *const PACKET_ID_SEARCH_FOR_USER = @"packet_id_search_for_user";
 NSString *const PACKET_ID_GET_USER_INFO = @"packet_id_get_user_info";
 NSString *const PACKET_ID_SET_USER_INFO = @"packet_id_set_user_info";
-NSString *const PACKET_ID_UNFRIEND = "@packet_id_unfriend";
 
 NSString *const VCARD_TAG_FULL_NAME = @"FN";
 NSString *const VCARD_TAG_FIRST_NAME = @"GIVEN";
