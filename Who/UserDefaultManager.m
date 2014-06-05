@@ -217,22 +217,5 @@
     [self setUserDefaultValueTrue:USER_DEFAULTS_HAS_SENT_BLACKLIST];
 }
 
-+(void)setThoughtDegree:(NSString *)degree {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    [preferences setObject:degree forKey:USER_DEFAULTS_THOUGHTS_DEGREE];
-    [preferences synchronize];
-}
-
-+(NSString *)getThoughtDegree {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *degree = [preferences stringForKey:USER_DEFAULTS_THOUGHTS_DEGREE];
-    if (degree) {
-        return degree;
-    } else {
-        [UserDefaultManager setThoughtDegree:@"3"];
-        return @"3";
-    }
-}
-
 
 @end

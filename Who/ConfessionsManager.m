@@ -8,6 +8,9 @@
 
 #import "ConfessionsManager.h"
 #import "AppDelegate.h"
+#import "AFNetworking.h"
+#import "ConnectionProvider.h"
+#import "Constants.h"
 
 static ConfessionsManager *selfInstance;
 
@@ -72,6 +75,77 @@ static ConfessionsManager *selfInstance;
 
 -(NSUInteger)getIndexOfConfession:(NSString *)confessionID {
     return [_confessionIDValues indexOfObject:confessionID];
+}
+
+-(void)loadConfessionsWithMethod:(NSString *)method {
+    [self loadConfessionsWithMethod:method since:@"0"];
+}
+
+-(void)loadConfessionsWithMethod:(NSString *)method since:(NSString *)since {
+    if ([since isEqualToString:@"0"]) {
+        _shouldClearConfessions = YES;
+    } else {
+        _shouldClearConfessions = NO;
+    }
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *parameters = @{@"username" : [ConnectionProvider getUser],
+                                 @"session" : appDelegate.sessionID,
+                                 @"method" : method,
+                                 @"since" : since};
+    NSError *error = NULL;
+    NSMutableURLRequest *req = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:@"https://versapp.co/thoughts/index.php" parameters:parameters error:&error];
+    AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:req success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Loaded thoughts with response: %@", operation.responseString);
+        [self handleReceivedConfessionsRequest:operation.responseString];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Failed with response: %@", operation.responseString);
+        NSLog(@"Failed Thought request: %@", error);
+    }];
+    [operation setResponseSerializer:[AFXMLParserResponseSerializer serializer]];
+    [operation start];
+}
+
+-(void)handleReceivedConfessionsRequest:(NSString *)result {
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<entry>\"(.*?)\",\"(.*?)\",\"(.*?)\",(?:\\[\\]|\"(.*?)\"),\"(.*?)\",(?:\\[\\]|\"(.*?)\"),\"(.*?)\",\"(.*?)\"</entry>" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSArray *matches = [regex matchesInString:result options:0 range:NSMakeRange(0, result.length)];
+    NSString *confessionID, *jid, *body, *imageURL, *timestamp, *hasFavoritedString, *degree;
+    NSNumber *favoriteCount;
+    Confession *confession;
+    
+    if (_shouldClearConfessions) {
+        [self clearConfessions];
+    }
+    
+    for(NSTextCheckingResult *match in matches) {
+        confessionID = [result substringWithRange:[match rangeAtIndex:1]];
+        jid = [result substringWithRange:[match rangeAtIndex:2]];
+        body = [result substringWithRange:[match rangeAtIndex:3]];
+        if ([match rangeAtIndex:4].length != 0) {
+            imageURL = [result substringWithRange:[match rangeAtIndex:4]];
+        }
+        timestamp = [result substringWithRange:[match rangeAtIndex:5]];
+        if ([match rangeAtIndex:6].length != 0) {
+            hasFavoritedString = [result substringWithRange:[match rangeAtIndex:6]];
+        }
+        if ([match rangeAtIndex:7].length != 0) {
+            favoriteCount = [NSNumber numberWithInteger:[[result substringWithRange:[match rangeAtIndex:7]] integerValue]];
+        }
+        
+        degree = [result substringWithRange:[match rangeAtIndex:8]];
+        BOOL hasFavorited = ([hasFavoritedString isEqualToString:@"YES"]) ? YES : NO;
+        
+        if (!(imageURL.length > 0) || [imageURL isEqualToString:@"null"]) {
+            imageURL = @"g1398792552";
+        }
+        body = [[body stringByReplacingOccurrencesOfString:@"+" withString:@" "] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        confession = [Confession create:body posterJID:jid imageURL:imageURL confessionID:confessionID createdTimestamp:timestamp degreeOfConnection:degree hasFavorited:hasFavorited numFavorites:[favoriteCount intValue]];
+        [self addConfession:confession];
+    }
+    
+    [self sortConfessions];
+    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_CONFESSIONS object:nil];
 }
 
 @end

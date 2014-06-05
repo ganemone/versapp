@@ -29,7 +29,6 @@
 +(NSString *)loadPhone;
 +(NSString *)loadCountry;
 +(NSString *)loadDeviceID;
-+(NSString *)getThoughtDegree;
 
 +(BOOL)isValidated;
 
@@ -52,6 +51,5 @@
 +(void)setReceivedOneToOneInvitationTrue;
 +(void)setSeenFriendsTrue;
 +(void)setSentBlacklistTrue;
-+(void)setThoughtDegree:(NSString *)degree;
 
 @end

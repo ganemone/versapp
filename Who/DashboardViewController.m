@@ -425,7 +425,7 @@ static BOOL notificationsHalfHidden = NO;
                           delay:0.0
          usingSpringWithDamping:0.6
           initialSpringVelocity:3.0
-                        options:UIViewAnimationOptionTransitionFlipFromTop
+                        options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          self.greyOutView.alpha = 0.5;
                          self.notificationTableView.frame = notificationFrame;

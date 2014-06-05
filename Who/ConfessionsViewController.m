@@ -39,6 +39,9 @@
 @property CGFloat previousContentDelta;
 @property BOOL isAnimatingHeader;
 @property BOOL isGlobalFeed;
+@property BOOL isFetchingOlderThoughts;
+@property NSString *prevSince;
+@property NSString *currentMethod;
 
 @end
 
@@ -51,47 +54,23 @@
     }
 }
 
+- (IBAction)handleThoughtsTypeChanged:(id)sender {
+    UISegmentedControl *control = (UISegmentedControl *)sender;
+    if ([control selectedSegmentIndex] == 0) {
+        _currentMethod = @"friends";
+    } else {
+        _currentMethod = @"global";
+    }
+    [MBProgressHUD showHUDAddedTo:_tableView animated:YES];
+    [_confessionsManager loadConfessionsWithMethod:_currentMethod since:@"0"];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     if ([UserDefaultManager hasSeenThoughts] == NO) {
         [UserDefaultManager setSeenThoughtsTrue];
         [self handleDiscloseInfoBtnClicked:nil];
     }
     _isGlobalFeed = ![FriendsDBManager hasEnoughFriends];
-}
-- (IBAction)handleFirstConnectionBtnPressed:(id)sender
-{
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [UserDefaultManager setThoughtDegree:@"1"];
-    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:@"1"]];
-    [self hideDropDown];
-    [self.thoughtDegreeBtn setImage:[UIImage imageNamed:@"thoughts-blue-1.png"] forState:UIControlStateNormal];
-}
-
-- (IBAction)handleSecondConnectionBtnPressed:(id)sender
-{
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [UserDefaultManager setThoughtDegree:@"2"];
-    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:@"2"]];
-    [self hideDropDown];
-    [self.thoughtDegreeBtn setImage:[UIImage imageNamed:@"thoughts-blue-2.png"] forState:UIControlStateNormal];
-}
-
-- (IBAction)handleThirdConnectionBtnPressed:(id)sender
-{
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [UserDefaultManager setThoughtDegree:@"3"];
-    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:@"3"]];
-    [self hideDropDown];
-    [self.thoughtDegreeBtn setImage:[UIImage imageNamed:@"thoughts-blue-3.png"] forState:UIControlStateNormal];
-}
-
-- (IBAction)handleGlobalConnectionBtnPressed:(id)sender
-{
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [UserDefaultManager setThoughtDegree:@"global"];
-    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:@"global"]];
-    [self hideDropDown];
-    [self.thoughtDegreeBtn setImage:[UIImage imageNamed:@"thoughts-global.png"] forState:UIControlStateNormal];
 }
 
 - (void)hideDropDown
@@ -116,10 +95,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     self.confessionsManager = [ConfessionsManager getInstance];
+    
     if ([self.confessionsManager getNumberOfConfessions] == 0) {
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [MBProgressHUD showHUDAddedTo:_tableView animated:YES];
     }
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name: PACKET_ID_GET_CONFESSIONS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name:PACKET_ID_POST_CONFESSION object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name:NOTIFICATION_CONFESSION_DELETED object:nil];
@@ -153,20 +135,12 @@
         [self performSelectorOnMainThread:@selector(loadConfessions) withObject:nil waitUntilDone:NO];
     }];
     
-    NSString *degree = [UserDefaultManager getThoughtDegree];
-    if ([degree isEqualToString:@"1"]) {
-        [_thoughtDegreeBtn setImage:[UIImage imageNamed:@"thoughts-blue-1.png"] forState:UIControlStateNormal];
-    } else if ([degree isEqualToString:@"2"]) {
-        [_thoughtDegreeBtn setImage:[UIImage imageNamed:@"thoughts-blue-2.png"] forState:UIControlStateNormal];
-    } else if ([degree isEqualToString:@"3"]) {
-        [_thoughtDegreeBtn setImage:[UIImage imageNamed:@"thoughts-blue-3.png"] forState:UIControlStateNormal];
-    } else {
-        [_thoughtDegreeBtn setImage:[UIImage imageNamed:@"thoughts-global.png"] forState:UIControlStateNormal];
-    }
+    _isFetchingOlderThoughts = NO;
+    
 }
 
 - (void)loadConfessions {
-    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:[UserDefaultManager getThoughtDegree]]];
+    [_confessionsManager loadConfessionsWithMethod:@"friends"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -201,15 +175,18 @@
     }
     
     if (indexPath.row == [_confessionsManager getNumberOfConfessions] - 2) {
-        
+        NSLog(@"Loading Latter Thoughts...");
+        if(_isFetchingOlderThoughts == NO) {
+            NSString *since = [_confessionsManager getConfessionAtIndex:[_confessionsManager getNumberOfConfessions] - 1].createdTimestamp;
+            if (![since isEqualToString:_prevSince]) {
+                _prevSince = since;
+                [_confessionsManager loadConfessionsWithMethod:@"friends" since:since];
+                _isFetchingOlderThoughts = YES;
+            }
+        }
     }
     
     return cell;
-}
-
--(void)loadLatterConfessions {
-    [IQPacketReceiver setShouldClearConfessionsNO];
-
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -218,11 +195,13 @@
 
 - (void)refreshListView
 {
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    NSLog(@"Refreshing list view");
+    [MBProgressHUD hideHUDForView:_tableView animated:YES];
     [_confessionsManager sortConfessions];
     //[self loadImagesForThoughts];
     [self.tableView didFinishPullToRefresh];
     [self.tableView reloadData];
+    _isFetchingOlderThoughts = NO;
 }
 
 - (void)handleOneToOneChatCreatedFromConfession {

@@ -17,21 +17,12 @@
 #import "Confession.h"
 #import "ConfessionsManager.h"
 #import "ContactSearchManager.h"
+#import "AFNetworking.h"
 
 @implementation IQPacketReceiver
 
-static BOOL shouldClearConfessions = YES;
-
 +(bool)isPacketWithID:(NSString *)packetID packet:(XMPPIQ *)packet {
     return ([packet.elementID compare:packetID] == 0 && packet.elementID != nil);
-}
-
-+(void)setShouldClearConfessionsYes {
-    shouldClearConfessions = YES;
-}
-
-+(void)setShouldClearConfessionsNO {
-    shouldClearConfessions = NO;
 }
 
 +(void)handleIQPacket:(XMPPIQ *)iq {
@@ -43,9 +34,7 @@ static BOOL shouldClearConfessions = YES;
         [self handleGetPendingChatsPacket:iq];
     } else if([self isPacketWithID:PACKET_ID_GET_ROSTER packet:iq]) {
         [self handleGetRosterPacket: iq];
-        
-    } else if([self isPacketWithID:PACKET_ID_JOIN_MUC packet:iq]) {
-        
+    //} else if([self isPacketWithID:PACKET_ID_JOIN_MUC packet:iq]) {
     } else if([self isPacketWithID:PACKET_ID_REGISTER_USER packet:iq]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_REGISTER_USER object:nil];
         //} else if([self isPacketWithID:PACKET_ID_GET_LAST_TIME_ACTIVE packet:iq]) {
@@ -60,10 +49,6 @@ static BOOL shouldClearConfessions = YES;
         [self handleCreateOneToOneChatPacket:iq];
     } else if([self isPacketWithID:PACKET_ID_GET_SESSION_ID packet:iq]) {
         [self handleGetSessionIDPacket:iq];
-    } else if([self isPacketWithID:PACKET_ID_GET_CONFESSIONS packet:iq]) {
-        [self handleGetConfessionsPacket:iq];
-    } else if([self isPacketWithID:PACKET_ID_GET_MY_CONFESSIONS packet:iq]) {
-        [self handleGetMyConfessionsPacket:iq];
     } else if([self isPacketWithID:PACKET_ID_FAVORITE_CONFESSION packet:iq]) {
         [self handleToggleFavoriteConfessionPacket:iq];
     } else if([self isPacketWithID:PACKET_ID_POST_CONFESSION packet:iq]) {
@@ -188,7 +173,7 @@ static BOOL shouldClearConfessions = YES;
             } else {
                 degree = @"1";
             }
-        
+            
             participants = [participantString componentsSeparatedByString:@", "];
             for (NSString *participant in participants) {
                 if ([FriendsDBManager getUserWithJID:participant moc:moc] == nil) {
@@ -311,7 +296,7 @@ static BOOL shouldClearConfessions = YES;
     
     NSError *error = NULL;
     NSString *packetXML = [self getPacketXMLWithoutNewLines:packet];
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\"\\]" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?(?:\\[\\]|\"(.*?)\")\\]" options:NSRegularExpressionCaseInsensitive error:&error];
     NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)],
     *participants;
     NSString *participantString, *chatId, *type, *owner, *name, *createdTime;
@@ -417,20 +402,20 @@ static BOOL shouldClearConfessions = YES;
             ConnectionProvider *cp = [ConnectionProvider getInstance];
             XMPPStream *conn = [cp getConnection];
             /*if (cp.shouldAlertUserWithAddedFriends)
-            {
-                [cp setShouldAlertUserWithAddedFriends:NO];
-                if ([allItems count] > 0)
-                {
-                    NSString *message = ([allItems count] > 1) ? @"Friends": @"Friend";
-                    NSString *message2 = ([allItems count] > 1) ? @"have": @"has";
-                    
-                    [[[UIAlertView alloc] initWithTitle:@""
-                                                message:[NSString stringWithFormat:@"%d %@ %@ been added to your friends list.", [allItems count], message, message2]
-                                               delegate:self
-                                      cancelButtonTitle:@"Ok"
-                                      otherButtonTitles:nil] show];
-                }
-            }*/
+             {
+             [cp setShouldAlertUserWithAddedFriends:NO];
+             if ([allItems count] > 0)
+             {
+             NSString *message = ([allItems count] > 1) ? @"Friends": @"Friend";
+             NSString *message2 = ([allItems count] > 1) ? @"have": @"has";
+             
+             [[[UIAlertView alloc] initWithTitle:@""
+             message:[NSString stringWithFormat:@"%d %@ %@ been added to your friends list.", [allItems count], message, message2]
+             delegate:self
+             cancelButtonTitle:@"Ok"
+             otherButtonTitles:nil] show];
+             }
+             }*/
             for (NSString *username in itemsWithoutVCard)
             {
                 [conn sendElement:[IQPacketManager createGetVCardPacket:username]];
@@ -458,59 +443,12 @@ static BOOL shouldClearConfessions = YES;
     NSTextCheckingResult *match = [regex firstMatchInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     [delegate setSessionID:[iq.XMLString substringWithRange:[match rangeAtIndex:1]]];
-    NSString *degree = [UserDefaultManager getThoughtDegree];
-    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetConfessionsPacketWithDegree:degree]];
+
     if ([UserDefaultManager hasSentBlacklist] == NO) {
         [[[ContactSearchManager alloc] init] accessContacts];
         [UserDefaultManager setSentBlacklistTrue];
     }
-}
-
-+(void)handleGetConfessionsPacket:(XMPPIQ *)iq {
-    NSLog(@"Got Confessions Packet: %@", iq.XMLString);
-    NSString *decodedPacketXML = [self getPacketXMLWithoutWhiteSpace:iq];
-    //decodedPacketXML = [self getDecodedPacketXML:iq];
-    NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\",\"(.*?)\",\"(.*?)\",(?:\\[\\]|\"(.*?)\"),\"(.*?)\",(?:\\[\\]|\"(.*?)\"),\"(.*?)\",\"(.*?)\"\\]" options:NSRegularExpressionCaseInsensitive error:&error];
-    NSArray *matches = [regex matchesInString:decodedPacketXML options:0 range:NSMakeRange(0, decodedPacketXML.length)];
-    NSString *confessionID, *jid, *body, *imageURL, *timestamp, *hasFavoritedString, *degree;
-    NSNumber *favoriteCount;
-    Confession *confession;
-    ConfessionsManager *confessionsManager = [ConfessionsManager getInstance];
-    [confessionsManager clearConfessions];
-    
-    for(NSTextCheckingResult *match in matches) {
-        confessionID = [decodedPacketXML substringWithRange:[match rangeAtIndex:1]];
-        jid = [decodedPacketXML substringWithRange:[match rangeAtIndex:2]];
-        body = [decodedPacketXML substringWithRange:[match rangeAtIndex:3]];
-        if ([match rangeAtIndex:4].length != 0) {
-            imageURL = [decodedPacketXML substringWithRange:[match rangeAtIndex:4]];
-        }
-        timestamp = [decodedPacketXML substringWithRange:[match rangeAtIndex:5]];
-        if ([match rangeAtIndex:6].length != 0) {
-            hasFavoritedString = [decodedPacketXML substringWithRange:[match rangeAtIndex:6]];
-        }
-        if ([match rangeAtIndex:7].length != 0) {
-            favoriteCount = [NSNumber numberWithInteger:[[decodedPacketXML substringWithRange:[match rangeAtIndex:7]] integerValue]];
-        }
-        
-        degree = [decodedPacketXML substringWithRange:[match rangeAtIndex:8]];
-        BOOL hasFavorited = ([hasFavoritedString isEqualToString:@"YES"]) ? YES : NO;
-        
-        if (!(imageURL.length > 0) || [imageURL isEqualToString:@"null"]) {
-            imageURL = @"g1398792552";
-        }
-        body = [[body stringByReplacingOccurrencesOfString:@"+" withString:@" "] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        confession = [Confession create:body posterJID:jid imageURL:imageURL confessionID:confessionID createdTimestamp:timestamp degreeOfConnection:degree hasFavorited:hasFavorited numFavorites:[favoriteCount intValue]];
-        [confessionsManager addConfession:confession];
-    }
-    
-    [confessionsManager sortConfessions];
-    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_CONFESSIONS object:nil];
-}
-
-+(void)handleGetMyConfessionsPacket:(XMPPIQ *)iq {
-    
+    [[ConfessionsManager getInstance] loadConfessionsWithMethod:@"friends"];
 }
 
 +(void)handleToggleFavoriteConfessionPacket:(XMPPIQ *)iq {

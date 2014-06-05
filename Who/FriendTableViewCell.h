@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FriendMO.h"
 
 @interface FriendTableViewCell : UITableViewCell
 
 @property (weak, nonatomic, readonly) UIImageView *isSelectedImageView;
 @property BOOL isSelected;
 
-- (instancetype)initWithText:(NSString*)name reuseIdentifier:(NSString*)reuseIdentifier;
+- (instancetype)initWithFriend:(FriendMO*)friendMO reuseIdentifier:(NSString*)reuseIdentifier;
 
 - (void)setCellUnselected;
 

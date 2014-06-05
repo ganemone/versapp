@@ -10,10 +10,8 @@
 #import "XMPPIQ.h"
 #import "XMPPMessage.h"
 
-@interface IQPacketReceiver : NSObject
+@interface IQPacketReceiver : NSObject<NSXMLParserDelegate>
 
 +(void)handleIQPacket:(XMPPIQ*)iq;
-+(void)setShouldClearConfessionsYes;
-+(void)setShouldClearConfessionsNO;
 
 @end
