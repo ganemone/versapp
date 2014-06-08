@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FriendsViewController : UIViewController <UIAlertViewDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface FriendsViewController : UIViewController <UIAlertViewDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *header;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

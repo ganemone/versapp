@@ -1999,17 +1999,17 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="tVn-SP-Hc9"/>
         <segue reference="zTQ-Mf-6oX"/>
         <segue reference="8c7-Mw-K5g"/>
-        <segue reference="tVn-SP-Hc9"/>
         <segue reference="z6h-qs-HbB"/>
         <segue reference="hVX-XL-lBE"/>
         <segue reference="BCc-dv-kG7"/>
         <segue reference="pHb-Kf-4qo"/>
         <segue reference="YEX-bB-bO6"/>
-        <segue reference="XeD-6M-yxq"/>
         <segue reference="WHz-1g-xNx"/>
         <segue reference="OKb-WW-kzU"/>
+        <segue reference="XeD-6M-yxq"/>
         <segue reference="m95-nf-RcH"/>
         <segue reference="xkE-O7-97C"/>
     </inferredMetricsTieBreakers>
