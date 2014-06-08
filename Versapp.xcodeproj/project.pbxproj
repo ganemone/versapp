@@ -4104,24 +4104,15 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				FRAMEWORK_SEARCH_PATHS = (
-<<<<<<< HEAD
 					/Users/giancarlo/Documents/dev/ios/Who,
 					"$(PROJECT_DIR)",
 					/Users/giancarlo/Documents/dev/ios/FacebookSDK
-=======
-					"$(PROJECT_DIR)/who/who_ios",
-					/Users/rlundquist3/Development/ios/FacebookSDK,
->>>>>>> 0b69b2c9bdde1955a2e584c02354f9d3453903a8
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/Versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-<<<<<<< HEAD
 				LIBRARY_SEARCH_PATHS = /Users/giancarlo/Documents/dev/ios/Who/who;
-=======
-				LIBRARY_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios/who;
->>>>>>> 0b69b2c9bdde1955a2e584c02354f9d3453903a8
 				PRODUCT_NAME = Versapp;
 				PROVISIONING_PROFILE = "C541311C-6531-4B45-807D-7327695EC04C";
 				WRAPPER_EXTENSION = app;
@@ -4134,24 +4125,15 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				FRAMEWORK_SEARCH_PATHS = (
-<<<<<<< HEAD
 					/Users/giancarlo/Documents/dev/ios/Who,
 					"$(PROJECT_DIR)",
 					/Users/giancarlo/Documents/dev/ios/FacebookSDK,
-=======
-					"$(PROJECT_DIR)/who/who_ios",
-					/Users/rlundquist3/Development/ios/FacebookSDK,
->>>>>>> 0b69b2c9bdde1955a2e584c02354f9d3453903a8
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/Versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-<<<<<<< HEAD
 				LIBRARY_SEARCH_PATHS = /Users/giancarlo/Documents/dev/ios/Who/who;
-=======
-				LIBRARY_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios/who;
->>>>>>> 0b69b2c9bdde1955a2e584c02354f9d3453903a8
 				PRODUCT_NAME = Versapp;
 				PROVISIONING_PROFILE = "C541311C-6531-4B45-807D-7327695EC04C";
 				WRAPPER_EXTENSION = app;
