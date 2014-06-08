@@ -21,7 +21,6 @@
 #import "SWTableViewCell.h"
 #import "MainSwipeViewController.h"
 #import "AppDelegate.h"
-#import "UIImage+ImageEffects.h"
 #import "UserDefaultManager.h"
 
 #define footerSize 25
@@ -527,7 +526,7 @@ static BOOL notificationsHalfHidden = NO;
         UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height*0.25, self.view.frame.size.width, 21)];
         [notificationsLabel setText:NO_NOTIFICATIONS];
         [notificationsLabel setTextAlignment:NSTextAlignmentCenter];
-        [notificationsLabel setFont:[StyleManager getFontStyleLightSizeHeader]];
+        [notificationsLabel setFont:[StyleManager getFontStyleLightSizeXL]];
         [notificationsLabel setTextColor:[StyleManager getColorBlue]];
         [self.notificationsHeader addSubview:notificationsLabel];
         [self.notificationsHeader addSubview:self.notificationsButtonGreen];

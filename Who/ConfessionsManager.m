@@ -12,6 +12,7 @@
 #import "ConnectionProvider.h"
 #import "Constants.h"
 #import "Base64.h"
+#import "FriendsDBManager.h"
 
 static ConfessionsManager *selfInstance;
 
@@ -83,7 +84,10 @@ static ConfessionsManager *selfInstance;
 }
 
 -(void)loadConfessionsWithMethod:(NSString *)method since:(NSString *)since {
-    NSLog(@"Loading thoughts with method: %@ since: %@", method, since);
+    
+    if (![FriendsDBManager hasEnoughFriends]) {
+        method = @"global";
+    }
     
     if ([since isEqualToString:@"0"]) {
         _shouldClearConfessions = YES;

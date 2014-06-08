@@ -32,6 +32,10 @@
 
 #import "UserDefaultManager.h"
 #import "MBProgressHUD.h"
+
+#import "WSCoachMarksView.h"
+
+
 @interface FriendsViewController()
 
 @property (strong, nonatomic) ConnectionProvider* cp;
@@ -46,6 +50,7 @@
 @property (weak, nonatomic) IBOutlet UIView *noFriendsBlackView;
 @property (weak, nonatomic) IBOutlet UIButton *findFriendsBtn;
 @property (weak, nonatomic) IBOutlet UILabel *noFriendsLabel;
+@property (weak, nonatomic) IBOutlet UIView *footerView;
 
 @property BOOL isCreatingGroup;
 @property BOOL isSearching;
@@ -57,7 +62,8 @@
 - (void)viewDidAppear:(BOOL)animated {
     if ([UserDefaultManager hasSeenFriends] == NO) {
         [UserDefaultManager setSeenFriendsTrue];
-        [[[UIAlertView alloc] initWithTitle:@"Friends" message:@"This is your friends page. Your friends are chosen based on your phone contacts. Start conversations by selecting one or more friends on this page." delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:nil] show];
+        //[[[UIAlertView alloc] initWithTitle:@"Friends" message:@"This is your friends page. Your friends are chosen based on your phone contacts. Start conversations by selecting one or more friends on this page." delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:nil] show];
+        [self doTutorial];
     }
     if ([_allAccepted count] > 0)
     {
@@ -118,6 +124,8 @@
     [self.noFriendsBlackView setFrame:CGRectMake(0, self.headerView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.headerView.frame.size.height)];
     [self.noFriendsView setFrame:self.noFriendsBlackView.frame];
     [self.noFriendsLabel setFont:[StyleManager getFontStyleMediumSizeLarge]];
+    UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(createButtonClicked:)];
+    [_footerView addGestureRecognizer:gr];
 }
 
 - (IBAction)handleNoFriendsBtnClicked:(id)sender
@@ -143,6 +151,37 @@
     footerTopBorder.backgroundColor = [UIColor whiteColor].CGColor;
     [self.bottomView.layer addSublayer:footerTopBorder];
 }
+
+-(void)doTutorial {
+    NSMutableArray *coachMarks = [[NSMutableArray alloc] initWithArray:@[
+                            @{
+                                @"rect": [NSValue valueWithCGRect:(CGRect){{_headerView.frame.origin.x,_headerView.frame.origin.y},{_headerView.frame.size.width, _headerView.frame.size.height}}],//(CGRect){{0,0},{self.view.frame.size.width,44}}],
+                                @"caption": @"This page shows your friends in versapp."
+                                },
+                            @{
+                                @"rect": [NSValue valueWithCGRect:(CGRect){{self.view.frame.size.width - 50, 20},{40,40}}],
+                                @"caption": @"Click here to add a friend based on their username."
+                                },
+                            ]];
+    
+    if ([_allAccepted count] > 0) {
+        [coachMarks addObject:@{@"rect":[NSValue valueWithCGRect:(CGRect){{0,_headerView.frame.size.height + _searchBar.frame.size.height},{self.view.frame.size.width, 44}}],
+                                @"caption":@"Select a friend to start a conversation anonymously. You will know their identity, but they won't know yours!"
+                                 }];
+        if ([_allAccepted count] > 1) {
+            [coachMarks addObject:@{@"rect":[NSValue valueWithCGRect:(CGRect){{0, _headerView.frame.size.height + _searchBar.frame.size.height},{self.view.frame.size.width, 88}}],
+                                    @"caption":@"Select multiple friends to start a group conversation. All the participants are known, but individual messages remain anonymous."
+                                    }];
+        }
+        [coachMarks addObject:@{@"rect": [NSValue valueWithCGRect:(CGRect){{0, self.view.frame.size.height - 40},{self.view.frame.size.width, 40}}],
+                                @"caption":@"Use this bar to initiate the conversation"}];
+    }
+
+    WSCoachMarksView *coachMarksView = [[WSCoachMarksView alloc] initWithFrame:self.view.bounds coachMarks:coachMarks];
+    [self.view addSubview:coachMarksView];
+    [coachMarksView start];
+}
+
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

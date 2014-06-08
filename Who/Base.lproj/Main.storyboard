@@ -1011,6 +1011,7 @@
                         <outlet property="bottomLabel" destination="lVS-Q3-Rub" id="y7x-7f-7zs"/>
                         <outlet property="bottomView" destination="b2u-mj-P71" id="05h-IH-zKJ"/>
                         <outlet property="findFriendsBtn" destination="RsM-L8-UDW" id="Qsd-lz-w1t"/>
+                        <outlet property="footerView" destination="b2u-mj-P71" id="fKO-yt-wsx"/>
                         <outlet property="header" destination="D8u-sU-pBy" id="Yfw-F2-zzU"/>
                         <outlet property="headerView" destination="DnC-T6-Hmx" id="Ztr-vw-fEx"/>
                         <outlet property="noFriendsBlackView" destination="2jy-83-DC9" id="Whj-3P-AZd"/>
@@ -1285,6 +1286,7 @@
                     <connections>
                         <outlet property="header" destination="aeu-EJ-Rlq" id="73w-F7-1A1"/>
                         <outlet property="tableView" destination="jZx-yj-7oZ" id="UqM-pt-QRe"/>
+                        <outlet property="thoughtSegmentedControl" destination="YBc-xM-ZaJ" id="ef2-Gj-kNV"/>
                         <segue destination="iDZ-uG-Ep6" kind="push" identifier="SegueIDCreatedOneToOneChatFromConfession" id="qGQ-aw-vgl"/>
                     </connections>
                 </viewController>
@@ -1997,18 +1999,18 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="hVX-XL-lBE"/>
         <segue reference="zTQ-Mf-6oX"/>
-        <segue reference="YEX-bB-bO6"/>
-        <segue reference="BCc-dv-kG7"/>
-        <segue reference="z6h-qs-HbB"/>
+        <segue reference="8c7-Mw-K5g"/>
         <segue reference="tVn-SP-Hc9"/>
+        <segue reference="z6h-qs-HbB"/>
+        <segue reference="hVX-XL-lBE"/>
+        <segue reference="BCc-dv-kG7"/>
         <segue reference="pHb-Kf-4qo"/>
+        <segue reference="YEX-bB-bO6"/>
+        <segue reference="XeD-6M-yxq"/>
         <segue reference="WHz-1g-xNx"/>
         <segue reference="OKb-WW-kzU"/>
-        <segue reference="XeD-6M-yxq"/>
         <segue reference="m95-nf-RcH"/>
-        <segue reference="qGQ-aw-vgl"/>
         <segue reference="xkE-O7-97C"/>
     </inferredMetricsTieBreakers>
 </document>

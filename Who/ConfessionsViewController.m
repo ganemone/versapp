@@ -20,12 +20,12 @@
 #import "ThoughtTableViewCell.h"
 #import "MBProgressHUD.h"
 #import "FriendsDBManager.h"
+#import "WSCoachMarksView.h"
 
 @interface ConfessionsViewController ()
 
+@property (weak, nonatomic) IBOutlet UISegmentedControl *thoughtSegmentedControl;
 @property ConfessionsManager *confessionsManager;
-@property (weak, nonatomic) IBOutlet UIView *dropDownView;
-@property (weak, nonatomic) IBOutlet UIButton *thoughtDegreeBtn;
 @property (strong, nonatomic) UIImage *favIcon;
 @property (strong, nonatomic) UIImage *favIconActive;
 @property (strong, nonatomic) UIImage *favIconSingle;
@@ -65,32 +65,54 @@
     [_confessionsManager loadConfessionsWithMethod:_currentMethod since:@"0"];
 }
 
+-(void)doTutorial {
+    Confession *confession = [_confessionsManager getConfessionAtIndex:0];
+    NSString *CellIdentifier = [NSString stringWithFormat:@"ThoughtTableViewCell%@", confession.confessionID];
+    ThoughtTableViewCell *firstCell = (ThoughtTableViewCell *)[_tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (firstCell == nil) {
+        firstCell = [[[NSBundle mainBundle] loadNibNamed:@"ThoughtTableViewCell" owner:self options:nil] firstObject];
+        [firstCell setUpWithConfession:confession];
+    }
+    CGRect favFrame = CGRectMake(firstCell.favBtn.frame.origin.x - 5, firstCell.favBtn.frame.origin.y - 5 + _header.frame.size.height, 55, 37);
+    
+    CGRect typeFrame = CGRectMake(firstCell.degreeBtn.frame.origin.x - 5, favFrame.origin.y, 40, 37);
+    
+    
+    NSArray *coachMarks = @[
+                            @{
+                                @"rect": [NSValue valueWithCGRect:_header.frame],//(CGRect){{0,0},{self.view.frame.size.width,44}}],
+                                @"caption": @"You can view thoughts from around the globe, or just from your friends."
+                                },
+                            @{
+                                @"rect": [NSValue valueWithCGRect:(CGRect){{self.view.frame.size.width - 50, 20},{40,40}}],
+                                @"caption": @"Click here to post a thought anonymously."
+                                },
+                            @{
+                                @"rect": [NSValue valueWithCGRect:firstCell.frame],
+                                @"caption": @"This is a thought posted anonymously by another person on Versapp.  If you are friends with them, you can start a conversation by clicking on the message icon."
+                                },
+                            @{
+                                @"rect": [NSValue valueWithCGRect:favFrame],
+                                @"caption": @"Click here to Favorite any thought anonymously"
+                            },
+                            @{
+                                @"rect": [NSValue valueWithCGRect:typeFrame],
+                                @"caption": @"You can see thoughts from friends, friends of friends, or global users. This icon tells you what type of thought you are looking at."
+                              }
+                            ];
+    WSCoachMarksView *coachMarksView = [[WSCoachMarksView alloc] initWithFrame:self.view.bounds coachMarks:coachMarks];
+    [self.view addSubview:coachMarksView];
+    [coachMarksView start];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
-    if ([UserDefaultManager hasSeenThoughts] == NO) {
+    if ([UserDefaultManager hasSeenThoughts] == NO || YES) {
         [UserDefaultManager setSeenThoughtsTrue];
-        [self handleDiscloseInfoBtnClicked:nil];
+        //[self handleDiscloseInfoBtnClicked:nil];
+        [self doTutorial];
     }
     _isGlobalFeed = ![FriendsDBManager hasEnoughFriends];
 }
-
-- (void)hideDropDown
-{
-    [UIView animateWithDuration:0.25 animations:^{
-        _dropDownView.center = _header.center;
-    }];
-}
-
-- (IBAction)showConfessionOptions:(id)sender
-{
-    if (_dropDownView.center.y > _header.center.y) {
-        [self hideDropDown];
-    } else {
-        [UIView animateWithDuration:0.25 animations:^{
-            _dropDownView.center = CGPointMake(_dropDownView.center.x, _dropDownView.center.y + _dropDownView.frame.size.height);
-        }];
-    }
-}
-
 
 - (void)viewDidLoad
 {
@@ -136,6 +158,11 @@
     }];
     
     _isFetchingOlderThoughts = NO;
+    
+    if (![FriendsDBManager hasEnoughFriends]) {
+        [_thoughtSegmentedControl setEnabled:NO forSegmentAtIndex:0];
+        [_thoughtSegmentedControl setSelectedSegmentIndex:1];
+    }
     
 }
 
