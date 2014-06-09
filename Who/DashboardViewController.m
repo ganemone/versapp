@@ -22,6 +22,7 @@
 #import "MainSwipeViewController.h"
 #import "AppDelegate.h"
 #import "UserDefaultManager.h"
+#import "WSCoachMarksView.h"
 
 #define footerSize 25
 
@@ -32,6 +33,7 @@
 @property (strong, nonatomic) NSIndexPath *clickedCellIndexPath;
 @property (strong, nonatomic) NSMutableArray *groupChats;
 @property (strong, nonatomic) NSMutableArray *oneToOneChats;
+@property (strong, nonatomic) NSMutableArray *thoughtChats;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UILabel *header;
@@ -67,8 +69,50 @@ static BOOL notificationsHalfHidden = NO;
     }
     else
     {
+        if (![UserDefaultManager hasSeenConversation]) {
+            [UserDefaultManager setSeenConversationTrue];
+            [self doTutorial];
+        }
         [self hideNoConfersationsView];
     }
+    
+}
+
+-(void)doTutorial {
+    CGFloat cellY;
+    NSString *chatType;
+    if ([_groupChats count] > 0) {
+        cellY = _headerView.frame.size.height + 22.0f;
+        chatType = @"group chat";
+    } else if([_oneToOneChats count] > 0) {
+        cellY = _headerView.frame.size.height + 44.0f;
+        chatType = @"one to one";
+    } else {
+        cellY = _headerView.frame.size.height + 66.0f;
+        chatType = @"thought chat";
+    }
+    
+    CGRect cellFrame = CGRectMake(0, cellY, self.view.frame.size.width, 44.0f);
+    CGRect imageRect = CGRectMake(5, cellY, 50, 44.0f);
+    
+    NSArray *coachMarks = @[
+                            @{
+                                @"rect": [NSValue valueWithCGRect:cellFrame],
+                                @"caption": @"Congrats! You are now in your first conversation."
+                                },
+                            @{
+                                @"rect": [NSValue valueWithCGRect:imageRect],
+                                @"caption": @"This icon will tell you what type of conversation it is."
+                                },
+                                
+                            @{
+                                @"rect": [NSValue valueWithCGRect:cellFrame],
+                                @"caption": @"Long press on chats of any type for more options."
+                                }
+                            ];
+    WSCoachMarksView *coachMarksView = [[WSCoachMarksView alloc] initWithFrame:self.view.bounds coachMarks:coachMarks];
+    [self.view addSubview:coachMarksView];
+    [coachMarksView start];
 }
 
 -(void)viewDidLoad {
@@ -234,14 +278,18 @@ static BOOL notificationsHalfHidden = NO;
         _mostRecentMessageInPushedChat = [[dest.chatMO messages] lastObject];
     } else if([segue.identifier isEqualToString:SEGUE_ID_ONE_TO_ONE_CONVERSATION]) {
         OneToOneConversationViewController *dest = segue.destinationViewController;
-        dest.chatMO = [self.oneToOneChats objectAtIndex:self.clickedCellIndexPath.row];
+        if (self.clickedCellIndexPath.section == 1) {
+            dest.chatMO = [self.oneToOneChats objectAtIndex:self.clickedCellIndexPath.row];
+        } else {
+            dest.chatMO = [self.thoughtChats objectAtIndex:self.clickedCellIndexPath.row];
+        }
         _mostRecentMessageInPushedChat = [[dest.chatMO messages] lastObject];
     }
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (tableView == self.tableView) {
-        return 2;
+        return 3;
     } else {
         return 2;
     }
@@ -249,7 +297,11 @@ static BOOL notificationsHalfHidden = NO;
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (tableView == self.tableView) {
-        return (section == 0) ? @"Groups" : @"One to One";
+        switch (section) {
+            case 0: return @"Groups";
+            case 1: return @"One-to-One";
+            default: return @"Thoughts";
+        }
     } else {
         if (section == 0) {
             if (self.groupInvites.count == 0)
@@ -271,8 +323,10 @@ static BOOL notificationsHalfHidden = NO;
         ChatMO *chatMo;
         if(indexPath.section == 0) {
             chatMo = [self.groupChats objectAtIndex:indexPath.row];
-        } else {
+        } else if(indexPath.section == 1) {
             chatMo = [self.oneToOneChats objectAtIndex:indexPath.row];
+        } else {
+            chatMo = [self.thoughtChats objectAtIndex:indexPath.row];
         }
     
         DashboardTableViewCell *cell = (DashboardTableViewCell *)[tableView dequeueReusableCellWithIdentifier:chatMo.chat_id];
@@ -382,6 +436,9 @@ static BOOL notificationsHalfHidden = NO;
         } else if(indexPath.section == 1 && [_oneToOneChats count] > indexPath.row) {
             chat = [_oneToOneChats objectAtIndex:indexPath.row];
             [_oneToOneChats removeObjectAtIndex:indexPath.row];
+        } else if(indexPath.section == 2 && [_thoughtChats count] > indexPath.row) {
+            chat = [_thoughtChats objectAtIndex:indexPath.row];
+            [_thoughtChats removeObjectAtIndex:indexPath.row];
         } else {
             return;
         }
@@ -396,8 +453,10 @@ static BOOL notificationsHalfHidden = NO;
     if (tableView == self.tableView) {
         if(section == 0) {
             return [self.groupChats count];
-        } else {
+        } else if(section == 1) {
             return [self.oneToOneChats count];
+        } else {
+            return [self.thoughtChats count];
         }
     } else {
         if (section == 0) {
@@ -655,6 +714,7 @@ static BOOL notificationsHalfHidden = NO;
 -(void)handleRefreshListView {
     _groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
     _oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllOneToOneChats]];
+    _thoughtChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllThoughtChats]];
     if ([_oneToOneChats count] > 0 || [_groupChats count] > 0) {
         [_tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectZero]];
         [self hideNoConfersationsView];

@@ -149,6 +149,10 @@
     return [self isUserDefaultValueTrue:USER_DEFAULTS_FIRST_LOGIN];
 }
 
++(BOOL)hasSeenConversation {
+    return [self isUserDefaultValueTrue:USER_DEFAULTS_HAS_SEEN_CONVERSATION];
+}
+
 +(BOOL)hasCreatedOneToOne {
     return [self isUserDefaultValueTrue:USER_DEFAULTS_HAS_CREATED_ONE_TO_ONE];
 }
@@ -215,6 +219,10 @@
 
 +(void)setSentBlacklistTrue {
     [self setUserDefaultValueTrue:USER_DEFAULTS_HAS_SENT_BLACKLIST];
+}
+
++(void)setSeenConversationTrue {
+    [self setUserDefaultValueTrue:USER_DEFAULTS_HAS_SEEN_CONVERSATION];
 }
 
 

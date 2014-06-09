@@ -50,6 +50,7 @@ NSString *const VCARD_TAG_USERNAME = @"USERNAME";
 NSString *const VCARD_TAG_NICKNAME = @"NICKNAME";
 NSString *const VCARD_TAG_EMAIL = @"EMAIL";
 
+NSString *const USER_DEFAULTS_HAS_SEEN_CONVERSATION = @"conversation";
 NSString *const USER_DEFAULTS_PASSWORD = @"password";
 NSString *const USER_DEFAULTS_VALID = @"validated";
 NSString *const USER_DEFAULTS_COUNTRY = @"country";

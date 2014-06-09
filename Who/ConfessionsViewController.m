@@ -106,9 +106,8 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    if ([UserDefaultManager hasSeenThoughts] == NO || YES) {
+    if ([UserDefaultManager hasSeenThoughts] == NO && [_tableView numberOfRowsInSection:0] > 0) {
         [UserDefaultManager setSeenThoughtsTrue];
-        //[self handleDiscloseInfoBtnClicked:nil];
         [self doTutorial];
     }
     _isGlobalFeed = ![FriendsDBManager hasEnoughFriends];
