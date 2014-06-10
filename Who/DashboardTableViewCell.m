@@ -56,7 +56,7 @@
     if([chatMo.chat_type isEqualToString:CHAT_TYPE_GROUP]) {
         [_chatTypeImageView setImage:[UIImage imageNamed:@"chat-type-group-icon-colored.png"]];
     } else if([chatMo.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITER]) {
-        [_chatTypeImageView setImage:[UIImage imageNamed:@"chat-type-inviter-icon-colored.png"]];
+        [_chatTypeImageView setImage:[UIImage imageNamed:@"chat-type-inviter-icon-colored-new.png"]];
     } else if([chatMo.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITED]) {
         [_chatTypeImageView setImage:[UIImage imageNamed:@"chat-type-invited-icon-colored.png"]];
     } else if([chatMo.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION]) {

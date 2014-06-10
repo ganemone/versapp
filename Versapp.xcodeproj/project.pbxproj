@@ -105,7 +105,6 @@
 		3A4E7847192F8B79008F024C /* NSMutableArray+QueueAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4E7846192F8B79008F024C /* NSMutableArray+QueueAdditions.m */; };
 		3A5065D3191EB94300EED804 /* chat-type-group-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A5065CF191EB94300EED804 /* chat-type-group-icon.png */; };
 		3A5065D4191EB94300EED804 /* chat-type-invited-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A5065D0191EB94300EED804 /* chat-type-invited-icon.png */; };
-		3A5065D5191EB94300EED804 /* chat-type-inviter-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A5065D1191EB94300EED804 /* chat-type-inviter-icon.png */; };
 		3A5065D6191EB94300EED804 /* chat-type-thoughts-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A5065D2191EB94300EED804 /* chat-type-thoughts-icon.png */; };
 		3A5065E5191EB9A100EED804 /* add-friend-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A5065D8191EB9A100EED804 /* add-friend-icon.png */; };
 		3A5065E6191EB9A100EED804 /* compose-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A5065D9191EB9A100EED804 /* compose-blue.png */; };
@@ -551,6 +550,9 @@
 		F751018D18AE8D5E001F1E7F /* PrivacyPolicyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751018C18AE8D5E001F1E7F /* PrivacyPolicyViewController.m */; };
 		F751019018AE8D6F001F1E7F /* TermsOfUseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751018F18AE8D6F001F1E7F /* TermsOfUseViewController.m */; };
 		F751019718B134DE001F1E7F /* ChangeEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751019618B134DE001F1E7F /* ChangeEmailViewController.m */; };
+		F753EF3D19438CD3005A62B7 /* chat-thype-inviter-icon-new.png in Resources */ = {isa = PBXBuildFile; fileRef = F753EF3C19438CD3005A62B7 /* chat-thype-inviter-icon-new.png */; };
+		F753EF3F19438D23005A62B7 /* chat-type-inviter-icon-colored-new.png in Resources */ = {isa = PBXBuildFile; fileRef = F753EF3E19438D23005A62B7 /* chat-type-inviter-icon-colored-new.png */; };
+		F753EF4119438DD3005A62B7 /* thoughts-global-white.png in Resources */ = {isa = PBXBuildFile; fileRef = F753EF4019438DD3005A62B7 /* thoughts-global-white.png */; };
 		F7977B6418DBA25B000E955C /* check-icon-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F7977B6218DBA25B000E955C /* check-icon-green.png */; };
 		F7A3F96218EE3052006FBA0A /* arrow-close-notifications.png in Resources */ = {isa = PBXBuildFile; fileRef = F7A3F96118EE3052006FBA0A /* arrow-close-notifications.png */; };
 		F7A3F96418EE306A006FBA0A /* check-icon-green-square.png in Resources */ = {isa = PBXBuildFile; fileRef = F7A3F96318EE306A006FBA0A /* check-icon-green-square.png */; };
@@ -707,7 +709,6 @@
 		3A4E7846192F8B79008F024C /* NSMutableArray+QueueAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+QueueAdditions.m"; sourceTree = "<group>"; };
 		3A5065CF191EB94300EED804 /* chat-type-group-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-type-group-icon.png"; sourceTree = "<group>"; };
 		3A5065D0191EB94300EED804 /* chat-type-invited-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-type-invited-icon.png"; sourceTree = "<group>"; };
-		3A5065D1191EB94300EED804 /* chat-type-inviter-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-type-inviter-icon.png"; sourceTree = "<group>"; };
 		3A5065D2191EB94300EED804 /* chat-type-thoughts-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-type-thoughts-icon.png"; sourceTree = "<group>"; };
 		3A5065D8191EB9A100EED804 /* add-friend-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-friend-icon.png"; sourceTree = "<group>"; };
 		3A5065D9191EB9A100EED804 /* compose-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose-blue.png"; sourceTree = "<group>"; };
@@ -1508,6 +1509,9 @@
 		F751018F18AE8D6F001F1E7F /* TermsOfUseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsOfUseViewController.m; sourceTree = "<group>"; };
 		F751019518B134DE001F1E7F /* ChangeEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeEmailViewController.h; sourceTree = "<group>"; };
 		F751019618B134DE001F1E7F /* ChangeEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeEmailViewController.m; sourceTree = "<group>"; };
+		F753EF3C19438CD3005A62B7 /* chat-thype-inviter-icon-new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-thype-inviter-icon-new.png"; sourceTree = "<group>"; };
+		F753EF3E19438D23005A62B7 /* chat-type-inviter-icon-colored-new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-type-inviter-icon-colored-new.png"; sourceTree = "<group>"; };
+		F753EF4019438DD3005A62B7 /* thoughts-global-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thoughts-global-white.png"; sourceTree = "<group>"; };
 		F7977B6218DBA25B000E955C /* check-icon-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon-green.png"; sourceTree = "<group>"; };
 		F7A3F96118EE3052006FBA0A /* arrow-close-notifications.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-close-notifications.png"; sourceTree = "<group>"; };
 		F7A3F96318EE306A006FBA0A /* check-icon-green-square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon-green-square.png"; sourceTree = "<group>"; };
@@ -1950,11 +1954,12 @@
 			children = (
 				3A0EC4EA19263C280036AB43 /* chat-type-invited-icon-colored.png */,
 				3A0EC4EB19263C280036AB43 /* chat-type-inviter-icon-colored.png */,
+				F753EF3E19438D23005A62B7 /* chat-type-inviter-icon-colored-new.png */,
+				F753EF3C19438CD3005A62B7 /* chat-thype-inviter-icon-new.png */,
 				3A0EC4EC19263C280036AB43 /* chat-type-thoughts-icon-colored.png */,
 				3A0EC4E819263BC40036AB43 /* chat-type-group-icon-colored.png */,
 				3A5065CF191EB94300EED804 /* chat-type-group-icon.png */,
 				3A5065D0191EB94300EED804 /* chat-type-invited-icon.png */,
-				3A5065D1191EB94300EED804 /* chat-type-inviter-icon.png */,
 				3A5065D2191EB94300EED804 /* chat-type-thoughts-icon.png */,
 			);
 			name = "Chat Type Icons";
@@ -2007,6 +2012,7 @@
 				3A7039B41929AF5E002AC3A4 /* thoughts-blue-2.png */,
 				3A7039B51929AF5E002AC3A4 /* thoughts-blue-3.png */,
 				3A7039B61929AF5E002AC3A4 /* thoughts-global.png */,
+				F753EF4019438DD3005A62B7 /* thoughts-global-white.png */,
 				3A7039B71929AF5E002AC3A4 /* thoughts-white-1.png */,
 				3A7039B81929AF5E002AC3A4 /* thoughts-white-2.png */,
 				3A7039B91929AF5E002AC3A4 /* thoughts-white-3.png */,
@@ -3424,6 +3430,7 @@
 				3A068ED318F24FC200EA260E /* Versapp-Tutorial-02.png in Resources */,
 				3AD19AB818E26298001B3B88 /* AppIcon58.png in Resources */,
 				3A07F6C318D3C21800E82390 /* cell-select.png in Resources */,
+				F753EF3D19438CD3005A62B7 /* chat-thype-inviter-icon-new.png in Resources */,
 				3ABD66D518FB325900E72B09 /* Owl-Loading-Animation_0010.png in Resources */,
 				3A91F20C18EB534F0006B9F8 /* notification5+-old.png in Resources */,
 				3A068ED418F24FC200EA260E /* Versapp-Tutorial-03.png in Resources */,
@@ -3448,6 +3455,7 @@
 				3AF9259B191BD60B00795FC6 /* FriendsTutorialViewController.xib in Resources */,
 				3A068ED718F24FC200EA260E /* Versapp-Tutorial-06.png in Resources */,
 				3A91F1FA18EB4C040006B9F8 /* contacts-background-small.png in Resources */,
+				F753EF3F19438D23005A62B7 /* chat-type-inviter-icon-colored-new.png in Resources */,
 				3A3A0AE818AB1126006FBAE4 /* avatar-placeholder.png in Resources */,
 				3A5065F0191EB9A100EED804 /* settings-icon-purple.png in Resources */,
 				3ABD66D318FB325900E72B09 /* Owl-Loading-Animation_0008.png in Resources */,
@@ -3536,7 +3544,6 @@
 				3AF925A2191BDADC00795FC6 /* ThoughtsTutorialViewController.xib in Resources */,
 				3A07F6D718D3EFC200E82390 /* check-icon.png in Resources */,
 				3A5065E6191EB9A100EED804 /* compose-blue.png in Resources */,
-				3A5065D5191EB94300EED804 /* chat-type-inviter-icon.png in Resources */,
 				3AF521D118EA3072008320CD /* friends-icon.png in Resources */,
 				3AF92596191BD31A00795FC6 /* SecurityTutorialViewController.xib in Resources */,
 				3A49E9EC18FF155500AFCB8E /* ThoughtTableViewCell.xib in Resources */,
@@ -3553,6 +3560,7 @@
 				3A7039BB1929AF5E002AC3A4 /* thoughts-blue-2.png in Resources */,
 				3AF692031919B7E400ABA9C5 /* lookup_soft_elegance_1.png in Resources */,
 				F7A3F96218EE3052006FBA0A /* arrow-close-notifications.png in Resources */,
+				F753EF4119438DD3005A62B7 /* thoughts-global-white.png in Resources */,
 				F7A3F96418EE306A006FBA0A /* check-icon-green-square.png in Resources */,
 				3A5065ED191EB9A100EED804 /* notification5.png in Resources */,
 				3AF9259D191BD7A200795FC6 /* friends-icon-large.png in Resources */,
