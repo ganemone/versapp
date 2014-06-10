@@ -21,8 +21,8 @@
 #import "SWTableViewCell.h"
 #import "MainSwipeViewController.h"
 #import "AppDelegate.h"
-#import "UIImage+ImageEffects.h"
 #import "UserDefaultManager.h"
+#import "WSCoachMarksView.h"
 
 #define footerSize 25
 
@@ -33,6 +33,7 @@
 @property (strong, nonatomic) NSIndexPath *clickedCellIndexPath;
 @property (strong, nonatomic) NSMutableArray *groupChats;
 @property (strong, nonatomic) NSMutableArray *oneToOneChats;
+@property (strong, nonatomic) NSMutableArray *thoughtChats;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UILabel *header;
@@ -68,8 +69,50 @@ static BOOL notificationsHalfHidden = NO;
     }
     else
     {
+        if (![UserDefaultManager hasSeenConversation]) {
+            [UserDefaultManager setSeenConversationTrue];
+            [self doTutorial];
+        }
         [self hideNoConfersationsView];
     }
+    
+}
+
+-(void)doTutorial {
+    CGFloat cellY;
+    NSString *chatType;
+    if ([_groupChats count] > 0) {
+        cellY = _headerView.frame.size.height + 22.0f;
+        chatType = @"group chat";
+    } else if([_oneToOneChats count] > 0) {
+        cellY = _headerView.frame.size.height + 44.0f;
+        chatType = @"one to one";
+    } else {
+        cellY = _headerView.frame.size.height + 66.0f;
+        chatType = @"thought chat";
+    }
+    
+    CGRect cellFrame = CGRectMake(0, cellY, self.view.frame.size.width, 44.0f);
+    CGRect imageRect = CGRectMake(5, cellY, 50, 44.0f);
+    
+    NSArray *coachMarks = @[
+                            @{
+                                @"rect": [NSValue valueWithCGRect:cellFrame],
+                                @"caption": @"Congrats! You are now in your first conversation."
+                                },
+                            @{
+                                @"rect": [NSValue valueWithCGRect:imageRect],
+                                @"caption": @"This icon will tell you what type of conversation it is."
+                                },
+                                
+                            @{
+                                @"rect": [NSValue valueWithCGRect:cellFrame],
+                                @"caption": @"Long press on chats of any type for more options."
+                                }
+                            ];
+    WSCoachMarksView *coachMarksView = [[WSCoachMarksView alloc] initWithFrame:self.view.bounds coachMarks:coachMarks];
+    [self.view addSubview:coachMarksView];
+    [coachMarksView start];
 }
 
 -(void)viewDidLoad {
@@ -120,6 +163,7 @@ static BOOL notificationsHalfHidden = NO;
     [self.noConversationsDarkView setFrame:CGRectMake(0, self.headerView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.headerView.frame.size.height)];
     [self.noConversationsView setFrame:_noConversationsDarkView.frame];
     
+    [_notificationTableView setFrame:CGRectMake(0, 0, self.view.frame.size.width, 0)];
 
 }
 
@@ -179,12 +223,13 @@ static BOOL notificationsHalfHidden = NO;
     }
     _groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
     _oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveOneToOneChats]];
+    _thoughtChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllThoughtChats]];
     _friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
     _groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingGroupChats]];
     if ([_oneToOneChats count] > 0 || [_groupChats count] > 0) {
         [_tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectZero]];
     }
-    [self setNotificationsIcon];
+    [self setNotificationsIcon:NO];
     [_notificationTableView reloadData];
     [_tableView reloadData];
     _clickedCellIndexPath = nil;
@@ -234,14 +279,18 @@ static BOOL notificationsHalfHidden = NO;
         _mostRecentMessageInPushedChat = [[dest.chatMO messages] lastObject];
     } else if([segue.identifier isEqualToString:SEGUE_ID_ONE_TO_ONE_CONVERSATION]) {
         OneToOneConversationViewController *dest = segue.destinationViewController;
-        dest.chatMO = [self.oneToOneChats objectAtIndex:self.clickedCellIndexPath.row];
+        if (self.clickedCellIndexPath.section == 1) {
+            dest.chatMO = [self.oneToOneChats objectAtIndex:self.clickedCellIndexPath.row];
+        } else {
+            dest.chatMO = [self.thoughtChats objectAtIndex:self.clickedCellIndexPath.row];
+        }
         _mostRecentMessageInPushedChat = [[dest.chatMO messages] lastObject];
     }
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (tableView == self.tableView) {
-        return 2;
+        return 3;
     } else {
         return 2;
     }
@@ -249,7 +298,11 @@ static BOOL notificationsHalfHidden = NO;
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (tableView == self.tableView) {
-        return (section == 0) ? @"Groups" : @"One to One";
+        switch (section) {
+            case 0: return @"Groups";
+            case 1: return @"One-to-One";
+            default: return @"Thoughts";
+        }
     } else {
         if (section == 0) {
             if (self.groupInvites.count == 0)
@@ -271,8 +324,10 @@ static BOOL notificationsHalfHidden = NO;
         ChatMO *chatMo;
         if(indexPath.section == 0) {
             chatMo = [self.groupChats objectAtIndex:indexPath.row];
-        } else {
+        } else if(indexPath.section == 1) {
             chatMo = [self.oneToOneChats objectAtIndex:indexPath.row];
+        } else {
+            chatMo = [self.thoughtChats objectAtIndex:indexPath.row];
         }
     
         DashboardTableViewCell *cell = (DashboardTableViewCell *)[tableView dequeueReusableCellWithIdentifier:chatMo.chat_id];
@@ -382,6 +437,9 @@ static BOOL notificationsHalfHidden = NO;
         } else if(indexPath.section == 1 && [_oneToOneChats count] > indexPath.row) {
             chat = [_oneToOneChats objectAtIndex:indexPath.row];
             [_oneToOneChats removeObjectAtIndex:indexPath.row];
+        } else if(indexPath.section == 2 && [_thoughtChats count] > indexPath.row) {
+            chat = [_thoughtChats objectAtIndex:indexPath.row];
+            [_thoughtChats removeObjectAtIndex:indexPath.row];
         } else {
             return;
         }
@@ -396,8 +454,10 @@ static BOOL notificationsHalfHidden = NO;
     if (tableView == self.tableView) {
         if(section == 0) {
             return [self.groupChats count];
-        } else {
+        } else if(section == 1) {
             return [self.oneToOneChats count];
+        } else {
+            return [self.thoughtChats count];
         }
     } else {
         if (section == 0) {
@@ -497,7 +557,12 @@ static BOOL notificationsHalfHidden = NO;
  return image;
  }*/
 
--(void)setNotificationsIcon {
+-(void)setNotificationsIcon:(BOOL)didAccept {
+    
+    if (didAccept && [_friendRequests count] + [_groupInvites count] == 0) {
+        [self hideNotifications];
+    }
+    
     NSMutableString *imageName;
     NSMutableString *greenImageName;
     if ([self.friendRequests count] + [self.groupInvites count] > 0 && [self.friendRequests count] + [self.groupInvites count] < 6) {
@@ -521,7 +586,7 @@ static BOOL notificationsHalfHidden = NO;
         UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height*0.25, self.view.frame.size.width, 21)];
         [notificationsLabel setText:NO_NOTIFICATIONS];
         [notificationsLabel setTextAlignment:NSTextAlignmentCenter];
-        [notificationsLabel setFont:[StyleManager getFontStyleLightSizeHeader]];
+        [notificationsLabel setFont:[StyleManager getFontStyleLightSizeXL]];
         [notificationsLabel setTextColor:[StyleManager getColorBlue]];
         [self.notificationsHeader addSubview:notificationsLabel];
         [self.notificationsHeader addSubview:self.notificationsButtonGreen];
@@ -531,8 +596,8 @@ static BOOL notificationsHalfHidden = NO;
         UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 32, 280, 21)];
         [notificationsLabel setText:NOTIFICATIONS];
         [notificationsLabel setTextAlignment:NSTextAlignmentCenter];
-        [notificationsLabel setFont:[StyleManager getFontStyleLightSizeHeader]];
-        [notificationsLabel setTextColor:[StyleManager getColorGreen]];
+        [notificationsLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+        [notificationsLabel setTextColor:[StyleManager getColorBlue]];
         [self.notificationsHeader addSubview:notificationsLabel];
         [self.notificationsHeader addSubview:self.notificationsButtonGreen];
         [self.notificationsHeader setBackgroundColor:[UIColor whiteColor]];
@@ -554,9 +619,8 @@ static BOOL notificationsHalfHidden = NO;
     
     self.groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingGroupChats]];
     self.friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
-    [self setNotificationSize];
     [_notificationTableView setCenter:CGPointMake(_notificationTableView.center.x, -1 *_notificationHeight / 2)];
-    [self setNotificationsIcon];
+    [self setNotificationsIcon:NO];
     
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideNotificationsGesture:)];
     tapRecognizer.delaysTouchesEnded = YES;
@@ -580,25 +644,11 @@ static BOOL notificationsHalfHidden = NO;
     notificationsHalfHidden = NO;
 }
 
--(void)setNotificationSize {
-    if (self.groupInvites.count + self.friendRequests.count == 0) {
-        _notificationHeight = self.view.frame.size.height/2;
-    } else {
-        if (self.groupInvites.count == 0 || self.friendRequests.count == 0) {
-            _notificationHeight = MIN(self.view.bounds.size.height, self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.sectionHeaderHeight + self.notificationsHeader.frame.size.height);
-        } else {
-            _notificationHeight = MIN(self.view.bounds.size.height, self.notificationTableView.rowHeight*(self.groupInvites.count + self.friendRequests.count) + self.notificationTableView.numberOfSections*self.notificationTableView.sectionHeaderHeight + self.notificationsHeader.frame.size.height);
-        }
-    }
-    _notificationHeight = MAX(_notificationHeight, self.view.frame.size.height/2);
-    self.notificationTableView.frame = CGRectMake(0, 0, self.view.frame.size.width, _notificationHeight);
-}
-
 - (void)updateNotifications {
     _groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingGroupChats]];
     _friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
     [self.notificationTableView reloadData];
-    [self setNotificationsIcon];
+    [self setNotificationsIcon:NO];
 }
 
 - (IBAction)acceptInvitation:(id)sender {
@@ -611,9 +661,9 @@ static BOOL notificationsHalfHidden = NO;
     
     [self.groupInvites removeObjectAtIndex:indexPath.row];
     [ChatDBManager setChatStatus:STATUS_JOINED chatID:groupInvite.chat_id];
+    
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-    [self setNotificationSize];
-    [self setNotificationsIcon];
+    [self setNotificationsIcon:YES];
 }
 
 - (IBAction)declineInvitation:(id)sender {
@@ -627,8 +677,7 @@ static BOOL notificationsHalfHidden = NO;
     [ChatDBManager setChatStatus:STATUS_REQUEST_REJECTED chatID:groupInvite.chat_id];
     
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-    [self setNotificationSize];
-    [self setNotificationsIcon];
+    [self setNotificationsIcon:YES];
 }
 
 - (IBAction)acceptFriendRequest:(id)sender {
@@ -642,9 +691,9 @@ static BOOL notificationsHalfHidden = NO;
     [FriendsDBManager updateUserSetStatusFriends:friendRequest.username];
     
     [self.friendRequests removeObjectAtIndex:indexPath.row];
+    
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-    [self setNotificationSize];
-    [self setNotificationsIcon];
+    [self setNotificationsIcon:YES];
 }
 
 - (IBAction)declineFriendRequest:(id)sender {
@@ -660,18 +709,19 @@ static BOOL notificationsHalfHidden = NO;
     [delegate saveContext];
     
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-    [self setNotificationSize];
-    [self setNotificationsIcon];
+    [self setNotificationsIcon:YES];
 }
 
 -(void)handleRefreshListView {
-    self.groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
-    self.oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllOneToOneChats]];
+    _groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
+    _oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllOneToOneChats]];
+    _thoughtChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllThoughtChats]];
     if ([_oneToOneChats count] > 0 || [_groupChats count] > 0) {
         [_tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectZero]];
         [self hideNoConfersationsView];
     }
-    [self.tableView reloadData];
+    [_tableView reloadData];
+    [_notificationTableView reloadData];
 }
 
 -(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
@@ -691,8 +741,11 @@ static BOOL notificationsHalfHidden = NO;
     if (indexPath.section == 0) {
         _editingChat = [_groupChats objectAtIndex:indexPath.row];
         [self showRenameDialog];
-    } else {
+    } else if(indexPath.section == 1) {
         _editingChat = [_oneToOneChats objectAtIndex:indexPath.row];
+        [self showOneToOneLongPressDialog];
+    } else {
+        _editingChat = [_thoughtChats objectAtIndex:indexPath.row];
         [self showOneToOneLongPressDialog];
     }
 }

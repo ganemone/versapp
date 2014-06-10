@@ -41,7 +41,9 @@
 +(BOOL)hasStartedThoughtChat;
 +(BOOL)hasReceivedOneToOneInvitation;
 +(BOOL)hasSeenFriends;
++(BOOL)hasSeenConversation;
 
++(void)setSeenConversationTrue;
 +(void)setLoggedInTrue;
 +(void)setCreatedOneToOneTrue;
 +(void)setCreatedGroupTrue;

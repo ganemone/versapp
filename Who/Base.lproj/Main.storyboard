@@ -17,7 +17,7 @@
                                 <rect key="frame" x="20" y="87" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="X1a-tq-Qp4">
                                 <rect key="frame" x="20" y="170" width="280" height="30"/>
@@ -1011,6 +1011,7 @@
                         <outlet property="bottomLabel" destination="lVS-Q3-Rub" id="y7x-7f-7zs"/>
                         <outlet property="bottomView" destination="b2u-mj-P71" id="05h-IH-zKJ"/>
                         <outlet property="findFriendsBtn" destination="RsM-L8-UDW" id="Qsd-lz-w1t"/>
+                        <outlet property="footerView" destination="b2u-mj-P71" id="fKO-yt-wsx"/>
                         <outlet property="header" destination="D8u-sU-pBy" id="Yfw-F2-zzU"/>
                         <outlet property="headerView" destination="DnC-T6-Hmx" id="Ztr-vw-fEx"/>
                         <outlet property="noFriendsBlackView" destination="2jy-83-DC9" id="Whj-3P-AZd"/>
@@ -1243,6 +1244,7 @@
                                                 <size key="contentOffset" width="-1" height="0.0"/>
                                             </segment>
                                         </segments>
+                                        <color key="tintColor" red="0.95686274510000002" green="0.57254901960000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="handleThoughtsTypeChanged:" destination="jpr-Ku-F24" eventType="valueChanged" id="gAt-IA-gta"/>
                                         </connections>
@@ -1250,6 +1252,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" id="S2w-Wd-NjF">
                                         <rect key="frame" x="20" y="30" width="22" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" red="0.95686274510000002" green="0.57254901960000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1283,6 +1286,7 @@
                     <connections>
                         <outlet property="header" destination="aeu-EJ-Rlq" id="73w-F7-1A1"/>
                         <outlet property="tableView" destination="jZx-yj-7oZ" id="UqM-pt-QRe"/>
+                        <outlet property="thoughtSegmentedControl" destination="YBc-xM-ZaJ" id="ef2-Gj-kNV"/>
                         <segue destination="iDZ-uG-Ep6" kind="push" identifier="SegueIDCreatedOneToOneChatFromConfession" id="qGQ-aw-vgl"/>
                     </connections>
                 </viewController>
@@ -1631,7 +1635,7 @@
                                 <rect key="frame" x="20" y="96" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textField>
                             <view contentMode="scaleToFill" id="jUu-9B-Y2T">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
@@ -2006,6 +2010,9 @@
         <segue reference="XeD-6M-yxq"/>
         <segue reference="WHz-1g-xNx"/>
         <segue reference="OKb-WW-kzU"/>
+        <segue reference="zTQ-Mf-6oX"/>
+        <segue reference="8c7-Mw-K5g"/>
+        <segue reference="WHz-1g-xNx"/>
         <segue reference="m95-nf-RcH"/>
         <segue reference="xkE-O7-97C"/>
     </inferredMetricsTieBreakers>

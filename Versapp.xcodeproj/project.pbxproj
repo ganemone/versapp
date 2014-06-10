@@ -138,6 +138,7 @@
 		3A7039BE1929AF5E002AC3A4 /* thoughts-white-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7039B71929AF5E002AC3A4 /* thoughts-white-1.png */; };
 		3A7039BF1929AF5E002AC3A4 /* thoughts-white-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7039B81929AF5E002AC3A4 /* thoughts-white-2.png */; };
 		3A7039C01929AF5E002AC3A4 /* thoughts-white-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7039B91929AF5E002AC3A4 /* thoughts-white-3.png */; };
+		3A71F9EC19350CF400D12DEF /* WSCoachMarksView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A71F9EB19350CF400D12DEF /* WSCoachMarksView.m */; };
 		3A720CB418A1C2E200423959 /* MUCCreationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A720CB318A1C2E200423959 /* MUCCreationManager.m */; };
 		3A720CB718A28DAD00423959 /* PresencePacketReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A720CB618A28DAD00423959 /* PresencePacketReceiver.m */; };
 		3A720CBA18A28ECB00423959 /* MessagePacketReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A720CB918A28ECB00423959 /* MessagePacketReceiver.m */; };
@@ -753,6 +754,8 @@
 		3A7039B71929AF5E002AC3A4 /* thoughts-white-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thoughts-white-1.png"; sourceTree = "<group>"; };
 		3A7039B81929AF5E002AC3A4 /* thoughts-white-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thoughts-white-2.png"; sourceTree = "<group>"; };
 		3A7039B91929AF5E002AC3A4 /* thoughts-white-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thoughts-white-3.png"; sourceTree = "<group>"; };
+		3A71F9EA19350CF400D12DEF /* WSCoachMarksView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCoachMarksView.h; sourceTree = "<group>"; };
+		3A71F9EB19350CF400D12DEF /* WSCoachMarksView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCoachMarksView.m; sourceTree = "<group>"; };
 		3A720CB118A1C1D400423959 /* XMPPFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPFramework.h; path = Who/XMPPFramework.h; sourceTree = "<group>"; };
 		3A720CB218A1C2E200423959 /* MUCCreationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCCreationManager.h; sourceTree = "<group>"; };
 		3A720CB318A1C2E200423959 /* MUCCreationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCCreationManager.m; sourceTree = "<group>"; };
@@ -1600,6 +1603,8 @@
 		3A0EC4DC192435FC0036AB43 /* RSA */ = {
 			isa = PBXGroup;
 			children = (
+				3A4822A9192C189200D5BBC0 /* NSData+Base64.h */,
+				3A4822AA192C189200D5BBC0 /* NSData+Base64.m */,
 				3A4822AD192D088900D5BBC0 /* RSAESCryptor.h */,
 				3A4822AE192D088900D5BBC0 /* RSAESCryptor.m */,
 				3A0EC4D8192435EF0036AB43 /* CommonCrypto */,
@@ -2018,6 +2023,15 @@
 				3A7039B91929AF5E002AC3A4 /* thoughts-white-3.png */,
 			);
 			name = thoughts;
+			sourceTree = "<group>";
+		};
+		3A71F9ED19350CF900D12DEF /* CoachMarks */ = {
+			isa = PBXGroup;
+			children = (
+				3A71F9EA19350CF400D12DEF /* WSCoachMarksView.h */,
+				3A71F9EB19350CF400D12DEF /* WSCoachMarksView.m */,
+			);
+			name = CoachMarks;
 			sourceTree = "<group>";
 		};
 		3A720CBB18A28EDF00423959 /* Packet Receivers */ = {
@@ -2710,8 +2724,7 @@
 		3AF19ACE1881F86000F3E4D3 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				3A4822A9192C189200D5BBC0 /* NSData+Base64.h */,
-				3A4822AA192C189200D5BBC0 /* NSData+Base64.m */,
+				3A71F9ED19350CF900D12DEF /* CoachMarks */,
 				3A0EC4DC192435FC0036AB43 /* RSA */,
 				3AF68FDA1919581400ABA9C5 /* Source */,
 				3AF68FB5191937C000ABA9C5 /* PEPhotoCropEditor */,
@@ -3593,6 +3606,7 @@
 				3AF691B81919581600ABA9C5 /* GPUImageSwirlFilter.m in Sources */,
 				3AF691611919581600ABA9C5 /* GPUImageGammaFilter.m in Sources */,
 				3AF691B71919581600ABA9C5 /* GPUImageSubtractBlendFilter.m in Sources */,
+				3A71F9EC19350CF400D12DEF /* WSCoachMarksView.m in Sources */,
 				3AF6919D1919581600ABA9C5 /* GPUImagePosterizeFilter.m in Sources */,
 				3A3A0ADC18AB1126006FBAE4 /* UIImage+JSMessagesView.m in Sources */,
 				3A793D28190FF6C200303457 /* AFNetworkReachabilityManager.m in Sources */,
@@ -4098,14 +4112,15 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/who/who_ios",
-					/Users/rlundquist3/Development/ios/FacebookSDK,
+					/Users/giancarlo/Documents/dev/ios/Who,
+					"$(PROJECT_DIR)",
+					/Users/giancarlo/Documents/dev/ios/FacebookSDK
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/Versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios/who;
+				LIBRARY_SEARCH_PATHS = /Users/giancarlo/Documents/dev/ios/Who/who;
 				PRODUCT_NAME = Versapp;
 				PROVISIONING_PROFILE = "C541311C-6531-4B45-807D-7327695EC04C";
 				WRAPPER_EXTENSION = app;
@@ -4118,14 +4133,15 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/who/who_ios",
-					/Users/rlundquist3/Development/ios/FacebookSDK,
+					/Users/giancarlo/Documents/dev/ios/Who,
+					"$(PROJECT_DIR)",
+					/Users/giancarlo/Documents/dev/ios/FacebookSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/Versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios/who;
+				LIBRARY_SEARCH_PATHS = /Users/giancarlo/Documents/dev/ios/Who/who;
 				PRODUCT_NAME = Versapp;
 				PROVISIONING_PROFILE = "C541311C-6531-4B45-807D-7327695EC04C";
 				WRAPPER_EXTENSION = app;

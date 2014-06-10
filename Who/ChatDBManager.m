@@ -150,7 +150,13 @@ static int numUninvitedParticipants;
 }
 
 +(NSArray*)getAllOneToOneChats {
-    NSArray *chats = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\" || %@ = \"%@\" || %@ = \"%@\"",CHATS_TABLE_COLUMN_NAME_CHAT_TYPE, CHAT_TYPE_ONE_TO_ONE_CONFESSION, CHATS_TABLE_COLUMN_NAME_CHAT_TYPE, CHAT_TYPE_ONE_TO_ONE_INVITED, CHATS_TABLE_COLUMN_NAME_CHAT_TYPE, CHAT_TYPE_ONE_TO_ONE_INVITER]];
+    NSArray *chats = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\" || %@ = \"%@\"", CHATS_TABLE_COLUMN_NAME_CHAT_TYPE, CHAT_TYPE_ONE_TO_ONE_INVITED, CHATS_TABLE_COLUMN_NAME_CHAT_TYPE, CHAT_TYPE_ONE_TO_ONE_INVITER]];
+    [self setUpChatsInArray:chats];
+    return [self sortChats:chats];
+}
+
++(NSArray *)getAllThoughtChats {
+    NSArray *chats = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"",CHATS_TABLE_COLUMN_NAME_CHAT_TYPE, CHAT_TYPE_ONE_TO_ONE_CONFESSION]];
     [self setUpChatsInArray:chats];
     return [self sortChats:chats];
 }
@@ -160,7 +166,7 @@ static int numUninvitedParticipants;
 }
 
 +(NSArray*)getAllActiveOneToOneChats {
-    NSArray *chats = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\" || %@ = \"%@\" || %@ = \"%@\" && %@ = \"%d\"",CHATS_TABLE_COLUMN_NAME_CHAT_TYPE, CHAT_TYPE_ONE_TO_ONE_CONFESSION, CHATS_TABLE_COLUMN_NAME_CHAT_TYPE, CHAT_TYPE_ONE_TO_ONE_INVITED, CHATS_TABLE_COLUMN_NAME_CHAT_TYPE, CHAT_TYPE_ONE_TO_ONE_INVITER, CHATS_TABLE_COLUMN_NAME_STATUS, STATUS_JOINED]];
+    NSArray *chats = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\" || %@ = \"%@\" && %@ = \"%d\"", CHATS_TABLE_COLUMN_NAME_CHAT_TYPE, CHAT_TYPE_ONE_TO_ONE_INVITED, CHATS_TABLE_COLUMN_NAME_CHAT_TYPE, CHAT_TYPE_ONE_TO_ONE_INVITER, CHATS_TABLE_COLUMN_NAME_STATUS, STATUS_JOINED]];
     [self setUpChatsInArray:chats];
     return [self sortChats:chats];
 }

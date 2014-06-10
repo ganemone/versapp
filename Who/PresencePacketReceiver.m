@@ -44,7 +44,8 @@
         NSString *jid = [[[presence fromStr] componentsSeparatedByString:@"/"] firstObject];
         NSString *username = [[[presence fromStr] componentsSeparatedByString:@"@"] firstObject];
         XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
-        if ([FriendsDBManager hasUserWithJID:username] == NO && [username compare:[ConnectionProvider getUser]] != 0) {
+        FriendMO *friend = [FriendsDBManager getUserWithJID:username];
+        if (friend == nil || friend.name == nil) {
             [conn sendElement:[IQPacketManager createGetVCardPacket:username]];
         }
         // Packet represents a friend request
