@@ -223,6 +223,7 @@ static BOOL notificationsHalfHidden = NO;
     }
     _groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
     _oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveOneToOneChats]];
+    _thoughtChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllThoughtChats]];
     _friendRequests = [[NSMutableArray alloc] initWithArray:[FriendsDBManager getAllWithStatusPending]];
     _groupInvites = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllPendingGroupChats]];
     if ([_oneToOneChats count] > 0 || [_groupChats count] > 0) {
@@ -740,8 +741,11 @@ static BOOL notificationsHalfHidden = NO;
     if (indexPath.section == 0) {
         _editingChat = [_groupChats objectAtIndex:indexPath.row];
         [self showRenameDialog];
-    } else {
+    } else if(indexPath.section == 1) {
         _editingChat = [_oneToOneChats objectAtIndex:indexPath.row];
+        [self showOneToOneLongPressDialog];
+    } else {
+        _editingChat = [_thoughtChats objectAtIndex:indexPath.row];
         [self showOneToOneLongPressDialog];
     }
 }
