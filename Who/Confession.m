@@ -124,11 +124,11 @@
 
 -(UIImage *)imageForDegree {
     if ([_degree isEqualToString:@"1"]) {
-        return [UIImage imageNamed:@"thoughts-white-1.png"];
+        return [UIImage imageNamed:@"friend-white.png"];
     } else if ([_degree isEqualToString:@"2"]) {
-        return [UIImage imageNamed:@"thoughts-white-2.png"];
+        return [UIImage imageNamed:@"second-degree-white.png"];
     } else {
-        return [UIImage imageNamed:@"thoughts-global.png"];
+        return [UIImage imageNamed:@"global-white.png"];
     }
 }
 

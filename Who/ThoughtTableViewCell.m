@@ -89,9 +89,11 @@
         [_chatBtn setImage:[UIImage imageNamed:@"x-white.png"] forState:UIControlStateNormal];
         //[_chatBtn setContentEdgeInsets:UIEdgeInsetsMake(3, 3, 3, 3)];
     } else {
-        [_chatBtn setImage:[UIImage imageNamed:@"messages-icon-white.png"] forState:UIControlStateNormal];
-        [_chatBtn addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
-        //[_chatBtn setContentEdgeInsets:UIEdgeInsetsZero];
+        if ([_confession.degree isEqualToString:@"1"] || [_confession.degree isEqualToString:@"2"]) {
+            [_chatBtn setImage:[UIImage imageNamed:@"compose-white.png"] forState:UIControlStateNormal];
+            [_chatBtn addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
+            //[_chatBtn setContentEdgeInsets:UIEdgeInsetsZero];
+        }        
     }
     
     [_degreeBtn setTitle:@"" forState:UIControlStateNormal];

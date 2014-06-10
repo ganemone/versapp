@@ -81,7 +81,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="fav-icon.png" width="209" height="197"/>
+        <image name="fav-icon.png" width="104" height="104"/>
         <image name="messages-icon-white.png" width="60" height="60"/>
     </resources>
 </document>

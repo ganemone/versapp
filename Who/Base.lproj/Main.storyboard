@@ -976,7 +976,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="npS-m4-ngf">
-                                        <rect key="frame" x="269" y="11" width="34" height="20"/>
+                                        <rect key="frame" x="270" y="5" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                         <state key="normal" image="check-icon-purple.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1140,7 +1140,7 @@
                                         <rect key="frame" x="262" y="30" width="50" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <state key="normal" image="chat-type-group-icon.png">
+                                        <state key="normal" image="group-white.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1316,9 +1316,8 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="K9m-Fc-zry">
                                         <rect key="frame" x="10" y="23" width="38" height="38"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.55294117649999996" green="0.75686274509999996" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                        <state key="normal" image="arrow-left-icon.png">
+                                        <state key="normal" image="arrow-left-icon-green.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1430,9 +1429,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2mt-aT-sFw">
-                                        <rect key="frame" x="14" y="4" width="40" height="31"/>
+                                        <rect key="frame" x="14" y="4" width="31" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="photo-icon.png">
+                                        <state key="normal" image="camera-white.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1440,10 +1439,11 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="k4e-dN-wPt">
-                                        <rect key="frame" x="271" y="1" width="38" height="38"/>
+                                        <rect key="frame" x="264" y="1" width="47" height="38"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <accessibility key="accessibilityConfiguration" label="Post"/>
                                         <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                        <state key="normal" image="send-icon.png">
+                                        <state key="normal" title="Post">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1527,10 +1527,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="x9Y-gK-Yya">
-                                        <rect key="frame" x="257" y="31" width="52" height="21"/>
+                                        <rect key="frame" x="257" y="31" width="28" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <state key="normal" image="chat-type-thoughts-icon-colored.png"/>
+                                        <state key="normal" image="friend-white.png"/>
                                         <connections>
                                             <action selector="handleDiscloseInfoBtnClicked:" destination="iDZ-uG-Ep6" eventType="touchUpInside" id="gXH-eJ-ic3"/>
                                         </connections>
@@ -1977,20 +1977,20 @@
         </scene>
     </scenes>
     <resources>
-        <image name="add-friend-icon.png" width="250" height="250"/>
-        <image name="arrow-left-icon.png" width="60" height="60"/>
-        <image name="chat-type-group-icon.png" width="355" height="180"/>
-        <image name="chat-type-thoughts-icon-colored.png" width="436" height="182"/>
-        <image name="check-icon-purple.png" width="193" height="134"/>
+        <image name="add-friend-icon.png" width="125" height="125"/>
+        <image name="arrow-left-icon-green.png" width="125" height="125"/>
+        <image name="arrow-left-icon.png" width="125" height="125"/>
+        <image name="camera-white.png" width="104" height="104"/>
+        <image name="check-icon-purple.png" width="125" height="125"/>
         <image name="check-icon.png" width="192" height="129"/>
-        <image name="compose-blue.png" width="250" height="250"/>
-        <image name="compose-orange.png" width="250" height="250"/>
+        <image name="compose-blue.png" width="125" height="125"/>
+        <image name="compose-orange.png" width="125" height="125"/>
         <image name="first" width="30" height="30"/>
-        <image name="notification-none.png" width="250" height="250"/>
-        <image name="photo-icon.png" width="183" height="145"/>
-        <image name="send-icon.png" width="310" height="310"/>
-        <image name="settings-icon-purple.png" width="250" height="250"/>
-        <image name="trash-icon-blue.png" width="250" height="250"/>
+        <image name="friend-white.png" width="125" height="125"/>
+        <image name="group-white.png" width="240" height="125"/>
+        <image name="notification-none.png" width="125" height="125"/>
+        <image name="settings-icon-purple.png" width="125" height="125"/>
+        <image name="trash-icon-blue.png" width="125" height="125"/>
         <image name="x-blue.png" width="60" height="60"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -1999,21 +1999,18 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="z6h-qs-HbB"/>
-        <segue reference="pHb-Kf-4qo"/>
-        <segue reference="tVn-SP-Hc9"/>
-        <segue reference="hVX-XL-lBE"/>
-        <segue reference="BCc-dv-kG7"/>
         <segue reference="YEX-bB-bO6"/>
-        <segue reference="AGt-Q0-zDh"/>
-        <segue reference="Y5D-AL-CYy"/>
-        <segue reference="XeD-6M-yxq"/>
-        <segue reference="WHz-1g-xNx"/>
-        <segue reference="OKb-WW-kzU"/>
         <segue reference="zTQ-Mf-6oX"/>
         <segue reference="8c7-Mw-K5g"/>
+        <segue reference="pHb-Kf-4qo"/>
+        <segue reference="BCc-dv-kG7"/>
+        <segue reference="z6h-qs-HbB"/>
+        <segue reference="hVX-XL-lBE"/>
+        <segue reference="tVn-SP-Hc9"/>
         <segue reference="WHz-1g-xNx"/>
-        <segue reference="m95-nf-RcH"/>
+        <segue reference="OKb-WW-kzU"/>
+        <segue reference="XeD-6M-yxq"/>
         <segue reference="xkE-O7-97C"/>
+        <segue reference="m95-nf-RcH"/>
     </inferredMetricsTieBreakers>
 </document>

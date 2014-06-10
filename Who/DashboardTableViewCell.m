@@ -11,6 +11,7 @@
 #import "ChatDBManager.h"
 #import "StyleManager.h"
 #import "Constants.h"
+#import "FriendsDBManager.h"
 
 
 @implementation DashboardTableViewCell
@@ -54,13 +55,17 @@
     }
     
     if([chatMo.chat_type isEqualToString:CHAT_TYPE_GROUP]) {
-        [_chatTypeImageView setImage:[UIImage imageNamed:@"chat-type-group-icon-colored.png"]];
+        [_chatTypeImageView setImage:[UIImage imageNamed:@"group-blue.png"]];
     } else if([chatMo.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITER]) {
-        [_chatTypeImageView setImage:[UIImage imageNamed:@"chat-type-inviter-icon-colored-new.png"]];
+        [_chatTypeImageView setImage:[UIImage imageNamed:@"friend-blue.png"]];
     } else if([chatMo.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITED]) {
-        [_chatTypeImageView setImage:[UIImage imageNamed:@"chat-type-invited-icon-colored.png"]];
+        [_chatTypeImageView setImage:[UIImage imageNamed:@"unknown-blue.png"]];
     } else if([chatMo.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION]) {
-        [_chatTypeImageView setImage:[UIImage imageNamed:@"chat-type-thoughts-icon-colored.png"]];
+        if ([FriendsDBManager hasUserWithJID:chatMo.owner_id]) {
+            [_chatTypeImageView setImage:[UIImage imageNamed:@"friend-blue.png"]];
+        } else {
+            [_chatTypeImageView setImage:[UIImage imageNamed:@"second-degree-blue.png"]];
+        }
     }
 }
 

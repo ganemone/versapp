@@ -86,9 +86,9 @@
 - (void)configureCameraButton {
     UIButton *cameraButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
     cameraButton.backgroundColor = [UIColor clearColor];
-    [cameraButton setImage:[UIImage imageNamed:@"camera-icon-dark.png"] forState:UIControlStateNormal];
-    [cameraButton setImage:[UIImage imageNamed:@"camera-icon-dark.png"] forState:UIControlStateHighlighted];
-    [cameraButton setImage:[UIImage imageNamed:@"camera-icon-dark.png"] forState:UIControlStateDisabled];
+    [cameraButton setImage:[UIImage imageNamed:@"camera-blue.png"] forState:UIControlStateNormal];
+    [cameraButton setImage:[UIImage imageNamed:@"camera-blue.png"] forState:UIControlStateHighlighted];
+    [cameraButton setImage:[UIImage imageNamed:@"camera-blue.png"] forState:UIControlStateDisabled];
     
     //cameraButton.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin);
     [cameraButton setEnabled:YES];

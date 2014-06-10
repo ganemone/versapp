@@ -638,6 +638,6 @@
 - (void)resetCameraButtonImage {
     [_messageInputView.cameraButton setImageEdgeInsets:UIEdgeInsetsMake(4, 4, 4, 4)];
     [_messageInputView.cameraButton setContentMode:UIViewContentModeScaleAspectFill];
-    [_messageInputView.cameraButton setImage:[UIImage imageNamed:@"camera-icon-dark.png"] forState:UIControlStateNormal];
+    [_messageInputView.cameraButton setImage:[UIImage imageNamed:@"camera-blue.png"] forState:UIControlStateNormal];
 }
 @end
