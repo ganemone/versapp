@@ -585,9 +585,13 @@
 		F7E7BB6F19478935002FE587 /* compose-white.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BB6E19478935002FE587 /* compose-white.png */; };
 		F7E7BB711947894A002FE587 /* compose-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BB701947894A002FE587 /* compose-white@2x.png */; };
 		F7E7BB7419478983002FE587 /* camera-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BB7219478983002FE587 /* camera-blue@2x.png */; };
-		F7E7BB7519478983002FE587 /* camera-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BB7319478983002FE587 /* camera-white@2x.png */; };
 		F7E7BB78194789B7002FE587 /* camera-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BB76194789B7002FE587 /* camera-blue.png */; };
-		F7E7BB79194789B7002FE587 /* camera-white.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BB77194789B7002FE587 /* camera-white.png */; };
+		F7E7BB7B1947A256002FE587 /* camera-white.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BB7A1947A256002FE587 /* camera-white.png */; };
+		F7E7BB7D1947A26B002FE587 /* camera-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BB7C1947A26B002FE587 /* camera-white@2x.png */; };
+		F7E7BB801947C204002FE587 /* facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BB7E1947C203002FE587 /* facebook@2x.png */; };
+		F7E7BB811947C204002FE587 /* twitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BB7F1947C204002FE587 /* twitter@2x.png */; };
+		F7E7BB841947C235002FE587 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BB821947C235002FE587 /* facebook.png */; };
+		F7E7BB851947C235002FE587 /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BB831947C235002FE587 /* twitter.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1573,9 +1577,13 @@
 		F7E7BB6E19478935002FE587 /* compose-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose-white.png"; sourceTree = "<group>"; };
 		F7E7BB701947894A002FE587 /* compose-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose-white@2x.png"; sourceTree = "<group>"; };
 		F7E7BB7219478983002FE587 /* camera-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-blue@2x.png"; sourceTree = "<group>"; };
-		F7E7BB7319478983002FE587 /* camera-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-white@2x.png"; sourceTree = "<group>"; };
 		F7E7BB76194789B7002FE587 /* camera-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-blue.png"; sourceTree = "<group>"; };
-		F7E7BB77194789B7002FE587 /* camera-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-white.png"; sourceTree = "<group>"; };
+		F7E7BB7A1947A256002FE587 /* camera-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-white.png"; sourceTree = "<group>"; };
+		F7E7BB7C1947A26B002FE587 /* camera-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-white@2x.png"; sourceTree = "<group>"; };
+		F7E7BB7E1947C203002FE587 /* facebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook@2x.png"; sourceTree = "<group>"; };
+		F7E7BB7F1947C204002FE587 /* twitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter@2x.png"; sourceTree = "<group>"; };
+		F7E7BB821947C235002FE587 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
+		F7E7BB831947C235002FE587 /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2072,8 +2080,8 @@
 				F7E7BB2419475993002FE587 /* trash-icon-blue.png */,
 				F7E7BB7219478983002FE587 /* camera-blue@2x.png */,
 				F7E7BB76194789B7002FE587 /* camera-blue.png */,
-				F7E7BB7319478983002FE587 /* camera-white@2x.png */,
-				F7E7BB77194789B7002FE587 /* camera-white.png */,
+				F7E7BB7C1947A26B002FE587 /* camera-white@2x.png */,
+				F7E7BB7A1947A256002FE587 /* camera-white.png */,
 			);
 			name = "colored-icons";
 			sourceTree = "<group>";
@@ -2921,6 +2929,10 @@
 				3A7D535918E2376E00BFF569 /* add-icon.png */,
 				3AF521D418EA30A5008320CD /* messages-icon-white.png */,
 				3A07F6AD18D3C21800E82390 /* compose-icon.png */,
+				F7E7BB7E1947C203002FE587 /* facebook@2x.png */,
+				F7E7BB821947C235002FE587 /* facebook.png */,
+				F7E7BB7F1947C204002FE587 /* twitter@2x.png */,
+				F7E7BB831947C235002FE587 /* twitter.png */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -3534,7 +3546,9 @@
 				3AB8D18F18C259B00082B77C /* MavenProBlack.ttf in Resources */,
 				3A068ED218F24FC200EA260E /* Versapp-Tutorial-01.png in Resources */,
 				F7E7BB5319478678002FE587 /* global-orange@2x.png in Resources */,
+				F7E7BB7B1947A256002FE587 /* camera-white.png in Resources */,
 				F7E7BB29194759D3002FE587 /* friend-blue@2x.png in Resources */,
+				F7E7BB811947C204002FE587 /* twitter@2x.png in Resources */,
 				3A930D4A18EE45B3006E5B5E /* x-white.png in Resources */,
 				F7E7BB09194758A0002FE587 /* notification3.png in Resources */,
 				F7E7BAF919475787002FE587 /* add-friend-icon@2x.png in Resources */,
@@ -3578,13 +3592,13 @@
 				F7303EC718E862F30045F9AF /* arrow-up-icon-green.png in Resources */,
 				3A91F20A18EB534F0006B9F8 /* notification4-old.png in Resources */,
 				3A3A0B0B18AB1126006FBAE4 /* send-button-pressed@2x.png in Resources */,
+				F7E7BB841947C235002FE587 /* facebook.png in Resources */,
 				3A3A0B0A18AB1126006FBAE4 /* send-button-pressed.png in Resources */,
 				3A91F21118EB53990006B9F8 /* confessions-icon.png in Resources */,
 				3AB8D18818C23DF00082B77C /* MavenProLight-100.ttf in Resources */,
 				3AB8D19118C259B00082B77C /* MavenProMedium.ttf in Resources */,
 				F7A3F96B18EE33B1006FBA0A /* x-green.png in Resources */,
 				3A4822B1192D0E0C00D5BBC0 /* certificate.cer in Resources */,
-				F7E7BB7519478983002FE587 /* camera-white@2x.png in Resources */,
 				F7E7BB5219478678002FE587 /* global-white@2x.png in Resources */,
 				F7E7BB231947597E002FE587 /* trash-icon-blue@2x.png in Resources */,
 				F7E7BB2519475993002FE587 /* trash-icon-blue.png in Resources */,
@@ -3606,6 +3620,7 @@
 				F7E7BB4519475AF5002FE587 /* group-white.png in Resources */,
 				F7E7BB7419478983002FE587 /* camera-blue@2x.png in Resources */,
 				F7E7BB4319475ADB002FE587 /* group-blue.png in Resources */,
+				F7E7BB801947C204002FE587 /* facebook@2x.png in Resources */,
 				3ABD66DA18FB325900E72B09 /* Owl-Loading-Animation_0015.png in Resources */,
 				3AD19AC218E26356001B3B88 /* loading640x960.png in Resources */,
 				3AD19AC318E26356001B3B88 /* loading640x1136.png in Resources */,
@@ -3658,7 +3673,7 @@
 				3AF925A2191BDADC00795FC6 /* ThoughtsTutorialViewController.xib in Resources */,
 				3A07F6D718D3EFC200E82390 /* check-icon.png in Resources */,
 				3AF92596191BD31A00795FC6 /* SecurityTutorialViewController.xib in Resources */,
-				F7E7BB79194789B7002FE587 /* camera-white.png in Resources */,
+				F7E7BB7D1947A26B002FE587 /* camera-white@2x.png in Resources */,
 				F7E7BB6319478836002FE587 /* check-icon-purple@2x.png in Resources */,
 				3A49E9EC18FF155500AFCB8E /* ThoughtTableViewCell.xib in Resources */,
 				F7E7BB0B194758B0002FE587 /* notification4.png in Resources */,
@@ -3669,6 +3684,7 @@
 				3A3A0B0618AB1126006FBAE4 /* input-bar-background.png in Resources */,
 				3A3A0B1318AB1126006FBAE4 /* message-sent.aiff in Resources */,
 				3AF68FC8191947AD00ABA9C5 /* send-icon.png in Resources */,
+				F7E7BB851947C235002FE587 /* twitter.png in Resources */,
 				3AF521D518EA30A5008320CD /* messages-icon-white.png in Resources */,
 				F7E7BAFF1947581B002FE587 /* add-friend-icon.png in Resources */,
 				3AF692031919B7E400ABA9C5 /* lookup_soft_elegance_1.png in Resources */,

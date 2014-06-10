@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 @property (weak, nonatomic) IBOutlet UIButton *backArrowBtn;
+@property (weak, nonatomic) IBOutlet UIView *greyBackground;
 
 @end
 
@@ -42,6 +43,8 @@
     [self.twitterBtn.layer setCornerRadius:5.0];
     [self.facebookBtn.layer setCornerRadius:5.0];
     [self.backArrowBtn.layer setCornerRadius:5.0];
+    
+    _greyBackground.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.6];;
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.frame];
     [imageView setClipsToBounds:NO];

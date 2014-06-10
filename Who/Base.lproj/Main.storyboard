@@ -813,7 +813,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7ln-9F-xZt">
-                                        <rect key="frame" x="54" y="21" width="38" height="38"/>
+                                        <rect key="frame" x="54" y="20" width="38" height="38"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                         <state key="normal" image="notification-none.png">
@@ -836,7 +836,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vJM-Rr-56W">
-                                        <rect key="frame" x="271" y="21" width="40" height="40"/>
+                                        <rect key="frame" x="271" y="20" width="40" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
@@ -1327,9 +1327,35 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view alpha="0.69999999999999973" contentMode="scaleToFill" id="mao-l6-2Jh">
-                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                            <view contentMode="scaleToFill" id="mao-l6-2Jh">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                                <subviews>
+                                    <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pI8-yI-xPp">
+                                        <rect key="frame" x="20" y="72" width="280" height="69"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="Share on Facebook" image="facebook.png">
+                                            <color key="titleColor" red="0.55294117649999996" green="0.75686274509999996" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="shareOnFacebook:" destination="zuS-lS-aMT" eventType="touchUpInside" id="8E3-fY-4FZ"/>
+                                        </connections>
+                                    </button>
+                                    <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Tz8-D3-tcf">
+                                        <rect key="frame" x="20" y="163" width="280" height="69"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="Tweet about Versapp" image="twitter.png">
+                                            <color key="titleColor" red="0.55294117649999996" green="0.75686274509999996" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="shareOnTwitter:" destination="zuS-lS-aMT" eventType="touchUpInside" id="onk-yn-oom"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Help your friends find out about Versapp through Facebook and Twitter." textAlignment="center" selectable="NO" id="cyS-V2-p1T">
@@ -1339,39 +1365,14 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ccp-0c-k3s">
-                                <rect key="frame" x="20" y="169" width="280" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Share on Facebook">
-                                    <color key="titleColor" red="0.55294117649999996" green="0.75686274509999996" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="shareOnFacebook:" destination="zuS-lS-aMT" eventType="touchUpInside" id="rlB-eS-B4u"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Vki-8i-jDc">
-                                <rect key="frame" x="20" y="213" width="280" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Tweet about Versapp">
-                                    <color key="titleColor" red="0.55294117649999996" green="0.75686274509999996" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="shareOnTwitter:" destination="zuS-lS-aMT" eventType="touchUpInside" id="9Eq-mk-Z7v"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="backArrowBtn" destination="K9m-Fc-zry" id="pKW-Ia-OKW"/>
                         <outlet property="descriptionTextView" destination="cyS-V2-p1T" id="wB9-Dq-50D"/>
-                        <outlet property="facebookBtn" destination="Ccp-0c-k3s" id="0Lw-4s-OIH"/>
+                        <outlet property="greyBackground" destination="mao-l6-2Jh" id="kjS-51-XHU"/>
                         <outlet property="headerLabel" destination="fXo-Qo-FGh" id="v8I-cI-azK"/>
-                        <outlet property="twitterBtn" destination="Vki-8i-jDc" id="xC6-nB-rhj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kBg-fQ-jMf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1985,12 +1986,14 @@
         <image name="check-icon.png" width="192" height="129"/>
         <image name="compose-blue.png" width="125" height="125"/>
         <image name="compose-orange.png" width="125" height="125"/>
+        <image name="facebook.png" width="1163" height="288"/>
         <image name="first" width="30" height="30"/>
         <image name="friend-white.png" width="125" height="125"/>
         <image name="group-white.png" width="240" height="125"/>
         <image name="notification-none.png" width="125" height="125"/>
         <image name="settings-icon-purple.png" width="125" height="125"/>
         <image name="trash-icon-blue.png" width="125" height="125"/>
+        <image name="twitter.png" width="1163" height="288"/>
         <image name="x-blue.png" width="60" height="60"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -2000,12 +2003,12 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="YEX-bB-bO6"/>
-        <segue reference="zTQ-Mf-6oX"/>
-        <segue reference="8c7-Mw-K5g"/>
+        <segue reference="AGt-Q0-zDh"/>
+        <segue reference="Y5D-AL-CYy"/>
+        <segue reference="hVX-XL-lBE"/>
         <segue reference="pHb-Kf-4qo"/>
         <segue reference="BCc-dv-kG7"/>
         <segue reference="z6h-qs-HbB"/>
-        <segue reference="hVX-XL-lBE"/>
         <segue reference="tVn-SP-Hc9"/>
         <segue reference="WHz-1g-xNx"/>
         <segue reference="OKb-WW-kzU"/>
