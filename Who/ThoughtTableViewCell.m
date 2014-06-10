@@ -96,10 +96,10 @@
     
     [_degreeBtn setTitle:@"" forState:UIControlStateNormal];
     [_degreeBtn setImage:[_confession imageForDegree] forState:UIControlStateNormal];
+    _degreeBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [_degreeBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
     [_degreeBtn addTarget:self action:@selector(handleDegreeBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-    if ([_confession.degree isEqualToString:@"2"]) {
-        [_degreeBtn setBounds:CGRectMake(152.48, 287, 47.52, 30)];
-    }
+    
     
     if ([_confession.degree isEqualToString:@"global"]) {
         _chatBtn.hidden = YES;
