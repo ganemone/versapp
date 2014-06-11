@@ -83,6 +83,7 @@
 }
 
 - (BOOL)isPostedByConnectedUser {
+    NSLog(@"%@: %@ = %@?", _body, _posterJID, [ConnectionProvider getUser]);
     return ([_posterJID isEqualToString:[ConnectionProvider getUser]]);
 }
 
