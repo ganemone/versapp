@@ -85,9 +85,9 @@ static ConfessionsManager *selfInstance;
 
 -(void)loadConfessionsWithMethod:(NSString *)method since:(NSString *)since {
     
-    if (![FriendsDBManager hasEnoughFriends]) {
+    /*if (![FriendsDBManager hasEnoughFriends]) {
         method = @"global";
-    }
+    }*/
     
     if ([since isEqualToString:@"0"]) {
         _shouldClearConfessions = YES;

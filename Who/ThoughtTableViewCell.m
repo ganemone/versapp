@@ -87,7 +87,7 @@
     if ([_confession isPostedByConnectedUser]) {
         [_chatBtn addTarget:self action:@selector(handleConfessionDeleted:) forControlEvents:UIControlEventTouchUpInside];
         [_chatBtn setImage:[UIImage imageNamed:@"x-white.png"] forState:UIControlStateNormal];
-        //[_chatBtn setContentEdgeInsets:UIEdgeInsetsMake(3, 3, 3, 3)];
+        [_chatBtn setContentEdgeInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
     } else {
         [_chatBtn setImage:[UIImage imageNamed:@"compose-white.png"] forState:UIControlStateNormal];
         [_chatBtn addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
