@@ -38,7 +38,7 @@
                     <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aF5-wV-ZVW">
                         <rect key="frame" x="250" y="287" width="30" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                        <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
                         <state key="normal" image="fav-icon.png">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -54,6 +54,7 @@
                         <rect key="frame" x="195" y="286" width="47" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
                         <state key="normal">
                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -62,7 +63,7 @@
                     <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FJS-BB-2m5">
                         <rect key="frame" x="157" y="286" width="30" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <inset key="contentEdgeInsets" minX="3" minY="1" maxX="3" maxY="1"/>
+                        <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
                         <state key="normal" image="messages-icon-white.png">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
