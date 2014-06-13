@@ -51,7 +51,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u6s-QL-v6Z">
-                        <rect key="frame" x="195" y="286" width="47" height="30"/>
+                        <rect key="frame" x="197" y="286" width="47" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
