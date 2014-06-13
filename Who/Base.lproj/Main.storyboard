@@ -813,7 +813,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7ln-9F-xZt">
-                                        <rect key="frame" x="54" y="20" width="38" height="38"/>
+                                        <rect key="frame" x="10" y="20" width="38" height="38"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                         <state key="normal" image="notification-none.png">
@@ -821,18 +821,6 @@
                                         </state>
                                         <connections>
                                             <action selector="notificationsClicked:" destination="HoZ-Rh-4HR" eventType="touchUpInside" id="bl4-Pc-N5i"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5Dp-pv-Nsb">
-                                        <rect key="frame" x="10" y="23" width="36" height="36"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                        <state key="normal" image="trash-icon-blue.png">
-                                            <color key="titleColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="toggleEditing:" destination="HoZ-Rh-4HR" eventType="touchUpInside" id="lsc-qO-XBK"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vJM-Rr-56W">
@@ -1990,7 +1978,6 @@
         <image name="group-white.png" width="240" height="125"/>
         <image name="notification-none.png" width="125" height="125"/>
         <image name="settings-icon-purple.png" width="125" height="125"/>
-        <image name="trash-icon-blue.png" width="125" height="125"/>
         <image name="twitter.png" width="1163" height="288"/>
         <image name="x-blue.png" width="60" height="60"/>
     </resources>
@@ -2001,12 +1988,12 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="YEX-bB-bO6"/>
-        <segue reference="zTQ-Mf-6oX"/>
-        <segue reference="8c7-Mw-K5g"/>
+        <segue reference="AGt-Q0-zDh"/>
+        <segue reference="Y5D-AL-CYy"/>
+        <segue reference="hVX-XL-lBE"/>
         <segue reference="pHb-Kf-4qo"/>
         <segue reference="BCc-dv-kG7"/>
         <segue reference="z6h-qs-HbB"/>
-        <segue reference="hVX-XL-lBE"/>
         <segue reference="tVn-SP-Hc9"/>
         <segue reference="WHz-1g-xNx"/>
         <segue reference="OKb-WW-kzU"/>

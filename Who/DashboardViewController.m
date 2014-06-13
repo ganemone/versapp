@@ -46,6 +46,7 @@
 @property (strong, nonatomic) MessageMO *mostRecentMessageInPushedChat;
 @property (strong, nonatomic) UIView *greyOutView;
 @property (strong, nonatomic) ChatMO *editingChat;
+@property (strong, nonatomic) NSIndexPath *editingIndexPath;
 @property (nonatomic) CGFloat notificationHeight;
 
 @property (weak, nonatomic) IBOutlet UIView *noConversationsDarkView;
@@ -257,7 +258,7 @@ static BOOL notificationsHalfHidden = NO;
     [self hideNotifications];
 }
 
-- (IBAction)toggleEditing:(id)sender {
+/*- (IBAction)toggleEditing:(id)sender {
     UIButton *button = (UIButton*)sender;
     if ([_tableView isEditing]) {
         [button setTitle:@"" forState:UIControlStateNormal];
@@ -269,7 +270,7 @@ static BOOL notificationsHalfHidden = NO;
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ENABLE_DASHBOARD_EDITING object:nil];
         [_tableView setEditing:YES animated:YES];
     }
-}
+}*/
 
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -421,12 +422,12 @@ static BOOL notificationsHalfHidden = NO;
     return NO;
 }
 
--(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+/*-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
     return @"Leave Chat";
 }
 
 -(void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
-}
+}*/
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
@@ -738,9 +739,10 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 -(void)handleLongPressForRowAtIndexPath:(NSIndexPath*)indexPath {
+    _editingIndexPath = indexPath;
     if (indexPath.section == 0) {
         _editingChat = [_groupChats objectAtIndex:indexPath.row];
-        [self showRenameDialog];
+        [self showGroupLongPressDialog];
     } else if(indexPath.section == 1) {
         _editingChat = [_oneToOneChats objectAtIndex:indexPath.row];
         [self showOneToOneLongPressDialog];
@@ -750,8 +752,13 @@ static BOOL notificationsHalfHidden = NO;
     }
 }
 
+- (void)showGroupLongPressDialog {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rename Chat", @"Leave Chat", nil];
+    [alertView show];
+}
+
 - (void)showOneToOneLongPressDialog {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rename", @"Block", nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rename Chat", @"Leave Chat", @"Block", nil];
     [alertView show];
 }
 
@@ -765,9 +772,21 @@ static BOOL notificationsHalfHidden = NO;
     if ([alertView cancelButtonIndex] == buttonIndex) {
         _editingChat = nil;
         return;
+    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Rename Chat"]) {
+        [self showRenameDialog];
+    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Rename"]) {
+        [self handleRenameChat:alertView];
+    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Leave Chat"]) {
+        UIAlertView *leaveAlertView = [[UIAlertView alloc] initWithTitle:@"Leave Chat" message:@"Are you sure you want to leave this conversation?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Leave", nil];
+        [leaveAlertView setAlertViewStyle:UIAlertViewStyleDefault];
+        [leaveAlertView show];
+    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Block"]) {
+        [self handleBlockOneToOneChat];
+    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Leave"]) {
+        [self handleLeaveChat];
     }
     
-    if ([alertView numberOfButtons] == 3) {
+    /*if ([alertView numberOfButtons] == 3) {
         if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Block"]) {
             [self showConfirmBlockDiaglog];
         } else {
@@ -777,7 +796,25 @@ static BOOL notificationsHalfHidden = NO;
         [self handleRenameChat:alertView];
     } else if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Block"]) {
         [self handleBlockOneToOneChat];
+    }*/
+}
+
+-(void)handleLeaveChat {
+    if (_editingIndexPath.section == 0 && [_groupChats count] > _editingIndexPath.row) {
+        [_groupChats removeObjectAtIndex:_editingIndexPath.row];
+    } else if(_editingIndexPath.section == 1 && [_oneToOneChats count] > _editingIndexPath.row) {
+        [_oneToOneChats removeObjectAtIndex:_editingIndexPath.row];
+    } else if(_editingIndexPath.section == 2 && [_thoughtChats count] > _editingIndexPath.row) {
+        [_thoughtChats removeObjectAtIndex:_editingIndexPath.row];
+    } else {
+        return;
     }
+    [[self.cp getConnection] sendElement:[IQPacketManager createLeaveChatPacket:_editingChat.chat_id]];
+    [MessagesDBManager deleteMessagesFromChatWithID:_editingChat.chat_id];
+    [ChatDBManager deleteChat:_editingChat];
+    [_tableView deleteRowsAtIndexPaths:@[_editingIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+    _editingChat = nil;
+    _editingIndexPath = nil;
 }
 
 - (void)handleRenameChat:(UIAlertView *)alertView {
