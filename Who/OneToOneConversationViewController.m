@@ -37,8 +37,8 @@
 
 - (void)alertConfessionChat {
     NSString *title = @"What's the deal?";
-    NSString *message = @"This is a one to one chat started from a confession. This chat is two-way anonymous! Neither of you know exactly who the other user is, but you are connected by a confession";
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:@"View Confession", nil];
+    NSString *message = @"This is a one to one chat started from a thought. This chat is two-way anonymous! Neither of you know exactly who the other user is, but you are connected by a thought";
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:@"View Thought", nil];
     [alertView show];
 }
 
@@ -72,10 +72,8 @@
     self.downloadingImageURLs = [[NSMutableArray alloc] initWithCapacity:20];
     
     [self.headerLabel setText:[_chatMO getChatName]];
-    
-    [self.headerLabel setFont:[StyleManager getFontStyleMediumSizeXL]];
-    [self.headerLabel setText:[self.chatMO getChatName]];
     [self.headerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+    NSLog(@"Name: %@", _headerLabel.text);
     
     // Add a bottomBorder to the header view
     CALayer *headerBottomborder = [CALayer layer];
@@ -88,11 +86,12 @@
 
 - (void)setUpInfoBtn {
     if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION]) {
-        [_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 35, 30, 28, 28)];
         if ([FriendsDBManager hasUserWithJID:_chatMO.owner_id]) {
-            [_infoBtn setImage:[UIImage imageNamed:@"friend-blue.png"] forState:UIControlStateNormal];
+            [_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 35, 30, 28, 28)];
+            [_infoBtn setImage:[UIImage imageNamed:@"friend-white.png"] forState:UIControlStateNormal];
         } else {
-            [_infoBtn setImage:[UIImage imageNamed:@"second-degree-blue.png"] forState:UIControlStateNormal];
+            [_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 51, 30, 44, 28)];
+            [_infoBtn setImage:[UIImage imageNamed:@"second-degree-white.png"] forState:UIControlStateNormal];
         }
         [_headerLabel setFrame:CGRectMake(_header.frame.origin.x, _header.frame.origin.y, _header.frame.size.width - 25, _header.frame.size.height)];
     } else if([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITED]) {

@@ -73,6 +73,7 @@
             <connections>
                 <outlet property="body" destination="x54-lS-xaS" id="daK-8p-vNu"/>
                 <outlet property="chatBtn" destination="FJS-BB-2m5" id="9TS-Ar-SkV"/>
+                <outlet property="degreeBtn" destination="u6s-QL-v6Z" id="kH2-MC-P6X"/>
                 <outlet property="favBtn" destination="aF5-wV-ZVW" id="Lhs-2d-Foa"/>
                 <outlet property="favLabel" destination="Td2-4k-xQW" id="bbE-6n-ylM"/>
                 <outlet property="greyView" destination="EBV-Bw-nTy" id="Y3N-y1-zPc"/>
