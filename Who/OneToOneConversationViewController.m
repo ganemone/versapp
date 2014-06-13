@@ -93,7 +93,6 @@
             [_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 51, 30, 44, 28)];
             [_infoBtn setImage:[UIImage imageNamed:@"second-degree-white.png"] forState:UIControlStateNormal];
         }
-        [_headerLabel setFrame:CGRectMake(_header.frame.origin.x, _header.frame.origin.y, _header.frame.size.width - 25, _header.frame.size.height)];
     } else if([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITED]) {
         [_infoBtn setImage:[UIImage imageNamed:@"unknown-white.png"] forState:UIControlStateNormal];
         [_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 35, 30, 28, 28)];
@@ -277,7 +276,7 @@
     NSString *title = @"What's the deal?";
     NSString *message;
     if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION]) {
-        message = @"This is a one to one chat started from a confession. This chat is two-way anonymous! Neither of you know exactly who the other user is, but you are connected by a confession";
+        message = @"This is a one to one chat started from a thought. This chat is two-way anonymous! Neither of you know exactly who the other user is, but you are connected by a thought.";
     } else if([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITED]) {
         message = @"This is a one to one chat started by one of your friends. Remember, since they started the chat, they know who you are but you don't know who they are.";
     } else {
@@ -285,7 +284,7 @@
     }
     
     if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION]) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:@"View Confession", nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:@"View Thought", nil];
         [alertView show];
     } else {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:nil];
@@ -295,8 +294,8 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION] && [alertView numberOfButtons] > 1) {
-        if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString: @"View Confession"]) {
-            UIAlertView *confessionAlert = [[UIAlertView alloc] initWithTitle:@"Confession" message:_chatMO.chat_name delegate:self cancelButtonTitle:@"Cool" otherButtonTitles: nil];
+        if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString: @"View Thought"]) {
+            UIAlertView *confessionAlert = [[UIAlertView alloc] initWithTitle:@"Thought" message:_chatMO.chat_name delegate:self cancelButtonTitle:@"Cool" otherButtonTitles: nil];
             [confessionAlert show];
         }
     } else {
