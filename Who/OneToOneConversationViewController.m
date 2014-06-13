@@ -37,14 +37,14 @@
 
 - (void)alertConfessionChat {
     NSString *title = @"What's the deal?";
-    NSString *message = @"This is a one to one chat started from a thought. This chat is two-way anonymous! Neither of you know exactly who the other user is, but you are connected by a thought";
+    NSString *message = [NSString stringWithFormat:@"This is a one to one chat between you and a %@ started from a thought. This chat is two-way anonymous! Neither of you know exactly who the other user is, but you are connected by a thought.", [self thoughtChatDegree]];
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:@"View Thought", nil];
     [alertView show];
 }
 
 - (void)alertInvitedOneToOne {
     NSString *title = @"What's the deal?";
-    NSString *message = @"This is a one to one chat started by one of your friends. Since they started the chat, they know who you are but you don't know who they are.";
+    NSString *message = @"This is a one to one chat started by one of your friends. Since they started the chat, they know who you are but you don't know who they are!";
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:nil];
     [alertView show];
 }
@@ -54,6 +54,13 @@
     NSString *message = [NSString stringWithFormat:@"This is a one to one chat between you and %@. This chat is one-way anonymous. Since you started the chat, you know who they are, but they don't know who you are!", _chatMO.chat_name];
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:nil];
     [alertView show];
+}
+
+-(NSString *)thoughtChatDegree {
+    if ([FriendsDBManager hasUserWithJID:_chatMO.owner_id])
+        return @"friend";
+    else
+        return @"friend of a friend";
 }
 
 - (void)viewDidLoad
@@ -276,7 +283,7 @@
     NSString *title = @"What's the deal?";
     NSString *message;
     if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION]) {
-        message = @"This is a one to one chat started from a thought. This chat is two-way anonymous! Neither of you know exactly who the other user is, but you are connected by a thought.";
+        message = [NSString stringWithFormat:@"This is a one to one chat between you and a %@ started from a thought. This chat is two-way anonymous! Neither of you know exactly who the other user is, but you are connected by a thought.", [self thoughtChatDegree]];
     } else if([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITED]) {
         message = @"This is a one to one chat started by one of your friends. Remember, since they started the chat, they know who you are but you don't know who they are.";
     } else {
@@ -295,7 +302,7 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION] && [alertView numberOfButtons] > 1) {
         if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString: @"View Thought"]) {
-            UIAlertView *confessionAlert = [[UIAlertView alloc] initWithTitle:@"Thought" message:_chatMO.chat_name delegate:self cancelButtonTitle:@"Cool" otherButtonTitles: nil];
+            UIAlertView *confessionAlert = [[UIAlertView alloc] initWithTitle:@"Thought" message:_chatMO.chat_name delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil];
             [confessionAlert show];
         }
     } else {
