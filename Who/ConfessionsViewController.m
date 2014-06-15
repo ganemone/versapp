@@ -75,7 +75,7 @@
     }
     CGRect favFrame = CGRectMake(firstCell.favBtn.frame.origin.x - 5, firstCell.favBtn.frame.origin.y - 5 + _header.frame.size.height, 55, 37);
     
-    CGRect typeFrame = CGRectMake(firstCell.degreeBtn.frame.origin.x - 5, favFrame.origin.y, 40, 37);
+    CGRect typeFrame = CGRectMake(firstCell.degreeBtn.frame.origin.x + 4, favFrame.origin.y, 40, 37);
     
     
     NSArray *coachMarks = @[
