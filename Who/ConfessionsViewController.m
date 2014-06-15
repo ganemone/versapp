@@ -110,7 +110,19 @@
         [UserDefaultManager setSeenThoughtsTrue];
         [self doTutorial];
     }
-    _isGlobalFeed = ![FriendsDBManager hasEnoughFriends];
+    
+    [self refreshSegmentControl];
+}
+
+- (void)refreshSegmentControl {
+    if (![FriendsDBManager hasEnoughFriends]) {
+        _isGlobalFeed = YES;
+        [_thoughtSegmentedControl setEnabled:NO forSegmentAtIndex:0];
+        [_thoughtSegmentedControl setSelectedSegmentIndex:1];
+    } else {
+        _isGlobalFeed = NO;
+        [_thoughtSegmentedControl setEnabled:YES forSegmentAtIndex:0];
+    }
 }
 
 - (void)viewDidLoad
@@ -123,10 +135,13 @@
         [MBProgressHUD showHUDAddedTo:_tableView animated:YES];
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name: PACKET_ID_GET_CONFESSIONS object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name:PACKET_ID_POST_CONFESSION object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshListView) name:NOTIFICATION_CONFESSION_DELETED object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOneToOneChatCreatedFromConfession) name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION object:nil];
+    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    [defaultCenter addObserver:self selector:@selector(refreshSegmentControl) name:PACKET_ID_GET_ROSTER object:nil];
+    [defaultCenter addObserver:self selector:@selector(refreshListView) name: PACKET_ID_GET_CONFESSIONS object:nil];
+    [defaultCenter addObserver:self selector:@selector(refreshListView) name:PACKET_ID_POST_CONFESSION object:nil];
+    [defaultCenter addObserver:self selector:@selector(refreshListView) name:NOTIFICATION_CONFESSION_DELETED object:nil];
+    [defaultCenter addObserver:self selector:@selector(handleOneToOneChatCreatedFromConfession) name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION object:nil];
+    
     
     [self.headerLabel setFont:[StyleManager getFontStyleLightSizeHeader]];
     
@@ -157,12 +172,6 @@
     }];
     
     _isFetchingOlderThoughts = NO;
-    
-    if (![FriendsDBManager hasEnoughFriends]) {
-        [_thoughtSegmentedControl setEnabled:NO forSegmentAtIndex:0];
-        [_thoughtSegmentedControl setSelectedSegmentIndex:1];
-    }
-    
 }
 
 - (void)loadConfessions {

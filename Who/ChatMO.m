@@ -86,7 +86,7 @@
 }
 
 -(NSString *)getChatName {
-    return (self.user_defined_chat_name == nil) ? self.chat_name : self.user_defined_chat_name;
+    return (self.user_defined_chat_name == nil || [self.user_defined_chat_name isEqualToString:@""]) ? self.chat_name : self.user_defined_chat_name;
 }
 
 @end

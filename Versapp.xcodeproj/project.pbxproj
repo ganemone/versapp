@@ -249,7 +249,6 @@
 		3AC0BA2F18AEEFBA0061A565 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC0BA2E18AEEFBA0061A565 /* Base64.m */; };
 		3AC6D0CF18C0E17100091539 /* ChatDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6D0CE18C0E17100091539 /* ChatDBManager.m */; };
 		3AC6D0D218C22A9500091539 /* StyleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6D0D118C22A9500091539 /* StyleManager.m */; };
-		3ACF496C1900076200D982F4 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ACF496B1900076200D982F4 /* FacebookSDK.framework */; };
 		3ACF496F1900181F00D982F4 /* SocialSharingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACF496E1900181F00D982F4 /* SocialSharingManager.m */; };
 		3ACF497119001B7800D982F4 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ACF497019001B7800D982F4 /* Social.framework */; };
 		3AD19AB818E26298001B3B88 /* AppIcon58.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD19AB518E26298001B3B88 /* AppIcon58.png */; };
@@ -485,6 +484,7 @@
 		3AFF778418C415BD003277F9 /* ChatMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778318C415BD003277F9 /* ChatMO.m */; };
 		3AFF778718C415BE003277F9 /* FriendMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778618C415BE003277F9 /* FriendMO.m */; };
 		3AFFC93D18A06AE3009D7F13 /* db.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC93B18A06AE3009D7F13 /* db.xcdatamodeld */; };
+		B3B9358F1949693400C281FA /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B9358E1949693400C281FA /* FacebookSDK.framework */; };
 		F7303EC718E862F30045F9AF /* arrow-up-icon-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303EC618E862F30045F9AF /* arrow-up-icon-green.png */; };
 		F7303EC918E8E3100045F9AF /* arrow-up-icon-square-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303EC818E8E3100045F9AF /* arrow-up-icon-square-green.png */; };
 		F73713F218E4FADF008A9ED2 /* AddToGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F73713F118E4FADF008A9ED2 /* AddToGroupViewController.m */; };
@@ -1007,7 +1007,6 @@
 		3AC6D0CE18C0E17100091539 /* ChatDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatDBManager.m; sourceTree = "<group>"; };
 		3AC6D0D018C22A9500091539 /* StyleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleManager.h; sourceTree = "<group>"; };
 		3AC6D0D118C22A9500091539 /* StyleManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleManager.m; sourceTree = "<group>"; };
-		3ACF496B1900076200D982F4 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		3ACF496D1900181F00D982F4 /* SocialSharingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialSharingManager.h; sourceTree = "<group>"; };
 		3ACF496E1900181F00D982F4 /* SocialSharingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialSharingManager.m; sourceTree = "<group>"; };
 		3ACF497019001B7800D982F4 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -1448,6 +1447,7 @@
 		3AFF778518C415BE003277F9 /* FriendMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendMO.h; sourceTree = "<group>"; };
 		3AFF778618C415BE003277F9 /* FriendMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendMO.m; sourceTree = "<group>"; };
 		3AFFC93C18A06AE3009D7F13 /* db.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = db.xcdatamodel; sourceTree = "<group>"; };
+		B3B9358E1949693400C281FA /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		F7303EC618E862F30045F9AF /* arrow-up-icon-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-up-icon-green.png"; sourceTree = "<group>"; };
 		F7303EC818E8E3100045F9AF /* arrow-up-icon-square-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-up-icon-square-green.png"; sourceTree = "<group>"; };
 		F73713F018E4FADF008A9ED2 /* AddToGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddToGroupViewController.h; sourceTree = "<group>"; };
@@ -1600,11 +1600,11 @@
 				3AF19A761881F6C300F3E4D3 /* libresolv.dylib in Frameworks */,
 				3AF19A4E1881F11800F3E4D3 /* Security.framework in Frameworks */,
 				3AF19A4C1881F10B00F3E4D3 /* CFNetwork.framework in Frameworks */,
-				3ACF496C1900076200D982F4 /* FacebookSDK.framework in Frameworks */,
 				3A25B6391881E03700166623 /* CoreGraphics.framework in Frameworks */,
 				3AF19A731881F67300F3E4D3 /* libidn.a in Frameworks */,
 				3A25B63B1881E03700166623 /* UIKit.framework in Frameworks */,
 				3A25B6371881E03700166623 /* Foundation.framework in Frameworks */,
+				B3B9358F1949693400C281FA /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1727,8 +1727,8 @@
 		3A25B6351881E03700166623 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B3B9358E1949693400C281FA /* FacebookSDK.framework */,
 				3ACF497019001B7800D982F4 /* Social.framework */,
-				3ACF496B1900076200D982F4 /* FacebookSDK.framework */,
 				3A59D5F018B2F32200CE7B7B /* Accelerate.framework */,
 				3A3A0B1518AB118A006FBAE4 /* AudioToolbox.framework */,
 				3A0FE1C418A9A4C7003692EB /* CoreText.framework */,
@@ -4229,13 +4229,14 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/who",
-					/users/rlundquist3/development/ios/FacebookSDK,
+					/Users/giancarlo/Documents/dev/ios/FacebookSDK,
+					/Users/giancarlo/Documents/FacebookSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/Versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = /Users/rlundquist3/development/ios/who/who_ios/who;
+				LIBRARY_SEARCH_PATHS = /Users/giancarlo/Documents/dev/ios/Who/Who;
 				PRODUCT_NAME = Versapp;
 				PROVISIONING_PROFILE = "C541311C-6531-4B45-807D-7327695EC04C";
 				WRAPPER_EXTENSION = app;
@@ -4249,13 +4250,14 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/who",
-					/users/rlundquist3/development/ios/FacebookSDK,
+					/Users/giancarlo/Documents/dev/ios/FacebookSDK,
+					/Users/giancarlo/Documents/FacebookSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/Versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = /Users/rlundquist3/development/ios/who/who_ios/who;
+				LIBRARY_SEARCH_PATHS = /Users/giancarlo/Documents/dev/ios/Who/Who;
 				PRODUCT_NAME = Versapp;
 				PROVISIONING_PROFILE = "C541311C-6531-4B45-807D-7327695EC04C";
 				WRAPPER_EXTENSION = app;

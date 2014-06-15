@@ -401,21 +401,6 @@
         dispatch_sync(mainQ, ^{
             ConnectionProvider *cp = [ConnectionProvider getInstance];
             XMPPStream *conn = [cp getConnection];
-            /*if (cp.shouldAlertUserWithAddedFriends)
-             {
-             [cp setShouldAlertUserWithAddedFriends:NO];
-             if ([allItems count] > 0)
-             {
-             NSString *message = ([allItems count] > 1) ? @"Friends": @"Friend";
-             NSString *message2 = ([allItems count] > 1) ? @"have": @"has";
-             
-             [[[UIAlertView alloc] initWithTitle:@""
-             message:[NSString stringWithFormat:@"%d %@ %@ been added to your friends list.", [allItems count], message, message2]
-             delegate:self
-             cancelButtonTitle:@"Ok"
-             otherButtonTitles:nil] show];
-             }
-             }*/
             for (NSString *username in itemsWithoutVCard)
             {
                 [conn sendElement:[IQPacketManager createGetVCardPacket:username]];
@@ -424,6 +409,7 @@
             {
                 [conn sendElement:[IQPacketManager createSubscribedPacket:username]];
             }
+            [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_ROSTER object:nil];
         });
     }];
 }
