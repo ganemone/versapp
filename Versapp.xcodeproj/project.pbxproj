@@ -4225,20 +4225,19 @@
 		3A25B6691881E03700166623 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/who",
-					/Users/giancarlo/Documents/dev/ios/FacebookSDK,
-					/Users/giancarlo/Documents/FacebookSDK,
+					/users/rlundquist3/development/ios/FacebookSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/Versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = /Users/giancarlo/Documents/dev/ios/Who/Who;
+				LIBRARY_SEARCH_PATHS = /Users/rlundquist3/development/ios/who/who_ios/who;
 				PRODUCT_NAME = Versapp;
-				PROVISIONING_PROFILE = "C541311C-6531-4B45-807D-7327695EC04C";
+				PROVISIONING_PROFILE = "B829E153-D621-4B29-BD37-A6D9DBF8691D";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -4246,20 +4245,19 @@
 		3A25B66A1881E03700166623 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/who",
-					/Users/giancarlo/Documents/dev/ios/FacebookSDK,
-					/Users/giancarlo/Documents/FacebookSDK,
+					/users/rlundquist3/development/ios/FacebookSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/Versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = /Users/giancarlo/Documents/dev/ios/Who/Who;
+				LIBRARY_SEARCH_PATHS = /Users/rlundquist3/development/ios/who/who_ios/who;
 				PRODUCT_NAME = Versapp;
-				PROVISIONING_PROFILE = "C541311C-6531-4B45-807D-7327695EC04C";
+				PROVISIONING_PROFILE = "B829E153-D621-4B29-BD37-A6D9DBF8691D";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

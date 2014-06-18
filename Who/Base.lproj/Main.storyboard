@@ -1125,7 +1125,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="J3u-R3-Wbe">
-                                        <rect key="frame" x="262" y="30" width="50" height="23"/>
+                                        <rect key="frame" x="262" y="30" width="50" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
                                         <state key="normal" image="group-white.png">
@@ -1964,20 +1964,20 @@
         </scene>
     </scenes>
     <resources>
-        <image name="add-friend-icon.png" width="125" height="125"/>
-        <image name="arrow-left-icon-green.png" width="125" height="125"/>
-        <image name="arrow-left-icon.png" width="125" height="125"/>
-        <image name="camera-white.png" width="104" height="104"/>
-        <image name="check-icon-purple.png" width="125" height="125"/>
+        <image name="add-friend-icon.png" width="30" height="30"/>
+        <image name="arrow-left-icon-green.png" width="30" height="30"/>
+        <image name="arrow-left-icon.png" width="30" height="30"/>
+        <image name="camera-white.png" width="26" height="26"/>
+        <image name="check-icon-purple.png" width="30" height="30"/>
         <image name="check-icon.png" width="192" height="129"/>
-        <image name="compose-blue.png" width="125" height="125"/>
-        <image name="compose-orange.png" width="125" height="125"/>
+        <image name="compose-blue.png" width="30" height="30"/>
+        <image name="compose-orange.png" width="30" height="30"/>
         <image name="facebook.png" width="1163" height="288"/>
         <image name="first" width="30" height="30"/>
-        <image name="friend-white.png" width="125" height="125"/>
-        <image name="group-white.png" width="240" height="125"/>
-        <image name="notification-none.png" width="125" height="125"/>
-        <image name="settings-icon-purple.png" width="125" height="125"/>
+        <image name="friend-white.png" width="30" height="30"/>
+        <image name="group-white.png" width="58" height="30"/>
+        <image name="notification-none.png" width="30" height="30"/>
+        <image name="settings-icon-purple.png" width="30" height="30"/>
         <image name="twitter.png" width="1163" height="288"/>
         <image name="x-blue.png" width="60" height="60"/>
     </resources>
