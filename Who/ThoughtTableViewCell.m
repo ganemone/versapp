@@ -123,7 +123,9 @@
     if ([[_confession.imageURL substringToIndex:1] isEqualToString:@"#"]) {
         NSLog(@"Image Color: %@", _confession.imageURL);
         [MBProgressHUD hideHUDForView:self.contentView animated:YES];
-        [self setBackgroundColor:[UIColor colorWithHexString:_confession.imageURL]];
+        UIColor *color = [UIColor colorWithHexString:_confession.imageURL];
+        NSLog(@"Setting color to: %@", [color description]);
+        [self setBackgroundColor:color];
     } else if(!([_confession.imageURL isEqualToString:@""] || _confession.imageURL == nil)) {
         ImageCache *cache = [ImageCache getInstance];
         if ([cache hasImageWithIdentifier:_confession.confessionID]) {
@@ -144,6 +146,7 @@
 }
 
 - (void)setUpBackgroundViewWithImage:(UIImage *)image {
+    NSLog(@"Setting up background view with image: %@", [image description]);
     _backgroundImage = [self imageWithImage:image scaledToMaxWidth:320 maxHeight:320];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.contentView.frame];
     imageView.alpha = 0;

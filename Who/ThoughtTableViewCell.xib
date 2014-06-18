@@ -69,7 +69,6 @@
                         </state>
                     </button>
                 </subviews>
-                <color key="backgroundColor" red="0.21960784310000001" green="0.65490196079999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
             </tableViewCellContentView>
             <connections>
                 <outlet property="body" destination="x54-lS-xaS" id="daK-8p-vNu"/>
