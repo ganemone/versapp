@@ -64,7 +64,7 @@ static BOOL notificationsHalfHidden = NO;
         [UserDefaultManager setLoggedInTrue];
         [[[UIAlertView alloc] initWithTitle:@"Welcome to Versapp" message:@"We will guide you through all of Versapps features. This page is your message dashboard. All of your conversations will appear here. Swipe to checkout the other screens." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
     }
-    if ([self.tableView numberOfRowsInSection:0] + [self.tableView numberOfRowsInSection:1] == 0)
+    if ([FriendsDBManager getAllWithStatusFriends].count < 2 || [self.tableView numberOfRowsInSection:0] + [self.tableView numberOfRowsInSection:1] == 0)
     {
         [self showNoConversationsView];
     }
