@@ -44,4 +44,6 @@
 
 -(NSString *)getChatName;
 
+-(NSString *)getOldChatName;
+
 @end
