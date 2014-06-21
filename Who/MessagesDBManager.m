@@ -71,7 +71,7 @@
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", MESSAGE_PROPERTY_GROUP_ID, chatID];
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:MESSAGE_PROPERTY_TIMESTAMP ascending:NO];
-    [fetchRequest setFetchLimit:10];
+    [fetchRequest setFetchLimit:100];
     [fetchRequest setPredicate:predicate];
     
     [fetchRequest setSortDescriptors:@[sort]];

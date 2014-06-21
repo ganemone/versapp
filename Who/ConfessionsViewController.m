@@ -117,11 +117,13 @@
 - (void)refreshSegmentControl {
     if (![FriendsDBManager hasEnoughFriends]) {
         _isGlobalFeed = YES;
+        _currentMethod = @"global";
         [_thoughtSegmentedControl setEnabled:NO forSegmentAtIndex:0];
         [_thoughtSegmentedControl setSelectedSegmentIndex:1];
     } else {
         _isGlobalFeed = NO;
         [_thoughtSegmentedControl setEnabled:YES forSegmentAtIndex:0];
+        _currentMethod = ([_thoughtSegmentedControl selectedSegmentIndex] == 1) ? @"global" : @"friends";
     }
 }
 
@@ -130,10 +132,13 @@
     [super viewDidLoad];
     
     self.confessionsManager = [ConfessionsManager getInstance];
-    
+    NSLog(@"Current Number of Thoughts: %d", [self.confessionsManager getNumberOfConfessions]);
     if ([self.confessionsManager getNumberOfConfessions] == 0) {
+        NSLog(@"Adding loading view");
         [MBProgressHUD showHUDAddedTo:_tableView animated:YES];
     }
+    
+    [self refreshSegmentControl];
     
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     [defaultCenter addObserver:self selector:@selector(refreshSegmentControl) name:PACKET_ID_GET_ROSTER object:nil];
@@ -175,7 +180,7 @@
 }
 
 - (void)loadConfessions {
-    [_confessionsManager loadConfessionsWithMethod:@"friends"];
+    [_confessionsManager loadConfessionsWithMethod:_currentMethod];
 }
 
 - (void)didReceiveMemoryWarning

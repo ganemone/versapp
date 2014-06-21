@@ -4225,8 +4225,8 @@
 		3A25B6691881E03700166623 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/who",
 					/Users/giancarlo/Documents/dev/ios/FacebookSDK,
@@ -4238,7 +4238,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = /Users/giancarlo/Documents/dev/ios/Who/Who;
 				PRODUCT_NAME = Versapp;
-				PROVISIONING_PROFILE = "C541311C-6531-4B45-807D-7327695EC04C";
+				PROVISIONING_PROFILE = "C00D2DC7-70FE-48A3-9C9B-E0A022CECA8A";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -4246,8 +4246,8 @@
 		3A25B66A1881E03700166623 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/who",
 					/Users/giancarlo/Documents/dev/ios/FacebookSDK,
@@ -4259,7 +4259,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = /Users/giancarlo/Documents/dev/ios/Who/Who;
 				PRODUCT_NAME = Versapp;
-				PROVISIONING_PROFILE = "C541311C-6531-4B45-807D-7327695EC04C";
+				PROVISIONING_PROFILE = "C00D2DC7-70FE-48A3-9C9B-E0A022CECA8A";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

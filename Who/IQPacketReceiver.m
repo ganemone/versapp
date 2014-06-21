@@ -434,7 +434,11 @@
         [[[ContactSearchManager alloc] init] accessContacts];
         [UserDefaultManager setSentBlacklistTrue];
     }
-    [[ConfessionsManager getInstance] loadConfessionsWithMethod:@"friends"];
+    if ([FriendsDBManager hasEnoughFriends]) {
+        [[ConfessionsManager getInstance] loadConfessionsWithMethod:@"friends"];
+    } else {
+        [[ConfessionsManager getInstance] loadConfessionsWithMethod:@"global"];
+    }
 }
 
 +(void)handleToggleFavoriteConfessionPacket:(XMPPIQ *)iq {
