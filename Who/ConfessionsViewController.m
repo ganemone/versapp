@@ -122,6 +122,8 @@
         [_thoughtSegmentedControl setSelectedSegmentIndex:1];
     } else {
         _isGlobalFeed = NO;
+        if (_currentMethod == nil)
+            _currentMethod = @"friends";
         [_thoughtSegmentedControl setEnabled:YES forSegmentAtIndex:0];
         _currentMethod = ([_thoughtSegmentedControl selectedSegmentIndex] == 1) ? @"global" : @"friends";
     }
@@ -280,7 +282,12 @@
  }*/
 
 - (IBAction)handleDiscloseInfoBtnClicked:(id)sender {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Thoughts" message:@"This is your newsfeed of thoughts. Thoughts are anonymous and you only see the Thoughts of your friends. Both favoriting and chatting are also anonymous!" delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil];
+    NSString *info;
+    if ([_currentMethod isEqualToString:@"friends"])
+        info = @"This is your friends thoughts feed. These anonymous thoughts are from your friends and friends of friends. Both chatting and favoriting are also anonymous!";
+    else
+        info = @"This is your global thoughts feed. These anonymous thoughts are from anyone other than your direct friends or friends of friends. You can't start a chat here, but you can anonymously favorite.";
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Thoughts" message:info delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil];
     [alertView show];
 }
 
