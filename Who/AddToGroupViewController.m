@@ -82,8 +82,8 @@
 -(void)setChatID:(NSString *)chatID {
     _chatID = chatID;
     _chatMO = [ChatDBManager getChatWithID:chatID];
-    _selectedJIDs = [[NSMutableArray alloc] initWithArray:_chatMO.participants];
-    _originalJIDs = [[NSArray alloc] initWithArray:_chatMO.participants];
+    _selectedJIDs = [[NSMutableArray alloc] initWithArray:[_chatMO getParticipantJIDS]];
+    _originalJIDs = [[NSArray alloc] initWithArray:[_chatMO getParticipantJIDS]];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {\

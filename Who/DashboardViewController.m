@@ -113,6 +113,7 @@ static BOOL notificationsHalfHidden = NO;
                             ];
     WSCoachMarksView *coachMarksView = [[WSCoachMarksView alloc] initWithFrame:self.view.bounds coachMarks:coachMarks];
     [self.view addSubview:coachMarksView];
+    [self.view bringSubviewToFront:coachMarksView];
     [coachMarksView start];
 }
 
@@ -170,19 +171,23 @@ static BOOL notificationsHalfHidden = NO;
 
 - (void)showNoConversationsView
 {
-    _noConversationsDarkView.hidden = NO;
-    _noConversationsView.hidden = NO;
-    [self.view bringSubviewToFront:_noConversationsDarkView];
-    [self.view bringSubviewToFront:_noConversationsView];
-    [self.view bringSubviewToFront:self.notificationTableView];
+    [UIView animateWithDuration:0.5 animations:^{
+        _noConversationsDarkView.hidden = NO;
+        _noConversationsView.hidden = NO;
+        [self.view bringSubviewToFront:_noConversationsDarkView];
+        [self.view bringSubviewToFront:_noConversationsView];
+        [self.view bringSubviewToFront:self.notificationTableView];
+    }];
 }
 
 - (void)hideNoConfersationsView
 {
-    _noConversationsDarkView.hidden = YES;
-    _noConversationsView.hidden = YES;
-    [self.view sendSubviewToBack:_noConversationsDarkView];
-    [self.view sendSubviewToBack:_noConversationsView];
+    [UIView animateWithDuration:0.5 animations:^{
+        _noConversationsDarkView.hidden = YES;
+        _noConversationsView.hidden = YES;
+        [self.view sendSubviewToBack:_noConversationsDarkView];
+        [self.view sendSubviewToBack:_noConversationsView];
+    }];
 }
 
 - (void)handlePan:(UIPanGestureRecognizer *)recognizer {
@@ -831,7 +836,7 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 - (void)handleBlockOneToOneChat {
-    NSString *otherUser = ([[[_editingChat participants] firstObject] isEqualToString:[ConnectionProvider getUser]]) ? [_editingChat.participants lastObject] : [_editingChat.participants firstObject];
+    NSString *otherUser = [_editingChat getMessageTo];
     [[self.cp getConnection] sendElement:[IQPacketManager createBlockImplicitUserPacket:otherUser]];
     [self.oneToOneChats removeObject:_editingChat];
     [ChatDBManager deleteChat:_editingChat];

@@ -337,7 +337,7 @@
 
 - (IBAction)showGroupParticipants:(id)sender {
     _chatMO = [ChatDBManager getChatWithID:_chatMO.chat_id];
-    NSArray *members = self.chatMO.participants;
+    NSArray *members = [_chatMO getParticipantJIDS];
     NSMutableArray *list = [[NSMutableArray alloc] init];
     for (NSString *member in members) {
         FriendMO *friend = [FriendsDBManager getUserWithJID:[NSString stringWithFormat:@"%@", member]];

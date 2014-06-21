@@ -138,7 +138,10 @@
     
     for (NSTextCheckingResult *match in matches) {
         if ([[packetXML substringWithRange:[match rangeAtIndex:3]] isEqualToString:@"active"]) {
-            [participants addObject:[packetXML substringWithRange:[match rangeAtIndex:1]]];
+            NSDictionary *participantDict = @{PARTICIPANT_STATUS: [packetXML substringWithRange:[match rangeAtIndex:3]],
+                                              PARTICIPANT_JID : [packetXML substringWithRange:[match rangeAtIndex:1]],
+                                              PARTICIPANT_INVITED_BY : [packetXML substringWithRange:[match rangeAtIndex:2]]};
+            [participants addObject:participantDict];
         }
     }
     

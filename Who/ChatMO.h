@@ -46,4 +46,6 @@
 
 -(NSString *)getOldChatName;
 
+-(NSArray *)getParticipantJIDS;
+
 @end
