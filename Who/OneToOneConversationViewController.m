@@ -51,12 +51,6 @@
 
 - (void)alertInviterOneToOne {
     NSString *title = @"What's the deal?";
-    /*NSString *friendName;
-    if ([FriendsDBManager getUserWithJID:_chatMO.participant_string].name == NULL)
-        friendName = [_chatMO getChatName];
-    else
-        friendName = [FriendsDBManager getUserWithJID:_chatMO.participant_string].name;*/
-    
     NSString *message = [NSString stringWithFormat:@"This is a one to one chat between you and %@. This chat is one-way anonymous. Since you started the chat, you know who they are, but they don't know who you are!", [_chatMO getOldChatName]];
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:nil];
     [alertView show];
@@ -292,11 +286,6 @@
     } else if([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITED]) {
         message = @"This is a one to one chat started by one of your friends. Remember, since they started the chat, they know who you are but you don't know who they are.";
     } else {
-        /*NSString *friendName;
-        if ([FriendsDBManager getUserWithJID:_chatMO.participant_string].name == NULL)
-            friendName = [_chatMO getChatName];
-        else
-            friendName = [FriendsDBManager getUserWithJID:_chatMO.participant_string].name;*/
         message = [NSString stringWithFormat:@"This is a one to one chat between you and %@. This chat is one-way anonymous. Since you started the chat, you know who they are, but they don't know who you are!", [_chatMO getOldChatName]];
     }
     
