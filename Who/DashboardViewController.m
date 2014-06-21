@@ -40,6 +40,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *notificationsButton;
 @property (strong, nonatomic) UIButton *notificationsButtonGreen;
 @property (strong, nonatomic) UIView *notificationsHeader;
+@property (strong, nonatomic) UIView *notificationsFooter;
 @property (strong, nonatomic) UITableView *notificationTableView;
 @property (strong, nonatomic) NSMutableArray *friendRequests;
 @property (strong, nonatomic) NSMutableArray *groupInvites;
@@ -76,7 +77,6 @@ static BOOL notificationsHalfHidden = NO;
         }
         [self hideNoConfersationsView];
     }
-    
 }
 
 -(void)doTutorial {
@@ -149,7 +149,16 @@ static BOOL notificationsHalfHidden = NO;
     [self.notificationTableView setDelegate:self];
     [self.notificationTableView setDataSource:self];
     [self.notificationTableView setSeparatorColor:[StyleManager getColorGreen]];
-    [self.notificationTableView setBackgroundColor:[UIColor clearColor]];
+    [self.notificationTableView setBackgroundColor:[UIColor whiteColor]];
+    
+    _notificationsFooter = [[UIView alloc] init];
+    [_notificationsFooter setBackgroundColor:[UIColor blackColor]];
+    [_notificationsFooter setAlpha:0.3];
+    UIImageView *footerHandle = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"notification-none"]];
+    [footerHandle setFrame:CGRectMake(self.view.frame.size.width/2 - 10, 0, 20, 20)];
+    [_notificationsFooter addSubview:footerHandle];
+    _notificationsFooter.hidden = YES;
+    [self.view addSubview:_notificationsFooter];
     
     _greyOutView = [[UIView alloc] initWithFrame:CGRectZero];
     [_greyOutView setUserInteractionEnabled:NO];
@@ -165,7 +174,7 @@ static BOOL notificationsHalfHidden = NO;
     [self.noConversationsDarkView setFrame:CGRectMake(0, self.headerView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.headerView.frame.size.height)];
     [self.noConversationsView setFrame:_noConversationsDarkView.frame];
     
-    [_notificationTableView setFrame:CGRectMake(0, 0, self.view.frame.size.width, 0)];
+    [_notificationTableView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/2 - footerSize)];
 
 }
 
@@ -194,6 +203,7 @@ static BOOL notificationsHalfHidden = NO;
     CGPoint scrollToPoint = [recognizer translationInView:_notificationTableView.tableFooterView];
     if (scrollToPoint.y + _notificationTableView.frame.origin.y + _notificationTableView.frame.size.height < self.view.frame.size.height*0.5) {
         [_notificationTableView setCenter:CGPointMake(_notificationTableView.center.x, _notificationTableView.center.y + scrollToPoint.y)];
+        [_notificationsFooter setCenter:CGPointMake(_notificationsFooter.center.x, _notificationsFooter.center.y + scrollToPoint.y)];
         [recognizer setTranslation:CGPointMake(0, 0) inView:_notificationTableView.tableFooterView];
     }
     
@@ -482,9 +492,11 @@ static BOOL notificationsHalfHidden = NO;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DISABLE_SWIPE object:nil];
     
-    CGRect notificationFrame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/2);
+    CGRect notificationFrame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/2 - footerSize);
+    CGRect footerFrame = CGRectMake(0, self.view.frame.size.height/2 - footerSize, self.view.frame.size.width, footerSize);
     
     self.notificationTableView.hidden = NO;
+    _notificationsFooter.hidden = NO;
     self.greyOutView.frame = self.view.frame;
     
     [UIView animateWithDuration:.5
@@ -495,6 +507,7 @@ static BOOL notificationsHalfHidden = NO;
                      animations:^{
                          self.greyOutView.alpha = 0.5;
                          self.notificationTableView.frame = notificationFrame;
+                         _notificationsFooter.frame = footerFrame;
                      }
                      completion:^(BOOL finished){
                          [self.tableView setUserInteractionEnabled:NO];
@@ -522,10 +535,12 @@ static BOOL notificationsHalfHidden = NO;
                      animations:^{
                          self.greyOutView.alpha = 0;
                          self.notificationTableView.center = CGPointMake(_notificationTableView.center.x, -1 * _notificationTableView.frame.size.height/2);
+                         _notificationsFooter.center = CGPointMake(_notificationsFooter.center.x, -1*footerSize);
                      }
                      completion:^(BOOL finished){
                          self.greyOutView.frame = CGRectZero;
                          self.notificationTableView.hidden = YES;
+                         _notificationsFooter.hidden = YES;
                          [self.tableView setUserInteractionEnabled:YES];
                      }];
     [UIView commitAnimations];
@@ -583,7 +598,7 @@ static BOOL notificationsHalfHidden = NO;
     [self.notificationsButton setContentEdgeInsets:UIEdgeInsetsMake(7, 7, 7, 7)];
     greenImageName = [NSMutableString stringWithString:@"arrow-close-notifications.png"];
     UIImage *notificationsImageGreen = [UIImage imageNamed:greenImageName];
-    self.notificationsButtonGreen = [[UIButton alloc] initWithFrame:CGRectMake(281, 27, 36, 36)];
+    self.notificationsButtonGreen = [[UIButton alloc] initWithFrame:CGRectMake(275, 26, 30, 30)];
     [self.notificationsButtonGreen setImage:notificationsImageGreen forState:UIControlStateNormal];
     [self.notificationsButtonGreen addTarget:self action:@selector(notificationsGreenClicked:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -602,23 +617,17 @@ static BOOL notificationsHalfHidden = NO;
         UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 32, 280, 21)];
         [notificationsLabel setText:NOTIFICATIONS];
         [notificationsLabel setTextAlignment:NSTextAlignmentCenter];
-        [notificationsLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+        [notificationsLabel setFont:[StyleManager getFontStyleLightSizeHeader]];
         [notificationsLabel setTextColor:[StyleManager getColorBlue]];
         [self.notificationsHeader addSubview:notificationsLabel];
         [self.notificationsHeader addSubview:self.notificationsButtonGreen];
         [self.notificationsHeader setBackgroundColor:[UIColor whiteColor]];
     }
-    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, self.notificationTableView.frame.size.height - footerSize, self.view.bounds.size.width, footerSize)];
-    [footer setBackgroundColor:[UIColor blackColor]];
-    [footer setAlpha:0.3];
-    UIImageView *footerHandle = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"notification-none"]];
-    [footerHandle setFrame:CGRectMake(self.view.frame.size.width/2 - 10, 0, 20, 20)];
-    [footer addSubview:footerHandle];
+    
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
-    [footer addGestureRecognizer:pan];
+    [_notificationsFooter addGestureRecognizer:pan];
     [[self.notificationTableView tableHeaderView] setBackgroundColor:[UIColor whiteColor]];
     [self.notificationTableView setTableHeaderView:self.notificationsHeader];
-    [self.notificationTableView setTableFooterView:footer];
 }
 
 -(void)loadNotifications {
