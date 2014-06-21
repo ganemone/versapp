@@ -63,10 +63,12 @@
 }
 
 -(NSString *)thoughtChatDegree {
-    if ([FriendsDBManager hasUserWithJID:_chatMO.owner_id])
+    if ([self getChatDegree] == 1) {
         return @"friend";
-    else
+    }
+    else {
         return @"friend of a friend";
+    }
 }
 
 - (void)viewDidLoad
@@ -98,7 +100,7 @@
 
 - (void)setUpInfoBtn {
     if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION]) {
-        if ([FriendsDBManager hasUserWithJID:_chatMO.owner_id]) {
+        if ([self getChatDegree] == 1) {
             [_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 35, 30, 28, 28)];
             [_infoBtn setImage:[UIImage imageNamed:@"friend-white.png"] forState:UIControlStateNormal];
         } else {
@@ -112,6 +114,10 @@
         [_infoBtn setImage:[UIImage imageNamed:@"friend-white.png"] forState:UIControlStateNormal];
         [_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 35, 30, 28, 28)];
     }
+}
+
+- (int)getChatDegree {
+    return ([FriendsDBManager hasUserWithJID:_chatMO.participant_string]) ? 1 : 2;
 }
 
 -(void)messageReceived:(NSNotification*)notification {

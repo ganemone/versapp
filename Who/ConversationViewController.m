@@ -84,12 +84,16 @@
 }
 
 -(void)loadMoreMessages {
-    NSArray *messages = [MessagesDBManager getMessagesByChat:_chatMO.chat_id since:[_chatMO.messages firstObject]];
-    NSMutableArray *new = [[NSMutableArray alloc] initWithCapacity:[_chatMO.messages count] + [messages count]];
-    [new addObjectsFromArray:messages];
-    [new addObjectsFromArray:_chatMO.messages];
-    [_chatMO setMessages:new];
-    [self didFinishLoadingMoreMessages];
+    if ([_chatMO.messages count] == 0) {
+        [self didFinishLoadingMoreMessages];
+    } else {
+        NSArray *messages = [MessagesDBManager getMessagesByChat:_chatMO.chat_id since:[_chatMO.messages firstObject]];
+        NSMutableArray *new = [[NSMutableArray alloc] initWithCapacity:[_chatMO.messages count] + [messages count]];
+        [new addObjectsFromArray:messages];
+        [new addObjectsFromArray:_chatMO.messages];
+        [_chatMO setMessages:new];
+        [self didFinishLoadingMoreMessages];
+    }
 }
 
 -(void)didFinishLoadingMoreMessages {

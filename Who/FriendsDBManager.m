@@ -53,7 +53,7 @@
 }
 
 + (BOOL)hasEnoughFriends {
-    return ([[self getAllWithStatusFriends] count] > 3);
+    return ([[self getAllWithStatusFriends] count] >= 3);
 }
 
 + (void)updateFriendAfterUserSearch:(NSDictionary *)friend withContext:(NSManagedObjectContext *)moc {

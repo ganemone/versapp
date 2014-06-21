@@ -4153,8 +4153,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -4177,7 +4177,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "2698D74D-EDE7-44E0-8328-8538C6EBB69E";
+				PROVISIONING_PROFILE = "C541311C-6531-4B45-807D-7327695EC04C";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = NO;
 			};
@@ -4199,8 +4199,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4216,7 +4216,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "2698D74D-EDE7-44E0-8328-8538C6EBB69E";
+				PROVISIONING_PROFILE = "C541311C-6531-4B45-807D-7327695EC04C";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -4225,23 +4225,19 @@
 		3A25B6691881E03700166623 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/who",
-					/users/rlundquist3/development/ios/FacebookSDK,
+					/Users/giancarlo/Documents/FacebookSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/Versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = /Users/rlundquist3/development/ios/who/who_ios/who;
+				LIBRARY_SEARCH_PATHS = /Users/giancarlo/Documents/dev/ios/Who/Who;
 				PRODUCT_NAME = Versapp;
-<<<<<<< HEAD
-				PROVISIONING_PROFILE = "2698D74D-EDE7-44E0-8328-8538C6EBB69E";
-=======
-				PROVISIONING_PROFILE = "B829E153-D621-4B29-BD37-A6D9DBF8691D";
->>>>>>> 2878ca244452d4dbf7569cbe9978e071667e7aab
+				PROVISIONING_PROFILE = "C541311C-6531-4B45-807D-7327695EC04C";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -4249,23 +4245,19 @@
 		3A25B66A1881E03700166623 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/who",
-					/users/rlundquist3/development/ios/FacebookSDK,
+					/Users/giancarlo/Documents/FacebookSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/Versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = /Users/rlundquist3/development/ios/who/who_ios/who;
+				LIBRARY_SEARCH_PATHS = /Users/giancarlo/Documents/dev/ios/Who/Who;
 				PRODUCT_NAME = Versapp;
-<<<<<<< HEAD
-				PROVISIONING_PROFILE = "2698D74D-EDE7-44E0-8328-8538C6EBB69E";
-=======
-				PROVISIONING_PROFILE = "B829E153-D621-4B29-BD37-A6D9DBF8691D";
->>>>>>> 2878ca244452d4dbf7569cbe9978e071667e7aab
+				PROVISIONING_PROFILE = "C541311C-6531-4B45-807D-7327695EC04C";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

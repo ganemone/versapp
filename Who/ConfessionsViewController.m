@@ -134,9 +134,7 @@
     [super viewDidLoad];
     
     self.confessionsManager = [ConfessionsManager getInstance];
-    NSLog(@"Current Number of Thoughts: %d", [self.confessionsManager getNumberOfConfessions]);
     if ([self.confessionsManager getNumberOfConfessions] == 0) {
-        NSLog(@"Adding loading view");
         [MBProgressHUD showHUDAddedTo:_tableView animated:YES];
     }
     
