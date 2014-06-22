@@ -11,11 +11,8 @@
 
 @interface ConversationTypesViewController ()
 
+@property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 @property (weak, nonatomic) IBOutlet UITextView *headerTextView;
-@property (weak, nonatomic) IBOutlet UITextView *groupTextView;
-@property (weak, nonatomic) IBOutlet UITextView *invitedTextView;
-@property (weak, nonatomic) IBOutlet UITextView *inviterTextView;
-@property (weak, nonatomic) IBOutlet UITextView *thoughtTextView;
 
 @end
 
@@ -33,11 +30,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.headerTextView setFont:[StyleManager getFontStyleBoldSizeLarge]];
-    [self.groupTextView setFont:[StyleManager getFontStyleLightSizeMed]];
-    [self.invitedTextView setFont:[StyleManager getFontStyleLightSizeMed]];
-    [self.inviterTextView setFont:[StyleManager getFontStyleLightSizeMed]];
-    [self.thoughtTextView setFont:[StyleManager getFontStyleLightSizeMed]];
+    [self.headerLabel setFont:[StyleManager getFontStyleLightSizeTitle]];
+    [self.headerTextView setFont:[StyleManager getFontStyleLightSizeLarge]];
 }
 
 - (void)didReceiveMemoryWarning

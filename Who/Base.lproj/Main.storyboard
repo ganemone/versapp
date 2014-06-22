@@ -966,7 +966,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="npS-m4-ngf">
                                         <rect key="frame" x="270" y="5" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                        <state key="normal" image="check-icon-purple.png">
+                                        <state key="normal" image="check-icon-white.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1007,6 +1007,7 @@
                         <outlet property="noFriendsView" destination="sDl-9p-Cqw" id="a3h-a8-bax"/>
                         <outlet property="searchBar" destination="G30-1u-tkr" id="C19-rP-HhO"/>
                         <outlet property="searchDisplayController" destination="xnm-H1-FA6" id="TsH-Et-elB"/>
+                        <outlet property="startConversationBtn" destination="npS-m4-ngf" id="Ne4-mH-BaV"/>
                         <outlet property="tableView" destination="wKq-yO-HDY" id="PKP-a1-gTn"/>
                         <segue destination="LSk-rM-HTJ" kind="push" identifier="SegueIdentifierCreatedMUC" id="zTQ-Mf-6oX"/>
                         <segue destination="iDZ-uG-Ep6" kind="push" identifier="SegueIdentifierCreatedChat" id="8c7-Mw-K5g"/>
@@ -1968,7 +1969,7 @@
         <image name="arrow-left-icon-green.png" width="30" height="30"/>
         <image name="arrow-left-icon.png" width="30" height="30"/>
         <image name="camera-white.png" width="26" height="26"/>
-        <image name="check-icon-purple.png" width="30" height="30"/>
+        <image name="check-icon-white.png" width="30" height="30"/>
         <image name="check-icon.png" width="192" height="129"/>
         <image name="compose-blue.png" width="30" height="30"/>
         <image name="compose-orange.png" width="30" height="30"/>
@@ -1987,18 +1988,18 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="WHz-1g-xNx"/>
-        <segue reference="XeD-6M-yxq"/>
-        <segue reference="OKb-WW-kzU"/>
-        <segue reference="tVn-SP-Hc9"/>
+        <segue reference="zTQ-Mf-6oX"/>
+        <segue reference="8c7-Mw-K5g"/>
         <segue reference="pHb-Kf-4qo"/>
-        <segue reference="BCc-dv-kG7"/>
-        <segue reference="hVX-XL-lBE"/>
         <segue reference="z6h-qs-HbB"/>
-        <segue reference="qGQ-aw-vgl"/>
-        <segue reference="m95-nf-RcH"/>
-        <segue reference="xkE-O7-97C"/>
-        <segue reference="AGt-Q0-zDh"/>
+        <segue reference="hVX-XL-lBE"/>
+        <segue reference="BCc-dv-kG7"/>
+        <segue reference="tVn-SP-Hc9"/>
         <segue reference="YEX-bB-bO6"/>
+        <segue reference="XeD-6M-yxq"/>
+        <segue reference="WHz-1g-xNx"/>
+        <segue reference="OKb-WW-kzU"/>
+        <segue reference="xkE-O7-97C"/>
+        <segue reference="m95-nf-RcH"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -13,12 +13,11 @@
 #import "Constants.h"
 #import "WelcomeViewController.h"
 #import "ThoughtsTutorialViewController.h"
-#import "FriendsTutorialViewController.h"
 #import "SecurityTutorialViewController.h"
 #import "GetStartedTutorialViewController.h"
 #import "ConversationTypesViewController.h"
 
-#define numPages 6
+#define numPages 5
 
 @interface TutorialViewController ()
 
@@ -107,8 +106,7 @@
         case 0:vc = [[WelcomeViewController alloc] initWithNibName:@"WelcomeViewController" bundle:nil]; break;
         case 1:vc = [[ConversationTypesViewController alloc] initWithNibName:@"ConversationTypesViewController" bundle:nil]; break;
         case 2:vc = [[ThoughtsTutorialViewController alloc] initWithNibName:@"ThoughtsTutorialViewController" bundle:nil]; break;
-        case 3:vc = [[FriendsTutorialViewController alloc] initWithNibName:@"FriendsTutorialViewController" bundle:nil]; break;
-        case 4:vc = [[SecurityTutorialViewController alloc] initWithNibName:@"SecurityTutorialViewController" bundle:nil]; break;
+        case 3:vc = [[SecurityTutorialViewController alloc] initWithNibName:@"SecurityTutorialViewController" bundle:nil]; break;
         default:vc = [[GetStartedTutorialViewController alloc] initWithNibName:@"GetStartedTutorialViewController" bundle:nil]; break;
     }
     [vc setIndexInTutorial:index];
@@ -130,7 +128,7 @@
 }
 
 -(NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
-    return 6;
+    return 5;
 }
 
 -(NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {

@@ -70,7 +70,7 @@ static UIColor *colorBlue;
 }
 
 +(UIFont*)getFontStyleLightSizeTitle {
-    return [UIFont fontWithName:@"MavenProLight300-Regular" size:36];
+    return [UIFont fontWithName:@"MavenProLight300-Regular" size:34];
 }
 
 
