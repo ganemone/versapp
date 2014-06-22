@@ -86,13 +86,13 @@
     _originalJIDs = [[NSArray alloc] initWithArray:[_chatMO getParticipantJIDS]];
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {\
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FriendMO *currentItem = [self.searchResults objectAtIndex:indexPath.row];
     FriendTableViewCell *cell = [[FriendTableViewCell alloc] initWithFriend:currentItem reuseIdentifier:CELL_ID_FRIENDS_PROTOTYPE];
     
     if ([self.originalJIDs containsObject:currentItem.username]) {
-        CGFloat btnSize = 18.0f;
-        [cell.isSelectedImageView setFrame:CGRectMake(cell.frame.size.width - 50.0f, cell.frame.size.height / 2 - btnSize/2 + 2.0f, btnSize, 134.0f/(193.0f/btnSize))];
+        //CGFloat btnSize = 18.0f;
+        //[cell.isSelectedImageView setFrame:CGRectMake(cell.frame.size.width - 50.0f, cell.frame.size.height / 2 - btnSize/2 + 2.0f, btnSize, 134.0f/(193.0f/btnSize))];
         [cell.isSelectedImageView setImage:[UIImage imageNamed:@"check-icon-purple.png"]];
     } else if ([self.selectedJIDs containsObject:currentItem.username]) {
         [cell.isSelectedImageView setImage:[UIImage imageNamed:@"cell-select-active.png"]];
@@ -102,6 +102,7 @@
     
     return cell;
 }
+
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     return [super tableView:tableView viewForFooterInSection:section];
@@ -132,6 +133,23 @@
         }
         [tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        if ([_selectedJIDs count] - [_originalJIDs count] > 1) {
+            [self.bottomLabel setText:@"Add Friends"];
+            [self.bottomLabel setTextColor:[UIColor whiteColor]];
+            [self.bottomView setBackgroundColor:[StyleManager getColorPurple]];
+        } else if ([_selectedJIDs count] - [_originalJIDs count] > 0) {
+            [self.bottomLabel setText:@"Add Friend"];
+            [self.bottomLabel setTextColor:[UIColor whiteColor]];
+            [self.bottomView setBackgroundColor:[StyleManager getColorPurple]];
+        } else {
+            [self.bottomLabel setText:@"Select Friends to Add"];
+            [self.bottomLabel setTextColor:[StyleManager getColorPurple]];
+            [self.bottomView setBackgroundColor:[UIColor whiteColor]];
+        }
+    }];
+    
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 

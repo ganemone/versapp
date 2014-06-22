@@ -1819,9 +1819,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oMf-4b-jO7">
-                                        <rect key="frame" x="269" y="11" width="31" height="20"/>
+                                        <rect key="frame" x="270" y="5" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="check-icon.png">
+                                        <state key="normal" image="check-icon-white.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1832,11 +1832,11 @@
                                         <rect key="frame" x="21" y="9" width="232" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="0.38431372549999998" green="0.17254901959999999" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.38431372549999998" green="0.17254901959999999" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="4qb-d6-zhv">
                                 <rect key="frame" x="0.0" y="108" width="320" height="332"/>
@@ -1902,6 +1902,7 @@
                     <navigationItem key="navigationItem" id="anY-mi-1hG"/>
                     <connections>
                         <outlet property="bottomLabel" destination="OhB-C8-FfK" id="YXg-sF-dPP"/>
+                        <outlet property="bottomView" destination="CRi-yJ-K3P" id="tlu-zg-qNp"/>
                         <outlet property="header" destination="KZ3-Jd-Ycv" id="ecd-8h-PTN"/>
                         <outlet property="searchBar" destination="bD9-kL-eIm" id="cix-a8-aaG"/>
                         <outlet property="searchDisplayController" destination="xnm-H1-FA6" id="IAN-1X-4xZ"/>
@@ -1970,7 +1971,6 @@
         <image name="arrow-left-icon.png" width="30" height="30"/>
         <image name="camera-white.png" width="26" height="26"/>
         <image name="check-icon-white.png" width="30" height="30"/>
-        <image name="check-icon.png" width="192" height="129"/>
         <image name="compose-blue.png" width="30" height="30"/>
         <image name="compose-orange.png" width="30" height="30"/>
         <image name="facebook.png" width="1163" height="288"/>
