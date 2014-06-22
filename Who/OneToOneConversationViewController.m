@@ -119,10 +119,9 @@
     if ([(NSString*)[userInfo objectForKey:MESSAGE_PROPERTY_GROUP_ID] compare:self.chatMO.chat_id] == 0) {
         if([self.chatMO getNumberOfMessages] <= 1) {
             [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
-            [self.tableView reloadData];
-        } else {
-            [self animateAddNewestMessage];
         }
+        [self.tableView reloadData];
+        [self scrollToBottomAnimated:YES];
     }
 }
 
