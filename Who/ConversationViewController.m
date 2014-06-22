@@ -165,10 +165,14 @@
         if ([newMessage.sender_id isEqualToString:[ConnectionProvider getUser]]) {
             [self.chatMO updateMessage:newMessage];
         } else {
-            if([self.chatMO getNumberOfMessages] <= 1) {
-                [self.tableView reloadData];
-            } else {
+            NSLog(@"Number of Messages Before: %d", [_chatMO getNumberOfMessages]);
+            [self.chatMO addMessage:newMessage];
+            NSLog(@"Number of Messages After: %d", [_chatMO getNumberOfMessages]);
+            if([self.chatMO getNumberOfMessages] > 1) {
+                //[self.tableView reloadData];
                 [self animateAddNewestMessage];
+            } else {
+                [self.tableView reloadData];
             }
         }
     }
@@ -177,7 +181,9 @@
 -(void)animateAddNewestMessage {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.chatMO getNumberOfMessages] - 1 inSection:0];
     NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
+    [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];    
     [self scrollToBottomAnimated:YES];
     self.messageImage = nil;
     self.messageImageLink = nil;

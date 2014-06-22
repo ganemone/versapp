@@ -227,7 +227,9 @@
 -(void)animateAddNewestMessage {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.chatMO getNumberOfMessages] - 1 inSection:0];
     NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
+    [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
     [self scrollToBottomAnimated:YES];
 }
 

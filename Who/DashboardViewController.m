@@ -772,7 +772,7 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 - (void)showOneToOneLongPressDialog {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rename Chat", @"Leave Chat", @"Block", nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rename Chat", @"Leave Chat", @"Block User", nil];
     [alertView show];
 }
 
@@ -794,6 +794,8 @@ static BOOL notificationsHalfHidden = NO;
         UIAlertView *leaveAlertView = [[UIAlertView alloc] initWithTitle:@"Leave Chat" message:@"Are you sure you want to leave this conversation?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Leave", nil];
         [leaveAlertView setAlertViewStyle:UIAlertViewStyleDefault];
         [leaveAlertView show];
+    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Block User"]) {
+        [[[UIAlertView alloc] initWithTitle:@"Are you sure?" message:@"Blocking this user will not allow them to send you one to one messages anymore." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Block", nil] show];
     } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Block"]) {
         [self handleBlockOneToOneChat];
     } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Leave"]) {

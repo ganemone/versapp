@@ -88,6 +88,7 @@
         [self.noFriendsBlackView setUserInteractionEnabled:YES];
         [self.view bringSubviewToFront:self.noFriendsView];
     }
+    [self updateFooterView];
 }
 
 -(void)viewDidLoad{
@@ -245,6 +246,10 @@
         [tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    [self updateFooterView];
+}
+
+-(void)updateFooterView {
     [UIView animateWithDuration:0.25 animations:^{
         if ([_selectedJIDs count] == 0) {
             [_bottomView setBackgroundColor:[UIColor whiteColor]];
