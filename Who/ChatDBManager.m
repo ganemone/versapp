@@ -280,7 +280,7 @@ static int numUninvitedParticipants;
     if (chatIDUpdatingParticipants != nil) {
         ChatMO *chat = [self getChatWithID:chatIDUpdatingParticipants];
         [chat setParticipants:participants];
-        [chat setParticipant_string:[[participants valueForKey:PARTICIPANT_JID] componentsJoinedByString:@", "]];
+        [chat setParticipant_string:[[participants valueForKey:PARTICIPANT_USERNAME] componentsJoinedByString:@", "]];
         AppDelegate *delegate = [UIApplication sharedApplication].delegate;
         [delegate saveContext];
         chatIDUpdatingParticipants = nil;
@@ -324,7 +324,7 @@ static int numUninvitedParticipants;
 +(NSMutableArray *)buildChatParticipantsFromArray:(NSArray *)participants {
     NSMutableArray *ret = [[NSMutableArray alloc] initWithCapacity:[participants count]];
     for (NSString *participant in participants) {
-        [ret addObject:@{PARTICIPANT_JID: participant,
+        [ret addObject:@{PARTICIPANT_USERNAME: participant,
                         PARTICIPANT_INVITED_BY: @"",
                          PARTICIPANT_STATUS: @"joined"}];
     }

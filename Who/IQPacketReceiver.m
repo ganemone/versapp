@@ -137,16 +137,18 @@
     NSMutableArray *participants = [[NSMutableArray alloc] initWithCapacity:[matches count]];
     
     for (NSTextCheckingResult *match in matches) {
-        if ([[packetXML substringWithRange:[match rangeAtIndex:3]] isEqualToString:@"active"]) {
+        NSString *status = [packetXML substringWithRange:[match rangeAtIndex:3]];
+        if ([status isEqualToString:@"active"] || [status isEqualToString:@"pending"]) {
             NSDictionary *participantDict = @{PARTICIPANT_STATUS: [packetXML substringWithRange:[match rangeAtIndex:3]],
-                                              PARTICIPANT_JID : [packetXML substringWithRange:[match rangeAtIndex:1]],
+                                              PARTICIPANT_USERNAME : [packetXML substringWithRange:[match rangeAtIndex:1]],
                                               PARTICIPANT_INVITED_BY : [packetXML substringWithRange:[match rangeAtIndex:2]]};
             [participants addObject:participantDict];
         }
     }
     
     [ChatDBManager updateChatParticipants:participants];
-    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_CHAT_PARTICIPANTS object:nil];
+    NSDictionary *userInfo = @{PACKET_ID_GET_CHAT_PARTICIPANTS: participants};
+    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_CHAT_PARTICIPANTS object:nil userInfo:userInfo];
 }
 
 +(void)handleGetJoinedChatsPacket:(XMPPIQ *)iq {

@@ -78,15 +78,15 @@
 }
 
 -(NSString *)getFirstParticipantJID {
-    return [[_participants firstObject] objectForKey:PARTICIPANT_JID];
+    return [[_participants firstObject] objectForKey:PARTICIPANT_USERNAME];
 }
 
 -(NSString *)getLastParticipantJID {
-    return [[_participants lastObject] objectForKey:PARTICIPANT_JID];
+    return [[_participants lastObject] objectForKey:PARTICIPANT_USERNAME];
 }
 
 -(NSArray *)getParticipantJIDS {
-    return [_participants valueForKey:PARTICIPANT_JID];
+    return [_participants valueForKey:PARTICIPANT_USERNAME];
 }
 
 +(NSString *)createGroupID {

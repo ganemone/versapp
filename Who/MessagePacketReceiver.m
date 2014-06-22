@@ -127,7 +127,7 @@
             ChatMO *currentChat = [ChatDBManager getChatWithID:groupID];
             if (![[currentChat getParticipantJIDS] containsObject:senderID]) {
                 [currentChat.participants addObject:@{PARTICIPANT_STATUS : @"joined",
-                                                      PARTICIPANT_JID : senderID,
+                                                      PARTICIPANT_USERNAME : senderID,
                                                       PARTICIPANT_INVITED_BY : @""}];
                 [currentChat setValue:[[currentChat getParticipantJIDS] componentsJoinedByString:@", "] forKey:CHATS_TABLE_COLUMN_NAME_PARTICIPANT_STRING];
                 AppDelegate *delegate = [UIApplication sharedApplication].delegate;

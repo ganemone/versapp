@@ -45,6 +45,7 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceived:) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLongPress:) name:NOTIFICATION_DID_LONG_PRESS_MESSAGE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChatMO:) name:PACKET_ID_GET_CHAT_PARTICIPANTS object:nil];
     
     self.cp = [ConnectionProvider getInstance];
     [[self.cp getConnection] sendElement:[IQPacketManager createGetChatParticipantsPacket:_chatMO.chat_id]];
@@ -81,6 +82,11 @@
     [self.tableView addPullToRefreshWithDrawingImgs:drawingImages andLoadingImgs:loadingImages andActionHandler:^{
         [self performSelectorOnMainThread:@selector(loadMoreMessages) withObject:nil waitUntilDone:NO];
     }];
+}
+
+-(void)updateChatMO:(NSNotification *)notification {
+    NSMutableArray *participants = [[notification userInfo] objectForKey:PACKET_ID_GET_CHAT_PARTICIPANTS];
+    [_chatMO setParticipants:participants];
 }
 
 -(void)loadMoreMessages {
@@ -336,15 +342,19 @@
 }
 
 - (IBAction)showGroupParticipants:(id)sender {
-    _chatMO = [ChatDBManager getChatWithID:_chatMO.chat_id];
-    NSArray *members = [_chatMO getParticipantJIDS];
+    NSArray *members = _chatMO.participants;
     NSMutableArray *list = [[NSMutableArray alloc] init];
-    for (NSString *member in members) {
-        FriendMO *friend = [FriendsDBManager getUserWithJID:[NSString stringWithFormat:@"%@", member]];
+    NSString *memberUsername, *invitedBy;
+    for (NSDictionary *member in members) {
+        memberUsername = [member objectForKey:PARTICIPANT_USERNAME];
+        invitedBy = [member objectForKey:PARTICIPANT_INVITED_BY];
+        FriendMO *friend = [FriendsDBManager getUserWithJID:memberUsername];
         if (friend == nil) {
-            NSString *name = [[[ConnectionProvider getInstance] tempVCardInfo] objectForKey:member];
-            if (name != nil) {
-                [list addObject:name];
+            FriendMO *invitedByFriend = [FriendsDBManager getUserWithJID:invitedBy];
+            if (invitedByFriend == nil || invitedByFriend.name == nil) {
+                [list addObject:[NSString stringWithFormat:@"%@ (Friend of Friend)", memberUsername]];
+            } else {
+                [list addObject:[NSString stringWithFormat:@"%@ (Friend of %@)", memberUsername, [[invitedByFriend.name componentsSeparatedByString:@" "] firstObject]]];
             }
         } else {
             [list addObject:friend.name];

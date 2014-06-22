@@ -218,25 +218,9 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 }
 
 - (void)handleFinishedLoadingContentForNotification:(NSNotification *)notification {
-    static MessageMO *prevNotificationMessage;
-    NSLog(@"Notification User Info: %@", notification.userInfo);
-    if ([notification.userInfo objectForKey:@"message"] == prevNotificationMessage) {
-        NSLog(@"They match");
-    } else {
-        UILocalNotification* localNotification = [[UILocalNotification alloc] init];
-        //MessageMO *message = [notification.userInfo objectForKey:DICTIONARY_KEY_MESSAGE_OBJECT];
-        //localNotification.userInfo = [NSDictionary dictionaryWithObject:message.group_id forKey:CHATS_TABLE_COLUMN_NAME_CHAT_ID];
-        localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:0.001];
-        localNotification.alertBody = _localNotificationMessage;
-        //localNotification.timeZone = [NSTimeZone defaultTimeZone];
-        localNotification.soundName = UILocalNotificationDefaultSoundName;
-        UIApplication *sharedApp = [UIApplication sharedApplication];
-        [sharedApp scheduleLocalNotification:localNotification];
-        [sharedApp setApplicationIconBadgeNumber:sharedApp.applicationIconBadgeNumber + 1];
-    }
-    
-    prevNotificationMessage = [notification.userInfo objectForKey:@"message"];
-    [[[ConnectionProvider getInstance] getConnection] disconnect];
+    UIApplication *sharedApp = [UIApplication sharedApplication];
+    [sharedApp setApplicationIconBadgeNumber:sharedApp.applicationIconBadgeNumber + 1];
+    //[[[ConnectionProvider getInstance] getConnection] disconnect];
     _completionHandler(UIBackgroundFetchResultNewData);
 }
 
