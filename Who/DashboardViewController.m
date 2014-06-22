@@ -81,7 +81,7 @@ static BOOL notificationsHalfHidden = NO;
 
 -(void)doTutorial {
     CGFloat cellY;
-    NSString *chatType;
+    /*NSString *chatType;
     if ([_groupChats count] > 0) {
         cellY = _headerView.frame.size.height + 22.0f;
         chatType = @"group chat";
@@ -91,7 +91,7 @@ static BOOL notificationsHalfHidden = NO;
     } else {
         cellY = _headerView.frame.size.height + 66.0f;
         chatType = @"thought chat";
-    }
+    }*/
     
     CGRect cellFrame = CGRectMake(0, cellY, self.view.frame.size.width, 44.0f);
     CGRect imageRect = CGRectMake(5, cellY, 50, 44.0f);

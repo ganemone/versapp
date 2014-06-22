@@ -258,16 +258,17 @@
 }
 
 +(void)handleGetVCardPacket:(XMPPIQ *)packet {
-    NSString *firstName, *lastName, *itemName, *nickname;
+    NSString *firstName, *lastName, *itemName;//, *nickname;
     NSString *username = [[[packet fromStr] componentsSeparatedByString:@"@"] firstObject];
     NSArray *children = [packet children];
     for (int i = 0; i < children.count; i++) {
         NSArray *grand = [[children objectAtIndex:i] children];
         for (int j = 0; j < grand.count; j++) {
             itemName = [[grand objectAtIndex:j] name];
-            if([itemName compare:VCARD_TAG_NICKNAME] == 0) {
-                nickname = [[grand objectAtIndex:j] stringValue];
-            } else if([itemName compare:@"N"] == 0) {
+            //if([itemName compare:VCARD_TAG_NICKNAME] == 0) {
+                //nickname = [[grand objectAtIndex:j] stringValue];
+            //} else
+            if([itemName compare:@"N"] == 0) {
                 NSArray *nameItems = [[grand objectAtIndex:j] children];
                 for(int k = 0; k < nameItems.count; k++) {
                     itemName = [[nameItems objectAtIndex:k] name];
@@ -310,10 +311,10 @@
         participantString = [packetXML substringWithRange:[match rangeAtIndex:1]];
         chatId = [packetXML substringWithRange:[match rangeAtIndex:2]];
         type = [packetXML substringWithRange:[match rangeAtIndex:3]];
-        owner = [packetXML substringWithRange:[match rangeAtIndex:4]];
+        //owner = [packetXML substringWithRange:[match rangeAtIndex:4]];
         name = [self urlDecode:[packetXML substringWithRange:[match rangeAtIndex:5]]];
-        createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
-        participants = [participantString componentsSeparatedByString:@", "];
+        //createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
+        //participants = [participantString componentsSeparatedByString:@", "];
         
         [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_PENDING degree:@"1"];
     }
