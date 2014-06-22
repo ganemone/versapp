@@ -165,11 +165,7 @@
         if ([newMessage.sender_id isEqualToString:[ConnectionProvider getUser]]) {
             [self.chatMO updateMessage:newMessage];
         } else {
-            NSLog(@"Number of Messages Before: %d", [_chatMO getNumberOfMessages]);
-            [self.chatMO addMessage:newMessage];
-            NSLog(@"Number of Messages After: %d", [_chatMO getNumberOfMessages]);
             if([self.chatMO getNumberOfMessages] > 1) {
-                //[self.tableView reloadData];
                 [self animateAddNewestMessage];
             } else {
                 [self.tableView reloadData];
@@ -354,6 +350,9 @@
     for (NSDictionary *member in members) {
         memberUsername = [member objectForKey:PARTICIPANT_USERNAME];
         invitedBy = [member objectForKey:PARTICIPANT_INVITED_BY];
+        if ([memberUsername isEqualToString:[ConnectionProvider getUser]]) {
+            continue;
+        }
         FriendMO *friend = [FriendsDBManager getUserWithJID:memberUsername];
         if (friend == nil) {
             FriendMO *invitedByFriend = [FriendsDBManager getUserWithJID:invitedBy];
