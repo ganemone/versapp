@@ -4237,13 +4237,13 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/who",
-					/Users/giancarlo/Documents/FacebookSDK,
+					/users/rlundquist3/development/ios/FacebookSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/Versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = /Users/giancarlo/Documents/dev/ios/Who/Who;
+				LIBRARY_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios/who;
 				PRODUCT_NAME = Versapp;
 				PROVISIONING_PROFILE = "83C8B8A9-EB53-44E2-AAD6-8091C15152C1";
 				WRAPPER_EXTENSION = app;
@@ -4257,13 +4257,13 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/who",
-					/Users/giancarlo/Documents/FacebookSDK,
+					/users/rlundquist3/development/ios/FacebookSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/Versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = /Users/giancarlo/Documents/dev/ios/Who/Who;
+				LIBRARY_SEARCH_PATHS = /users/rlundquist3/development/ios/who/who_ios/who;
 				PRODUCT_NAME = Versapp;
 				PROVISIONING_PROFILE = "83C8B8A9-EB53-44E2-AAD6-8091C15152C1";
 				WRAPPER_EXTENSION = app;

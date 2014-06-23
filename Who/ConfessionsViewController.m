@@ -287,6 +287,37 @@
         info = @"This is your global thoughts feed. These anonymous thoughts are from anyone other than your direct friends or friends of friends. You can't start a chat here, but you can anonymously favorite.";
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Thoughts" message:info delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil];
     [alertView show];
+    
+    /*CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
+    
+    UILabel *header = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0.8*self.view.frame.size.width, 32)];
+    [header setFont:[StyleManager getFontStyleMediumSizeXL]];
+    [header setTextAlignment:NSTextAlignmentCenter];
+    [header setText:@"Thoughts"];
+    [header setBackgroundColor:[UIColor clearColor]];
+    
+    UITextView *content = [[UITextView alloc] initWithFrame:CGRectMake(0, 32, 0.8*self.view.frame.size.width, 0.3*self.view.frame.size.height)];
+    [content setFont:[StyleManager getFontStyleLightSizeLarge]];
+    [content setTextAlignment:NSTextAlignmentCenter];
+    [content setText:info];
+    [content setBackgroundColor:[UIColor clearColor]];
+    
+    UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0.8*self.view.frame.size.width, 0.3*self.view.frame.size.height + 32)];
+    [container addSubview:header];
+    [container addSubview:content];
+    [container setBackgroundColor:[UIColor clearColor]];
+    
+    [alertView setContainerView:container];
+    [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"Got it", nil]];
+    [alertView setDelegate:self];
+    
+    [alertView show];*/
+}
+
+- (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        [alertView close];
+    }
 }
 
 - (void)animateHideHeader {

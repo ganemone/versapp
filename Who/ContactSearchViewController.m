@@ -17,7 +17,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *username;
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
-
+@property (strong, nonatomic) IBOutlet UILabel *description;
 
 @end
 
@@ -37,6 +37,8 @@
     [super viewDidLoad];
     
     [_headerLabel setFont:[StyleManager getFontStyleLightSizeHeader]];
+    [_description setFont:[StyleManager getFontStyleLightSizeLarge]];
+    [_description setTextColor:[StyleManager getColorPurple]];
 }
 
 - (void)didReceiveMemoryWarning
