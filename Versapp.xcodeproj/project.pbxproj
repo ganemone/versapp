@@ -515,6 +515,7 @@
 		F751018D18AE8D5E001F1E7F /* PrivacyPolicyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751018C18AE8D5E001F1E7F /* PrivacyPolicyViewController.m */; };
 		F751019018AE8D6F001F1E7F /* TermsOfUseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751018F18AE8D6F001F1E7F /* TermsOfUseViewController.m */; };
 		F751019718B134DE001F1E7F /* ChangeEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751019618B134DE001F1E7F /* ChangeEmailViewController.m */; };
+		F78485B0195856BC00E0288C /* CustomIOS7AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = F78485AF195856BC00E0288C /* CustomIOS7AlertView.m */; };
 		F7977B6418DBA25B000E955C /* check-icon-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F7977B6218DBA25B000E955C /* check-icon-green.png */; };
 		F7A3F96218EE3052006FBA0A /* arrow-close-notifications.png in Resources */ = {isa = PBXBuildFile; fileRef = F7A3F96118EE3052006FBA0A /* arrow-close-notifications.png */; };
 		F7A3F96418EE306A006FBA0A /* check-icon-green-square.png in Resources */ = {isa = PBXBuildFile; fileRef = F7A3F96318EE306A006FBA0A /* check-icon-green-square.png */; };
@@ -1507,6 +1508,8 @@
 		F751018F18AE8D6F001F1E7F /* TermsOfUseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsOfUseViewController.m; sourceTree = "<group>"; };
 		F751019518B134DE001F1E7F /* ChangeEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeEmailViewController.h; sourceTree = "<group>"; };
 		F751019618B134DE001F1E7F /* ChangeEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeEmailViewController.m; sourceTree = "<group>"; };
+		F78485AE195856BC00E0288C /* CustomIOS7AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOS7AlertView.h; sourceTree = "<group>"; };
+		F78485AF195856BC00E0288C /* CustomIOS7AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOS7AlertView.m; sourceTree = "<group>"; };
 		F7977B6218DBA25B000E955C /* check-icon-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon-green.png"; sourceTree = "<group>"; };
 		F7A3F96118EE3052006FBA0A /* arrow-close-notifications.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-close-notifications.png"; sourceTree = "<group>"; };
 		F7A3F96318EE306A006FBA0A /* check-icon-green-square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon-green-square.png"; sourceTree = "<group>"; };
@@ -1759,6 +1762,7 @@
 				3AB8D19318C2A42B0082B77C /* New User */,
 				F751016B18ABE8A2001F1E7F /* Settings.bundle */,
 				F751013C18ABE100001F1E7F /* InAppSettingsKit */,
+				F78485AD1958565E00E0288C /* CustomIOS7AlertView */,
 				3A47C841189F1A30003020D7 /* DB */,
 				3AF19ACE1881F86000F3E4D3 /* Dependencies */,
 				3A939630189B3543004B01CE /* Main */,
@@ -3420,6 +3424,15 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		F78485AD1958565E00E0288C /* CustomIOS7AlertView */ = {
+			isa = PBXGroup;
+			children = (
+				F78485AE195856BC00E0288C /* CustomIOS7AlertView.h */,
+				F78485AF195856BC00E0288C /* CustomIOS7AlertView.m */,
+			);
+			name = CustomIOS7AlertView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3885,6 +3898,7 @@
 				3A793D47190FF6CA00303457 /* UIWebView+AFNetworking.m in Sources */,
 				3AF691351919581600ABA9C5 /* GPUImageAdaptiveThresholdFilter.m in Sources */,
 				3A98D9EA18BD1A2600B69049 /* XMPPRoomHybrid.xcdatamodeld in Sources */,
+				F78485B0195856BC00E0288C /* CustomIOS7AlertView.m in Sources */,
 				F744856118DB61C500460FBC /* SWCellScrollView.m in Sources */,
 				3A98D8EA18BD19B200B69049 /* XMPPStream.m in Sources */,
 				3A2F7D2C18EF029400D443FC /* Encrypter.m in Sources */,

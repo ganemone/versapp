@@ -11,6 +11,7 @@
 #import "IQPacketManager.h"
 #import "FriendsDBManager.h"
 #import "Constants.h"
+#import "StyleManager.h"
 
 @interface ContactSearchViewController ()
 
@@ -34,6 +35,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [_headerLabel setFont:[StyleManager getFontStyleLightSizeHeader]];
 }
 
 - (void)didReceiveMemoryWarning
