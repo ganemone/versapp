@@ -39,6 +39,7 @@
     [_headerLabel setFont:[StyleManager getFontStyleLightSizeHeader]];
     [_description setFont:[StyleManager getFontStyleLightSizeLarge]];
     [_description setTextColor:[StyleManager getColorPurple]];
+    [_username setFont:[StyleManager getFontStyleLightSizeLarge]];
 }
 
 - (void)didReceiveMemoryWarning
