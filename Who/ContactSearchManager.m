@@ -82,7 +82,7 @@ static ContactSearchManager *selfInstance;
                     NSArray *people = (__bridge NSArray *)(ABAddressBookCopyArrayOfAllPeople(addressBook));
                     for (id person in people) {
                         ABRecordRef personRecordReference = (__bridge ABRecordRef)person;
-                        NSString *firstName = (__bridge_transfer NSString*)ABRecordCopyValue(personRecordReference, kABPersonFirstNameProperty);
+                        /*NSString *firstName = (__bridge_transfer NSString*)ABRecordCopyValue(personRecordReference, kABPersonFirstNameProperty);
                         NSString *lastName = (__bridge_transfer NSString*)ABRecordCopyValue(personRecordReference, kABPersonLastNameProperty);
                         //ABRecordID personID = ABRecordGetRecordID(personRecordReference);
                         if (firstName == nil && lastName == nil) {
@@ -92,7 +92,7 @@ static ContactSearchManager *selfInstance;
                             lastName = @"";
                         } else if(lastName == nil) {
                             lastName = @"";
-                        }
+                        }*/
                         
                         // Get all phone numbers of a contact
                         ABMultiValueRef phoneNumbers = ABRecordCopyValue(personRecordReference, kABPersonPhoneProperty);
@@ -117,6 +117,7 @@ static ContactSearchManager *selfInstance;
                             [allPhoneNumbers addObject:phone];
                         }
                     }
+
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [BlacklistManager sendPostRequestWithPhoneNumbers:allPhoneNumbers emails:allEmails];
                     });

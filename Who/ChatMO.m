@@ -11,6 +11,7 @@
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
 #import "MessagesDBManager.h"
+#import "Constants.h"
 
 @implementation ChatMO
 
@@ -73,7 +74,19 @@
 }
 
 -(NSString *)getMessageTo {
-    return ([[ConnectionProvider getUser] compare:[_participants firstObject]] == 0) ? [_participants lastObject] : [_participants firstObject];
+    return ([[ConnectionProvider getUser] isEqualToString:[self getFirstParticipantJID]]) ? [self getLastParticipantJID] : [self getFirstParticipantJID];
+}
+
+-(NSString *)getFirstParticipantJID {
+    return [[_participants firstObject] objectForKey:PARTICIPANT_USERNAME];
+}
+
+-(NSString *)getLastParticipantJID {
+    return [[_participants lastObject] objectForKey:PARTICIPANT_USERNAME];
+}
+
+-(NSArray *)getParticipantJIDS {
+    return [_participants valueForKey:PARTICIPANT_USERNAME];
 }
 
 +(NSString *)createGroupID {

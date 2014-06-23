@@ -57,10 +57,12 @@
 }
 
 -(NSString *)thoughtChatDegree {
-    if ([FriendsDBManager hasUserWithJID:_chatMO.owner_id])
+    if ([self getChatDegree] == 1) {
         return @"friend";
-    else
+    }
+    else {
         return @"friend of a friend";
+    }
 }
 
 - (void)viewDidLoad
@@ -92,7 +94,7 @@
 
 - (void)setUpInfoBtn {
     if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION]) {
-        if ([FriendsDBManager hasUserWithJID:_chatMO.owner_id]) {
+        if ([self getChatDegree] == 1) {
             [_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 35, 30, 28, 28)];
             [_infoBtn setImage:[UIImage imageNamed:@"friend-white.png"] forState:UIControlStateNormal];
         } else {
@@ -108,15 +110,18 @@
     }
 }
 
+- (int)getChatDegree {
+    return ([FriendsDBManager hasUserWithJID:_chatMO.participant_string]) ? 1 : 2;
+}
+
 -(void)messageReceived:(NSNotification*)notification {
     NSDictionary *userInfo = notification.userInfo;
     if ([(NSString*)[userInfo objectForKey:MESSAGE_PROPERTY_GROUP_ID] compare:self.chatMO.chat_id] == 0) {
         if([self.chatMO getNumberOfMessages] <= 1) {
             [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
-            [self.tableView reloadData];
-        } else {
-            [self animateAddNewestMessage];
         }
+        [self.tableView reloadData];
+        [self scrollToBottomAnimated:YES];
     }
 }
 
@@ -221,7 +226,9 @@
 -(void)animateAddNewestMessage {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.chatMO getNumberOfMessages] - 1 inSection:0];
     NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
+    [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
     [self scrollToBottomAnimated:YES];
 }
 

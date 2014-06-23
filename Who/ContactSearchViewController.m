@@ -46,11 +46,17 @@
 }
 
 - (IBAction)sendRequest:(id)sender {
-    NSString *usernameText = [_username.text lowercaseString];
-    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSubscribePacket:_username.text]];
-    [FriendsDBManager insert:usernameText name:nil email:nil status:[NSNumber numberWithInt:STATUS_SEARCHED] searchedPhoneNumber:nil searchedEmail:nil uid:nil];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Friend Request Sent" message:nil delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-    [alertView show];
+    NSString *usernameText = [[_username.text stringByReplacingOccurrencesOfString:@" " withString:@""] lowercaseString];
+    if ([FriendsDBManager hasUserWithJID:usernameText]) {
+        NSString *message = [NSString stringWithFormat:@"%@ is already your friend!", _username.text];
+        [[[UIAlertView alloc] initWithTitle:@"" message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+        [_username setText:@""];
+    } else {
+        [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createSubscribePacket:_username.text]];
+        [FriendsDBManager insert:usernameText name:nil email:nil status:[NSNumber numberWithInt:STATUS_SEARCHED] searchedPhoneNumber:nil searchedEmail:nil uid:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Friend Request Sent" message:nil delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [alertView show];
+    }
 }
 
 - (IBAction)handleBackPressed:(id)sender {

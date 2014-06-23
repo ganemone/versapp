@@ -54,6 +54,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *findFriendsBtn;
 @property (weak, nonatomic) IBOutlet UILabel *noFriendsLabel;
 @property (weak, nonatomic) IBOutlet UIView *footerView;
+@property (weak, nonatomic) IBOutlet UIButton *startConversationBtn;
 
 @property BOOL isCreatingGroup;
 @property BOOL isSearching;
@@ -87,6 +88,7 @@
         [self.noFriendsBlackView setUserInteractionEnabled:YES];
         [self.view bringSubviewToFront:self.noFriendsView];
     }
+    [self updateFooterView];
 }
 
 -(void)viewDidLoad{
@@ -134,6 +136,9 @@
     lpgr.minimumPressDuration = 0.5; //seconds
     lpgr.delegate = self;
     [_tableView addGestureRecognizer:lpgr];
+    
+    [[self startConversationBtn] setHidden:YES];
+    
 }
 
 - (IBAction)handleNoFriendsBtnClicked:(id)sender
@@ -162,20 +167,20 @@
 
 -(void)doTutorial {
     NSMutableArray *coachMarks = [[NSMutableArray alloc] initWithArray:@[
-                            @{
-                                @"rect": [NSValue valueWithCGRect:(CGRect){{_headerView.frame.origin.x,_headerView.frame.origin.y},{_headerView.frame.size.width, _headerView.frame.size.height}}],//(CGRect){{0,0},{self.view.frame.size.width,44}}],
-                                @"caption": @"This page shows your friends in versapp."
-                                },
-                            @{
-                                @"rect": [NSValue valueWithCGRect:(CGRect){{self.view.frame.size.width - 50, 20},{40,40}}],
-                                @"caption": @"Click here to add a friend based on their username."
-                                },
-                            ]];
+                                                                         @{
+                                                                             @"rect": [NSValue valueWithCGRect:(CGRect){{_headerView.frame.origin.x,_headerView.frame.origin.y},{_headerView.frame.size.width, _headerView.frame.size.height}}],//(CGRect){{0,0},{self.view.frame.size.width,44}}],
+                                                                             @"caption": @"This page shows your friends in versapp."
+                                                                             },
+                                                                         @{
+                                                                             @"rect": [NSValue valueWithCGRect:(CGRect){{self.view.frame.size.width - 50, 20},{40,40}}],
+                                                                             @"caption": @"Click here to add a friend based on their username."
+                                                                             },
+                                                                         ]];
     
     if ([_allAccepted count] > 0) {
         [coachMarks addObject:@{@"rect":[NSValue valueWithCGRect:(CGRect){{0,_headerView.frame.size.height + _searchBar.frame.size.height},{self.view.frame.size.width, 44}}],
                                 @"caption":@"Select a friend to start a conversation anonymously. You will know their identity, but they won't know yours!"
-                                 }];
+                                }];
         if ([_allAccepted count] > 1) {
             [coachMarks addObject:@{@"rect":[NSValue valueWithCGRect:(CGRect){{0, _headerView.frame.size.height + _searchBar.frame.size.height},{self.view.frame.size.width, 88}}],
                                     @"caption":@"Select multiple friends to start a group conversation. All the participants are known, but individual messages remain anonymous."
@@ -184,7 +189,7 @@
         [coachMarks addObject:@{@"rect": [NSValue valueWithCGRect:(CGRect){{0, self.view.frame.size.height - 40},{self.view.frame.size.width, 40}}],
                                 @"caption":@"Use this bar to initiate the conversation"}];
     }
-
+    
     WSCoachMarksView *coachMarksView = [[WSCoachMarksView alloc] initWithFrame:self.view.bounds coachMarks:coachMarks];
     [self.view addSubview:coachMarksView];
     [coachMarksView start];
@@ -241,15 +246,28 @@
         [tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
-    
-    if ([_selectedJIDs count] == 0) {
-        [_bottomLabel setText:@"Select Some Friends"];
-    } else if([_selectedJIDs count] == 1) {
-        [_bottomLabel setText:@"Start One to One Conversation"];
-    } else {
-        [_bottomLabel setText:@"Start Group Conversation"];
-    }
-    
+    [self updateFooterView];
+}
+
+-(void)updateFooterView {
+    [UIView animateWithDuration:0.25 animations:^{
+        if ([_selectedJIDs count] == 0) {
+            [_bottomView setBackgroundColor:[UIColor whiteColor]];
+            [_bottomLabel setTextColor:[StyleManager getColorPurple]];
+            [_bottomLabel setText:@"Select Some Friends"];
+            [_startConversationBtn setHidden:YES];
+        } else if([_selectedJIDs count] == 1) {
+            [_bottomView setBackgroundColor:[StyleManager getColorPurple]];
+            [_bottomLabel setTextColor:[UIColor whiteColor]];
+            [_bottomLabel setText:@"Start One to One Conversation"];
+            [_startConversationBtn setHidden:NO];
+        } else {
+            [_bottomView setBackgroundColor:[StyleManager getColorPurple]];
+            [_bottomLabel setTextColor:[UIColor whiteColor]];
+            [_bottomLabel setText:@"Start Group Conversation"];
+            [_startConversationBtn setHidden:NO];
+        }
+    }];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -393,7 +411,7 @@
     }
 }
 
--(void)handleLongPressForRowAtIndexPath:(NSIndexPath*)indexPath {    
+-(void)handleLongPressForRowAtIndexPath:(NSIndexPath*)indexPath {
     _unfriendCheck = [_searchResults objectAtIndex:indexPath.row];
     
     UIAlertView *unfriendAlertView = [[UIAlertView alloc] initWithTitle:@"Remove Friend" message:[NSString stringWithFormat:@"Would you like to remove %@ from your friends list?", _unfriendCheck.name] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Remove", nil];

@@ -41,7 +41,7 @@ static int numUninvitedParticipants;
     [chatEntry setValue:[NSNumber numberWithInt:status] forKey:CHATS_TABLE_COLUMN_NAME_STATUS];
     [chatEntry setValue:participantString forKey:CHATS_TABLE_COLUMN_NAME_PARTICIPANT_STRING];
     [chatEntry setValue:degree forKey:CHATS_TABLE_COLUMN_NAME_DEGREE];
-    [chatEntry setParticipants:[[NSMutableArray alloc] initWithArray:[participantString componentsSeparatedByString:@", "]]];
+    [chatEntry setParticipants:[self buildChatParticipantsFromArray:[participantString componentsSeparatedByString:@", "]]];
     [delegate saveContext];
     return chatEntry;
 }
@@ -57,7 +57,7 @@ static int numUninvitedParticipants;
     [chatEntry setValue:[NSNumber numberWithInt:status] forKey:CHATS_TABLE_COLUMN_NAME_STATUS];
     [chatEntry setValue:participantString forKey:CHATS_TABLE_COLUMN_NAME_PARTICIPANT_STRING];
     [chatEntry setValue:degree forKey:CHATS_TABLE_COLUMN_NAME_DEGREE];
-    [chatEntry setParticipants:[[NSMutableArray alloc] initWithArray:[participantString componentsSeparatedByString:@", "]]];
+    [chatEntry setParticipants:[self buildChatParticipantsFromArray:[participantString componentsSeparatedByString:@", "]]];
     
     return chatEntry;
 }
@@ -80,9 +80,13 @@ static int numUninvitedParticipants;
     [chatEntry setValue:degree forKey:CHATS_TABLE_COLUMN_NAME_DEGREE];
     [delegate saveContext];
     if (participantString != nil) {
-        [chatEntry setParticipants:[[NSMutableArray alloc] initWithArray:[participantString componentsSeparatedByString:@", "]]];
+        [chatEntry setParticipants:[self buildChatParticipantsFromArray:[participantString componentsSeparatedByString:@", "]]];
     } else {
-        [chatEntry setParticipants:[[NSMutableArray alloc] initWithObjects:[ConnectionProvider getUser], ownerID, nil]];
+        if ([[ConnectionProvider getUser] isEqualToString:ownerID]) {
+            [chatEntry setParticipants:[self buildChatParticipantsFromArray:@[ownerID]]];
+        } else {
+            [chatEntry setParticipants:[self buildChatParticipantsFromArray:@[[ConnectionProvider getUser], ownerID]]];
+        }
     }
     
     return chatEntry;
@@ -104,13 +108,13 @@ static int numUninvitedParticipants;
 
 +(ChatMO*)getChatWithID:(NSString*)chatID {
     ChatMO *chat = [[self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", CHATS_TABLE_COLUMN_NAME_CHAT_ID, chatID]] firstObject];
-    [chat setParticipants:[[NSMutableArray alloc] initWithArray:[chat.participant_string componentsSeparatedByString:@", "]]];
+    [chat setParticipants:[self buildChatParticipantsFromArray:[chat.participant_string componentsSeparatedByString:@", "]]];
     return chat;
 }
 
 +(ChatMO *)getChatWithID:(NSString *)chatID withMOC:(NSManagedObjectContext *)moc {
     ChatMO *chat = [[self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", CHATS_TABLE_COLUMN_NAME_CHAT_ID, chatID] withMOC:moc] firstObject];
-    [chat setParticipants:[[NSMutableArray alloc] initWithArray:[chat.participant_string componentsSeparatedByString:@", "]]];
+    [chat setParticipants:[self buildChatParticipantsFromArray:[chat.participant_string componentsSeparatedByString:@", "]]];
     return chat;
 }
 
@@ -192,7 +196,7 @@ static int numUninvitedParticipants;
     for (int i = 0; i < [chats count]; i++) {
         chat = [chats objectAtIndex:i];
         [chat setMessages:[MessagesDBManager getMessagesByChat:chat.chat_id]];
-        [chat setParticipants:[NSMutableArray arrayWithArray:[chat.participant_string componentsSeparatedByString:@", "]]];
+        [chat setParticipants:[self buildChatParticipantsFromArray:[chat.participant_string componentsSeparatedByString:@", "]]];
     }
 }
 
@@ -254,8 +258,9 @@ static int numUninvitedParticipants;
         chat.owner_id = [ConnectionProvider getUser];
         
         XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
+        NSArray *participantJIDS = [chat getParticipantJIDS];
         for (NSString *participant in participants) {
-            if ([chat.participants containsObject:participant] == NO) {
+            if ([participantJIDS containsObject:participant] == NO) {
                 [conn sendElement:[IQPacketManager createInviteToChatPacket:chat.chat_id invitedUsername:participant]];
                 [conn sendElement:[IQPacketManager createInviteToMUCMessage:chat.chat_id username:participant chatName:chat.chat_name]];
             }
@@ -275,12 +280,11 @@ static int numUninvitedParticipants;
     if (chatIDUpdatingParticipants != nil) {
         ChatMO *chat = [self getChatWithID:chatIDUpdatingParticipants];
         [chat setParticipants:participants];
-        [chat setParticipant_string:[participants componentsJoinedByString:@", "]];
+        [chat setParticipant_string:[[participants valueForKey:PARTICIPANT_USERNAME] componentsJoinedByString:@", "]];
         AppDelegate *delegate = [UIApplication sharedApplication].delegate;
         [delegate saveContext];
         chatIDUpdatingParticipants = nil;
     }
-    
 }
 
 +(void)setChatIDUpdatingParticipants:(NSString*)chatID {
@@ -315,6 +319,16 @@ static int numUninvitedParticipants;
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     [[delegate managedObjectContext] deleteObject:chat];
     [delegate saveContext];
+}
+
++(NSMutableArray *)buildChatParticipantsFromArray:(NSArray *)participants {
+    NSMutableArray *ret = [[NSMutableArray alloc] initWithCapacity:[participants count]];
+    for (NSString *participant in participants) {
+        [ret addObject:@{PARTICIPANT_USERNAME: participant,
+                        PARTICIPANT_INVITED_BY: @"",
+                         PARTICIPANT_STATUS: @"joined"}];
+    }
+    return ret;
 }
 
 @end

@@ -125,6 +125,7 @@
         if (_currentMethod == nil)
             _currentMethod = @"friends";
         [_thoughtSegmentedControl setEnabled:YES forSegmentAtIndex:0];
+        _currentMethod = ([_thoughtSegmentedControl selectedSegmentIndex] == 1) ? @"global" : @"friends";
     }
 }
 
@@ -133,10 +134,11 @@
     [super viewDidLoad];
     
     self.confessionsManager = [ConfessionsManager getInstance];
-    
     if ([self.confessionsManager getNumberOfConfessions] == 0) {
         [MBProgressHUD showHUDAddedTo:_tableView animated:YES];
     }
+    
+    [self refreshSegmentControl];
     
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     [defaultCenter addObserver:self selector:@selector(refreshSegmentControl) name:PACKET_ID_GET_ROSTER object:nil];

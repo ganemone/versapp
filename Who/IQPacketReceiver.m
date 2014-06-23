@@ -137,13 +137,18 @@
     NSMutableArray *participants = [[NSMutableArray alloc] initWithCapacity:[matches count]];
     
     for (NSTextCheckingResult *match in matches) {
-        if ([[packetXML substringWithRange:[match rangeAtIndex:3]] isEqualToString:@"active"]) {
-            [participants addObject:[packetXML substringWithRange:[match rangeAtIndex:1]]];
+        NSString *status = [packetXML substringWithRange:[match rangeAtIndex:3]];
+        if ([status isEqualToString:@"active"] || [status isEqualToString:@"pending"]) {
+            NSDictionary *participantDict = @{PARTICIPANT_STATUS: [packetXML substringWithRange:[match rangeAtIndex:3]],
+                                              PARTICIPANT_USERNAME : [packetXML substringWithRange:[match rangeAtIndex:1]],
+                                              PARTICIPANT_INVITED_BY : [packetXML substringWithRange:[match rangeAtIndex:2]]};
+            [participants addObject:participantDict];
         }
     }
     
     [ChatDBManager updateChatParticipants:participants];
-    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_CHAT_PARTICIPANTS object:nil];
+    NSDictionary *userInfo = @{PACKET_ID_GET_CHAT_PARTICIPANTS: participants};
+    [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_CHAT_PARTICIPANTS object:nil userInfo:userInfo];
 }
 
 +(void)handleGetJoinedChatsPacket:(XMPPIQ *)iq {
@@ -253,16 +258,17 @@
 }
 
 +(void)handleGetVCardPacket:(XMPPIQ *)packet {
-    NSString *firstName, *lastName, *itemName, *nickname;
+    NSString *firstName, *lastName, *itemName;//, *nickname;
     NSString *username = [[[packet fromStr] componentsSeparatedByString:@"@"] firstObject];
     NSArray *children = [packet children];
     for (int i = 0; i < children.count; i++) {
         NSArray *grand = [[children objectAtIndex:i] children];
         for (int j = 0; j < grand.count; j++) {
             itemName = [[grand objectAtIndex:j] name];
-            if([itemName compare:VCARD_TAG_NICKNAME] == 0) {
-                nickname = [[grand objectAtIndex:j] stringValue];
-            } else if([itemName compare:@"N"] == 0) {
+            //if([itemName compare:VCARD_TAG_NICKNAME] == 0) {
+                //nickname = [[grand objectAtIndex:j] stringValue];
+            //} else
+            if([itemName compare:@"N"] == 0) {
                 NSArray *nameItems = [[grand objectAtIndex:j] children];
                 for(int k = 0; k < nameItems.count; k++) {
                     itemName = [[nameItems objectAtIndex:k] name];
@@ -305,10 +311,10 @@
         participantString = [packetXML substringWithRange:[match rangeAtIndex:1]];
         chatId = [packetXML substringWithRange:[match rangeAtIndex:2]];
         type = [packetXML substringWithRange:[match rangeAtIndex:3]];
-        owner = [packetXML substringWithRange:[match rangeAtIndex:4]];
+        //owner = [packetXML substringWithRange:[match rangeAtIndex:4]];
         name = [self urlDecode:[packetXML substringWithRange:[match rangeAtIndex:5]]];
-        createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
-        participants = [participantString componentsSeparatedByString:@", "];
+        //createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
+        //participants = [participantString componentsSeparatedByString:@", "];
         
         [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_PENDING degree:@"1"];
     }
@@ -434,7 +440,11 @@
         [[[ContactSearchManager alloc] init] accessContacts];
         [UserDefaultManager setSentBlacklistTrue];
     }
-    [[ConfessionsManager getInstance] loadConfessionsWithMethod:@"friends"];
+    if ([FriendsDBManager hasEnoughFriends]) {
+        [[ConfessionsManager getInstance] loadConfessionsWithMethod:@"friends"];
+    } else {
+        [[ConfessionsManager getInstance] loadConfessionsWithMethod:@"global"];
+    }
 }
 
 +(void)handleToggleFavoriteConfessionPacket:(XMPPIQ *)iq {

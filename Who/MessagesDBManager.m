@@ -90,7 +90,7 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(%K == %@) AND (%K <= %@) AND (%K != %@)", MESSAGE_PROPERTY_GROUP_ID, chatID, MESSAGE_PROPERTY_TIMESTAMP, message.time, MESSAGE_PROPERTY_BODY, message.message_body];
     
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:MESSAGE_PROPERTY_TIMESTAMP ascending:NO];
-    [fetchRequest setFetchLimit:100];
+    [fetchRequest setFetchLimit:10];
     [fetchRequest setPredicate:predicate];
     
     [fetchRequest setSortDescriptors:@[sort]];

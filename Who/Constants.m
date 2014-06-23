@@ -267,4 +267,8 @@ NSString *const DOWNLOAD_URL = @"http://www.versapp.co/gcs/download.php";
 NSString *const BLACKLIST_URL = @"https://www.versapp.co:5281/contacts/store";
 NSString *const BLACKLIST_AUTH_CODE = @"Authorization";
 
+NSString *const PARTICIPANT_STATUS = @"participant_status";
+NSString *const PARTICIPANT_USERNAME = @"participant_username";
+NSString *const PARTICIPANT_INVITED_BY = @"participant_invited_by";
+
 @end

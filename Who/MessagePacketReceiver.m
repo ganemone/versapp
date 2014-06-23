@@ -125,9 +125,11 @@
                 newMessage = [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:receiverID];
             }
             ChatMO *currentChat = [ChatDBManager getChatWithID:groupID];
-            if (![currentChat.participants containsObject:senderID]) {
-                [currentChat.participants addObject:senderID];
-                [currentChat setValue:[currentChat.participants componentsJoinedByString:@", "] forKey:CHATS_TABLE_COLUMN_NAME_PARTICIPANT_STRING];
+            if (![[currentChat getParticipantJIDS] containsObject:senderID]) {
+                [currentChat.participants addObject:@{PARTICIPANT_STATUS : @"joined",
+                                                      PARTICIPANT_USERNAME : senderID,
+                                                      PARTICIPANT_INVITED_BY : @""}];
+                [currentChat setValue:[[currentChat getParticipantJIDS] componentsJoinedByString:@", "] forKey:CHATS_TABLE_COLUMN_NAME_PARTICIPANT_STRING];
                 AppDelegate *delegate = [UIApplication sharedApplication].delegate;
                 [delegate saveContext];
             }

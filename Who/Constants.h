@@ -267,4 +267,8 @@ extern NSString *const DOWNLOAD_URL;
 extern NSString *const BLACKLIST_URL;
 extern NSString *const BLACKLIST_AUTH_CODE;
 
+extern NSString *const PARTICIPANT_STATUS;
+extern NSString *const PARTICIPANT_USERNAME;
+extern NSString *const PARTICIPANT_INVITED_BY;
+
 @end
