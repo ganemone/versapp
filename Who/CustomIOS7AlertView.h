@@ -28,6 +28,9 @@
 @property (nonatomic, retain) NSArray *buttonTitles;
 @property (nonatomic, assign) BOOL useMotionEffects;
 
+@property (nonatomic, strong) UITextField *textInput;
+@property (nonatomic, assign) BOOL hasInput;
+
 @property (copy) void (^onButtonTouchUpInside)(CustomIOS7AlertView *alertView, int buttonIndex) ;
 
 - (id)init;
@@ -45,5 +48,8 @@
 
 - (void)deviceOrientationDidChange: (NSNotification *)notification;
 - (void)dealloc;
+
+-(NSString *)buttonTitleAtIndex:(NSInteger)buttonIndex;
+-(NSString *)getInputText;
 
 @end

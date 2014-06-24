@@ -285,34 +285,10 @@
         info = @"This is your friends thoughts feed. These anonymous thoughts are from your friends and friends of friends. Both chatting and favoriting are also anonymous!";
     else
         info = @"This is your global thoughts feed. These anonymous thoughts are from anyone other than your direct friends or friends of friends. You can't start a chat here, but you can anonymously favorite.";
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Thoughts" message:info delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil];
+    //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Thoughts" message:info delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil];
     
-    /*CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
-    
-    UILabel *header = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0.8*self.view.frame.size.width, 40)];
-    [header setFont:[StyleManager getFontStyleMediumSizeXL]];
-    [header setTextAlignment:NSTextAlignmentCenter];
-    [header setText:@"Thoughts"];
-    [header setBackgroundColor:[UIColor clearColor]];
-    
-    UITextView *content = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 0.8*self.view.frame.size.width, 10)];
-    [content setFont:[StyleManager getFontStyleLightSizeLarge]];
-    [content setTextAlignment:NSTextAlignmentCenter];
-    [content setText:info];
-    [content setBackgroundColor:[UIColor clearColor]];
-    CGRect rect = [content.layoutManager usedRectForTextContainer:content.textContainer];
-    [content setFrame:CGRectMake(0, header.frame.size.height, rect.size.width, rect.size.height+20)];
-    //[content setScrollEnabled:NO];
-    
-    UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, header.frame.size.width, header.frame.size.height+content.frame.size.height)];
-    [container addSubview:header];
-    [container addSubview:content];
-    [container setBackgroundColor:[UIColor clearColor]];
-    
-    [alertView setContainerView:container];
-    [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"Got it", nil]];
-    [alertView setDelegate:self];*/
-    
+    CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:@"Thoughts" message:info buttons:[NSMutableArray arrayWithObject:@"Got it"] hasInput:NO];
+    [alertView setDelegate:self];
     [alertView show];
 }
 

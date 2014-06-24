@@ -11,8 +11,9 @@
 
 #import "CustomIOS7AlertView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "StyleManager.h"
 
-const static CGFloat kCustomIOS7AlertViewDefaultButtonHeight       = 50;
+const static CGFloat kCustomIOS7AlertViewDefaultButtonHeight       = 35; //Default was 50
 const static CGFloat kCustomIOS7AlertViewDefaultButtonSpacerHeight = 1;
 const static CGFloat kCustomIOS7AlertViewCornerRadius              = 7;
 const static CGFloat kCustomIOS7MotionEffectExtent                 = 10.0;
@@ -26,6 +27,8 @@ CGFloat buttonSpacerHeight = 0;
 @synthesize delegate;
 @synthesize buttonTitles;
 @synthesize useMotionEffects;
+@synthesize textInput;
+@synthesize hasInput;
 
 - (id)initWithParentView: (UIView *)_parentView
 {
@@ -136,6 +139,10 @@ CGFloat buttonSpacerHeight = 0;
     [self close];
 }
 
+-(NSString *)buttonTitleAtIndex:(NSInteger)buttonIndex {
+    return self.buttonTitles[buttonIndex];
+}
+
 // Dialog close animation then cleaning and removing the view from the parent
 - (void)close
 {
@@ -172,6 +179,15 @@ CGFloat buttonSpacerHeight = 0;
 {
     if (containerView == NULL) {
         containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 150)];
+    }
+    
+    if (hasInput) {
+        textInput = [[UITextField alloc] initWithFrame:CGRectMake(10, containerView.frame.size.height, containerView.frame.size.width-20, 30)];
+        textInput.borderStyle = UITextBorderStyleRoundedRect;
+        textInput.returnKeyType = UIReturnKeyDone;
+        [textInput setFont:[StyleManager getFontStyleLightSizeLarge]];
+        [containerView addSubview:textInput];
+        [containerView setFrame:CGRectMake(0, 0, containerView.frame.size.width, containerView.frame.size.height+50)];
     }
 
     CGSize screenSize = [self countScreenSize];
@@ -392,6 +408,10 @@ CGFloat buttonSpacerHeight = 0;
 					 }
 					 completion:nil
 	 ];
+}
+
+-(NSString *)getInputText {
+    return textInput.text;
 }
 
 @end

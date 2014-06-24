@@ -38,21 +38,30 @@
 - (void)alertConfessionChat {
     NSString *title = @"What's the deal?";
     NSString *message = [NSString stringWithFormat:@"This is a one to one chat between you and a %@ started from a thought. This chat is two-way anonymous! Neither of you know exactly who the other user is, but you are connected by a thought.", [self thoughtChatDegree]];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:@"View Thought", nil];
+    //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:@"View Thought", nil];
+    
+    CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:title message:message buttons:[NSMutableArray arrayWithObjects:@"Got it", @"View Thought", nil] hasInput:NO];
+    [alertView setDelegate:self];
     [alertView show];
 }
 
 - (void)alertInvitedOneToOne {
     NSString *title = @"What's the deal?";
     NSString *message = @"This is a one to one chat started by one of your friends. Since they started the chat, they know who you are but you don't know who they are!";
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:nil];
+    //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:nil];
+    
+    CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:title message:message buttons:[NSMutableArray arrayWithObject:@"Got it"]hasInput:NO];
+    [alertView setDelegate:self];
     [alertView show];
 }
 
 - (void)alertInviterOneToOne {
     NSString *title = @"What's the deal?";
     NSString *message = [NSString stringWithFormat:@"This is a one to one chat between you and %@. This chat is one-way anonymous. Since you started the chat, you know who they are, but they don't know who you are!", [_chatMO getOldChatName]];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:nil];
+    //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:nil];
+    
+    CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:title message:message buttons:[NSMutableArray arrayWithObject:@"Got it"]hasInput:NO];
+    [alertView setDelegate:self];
     [alertView show];
 }
 
@@ -234,7 +243,12 @@
 
 -(void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
     if (self.isUploadingImage == YES) {
-        [[[UIAlertView alloc] initWithTitle:@"Hold on..." message:@"Wait just a sec, we are still loading your picture." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+        //[[[UIAlertView alloc] initWithTitle:@"Hold on..." message:@"Wait just a sec, we are still loading your picture." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+        
+        CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:@"Hold on..." message:@"Wait just a sec, we are still loading your picture." buttons:[NSMutableArray arrayWithObject:@"Ok"] hasInput:NO];
+        [alertView setDelegate:self];
+        [alertView show];
+        
         return;
     }
     if (self.messageImageLink == nil && (text == nil || [text isEqualToString:@""])) {
@@ -276,7 +290,12 @@
     self.messageImage = image;
     self.messageImageLink = url;
     if (self.messageImageLink == nil) {
-        [[[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Something went wrong when trying to upload your image." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+        //[[[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Something went wrong when trying to upload your image." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+        
+        CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:@"Whoops" message:@"Something went wrong when trying to upload your image." buttons:[NSMutableArray arrayWithObject:@"Ok"] hasInput:NO];
+        [alertView setDelegate:self];
+        [alertView show];
+        
         self.messageImage = nil;
     }
 }
@@ -286,23 +305,26 @@
 }
 
 - (IBAction)handleDiscloseInfoBtnClicked:(id)sender {
-    NSString *title = @"What's the deal?";
-    NSString *message;
+    //NSString *title = @"What's the deal?";
+    //NSString *message;
     if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION]) {
-        message = [NSString stringWithFormat:@"This is a one to one chat between you and a %@ started from a thought. This chat is two-way anonymous! Neither of you know exactly who the other user is, but you are connected by a thought.", [self thoughtChatDegree]];
+        //message = [NSString stringWithFormat:@"This is a one to one chat between you and a %@ started from a thought. This chat is two-way anonymous! Neither of you know exactly who the other user is, but you are connected by a thought.", [self thoughtChatDegree]];
+        [self alertConfessionChat];
     } else if([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITED]) {
-        message = @"This is a one to one chat started by one of your friends. Remember, since they started the chat, they know who you are but you don't know who they are.";
+        //message = @"This is a one to one chat started by one of your friends. Remember, since they started the chat, they know who you are but you don't know who they are.";
+        [self alertInvitedOneToOne];
     } else {
-        message = [NSString stringWithFormat:@"This is a one to one chat between you and %@. This chat is one-way anonymous. Since you started the chat, you know who they are, but they don't know who you are!", [_chatMO getOldChatName]];
+        //message = [NSString stringWithFormat:@"This is a one to one chat between you and %@. This chat is one-way anonymous. Since you started the chat, you know who they are, but they don't know who you are!", [_chatMO getOldChatName]];
+        [self alertInviterOneToOne];
     }
     
-    if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION]) {
+    /*if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:@"View Thought", nil];
         [alertView show];
     } else {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:nil];
         [alertView show];
-    }
+    }*/
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -316,6 +338,21 @@
     }
 }
 
+- (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex {
+    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString: @"View Thought"]) {
+            //UIAlertView *confessionAlert = [[UIAlertView alloc] initWithTitle:@"Thought" message:_chatMO.chat_name delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil];
+            //[confessionAlert show];
+            
+        CustomIOS7AlertView *thoughtAlert = [StyleManager createCustomAlertView:nil message:_chatMO.chat_name buttons:[NSMutableArray arrayWithObject:@"Got it"] hasInput:NO];
+        [thoughtAlert setDelegate:self];
+        
+        [alertView close];
+        [thoughtAlert show];
+        
+    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Got it"] || [[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Ok"]) {
+        [alertView close];
+    }
+}
 
 /*
  // Override to support conditional editing of the table view.

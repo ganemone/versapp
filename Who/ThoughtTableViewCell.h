@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "Confession.h"
 #import "ImageManager.h"
-@interface ThoughtTableViewCell : UITableViewCell<ImageManagerDelegate>
+#import "CustomIOS7AlertView.h"
+
+@interface ThoughtTableViewCell : UITableViewCell<ImageManagerDelegate, CustomIOS7AlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *body;
 @property (weak, nonatomic) IBOutlet UIButton *chatBtn;
