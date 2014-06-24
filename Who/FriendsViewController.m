@@ -285,7 +285,7 @@
     [self.tableView reloadData];
 }
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+/*-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == [alertView cancelButtonIndex]) {
         return;
     } else if (alertView == _groupNamePrompt) {
@@ -312,7 +312,7 @@
     } else {
         [self handleUnfriend:_unfriendCheck];
     }
-}
+}*/
 
 -(void)customIOS7dialogButtonTouchUpInside:(id)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"] || [[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Ok"]) {
@@ -324,6 +324,7 @@
             if (buttonIndex == 1 && groupName.length > 0) {
                 ChatMO *gc = [MUCCreationManager createMUC:groupName participants:self.selectedJIDs];
                 _createdChat = [ChatDBManager insertChatWithID:gc.chat_id chatName:groupName chatType:CHAT_TYPE_GROUP participantString:[self.selectedJIDs componentsJoinedByString:@", "] status:STATUS_JOINED degree:@"1"];
+                [alertView close];
                 [self handleFinishedInvitingUsersToMUC];
             }
             self.isCreatingGroup = NO;
@@ -453,9 +454,12 @@
 -(void)handleLongPressForRowAtIndexPath:(NSIndexPath*)indexPath {
     _unfriendCheck = [_searchResults objectAtIndex:indexPath.row];
     
-    UIAlertView *unfriendAlertView = [[UIAlertView alloc] initWithTitle:@"Remove Friend" message:[NSString stringWithFormat:@"Would you like to remove %@ from your friends list?", _unfriendCheck.name] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Remove", nil];
-    unfriendAlertView.alertViewStyle = UIAlertViewStyleDefault;
-    [unfriendAlertView show];
+    //UIAlertView *unfriendAlertView = [[UIAlertView alloc] initWithTitle:@"Remove Friend" message:[NSString stringWithFormat:@"Would you like to remove %@ from your friends list?", _unfriendCheck.name] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Remove", nil];
+    //unfriendAlertView.alertViewStyle = UIAlertViewStyleDefault;
+    
+    _unfriendAlertView = [StyleManager createCustomAlertView:@"Remove Friend" message:[NSString stringWithFormat:@"Would you like to remove %@ from your friends list?", _unfriendCheck.name] buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Remove", nil] hasInput:NO];
+    [_unfriendAlertView setDelegate:self];
+    [_unfriendAlertView show];
 }
 
 -(void)handleUnfriend:(FriendMO*)friend {

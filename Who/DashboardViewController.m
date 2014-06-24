@@ -777,8 +777,11 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 - (void)showRenameDialog {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Rename Conversation" message:@"Enter a new name for this conversation." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rename", nil];
-    [alertView setAlertViewStyle:UIAlertViewStylePlainTextInput];
+    //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Rename Conversation" message:@"Enter a new name for this conversation." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rename", nil];
+    //[alertView setAlertViewStyle:UIAlertViewStylePlainTextInput];
+    
+    CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:@"Rename Conversation" message:@"Enter a new name for this conversation." buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Rename", nil] hasInput:YES];
+    [alertView setDelegate:self];
     [alertView show];
 }
 
@@ -788,31 +791,39 @@ static BOOL notificationsHalfHidden = NO;
         return;
     } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Rename Chat"]) {
         [self showRenameDialog];
-    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Rename"]) {
+    } /*else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Rename"]) {
         [self handleRenameChat:alertView];
-    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Leave Chat"]) {
-        UIAlertView *leaveAlertView = [[UIAlertView alloc] initWithTitle:@"Leave Chat" message:@"Are you sure you want to leave this conversation?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Leave", nil];
-        [leaveAlertView setAlertViewStyle:UIAlertViewStyleDefault];
+    }*/ else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Leave Chat"]) {
+        //UIAlertView *leaveAlertView = [[UIAlertView alloc] initWithTitle:@"Leave Chat" message:@"Are you sure you want to leave this conversation?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Leave", nil];
+        //[leaveAlertView setAlertViewStyle:UIAlertViewStyleDefault];
+        CustomIOS7AlertView *leaveAlertView = [StyleManager createCustomAlertView:@"Leave Chat" message:@"Are you sure you want to leave this conversation?" buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Leave", nil] hasInput:NO];
+        [leaveAlertView setDelegate:self];
         [leaveAlertView show];
     } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Block User"]) {
-        [[[UIAlertView alloc] initWithTitle:@"Are you sure?" message:@"Blocking this user will not allow them to send you one to one messages anymore." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Block", nil] show];
-    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Block"]) {
+        //[[[UIAlertView alloc] initWithTitle:@"Are you sure?" message:@"Blocking this user will not allow them to send you one to one messages anymore." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Block", nil] show];
+        CustomIOS7AlertView *blockAlertView = [StyleManager createCustomAlertView:@"Are you sure?" message:@"Blocking this user will not allow them to send you one to one messages anymore." buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Block", nil] hasInput:NO];
+        [blockAlertView setDelegate:self];
+        [blockAlertView show];
+    } /*else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Block"]) {
         [self handleBlockOneToOneChat];
     } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Leave"]) {
         [self handleLeaveChat];
-    }
-    
-    /*if ([alertView numberOfButtons] == 3) {
-        if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Block"]) {
-            [self showConfirmBlockDiaglog];
-        } else {
-            [self showRenameDialog];
-        }
-    } else if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Rename"]) {
-        [self handleRenameChat:alertView];
-    } else if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Block"]) {
-        [self handleBlockOneToOneChat];
     }*/
+}
+
+-(void)customIOS7dialogButtonTouchUpInside:(id)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Rename"]) {
+        [self handleRenameChat:[alertView getInputText]];
+        [alertView close];
+    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Leave"]) {
+        [alertView close];
+        [self handleLeaveChat];
+    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Block"]) {
+        [alertView close];
+        [self handleBlockOneToOneChat];
+    } else {
+        [alertView close];
+    }
 }
 
 -(void)handleLeaveChat {
@@ -833,9 +844,16 @@ static BOOL notificationsHalfHidden = NO;
     _editingIndexPath = nil;
 }
 
-- (void)handleRenameChat:(UIAlertView *)alertView {
+/*- (void)handleRenameChat:(UIAlertView *)alertView {
     NSString *name = [alertView textFieldAtIndex:0].text;
     [_editingChat setUser_defined_chat_name:name];
+    [(AppDelegate*)[UIApplication sharedApplication].delegate saveContext];
+    [_tableView reloadData];
+    
+}*/
+
+- (void)handleRenameChat:(NSString *)newName {
+    [_editingChat setUser_defined_chat_name:newName];
     [(AppDelegate*)[UIApplication sharedApplication].delegate saveContext];
     [_tableView reloadData];
     
