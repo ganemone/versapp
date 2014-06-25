@@ -25,13 +25,16 @@ NSString *const DESCRIPTION = @"Share and chat anonymously, with the people you 
 
 + (void) shareFBLink:(NSString *)link name:(NSString *)name caption:(NSString *)caption description:(NSString *)description picture:(NSString *)picture {
     // Check if the Facebook app is installed and we can present the share dialog
-    FBShareDialogParams *params = [[FBShareDialogParams alloc] init];
+    
+    FBLinkShareParams *params = [[FBLinkShareParams alloc] init];
+    
+    //FBShareDialogParams *params = [[FBShareDialogParams alloc] init];
     params.link = [NSURL URLWithString:link];
     params.name = name;
     params.caption = caption;
     //params.picture = [NSURL URLWithString:@"http://versapp.co"];
-    params.description = description;
-    
+    //params.description = description;
+    params.linkDescription = description;
     
     // If the Facebook app is installed and we can present the share dialog
     if ([FBDialogs canPresentShareDialogWithParams:params]) {
@@ -40,7 +43,7 @@ NSString *const DESCRIPTION = @"Share and chat anonymously, with the people you 
         [FBDialogs presentShareDialogWithLink:params.link
                                          name:params.name
                                       caption:params.caption
-                                  description:params.description
+                                  description:params.linkDescription
                                       picture:params.picture
                                   clientState:nil
                                       handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {

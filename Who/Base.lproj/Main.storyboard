@@ -1641,8 +1641,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="c3y-RQ-wwp">
                                 <rect key="frame" x="224" y="147" width="76" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Add Friend">
-                                    <color key="titleColor" red="0.38431372549019605" green="0.17254901960784313" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.38431372549019605" green="0.17254901960784313" blue="0.51764705882352935" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Add">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="sendRequest:" destination="c1c-4I-JSE" eventType="touchUpInside" id="hMP-rz-XoQ"/>
@@ -1660,6 +1661,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="7ZY-4U-vwM"/>
                     <connections>
+                        <outlet property="addButton" destination="c3y-RQ-wwp" id="ZNv-RN-gpy"/>
                         <outlet property="description" destination="HXy-AB-ien" id="JCG-HM-Uch"/>
                         <outlet property="headerLabel" destination="6eV-JA-t2L" id="20Z-OR-JhU"/>
                         <outlet property="username" destination="Ha7-h3-mzH" id="l1s-6p-TZg"/>
@@ -1984,18 +1986,18 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="zTQ-Mf-6oX"/>
-        <segue reference="8c7-Mw-K5g"/>
-        <segue reference="pHb-Kf-4qo"/>
-        <segue reference="z6h-qs-HbB"/>
-        <segue reference="hVX-XL-lBE"/>
-        <segue reference="BCc-dv-kG7"/>
-        <segue reference="tVn-SP-Hc9"/>
-        <segue reference="YEX-bB-bO6"/>
-        <segue reference="XeD-6M-yxq"/>
-        <segue reference="WHz-1g-xNx"/>
-        <segue reference="OKb-WW-kzU"/>
         <segue reference="xkE-O7-97C"/>
+        <segue reference="OKb-WW-kzU"/>
+        <segue reference="WHz-1g-xNx"/>
+        <segue reference="XeD-6M-yxq"/>
+        <segue reference="zTQ-Mf-6oX"/>
+        <segue reference="YEX-bB-bO6"/>
+        <segue reference="tVn-SP-Hc9"/>
+        <segue reference="hVX-XL-lBE"/>
+        <segue reference="z6h-qs-HbB"/>
+        <segue reference="BCc-dv-kG7"/>
+        <segue reference="pHb-Kf-4qo"/>
+        <segue reference="qGQ-aw-vgl"/>
         <segue reference="m95-nf-RcH"/>
     </inferredMetricsTieBreakers>
 </document>
