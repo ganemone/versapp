@@ -30,6 +30,7 @@
 
 @property (nonatomic, strong) UITextField *textInput;
 @property (nonatomic, assign) BOOL hasInput;
+@property (nonatomic, assign) BOOL buttonsOnly;
 
 @property (copy) void (^onButtonTouchUpInside)(CustomIOS7AlertView *alertView, int buttonIndex) ;
 

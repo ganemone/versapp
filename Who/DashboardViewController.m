@@ -767,7 +767,10 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 - (void)showGroupLongPressDialog {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rename Chat", @"Leave Chat", nil];
+    //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rename Chat", @"Leave Chat", nil];
+    
+    CustomIOS7AlertView *alertView = [StyleManager createButtonOnlyAlertView:[NSArray arrayWithObjects:@"Rename Chat", @"Leave Chat", @"Cancel", nil]];
+    [alertView setDelegate:self];
     [alertView show];
 }
 

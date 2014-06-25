@@ -29,6 +29,7 @@ CGFloat buttonSpacerHeight = 0;
 @synthesize useMotionEffects;
 @synthesize textInput;
 @synthesize hasInput;
+@synthesize buttonsOnly;
 
 - (id)initWithParentView: (UIView *)_parentView
 {
@@ -178,7 +179,7 @@ CGFloat buttonSpacerHeight = 0;
 - (UIView *)createContainerView
 {
     if (containerView == NULL) {
-        containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 150)];
+        containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0.8*[UIScreen mainScreen].bounds.size.width, 150)];
     }
     
     if (hasInput) {
@@ -220,13 +221,15 @@ CGFloat buttonSpacerHeight = 0;
     dialogContainer.layer.shadowOffset = CGSizeMake(0 - (cornerRadius+5)/2, 0 - (cornerRadius+5)/2);
     dialogContainer.layer.shadowColor = [UIColor blackColor].CGColor;
     dialogContainer.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:dialogContainer.bounds cornerRadius:dialogContainer.layer.cornerRadius].CGPath;
-
-    // There is a line above the button
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, dialogContainer.bounds.size.height - buttonHeight - buttonSpacerHeight, dialogContainer.bounds.size.width, buttonSpacerHeight)];
-    lineView.backgroundColor = [UIColor colorWithRed:198.0/255.0 green:198.0/255.0 blue:198.0/255.0 alpha:1.0f];
-    [dialogContainer addSubview:lineView];
-    // ^^^
-
+    
+    if (!buttonsOnly) {
+        // There is a line above the button
+        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, dialogContainer.bounds.size.height - buttonHeight - buttonSpacerHeight, dialogContainer.bounds.size.width, buttonSpacerHeight)];
+        lineView.backgroundColor = [UIColor colorWithRed:198.0/255.0 green:198.0/255.0 blue:198.0/255.0 alpha:1.0f];
+        [dialogContainer addSubview:lineView];
+        // ^^^
+    }
+    
     // Add the custom container if there is any
     [dialogContainer addSubview:containerView];
 
@@ -240,27 +243,49 @@ CGFloat buttonSpacerHeight = 0;
 - (void)addButtonsToView: (UIView *)container
 {
     if (buttonTitles==NULL) { return; }
-
-    CGFloat buttonWidth = container.bounds.size.width / [buttonTitles count];
-
-    for (int i=0; i<[buttonTitles count]; i++) {
-
-        UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-
-        [closeButton setFrame:CGRectMake(i * buttonWidth, container.bounds.size.height - buttonHeight, buttonWidth, buttonHeight)];
-
-        [closeButton addTarget:self action:@selector(customIOS7dialogButtonTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
-        [closeButton setTag:i];
-
-        [closeButton setTitle:[buttonTitles objectAtIndex:i] forState:UIControlStateNormal];
-        [closeButton setTitleColor:[UIColor colorWithRed:0.0f green:0.5f blue:1.0f alpha:1.0f] forState:UIControlStateNormal];
-        [closeButton setTitleColor:[UIColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:0.5f] forState:UIControlStateHighlighted];
-        //[closeButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
-        [closeButton.layer setCornerRadius:kCustomIOS7AlertViewCornerRadius];
+    
+    if (buttonsOnly) {
+        CGFloat buttonWidth = container.bounds.size.width;
         
-        [closeButton.titleLabel setFont:[StyleManager getFontStyleLightSizeXL]];
-
-        [container addSubview:closeButton];
+        for (int i=0; i<[buttonTitles count]; i++) {
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+            
+            [button setFrame:CGRectMake(0, i*buttonHeight, buttonWidth, buttonHeight)];
+            
+            [button addTarget:self action:@selector(customIOS7dialogButtonTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+            [button setTag:i];
+            
+            [button setTitle:[buttonTitles objectAtIndex:i] forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor colorWithRed:0.0f green:0.5f blue:1.0f alpha:1.0f] forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:0.5f] forState:UIControlStateHighlighted];
+            [button.layer setCornerRadius:kCustomIOS7AlertViewCornerRadius];
+            
+            [button.titleLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+            
+            [container addSubview:button];
+        }
+    } else {
+        CGFloat buttonWidth = container.bounds.size.width / [buttonTitles count];
+        
+        for (int i=0; i<[buttonTitles count]; i++) {
+            
+            UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            
+            [closeButton setFrame:CGRectMake(i * buttonWidth, container.bounds.size.height - buttonHeight, buttonWidth, buttonHeight)];
+            
+            [closeButton addTarget:self action:@selector(customIOS7dialogButtonTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+            [closeButton setTag:i];
+            
+            [closeButton setTitle:[buttonTitles objectAtIndex:i] forState:UIControlStateNormal];
+            [closeButton setTitleColor:[UIColor colorWithRed:0.0f green:0.5f blue:1.0f alpha:1.0f] forState:UIControlStateNormal];
+            [closeButton setTitleColor:[UIColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:0.5f] forState:UIControlStateHighlighted];
+            //[closeButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
+            [closeButton.layer setCornerRadius:kCustomIOS7AlertViewCornerRadius];
+            
+            [closeButton.titleLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+            
+            [container addSubview:closeButton];
+        }
     }
 }
 
@@ -268,7 +293,15 @@ CGFloat buttonSpacerHeight = 0;
 - (CGSize)countDialogSize
 {
     CGFloat dialogWidth = containerView.frame.size.width;
-    CGFloat dialogHeight = containerView.frame.size.height + buttonHeight + buttonSpacerHeight;
+    
+    CGFloat dialogHeight;
+    if (buttonsOnly) {
+        if (buttonTitles != nil)
+            dialogHeight = [buttonTitles count]*buttonHeight;
+        else
+            dialogHeight = containerView.frame.size.height;
+    } else
+        dialogHeight = containerView.frame.size.height + buttonHeight + buttonSpacerHeight;
 
     return CGSizeMake(dialogWidth, dialogHeight);
 }

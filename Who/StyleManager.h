@@ -46,5 +46,6 @@
 +(UIColor *)getRandomBlueColor;
 
 +(CustomIOS7AlertView *)createCustomAlertView: (NSString *)title message:(NSString *)message buttons:(NSArray *)buttons hasInput:(BOOL)hasInput;
++(CustomIOS7AlertView *)createButtonOnlyAlertView: (NSArray *)buttons;
 
 @end
