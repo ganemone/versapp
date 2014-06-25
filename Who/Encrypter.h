@@ -14,8 +14,4 @@
 
 + (NSString *)sha1:(NSString *)input;
 
-+(NSString *)encryptRSA:(NSString *)plainTextString withPublicKeyString:(NSString *)publicKeyString;
-
-+(NSData *)encryptStringWithRSAES:(NSString *)plainText;
-
 @end
