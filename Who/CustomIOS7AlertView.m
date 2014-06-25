@@ -13,7 +13,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "StyleManager.h"
 
-const static CGFloat kCustomIOS7AlertViewDefaultButtonHeight       = 35; //Default was 50
+const static CGFloat kCustomIOS7AlertViewDefaultButtonHeight       = 45; //Default was 50--looked too big
 const static CGFloat kCustomIOS7AlertViewDefaultButtonSpacerHeight = 1;
 const static CGFloat kCustomIOS7AlertViewCornerRadius              = 7;
 const static CGFloat kCustomIOS7MotionEffectExtent                 = 10.0;
@@ -255,8 +255,10 @@ CGFloat buttonSpacerHeight = 0;
         [closeButton setTitle:[buttonTitles objectAtIndex:i] forState:UIControlStateNormal];
         [closeButton setTitleColor:[UIColor colorWithRed:0.0f green:0.5f blue:1.0f alpha:1.0f] forState:UIControlStateNormal];
         [closeButton setTitleColor:[UIColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:0.5f] forState:UIControlStateHighlighted];
-        [closeButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
+        //[closeButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
         [closeButton.layer setCornerRadius:kCustomIOS7AlertViewCornerRadius];
+        
+        [closeButton.titleLabel setFont:[StyleManager getFontStyleLightSizeXL]];
 
         [container addSubview:closeButton];
     }
