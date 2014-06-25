@@ -233,10 +233,6 @@ static BOOL notificationsHalfHidden = NO;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    NSArray *test = [ChatDBManager getAllActiveGroupChats];
-    for (ChatMO *chat in test) {
-        NSLog(@"Chat: %@", [chat description]);
-    }
     _groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
     _oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveOneToOneChats]];
     _thoughtChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllThoughtChats]];
