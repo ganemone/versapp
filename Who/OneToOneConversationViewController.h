@@ -11,8 +11,9 @@
 #import "ImageCache.h"
 #import "ImageManager.h"
 #import "ChatMO.h"
+#import "CustomIOS7AlertView.h"
 
-@interface OneToOneConversationViewController : JSMessagesViewController <JSMessagesViewDelegate, JSMessagesViewDataSource, ImageManagerDelegate, UIImagePickerControllerDelegate>
+@interface OneToOneConversationViewController : JSMessagesViewController <JSMessagesViewDelegate, JSMessagesViewDataSource, ImageManagerDelegate, UIImagePickerControllerDelegate, CustomIOS7AlertViewDelegate>
 
 @property (strong, nonatomic) ImageManager *im;
 @property (strong, nonatomic) NSMutableArray *downloadingImageURLs;

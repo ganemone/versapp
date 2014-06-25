@@ -214,4 +214,52 @@ static UIColor *colorBlue;
     }
 }
 
++(CustomIOS7AlertView *)createCustomAlertView:(NSString *)title message:(NSString *)message buttons:(NSArray *)buttons hasInput:(BOOL)hasInput {
+    CGFloat width = 0.8*[UIScreen mainScreen].bounds.size.width;
+    
+    CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
+    
+    UITextView *content = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, width, 10)];
+    [content setFont:[StyleManager getFontStyleLightSizeLarge]];
+    [content setTextAlignment:NSTextAlignmentCenter];
+    [content setText:message];
+    [content setBackgroundColor:[UIColor clearColor]];
+    CGRect rect = [content.layoutManager usedRectForTextContainer:content.textContainer];
+    [content setUserInteractionEnabled:NO];
+    
+    UIView *container;
+    
+    if (title != nil && ![title isEqualToString:@""]) {
+        UILabel *header = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, 30)];
+        [header setFont:[StyleManager getFontStyleBoldSizeLarge]];
+        [header setTextAlignment:NSTextAlignmentCenter];
+        [header setText:title];
+        [header setBackgroundColor:[UIColor clearColor]];
+        
+        [content setFrame:CGRectMake(5, header.frame.size.height, width-10, rect.size.height+20)];
+        
+        container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, header.frame.size.height+content.frame.size.height)];
+        [container addSubview:header];
+        [container addSubview:content];
+        [container setBackgroundColor:[UIColor clearColor]];
+    } else {
+        [content setFrame:CGRectMake(5, 0, width-10, rect.size.height+10)];
+        
+        container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, content.frame.size.height)];
+        [container setContentMode:UIViewContentModeCenter];
+        [container addSubview:content];
+        [container setBackgroundColor:[UIColor clearColor]];
+    }
+    
+    if (hasInput)
+        [alertView setHasInput:YES];
+    else
+        [alertView setHasInput:NO];
+
+    [alertView setContainerView:container];
+    [alertView setButtonTitles:[NSMutableArray arrayWithArray:buttons]];
+    
+    return alertView;
+}
+
 @end

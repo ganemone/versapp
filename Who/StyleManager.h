@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CustomIOS7AlertView.h"
 
 @interface StyleManager : NSObject
 
@@ -43,5 +44,7 @@
 +(UIColor *)getRandomPurpleColor;
 +(UIColor *)getRandomGreenColor;
 +(UIColor *)getRandomBlueColor;
+
++(CustomIOS7AlertView *)createCustomAlertView: (NSString *)title message:(NSString *)message buttons:(NSArray *)buttons hasInput:(BOOL)hasInput;
 
 @end

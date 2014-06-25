@@ -130,9 +130,12 @@
     
     _messageToBlock = mesage;
     
-    UIAlertView *reportAbuse = [[UIAlertView alloc] initWithTitle:@"Block" message: @"Do you want to block the sender?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:REPORT_BLOCK, nil];
+    /*UIAlertView *reportAbuse = [[UIAlertView alloc] initWithTitle:@"Block" message: @"Do you want to block the sender?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:REPORT_BLOCK, nil];
     
-    reportAbuse.alertViewStyle = UIAlertViewStyleDefault;
+    reportAbuse.alertViewStyle = UIAlertViewStyleDefault;*/
+    
+    CustomIOS7AlertView *reportAbuse = [StyleManager createCustomAlertView:@"Block" message:@"Do you want to block the sender?" buttons:[NSMutableArray arrayWithObjects:@"Cancel", REPORT_BLOCK, nil] hasInput:NO];
+    [reportAbuse setDelegate:self];
     [reportAbuse show];
     
 }
@@ -287,7 +290,12 @@
 
 -(void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
     if (self.isUploadingImage == YES) {
-        [[[UIAlertView alloc] initWithTitle:@"Hold on..." message:@"Wait just a sec, we are still loading your picture." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+        //[[[UIAlertView alloc] initWithTitle:@"Hold on..." message:@"Wait just a sec, we are still loading your picture." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+        
+        CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:@"Hold on..." message:@"Wait just a sec, we are still loading your picture." buttons:[NSMutableArray arrayWithObject:@"Ok"] hasInput:NO];
+        [alertView setDelegate:self];
+        [alertView show];
+        
         return;
     }
     if (self.messageImageLink == nil && (text == nil || [text isEqualToString:@""])) {
@@ -331,9 +339,28 @@
 }
 
 - (IBAction)discloseInfoButtonClicked:(id)sender {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:_headerLabel.text message:@"This is a group chat. Everyone knows who is in the group, but no one knows who is sending each message." delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil];
+    /*UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:_headerLabel.text message:@"This is a group chat. Everyone knows who is in the group, but no one knows who is sending each message." delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil];
     [alertView setAlertViewStyle:UIAlertViewStyleDefault];
+    [alertView show];*/
+    
+    CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:_headerLabel.text message:@"This is a group chat. Everyone knows who is in the group, but no one knows who is sending each message." buttons:[NSMutableArray arrayWithObjects:@"Got it", @"Add Friends", nil] hasInput:NO];
+    [alertView setDelegate:self];
     [alertView show];
+}
+
+- (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex {
+    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Got it"] || [[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Ok"]) {
+        [alertView close];
+    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Add Friends"]) {
+        [alertView close];
+        [self performSegueWithIdentifier:SEGUE_ID_ADD_TO_GROUP sender:self];
+    } else if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:REPORT_BLOCK]) {
+        if (_messageToBlock != nil) {
+            [[self.cp getConnection] sendElement:[IQPacketManager createBlockUserInGroupPacket:_messageToBlock.sender_id chatID:_chatMO.chat_id]];
+            [_messageToBlock setMessage_body:@"Message from blocked user"];
+            [self.tableView reloadData];
+        }
+    }
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -345,7 +372,7 @@
     }
 }
 
-- (IBAction)showGroupParticipants:(id)sender {
+/*- (IBAction)showGroupParticipants:(id)sender {
     NSArray *members = _chatMO.participants;
     NSMutableArray *list = [[NSMutableArray alloc] init];
     NSString *memberUsername, *invitedBy;
@@ -375,7 +402,7 @@
     }
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:self.headerLabel.text message:participantString delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"Add Users", nil];
     [alert show];
-}
+}*/
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if ([alertView cancelButtonIndex] == buttonIndex) {

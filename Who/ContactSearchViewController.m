@@ -11,12 +11,13 @@
 #import "IQPacketManager.h"
 #import "FriendsDBManager.h"
 #import "Constants.h"
+#import "StyleManager.h"
 
 @interface ContactSearchViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *username;
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
-
+@property (strong, nonatomic) IBOutlet UILabel *description;
 
 @end
 
@@ -34,6 +35,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [_headerLabel setFont:[StyleManager getFontStyleLightSizeHeader]];
+    [_description setFont:[StyleManager getFontStyleLightSizeLarge]];
+    [_description setTextColor:[StyleManager getColorPurple]];
+    [_username setFont:[StyleManager getFontStyleLightSizeLarge]];
 }
 
 - (void)didReceiveMemoryWarning

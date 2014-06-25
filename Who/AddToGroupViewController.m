@@ -67,6 +67,12 @@
     
     [self.header setFont:[StyleManager getFontStyleLightSizeHeader]];
     [self.bottomLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.frame];
+    [imageView setClipsToBounds:NO];
+    [imageView setContentMode:UIViewContentModeScaleAspectFill];
+    [imageView setImage:[UIImage imageNamed:@"friends-background-large.png"]];
+    [self.tableView setBackgroundView:imageView];
 }
 
 - (IBAction)doneButtonClicked:(id)sender {

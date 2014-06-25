@@ -285,8 +285,17 @@
         info = @"This is your friends thoughts feed. These anonymous thoughts are from your friends and friends of friends. Both chatting and favoriting are also anonymous!";
     else
         info = @"This is your global thoughts feed. These anonymous thoughts are from anyone other than your direct friends or friends of friends. You can't start a chat here, but you can anonymously favorite.";
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Thoughts" message:info delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil];
+    //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Thoughts" message:info delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil];
+    
+    CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:@"Thoughts" message:info buttons:[NSMutableArray arrayWithObject:@"Got it"] hasInput:NO];
+    [alertView setDelegate:self];
     [alertView show];
+}
+
+- (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        [alertView close];
+    }
 }
 
 - (void)animateHideHeader {

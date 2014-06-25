@@ -44,8 +44,10 @@
 @property (strong, nonatomic) NSMutableArray *selectedJIDs;
 @property (strong, nonatomic) ChatMO *createdChat;
 @property (strong, nonatomic) NSString *invitedUser;
-@property (strong, nonatomic) UIAlertView *groupNamePrompt;
-@property (strong, nonatomic) UIAlertView *unfriendAlertView;
+//@property (strong, nonatomic) UIAlertView *groupNamePrompt;
+//@property (strong, nonatomic) UIAlertView *unfriendAlertView;
+@property (strong, nonatomic) CustomIOS7AlertView *groupNamePrompt;
+@property (strong, nonatomic) CustomIOS7AlertView *unfriendAlertView;
 @property (strong, nonatomic) FriendMO *unfriendCheck;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -283,7 +285,7 @@
     [self.tableView reloadData];
 }
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+/*-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == [alertView cancelButtonIndex]) {
         return;
     } else if (alertView == _groupNamePrompt) {
@@ -308,6 +310,36 @@
         [self.bottomLabel setText:@"Select Some Friends"];
         [self.tableView reloadData];
     } else {
+        [self handleUnfriend:_unfriendCheck];
+    }
+}*/
+
+-(void)customIOS7dialogButtonTouchUpInside:(id)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"] || [[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Ok"]) {
+        [alertView close];
+    } else if (alertView == _groupNamePrompt) {
+        if (self.isCreatingGroup == YES) {
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            NSString *groupName = [alertView getInputText];
+            if (buttonIndex == 1 && groupName.length > 0) {
+                ChatMO *gc = [MUCCreationManager createMUC:groupName participants:self.selectedJIDs];
+                _createdChat = [ChatDBManager insertChatWithID:gc.chat_id chatName:groupName chatType:CHAT_TYPE_GROUP participantString:[self.selectedJIDs componentsJoinedByString:@", "] status:STATUS_JOINED degree:@"1"];
+                [alertView close];
+                [self handleFinishedInvitingUsersToMUC];
+            }
+            self.isCreatingGroup = NO;
+        } else if (buttonIndex == 1) {
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
+            NSString *chatID = [ChatMO createGroupID];
+            [conn sendElement:[IQPacketManager createCreateOneToOneChatPacket:chatID invitedUser:self.invitedUser roomName:@"Anonymous Friend"]];
+            NSString *chatName = [FriendsDBManager getUserWithJID:self.invitedUser].name;
+            _createdChat = [ChatDBManager insertChatWithID:chatID chatName:chatName chatType:CHAT_TYPE_ONE_TO_ONE_INVITER participantString:[NSString stringWithFormat:@"%@, %@", [ConnectionProvider getUser], self.invitedUser] status:STATUS_JOINED degree:@"1"];
+        }
+        self.selectedJIDs = [[NSMutableArray alloc] init];
+        [self.bottomLabel setText:@"Select Some Friends"];
+        [self.tableView reloadData];
+    } else if (alertView == _unfriendAlertView) {
         [self handleUnfriend:_unfriendCheck];
     }
 }
@@ -378,7 +410,10 @@
 
 - (IBAction)createButtonClicked:(id)sender {
     if ([_selectedJIDs count] == 0) {
-        _groupNamePrompt = [[UIAlertView alloc] initWithTitle:@"Whoops!" message:@"You must select some friends first!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        //_groupNamePrompt = [[UIAlertView alloc] initWithTitle:@"Whoops!" message:@"You must select some friends first!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        
+        _groupNamePrompt = [StyleManager createCustomAlertView:@"Whoops!" message:@"You must select some friends first!" buttons:[NSMutableArray arrayWithObject:@"Ok"] hasInput:NO];
+        [_groupNamePrompt setDelegate:self];
         [_groupNamePrompt show];
     } else if ([_selectedJIDs count] == 1) {
         [self confirmCreateOneToOneChat:[FriendsDBManager getUserWithJID:[_selectedJIDs firstObject]]];
@@ -389,15 +424,20 @@
 }
 
 - (void)promptForGroupName {
-    _groupNamePrompt = [[UIAlertView alloc] initWithTitle:@"Group Name" message:@"Enter a name for the group" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Create", nil];
-    _groupNamePrompt.alertViewStyle = UIAlertViewStylePlainTextInput;
+    //_groupNamePrompt = [[UIAlertView alloc] initWithTitle:@"Group Name" message:@"Enter a name for the group" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Create", nil];
+    //_groupNamePrompt.alertViewStyle = UIAlertViewStylePlainTextInput;
+    
+    _groupNamePrompt = [StyleManager createCustomAlertView:@"Group Name" message:@"Enter a name for the group" buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Create", nil] hasInput:YES];
+    [_groupNamePrompt setDelegate:self];
     [_groupNamePrompt show];
 }
 
 - (void)confirmCreateOneToOneChat:(FriendMO*)friend {
     self.invitedUser = friend.username;
-    _groupNamePrompt = [[UIAlertView alloc] initWithTitle:@"Confirmation" message:[NSString stringWithFormat:@"Would you like to start an anonymous chat with %@?", friend.name] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Create", nil];
-    _groupNamePrompt.alertViewStyle = UIAlertViewStyleDefault;
+    //_groupNamePrompt = [[UIAlertView alloc] initWithTitle:@"Confirmation" message:[NSString stringWithFormat:@"Would you like to start an anonymous chat with %@?", friend.name] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Create", nil];
+    //_groupNamePrompt.alertViewStyle = UIAlertViewStyleDefault;
+    
+    _groupNamePrompt = [StyleManager createCustomAlertView:@"Confirmation" message:[NSString stringWithFormat:@"Would you like to start an anonymous chat with %@?", friend.name] buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Create", nil] hasInput:NO];
     [_groupNamePrompt show];
 }
 
@@ -414,9 +454,12 @@
 -(void)handleLongPressForRowAtIndexPath:(NSIndexPath*)indexPath {
     _unfriendCheck = [_searchResults objectAtIndex:indexPath.row];
     
-    UIAlertView *unfriendAlertView = [[UIAlertView alloc] initWithTitle:@"Remove Friend" message:[NSString stringWithFormat:@"Would you like to remove %@ from your friends list?", _unfriendCheck.name] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Remove", nil];
-    unfriendAlertView.alertViewStyle = UIAlertViewStyleDefault;
-    [unfriendAlertView show];
+    //UIAlertView *unfriendAlertView = [[UIAlertView alloc] initWithTitle:@"Remove Friend" message:[NSString stringWithFormat:@"Would you like to remove %@ from your friends list?", _unfriendCheck.name] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Remove", nil];
+    //unfriendAlertView.alertViewStyle = UIAlertViewStyleDefault;
+    
+    _unfriendAlertView = [StyleManager createCustomAlertView:@"Remove Friend" message:[NSString stringWithFormat:@"Would you like to remove %@ from your friends list?", _unfriendCheck.name] buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Remove", nil] hasInput:NO];
+    [_unfriendAlertView setDelegate:self];
+    [_unfriendAlertView show];
 }
 
 -(void)handleUnfriend:(FriendMO*)friend {

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ImageManager.h"
+#import "CustomIOS7AlertView.h"
 
-@interface ConfessionsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, ImageManagerDelegate>
+@interface ConfessionsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, ImageManagerDelegate, CustomIOS7AlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *header;

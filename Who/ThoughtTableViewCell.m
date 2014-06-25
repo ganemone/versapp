@@ -107,16 +107,24 @@
 }
 
 - (void)handleDegreeBtnClicked {
+    NSString *title;
     NSString *message;
     if ([_confession.degree isEqualToString:@"1"]) {
+        title = @"Friend";
         message = @"This is a thought posted by a direct friend.";
     } else if ([_confession.degree isEqualToString:@"2"]) {
+        title = @"Friend of Friend";
         message = @"This is a thought posted by a friend of a friend. In other words, a 2nd degree connection.";
     } else {
+        title = @"Global";
         message = @"This is a global thought. It isn't necessarily posted by anyone in your friends list.";
     }
     
-    [[[UIAlertView alloc] initWithTitle:@"Thought" message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil] show];
+    //[[[UIAlertView alloc] initWithTitle:@"Thought" message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil] show];
+    
+    CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:title message:message buttons:[NSMutableArray arrayWithObject:@"Got it"] hasInput:NO];
+    [alertView setDelegate:self];
+    [alertView show];
 }
 
 - (void)setUpBackgroundView {
@@ -200,22 +208,52 @@
 }
 
 -(void)handleConfessionChatStarted:(id)sender {
-    if ([FriendsDBManager hasEnoughFriends] && _confession.degree.length < 3) {
+    /*if ([FriendsDBManager hasEnoughFriends] && _confession.degree.length < 3) {
         [[[UIAlertView alloc] initWithTitle:@"" message:@"Would you like to start a chat with the poster of this thought?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] show];
     } else {
         [[[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Messaging is restricted to friends." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+    }*/
+    
+    NSString *message;
+    NSMutableArray *buttonTitles = [[NSMutableArray alloc] init];
+    if ([FriendsDBManager hasEnoughFriends] && _confession.degree.length < 3) {
+        message = @"Would you like to start a chat with the poster of this thought?";
+        [buttonTitles addObjectsFromArray:[NSMutableArray arrayWithObjects:@"No", @"Yes", nil]];
+    } else {
+        message = @"Messaging is restricted to friends and friends of friends.";
+        [buttonTitles addObjectsFromArray:[NSMutableArray arrayWithObject:@"Ok"]];
     }
+    
+    CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:@"Conversation" message:message buttons:buttonTitles hasInput:NO];
+    [alertView setDelegate:self];
+    [alertView show];
 }
 
 -(void)handleConfessionDeleted:(id)sender {
-    [[[UIAlertView alloc] initWithTitle:@"Confirmation" message:@"Are you sure you want to delete this thought?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil] show];
+    //[[[UIAlertView alloc] initWithTitle:@"Confirmation" message:@"Are you sure you want to delete this thought?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil] show];
+    
+    CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:@"Delete Thought" message:@"Are you sure you want to delete this thought?" buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Delete", nil] hasInput:NO];
+    [alertView setDelegate:self];
+    [alertView show];
 }
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+/*-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Delete"]) {
         [_confession deleteConfession];
     } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Yes"]) {
         [_confession startChat];
+    }
+}*/
+
+- (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex {
+    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Got it"] || [[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"No"] || [[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Ok"] || [[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]) {
+        [alertView close];
+    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Yes"]) {
+        [alertView close];
+        [_confession startChat];
+    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Delete"]) {
+        [alertView close];
+        [_confession deleteConfession];
     }
 }
 

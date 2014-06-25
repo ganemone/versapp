@@ -776,11 +776,14 @@ CGRect IASKCGRectSwap(CGRect rect);
         NSLog(@"Logout Pressed");
         [self logout];
     } else if ([[specifier key] isEqualToString:SETTING_SUPPORT]) {
-        [self performSegueWithIdentifier:SETTING_SUPPORT sender:self];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://versapp.co/home/support.html"]];
+        //[self performSegueWithIdentifier:SETTING_SUPPORT sender:self];
     } else if ([[specifier key] isEqualToString:SETTING_PRIVACY]) {
-        [self performSegueWithIdentifier:SETTING_PRIVACY sender:self];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://versapp.co/home/privacy.html"]];
+        //[self performSegueWithIdentifier:SETTING_PRIVACY sender:self];
     } else if ([[specifier key] isEqualToString:SETTING_TERMS]) {
-        [self performSegueWithIdentifier:SETTING_TERMS sender:self];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://versapp.co/home/terms.html"]];
+        //[self performSegueWithIdentifier:SETTING_TERMS sender:self];
     }
 }
 
