@@ -61,21 +61,6 @@
     
 }
 
-
-- (void)testRSA {
-    
-    //NSString *publicKey = [NSString stringWithContentsOfURL:[[NSURL alloc] initWithString:@"https://versapp.co/key/index.php"] encoding:NSASCIIStringEncoding error:NULL];
-    NSString *encryptingString = @"meniscotherium";
-    NSData *resultData = [Encrypter encryptStringWithRSAES:encryptingString];
-    NSString *stringResult = [[NSString alloc] initWithData:resultData encoding:NSUTF8StringEncoding];
-    NSString *asciiResult = [[NSString alloc] initWithData:resultData encoding:NSASCIIStringEncoding];
-    NSString *utf32Result = [[NSString alloc] initWithData:resultData encoding:NSUTF32StringEncoding];
-    NSLog(@"Encrypting String: %@", encryptingString);
-    NSLog(@"Encryption Result: %@", stringResult);
-    NSLog(@"ASCII Result: %@", asciiResult);
-    NSLog(@"UTF32 Result: %@", utf32Result);
-}
-
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     _viewDidShow = YES;
