@@ -23,7 +23,6 @@
 		3A07F6C518D3C21800E82390 /* cell-select-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A07F6B318D3C21800E82390 /* cell-select-active.png */; };
 		3A07F6D718D3EFC200E82390 /* check-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A07F6D618D3EFC200E82390 /* check-icon.png */; };
 		3A08D1FA18BFD3BB002A7C8E /* UserDefaultManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A08D1F918BFD3BB002A7C8E /* UserDefaultManager.m */; };
-		3A0EC4DB192435EF0036AB43 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0EC4DA192435EF0036AB43 /* NSData+CommonCrypto.m */; };
 		3A0EC4F319263FE00036AB43 /* DashboardTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0EC4F119263FE00036AB43 /* DashboardTableViewCell.m */; };
 		3A0EC4F419263FE00036AB43 /* DashboardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A0EC4F219263FE00036AB43 /* DashboardTableViewCell.xib */; };
 		3A0FE1C118A99EB2003692EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0FE1C018A99EB2003692EB /* QuartzCore.framework */; };
@@ -87,8 +86,6 @@
 		3A47C844189F1A52003020D7 /* FriendsDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A47C843189F1A52003020D7 /* FriendsDBManager.m */; };
 		3A47C847189F1F02003020D7 /* MessagesDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A47C846189F1F02003020D7 /* MessagesDBManager.m */; };
 		3A4822AB192C189200D5BBC0 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4822AA192C189200D5BBC0 /* NSData+Base64.m */; };
-		3A4822AF192D088900D5BBC0 /* RSAESCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4822AE192D088900D5BBC0 /* RSAESCryptor.m */; };
-		3A4822B1192D0E0C00D5BBC0 /* certificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = 3A4822B0192D0E0C00D5BBC0 /* certificate.cer */; };
 		3A49E9EA18FF146C00AFCB8E /* ThoughtTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A49E9E918FF146C00AFCB8E /* ThoughtTableViewCell.m */; };
 		3A49E9EC18FF155500AFCB8E /* ThoughtTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A49E9EB18FF155500AFCB8E /* ThoughtTableViewCell.xib */; };
 		3A49E9EE18FF2DFB00AFCB8E /* AppIconTransparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A49E9ED18FF2DFB00AFCB8E /* AppIconTransparent.png */; };
@@ -623,8 +620,6 @@
 		3A07F6D618D3EFC200E82390 /* check-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon.png"; sourceTree = "<group>"; };
 		3A08D1F818BFD3BB002A7C8E /* UserDefaultManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultManager.h; sourceTree = "<group>"; };
 		3A08D1F918BFD3BB002A7C8E /* UserDefaultManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultManager.m; sourceTree = "<group>"; };
-		3A0EC4D9192435EF0036AB43 /* NSData+CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CommonCrypto.h"; sourceTree = "<group>"; };
-		3A0EC4DA192435EF0036AB43 /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
 		3A0EC4F019263FE00036AB43 /* DashboardTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardTableViewCell.h; sourceTree = "<group>"; };
 		3A0EC4F119263FE00036AB43 /* DashboardTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardTableViewCell.m; sourceTree = "<group>"; };
 		3A0EC4F219263FE00036AB43 /* DashboardTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DashboardTableViewCell.xib; sourceTree = "<group>"; };
@@ -719,9 +714,6 @@
 		3A47C846189F1F02003020D7 /* MessagesDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesDBManager.m; sourceTree = "<group>"; };
 		3A4822A9192C189200D5BBC0 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		3A4822AA192C189200D5BBC0 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
-		3A4822AD192D088900D5BBC0 /* RSAESCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSAESCryptor.h; sourceTree = "<group>"; };
-		3A4822AE192D088900D5BBC0 /* RSAESCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSAESCryptor.m; sourceTree = "<group>"; };
-		3A4822B0192D0E0C00D5BBC0 /* certificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = certificate.cer; sourceTree = "<group>"; };
 		3A49E9E818FF146C00AFCB8E /* ThoughtTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThoughtTableViewCell.h; sourceTree = "<group>"; };
 		3A49E9E918FF146C00AFCB8E /* ThoughtTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThoughtTableViewCell.m; sourceTree = "<group>"; };
 		3A49E9EB18FF155500AFCB8E /* ThoughtTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThoughtTableViewCell.xib; sourceTree = "<group>"; };
@@ -1650,23 +1642,11 @@
 			name = GIFRefreshControl;
 			sourceTree = "<group>";
 		};
-		3A0EC4D8192435EF0036AB43 /* CommonCrypto */ = {
-			isa = PBXGroup;
-			children = (
-				3A0EC4D9192435EF0036AB43 /* NSData+CommonCrypto.h */,
-				3A0EC4DA192435EF0036AB43 /* NSData+CommonCrypto.m */,
-			);
-			path = CommonCrypto;
-			sourceTree = "<group>";
-		};
 		3A0EC4DC192435FC0036AB43 /* RSA */ = {
 			isa = PBXGroup;
 			children = (
 				3A4822A9192C189200D5BBC0 /* NSData+Base64.h */,
 				3A4822AA192C189200D5BBC0 /* NSData+Base64.m */,
-				3A4822AD192D088900D5BBC0 /* RSAESCryptor.h */,
-				3A4822AE192D088900D5BBC0 /* RSAESCryptor.m */,
-				3A0EC4D8192435EF0036AB43 /* CommonCrypto */,
 			);
 			name = RSA;
 			sourceTree = "<group>";
@@ -1702,7 +1682,6 @@
 		3A25B62A1881E03700166623 = {
 			isa = PBXGroup;
 			children = (
-				3A4822B0192D0E0C00D5BBC0 /* certificate.cer */,
 				3AD19AC418E266F0001B3B88 /* Default-568h@2x.png */,
 				3A720CB118A1C1D400423959 /* XMPPFramework.h */,
 				3A25B63C1881E03700166623 /* Who */,
@@ -3594,7 +3573,6 @@
 				3AB8D18818C23DF00082B77C /* MavenProLight-100.ttf in Resources */,
 				3AB8D19118C259B00082B77C /* MavenProMedium.ttf in Resources */,
 				F7A3F96B18EE33B1006FBA0A /* x-green.png in Resources */,
-				3A4822B1192D0E0C00D5BBC0 /* certificate.cer in Resources */,
 				3ABD66D618FB325900E72B09 /* Owl-Loading-Animation_0011.png in Resources */,
 				F7A3F96A18EE33B1006FBA0A /* x-blue.png in Resources */,
 				3AF692041919B7E400ABA9C5 /* lookup_soft_elegance_2.png in Resources */,
@@ -3778,7 +3756,6 @@
 				3AFF778718C415BE003277F9 /* FriendMO.m in Sources */,
 				3AF691851919581600ABA9C5 /* GPUImageMedianFilter.m in Sources */,
 				3AF6913A1919581600ABA9C5 /* GPUImageAverageLuminanceThresholdFilter.m in Sources */,
-				3A0EC4DB192435EF0036AB43 /* NSData+CommonCrypto.m in Sources */,
 				3AF6917B1919581600ABA9C5 /* GPUImageLinearBurnBlendFilter.m in Sources */,
 				3A793D2B190FF6C200303457 /* AFURLRequestSerialization.m in Sources */,
 				3A793D42190FF6CA00303457 /* UIAlertView+AFNetworking.m in Sources */,
@@ -3913,7 +3890,6 @@
 				3A25B6791881E85B00166623 /* ContactsViewController.m in Sources */,
 				3AF6919F1919581600ABA9C5 /* GPUImageRawDataInput.m in Sources */,
 				3AF691C91919581600ABA9C5 /* GPUImageVideoCamera.m in Sources */,
-				3A4822AF192D088900D5BBC0 /* RSAESCryptor.m in Sources */,
 				3AF691821919581600ABA9C5 /* GPUImageLuminosity.m in Sources */,
 				3A98DA5F18BD1A7E00B69049 /* XMPPDeprecatedDigestAuthentication.m in Sources */,
 				3AF68FC1191937C100ABA9C5 /* PECropView.m in Sources */,
@@ -4171,7 +4147,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "83C8B8A9-EB53-44E2-AAD6-8091C15152C1";
+				PROVISIONING_PROFILE = "835D2AFD-76ED-4FCE-A256-53BA2B8E16C2";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = NO;
 			};
@@ -4210,7 +4186,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "83C8B8A9-EB53-44E2-AAD6-8091C15152C1";
+				PROVISIONING_PROFILE = "835D2AFD-76ED-4FCE-A256-53BA2B8E16C2";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -4231,7 +4207,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = /Users/giancarlo/Documents/dev/ios/Who/Who;
 				PRODUCT_NAME = Versapp;
-				PROVISIONING_PROFILE = "83C8B8A9-EB53-44E2-AAD6-8091C15152C1";
+				PROVISIONING_PROFILE = "835D2AFD-76ED-4FCE-A256-53BA2B8E16C2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -4251,7 +4227,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = /Users/giancarlo/Documents/dev/ios/Who/Who;
 				PRODUCT_NAME = Versapp;
-				PROVISIONING_PROFILE = "83C8B8A9-EB53-44E2-AAD6-8091C15152C1";
+				PROVISIONING_PROFILE = "835D2AFD-76ED-4FCE-A256-53BA2B8E16C2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
