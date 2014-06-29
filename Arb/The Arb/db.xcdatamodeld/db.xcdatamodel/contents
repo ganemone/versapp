@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13D65" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="TrailMO" representedClassName="TrailMO" syncable="YES">
+        <attribute name="color" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trail_id" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="trail" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TrailPointMO" inverseName="trail" inverseEntity="TrailPointMO" syncable="YES"/>
+    </entity>
+    <entity name="TrailPointMO" representedClassName="TrailPointMO" syncable="YES">
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="point_id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="trail_id" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="trail" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TrailMO" inverseName="trail" inverseEntity="TrailMO" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="TrailPointMO" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="TrailMO" positionX="-54" positionY="18" width="128" height="103"/>
+    </elements>
+</model>
