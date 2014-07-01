@@ -12,8 +12,17 @@
 
 @interface ThoughtsDBManager : NSObject
 
-+(ThoughtMO *)insertThoughtWithID:(NSString *)confessionID posterJID:(NSString *)posterJID body:(NSString *)body timestamp:(NSString *)timestamp degree:(NSString *)degree favorites:(NSNumber *)favorites hasFavorited:(NSString *)hasFavorited inConversation:(NSString *)inConversation;
++(ThoughtMO *)insertThoughtWithID:(NSString *)confessionID posterJID:(NSString *)posterJID body:(NSString *)body timestamp:(NSString *)timestamp degree:(NSString *)degree favorites:(NSNumber *)favorites;
 
-+(ThoughtMO *)insertThoughtWithID:(NSString *)confessionID posterJID:(NSString *)posterJID body:(NSString *)body timestamp:(NSString *)timestamp degree:(NSString *)degree favorites:(NSNumber *)favorites hasFavorited:(NSString *)hasFavorited inConversation:(NSString *)inConversation imageURL:(NSString *)imageURL;
++(ThoughtMO *)insertThoughtWithID:(NSString *)confessionID posterJID:(NSString *)posterJID body:(NSString *)body timestamp:(NSString *)timestamp degree:(NSString *)degree favorites:(NSNumber *)favorites imageURL:(NSString *)imageURL;
+
++(ThoughtMO *)getThoughtWithID:(NSString *)confessionID;
++(BOOL)hasThoughtWithID:(NSString *)confessionID;
+
++(void)setInConversationNo:(NSString *)confessionID;
++(void)setInConversationYes:(NSString *)confessionID;
++(void)setHasFavoritedNo:(NSString *)confessionID;
++(void)setHasFavoritedYes:(NSString *)confessionID;
+
 
 @end

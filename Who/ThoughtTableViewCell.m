@@ -17,6 +17,7 @@
 #import "ImageCache.h"
 #import "MBProgressHUD.h"
 #import "UIColor+Hex.h"
+#import "ThoughtsDBManager.h"
 
 @implementation ThoughtTableViewCell
 
@@ -199,8 +200,14 @@
     BOOL isFavorited = [_confession toggleFavorite];
     if (isFavorited) {
         [_favBtn setImage:[UIImage imageNamed:@"fav-icon-active.png"] forState:UIControlStateNormal];
+        if ([ThoughtsDBManager hasThoughtWithID:_confession.confessionID]) {
+            [ThoughtsDBManager setHasFavoritedYes:_confession.confessionID];
+        }
     } else {
         [_favBtn setImage:[UIImage imageNamed:@"fav-icon.png"] forState:UIControlStateNormal];
+        if ([ThoughtsDBManager hasThoughtWithID:_confession.confessionID]) {
+            [ThoughtsDBManager setHasFavoritedNo:_confession.confessionID];
+        }
     }
     [_favLabel setText:[_confession getTextForLabel]];
     ConfessionsManager *confessionsManager = [ConfessionsManager getInstance];

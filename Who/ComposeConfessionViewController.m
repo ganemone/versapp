@@ -19,6 +19,7 @@
 #import "PECropViewController.h"
 #import "UserDefaultManager.h"
 #import "GPUImage.h"
+#import "ThoughtsDBManager.h"
 
 @interface ComposeConfessionViewController ()
 
