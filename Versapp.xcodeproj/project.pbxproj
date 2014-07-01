@@ -484,6 +484,8 @@
 		B38B3FF01957649300043B95 /* check-icon-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B38B3FEE1957649300043B95 /* check-icon-white@2x.png */; };
 		B38B3FF11957649300043B95 /* check-icon-white.png in Resources */ = {isa = PBXBuildFile; fileRef = B38B3FEF1957649300043B95 /* check-icon-white.png */; };
 		B3B9358F1949693400C281FA /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B9358E1949693400C281FA /* FacebookSDK.framework */; };
+		F71CE7071962F0560030EBA9 /* ThoughtMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F71CE7061962F0560030EBA9 /* ThoughtMO.m */; };
+		F71CE70A1962F0B80030EBA9 /* ThoughtsDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F71CE7091962F0B80030EBA9 /* ThoughtsDBManager.m */; };
 		F7303EC718E862F30045F9AF /* arrow-up-icon-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303EC618E862F30045F9AF /* arrow-up-icon-green.png */; };
 		F7303EC918E8E3100045F9AF /* arrow-up-icon-square-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303EC818E8E3100045F9AF /* arrow-up-icon-square-green.png */; };
 		F73713F218E4FADF008A9ED2 /* AddToGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F73713F118E4FADF008A9ED2 /* AddToGroupViewController.m */; };
@@ -1446,6 +1448,10 @@
 		B38B3FEE1957649300043B95 /* check-icon-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon-white@2x.png"; sourceTree = "<group>"; };
 		B38B3FEF1957649300043B95 /* check-icon-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon-white.png"; sourceTree = "<group>"; };
 		B3B9358E1949693400C281FA /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		F71CE7051962F0560030EBA9 /* ThoughtMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThoughtMO.h; sourceTree = "<group>"; };
+		F71CE7061962F0560030EBA9 /* ThoughtMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThoughtMO.m; sourceTree = "<group>"; };
+		F71CE7081962F0B80030EBA9 /* ThoughtsDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThoughtsDBManager.h; sourceTree = "<group>"; };
+		F71CE7091962F0B80030EBA9 /* ThoughtsDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThoughtsDBManager.m; sourceTree = "<group>"; };
 		F7303EC618E862F30045F9AF /* arrow-up-icon-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-up-icon-green.png"; sourceTree = "<group>"; };
 		F7303EC818E8E3100045F9AF /* arrow-up-icon-square-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-up-icon-square-green.png"; sourceTree = "<group>"; };
 		F73713F018E4FADF008A9ED2 /* AddToGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddToGroupViewController.h; sourceTree = "<group>"; };
@@ -2007,12 +2013,16 @@
 				3AFF778318C415BD003277F9 /* ChatMO.m */,
 				3AFF777F18C415BD003277F9 /* MessageMO.h */,
 				3AFF778018C415BD003277F9 /* MessageMO.m */,
+				F71CE7051962F0560030EBA9 /* ThoughtMO.h */,
+				F71CE7061962F0560030EBA9 /* ThoughtMO.m */,
 				3AC6D0CD18C0E17100091539 /* ChatDBManager.h */,
 				3AC6D0CE18C0E17100091539 /* ChatDBManager.m */,
 				3A47C842189F1A52003020D7 /* FriendsDBManager.h */,
 				3A47C843189F1A52003020D7 /* FriendsDBManager.m */,
 				3A47C845189F1F02003020D7 /* MessagesDBManager.h */,
 				3A47C846189F1F02003020D7 /* MessagesDBManager.m */,
+				F71CE7081962F0B80030EBA9 /* ThoughtsDBManager.h */,
+				F71CE7091962F0B80030EBA9 /* ThoughtsDBManager.m */,
 			);
 			name = DB;
 			sourceTree = "<group>";
@@ -3833,6 +3843,7 @@
 				3AF691B31919581600ABA9C5 /* GPUImageSourceOverBlendFilter.m in Sources */,
 				3AF691831919581600ABA9C5 /* GPUImageLuminosityBlendFilter.m in Sources */,
 				3AF691CE1919581600ABA9C5 /* GPUImageXYDerivativeFilter.m in Sources */,
+				F71CE70A1962F0B80030EBA9 /* ThoughtsDBManager.m in Sources */,
 				F751016518ABE101001F1E7F /* IASKPSSliderSpecifierViewCell.m in Sources */,
 				F751018D18AE8D5E001F1E7F /* PrivacyPolicyViewController.m in Sources */,
 				3AF691A11919581600ABA9C5 /* GPUImageRGBClosingFilter.m in Sources */,
@@ -4054,6 +4065,7 @@
 				3A793D43190FF6CA00303457 /* UIButton+AFNetworking.m in Sources */,
 				3A98DA6418BD1A7E00B69049 /* XMPPXOAuth2Google.m in Sources */,
 				3AF691321919581600ABA9C5 /* GLProgram.m in Sources */,
+				F71CE7071962F0560030EBA9 /* ThoughtMO.m in Sources */,
 				3AF691C01919581600ABA9C5 /* GPUImageToneCurveFilter.m in Sources */,
 				3A91F1E618EB28430006B9F8 /* TutorialSlideViewController.m in Sources */,
 				3AE46EDC191697540058DCBA /* UIColor+Hex.m in Sources */,
