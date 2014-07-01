@@ -7,6 +7,7 @@
 //
 
 #import "StyleManager.h"
+#import "ThoughtTableViewCell.h"
 
 @implementation StyleManager
 
@@ -271,6 +272,30 @@ static UIColor *colorBlue;
     
     [alertView setButtonsOnly:YES];
     [alertView setButtonTitles:buttons];
+    
+    return alertView;
+}
+
++(CustomIOS7AlertView *)createThoughtAlertView:(ThoughtMO *)thought {
+    
+    CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
+    
+    ThoughtTableViewCell *thoughtView = [[[NSBundle mainBundle] loadNibNamed:@"ThoughtTableViewCell" owner:self options:nil] firstObject];
+    
+    BOOL hasFavorited;
+    if ([thought.hasFavorited isEqualToString:@"YES"]) {
+        hasFavorited = YES;
+    } else {
+        hasFavorited = NO;
+    }
+    
+    Confession *confession = [Confession create:thought.body posterJID:thought.posterJID imageURL:thought.imageURL confessionID:thought.confessionID createdTimestamp:thought.createdTimestamp degreeOfConnection:thought.degree hasFavorited:hasFavorited numFavorites:[thought.numFavorites intValue]];
+    
+    [thoughtView setUpWithConfession:confession];
+    
+    [alertView setHasInput:NO];
+    [alertView setButtonsOnly:NO];
+    [alertView setContainerView:thoughtView];
     
     return alertView;
 }

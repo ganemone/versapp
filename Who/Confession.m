@@ -105,11 +105,7 @@
     [self decodeBody];
     [ChatDBManager insertChatWithID:chatID chatName:_body chatType:CHAT_TYPE_ONE_TO_ONE_CONFESSION participantString:participants status:STATUS_JOINED degree:_degree];
     
-    if (_imageURL == nil) {
-        [ThoughtsDBManager insertThoughtWithID:_confessionID posterJID:_posterJID body:_body timestamp:_createdTimestamp degree:_degree favorites:[NSNumber numberWithInt:_numFavorites]];
-    } else {
-        [ThoughtsDBManager insertThoughtWithID:_confessionID posterJID:_posterJID body:_body timestamp:_createdTimestamp degree:_degree favorites:[NSNumber numberWithInt:_numFavorites] imageURL:_imageURL];
-    }
+    [ThoughtsDBManager insertThoughtWithID:_confessionID posterJID:_posterJID body:_body timestamp:_createdTimestamp degree:_degree favorites:[NSNumber numberWithInt:_numFavorites] imageURL:_imageURL];
     [ThoughtsDBManager setInConversationYes:_confessionID];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];

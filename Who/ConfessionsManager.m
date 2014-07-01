@@ -57,11 +57,7 @@ static ConfessionsManager *selfInstance;
     [_pendingConfession decodeBody];
     [self addConfession:_pendingConfession];
     
-    if (_pendingConfession.imageURL == nil) {
-        [ThoughtsDBManager insertThoughtWithID:confessionID posterJID:_pendingConfession.posterJID body:_pendingConfession.body timestamp:_pendingConfession.createdTimestamp degree:_pendingConfession.degree favorites:[NSNumber numberWithInt:_pendingConfession.numFavorites]];
-    } else {
-        [ThoughtsDBManager insertThoughtWithID:confessionID posterJID:_pendingConfession.posterJID body:_pendingConfession.body timestamp:_pendingConfession.createdTimestamp degree:_pendingConfession.degree favorites:[NSNumber numberWithInt:_pendingConfession.numFavorites] imageURL:_pendingConfession.imageURL];
-    }
+    [ThoughtsDBManager insertThoughtWithID:confessionID posterJID:_pendingConfession.posterJID body:_pendingConfession.body timestamp:_pendingConfession.createdTimestamp degree:_pendingConfession.degree favorites:[NSNumber numberWithInt:_pendingConfession.numFavorites] imageURL:_pendingConfession.imageURL];
     [ThoughtsDBManager setHasFavoritedNo:confessionID];
     [ThoughtsDBManager setInConversationNo:confessionID];
     

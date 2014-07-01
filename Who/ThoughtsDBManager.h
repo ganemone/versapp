@@ -12,8 +12,6 @@
 
 @interface ThoughtsDBManager : NSObject
 
-+(ThoughtMO *)insertThoughtWithID:(NSString *)confessionID posterJID:(NSString *)posterJID body:(NSString *)body timestamp:(NSString *)timestamp degree:(NSString *)degree favorites:(NSNumber *)favorites;
-
 +(ThoughtMO *)insertThoughtWithID:(NSString *)confessionID posterJID:(NSString *)posterJID body:(NSString *)body timestamp:(NSString *)timestamp degree:(NSString *)degree favorites:(NSNumber *)favorites imageURL:(NSString *)imageURL;
 
 +(ThoughtMO *)getThoughtWithID:(NSString *)confessionID;

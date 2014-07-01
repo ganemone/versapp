@@ -19,6 +19,8 @@
 #import "MBProgressHUD.h"
 #import "UserDefaultManager.h"
 #import "FriendsDBManager.h"
+#import "ThoughtsDBManager.h"
+#import "ThoughtMO.h"
 
 @implementation OneToOneConversationViewController
 
@@ -344,6 +346,8 @@
             //[confessionAlert show];
             
         CustomIOS7AlertView *thoughtAlert = [StyleManager createCustomAlertView:nil message:_chatMO.chat_name buttons:[NSMutableArray arrayWithObject:@"Got it"] hasInput:NO];
+        //ThoughtMO *thought = [ThoughtsDBManager getThoughtWithID:<#(NSString *)#>]
+        //CustomIOS7AlertView *thoughtAlert = [StyleManager createThoughtAlertView:thought]
         [thoughtAlert setDelegate:self];
         
         [alertView close];
