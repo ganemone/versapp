@@ -1502,8 +1502,8 @@
                                             <action selector="onBackClicked:" destination="iDZ-uG-Ep6" eventType="touchUpInside" id="KTi-cY-2i2"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="x9Y-gK-Yya">
-                                        <rect key="frame" x="257" y="31" width="28" height="28"/>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="x9Y-gK-Yya">
+                                        <rect key="frame" x="262" y="30" width="50" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
                                         <state key="normal" image="friend-white.png"/>
@@ -1986,10 +1986,10 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Hva-pz-dYE"/>
         <segue reference="Ve6-mS-bkp"/>
         <segue reference="OKb-WW-kzU"/>
         <segue reference="WHz-1g-xNx"/>
+        <segue reference="XeD-6M-yxq"/>
         <segue reference="zTQ-Mf-6oX"/>
         <segue reference="YEX-bB-bO6"/>
         <segue reference="tVn-SP-Hc9"/>

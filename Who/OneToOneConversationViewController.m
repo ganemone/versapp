@@ -104,18 +104,18 @@
 - (void)setUpInfoBtn {
     if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION]) {
         if ([self getChatDegree] == 1) {
-            [_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 35, 30, 28, 28)];
+            //[_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 35, 30, 28, 28)];
             [_infoBtn setImage:[UIImage imageNamed:@"friend-white.png"] forState:UIControlStateNormal];
         } else {
-            [_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 51, 30, 44, 28)];
+            //[_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 51, 30, 44, 28)];
             [_infoBtn setImage:[UIImage imageNamed:@"second-degree-white.png"] forState:UIControlStateNormal];
         }
     } else if([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITED]) {
         [_infoBtn setImage:[UIImage imageNamed:@"unknown-white.png"] forState:UIControlStateNormal];
-        [_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 35, 30, 28, 28)];
+        //[_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 35, 30, 28, 28)];
     } else if([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITER]) {
         [_infoBtn setImage:[UIImage imageNamed:@"friend-white.png"] forState:UIControlStateNormal];
-        [_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 35, 30, 28, 28)];
+        //[_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 35, 30, 28, 28)];
     }
 }
 
