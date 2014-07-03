@@ -7,7 +7,6 @@
 //
 
 #import "StyleManager.h"
-#import "ThoughtTableViewCell.h"
 
 @implementation StyleManager
 
@@ -276,11 +275,11 @@ static UIColor *colorBlue;
     return alertView;
 }
 
-+(CustomIOS7AlertView *)createThoughtAlertView:(ThoughtMO *)thought {
++(CustomIOS7AlertView *)createThoughtAlertView:(ThoughtMO *)thought thoughtView:(ThoughtTableViewCell *)thoughtView {
     
     CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
     
-    ThoughtTableViewCell *thoughtView = [[[NSBundle mainBundle] loadNibNamed:@"ThoughtTableViewCell" owner:self options:nil] firstObject];
+    thoughtView = [[[NSBundle mainBundle] loadNibNamed:@"ThoughtTableViewCell" owner:self options:nil] firstObject];
     
     BOOL hasFavorited;
     if ([thought.hasFavorited isEqualToString:@"YES"]) {
@@ -296,6 +295,7 @@ static UIColor *colorBlue;
     [alertView setHasInput:NO];
     [alertView setButtonsOnly:NO];
     [alertView setContainerView:thoughtView];
+    [alertView setButtonTitles:[NSArray arrayWithObject:@"Got it"]];
     
     return alertView;
 }

@@ -12,6 +12,7 @@
 #import "ImageManager.h"
 #import "ChatMO.h"
 #import "CustomIOS7AlertView.h"
+#import "ThoughtTableViewCell.h"
 
 @interface OneToOneConversationViewController : JSMessagesViewController <JSMessagesViewDelegate, JSMessagesViewDataSource, ImageManagerDelegate, UIImagePickerControllerDelegate, CustomIOS7AlertViewDelegate>
 
@@ -23,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 @property (weak, nonatomic) IBOutlet UIView *header;
 @property (weak, nonatomic) IBOutlet UIButton *infoBtn;
+@property (strong, nonatomic) ThoughtTableViewCell *thoughtView;
 
 
 @end

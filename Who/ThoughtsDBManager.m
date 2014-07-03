@@ -35,6 +35,11 @@
     return thought;
 }
 
++(ThoughtMO *)getThoughtWithBody:(NSString *)body {
+    ThoughtMO *thought = [[self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", THOUGHTS_TABLE_COLUMN_NAME_BODY, body]] firstObject];
+    return thought;
+}
+
 +(BOOL)hasThoughtWithID:(NSString *)confessionID {
     return ([self getThoughtWithID:confessionID] != nil);
 }
