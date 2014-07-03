@@ -236,28 +236,41 @@ static UIColor *colorBlue;
         [header setText:title];
         [header setBackgroundColor:[UIColor clearColor]];
         
-        [content setFrame:CGRectMake(5, header.frame.size.height, width-10, rect.size.height+20)];
+        if (message != nil && ![message isEqualToString:@""])
+            [content setFrame:CGRectMake(5, header.frame.size.height, width-10, rect.size.height+20)];
+        else
+            [content setFrame:CGRectMake(0, 0, 0, 0)];
         
         container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, header.frame.size.height+content.frame.size.height)];
         [container addSubview:header];
         [container addSubview:content];
-        [container setBackgroundColor:[UIColor clearColor]];
-    } else {
+    } else if (message != nil && ![message isEqualToString:@""]) {
         [content setFrame:CGRectMake(5, 0, width-10, rect.size.height+10)];
         
         container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, content.frame.size.height)];
         [container setContentMode:UIViewContentModeCenter];
         [container addSubview:content];
-        [container setBackgroundColor:[UIColor clearColor]];
     }
+    
+    [container setBackgroundColor:[UIColor clearColor]];
     
     if (hasInput)
         [alertView setHasInput:YES];
     else
         [alertView setHasInput:NO];
 
+    [alertView setButtonsOnly:NO];
     [alertView setContainerView:container];
-    [alertView setButtonTitles:[NSMutableArray arrayWithArray:buttons]];
+    [alertView setButtonTitles:buttons];
+    
+    return alertView;
+}
+
++(CustomIOS7AlertView *)createButtonOnlyAlertView:(NSArray *)buttons {
+    CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
+    
+    [alertView setButtonsOnly:YES];
+    [alertView setButtonTitles:buttons];
     
     return alertView;
 }

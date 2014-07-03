@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *username;
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 @property (strong, nonatomic) IBOutlet UILabel *description;
+@property (strong, nonatomic) IBOutlet UIButton *addButton;
 
 @end
 
@@ -40,6 +41,8 @@
     [_description setFont:[StyleManager getFontStyleLightSizeLarge]];
     [_description setTextColor:[StyleManager getColorPurple]];
     [_username setFont:[StyleManager getFontStyleLightSizeLarge]];
+    [_addButton.titleLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+    [_addButton.layer setCornerRadius:5.0];
 }
 
 - (void)didReceiveMemoryWarning
