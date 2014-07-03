@@ -291,6 +291,8 @@ static UIColor *colorBlue;
     Confession *confession = [Confession create:thought.body posterJID:thought.posterJID imageURL:thought.imageURL confessionID:thought.confessionID createdTimestamp:thought.createdTimestamp degreeOfConnection:thought.degree hasFavorited:hasFavorited numFavorites:[thought.numFavorites intValue]];
     
     [thoughtView setUpWithConfession:confession];
+    thoughtView.chatBtn.hidden = YES;
+    thoughtView.degreeBtn.hidden = YES;
     
     [alertView setHasInput:NO];
     [alertView setButtonsOnly:NO];
