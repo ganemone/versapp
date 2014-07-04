@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "CustomIOS7AlertView.h"
+#import "ThoughtMO.h"
+#import "ThoughtTableViewCell.h"
 
 @interface StyleManager : NSObject
 
@@ -47,5 +49,6 @@
 
 +(CustomIOS7AlertView *)createCustomAlertView: (NSString *)title message:(NSString *)message buttons:(NSArray *)buttons hasInput:(BOOL)hasInput;
 +(CustomIOS7AlertView *)createButtonOnlyAlertView: (NSArray *)buttons;
++(CustomIOS7AlertView *)createThoughtAlertView: (ThoughtMO *)thought thoughtView:(ThoughtTableViewCell *)thoughtView;
 
 @end

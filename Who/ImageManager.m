@@ -35,6 +35,10 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
     [self downloadImageFromGCSWithName:confession.imageURL fromBucket:BUCKET_THOUGHTS delegate:delegate identifier:confession.confessionID];
 }
 
+-(void)downloadImageForLocalThought:(ThoughtMO *)thought delegate:(id<ImageManagerDelegate>)delegate {
+    [self downloadImageFromGCSWithName:thought.imageURL fromBucket:BUCKET_THOUGHTS delegate:delegate identifier:thought.confessionID];
+}
+
 - (NSURL*)getUploadURL {
     return [NSURL URLWithString:UPLOAD_URL];
 }

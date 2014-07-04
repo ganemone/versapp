@@ -160,6 +160,7 @@ NSString *const USER_STATUS_UNREGISTERED = @"user_status_unregistered";
 NSString *const CORE_DATA_TABLE_MESSAGES = @"MessageMO";
 NSString *const CORE_DATA_TABLE_FRIENDS = @"FriendMO";
 NSString *const CORE_DATA_TABLE_CHATS = @"ChatMO";
+NSString *const CORE_DATA_TABLE_THOUGHTS = @"ThoughtMO";
 
 NSString *const FRIENDS_TABLE_COLUMN_NAME_USERNAME = @"username";
 NSString *const FRIENDS_TABLE_COLUMN_NAME_NAME = @"name";
@@ -179,6 +180,17 @@ NSString *const CHATS_TABLE_COLUMN_NAME_CHAT_TYPE = @"chat_type";
 NSString *const CHATS_TABLE_COLUMN_NAME_PARTICIPANT_STRING = @"participant_string";
 NSString *const CHATS_TABLE_COLUMN_NAME_OWNER_ID = @"owner_id";
 NSString *const CHATS_TABLE_COLUMN_NAME_DEGREE = @"degree";
+
+NSString *const THOUGHTS_TABLE_COLUMN_NAME_CONFESSION_ID = @"confessionID";
+NSString *const THOUGHTS_TABLE_COLUMN_NAME_POSTER_JID = @"posterJID";
+NSString *const THOUGHTS_TABLE_COLUMN_NAME_BODY = @"body";
+NSString *const THOUGHTS_TABLE_COLUMN_NAME_IMAGE_URL = @"imageURL";
+NSString *const THOUGHTS_TABLE_COLUMN_NAME_TIMESTAMP = @"createdTimestamp";
+NSString *const THOUGHTS_TABLE_COLUMN_NAME_DEGREE = @"degree";
+NSString *const THOUGHTS_TABLE_COLUMN_NAME_FAVORITES = @"numFavorites";
+NSString *const THOUGHTS_TABLE_COLUMN_NAME_HAS_FAVORITED = @"hasFavorited";
+NSString *const THOUGHTS_TABLE_COLUMN_NAME_IN_CONVERSATION = @"inConversation";
+
 
 int const STATUS_FRIENDS = 0;
 int const STATUS_REGISTERED = 1;

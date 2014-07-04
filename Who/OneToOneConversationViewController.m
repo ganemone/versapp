@@ -19,6 +19,8 @@
 #import "MBProgressHUD.h"
 #import "UserDefaultManager.h"
 #import "FriendsDBManager.h"
+#import "ThoughtsDBManager.h"
+#import "ThoughtMO.h"
 
 @implementation OneToOneConversationViewController
 
@@ -104,18 +106,18 @@
 - (void)setUpInfoBtn {
     if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION]) {
         if ([self getChatDegree] == 1) {
-            [_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 35, 30, 28, 28)];
+            //[_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 35, 30, 28, 28)];
             [_infoBtn setImage:[UIImage imageNamed:@"friend-white.png"] forState:UIControlStateNormal];
         } else {
-            [_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 51, 30, 44, 28)];
+            //[_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 51, 30, 44, 28)];
             [_infoBtn setImage:[UIImage imageNamed:@"second-degree-white.png"] forState:UIControlStateNormal];
         }
     } else if([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITED]) {
         [_infoBtn setImage:[UIImage imageNamed:@"unknown-white.png"] forState:UIControlStateNormal];
-        [_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 35, 30, 28, 28)];
+        //[_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 35, 30, 28, 28)];
     } else if([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITER]) {
         [_infoBtn setImage:[UIImage imageNamed:@"friend-white.png"] forState:UIControlStateNormal];
-        [_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 35, 30, 28, 28)];
+        //[_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 35, 30, 28, 28)];
     }
 }
 
@@ -262,6 +264,16 @@
     [self finishSend];
 }
 
+- (void)loadImageForThought:(ThoughtMO *)thought {
+    ImageCache *cache = [ImageCache getInstance];
+    ImageManager *imageManager = [[ImageManager alloc] init];
+    
+    if (![cache hasImageWithIdentifier:thought.confessionID] && ![[thought.imageURL substringToIndex:1] isEqualToString:@"#"]) {
+        NSLog(@"Downloading image...");
+        [imageManager downloadImageForLocalThought:thought delegate:self];
+    }
+}
+
 
 -(void)didSelectImage:(UIImage *)image {
     NSLog(@"Beginning Image Upload...");
@@ -272,7 +284,11 @@
 }
 
 -(void)didFinishDownloadingImage:(UIImage *)image withIdentifier:(NSString *)identifier {
-    [self.tableView reloadData];
+    if ([ThoughtsDBManager hasThoughtWithID:identifier]) {
+        [_thoughtView setUpBackgroundView];
+    } else {
+        [self.tableView reloadData];
+    }
 }
 
 -(void)didFailToDownloadImageWithIdentifier:(NSString *)identifier {
@@ -343,7 +359,10 @@
             //UIAlertView *confessionAlert = [[UIAlertView alloc] initWithTitle:@"Thought" message:_chatMO.chat_name delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil];
             //[confessionAlert show];
             
-        CustomIOS7AlertView *thoughtAlert = [StyleManager createCustomAlertView:nil message:_chatMO.chat_name buttons:[NSMutableArray arrayWithObject:@"Got it"] hasInput:NO];
+        //CustomIOS7AlertView *thoughtAlert = [StyleManager createCustomAlertView:nil message:_chatMO.chat_name buttons:[NSMutableArray arrayWithObject:@"Got it"] hasInput:NO];
+        ThoughtMO *thought = [ThoughtsDBManager getThoughtWithBody:_chatMO.chat_name];
+        [self loadImageForThought:thought];
+        CustomIOS7AlertView *thoughtAlert = [StyleManager createThoughtAlertView:thought thoughtView:_thoughtView];
         [thoughtAlert setDelegate:self];
         
         [alertView close];

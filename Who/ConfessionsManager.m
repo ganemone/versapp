@@ -13,6 +13,7 @@
 #import "Constants.h"
 #import "Base64.h"
 #import "FriendsDBManager.h"
+#import "ThoughtsDBManager.h"
 
 static ConfessionsManager *selfInstance;
 
@@ -55,6 +56,11 @@ static ConfessionsManager *selfInstance;
     [_pendingConfession setCreatedTimestamp:timestamp];
     [_pendingConfession decodeBody];
     [self addConfession:_pendingConfession];
+    
+    [ThoughtsDBManager insertThoughtWithID:confessionID posterJID:_pendingConfession.posterJID body:_pendingConfession.body timestamp:_pendingConfession.createdTimestamp degree:_pendingConfession.degree favorites:[NSNumber numberWithInt:_pendingConfession.numFavorites] imageURL:_pendingConfession.imageURL];
+    [ThoughtsDBManager setHasFavoritedNo:confessionID];
+    [ThoughtsDBManager setInConversationNo:confessionID];
+    
     [self setPendingConfession:nil];
 }
 
