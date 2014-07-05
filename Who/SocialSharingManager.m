@@ -131,7 +131,7 @@ NSString *const DESCRIPTION = @"Share and chat anonymously, with the people you 
     [tweetSheet setInitialText:@"Check out this cool semi-anonymous social media app @getversapp #Versapp"];
     
     //  Add an URL to the Tweet.  You can add multiple URLs.
-    if (![tweetSheet addURL:[NSURL URLWithString:@"http://versapp.co"]]){
+    if (![tweetSheet addURL:[NSURL URLWithString:@"https://versapp.co"]]){
         NSLog(@"Unable to add the URL!");
     }
     

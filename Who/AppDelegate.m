@@ -58,9 +58,10 @@ void (^_completionHandler)(UIBackgroundFetchResult);
         if (_managedObjectModel != nil) {
             return _managedObjectModel;
         }
-        _managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
+        NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"db" withExtension:@"momd"];
+        _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+        return _managedObjectModel;
     }
-    return _managedObjectModel;
 }
 
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
@@ -68,10 +69,16 @@ void (^_completionHandler)(UIBackgroundFetchResult);
         if (_persistentStoreCoordinator != nil) {
             return _persistentStoreCoordinator;
         }
-        NSURL *storeUrl = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"Who.sqlite"]];
+        NSURL *storeUrl = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"db.sqlite"]];
         NSError *error = nil;
-        _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-        if(![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:nil error:&error]) {
+        NSDictionary *options = @{
+                                  NSMigratePersistentStoresAutomaticallyOption : @YES,
+                                  NSInferMappingModelAutomaticallyOption : @YES
+                                  };
+        
+        _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
+        if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:options error:&error]) {
+            NSLog(@"Error Setting Up Persistent Store Coordinator: %@", error);
         }
     }
     return _persistentStoreCoordinator;

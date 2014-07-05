@@ -78,9 +78,9 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
                                  @"session" : appDelegate.sessionID,
                                  @"name" : name,
                                  @"bucket" : bucket};
-    NSError *error = NULL;
-    NSMutableURLRequest *req = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:DOWNLOAD_URL parameters:parameters error:&error];
-    AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:req success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+    [manager setResponseSerializer:[AFImageResponseSerializer serializer]];
+    [manager POST:DOWNLOAD_URL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Response: %@", responseObject);
         if (responseObject == nil) {
             NSLog(@"Nil Response with Request parameters: %@", [parameters description]);
@@ -94,8 +94,6 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
         NSLog(@"Failed download operation: %@", error);
         [delegate didFailToDownloadImageWithIdentifier:identifier];
     }];
-    [operation setResponseSerializer:[AFImageResponseSerializer serializer]];
-    [operation start];
 }
 
 @end

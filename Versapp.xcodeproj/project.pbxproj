@@ -1437,6 +1437,7 @@
 		3AFF778518C415BE003277F9 /* FriendMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendMO.h; sourceTree = "<group>"; };
 		3AFF778618C415BE003277F9 /* FriendMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendMO.m; sourceTree = "<group>"; };
 		3AFFC93C18A06AE3009D7F13 /* db.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = db.xcdatamodel; sourceTree = "<group>"; };
+		B30853191968AFC900816A6F /* dbv2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = dbv2.xcdatamodel; sourceTree = "<group>"; };
 		B38B3FEE1957649300043B95 /* check-icon-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon-white@2x.png"; sourceTree = "<group>"; };
 		B38B3FEF1957649300043B95 /* check-icon-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon-white.png"; sourceTree = "<group>"; };
 		B3B9358E1949693400C281FA /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
@@ -4149,8 +4150,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -4173,7 +4174,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "4521E05C-BC39-40BC-B922-63A9115586F2";
+				PROVISIONING_PROFILE = "C541311C-6531-4B45-807D-7327695EC04C";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = NO;
 			};
@@ -4195,8 +4196,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4212,7 +4213,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "4521E05C-BC39-40BC-B922-63A9115586F2";
+				PROVISIONING_PROFILE = "C541311C-6531-4B45-807D-7327695EC04C";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -4221,8 +4222,8 @@
 		3A25B6691881E03700166623 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/who",
 					/Users/giancarlo/Documents/FacebookSDK,
@@ -4233,7 +4234,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = /Users/giancarlo/Documents/dev/ios/Who/Who;
 				PRODUCT_NAME = Versapp;
-				PROVISIONING_PROFILE = "4521E05C-BC39-40BC-B922-63A9115586F2";
+				PROVISIONING_PROFILE = "C541311C-6531-4B45-807D-7327695EC04C";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -4241,8 +4242,8 @@
 		3A25B66A1881E03700166623 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/who",
 					/Users/giancarlo/Documents/FacebookSDK,
@@ -4253,7 +4254,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = /Users/giancarlo/Documents/dev/ios/Who/Who;
 				PRODUCT_NAME = Versapp;
-				PROVISIONING_PROFILE = "4521E05C-BC39-40BC-B922-63A9115586F2";
+				PROVISIONING_PROFILE = "C541311C-6531-4B45-807D-7327695EC04C";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -4354,9 +4355,10 @@
 		3AFFC93B18A06AE3009D7F13 /* db.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				B30853191968AFC900816A6F /* dbv2.xcdatamodel */,
 				3AFFC93C18A06AE3009D7F13 /* db.xcdatamodel */,
 			);
-			currentVersion = 3AFFC93C18A06AE3009D7F13 /* db.xcdatamodel */;
+			currentVersion = B30853191968AFC900816A6F /* dbv2.xcdatamodel */;
 			path = db.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
