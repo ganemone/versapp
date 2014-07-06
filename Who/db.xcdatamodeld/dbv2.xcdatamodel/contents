@@ -36,7 +36,7 @@
         <attribute name="hasFavorited" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="inConversation" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="numFavorites" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numFavorites" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="posterJID" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
