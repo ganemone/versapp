@@ -11,6 +11,8 @@
 #import "Constants.h"
 #import "ConnectionProvider.h"
 #import "MBProgressHUD.h"
+#import "UserDefaultManager.h"
+#import "StyleManager.h"
 
 @implementation ConnectionHandlingViewController
 
@@ -29,11 +31,12 @@
     _shouldShowConnectionLostView = NO;
     _viewHasAppeared = NO;
     _connectionLostViewIsVisible = NO;
-    
+    _connectionLostView = [self getConnectionLostView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConnectionLost) name:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConnectionLost) name:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReconnect) name:NOTIFICATION_AUTHENTICATED object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConnecting) name:NOTIFICATION_CONNECTING object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConnecting) name:NOTIFICATION_CONNECTING object:nil];
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -63,6 +66,7 @@
 - (void)didReconnect {
     if (_connectionLostViewIsVisible) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [_connectionLostView removeFromSuperview];
         _shouldShowConnectionLostView = NO;
         _connectionLostViewIsVisible = NO;
     }
@@ -74,10 +78,11 @@
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         XMPPStream *stream = [[ConnectionProvider getInstance] getConnection];
         if (![stream isConnecting] && ![stream isConnected] && ![stream isAuthenticated] && ![stream isAuthenticating]) {
-            if (!_connectionLostViewIsVisible) {
-                MBProgressHUD *progressHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                [progressHud setLabelText:@"Reconnecting"];
+            if (_connectionLostViewIsVisible == NO) {
+                [self.view addSubview:_connectionLostView];
                 _connectionLostViewIsVisible = YES;
+            } else {
+                [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             }
         }
     });
@@ -86,6 +91,52 @@
 - (void)handleConnecting {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     _connectionLostViewIsVisible = NO;
+}
+
+- (UIView *)getConnectionLostView {
+    UIFont *font = [StyleManager getFontStyleLightSizeLarge];
+    UIView *lostConnectionView = [[UIView alloc] initWithFrame:CGRectMake(10, 100, self.view.frame.size.width - 20, 100)];
+    [lostConnectionView setBackgroundColor:[UIColor whiteColor]];
+    
+    UILabel *lostConnectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, lostConnectionView.frame.size.width, 20)];
+    [lostConnectionLabel setTextAlignment:NSTextAlignmentCenter];
+    [lostConnectionLabel setText:@"Whoops! You have lost connection."];
+    [lostConnectionLabel setFont:font];
+    [lostConnectionView addSubview:lostConnectionLabel];
+    
+
+    UIButton *lostConnectionButton = [[UIButton alloc] init];
+    [lostConnectionButton setTitle:@"Reconnect" forState:UIControlStateNormal];
+    CGSize textSize = [[[lostConnectionButton titleLabel] text] sizeWithAttributes:@{NSFontAttributeName:font}];
+    [[lostConnectionButton titleLabel] setFont:font];
+    [lostConnectionButton setFrame:CGRectMake(lostConnectionView.frame.size.width/2 - textSize.width/2 - 10, 50, textSize.width + 20, textSize.height + 10)];
+    [lostConnectionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [lostConnectionButton addTarget:self action:@selector(handleReconnectButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [lostConnectionButton setBackgroundColor:[StyleManager getColorBlue]];
+    [lostConnectionButton.layer setCornerRadius:5.0];
+    [lostConnectionView addSubview:lostConnectionButton];
+    
+    return lostConnectionView;
+}
+
+- (void)handleReconnectButtonPressed {
+    ConnectionProvider *cp = [ConnectionProvider getInstance];
+    XMPPStream *stream = [cp getConnection];
+    NSString *password = [UserDefaultManager loadPassword];
+    NSString *username = [UserDefaultManager loadUsername];
+    if (![stream isConnecting] &&
+        ![stream isConnected] &&
+        ![stream isAuthenticated] &&
+        ![stream isAuthenticating] &&
+        username != nil &&
+        ![username isEqualToString:@""] &&
+        password != nil &&
+        ![password isEqualToString:@""])
+    {
+        [cp connect:username password:password];
+        MBProgressHUD *progressHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [progressHud setLabelText:@"Reconnecting"];
+    }
 }
 
 /*

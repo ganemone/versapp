@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "SWTableViewCell.h"
-#import "ConnectionHandlingViewController.h"
 #import "CustomIOS7AlertView.h"
 
 @interface DashboardViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, SWTableViewCellDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, UIScrollViewDelegate, CustomIOS7AlertViewDelegate>
