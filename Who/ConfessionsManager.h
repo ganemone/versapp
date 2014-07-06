@@ -29,5 +29,6 @@
 -(void)deleteConfession:(NSString *)confessionID;
 -(void)loadConfessionsWithMethod:(NSString *)method;
 -(void)loadConfessionsWithMethod:(NSString *)method since:(NSString *)since;
+-(NSString *)getSinceForThoughtRequest;
 
 @end

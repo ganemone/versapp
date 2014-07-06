@@ -213,12 +213,16 @@
         [cell setUpWithConfession:confession];
     }
     
-    if (indexPath.row == [_confessionsManager getNumberOfConfessions] - 2) {
+    /*if (indexPath.row == [_confessionsManager getNumberOfConfessions] - 1) {
         NSLog(@"Loading Older Thoughts...");
         if(_isFetchingOlderThoughts == NO) {
             NSString *since = [_confessionsManager getConfessionAtIndex:[_confessionsManager getNumberOfConfessions] - 1].createdTimestamp;
-            if (![since isEqualToString:_prevSince]) {
+            NSLog(@"Loading Thoughts Since: %@", since);
+            NSLog(@"Prev Since: %@", _prevSince);
+            NSLog(@"Are they equal? %d", [since isEqualToString:_prevSince]);
+            if ([since isEqualToString:_prevSince] == NO) {
                 _prevSince = since;
+
                 
                 if ([_thoughtSegmentedControl selectedSegmentIndex] == 0) {
                     _currentMethod = @"friends";
@@ -229,7 +233,7 @@
                 _isFetchingOlderThoughts = YES;
             }
         }
-    }
+    }*/
     
     return cell;
 }
@@ -238,15 +242,39 @@
     return 320;
 }
 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    static NSDate *dateLastExecuted;
+    NSDate *dateNow = [NSDate date];
+    
+    CGPoint offset = scrollView.contentOffset;
+    CGRect bounds = scrollView.bounds;
+    CGSize size = scrollView.contentSize;
+    UIEdgeInsets inset = scrollView.contentInset;
+    float y = offset.y + bounds.size.height - inset.bottom;
+    float h = size.height;
+    float reload_distance = 80;
+    CGFloat intervalSinceLastHitBottom = [dateNow timeIntervalSinceDate:dateLastExecuted];
+    if(y > h - reload_distance && (isnan(intervalSinceLastHitBottom) || intervalSinceLastHitBottom > 3.0) && _isFetchingOlderThoughts == NO) {
+        _isFetchingOlderThoughts = YES;
+        [self loadOlderThoughts];
+        dateLastExecuted = [NSDate date];
+    }
+}
+
+- (void)loadOlderThoughts {
+    [_confessionsManager loadConfessionsWithMethod:_currentMethod since:[_confessionsManager getSinceForThoughtRequest]];
+}
+
 - (void)refreshListView
 {
-    NSLog(@"Refreshing list view");
     [MBProgressHUD hideHUDForView:_tableView animated:YES];
     [_confessionsManager sortConfessions];
-    //[self loadImagesForThoughts];
-    [self.tableView didFinishPullToRefresh];
     [self.tableView reloadData];
-    _isFetchingOlderThoughts = NO;
+    if (_isFetchingOlderThoughts == YES) {
+        _isFetchingOlderThoughts = NO;
+    } else {
+        [self.tableView didFinishPullToRefresh];
+    }
 }
 
 - (void)handleOneToOneChatCreatedFromConfession {

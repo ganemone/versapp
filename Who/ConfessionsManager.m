@@ -42,6 +42,13 @@ static ConfessionsManager *selfInstance;
     return [_confessions objectForKey:confessionID];
 }
 
+-(NSString *)getSinceForThoughtRequest {
+    NSArray *sortedThoughts = [[_confessions objectsForKeys:_confessionIDValues notFoundMarker:[NSNumber numberWithInt:10]] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [[obj1 createdTimestamp] compare:[obj2 createdTimestamp]];
+    }];
+    return [NSString stringWithFormat:@"%d", [[[sortedThoughts firstObject] createdTimestamp] intValue] - 1];
+}
+
 -(void)addConfession:(Confession *)confession {
     [self.confessions setObject:confession forKey:confession.confessionID];
     [self.confessionIDValues addObject:confession.confessionID];
@@ -141,6 +148,10 @@ static ConfessionsManager *selfInstance;
         confessionID = [result substringWithRange:[match rangeAtIndex:1]];
         jid = [result substringWithRange:[match rangeAtIndex:2]];
         body = [result substringWithRange:[match rangeAtIndex:3]];
+        if ([_confessionIDValues containsObject:confessionID]) {
+            NSLog(@"Duplicate Found: %@", body);
+            continue;
+        }
         if ([match rangeAtIndex:4].length != 0) {
             imageURL = [result substringWithRange:[match rangeAtIndex:4]];
         }
