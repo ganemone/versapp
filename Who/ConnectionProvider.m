@@ -135,7 +135,8 @@ static ConnectionProvider *selfInstance;
     NSError *error;
     
     if (self.isCreatingAccount == YES) {
-        BOOL success = [[self xmppStream] registerWithPassword:[self.pendingAccountInfo objectForKey:USER_DEFAULTS_PASSWORD] error:&error];
+        NSString *password = [_pendingAccountInfo objectForKey:USER_DEFAULTS_PASSWORD];
+        BOOL success = [[self xmppStream] registerWithPassword:[Encrypter md5:password] error:&error];
         if (success) {
         } else {
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DID_FAIL_TO_REGISTER_USER object:nil];

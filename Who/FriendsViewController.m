@@ -66,7 +66,7 @@
 @implementation FriendsViewController
 
 - (void)viewDidAppear:(BOOL)animated {
-    if ([UserDefaultManager hasSeenFriends] == NO) {
+    if ([UserDefaultManager hasSeenFriends] == NO && [_allAccepted count] > 0) {
         [UserDefaultManager setSeenFriendsTrue];
         //[[[UIAlertView alloc] initWithTitle:@"Friends" message:@"This is your friends page. Your friends are chosen based on your phone contacts. Start conversations by selecting one or more friends on this page." delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:nil] show];
         [self doTutorial];
