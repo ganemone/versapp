@@ -68,7 +68,7 @@
 }
 
 -(NSString *)thoughtChatDegree {
-    if ([self getChatDegree] == 1) {
+    if ([[_chatMO degree] isEqualToString:@"1"]) {
         return @"friend";
     }
     else {
@@ -101,11 +101,15 @@
     [self.view.layer addSublayer:headerBottomborder];
     [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
     [self setUpInfoBtn];
+    
+    NSLog(@"One To One Conversation With Chat: %@", [_chatMO description]);
+    NSLog(@"Degree: %@", [_chatMO degree]);
+    
 }
 
 - (void)setUpInfoBtn {
     if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION]) {
-        if ([self getChatDegree] == 1) {
+        if ([[_chatMO degree] isEqualToString:@"1"]) {
             //[_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 35, 30, 28, 28)];
             [_infoBtn setImage:[UIImage imageNamed:@"friend-white.png"] forState:UIControlStateNormal];
         } else {
@@ -119,10 +123,6 @@
         [_infoBtn setImage:[UIImage imageNamed:@"friend-white.png"] forState:UIControlStateNormal];
         //[_infoBtn setFrame:CGRectMake(self.view.frame.size.width - 35, 30, 28, 28)];
     }
-}
-
-- (int)getChatDegree {
-    return ([FriendsDBManager hasUserWithJID:_chatMO.participant_string]) ? 1 : 2;
 }
 
 -(void)messageReceived:(NSNotification*)notification {

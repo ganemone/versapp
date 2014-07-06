@@ -13,6 +13,7 @@
 @implementation ThoughtsDBManager
 
 +(ThoughtMO *)insertThoughtWithID:(NSString *)confessionID posterJID:(NSString *)posterJID body:(NSString *)body timestamp:(NSString *)timestamp degree:(NSString *)degree favorites:(NSNumber *)favorites imageURL:(NSString *)imageURL {
+    NSLog(@"Inserting Thought With Degree: %@", degree);
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     ThoughtMO *thought = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_THOUGHTS inManagedObjectContext:moc];

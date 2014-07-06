@@ -61,7 +61,7 @@
     } else if([chatMo.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_INVITED]) {
         [_chatTypeImageView setImage:[UIImage imageNamed:@"unknown-blue.png"]];
     } else if([chatMo.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION]) {
-        if ([FriendsDBManager hasUserWithJID:chatMo.participant_string]) {
+        if ([[chatMo degree] isEqualToString:@"1"]) {
             [_chatTypeImageView setImage:[UIImage imageNamed:@"friend-blue.png"]];
         } else {
             [_chatTypeImageView setImage:[UIImage imageNamed:@"second-degree-blue.png"]];
