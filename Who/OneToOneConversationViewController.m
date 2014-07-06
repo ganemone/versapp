@@ -39,7 +39,7 @@
 
 - (void)alertConfessionChat {
     NSString *title = @"What's the deal?";
-    NSString *message = [NSString stringWithFormat:@"This is a one to one chat between you and a %@ started from a thought. This chat is two-way anonymous! Neither of you know exactly who the other user is, but you are connected by a thought.", [self thoughtChatDegree]];
+    NSString *message = [NSString stringWithFormat:@"This is a one to one chat between you and a %@ started from a thought. This chat is two-way anonymous and connected by a thought.", [self thoughtChatDegree]];
     //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:@"View Thought", nil];
     
     CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:title message:message buttons:[NSMutableArray arrayWithObjects:@"Got it", @"View Thought", nil] hasInput:NO];
@@ -104,7 +104,6 @@
     
     NSLog(@"One To One Conversation With Chat: %@", [_chatMO description]);
     NSLog(@"Degree: %@", [_chatMO degree]);
-    
 }
 
 - (void)setUpInfoBtn {
@@ -335,12 +334,12 @@
     }
     
     /*if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION]) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:@"View Thought", nil];
-        [alertView show];
-    } else {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:nil];
-        [alertView show];
-    }*/
+     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:@"View Thought", nil];
+     [alertView show];
+     } else {
+     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles:nil];
+     [alertView show];
+     }*/
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -356,17 +355,20 @@
 
 - (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex {
     if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString: @"View Thought"]) {
-            //UIAlertView *confessionAlert = [[UIAlertView alloc] initWithTitle:@"Thought" message:_chatMO.chat_name delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil];
-            //[confessionAlert show];
-            
-        //CustomIOS7AlertView *thoughtAlert = [StyleManager createCustomAlertView:nil message:_chatMO.chat_name buttons:[NSMutableArray arrayWithObject:@"Got it"] hasInput:NO];
-        ThoughtMO *thought = [ThoughtsDBManager getThoughtWithBody:_chatMO.chat_name];
-        [self loadImageForThought:thought];
-        CustomIOS7AlertView *thoughtAlert = [StyleManager createThoughtAlertView:thought thoughtView:_thoughtView];
-        [thoughtAlert setDelegate:self];
-        
-        [alertView close];
-        [thoughtAlert show];
+        if (_chatMO.chat_name == nil) {
+            [[StyleManager createCustomAlertView:nil message:@"Hmm... We seem to have lost your thought." buttons:[NSMutableArray arrayWithObject:@"Got it"] hasInput:NO] show];
+        } else {
+            ThoughtMO *thought = [ThoughtsDBManager getThoughtWithBody:_chatMO.chat_name];
+            if (thought == nil) {
+                [[StyleManager createCustomAlertView:nil message:_chatMO.chat_name buttons:[NSMutableArray arrayWithObject:@"Got it"] hasInput:NO] show];
+            } else {
+                [self loadImageForThought:thought];
+                CustomIOS7AlertView *thoughtAlert = [StyleManager createThoughtAlertView:thought thoughtView:_thoughtView];
+                [thoughtAlert setDelegate:self];
+                [alertView close];
+                [thoughtAlert show];
+            }
+        }
         
     } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Got it"] || [[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Ok"]) {
         [alertView close];

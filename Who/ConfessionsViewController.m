@@ -146,6 +146,7 @@
     [defaultCenter addObserver:self selector:@selector(refreshListView) name:PACKET_ID_POST_CONFESSION object:nil];
     [defaultCenter addObserver:self selector:@selector(refreshListView) name:NOTIFICATION_CONFESSION_DELETED object:nil];
     [defaultCenter addObserver:self selector:@selector(handleOneToOneChatCreatedFromConfession) name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION object:nil];
+    [defaultCenter addObserver:self selector:@selector(handleOneToOneChatCreatedFromConfession) name:NOTIFICATION_CREATED_THOUGHT_CHAT object:nil];
     
     [self.headerLabel setFont:[StyleManager getFontStyleLightSizeHeader]];
     
@@ -279,8 +280,10 @@
 
 - (void)handleOneToOneChatCreatedFromConfession {
     _createdChat = [ChatDBManager getChatWithID:[ChatDBManager getChatIDPendingCreation]];
-    [self performSegueWithIdentifier:SEGUE_ID_CREATED_ONE_TO_ONE_CHAT_FROM_CONFESSION sender:self];
-    [ChatDBManager resetChatIDPendingCreation];
+    if (_createdChat != nil) {
+        [self performSegueWithIdentifier:SEGUE_ID_CREATED_ONE_TO_ONE_CHAT_FROM_CONFESSION sender:self];
+        [ChatDBManager resetChatIDPendingCreation];
+    }
 }
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {

@@ -18,6 +18,7 @@
 #import "MainSwipeViewController.h"
 #import "MessageMO.h"
 #import "ChatDBManager.h"
+#import "Encrypter.h"
 
 @implementation AppDelegate
 

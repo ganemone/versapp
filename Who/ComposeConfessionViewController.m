@@ -428,20 +428,15 @@
     CGRect textRect = [textView.text boundingRectWithSize:constraintSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:cellFont} context:ctx];
     CGFloat top = textView.frame.size.height/2 - textRect.size.height/2 - 10;
     CGFloat lowestPoint = _headerLabel.superview.frame.size.height + top + textRect.size.height;
-    NSLog(@"Lowest Point: %f", lowestPoint);
-    NSLog(@"Footer Frame Origin: %f", _footerView.frame.origin.y);
     if (lowestPoint >= _footerView.frame.origin.y) {
         top = top - 20;
     }
     [textView setTextContainerInset:UIEdgeInsetsMake(top, 10, 0, 10)];
 }
 
-
-
 #pragma mark - ImageManagerDelegate
 
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {
-    NSLog(@"Finished Uploading Image");
     Confession *confession = [Confession create:_composeTextView.text imageURL:url];
     [[ConfessionsManager getInstance] setPendingConfession:confession];
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createPostConfessionPacket:confession]];
@@ -526,12 +521,6 @@
     } else {
         [self decrementFilterIndex];
     }
-    NSLog(@"Filter Index: %d", _filterIndex);
-    NSLog(@"E1: %@", _e1);
-    NSLog(@"E1: %@", _e2);
-    NSLog(@"E1: %@", _e3);
-    NSLog(@"E1: %@", _e4);
-    NSLog(@"E1: %@", _e5);
     if (_filterIndex == 0) {
         [_imageView setImage:_backgroundImage];
     } else if (_filterIndex == 1) {

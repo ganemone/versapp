@@ -7,6 +7,7 @@
 //
 
 #import "ConnectionProvider.h"
+#import "Encrypter.h"
 // XMPP Helper Classes
 #import "XMPPJID.h"
 #import "XMPPIQ.h"
@@ -84,7 +85,7 @@ static ConnectionProvider *selfInstance;
     
     [self.xmppStream setHostName:self.SERVER_IP_ADDRESS];
     self.username = username;
-    self.password = password;
+    self.password = [Encrypter md5:password];
     self.xmppStream.myJID = [XMPPJID jidWithString:[NSString stringWithFormat:@"%@@%@/%@", self.username, self.SERVER_IP_ADDRESS, APPLICATION_RESOURCE]];
     
     NSError *error = nil;
@@ -272,11 +273,13 @@ static ConnectionProvider *selfInstance;
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DID_REGISTER_USER object:nil];
     
     self.username = [self.pendingAccountInfo objectForKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME];
-    self.password = [self.pendingAccountInfo objectForKey:USER_DEFAULTS_PASSWORD];
+    NSString *password = [self.pendingAccountInfo objectForKey:USER_DEFAULTS_PASSWORD];
     
     [UserDefaultManager saveUsername:self.username];
-    [UserDefaultManager savePassword:self.password];
+    [UserDefaultManager savePassword:password];
     [UserDefaultManager saveEmail:[self.pendingAccountInfo objectForKey:FRIENDS_TABLE_COLUMN_NAME_EMAIL]];
+    
+    self.password = [Encrypter md5:password];
     
     NSError *error = nil;
     if (![[self xmppStream] authenticateWithPassword:self.password error:&error]) {

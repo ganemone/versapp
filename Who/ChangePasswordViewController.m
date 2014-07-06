@@ -45,10 +45,8 @@
 
 - (IBAction)submitClicked:(id)sender {
     if ([self.updatedPassword.text compare:self.confirmPassword.text] == 0) {
-        
-        NSString *md5Password = [Encrypter md5:self.confirmPassword.text];
-        [UserDefaultManager savePassword:md5Password];
-        
+
+        [UserDefaultManager savePassword:self.confirmPassword.text];
         [self.success setTextColor:[StyleManager getColorGreen]];
         [self.success setFont:[StyleManager getFontStyleBoldSizeMed]];
         [self.success setText:PASSWORD_CHANGED];

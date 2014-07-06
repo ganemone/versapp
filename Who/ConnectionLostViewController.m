@@ -9,6 +9,7 @@
 #import "ConnectionLostViewController.h"
 #import "ConnectionProvider.h"
 #import "UserDefaultManager.h"
+#import "Encrypter.h"
 
 @interface ConnectionLostViewController ()
 

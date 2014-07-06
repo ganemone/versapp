@@ -123,6 +123,7 @@ NSString *const NOTIFICATION_FAILED_TO_SEND_VERIFICATION_TEXT = @"notification_f
 NSString *const NOTIFICATION_DID_VERIFY_PHONE = @"notification_did_verify_phone";
 NSString *const NOTIFICATION_DID_LONG_PRESS_MESSAGE = @"notification_did_long_press_message";
 NSString *const NOTIFICATION_CONNECTING = @"notification_connecting";
+NSString *const NOTIFICATION_CREATED_THOUGHT_CHAT = @"notification_created_thought_chat";
 
 NSString *const APPLICATION_RESOURCE = @"who";
 
