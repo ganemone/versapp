@@ -254,10 +254,12 @@ static UIColor *colorBlue;
     
     [container setBackgroundColor:[UIColor clearColor]];
     
-    if (hasInput)
+    if (hasInput) {
         [alertView setHasInput:YES];
-    else
+    }
+    else {
         [alertView setHasInput:NO];
+    }
 
     [alertView setButtonsOnly:NO];
     [alertView setContainerView:container];

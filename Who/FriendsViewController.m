@@ -324,6 +324,7 @@
             if (buttonIndex == 1 && groupName.length > 0) {
                 ChatMO *gc = [MUCCreationManager createMUC:groupName participants:self.selectedJIDs];
                 _createdChat = [ChatDBManager insertChatWithID:gc.chat_id chatName:groupName chatType:CHAT_TYPE_GROUP participantString:[self.selectedJIDs componentsJoinedByString:@", "] status:STATUS_JOINED degree:@"1"];
+                [alertView endEditing:YES];
                 [alertView close];
                 [self handleFinishedInvitingUsersToMUC];
             }

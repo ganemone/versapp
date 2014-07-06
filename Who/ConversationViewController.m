@@ -38,6 +38,12 @@
         [UserDefaultManager setCreatedGroupTrue];
         [self discloseInfoButtonClicked:nil];
     }
+    [super viewDidAppear:animated];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    NSLog(@"View Will Appear");
+    [super viewWillAppear:animated];
 }
 
 - (void)viewDidLoad
