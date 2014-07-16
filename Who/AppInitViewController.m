@@ -94,7 +94,7 @@
 - (void)handleNoDefaultsStored {
     _transitionTo = SEGUE_ID_GO_TO_REGISTER_PAGE;
     _shouldTransition = YES;
-    if (_viewDidShow && [self isKindOfClass:[[self presentedViewController] class]]) {
+    if (_viewDidShow) {
         [self performSegueWithIdentifier:SEGUE_ID_GO_TO_REGISTER_PAGE sender:self];
     }
 }
