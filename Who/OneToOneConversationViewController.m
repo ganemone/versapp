@@ -342,17 +342,6 @@
      }*/
 }
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION] && [alertView numberOfButtons] > 1) {
-        if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString: @"View Thought"]) {
-            UIAlertView *confessionAlert = [[UIAlertView alloc] initWithTitle:@"Thought" message:_chatMO.chat_name delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil];
-            [confessionAlert show];
-        }
-    } else {
-        [super alertView:alertView clickedButtonAtIndex:buttonIndex];
-    }
-}
-
 - (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex {
     if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString: @"View Thought"]) {
         if (_chatMO.chat_name == nil) {
