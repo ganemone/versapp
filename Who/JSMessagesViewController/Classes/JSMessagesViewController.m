@@ -203,7 +203,7 @@
 }
 
 - (void)cameraPressed:(UIButton *)sender {
-    
+    NSLog(@"Camera Pressed");
     if (self.messageImage == nil) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Add a Picture"
                                                         message:@""
@@ -600,6 +600,7 @@
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSLog(@"Camera dialog button clicked");
     if (self.messageImage != nil) {
         if (buttonIndex == 1) {
             self.messageImage = nil;
