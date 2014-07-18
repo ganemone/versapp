@@ -214,28 +214,6 @@
         [cell setUpWithConfession:confession];
     }
     
-    /*if (indexPath.row == [_confessionsManager getNumberOfConfessions] - 1) {
-        NSLog(@"Loading Older Thoughts...");
-        if(_isFetchingOlderThoughts == NO) {
-            NSString *since = [_confessionsManager getConfessionAtIndex:[_confessionsManager getNumberOfConfessions] - 1].createdTimestamp;
-            NSLog(@"Loading Thoughts Since: %@", since);
-            NSLog(@"Prev Since: %@", _prevSince);
-            NSLog(@"Are they equal? %d", [since isEqualToString:_prevSince]);
-            if ([since isEqualToString:_prevSince] == NO) {
-                _prevSince = since;
-
-                
-                if ([_thoughtSegmentedControl selectedSegmentIndex] == 0) {
-                    _currentMethod = @"friends";
-                } else {
-                    _currentMethod = @"global";
-                }
-                [_confessionsManager loadConfessionsWithMethod:_currentMethod since:since];
-                _isFetchingOlderThoughts = YES;
-            }
-        }
-    }*/
-    
     return cell;
 }
 
