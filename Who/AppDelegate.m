@@ -22,7 +22,7 @@
 
 @implementation AppDelegate
 
-void (^_completionHandler)(UIBackgroundFetchResult);
+//void (^_completionHandler)(UIBackgroundFetchResult);
 
 - (NSManagedObjectContext *) managedObjectContext {
     @synchronized(self) {
@@ -201,7 +201,7 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    _completionHandler = completionHandler;
+    /*_completionHandler = completionHandler;
     _localNotificationMessage = [userInfo objectForKey:@"message"];
     NSLog(@"Received remote notification");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedLoadingContentForNotification:) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
@@ -221,10 +221,10 @@ void (^_completionHandler)(UIBackgroundFetchResult);
         [cp connectForPushNotificationFetch:username password:password];
     } else {
         _completionHandler(UIBackgroundFetchResultNewData);
-    }
+    }*/
 }
 
-- (void)handleFinishedLoadingContentForNotification:(NSNotification *)notification {
+/*- (void)handleFinishedLoadingContentForNotification:(NSNotification *)notification {
     UIApplication *sharedApp = [UIApplication sharedApplication];
     [sharedApp setApplicationIconBadgeNumber:sharedApp.applicationIconBadgeNumber + 1];
     //[[[ConnectionProvider getInstance] getConnection] disconnect];
@@ -233,6 +233,6 @@ void (^_completionHandler)(UIBackgroundFetchResult);
 
 - (void)handleFailedToLoadDataAfterRemoteNotification {
     _completionHandler(UIBackgroundFetchResultFailed);
-}
+}*/
 
 @end

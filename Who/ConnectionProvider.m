@@ -57,8 +57,8 @@ static ConnectionProvider *selfInstance;
     @synchronized(self) {
         if(selfInstance == nil) {
             selfInstance = [[self alloc] init];
-            selfInstance.SERVER_IP_ADDRESS = @"versapp.co";
-            selfInstance.CONFERENCE_IP_ADDRESS = @"conference.versapp.co";
+            selfInstance.SERVER_IP_ADDRESS = SERVER_IP_ADDRESS;
+            selfInstance.CONFERENCE_IP_ADDRESS = CONFERENCE_IP_ADDRESS;
             selfInstance.tempVCardInfo = [[NSMutableDictionary alloc] initWithCapacity:5];
             /*selfInstance.xmppReconnect = [[XMPPReconnect alloc] initWithDispatchQueue:dispatch_get_main_queue()];
              [selfInstance.xmppReconnect addDelegate:self delegateQueue:dispatch_get_main_queue()];
@@ -107,7 +107,7 @@ static ConnectionProvider *selfInstance;
     self.isCreatingAccount = YES;
     self.pendingAccountInfo = accountInfo;
     [self.xmppStream setHostName:self.SERVER_IP_ADDRESS];
-    self.xmppStream.myJID = [XMPPJID jidWithString:[NSString stringWithFormat:@"%@@%@", [accountInfo objectForKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME], self.SERVER_IP_ADDRESS]];
+    self.xmppStream.myJID = [XMPPJID jidWithString:[NSString stringWithFormat:@"%@@%@/%@", [accountInfo objectForKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME], self.SERVER_IP_ADDRESS, APPLICATION_RESOURCE]];
     NSError *error = nil;
     if ([self.xmppStream isConnected]) {
         [self.xmppStream disconnect];

@@ -20,6 +20,7 @@
 #import "IQPacketManager.h"
 #import "ChatDBManager.h"
 #import "AppDelegate.h"
+#import "FriendsDBManager.h"
 
 @implementation MessagePacketReceiver
     
@@ -147,7 +148,8 @@
             NSDictionary *messageDictionary = [NSDictionary dictionaryWithObjectsAndKeys:message.thread, MESSAGE_PROPERTY_GROUP_ID, newMessage, DICTIONARY_KEY_MESSAGE_OBJECT, nil];
             if ([ChatDBManager hasChatWithID:message.thread] == NO) {
                 [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createGetJoinedChatsPacket]];
-                /*[ChatDBManager insertChatWithID:message.thread chatName:@"Anonymous Friend" chatType:CHAT_TYPE_ONE_TO_ONE participantString:senderID status:STATUS_JOINED];*/
+                //NSString *degree = ([FriendsDBManager hasUserWithJID:senderID] == YES) ? @"1" : @"2";
+                //[ChatDBManager insertChatWithID:message.thread chatName:name chatType:CHAT_TYPE_ONE_TO_ONE participantString:[NSString stringWithFormat:@"%@, %@", receiverID, senderID] status:STATUS_JOINED degree:degree];
             }
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
             [ChatDBManager setHasNewMessageYes:message.thread];

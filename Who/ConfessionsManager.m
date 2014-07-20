@@ -112,7 +112,7 @@ static ConfessionsManager *selfInstance;
     NSDictionary *parameters = @{@"method" : method,
                                  @"since" : since};
     NSError *error = NULL;
-    NSMutableURLRequest *req = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:@"https://versapp.co/thoughts/index.php" parameters:parameters error:&error];
+    NSMutableURLRequest *req = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:THOUGHTS_URL parameters:parameters error:&error];
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:req success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Loaded thoughts with request: %@", since);
         NSLog(@"Loaded thoughts with response: %@", operation.responseString);

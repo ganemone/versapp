@@ -274,11 +274,17 @@ NSString *const SERVICE_ACCOUNT_NAME = @"630369039619-ro1eat8s07fs3dfjqf2dt316lt
 NSString *const KEY_FILE_PATH = @"../pkey.p12";
 NSString *const BUCKET_MESSAGES = @"msgpics";
 NSString *const BUCKET_THOUGHTS = @"msgpics";//@"thoughtpics";
+
+
+NSString *const SERVER_IP_ADDRESS = @"versapp.co";
+NSString *const CONFERENCE_IP_ADDRESS = @"conference.versapp.co";
 NSString *const UPLOAD_URL = @"https://versapp.co/gcs/upload.php";
 NSString *const DOWNLOAD_URL = @"https://versapp.co/gcs/download.php";
-
 NSString *const BLACKLIST_URL = @"https://versapp.co:5281/contacts/store";
 NSString *const BLACKLIST_AUTH_CODE = @"Authorization";
+NSString *const VALIDATE_URL = @"https://versapp.co/validate.php";
+NSString *const VERIFY_URL = @"https://versapp.co/verify/";
+NSString *const THOUGHTS_URL = @"https://versapp.co/thoughts/index.php";
 
 NSString *const PARTICIPANT_STATUS = @"participant_status";
 NSString *const PARTICIPANT_USERNAME = @"participant_username";
