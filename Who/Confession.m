@@ -20,6 +20,7 @@
 +(instancetype)create:(NSString *)body imageURL:(NSString *)imageURL {
     Confession *instance = [[Confession alloc] init];
     [instance setBody:body];
+    [instance setPosterJID:[ConnectionProvider getUser]];
     [instance setImageURL:imageURL];
     [instance setHasFavorited:NO];
     [instance setDegree:@"1"];
@@ -84,6 +85,7 @@
 }
 
 - (BOOL)isPostedByConnectedUser {
+    NSLog(@"Checking poster: %@, %@", _posterJID, [ConnectionProvider getUser]);
     return ([_posterJID isEqualToString:[ConnectionProvider getUser]]);
 }
 
