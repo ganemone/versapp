@@ -76,6 +76,15 @@
     
     [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
     
+    [self setUpPullToLoad];
+    
+    // HEADER IS CHANGING SIZE! WHYYYYY
+    _header.frame = CGRectMake(0, 0, self.view.bounds.size.width, 62.0f);
+    [self.view bringSubviewToFront:_participantsView];
+    [self.view bringSubviewToFront:_header];
+}
+
+-(void)setUpPullToLoad {
     NSMutableArray *drawingImages = [NSMutableArray array];
     NSMutableArray *loadingImages = [NSMutableArray array];
     for (int i = 0; i <= 15; i++) {
@@ -90,10 +99,6 @@
     [self.tableView addPullToRefreshWithDrawingImgs:drawingImages andLoadingImgs:loadingImages andActionHandler:^{
         [self performSelectorOnMainThread:@selector(loadMoreMessages) withObject:nil waitUntilDone:NO];
     }];
-    // HEADER IS CHANGING SIZE! WHYYYYY
-    _header.frame = CGRectMake(0, 0, self.view.bounds.size.width, 62.0f);
-    [self.view bringSubviewToFront:_participantsView];
-    [self.view bringSubviewToFront:_header];
 }
 
 -(void)updateChatMO:(NSNotification *)notification {
