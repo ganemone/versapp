@@ -26,6 +26,7 @@
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *thoughtSegmentedControl;
 @property ConfessionsManager *confessionsManager;
+@property (strong, nonatomic) UIView *noFriendsView;
 @property (strong, nonatomic) UIImage *favIcon;
 @property (strong, nonatomic) UIImage *favIconActive;
 @property (strong, nonatomic) UIImage *favIconSingle;
@@ -58,7 +59,11 @@
     UISegmentedControl *control = (UISegmentedControl *)sender;
     if ([control selectedSegmentIndex] == 0) {
         _currentMethod = @"friends";
+        if ([FriendsDBManager hasEnoughFriends] == NO) {
+            [self.view addSubview:_noFriendsView];
+        }
     } else {
+        [_noFriendsView removeFromSuperview];
         _currentMethod = @"global";
     }
     [MBProgressHUD showHUDAddedTo:_tableView animated:YES];
@@ -118,13 +123,11 @@
     if (![FriendsDBManager hasEnoughFriends]) {
         _isGlobalFeed = YES;
         _currentMethod = @"global";
-        [_thoughtSegmentedControl setEnabled:NO forSegmentAtIndex:0];
         [_thoughtSegmentedControl setSelectedSegmentIndex:1];
     } else {
         _isGlobalFeed = NO;
         if (_currentMethod == nil)
             _currentMethod = @"friends";
-        [_thoughtSegmentedControl setEnabled:YES forSegmentAtIndex:0];
         _currentMethod = ([_thoughtSegmentedControl selectedSegmentIndex] == 1) ? @"global" : @"friends";
     }
 }
@@ -176,6 +179,8 @@
         [self performSelectorOnMainThread:@selector(loadConfessions) withObject:nil waitUntilDone:NO];
     }];
     
+    _noFriendsView = [self getNoFriendsView];
+    
     _isFetchingOlderThoughts = NO;
 }
 
@@ -197,7 +202,18 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if ([_currentMethod isEqualToString:@"friends"] && [FriendsDBManager hasEnoughFriends] == NO) {
+        return 0;
+    }
     return [_confessionsManager getNumberOfConfessions];
+}
+
+- (UIView *)getNoFriendsView {
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, self.header.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.header.frame.size.height)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, backgroundView.frame.size.width, backgroundView.frame.size.height)];
+    [imageView setImage:[UIImage imageNamed:@"messages-background-small.png"]];
+    [backgroundView addSubview:imageView];
+    return backgroundView;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

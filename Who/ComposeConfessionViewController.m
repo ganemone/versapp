@@ -70,7 +70,7 @@
     self.filterIndex = 0;
     self.numFilters = 6;
     self.shouldApplyFilter = 0;
-    self.exposure = 0.5;
+    self.exposure = -1.5;
     
     self.colors = @[[StyleManager getColorBlue], [StyleManager getColorGreen], [StyleManager getColorOrange], [StyleManager getColorPurple]];
     self.backgroundColor = [UIColor hexStringWithUIColor:[self.colors firstObject]];

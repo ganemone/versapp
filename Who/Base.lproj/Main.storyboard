@@ -1232,7 +1232,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="aeu-EJ-Rlq">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                                <rect key="frame" x="-1" y="0.0" width="320" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="IIL-et-yzh">
@@ -1303,7 +1303,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VJW-15-iT1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2266" y="204"/>
+            <point key="canvasLocation" x="2289" y="180"/>
         </scene>
         <!--Sharing View Controller-->
         <scene sceneID="xh4-Dp-XWl">
@@ -2021,17 +2021,17 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="hVX-XL-lBE"/>
+        <segue reference="z6h-qs-HbB"/>
         <segue reference="tVn-SP-Hc9"/>
         <segue reference="pHb-Kf-4qo"/>
-        <segue reference="z6h-qs-HbB"/>
         <segue reference="BCc-dv-kG7"/>
-        <segue reference="Ve6-mS-bkp"/>
-        <segue reference="YEX-bB-bO6"/>
-        <segue reference="AGt-Q0-zDh"/>
-        <segue reference="Y5D-AL-CYy"/>
-        <segue reference="WHz-1g-xNx"/>
-        <segue reference="XeD-6M-yxq"/>
-        <segue reference="OKb-WW-kzU"/>
+        <segue reference="qGQ-aw-vgl"/>
         <segue reference="m95-nf-RcH"/>
+        <segue reference="Ve6-mS-bkp"/>
+        <segue reference="AGt-Q0-zDh"/>
+        <segue reference="YEX-bB-bO6"/>
+        <segue reference="XeD-6M-yxq"/>
+        <segue reference="WHz-1g-xNx"/>
+        <segue reference="OKb-WW-kzU"/>
     </inferredMetricsTieBreakers>
 </document>
