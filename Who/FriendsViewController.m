@@ -6,6 +6,9 @@
 //  Copyright (c) 2014 Giancarlo Anemone. All rights reserved.
 //
 
+//App Delegate
+#import "AppDelegate.h"
+
 // View Controllers
 #import "FriendsViewController.h"
 #import "ConversationViewController.h"
@@ -286,33 +289,33 @@
 }
 
 /*-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == [alertView cancelButtonIndex]) {
-        return;
-    } else if (alertView == _groupNamePrompt) {
-        if (self.isCreatingGroup == YES) {
-            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            NSString *groupName = [alertView textFieldAtIndex:0].text;
-            if (buttonIndex == 1 && groupName.length > 0) {
-                ChatMO *gc = [MUCCreationManager createMUC:groupName participants:self.selectedJIDs];
-                _createdChat = [ChatDBManager insertChatWithID:gc.chat_id chatName:groupName chatType:CHAT_TYPE_GROUP participantString:[self.selectedJIDs componentsJoinedByString:@", "] status:STATUS_JOINED degree:@"1"];
-                [self handleFinishedInvitingUsersToMUC];
-            }
-            self.isCreatingGroup = NO;
-        } else if (buttonIndex == 1) {
-            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
-            NSString *chatID = [ChatMO createGroupID];
-            [conn sendElement:[IQPacketManager createCreateOneToOneChatPacket:chatID invitedUser:self.invitedUser roomName:@"Anonymous Friend"]];
-            NSString *chatName = [FriendsDBManager getUserWithJID:self.invitedUser].name;
-            _createdChat = [ChatDBManager insertChatWithID:chatID chatName:chatName chatType:CHAT_TYPE_ONE_TO_ONE_INVITER participantString:[NSString stringWithFormat:@"%@, %@", [ConnectionProvider getUser], self.invitedUser] status:STATUS_JOINED degree:@"1"];
-        }
-        self.selectedJIDs = [[NSMutableArray alloc] init];
-        [self.bottomLabel setText:@"Select Some Friends"];
-        [self.tableView reloadData];
-    } else {
-        [self handleUnfriend:_unfriendCheck];
-    }
-}*/
+ if (buttonIndex == [alertView cancelButtonIndex]) {
+ return;
+ } else if (alertView == _groupNamePrompt) {
+ if (self.isCreatingGroup == YES) {
+ [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+ NSString *groupName = [alertView textFieldAtIndex:0].text;
+ if (buttonIndex == 1 && groupName.length > 0) {
+ ChatMO *gc = [MUCCreationManager createMUC:groupName participants:self.selectedJIDs];
+ _createdChat = [ChatDBManager insertChatWithID:gc.chat_id chatName:groupName chatType:CHAT_TYPE_GROUP participantString:[self.selectedJIDs componentsJoinedByString:@", "] status:STATUS_JOINED degree:@"1"];
+ [self handleFinishedInvitingUsersToMUC];
+ }
+ self.isCreatingGroup = NO;
+ } else if (buttonIndex == 1) {
+ [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+ XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
+ NSString *chatID = [ChatMO createGroupID];
+ [conn sendElement:[IQPacketManager createCreateOneToOneChatPacket:chatID invitedUser:self.invitedUser roomName:@"Anonymous Friend"]];
+ NSString *chatName = [FriendsDBManager getUserWithJID:self.invitedUser].name;
+ _createdChat = [ChatDBManager insertChatWithID:chatID chatName:chatName chatType:CHAT_TYPE_ONE_TO_ONE_INVITER participantString:[NSString stringWithFormat:@"%@, %@", [ConnectionProvider getUser], self.invitedUser] status:STATUS_JOINED degree:@"1"];
+ }
+ self.selectedJIDs = [[NSMutableArray alloc] init];
+ [self.bottomLabel setText:@"Select Some Friends"];
+ [self.tableView reloadData];
+ } else {
+ [self handleUnfriend:_unfriendCheck];
+ }
+ }*/
 
 -(void)customIOS7dialogButtonTouchUpInside:(id)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"] || [[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Ok"]) {
@@ -342,6 +345,7 @@
         [self.bottomLabel setText:@"Select Some Friends"];
         [self.tableView reloadData];
     } else if (alertView == _unfriendAlertView) {
+        [alertView close];
         [self handleUnfriend:_unfriendCheck];
     }
 }
@@ -444,18 +448,22 @@
     [_groupNamePrompt show];
 }
 
--(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer {
-    CGPoint p = [gestureRecognizer locationInView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
-    if (indexPath == nil) {
-    }
-    else {
-        [self handleLongPressForRowAtIndexPath:indexPath];
+-(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        CGPoint p = [gestureRecognizer locationInView:self.tableView];
+        NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
+        if (indexPath == nil) {
+        }
+        else {
+            [self handleLongPressForRowAtIndexPath:indexPath];
+        }
     }
 }
 
 -(void)handleLongPressForRowAtIndexPath:(NSIndexPath*)indexPath {
     _unfriendCheck = [_searchResults objectAtIndex:indexPath.row];
+    NSLog(@"Unfriend User?: %@", [_unfriendCheck username]);
     
     //UIAlertView *unfriendAlertView = [[UIAlertView alloc] initWithTitle:@"Remove Friend" message:[NSString stringWithFormat:@"Would you like to remove %@ from your friends list?", _unfriendCheck.name] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Remove", nil];
     //unfriendAlertView.alertViewStyle = UIAlertViewStyleDefault;
@@ -468,9 +476,10 @@
 -(void)handleUnfriend:(FriendMO*)friend {
     XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
     [conn sendElement:[IQPacketManager createUnsubscribePacket:friend.username]];
-    
-    [FriendsDBManager updateUserSetStatusRejected:friend.username];
-    
+    BOOL result = [FriendsDBManager updateUserSetStatusRejected:friend.username];
+    NSLog(@"RESULT %d", result);
+    _allAccepted = [FriendsDBManager getAllWithStatusFriends];
+    [self.tableView reloadData];
     _unfriendCheck = nil;
 }
 

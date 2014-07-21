@@ -480,6 +480,8 @@
 		3AFFC93D18A06AE3009D7F13 /* db.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC93B18A06AE3009D7F13 /* db.xcdatamodeld */; };
 		B38B3FF01957649300043B95 /* check-icon-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B38B3FEE1957649300043B95 /* check-icon-white@2x.png */; };
 		B38B3FF11957649300043B95 /* check-icon-white.png in Resources */ = {isa = PBXBuildFile; fileRef = B38B3FEF1957649300043B95 /* check-icon-white.png */; };
+		B39530EA197C9A610098A932 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B39530E8197C9A610098A932 /* WebViewController.m */; };
+		B39530EB197C9A610098A932 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B39530E9197C9A610098A932 /* WebViewController.xib */; };
 		B3B9358F1949693400C281FA /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B9358E1949693400C281FA /* FacebookSDK.framework */; };
 		F71CE7071962F0560030EBA9 /* ThoughtMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F71CE7061962F0560030EBA9 /* ThoughtMO.m */; };
 		F71CE70A1962F0B80030EBA9 /* ThoughtsDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F71CE7091962F0B80030EBA9 /* ThoughtsDBManager.m */; };
@@ -1440,6 +1442,9 @@
 		B30853191968AFC900816A6F /* dbv2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = dbv2.xcdatamodel; sourceTree = "<group>"; };
 		B38B3FEE1957649300043B95 /* check-icon-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon-white@2x.png"; sourceTree = "<group>"; };
 		B38B3FEF1957649300043B95 /* check-icon-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon-white.png"; sourceTree = "<group>"; };
+		B39530E7197C9A610098A932 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		B39530E8197C9A610098A932 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		B39530E9197C9A610098A932 /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
 		B3B9358E1949693400C281FA /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		F71CE7051962F0560030EBA9 /* ThoughtMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThoughtMO.h; sourceTree = "<group>"; };
 		F71CE7061962F0560030EBA9 /* ThoughtMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThoughtMO.m; sourceTree = "<group>"; };
@@ -1734,6 +1739,9 @@
 		3A25B63C1881E03700166623 /* Who */ = {
 			isa = PBXGroup;
 			children = (
+				B39530E7197C9A610098A932 /* WebViewController.h */,
+				B39530E8197C9A610098A932 /* WebViewController.m */,
+				B39530E9197C9A610098A932 /* WebViewController.xib */,
 				3A4E7845192F8B79008F024C /* NSMutableArray+QueueAdditions.h */,
 				3A4E7846192F8B79008F024C /* NSMutableArray+QueueAdditions.m */,
 				3AA4952D191A6DC7003C9453 /* BlacklistManager.h */,
@@ -3505,6 +3513,7 @@
 				F7F54ABA19510E9D007CEADF /* global-blue@2x.png in Resources */,
 				F7F54AC419510F1D007CEADF /* check-icon-purple@2x.png in Resources */,
 				F7F54AD61951104F007CEADF /* fav-icon.png in Resources */,
+				B39530EB197C9A610098A932 /* WebViewController.xib in Resources */,
 				3A3A0B0918AB1126006FBAE4 /* input-field-cover@2x.png in Resources */,
 				3A0EC4F419263FE00036AB43 /* DashboardTableViewCell.xib in Resources */,
 				3A91F20618EB534F0006B9F8 /* notification-none-old.png in Resources */,
@@ -3817,6 +3826,7 @@
 				3A3A0ADF18AB1126006FBAE4 /* JSBubbleMessageCell.m in Sources */,
 				3AA4952F191A6DC7003C9453 /* BlacklistManager.m in Sources */,
 				3AF19A481881EF1600F3E4D3 /* DDLog.m in Sources */,
+				B39530EA197C9A610098A932 /* WebViewController.m in Sources */,
 				F751016018ABE101001F1E7F /* IASKSettingsReader.m in Sources */,
 				3AF691B31919581600ABA9C5 /* GPUImageSourceOverBlendFilter.m in Sources */,
 				3AF691831919581600ABA9C5 /* GPUImageLuminosityBlendFilter.m in Sources */,
@@ -4225,16 +4235,16 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				FRAMEWORK_SEARCH_PATHS = (
-					/Users/rlundquist3/development/ios/FacebookSDK,
 					"$(PROJECT_DIR)/who",
+					/Users/giancarlo/Documents/FacebookSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/Versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = /users/rlundquist3/development/ios/who;
+				LIBRARY_SEARCH_PATHS = /Users/giancarlo/Documents/dev/ios/Who/Who;
 				PRODUCT_NAME = Versapp;
-				PROVISIONING_PROFILE = "F97314C3-8621-4890-930D-1F8F3F1966B5";
+				PROVISIONING_PROFILE = "C541311C-6531-4B45-807D-7327695EC04C";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -4245,16 +4255,16 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Giancarlo Anemone (DLEQZ8LQ8E)";
 				FRAMEWORK_SEARCH_PATHS = (
-					/Users/rlundquist3/development/ios/FacebookSDK,
 					"$(PROJECT_DIR)/who",
+					/Users/giancarlo/Documents/FacebookSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/Versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = /users/rlundquist3/development/ios/who;
+				LIBRARY_SEARCH_PATHS = /Users/giancarlo/Documents/dev/ios/Who/Who;
 				PRODUCT_NAME = Versapp;
-				PROVISIONING_PROFILE = "F97314C3-8621-4890-930D-1F8F3F1966B5";
+				PROVISIONING_PROFILE = "C541311C-6531-4B45-807D-7327695EC04C";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

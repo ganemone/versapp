@@ -52,13 +52,24 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.navigationController.navigationBar setHidden:YES];
+    self.navigationController.navigationBarHidden = YES;
+    self.navigationController.navigationBar.hidden = YES;
     self.connectionProvider = [ConnectionProvider getInstance];
     [self setupNotificationListeners];
     [self setupPageViewController];
-    [self.navigationController.navigationBar setHidden:YES];
+    
 }
 
-- (void)setupPageViewController {
+- (void)viewDidAppear:(BOOL)animated
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1000 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [_pageViewController.view setFrame:self.view.bounds];
+    });
+}
+
+- (void)setupPageViewController
+{
     // Initialize and configure page view controller
     self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:STORYBOARD_ID_PAGE_VIEW_CONTROLLER];
     self.pageViewController.dataSource = self;
@@ -70,7 +81,7 @@
     [self.pageViewController setViewControllers:@[[_viewControllers objectAtIndex:0]] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:nil];
     [self addChildViewController:_pageViewController];
     // Add the page view controller frame to the current view controller
-    [_pageViewController.view setFrame:self.view.frame];
+    [_pageViewController.view setFrame:self.view.bounds];
     
     [self.view addSubview:_pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];

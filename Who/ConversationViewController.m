@@ -65,6 +65,8 @@
     self.downloadingImageURLs = [[NSMutableArray alloc] initWithCapacity:20];
     [self.headerLabel setText:[self.chatMO getChatName]];
     [self.headerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+    [self.participantsLabel setFont:[StyleManager getFontStyleLightSizeMed]];
+    [self.participantsLabel setTextColor:[StyleManager getColorBlue]];
     
     // Add a bottomBorder to the header view
     CALayer *headerBottomborder = [CALayer layer];
@@ -74,6 +76,15 @@
     
     [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
     
+    [self setUpPullToLoad];
+    
+    // HEADER IS CHANGING SIZE! WHYYYYY
+    _header.frame = CGRectMake(0, 0, self.view.bounds.size.width, 62.0f);
+    [self.view bringSubviewToFront:_participantsView];
+    [self.view bringSubviewToFront:_header];
+}
+
+-(void)setUpPullToLoad {
     NSMutableArray *drawingImages = [NSMutableArray array];
     NSMutableArray *loadingImages = [NSMutableArray array];
     for (int i = 0; i <= 15; i++) {
@@ -137,8 +148,8 @@
     _messageToBlock = mesage;
     
     /*UIAlertView *reportAbuse = [[UIAlertView alloc] initWithTitle:@"Block" message: @"Do you want to block the sender?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:REPORT_BLOCK, nil];
-    
-    reportAbuse.alertViewStyle = UIAlertViewStyleDefault;*/
+     
+     reportAbuse.alertViewStyle = UIAlertViewStyleDefault;*/
     
     CustomIOS7AlertView *reportAbuse = [StyleManager createCustomAlertView:@"Block" message:@"Do you want to block the sender?" buttons:[NSMutableArray arrayWithObjects:@"Cancel", REPORT_BLOCK, nil] hasInput:NO];
     [reportAbuse setDelegate:self];
@@ -177,10 +188,10 @@
             [self.tableView reloadData];
             [self scrollToBottomAnimated:YES];
             /*if([self.chatMO getNumberOfMessages] > 1) {
-                [self animateAddNewestMessage];
-            } else {
-                [self.tableView reloadData];
-            }*/
+             [self animateAddNewestMessage];
+             } else {
+             [self.tableView reloadData];
+             }*/
         }
     }
 }
@@ -190,7 +201,7 @@
     NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
     [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationLeft];
-    [self.tableView endUpdates];    
+    [self.tableView endUpdates];
     [self scrollToBottomAnimated:YES];
     self.messageImage = nil;
     self.messageImageLink = nil;
@@ -345,10 +356,47 @@
 }
 
 - (IBAction)discloseInfoButtonClicked:(id)sender {
-    /*UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:_headerLabel.text message:@"This is a group chat. Everyone knows who is in the group, but no one knows who is sending each message." delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil];
-    [alertView setAlertViewStyle:UIAlertViewStyleDefault];
-    [alertView show];*/
-    
+    NSLog(@"Handling Participants");
+    if (_participantsView.frame.origin.y < _header.frame.size.height) {
+        NSLog(@"Showing Participants");
+        [self showParticipantsView];
+    } else {
+        NSLog(@"Hiding Participants");
+        [self hideParticipantsView];
+    }
+}
+
+- (void)showParticipantsView {
+    [_participantsLabel setText:[self getParticipantString]];
+    [UIView animateWithDuration:0.5
+                          delay:0.0
+         usingSpringWithDamping:0.6
+          initialSpringVelocity:3.0
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         CGFloat shiftAmount = 39;
+                         CGRect tbFrame = self.tableView.frame;
+                         self.tableView.frame = CGRectMake(tbFrame.origin.x, tbFrame.origin.y + shiftAmount, tbFrame.size.width, tbFrame.size.height - shiftAmount);
+                         _participantsView.frame = CGRectMake(0, _participantsView.frame.origin.y + shiftAmount, _participantsView.frame.size.width, _participantsView.frame.size.height);
+                     } completion: nil];
+}
+
+- (void)hideParticipantsView {
+    [UIView animateWithDuration:0.5
+                          delay:0.0
+         usingSpringWithDamping:0.6
+          initialSpringVelocity:3.0
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         CGFloat shiftAmount = _participantsView.frame.size.height;
+                         NSLog(@"Shift Amount: %f", shiftAmount);
+                         CGRect tbFrame = self.tableView.frame;
+                         self.tableView.frame = CGRectMake(tbFrame.origin.x, tbFrame.origin.y - shiftAmount, tbFrame.size.width, tbFrame.size.height + shiftAmount);
+                         _participantsView.frame = CGRectMake(0, _participantsView.frame.origin.y - shiftAmount, _participantsView.frame.size.width, _participantsView.frame.size.height);
+                     } completion:nil];
+}
+
+- (IBAction)participantsInfoBtnAction:(id)sender {
     CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:_headerLabel.text message:@"This is a group chat. Everyone knows who is in the group, but no one knows who is sending each message." buttons:[NSMutableArray arrayWithObjects:@"Got it", @"Add Friends", nil] hasInput:NO];
     [alertView setDelegate:self];
     [alertView show];
@@ -378,7 +426,7 @@
     }
 }
 
-/*- (IBAction)showGroupParticipants:(id)sender {
+- (NSString *)getParticipantString {
     NSArray *members = _chatMO.participants;
     NSMutableArray *list = [[NSMutableArray alloc] init];
     NSString *memberUsername, *invitedBy;
@@ -397,18 +445,17 @@
                 [list addObject:[NSString stringWithFormat:@"%@ (Friend of %@)", memberUsername, [[invitedByFriend.name componentsSeparatedByString:@" "] firstObject]]];
             }
         } else {
-            [list addObject:friend.name];
+            [list addObject:[[friend.name componentsSeparatedByString:@" "] firstObject]];
         }
     }
     NSString *participantString;
     if ([list count] == 0) {
-        participantString = @"No one has joined this chat just yet.";
+        participantString = @"Hmm... This chat is empty";
     } else {
-        participantString = [list componentsJoinedByString:@"\n"];
+        participantString = [NSString stringWithFormat:@"Group: %@", [list componentsJoinedByString:@", "]];
     }
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:self.headerLabel.text message:participantString delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"Add Users", nil];
-    [alert show];
-}*/
+    return participantString;
+}
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if ([alertView cancelButtonIndex] == buttonIndex) {
@@ -429,17 +476,17 @@
 }
 
 /*-(BOOL)shouldDisplayTimestampForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MessageMO *message = [self messageMOForRowAtIndexPath:indexPath];
-    MessageMO *prevMessage = [[_chatMO messages] objectAtIndex:indexPath.row - 1];
-    MessageMO *twoPrevMessage = [[_chatMO messages] objectAtIndex:indexPath.row - 1];
-    if (prevMessage == nil || twoPrevMessage == nil) {
-        return YES;
-    }
-    
-    if([message.time doubleValue] - [prevMessage.time doubleValue] > 5000 || [self shouldDisplayTimestampForRowAtIndexPath:[[NSIndexPath alloc] initWithIndex:indexPath.row - 2]] == NO) {
-        return YES;
-    }
-    return NO;
-}*/
+ MessageMO *message = [self messageMOForRowAtIndexPath:indexPath];
+ MessageMO *prevMessage = [[_chatMO messages] objectAtIndex:indexPath.row - 1];
+ MessageMO *twoPrevMessage = [[_chatMO messages] objectAtIndex:indexPath.row - 1];
+ if (prevMessage == nil || twoPrevMessage == nil) {
+ return YES;
+ }
+ 
+ if([message.time doubleValue] - [prevMessage.time doubleValue] > 5000 || [self shouldDisplayTimestampForRowAtIndexPath:[[NSIndexPath alloc] initWithIndex:indexPath.row - 2]] == NO) {
+ return YES;
+ }
+ return NO;
+ }*/
 
 @end

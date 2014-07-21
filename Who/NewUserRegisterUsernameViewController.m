@@ -10,6 +10,7 @@
 #import "Constants.h"
 #import "Validator.h"
 #import "StyleManager.h"
+#import "WebViewController.h"
 
 @interface NewUserRegisterUsernameViewController ()
 
@@ -17,6 +18,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *actionBtn;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UIButton *registerBtn;
+@property (weak, nonatomic) IBOutlet UIButton *viewTermsBtn;
+@property (weak, nonatomic) IBOutlet UIButton *viewPrivatePolicyBtn;
+@property (weak, nonatomic) IBOutlet UITextView *termsTextView;
 
 @end
 
@@ -42,6 +46,10 @@
     [_registerBtn.titleLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     [_username setFont:[StyleManager getFontStyleLightSizeLarge]];
     [_descriptionTextView setFont:[StyleManager getFontStyleLightSizeLarge]];
+    
+    [_termsTextView setFont:[StyleManager getFontStyleLightSizeMed]];
+    [_viewTermsBtn.titleLabel setFont:[StyleManager getFontStyleLightSizeMed]];
+    [_viewPrivatePolicyBtn.titleLabel setFont:[StyleManager getFontStyleLightSizeMed]];
     
     [_actionBtn.layer setCornerRadius:5.0];
     [_registerBtn.layer setCornerRadius:5.0];
@@ -84,6 +92,18 @@
     [self handleFinishedRegisteringUsername];
     [textField resignFirstResponder];
     return NO;
+}
+
+- (IBAction)termsAction:(id)sender {
+    WebViewController *webViewController = [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
+    webViewController.url = TERMS_URL;
+    [self presentViewController:webViewController animated:YES completion:nil];
+}
+
+- (IBAction)policyAction:(id)sender {
+    WebViewController *webViewController = [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
+    webViewController.url = PRIVACY_URL;
+    [self presentViewController:webViewController animated:YES completion:nil];
 }
 
 /*

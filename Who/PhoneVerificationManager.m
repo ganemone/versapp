@@ -77,7 +77,7 @@ NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_c
                                  @"country" : country,
                                  @"code" : code};
     NSError *error = NULL;
-    NSMutableURLRequest *req = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:@"https://versapp.co/verify/" parameters:parameters error:&error];
+    NSMutableURLRequest *req = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:VERIFY_URL parameters:parameters error:&error];
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:req success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SENT_VERIFICATION_TEXT object:nil];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -89,7 +89,7 @@ NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_c
 
 -(void)checkForPhoneRegisteredOnServer:(NSString *)countryCode phone:(NSString *)phone {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://versapp.co/validate.php?ccode=%@&phone=%@",countryCode, phone]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?ccode=%@&phone=%@", VALIDATE_URL, countryCode, phone]];
         NSMutableURLRequest *uploadRequest = [NSMutableURLRequest requestWithURL:url];
         [uploadRequest setHTTPMethod:@"GET"];
         [uploadRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
@@ -98,6 +98,7 @@ NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_c
         NSError *error = NULL;
         [NSURLConnection sendSynchronousRequest:uploadRequest returningResponse:&response error:&error];
         dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"Response Status Code: %d", [response statusCode]);
             if ([response statusCode] == 200) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PHONE_AVAILABLE object:nil];
             } else {

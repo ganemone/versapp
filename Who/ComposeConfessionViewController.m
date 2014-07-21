@@ -70,7 +70,7 @@
     self.filterIndex = 0;
     self.numFilters = 6;
     self.shouldApplyFilter = 0;
-    self.exposure = 0.5;
+    self.exposure = -0.5;
     
     self.colors = @[[StyleManager getColorBlue], [StyleManager getColorGreen], [StyleManager getColorOrange], [StyleManager getColorPurple]];
     self.backgroundColor = [UIColor hexStringWithUIColor:[self.colors firstObject]];
@@ -211,13 +211,13 @@
 - (void)cropViewController:(PECropViewController *)controller didFinishCroppingImage:(UIImage *)croppedImage
 {
     [controller dismissViewControllerAnimated:YES completion:^{
-        
+        _exposure = -0.5;
         UIGraphicsBeginImageContext(CGSizeMake(320, 320));
         [croppedImage drawInRect:CGRectMake(0, 0, 320, 320)];
         UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
+        smallImage = [self getImageWithExposureApplied:smallImage];
         _backgroundImage = smallImage;
-        [self updateImageWithCurrentExposure];
         [_imageView setContentMode:UIViewContentModeScaleAspectFill];
         [_imageView setImage:smallImage];
         [_composeTextView setBackgroundColor:[UIColor clearColor]];
@@ -311,14 +311,20 @@
         });
     });
 }
+
 - (void)updateImageWithCurrentExposure {
-    GPUImagePicture *imageSource = [[GPUImagePicture alloc] initWithImage:[self getCurrentImage]];
+    UIImage *image = [self getImageWithExposureApplied:[self getCurrentImage]];
+    [_imageView setImage:image];
+}
+
+- (UIImage *)getImageWithExposureApplied:(UIImage *)image {
+    GPUImagePicture *imageSource = [[GPUImagePicture alloc] initWithImage:image];
     GPUImageExposureFilter *filter = [[GPUImageExposureFilter alloc] init];
     [filter setExposure:_exposure];
     [imageSource addTarget:filter];
     [filter useNextFrameForImageCapture];
     [imageSource processImage];
-    [_imageView setImage:[filter imageFromCurrentFramebuffer]];
+    return [filter imageFromCurrentFramebuffer];
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -582,10 +588,12 @@
 
 - (void)decrementExposure {
     _exposure = MAX(-4, _exposure - 0.5);
+    NSLog(@"Decrementing Exposure: %f", _exposure);
 }
 
 - (void)incrementExposure {
     _exposure = MIN(1, _exposure + 0.5);
+    NSLog(@"Incrementing Exposure: %f", _exposure);
 }
 
 - (void)handleSwipeUp {

@@ -16,11 +16,6 @@
 
 @implementation DashboardTableViewCell
 
-- (void)awakeFromNib
-{
-    NSLog(@"Awake from nib called...");
-}
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];

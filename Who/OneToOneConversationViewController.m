@@ -21,6 +21,8 @@
 #import "FriendsDBManager.h"
 #import "ThoughtsDBManager.h"
 #import "ThoughtMO.h"
+#import "UIScrollView+GifPullToRefresh.h"
+#import "MessagesDBManager.h"
 
 @implementation OneToOneConversationViewController
 
@@ -102,8 +104,42 @@
     [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
     [self setUpInfoBtn];
     
-    NSLog(@"One To One Conversation With Chat: %@", [_chatMO description]);
-    NSLog(@"Degree: %@", [_chatMO degree]);
+    [self setUpPullToLoad];
+}
+
+-(void)setUpPullToLoad {
+    NSMutableArray *drawingImages = [NSMutableArray array];
+    NSMutableArray *loadingImages = [NSMutableArray array];
+    for (int i = 0; i <= 15; i++) {
+        NSString *fileName = [NSString stringWithFormat:@"Owl-Loading-Animation_0%03d.png",i];
+        [drawingImages addObject:[UIImage imageNamed:fileName]];
+    }
+    
+    for (int i = 0; i <= 15; i++) {
+        NSString *fileName = [NSString stringWithFormat:@"Owl-Loading-Animation_0%03d.png",i];
+        [loadingImages addObject:[UIImage imageNamed:fileName]];
+    }
+    [self.tableView addPullToRefreshWithDrawingImgs:drawingImages andLoadingImgs:loadingImages andActionHandler:^{
+        [self performSelectorOnMainThread:@selector(loadMoreMessages) withObject:nil waitUntilDone:NO];
+    }];
+}
+
+-(void)loadMoreMessages {
+    if ([_chatMO.messages count] == 0) {
+        [self didFinishLoadingMoreMessages];
+    } else {
+        NSArray *messages = [MessagesDBManager getMessagesByChat:_chatMO.chat_id since:[_chatMO.messages firstObject]];
+        NSMutableArray *new = [[NSMutableArray alloc] initWithCapacity:[_chatMO.messages count] + [messages count]];
+        [new addObjectsFromArray:messages];
+        [new addObjectsFromArray:_chatMO.messages];
+        [_chatMO setMessages:new];
+        [self didFinishLoadingMoreMessages];
+    }
+}
+
+-(void)didFinishLoadingMoreMessages {
+    [self.tableView didFinishPullToRefresh];
+    [self.tableView reloadData];
 }
 
 - (void)setUpInfoBtn {

@@ -410,6 +410,37 @@
                                     <action selector="addIconClicked:" destination="q0A-9I-XMY" eventType="touchUpInside" id="6Ml-cc-0Og"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="By signing up, you accept the Terms of Service and acknowledge our Privacy Policy." selectable="NO" id="y0z-yc-rdP">
+                                <rect key="frame" x="20" y="363" width="280" height="51"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VM8-ie-Jdr">
+                                <rect key="frame" x="85" y="410" width="151" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="View Terms of Service">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="termsAction:" destination="jBG-aO-M7k" eventType="touchUpInside" id="8b0-qO-NUN"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5ht-MW-irg">
+                                <rect key="frame" x="94" y="437" width="133" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <state key="normal" title="View Privacy Policy">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="policyAction:" destination="jBG-aO-M7k" eventType="touchUpInside" id="umE-TH-Gt9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -418,7 +449,10 @@
                         <outlet property="descriptionTextView" destination="nAn-Xf-MTA" id="02d-yx-PVA"/>
                         <outlet property="headerLabel" destination="xrC-Ab-83Q" id="HmQ-aG-4hM"/>
                         <outlet property="registerBtn" destination="wLH-eS-7bo" id="k9n-94-afQ"/>
+                        <outlet property="termsTextView" destination="y0z-yc-rdP" id="VZD-HT-f9N"/>
                         <outlet property="username" destination="azD-BE-2xW" id="GtI-n7-OVi"/>
+                        <outlet property="viewPrivatePolicyBtn" destination="5ht-MW-irg" id="GAF-h3-DQ3"/>
+                        <outlet property="viewTermsBtn" destination="VM8-ie-Jdr" id="U2K-nr-dTQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UtQ-K7-ZsY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1093,6 +1127,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" id="ns7-fL-HQ3">
+                                <rect key="frame" x="0.0" y="25" width="320" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Participants" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="50i-Ba-4G9">
+                                        <rect key="frame" x="9" y="9" width="267" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" id="2Cc-QN-B1s">
+                                        <rect key="frame" x="284" y="9" width="22" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" red="0.21960784310000001" green="0.65490196079999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="participantsInfoBtnAction:" destination="LSk-rM-HTJ" eventType="touchUpInside" id="Hx1-Zm-1Xt"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                             <view contentMode="scaleToFill" id="vsd-42-qBE">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1121,7 +1179,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="discloseInfoButtonClicked:" destination="LSk-rM-HTJ" eventType="touchUpInside" id="PYd-sz-RWd"/>
+                                            <action selector="discloseInfoButtonClicked:" destination="LSk-rM-HTJ" eventType="touchUpInside" id="Wel-Af-3eU"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1135,6 +1193,8 @@
                     <connections>
                         <outlet property="header" destination="vsd-42-qBE" id="qoq-Zb-7Z6"/>
                         <outlet property="headerLabel" destination="HUc-cS-3Ub" id="FXq-lN-0ns"/>
+                        <outlet property="participantsLabel" destination="50i-Ba-4G9" id="PRd-cF-9Ff"/>
+                        <outlet property="participantsView" destination="ns7-fL-HQ3" id="hk4-k5-Fk3"/>
                         <segue destination="kcE-6H-FHd" kind="push" identifier="SegueIDAddToGroup" id="YEX-bB-bO6"/>
                     </connections>
                 </viewController>
@@ -1198,7 +1258,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="aeu-EJ-Rlq">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                                <rect key="frame" x="-1" y="0.0" width="320" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="IIL-et-yzh">
@@ -1269,7 +1329,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VJW-15-iT1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2266" y="204"/>
+            <point key="canvasLocation" x="2289" y="180"/>
         </scene>
         <!--Sharing View Controller-->
         <scene sceneID="xh4-Dp-XWl">
@@ -1986,18 +2046,18 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="hVX-XL-lBE"/>
+        <segue reference="z6h-qs-HbB"/>
+        <segue reference="tVn-SP-Hc9"/>
+        <segue reference="pHb-Kf-4qo"/>
+        <segue reference="BCc-dv-kG7"/>
+        <segue reference="qGQ-aw-vgl"/>
+        <segue reference="m95-nf-RcH"/>
+        <segue reference="Ve6-mS-bkp"/>
+        <segue reference="AGt-Q0-zDh"/>
+        <segue reference="YEX-bB-bO6"/>
         <segue reference="XeD-6M-yxq"/>
         <segue reference="WHz-1g-xNx"/>
         <segue reference="OKb-WW-kzU"/>
-        <segue reference="z6h-qs-HbB"/>
-        <segue reference="zTQ-Mf-6oX"/>
-        <segue reference="8c7-Mw-K5g"/>
-        <segue reference="YEX-bB-bO6"/>
-        <segue reference="BCc-dv-kG7"/>
-        <segue reference="pHb-Kf-4qo"/>
-        <segue reference="tVn-SP-Hc9"/>
-        <segue reference="hVX-XL-lBE"/>
-        <segue reference="Ve6-mS-bkp"/>
-        <segue reference="m95-nf-RcH"/>
     </inferredMetricsTieBreakers>
 </document>
