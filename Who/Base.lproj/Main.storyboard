@@ -410,6 +410,37 @@
                                     <action selector="addIconClicked:" destination="q0A-9I-XMY" eventType="touchUpInside" id="6Ml-cc-0Og"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="By signing up, you accept the Terms of Service and acknowledge our Privacy Policy." selectable="NO" id="y0z-yc-rdP">
+                                <rect key="frame" x="20" y="363" width="280" height="51"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VM8-ie-Jdr">
+                                <rect key="frame" x="85" y="410" width="151" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="View Terms of Service">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="termsAction:" destination="jBG-aO-M7k" eventType="touchUpInside" id="8b0-qO-NUN"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5ht-MW-irg">
+                                <rect key="frame" x="94" y="437" width="133" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <state key="normal" title="View Privacy Policy">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="policyAction:" destination="jBG-aO-M7k" eventType="touchUpInside" id="umE-TH-Gt9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -418,7 +449,10 @@
                         <outlet property="descriptionTextView" destination="nAn-Xf-MTA" id="02d-yx-PVA"/>
                         <outlet property="headerLabel" destination="xrC-Ab-83Q" id="HmQ-aG-4hM"/>
                         <outlet property="registerBtn" destination="wLH-eS-7bo" id="k9n-94-afQ"/>
+                        <outlet property="termsTextView" destination="y0z-yc-rdP" id="VZD-HT-f9N"/>
                         <outlet property="username" destination="azD-BE-2xW" id="GtI-n7-OVi"/>
+                        <outlet property="viewPrivatePolicyBtn" destination="5ht-MW-irg" id="GAF-h3-DQ3"/>
+                        <outlet property="viewTermsBtn" destination="VM8-ie-Jdr" id="U2K-nr-dTQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UtQ-K7-ZsY" userLabel="First Responder" sceneMemberID="firstResponder"/>

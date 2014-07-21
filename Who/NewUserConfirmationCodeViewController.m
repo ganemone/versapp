@@ -51,6 +51,14 @@
     [_resendBtn.layer setCornerRadius:5.0];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    NSLog(@"View did appear");
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSLog(@"Becoming first");
+        [_confirmationField becomeFirstResponder];
+    });
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

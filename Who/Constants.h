@@ -285,6 +285,9 @@ extern NSString *const BLACKLIST_AUTH_CODE;
 extern NSString *const VALIDATE_URL;
 extern NSString *const VERIFY_URL;
 extern NSString *const THOUGHTS_URL;
+extern NSString *const SUPPORT_URL;
+extern NSString *const PRIVACY_URL;
+extern NSString *const TERMS_URL;
 
 extern NSString *const PARTICIPANT_STATUS;
 extern NSString *const PARTICIPANT_USERNAME;

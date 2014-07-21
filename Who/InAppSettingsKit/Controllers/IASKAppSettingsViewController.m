@@ -31,6 +31,7 @@
 #import "XMPPStream.h"
 #import "AppInitViewController.h"
 #import "ConnectionProvider.h"
+#import "WebViewController.h"
 
 #if !__has_feature(objc_arc)
 #error "IASK needs ARC"
@@ -776,15 +777,18 @@ CGRect IASKCGRectSwap(CGRect rect);
         NSLog(@"Logout Pressed");
         [self logout];
     } else if ([[specifier key] isEqualToString:SETTING_SUPPORT]) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://versapp.co/home/support.html"]];
-        //[self performSegueWithIdentifier:SETTING_SUPPORT sender:self];
+        [self showWebViewWithURLString:SUPPORT_URL];
     } else if ([[specifier key] isEqualToString:SETTING_PRIVACY]) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://versapp.co/home/privacy.html"]];
-        //[self performSegueWithIdentifier:SETTING_PRIVACY sender:self];
+        [self showWebViewWithURLString:PRIVACY_URL];
     } else if ([[specifier key] isEqualToString:SETTING_TERMS]) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://versapp.co/home/terms.html"]];
-        //[self performSegueWithIdentifier:SETTING_TERMS sender:self];
+        [self showWebViewWithURLString:TERMS_URL];
     }
+}
+
+- (void)showWebViewWithURLString:(NSString *)urlString {
+    WebViewController *webViewController = [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
+    webViewController.url = urlString;
+    [self presentViewController:webViewController animated:YES completion:nil];
 }
 
 -(void)logout {
