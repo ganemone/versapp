@@ -358,6 +358,7 @@
 - (IBAction)handleDiscloseInfoBtnClicked:(id)sender {
     //NSString *title = @"What's the deal?";
     //NSString *message;
+    [self.view endEditing:YES];
     if ([_chatMO.chat_type isEqualToString:CHAT_TYPE_ONE_TO_ONE_CONFESSION]) {
         //message = [NSString stringWithFormat:@"This is a one to one chat between you and a %@ started from a thought. This chat is two-way anonymous! Neither of you know exactly who the other user is, but you are connected by a thought.", [self thoughtChatDegree]];
         [self alertConfessionChat];

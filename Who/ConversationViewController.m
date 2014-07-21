@@ -397,6 +397,7 @@
 }
 
 - (IBAction)participantsInfoBtnAction:(id)sender {
+    [self.view endEditing:YES];
     CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:_headerLabel.text message:@"This is a group chat. Everyone knows who is in the group, but no one knows who is sending each message." buttons:[NSMutableArray arrayWithObjects:@"Got it", @"Add Friends", nil] hasInput:NO];
     [alertView setDelegate:self];
     [alertView show];
