@@ -23,5 +23,8 @@
 @property (weak, nonatomic) IBOutlet UIView *header;
 @property (strong, nonatomic) MessageMO *messageToBlock;
 
+@property (weak, nonatomic) IBOutlet UIView *participantsView;
+@property (weak, nonatomic) IBOutlet UILabel *participantsLabel;
+
 
 @end

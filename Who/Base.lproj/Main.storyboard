@@ -1127,6 +1127,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" id="ns7-fL-HQ3">
+                                <rect key="frame" x="0.0" y="25" width="320" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Participants" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="50i-Ba-4G9">
+                                        <rect key="frame" x="9" y="9" width="267" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" id="2Cc-QN-B1s">
+                                        <rect key="frame" x="284" y="9" width="22" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" red="0.21960784310000001" green="0.65490196079999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="participantsInfoBtnAction:" destination="LSk-rM-HTJ" eventType="touchUpInside" id="Hx1-Zm-1Xt"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                             <view contentMode="scaleToFill" id="vsd-42-qBE">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1155,7 +1179,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="discloseInfoButtonClicked:" destination="LSk-rM-HTJ" eventType="touchUpInside" id="PYd-sz-RWd"/>
+                                            <action selector="discloseInfoButtonClicked:" destination="LSk-rM-HTJ" eventType="touchUpInside" id="Wel-Af-3eU"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1169,6 +1193,8 @@
                     <connections>
                         <outlet property="header" destination="vsd-42-qBE" id="qoq-Zb-7Z6"/>
                         <outlet property="headerLabel" destination="HUc-cS-3Ub" id="FXq-lN-0ns"/>
+                        <outlet property="participantsLabel" destination="50i-Ba-4G9" id="PRd-cF-9Ff"/>
+                        <outlet property="participantsView" destination="ns7-fL-HQ3" id="hk4-k5-Fk3"/>
                         <segue destination="kcE-6H-FHd" kind="push" identifier="SegueIDAddToGroup" id="YEX-bB-bO6"/>
                     </connections>
                 </viewController>

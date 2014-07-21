@@ -97,9 +97,10 @@
     FriendTableViewCell *cell = [[FriendTableViewCell alloc] initWithFriend:currentItem reuseIdentifier:CELL_ID_FRIENDS_PROTOTYPE];
     
     if ([self.originalJIDs containsObject:currentItem.username]) {
-        //CGFloat btnSize = 18.0f;
-        //[cell.isSelectedImageView setFrame:CGRectMake(cell.frame.size.width - 50.0f, cell.frame.size.height / 2 - btnSize/2 + 2.0f, btnSize, 134.0f/(193.0f/btnSize))];
         [cell.isSelectedImageView setImage:[UIImage imageNamed:@"check-icon-purple.png"]];
+        // Make frame for selected icons a bit larger.
+        CGRect currentFrame = cell.isSelectedImageView.frame;
+        [cell.isSelectedImageView setFrame:CGRectMake(currentFrame.origin.x - 5, currentFrame.origin.y - 5, currentFrame.size.width + 10, currentFrame.size.height + 10)];
     } else if ([self.selectedJIDs containsObject:currentItem.username]) {
         [cell.isSelectedImageView setImage:[UIImage imageNamed:@"cell-select-active.png"]];
     } else {
