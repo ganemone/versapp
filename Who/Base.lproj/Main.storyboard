@@ -1986,18 +1986,18 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="hVX-XL-lBE"/>
-        <segue reference="tVn-SP-Hc9"/>
-        <segue reference="pHb-Kf-4qo"/>
-        <segue reference="z6h-qs-HbB"/>
-        <segue reference="BCc-dv-kG7"/>
-        <segue reference="Ve6-mS-bkp"/>
-        <segue reference="YEX-bB-bO6"/>
-        <segue reference="AGt-Q0-zDh"/>
-        <segue reference="Y5D-AL-CYy"/>
-        <segue reference="WHz-1g-xNx"/>
         <segue reference="XeD-6M-yxq"/>
+        <segue reference="WHz-1g-xNx"/>
         <segue reference="OKb-WW-kzU"/>
+        <segue reference="z6h-qs-HbB"/>
+        <segue reference="zTQ-Mf-6oX"/>
+        <segue reference="8c7-Mw-K5g"/>
+        <segue reference="YEX-bB-bO6"/>
+        <segue reference="BCc-dv-kG7"/>
+        <segue reference="pHb-Kf-4qo"/>
+        <segue reference="tVn-SP-Hc9"/>
+        <segue reference="hVX-XL-lBE"/>
+        <segue reference="Ve6-mS-bkp"/>
         <segue reference="m95-nf-RcH"/>
     </inferredMetricsTieBreakers>
 </document>
