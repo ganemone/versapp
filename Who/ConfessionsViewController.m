@@ -51,6 +51,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:SEGUE_ID_CREATED_ONE_TO_ONE_CHAT_FROM_CONFESSION]) {
         OneToOneConversationViewController *dest = segue.destinationViewController;
+        NSLog(@"Segue: %@ Destination: %@ Chat: %@", segue, dest, _createdChat);
         [dest setChatMO:_createdChat];
     }
 }
@@ -273,8 +274,10 @@
 }
 
 - (void)handleOneToOneChatCreatedFromConfession {
+    NSLog(@"thought chat created");
     _createdChat = [ChatDBManager getChatWithID:[ChatDBManager getChatIDPendingCreation]];
     if (_createdChat != nil) {
+        NSLog(@"not nil");
         [self performSegueWithIdentifier:SEGUE_ID_CREATED_ONE_TO_ONE_CHAT_FROM_CONFESSION sender:self];
         [ChatDBManager resetChatIDPendingCreation];
     }

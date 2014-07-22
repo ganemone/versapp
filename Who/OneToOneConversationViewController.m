@@ -80,6 +80,7 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"One-to-One view loaded");
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceived:) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
     
