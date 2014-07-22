@@ -42,6 +42,10 @@ NSString *const PACKET_ID_SEARCH_FOR_USERS = @"packet_id_search_for_users";
 NSString *const PACKET_ID_SEARCH_FOR_USER = @"packet_id_search_for_user";
 NSString *const PACKET_ID_GET_USER_INFO = @"packet_id_get_user_info";
 NSString *const PACKET_ID_SET_USER_INFO = @"packet_id_set_user_info";
+NSString *const PACKET_ID_REPORT_ONE_TO_ONE = @"packet_id_report_one_to_one";
+NSString *const PACKET_ID_REPORT_GROUP = @"packet_id_report_group";
+NSString *const PACKET_ID_REPORT_MESSAGE_IN_GROUP = @"packet_id_report_message_in_group";
+NSString *const PACKET_ID_REPORT_THOUGHT = @"packet_id_report_thought";
 
 NSString *const VCARD_TAG_FULL_NAME = @"FN";
 NSString *const VCARD_TAG_FIRST_NAME = @"GIVEN";

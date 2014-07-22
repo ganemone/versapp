@@ -40,6 +40,10 @@ extern NSString *const PACKET_ID_SEARCH_FOR_USERS;
 extern NSString *const PACKET_ID_SEARCH_FOR_USER;
 extern NSString *const PACKET_ID_GET_USER_INFO;
 extern NSString *const PACKET_ID_SET_USER_INFO;
+extern NSString *const PACKET_ID_REPORT_ONE_TO_ONE;
+extern NSString *const PACKET_ID_REPORT_GROUP;
+extern NSString *const PACKET_ID_REPORT_MESSAGE_IN_GROUP;
+extern NSString *const PACKET_ID_REPORT_THOUGHT;
 
 extern NSString *const VCARD_TAG_FULL_NAME;
 extern NSString *const VCARD_TAG_FIRST_NAME;

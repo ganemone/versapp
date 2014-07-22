@@ -719,6 +719,32 @@
 }
 
 // ---------------------
+// Reporting
+// ---------------------
++(DDXMLElement *)createReportOneToOneChatPacket:(NSString *)username chat_id:(NSString *)chat_id type:(NSString *)type metadata:(NSString *)metadata {
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    [iq addAttributeWithName:@"id" stringValue:PACKET_ID_REPORT_ONE_TO_ONE];
+    [iq addAttributeWithName:@"type" stringValue:@"set"];
+    [iq addAttributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]];
+    
+    DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
+    [query addAttributeWithName:@"xmlns" stringValue:@"who:iq:report"];
+    
+    DDXMLElement *usernameElement = [DDXMLElement elementWithName:@"reported_username" stringValue:username];
+    DDXMLElement *typeElement = [DDXMLElement elementWithName:@"report_type" stringValue:type];
+    DDXMLElement *objectElement = [DDXMLElement elementWithName:@"report_object" stringValue:@"chat"];
+    DDXMLElement *metadataElement = [DDXMLElement elementWithName:@"report_metadata" stringValue:metadata];
+    
+    [query addChild:usernameElement];
+    [query addChild:typeElement];
+    [query addChild:objectElement];
+    [query addChild:metadataElement];
+    [iq addChild:query];
+    
+    return iq;
+}
+
+// ---------------------
 // Blocking
 // ---------------------
 +(DDXMLElement *)createBlockImplicitUserPacket:(NSString *)username {
