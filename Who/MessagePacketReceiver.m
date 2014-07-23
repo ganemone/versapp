@@ -96,7 +96,7 @@
         value = [message.XMLString substringWithRange:[match rangeAtIndex:3]];
         if ([name isEqualToString:MESSAGE_PROPERTY_SENDER_ID]) {
             senderID = value;
-        } else if([name isEqualToString:MESSAGE_PROPERTY_TIMESTAMP]) {
+        } else if([name isEqualToString:MESSAGE_PROPERTY_TIMESTAMP] && timestamp == nil) {
             timestamp = value;
         } else if([name isEqualToString:MESSAGE_PROPERTY_IMAGE_LINK]) {
             imageLink = value;
