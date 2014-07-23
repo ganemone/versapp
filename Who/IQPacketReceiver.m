@@ -308,9 +308,9 @@
     NSError *error = NULL;
     NSString *packetXML = [self getPacketXMLWithoutNewLines:packet];
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?(?:\\[\\]|\"(.*?)\")\\]" options:NSRegularExpressionCaseInsensitive error:&error];
-    NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)],
-    *participants;
-    NSString *participantString, *chatId, *type, *owner, *name, *createdTime;
+    NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
+
+    NSString *participantString, *chatId, *type, *name;
     
     for(NSTextCheckingResult *match in matches) {
         participantString = [packetXML substringWithRange:[match rangeAtIndex:1]];
@@ -466,7 +466,6 @@
 }
 
 +(void)handleCreateOneToOneChatFromConfessionPacket:(XMPPIQ *)iq {
-    
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION object:nil];
 }
 
