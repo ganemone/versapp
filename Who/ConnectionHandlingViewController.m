@@ -39,6 +39,10 @@
     
 }
 
+-(void)viewWillDisappear:(BOOL)animated {
+    NSLog(@"View Will Disappear");
+}
+
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     _viewHasAppeared = YES;
@@ -73,7 +77,8 @@
 }
 
 - (void)showDisconnectedView {
-    NSTimeInterval delayInSeconds = 1;
+    NSLog(@"Shoing Disconnected View");
+    NSTimeInterval delayInSeconds = 3.5;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         XMPPStream *stream = [[ConnectionProvider getInstance] getConnection];

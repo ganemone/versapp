@@ -81,6 +81,7 @@ NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_c
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:req success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SENT_VERIFICATION_TEXT object:nil];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Failed to Authenticate");
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
     }];
     [operation setResponseSerializer:[AFJSONResponseSerializer serializer]];

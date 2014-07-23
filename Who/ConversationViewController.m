@@ -199,6 +199,7 @@
 -(void)animateAddNewestMessage {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.chatMO getNumberOfMessages] - 1 inSection:0];
     NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
+    NSLog(@"Index Path: %@", indexPath);
     [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationLeft];
     [self.tableView endUpdates];
@@ -318,6 +319,8 @@
     if (self.messageImageLink == nil && (text == nil || [text isEqualToString:@""])) {
         return;
     }
+    NSLog(@"Previous Number of Messages: %d", [_chatMO getNumberOfMessages]);
+    NSLog(@"Previous In Table: %d", [self.tableView numberOfRowsInSection:0]);
     [self resetCameraButtonImage];
     [self.chatMO sendMUCMessageWithBody:text imageLink:self.messageImageLink];
     [self animateAddNewestMessage];

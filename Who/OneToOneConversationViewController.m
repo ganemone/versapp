@@ -273,10 +273,13 @@
 -(void)animateAddNewestMessage {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.chatMO getNumberOfMessages] - 1 inSection:0];
     NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
+    NSLog(@"Index Path: %@", indexPath);
     [self.tableView beginUpdates];
-    [self.tableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationLeft];
     [self.tableView endUpdates];
     [self scrollToBottomAnimated:YES];
+    self.messageImage = nil;
+    self.messageImageLink = nil;
 }
 
 -(void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
@@ -292,10 +295,10 @@
     if (self.messageImageLink == nil && (text == nil || [text isEqualToString:@""])) {
         return;
     }
-    [self.chatMO sendOneToOneMessage:text imageLink:self.messageImageLink];
+    NSLog(@"Previous Number of Messages: %d", [_chatMO getNumberOfMessages]);
+    NSLog(@"Previous In Table: %d", [self.tableView numberOfRowsInSection:0]);
     [self resetCameraButtonImage];
-    self.messageImage = nil;
-    self.messageImageLink = nil;
+    [self.chatMO sendOneToOneMessage:text imageLink:self.messageImageLink];
     [self animateAddNewestMessage];
     [self finishSend];
 }

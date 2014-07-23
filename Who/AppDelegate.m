@@ -200,39 +200,15 @@
     [self saveContext];
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    /*_completionHandler = completionHandler;
-    _localNotificationMessage = [userInfo objectForKey:@"message"];
-    NSLog(@"Received remote notification");
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedLoadingContentForNotification:) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
-    NSLog(@"Registered First Receiver");
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFinishedLoadingContentForNotification:) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
-    NSLog(@"Registered Second Receiver");
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailedToLoadDataAfterRemoteNotification) name:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
-    NSLog(@"Registered Third Receiver");
-    ConnectionProvider *cp = [ConnectionProvider getInstance];
-    NSLog(@"Got CP");
-    XMPPStream *stream = [cp getConnection];
-    NSLog(@"Got Stream");
-    if (![stream isAuthenticated]) {
-        NSLog(@"Going to connect...");
-        NSString *username = [UserDefaultManager loadUsername];
-        NSString *password = [UserDefaultManager loadPassword];
-        [cp connectForPushNotificationFetch:username password:password];
-    } else {
-        _completionHandler(UIBackgroundFetchResultNewData);
-    }*/
-}
-
-/*- (void)handleFinishedLoadingContentForNotification:(NSNotification *)notification {
+-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     UIApplication *sharedApp = [UIApplication sharedApplication];
     [sharedApp setApplicationIconBadgeNumber:sharedApp.applicationIconBadgeNumber + 1];
-    //[[[ConnectionProvider getInstance] getConnection] disconnect];
-    _completionHandler(UIBackgroundFetchResultNewData);
 }
-
-- (void)handleFailedToLoadDataAfterRemoteNotification {
-    _completionHandler(UIBackgroundFetchResultFailed);
-}*/
+// TODO remove content available from push notification
+-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    UIApplication *sharedApp = [UIApplication sharedApplication];
+    [sharedApp setApplicationIconBadgeNumber:sharedApp.applicationIconBadgeNumber + 1];
+    completionHandler(UIBackgroundFetchResultNewData);
+}
 
 @end
