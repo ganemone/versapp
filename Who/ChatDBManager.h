@@ -31,6 +31,7 @@
 +(void)setChatStatus:(int)status chatID:(NSString*)chatID;
 +(void)setHasNewMessageYes:(NSString*)chatID;
 +(void)setHasNewMessageNo:(NSString*)chatID;
++(void)deleteChatsNotInArray:(NSArray *)chatIDS withStatus:(int)status;
 
 +(void)updateOneToOneChatNames:(NSString *)name username:(NSString*)username;
 +(void)joinAllChats;

@@ -41,6 +41,8 @@
 @property BOOL isAnimatingHeader;
 @property BOOL isGlobalFeed;
 @property BOOL isFetchingOlderThoughts;
+@property BOOL didCreateChat;
+@property BOOL didCreateChatInDB;
 @property NSString *prevSince;
 @property NSString *currentMethod;
 
@@ -49,7 +51,9 @@
 @implementation ConfessionsViewController
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:SEGUE_ID_CREATED_ONE_TO_ONE_CHAT_FROM_CONFESSION]) {
+    NSLog(@"Prepare for Segue: %@", sender);
+    NSLog(@"Segue With ID: %@", segue.identifier);
+    if ([segue.identifier isEqualToString:@"SegueIDTest"]) {
         OneToOneConversationViewController *dest = segue.destinationViewController;
         NSLog(@"Segue: %@ Destination: %@ Chat: %@", segue, dest, _createdChat);
         [dest setChatMO:_createdChat];
@@ -142,15 +146,10 @@
         [MBProgressHUD showHUDAddedTo:_tableView animated:YES];
     }
     
-    [self refreshSegmentControl];
+    _didCreateChat = NO;
+    _didCreateChatInDB = NO;
     
-    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-    [defaultCenter addObserver:self selector:@selector(refreshSegmentControl) name:PACKET_ID_GET_ROSTER object:nil];
-    [defaultCenter addObserver:self selector:@selector(refreshListView) name: PACKET_ID_GET_CONFESSIONS object:nil];
-    [defaultCenter addObserver:self selector:@selector(refreshListView) name:PACKET_ID_POST_CONFESSION object:nil];
-    [defaultCenter addObserver:self selector:@selector(refreshListView) name:NOTIFICATION_CONFESSION_DELETED object:nil];
-    [defaultCenter addObserver:self selector:@selector(handleOneToOneChatCreatedFromConfession) name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION object:nil];
-    [defaultCenter addObserver:self selector:@selector(handleOneToOneChatCreatedFromConfession) name:NOTIFICATION_CREATED_THOUGHT_CHAT object:nil];
+    [self refreshSegmentControl];
     
     [self.headerLabel setFont:[StyleManager getFontStyleLightSizeHeader]];
     
@@ -183,6 +182,26 @@
     _noFriendsView = [self getNoFriendsView];
     
     _isFetchingOlderThoughts = NO;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    [defaultCenter addObserver:self selector:@selector(refreshSegmentControl) name:PACKET_ID_GET_ROSTER object:nil];
+    [defaultCenter addObserver:self selector:@selector(refreshListView) name: PACKET_ID_GET_CONFESSIONS object:nil];
+    [defaultCenter addObserver:self selector:@selector(refreshListView) name:PACKET_ID_POST_CONFESSION object:nil];
+    [defaultCenter addObserver:self selector:@selector(refreshListView) name:NOTIFICATION_CONFESSION_DELETED object:nil];
+    [defaultCenter addObserver:self selector:@selector(handleOneToOneChatCreationPacketReceived) name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION object:nil];
+    [defaultCenter addObserver:self selector:@selector(handleOneToOneChatCreatedInLocalDB) name:NOTIFICATION_CREATED_THOUGHT_CHAT object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    [defaultCenter removeObserver:self name:PACKET_ID_GET_ROSTER object:nil];
+    [defaultCenter removeObserver:self name: PACKET_ID_GET_CONFESSIONS object:nil];
+    [defaultCenter removeObserver:self name:PACKET_ID_POST_CONFESSION object:nil];
+    [defaultCenter removeObserver:self name:NOTIFICATION_CONFESSION_DELETED object:nil];
+    [defaultCenter removeObserver:self name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION object:nil];
+    [defaultCenter removeObserver:self name:NOTIFICATION_CREATED_THOUGHT_CHAT object:nil];
 }
 
 - (void)loadConfessions {
@@ -273,20 +292,35 @@
     }
 }
 
+- (void)handleOneToOneChatCreationPacketReceived {
+    NSLog(@"Received Creation Packet");
+    _didCreateChat = YES;
+    [self handleOneToOneChatCreatedFromConfession];
+}
+
+- (void)handleOneToOneChatCreatedInLocalDB {
+    NSLog(@"Created in Local DB");
+    _didCreateChatInDB = YES;
+    [self handleOneToOneChatCreatedFromConfession];
+}
+
 - (void)handleOneToOneChatCreatedFromConfession {
     NSLog(@"thought chat created");
     _createdChat = [ChatDBManager getChatWithID:[ChatDBManager getChatIDPendingCreation]];
-    if (_createdChat != nil) {
+    if (_createdChat != nil && _didCreateChat == YES && _didCreateChatInDB == YES) {
         NSLog(@"not nil");
-        [self performSegueWithIdentifier:SEGUE_ID_CREATED_ONE_TO_ONE_CHAT_FROM_CONFESSION sender:self];
+        _didCreateChat = NO;
+        _didCreateChatInDB = NO;
         [ChatDBManager resetChatIDPendingCreation];
+        [self performSegueWithIdentifier:@"SegueIDTest" sender:self];
     }
 }
-
--(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+// WHAT IS THIS???
+/*-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    NSLog(@"WAT IS THIS");
     [self performSegueWithIdentifier:SEGUE_ID_COMPOSE_CONFESSION sender:self];
     return NO;
-}
+}*/
 
 /*- (IBAction)messageIconClicked:(id)sender {
  NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:

@@ -81,6 +81,7 @@
 - (void)viewDidLoad
 {
     NSLog(@"One-to-One view loaded");
+    NSLog(@"Chat: %@", _chatMO);
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceived:) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
     
@@ -104,7 +105,6 @@
     [self.view.layer addSublayer:headerBottomborder];
     [ChatDBManager setHasNewMessageNo:self.chatMO.chat_id];
     [self setUpInfoBtn];
-    
     [self setUpPullToLoad];
 }
 

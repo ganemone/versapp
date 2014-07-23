@@ -164,6 +164,7 @@
         NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)],
         *participants;
         NSString *participantString, *chatId, *type, *owner, *name, *degree;
+        NSMutableArray *chatIDS = [[NSMutableArray alloc] initWithCapacity:20];
         NSMutableArray *participantsWithoutVCards = [NSMutableArray array];
         for (NSTextCheckingResult *match in matches) {
             participantString = [packetXML substringWithRange:[match rangeAtIndex:1]];
@@ -206,13 +207,16 @@
                     }
                 }
             }
+            [chatIDS addObject:chatId];
             NSLog(@"Degree: %@", degree);
             [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_JOINED degree:degree withContext:moc];
         }
         
+        NSLog(@"Found Joined Chats: %@", chatIDS);
         [delegate saveContextForBackgroundThread];
         
         dispatch_sync(mainQueue, ^{
+            [ChatDBManager deleteChatsNotInArray:chatIDS withStatus:STATUS_JOINED];
             [ChatDBManager joinAllChats];
             XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
             for (NSString *username in participantsWithoutVCards) {

@@ -39,7 +39,6 @@
     
     [_chatName setText:[chatMo getChatName]];
     [_lastMessage setText:[chatMo getLastMessage]];
-    NSLog(@"Setting Values: %@ %@", [chatMo getChatName], [chatMo getLastMessage]);
     
     if ([ChatDBManager doesChatHaveNewMessage:chatMo.chat_id]) {
         [_chatName setFont:[StyleManager getFontStyleBoldSizeLarge]];
