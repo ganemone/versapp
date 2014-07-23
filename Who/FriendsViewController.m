@@ -214,6 +214,7 @@
     
     if (currentItem.name == nil) {
         NSLog(@"Current Item: %@ %@", currentItem.username, currentItem.name);
+        
         [[_cp getConnection] sendElement:[IQPacketManager createGetVCardPacket:currentItem.username]];
     }
     

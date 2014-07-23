@@ -183,6 +183,7 @@
             participants = [participantString componentsSeparatedByString:@", "];
             for (NSString *participant in participants) {
                 if ([FriendsDBManager getUserWithJID:participant moc:moc] == nil) {
+                    NSLog(@"Adding Participant Without VCard: %@", participant);
                     [participantsWithoutVCards addObject:participant];
                 }
             }

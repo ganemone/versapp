@@ -192,6 +192,9 @@
     [defaultCenter addObserver:self selector:@selector(refreshListView) name:NOTIFICATION_CONFESSION_DELETED object:nil];
     [defaultCenter addObserver:self selector:@selector(handleOneToOneChatCreationPacketReceived) name:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION object:nil];
     [defaultCenter addObserver:self selector:@selector(handleOneToOneChatCreatedInLocalDB) name:NOTIFICATION_CREATED_THOUGHT_CHAT object:nil];
+    if ([_confessionsManager getNumberOfConfessions] > 0) {
+        [MBProgressHUD hideAllHUDsForView:self.tableView animated:YES];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
