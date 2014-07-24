@@ -26,12 +26,13 @@
 }
 
 +(void)handleIQPacket:(XMPPIQ *)iq {
+    NSString *sanitizedXMLString = [self sanitizePacket:iq];
     if([self isPacketWithID:PACKET_ID_CREATE_VCARD packet:iq]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_CREATE_VCARD object:nil];
     } else if([self isPacketWithID:PACKET_ID_GET_JOINED_CHATS packet:iq]) {
-        [self handleGetJoinedChatsPacket:iq];
+        [self handleGetJoinedChatsPacket:sanitizedXMLString];
     } else if([self isPacketWithID:PACKET_ID_GET_PENDING_CHATS packet:iq]) {
-        [self handleGetPendingChatsPacket:iq];
+        [self handleGetPendingChatsPacket:sanitizedXMLString];
     } else if([self isPacketWithID:PACKET_ID_GET_ROSTER packet:iq]) {
         [self handleGetRosterPacket: iq];
     //} else if([self isPacketWithID:PACKET_ID_JOIN_MUC packet:iq]) {
@@ -40,42 +41,42 @@
         //} else if([self isPacketWithID:PACKET_ID_GET_LAST_TIME_ACTIVE packet:iq]) {
         //[self handleGetLastTimeActivePacket:iq];
     } else if([self isPacketWithID:PACKET_ID_GET_SERVER_TIME packet:iq]) {
-        [self handleGetServerTimePacket:iq];
+        [self handleGetServerTimePacket:sanitizedXMLString];
     } else if([self isPacketWithID:PACKET_ID_GET_VCARD packet:iq]) {
         [self handleGetVCardPacket:iq];
     } else if([self isPacketWithID:PACKET_ID_INVITE_USER_TO_CHAT packet:iq]) {
-        [self handleInviteUserToChatPacket:iq];
+        [self handleInviteUserToChatPacket:sanitizedXMLString];
     } else if([self isPacketWithID:PACKET_ID_CREATE_ONE_TO_ONE_CHAT packet:iq]) {
-        [self handleCreateOneToOneChatPacket:iq];
+        [self handleCreateOneToOneChatPacket:sanitizedXMLString];
     } else if([self isPacketWithID:PACKET_ID_GET_SESSION_ID packet:iq]) {
-        [self handleGetSessionIDPacket:iq];
+        [self handleGetSessionIDPacket:sanitizedXMLString];
     } else if([self isPacketWithID:PACKET_ID_FAVORITE_CONFESSION packet:iq]) {
-        [self handleToggleFavoriteConfessionPacket:iq];
+        [self handleToggleFavoriteConfessionPacket:sanitizedXMLString];
     } else if([self isPacketWithID:PACKET_ID_POST_CONFESSION packet:iq]) {
-        [self handlePostConfessionPacket:iq];
+        [self handlePostConfessionPacket:sanitizedXMLString];
     } else if([self isPacketWithID:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION packet:iq]) {
-        [self handleCreateOneToOneChatFromConfessionPacket:(XMPPIQ*)iq];
+        [self handleCreateOneToOneChatFromConfessionPacket:sanitizedXMLString];
     } else if([self isPacketWithID:PACKET_ID_CREATE_MUC packet:iq]) {
-        [self handleCreatedMUCPacket:iq];
+        [self handleCreatedMUCPacket:sanitizedXMLString];
     } else if([self isPacketWithID:PACKET_ID_GET_CHAT_PARTICIPANTS packet:iq]) {
-        [self handleGetChatParticipantsPacket:iq];
+        [self handleGetChatParticipantsPacket:sanitizedXMLString];
     } else if([self isPacketWithID:PACKET_ID_SEARCH_FOR_USERS packet:iq]) {
-        [self handleUserSearchPacket:iq];
+        [self handleUserSearchPacket:sanitizedXMLString];
     } else if([self isPacketWithID:PACKET_ID_SEARCH_FOR_USER packet:iq]) {
-        [self handleSearchForUserPacket:iq];
+        [self handleSearchForUserPacket:sanitizedXMLString];
     } else if([self isPacketWithID:PACKET_ID_GET_USER_INFO packet:iq]) {
-        [self handleGetUserInfoPacket:iq];
+        [self handleGetUserInfoPacket:sanitizedXMLString];
     }
 }
 
-+(void)handleGetUserInfoPacket:(XMPPIQ *)iq {
++(void)handleGetUserInfoPacket:(NSString *)xml {
     NSError *error = NULL;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\",\"(.*?)\",\"(.*?)\"\\]" options:NSRegularExpressionCaseInsensitive error:&error];
-    NSTextCheckingResult *match = [regex firstMatchInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
+    NSTextCheckingResult *match = [regex firstMatchInString:xml options:0 range:NSMakeRange(0, xml.length)];
     if ([match numberOfRanges] > 0) {
-        NSString *countryCode = [iq.XMLString substringWithRange:[match rangeAtIndex:1]];
-        NSString *phone = [iq.XMLString substringWithRange:[match rangeAtIndex:2]];
-        NSString *email = [iq.XMLString substringWithRange:[match rangeAtIndex:3]];
+        NSString *countryCode = [xml substringWithRange:[match rangeAtIndex:1]];
+        NSString *phone = [xml substringWithRange:[match rangeAtIndex:2]];
+        NSString *email = [xml substringWithRange:[match rangeAtIndex:3]];
         [UserDefaultManager saveCountryCode:countryCode];
         [UserDefaultManager savePhone:phone];
         [UserDefaultManager saveEmail:email];
@@ -83,16 +84,15 @@
 }
 
 // This callback is only for packets searching for a single user, adds them as a friend if the user is found.
-+(void)handleSearchForUserPacket:(XMPPIQ *)iq {
++(void)handleSearchForUserPacket:(NSString *)xml {
     NSError *error = NULL;
-    NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?\(?:\\[\\]|\"(.*?)\").*?(?:\\[\\]|\"(.*?)\")\\]" options:NSRegularExpressionCaseInsensitive error:&error];
-    NSTextCheckingResult *match = [regex firstMatchInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
+    NSTextCheckingResult *match = [regex firstMatchInString:xml options:0 range:NSMakeRange(0, xml.length)];
     if ([match numberOfRanges] > 0) {
-        NSString *username = [packetXML substringWithRange:[match rangeAtIndex:1]];
+        NSString *username = [xml substringWithRange:[match rangeAtIndex:1]];
         NSString *searchedEmail;
         if ([match rangeAtIndex:4].length != 0) {
-            searchedEmail = [packetXML substringWithRange:[match rangeAtIndex:3]];
+            searchedEmail = [xml substringWithRange:[match rangeAtIndex:3]];
         }
         XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
         [conn sendElement:[IQPacketManager createSubscribePacket:username]];
@@ -102,23 +102,22 @@
 }
 
 // NOTE: this should only be run AFTER the query for the roster
-+(void)handleUserSearchPacket:(XMPPIQ *)iq {
++(void)handleUserSearchPacket:(NSString *)xml {
     NSError *error = NULL;
-    NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?\(?:\\[\\]|\"(.*?)\").*?(?:\\[\\]|\"(.*?)\")\\]" options:NSRegularExpressionCaseInsensitive error:&error];
-    NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
+    NSArray *matches = [regex matchesInString:xml options:0 range:NSMakeRange(0, xml.length)];
     NSMutableArray *registeredContacts = [[NSMutableArray alloc] initWithCapacity:[matches count]];
     NSString *username, *searchedPhoneNumber, *searchedEmail, *uid;
     for (NSTextCheckingResult *match in matches) {
-        uid = [packetXML substringWithRange:[match rangeAtIndex:1]];
-        username = [packetXML substringWithRange:[match rangeAtIndex:2]];
+        uid = [xml substringWithRange:[match rangeAtIndex:1]];
+        username = [xml substringWithRange:[match rangeAtIndex:2]];
         if ([match rangeAtIndex:3].length != 0) {
-            searchedPhoneNumber = [packetXML substringWithRange:[match rangeAtIndex:3]];
+            searchedPhoneNumber = [xml substringWithRange:[match rangeAtIndex:3]];
         } else {
             searchedPhoneNumber = @"";
         }
         if ([match rangeAtIndex:4].length != 0) {
-            searchedEmail = [packetXML substringWithRange:[match rangeAtIndex:4]];
+            searchedEmail = [xml substringWithRange:[match rangeAtIndex:4]];
         } else {
             searchedEmail = @"";
         }
@@ -129,19 +128,18 @@
     [[ContactSearchManager getInstance] updateContactListAfterUserSearch: registeredContacts];
 }
 
-+(void)handleGetChatParticipantsPacket:(XMPPIQ *)iq {
++(void)handleGetChatParticipantsPacket:(NSString *)xml {
     NSError *error = NULL;
-    NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\"\\]" options:NSRegularExpressionCaseInsensitive error:&error];
-    NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
+    NSArray *matches = [regex matchesInString:xml options:0 range:NSMakeRange(0, xml.length)];
     NSMutableArray *participants = [[NSMutableArray alloc] initWithCapacity:[matches count]];
     
     for (NSTextCheckingResult *match in matches) {
-        NSString *status = [packetXML substringWithRange:[match rangeAtIndex:3]];
+        NSString *status = [xml substringWithRange:[match rangeAtIndex:3]];
         if ([status isEqualToString:@"active"] || [status isEqualToString:@"pending"]) {
-            NSDictionary *participantDict = @{PARTICIPANT_STATUS: [packetXML substringWithRange:[match rangeAtIndex:3]],
-                                              PARTICIPANT_USERNAME : [packetXML substringWithRange:[match rangeAtIndex:1]],
-                                              PARTICIPANT_INVITED_BY : [packetXML substringWithRange:[match rangeAtIndex:2]]};
+            NSDictionary *participantDict = @{PARTICIPANT_STATUS: [xml substringWithRange:[match rangeAtIndex:3]],
+                                              PARTICIPANT_USERNAME : [xml substringWithRange:[match rangeAtIndex:1]],
+                                              PARTICIPANT_INVITED_BY : [xml substringWithRange:[match rangeAtIndex:2]]};
             [participants addObject:participantDict];
         }
     }
@@ -151,7 +149,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_CHAT_PARTICIPANTS object:nil userInfo:userInfo];
 }
 
-+(void)handleGetJoinedChatsPacket:(XMPPIQ *)iq {
++(void)handleGetJoinedChatsPacket:(NSString *)xml {
     NSLog(@"Handling Get Joined Chats Packet...");
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate getManagedObjectContextForBackgroundThread];
@@ -159,23 +157,22 @@
     [moc performBlock:^{
         
         NSError *error = NULL;
-        NSString *packetXML = [self getPacketXMLWithoutNewLines:iq];
         NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\",(?:\\[\\]|\"(.*?)\")\\]" options:NSRegularExpressionCaseInsensitive error:&error];
-        NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)],
+        NSArray *matches = [regex matchesInString:xml options:0 range:NSMakeRange(0, xml.length)],
         *participants;
         NSString *participantString, *chatId, *type, *owner, *name, *degree;
         NSMutableArray *chatIDS = [[NSMutableArray alloc] initWithCapacity:20];
         NSMutableArray *participantsWithoutVCards = [NSMutableArray array];
         for (NSTextCheckingResult *match in matches) {
-            participantString = [packetXML substringWithRange:[match rangeAtIndex:1]];
-            chatId = [packetXML substringWithRange:[match rangeAtIndex:2]];
-            type = [packetXML substringWithRange:[match rangeAtIndex:3]];
-            owner = [packetXML substringWithRange:[match rangeAtIndex:4]];
-            name = [self urlDecode:[packetXML substringWithRange:[match rangeAtIndex:5]]];
+            participantString = [xml substringWithRange:[match rangeAtIndex:1]];
+            chatId = [xml substringWithRange:[match rangeAtIndex:2]];
+            type = [xml substringWithRange:[match rangeAtIndex:3]];
+            owner = [xml substringWithRange:[match rangeAtIndex:4]];
+            name = [self urlDecode:[xml substringWithRange:[match rangeAtIndex:5]]];
             //*createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
             
             if ([match rangeAtIndex:7].length != 0) {
-                degree = [packetXML substringWithRange:[match rangeAtIndex:7]];
+                degree = [xml substringWithRange:[match rangeAtIndex:7]];
             } else {
                 degree = @"1";
             }
@@ -252,11 +249,11 @@
     return output;
 }
 
-+(void)handleGetServerTimePacket:(XMPPIQ *)packet {
++(void)handleGetServerTimePacket:(NSString *)xml {
     NSError *error = NULL;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<utc>(.*?)<\\/utc>" options:NSRegularExpressionCaseInsensitive error:&error];
-    NSTextCheckingResult *match = [regex firstMatchInString:packet.XMLString options:0 range:NSMakeRange(0, packet.XMLString.length)];
-    NSString *utcTime = [packet.XMLString substringWithRange:[match rangeAtIndex:1]];
+    NSTextCheckingResult *match = [regex firstMatchInString:xml options:0 range:NSMakeRange(0, xml.length)];
+    NSString *utcTime = [xml substringWithRange:[match rangeAtIndex:1]];
     
     NSDictionary *userInfo = [NSDictionary dictionaryWithObject:utcTime forKey:PACKET_ID_GET_SERVER_TIME];
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_SERVER_TIME object:nil userInfo:userInfo];
@@ -303,21 +300,20 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_VCARD object:nil];
 }
 
-+(void)handleGetPendingChatsPacket:(XMPPIQ *)packet {
++(void)handleGetPendingChatsPacket:(NSString *)xml {
     
     NSError *error = NULL;
-    NSString *packetXML = [self getPacketXMLWithoutNewLines:packet];
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?\"(.*?)\".*?(?:\\[\\]|\"(.*?)\")\\]" options:NSRegularExpressionCaseInsensitive error:&error];
-    NSArray *matches = [regex matchesInString:packetXML options:0 range:NSMakeRange(0, packetXML.length)];
+    NSArray *matches = [regex matchesInString:xml options:0 range:NSMakeRange(0, xml.length)];
 
     NSString *participantString, *chatId, *type, *name;
     
     for(NSTextCheckingResult *match in matches) {
-        participantString = [packetXML substringWithRange:[match rangeAtIndex:1]];
-        chatId = [packetXML substringWithRange:[match rangeAtIndex:2]];
-        type = [packetXML substringWithRange:[match rangeAtIndex:3]];
+        participantString = [xml substringWithRange:[match rangeAtIndex:1]];
+        chatId = [xml substringWithRange:[match rangeAtIndex:2]];
+        type = [xml substringWithRange:[match rangeAtIndex:3]];
         //owner = [packetXML substringWithRange:[match rangeAtIndex:4]];
-        name = [self urlDecode:[packetXML substringWithRange:[match rangeAtIndex:5]]];
+        name = [self urlDecode:[xml substringWithRange:[match rangeAtIndex:5]]];
         //createdTime = [packetXML substringWithRange:[match rangeAtIndex:6]];
         //participants = [participantString componentsSeparatedByString:@", "];
         
@@ -327,22 +323,11 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_PENDING_CHATS object:nil];
 }
 
-+(NSString*)getPacketXMLWithoutNewLines:(XMPPIQ *)iq {
-    NSString *packetXML = [iq.XMLString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    packetXML = [packetXML stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-    return packetXML;
-}
-
-+(NSString*)getPacketXMLWithoutWhiteSpace:(XMPPIQ *)iq {
++(NSString *)sanitizePacket:(XMPPIQ *)iq {
     NSString *packetXML = [iq.XMLString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     packetXML = [packetXML stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     packetXML = [packetXML stringByReplacingOccurrencesOfString:@" " withString:@""];
     return packetXML;
-}
-
-+(NSString*)getDecodedPacketXML:(XMPPIQ *)iq {
-    NSString *ret = [self getPacketXMLWithoutWhiteSpace:iq];
-    return [[ret stringByReplacingOccurrencesOfString:@"+" withString:@" "]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
 +(void)handleGetRosterPacket: (XMPPIQ *)iq {
@@ -365,7 +350,7 @@
             item = items[i];
             NSString *subscription = [[item attributeForName:@"subscription"] XMLString];
             //Parse jid
-            NSString *jid = [[item attributeForName:@"jid"] XMLString] ;
+            NSString *jid = [[item attributeForName:@"jid"] XMLString];
             NSRegularExpression *regexJid = [NSRegularExpression regularExpressionWithPattern:@"jid=\"(.*)@" options: 0 error:&error];
             NSTextCheckingResult *matchJid = [regexJid firstMatchInString:jid options:0 range:NSMakeRange(0,jid.length)];
             NSString *resultJid = [jid substringWithRange:[matchJid rangeAtIndex:1]];
@@ -425,21 +410,21 @@
     }];
 }
 
-+(void)handleInviteUserToChatPacket:(XMPPIQ*)iq {
++(void)handleInviteUserToChatPacket:(NSString*)xml {
 }
 
-+(void)handleCreateOneToOneChatPacket:(XMPPIQ*)iq {
++(void)handleCreateOneToOneChatPacket:(NSString*)xml {
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_CREATE_ONE_TO_ONE_CHAT object:nil];
 }
 
-+(void)handleGetSessionIDPacket:(XMPPIQ*)iq {
++(void)handleGetSessionIDPacket:(NSString*)xml {
     NSLog(@"Handling get session id packet");
     NSError *error = NULL;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<value>(.*?)<\\/value>" options:NSRegularExpressionCaseInsensitive error:&error];
     
-    NSTextCheckingResult *match = [regex firstMatchInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
+    NSTextCheckingResult *match = [regex firstMatchInString:xml options:0 range:NSMakeRange(0, xml.length)];
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-    [delegate setSessionID:[iq.XMLString substringWithRange:[match rangeAtIndex:1]]];
+    [delegate setSessionID:[xml substringWithRange:[match rangeAtIndex:1]]];
 
     if ([UserDefaultManager hasSentBlacklist] == NO) {
         [[[ContactSearchManager alloc] init] accessContacts];
@@ -452,24 +437,24 @@
     }
 }
 
-+(void)handleToggleFavoriteConfessionPacket:(XMPPIQ *)iq {
++(void)handleToggleFavoriteConfessionPacket:(NSString *)iq {
 }
 
-+(void)handlePostConfessionPacket:(XMPPIQ *)iq {
++(void)handlePostConfessionPacket:(NSString *)xml {
     NSError *error = NULL;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<value>(.*?),(.*?)<\\/value>" options:NSRegularExpressionCaseInsensitive error:&error];
-    NSTextCheckingResult *match = [regex firstMatchInString:iq.XMLString options:0 range:NSMakeRange(0, iq.XMLString.length)];
-    NSString *confessionID = [iq.XMLString substringWithRange:[match rangeAtIndex:1]];
-    NSString *createdTimestamp = [iq.XMLString substringWithRange:[match rangeAtIndex:2]];
+    NSTextCheckingResult *match = [regex firstMatchInString:xml options:0 range:NSMakeRange(0, xml.length)];
+    NSString *confessionID = [xml substringWithRange:[match rangeAtIndex:1]];
+    NSString *createdTimestamp = [xml substringWithRange:[match rangeAtIndex:2]];
     [[ConfessionsManager getInstance] updatePendingConfession:confessionID timestamp:createdTimestamp];
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_POST_CONFESSION object:nil];
 }
 
-+(void)handleCreateOneToOneChatFromConfessionPacket:(XMPPIQ *)iq {
++(void)handleCreateOneToOneChatFromConfessionPacket:(NSString *)xml {
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION object:nil];
 }
 
-+(void)handleCreatedMUCPacket:(XMPPIQ *)iq {
++(void)handleCreatedMUCPacket:(NSString *)xml {
 }
 
 @end
