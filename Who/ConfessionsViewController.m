@@ -277,7 +277,7 @@
     
     UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height - 150, self.view.frame.size.width - 40, 150)];
     [textView setFont:[StyleManager getFontStyleLightSizeLarge]];
-    [textView setText:@"To keep users identities safe, you can only view the friends feed if you have at least 3 friends. For now, check out the global feed, and share Versapp with your friends!"];
+    [textView setText:@"To keep users' identities safe, you can only view the friends feed if you have at least 3 friends. For now, check out the global feed, and share Versapp with your friends!"];
     [textView setTextAlignment:NSTextAlignmentCenter];
     [textView setTextColor:[UIColor whiteColor]];
     [textView setBackgroundColor:[UIColor clearColor]];
