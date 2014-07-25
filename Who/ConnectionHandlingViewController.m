@@ -87,7 +87,7 @@
                 [self.view addSubview:_connectionLostView];
                 _connectionLostViewIsVisible = YES;
             } else {
-                [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                //[MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             }
         }
     });

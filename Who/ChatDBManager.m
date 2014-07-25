@@ -227,9 +227,6 @@ static int numUninvitedParticipants;
     [chatEntry setValue:@"NO" forKey:CHATS_TABLE_COLUMN_NAME_HAS_NEW_MESSAGE];
     UIApplication *sharedApp = [UIApplication sharedApplication];
     [(AppDelegate*)sharedApp.delegate saveContext];
-    if (sharedApp.applicationIconBadgeNumber > 0) {
-        [sharedApp setApplicationIconBadgeNumber:sharedApp.applicationIconBadgeNumber - 1];
-    }
 }
 
 +(void)setHasNewMessageYes:(NSString *)chatID {

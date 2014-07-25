@@ -23,6 +23,7 @@
 #import "AppDelegate.h"
 #import "UserDefaultManager.h"
 #import "WSCoachMarksView.h"
+#import "MBProgressHUD.h"
 
 #define footerSize 25
 
@@ -61,6 +62,7 @@
 static BOOL notificationsHalfHidden = NO;
 
 -(void)viewDidAppear:(BOOL)animated {
+    NSLog(@"View Will Appear");
     if ([UserDefaultManager hasLoggedIn] == NO) {
         [UserDefaultManager setLoggedInTrue];
         [[[UIAlertView alloc] initWithTitle:@"Welcome to Versapp" message:@"We will guide you through all of Versapps features. This page is your message dashboard. All of your conversations will appear here. Swipe to checkout the other screens." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
@@ -104,7 +106,7 @@ static BOOL notificationsHalfHidden = NO;
                                 @"rect": [NSValue valueWithCGRect:imageRect],
                                 @"caption": @"This icon will tell you what type of conversation it is."
                                 },
-                                
+                            
                             @{
                                 @"rect": [NSValue valueWithCGRect:cellFrame],
                                 @"caption": @"Long press on chats of any type for more options."
@@ -117,12 +119,15 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 -(void)viewDidLoad {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView) name:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshListView) name:PACKET_ID_GET_VCARD object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadNotifications) name:PACKET_ID_GET_PENDING_CHATS object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNotifications) name:NOTIFICATION_UPDATE_NOTIFICATIONS object:nil];
+    NSLog(@"View did Load");
+    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    [defaultCenter addObserver:self selector:@selector(handleRefreshListView) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
+    [defaultCenter addObserver:self selector:@selector(handleRefreshListView) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
+    [defaultCenter addObserver:self selector:@selector(handleRefreshListView) name:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
+    [defaultCenter addObserver:self selector:@selector(handleRefreshListView) name:PACKET_ID_GET_VCARD object:nil];
+    [defaultCenter addObserver:self selector:@selector(loadNotifications) name:PACKET_ID_GET_PENDING_CHATS object:nil];
+    [defaultCenter addObserver:self selector:@selector(updateNotifications) name:NOTIFICATION_UPDATE_NOTIFICATIONS object:nil];
+    [defaultCenter addObserver:self selector:@selector(handleShowLoadingMessages) name:NOTIFICATION_SHOW_LOADING object:nil];
     
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
@@ -174,7 +179,19 @@ static BOOL notificationsHalfHidden = NO;
     [self.noConversationsView setFrame:_noConversationsDarkView.frame];
     
     [_notificationTableView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/2 - footerSize)];
+    
+}
 
+- (void)handleShowLoadingMessages
+{
+    NSLog(@"Going to show view");
+    MBProgressHUD *progress = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [progress setLabelText:@"Loading Messages"];
+    [progress setLabelFont:[StyleManager getFontStyleLightSizeXL]];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSLog(@"Hiding HUD inside dispatch after");
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    });
 }
 
 - (void)showNoConversationsView
@@ -269,18 +286,18 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 /*- (IBAction)toggleEditing:(id)sender {
-    UIButton *button = (UIButton*)sender;
-    if ([_tableView isEditing]) {
-        [button setTitle:@"" forState:UIControlStateNormal];
-        [button setImage:[UIImage imageNamed:@"trash-icon-blue.png"] forState:UIControlStateNormal];
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DISABLE_DASHBOARD_EDITING object:nil];
-        [_tableView setEditing:NO animated:YES];
-    } else {
-        [button setImage:[UIImage imageNamed:@"x-blue.png"] forState:UIControlStateNormal];
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ENABLE_DASHBOARD_EDITING object:nil];
-        [_tableView setEditing:YES animated:YES];
-    }
-}*/
+ UIButton *button = (UIButton*)sender;
+ if ([_tableView isEditing]) {
+ [button setTitle:@"" forState:UIControlStateNormal];
+ [button setImage:[UIImage imageNamed:@"trash-icon-blue.png"] forState:UIControlStateNormal];
+ [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DISABLE_DASHBOARD_EDITING object:nil];
+ [_tableView setEditing:NO animated:YES];
+ } else {
+ [button setImage:[UIImage imageNamed:@"x-blue.png"] forState:UIControlStateNormal];
+ [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ENABLE_DASHBOARD_EDITING object:nil];
+ [_tableView setEditing:YES animated:YES];
+ }
+ }*/
 
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -340,7 +357,7 @@ static BOOL notificationsHalfHidden = NO;
         } else {
             chatMo = [self.thoughtChats objectAtIndex:indexPath.row];
         }
-    
+        
         DashboardTableViewCell *cell = (DashboardTableViewCell *)[tableView dequeueReusableCellWithIdentifier:chatMo.chat_id];
         if (cell == nil) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"DashboardTableViewCell" owner:self options:nil] firstObject];
@@ -433,11 +450,11 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 /*-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return @"Leave Chat";
-}
-
--(void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
-}*/
+ return @"Leave Chat";
+ }
+ 
+ -(void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+ }*/
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
@@ -723,6 +740,8 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 -(void)handleRefreshListView {
+    NSLog(@"Hiding HUDS in Refresh List View");
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     _groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
     _oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllOneToOneChats]];
     _thoughtChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllThoughtChats]];
@@ -793,23 +812,23 @@ static BOOL notificationsHalfHidden = NO;
     } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Rename Chat"]) {
         [self showRenameDialog];
     } /*else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Rename"]) {
-        [self handleRenameChat:alertView];
-    }*/ else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Leave Chat"]) {
-        //UIAlertView *leaveAlertView = [[UIAlertView alloc] initWithTitle:@"Leave Chat" message:@"Are you sure you want to leave this conversation?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Leave", nil];
-        //[leaveAlertView setAlertViewStyle:UIAlertViewStyleDefault];
-        CustomIOS7AlertView *leaveAlertView = [StyleManager createCustomAlertView:@"Leave Chat" message:@"Are you sure you want to leave this conversation?" buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Leave", nil] hasInput:NO];
-        [leaveAlertView setDelegate:self];
-        [leaveAlertView show];
-    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Block User"]) {
-        //[[[UIAlertView alloc] initWithTitle:@"Are you sure?" message:@"Blocking this user will not allow them to send you one to one messages anymore." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Block", nil] show];
-        CustomIOS7AlertView *blockAlertView = [StyleManager createCustomAlertView:@"Are you sure?" message:@"Blocking this user will not allow them to send you one to one messages anymore." buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Block", nil] hasInput:NO];
-        [blockAlertView setDelegate:self];
-        [blockAlertView show];
-    } /*else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Block"]) {
-        [self handleBlockOneToOneChat];
-    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Leave"]) {
-        [self handleLeaveChat];
-    }*/
+       [self handleRenameChat:alertView];
+       }*/ else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Leave Chat"]) {
+           //UIAlertView *leaveAlertView = [[UIAlertView alloc] initWithTitle:@"Leave Chat" message:@"Are you sure you want to leave this conversation?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Leave", nil];
+           //[leaveAlertView setAlertViewStyle:UIAlertViewStyleDefault];
+           CustomIOS7AlertView *leaveAlertView = [StyleManager createCustomAlertView:@"Leave Chat" message:@"Are you sure you want to leave this conversation?" buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Leave", nil] hasInput:NO];
+           [leaveAlertView setDelegate:self];
+           [leaveAlertView show];
+       } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Block User"]) {
+           //[[[UIAlertView alloc] initWithTitle:@"Are you sure?" message:@"Blocking this user will not allow them to send you one to one messages anymore." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Block", nil] show];
+           CustomIOS7AlertView *blockAlertView = [StyleManager createCustomAlertView:@"Are you sure?" message:@"Blocking this user will not allow them to send you one to one messages anymore." buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Block", nil] hasInput:NO];
+           [blockAlertView setDelegate:self];
+           [blockAlertView show];
+       } /*else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Block"]) {
+          [self handleBlockOneToOneChat];
+          } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Leave"]) {
+          [self handleLeaveChat];
+          }*/
 }
 
 -(void)customIOS7dialogButtonTouchUpInside:(id)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -854,12 +873,12 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 /*- (void)handleRenameChat:(UIAlertView *)alertView {
-    NSString *name = [alertView textFieldAtIndex:0].text;
-    [_editingChat setUser_defined_chat_name:name];
-    [(AppDelegate*)[UIApplication sharedApplication].delegate saveContext];
-    [_tableView reloadData];
-    
-}*/
+ NSString *name = [alertView textFieldAtIndex:0].text;
+ [_editingChat setUser_defined_chat_name:name];
+ [(AppDelegate*)[UIApplication sharedApplication].delegate saveContext];
+ [_tableView reloadData];
+ 
+ }*/
 
 - (void)handleRenameChat:(NSString *)newName {
     [_editingChat setUser_defined_chat_name:newName];

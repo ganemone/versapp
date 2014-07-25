@@ -444,7 +444,7 @@
     //_groupNamePrompt = [[UIAlertView alloc] initWithTitle:@"Confirmation" message:[NSString stringWithFormat:@"Would you like to start an anonymous chat with %@?", friend.name] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Create", nil];
     //_groupNamePrompt.alertViewStyle = UIAlertViewStyleDefault;
     
-    _groupNamePrompt = [StyleManager createCustomAlertView:@"Confirmation" message:[NSString stringWithFormat:@"Would you like to start an anonymous chat with %@?", friend.name] buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Create", nil] hasInput:NO];
+    _groupNamePrompt = [StyleManager createCustomAlertView:@"Confirmation" message:[NSString stringWithFormat:@"Start an anonymous chat with %@?", friend.name] buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Create", nil] hasInput:NO];
     [_groupNamePrompt setDelegate:self];
     [_groupNamePrompt show];
 }
@@ -469,7 +469,7 @@
     //UIAlertView *unfriendAlertView = [[UIAlertView alloc] initWithTitle:@"Remove Friend" message:[NSString stringWithFormat:@"Would you like to remove %@ from your friends list?", _unfriendCheck.name] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Remove", nil];
     //unfriendAlertView.alertViewStyle = UIAlertViewStyleDefault;
     
-    _unfriendAlertView = [StyleManager createCustomAlertView:@"Remove Friend" message:[NSString stringWithFormat:@"Would you like to remove %@ from your friends list?", _unfriendCheck.name] buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Remove", nil] hasInput:NO];
+    _unfriendAlertView = [StyleManager createCustomAlertView:@"Remove Friend" message:[NSString stringWithFormat:@"Remove %@ from your friends list?", _unfriendCheck.name] buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Remove", nil] hasInput:NO];
     [_unfriendAlertView setDelegate:self];
     [_unfriendAlertView show];
 }

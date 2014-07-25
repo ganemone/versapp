@@ -60,8 +60,6 @@
     if ([UserDefaultManager hasPostedThought] == NO) {
         [UserDefaultManager setPostedThoughtTrue];
         [[[UIAlertView alloc] initWithTitle:@"Thoughts" message:@"Post a thought to be seen anonymously by your friends. Swipe to change background colors, or add a picture and swipe to change filters and brightness" delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil] show];
-    } else {
-        [self showHelperWithString:@"Swipe for colors"];
     }
 }
 
@@ -123,6 +121,10 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardDidHideNotification object:nil];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self showHelperWithString:@"Swipe for colors"];
+    });
 }
 
 #pragma mark - KeyboardNotifications
@@ -237,8 +239,9 @@
         [_composeTextView setBackgroundColor:[UIColor clearColor]];
         [self.view setBackgroundColor:[UIColor clearColor]];
         [self getFilteredImages];
-        
-        [self showHelperWithString:@"Swipe to change filters and brighness"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+           [self showHelperWithString:@"Swipe for filters and brighness"];
+        });
     }];
 }
 

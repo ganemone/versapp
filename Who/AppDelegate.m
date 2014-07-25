@@ -103,10 +103,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //NSDictionary *pushDict = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     // Let the device know we want to receive push notifications
-    NSDictionary *pushDict = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    NSLog(@"Push Dict: %@", [pushDict description]);
-    
 	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:
      (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
@@ -130,6 +128,7 @@
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
+    [[[ConnectionProvider getInstance] getConnection] disconnect];
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
@@ -149,6 +148,11 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    UIApplication *app = [UIApplication sharedApplication];
+    if ([app applicationIconBadgeNumber] > 0) {
+        NSLog(@"Has Messages to load");
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOW_LOADING object:nil];
+    }
     if (!(_didResumeFromBackground == YES)) {
         [self setup];
     }

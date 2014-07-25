@@ -20,6 +20,7 @@
 @property (strong, nonatomic) NSString *localNotificationMessage;
 
 @property BOOL didResumeFromBackground;
+@property BOOL shouldShowLoadingMessages;
 
 - (NSManagedObjectContext *) managedObjectContext;
 - (NSManagedObjectModel *)managedObjectModel;

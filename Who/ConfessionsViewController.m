@@ -51,23 +51,29 @@
 @implementation ConfessionsViewController
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    NSLog(@"Prepare for Segue: %@", sender);
-    NSLog(@"Segue With ID: %@", segue.identifier);
     if ([segue.identifier isEqualToString:@"SegueIDTest"]) {
         OneToOneConversationViewController *dest = segue.destinationViewController;
-        NSLog(@"Segue: %@ Destination: %@ Chat: %@", segue, dest, _createdChat);
         [dest setChatMO:_createdChat];
     }
 }
 
-- (IBAction)handleThoughtsTypeChanged:(id)sender {
+- (IBAction)handleThoughtsTypeChanged:(id)sender
+{
     UISegmentedControl *control = (UISegmentedControl *)sender;
-    if ([control selectedSegmentIndex] == 0) {
+    if ([control selectedSegmentIndex] == 0)
+    {
+        _currentMethod = @"you";
+    }
+    else if ([control selectedSegmentIndex] == 1)
+    {
         _currentMethod = @"friends";
-        if ([FriendsDBManager hasEnoughFriends] == NO) {
+        if ([FriendsDBManager hasEnoughFriends] == NO)
+        {
             [self.view addSubview:_noFriendsView];
         }
-    } else {
+    }
+    else
+    {
         [_noFriendsView removeFromSuperview];
         _currentMethod = @"global";
     }
@@ -104,11 +110,11 @@
                             @{
                                 @"rect": [NSValue valueWithCGRect:favFrame],
                                 @"caption": @"Click here to Favorite any thought anonymously"
-                            },
+                                },
                             @{
                                 @"rect": [NSValue valueWithCGRect:typeFrame],
                                 @"caption": @"You can see thoughts from friends, friends of friends, or global users. This icon tells you what type of thought you are looking at."
-                              }
+                                }
                             ];
     WSCoachMarksView *coachMarksView = [[WSCoachMarksView alloc] initWithFrame:self.view.bounds coachMarks:coachMarks];
     [self.view addSubview:coachMarksView];
@@ -128,12 +134,12 @@
     if (![FriendsDBManager hasEnoughFriends]) {
         _isGlobalFeed = YES;
         _currentMethod = @"global";
-        [_thoughtSegmentedControl setSelectedSegmentIndex:1];
+        [_thoughtSegmentedControl setSelectedSegmentIndex:2];
     } else {
         _isGlobalFeed = NO;
         if (_currentMethod == nil)
             _currentMethod = @"friends";
-        _currentMethod = ([_thoughtSegmentedControl selectedSegmentIndex] == 1) ? @"global" : @"friends";
+        _currentMethod = [[_thoughtSegmentedControl titleForSegmentAtIndex:[_thoughtSegmentedControl selectedSegmentIndex]] lowercaseString];
     }
 }
 
@@ -320,10 +326,10 @@
 }
 // WHAT IS THIS???
 /*-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    NSLog(@"WAT IS THIS");
-    [self performSegueWithIdentifier:SEGUE_ID_COMPOSE_CONFESSION sender:self];
-    return NO;
-}*/
+ NSLog(@"WAT IS THIS");
+ [self performSegueWithIdentifier:SEGUE_ID_COMPOSE_CONFESSION sender:self];
+ return NO;
+ }*/
 
 /*- (IBAction)messageIconClicked:(id)sender {
  NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -346,9 +352,17 @@
 - (IBAction)handleDiscloseInfoBtnClicked:(id)sender {
     NSString *info;
     if ([_currentMethod isEqualToString:@"friends"])
+    {
         info = @"This is your friends thoughts feed. These anonymous thoughts are from your friends and friends of friends. Both chatting and favoriting are also anonymous!";
-    else
+    }
+    else if([_currentMethod isEqualToString:@"global"])
+    {
         info = @"This is your global thoughts feed. These anonymous thoughts are from anyone other than your direct friends or friends of friends. You can't start a chat here, but you can anonymously favorite.";
+    }
+    else
+    {
+        info = @"This is a feed of your thoughts.";
+    }
     //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Thoughts" message:info delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil];
     
     CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:@"Thoughts" message:info buttons:[NSMutableArray arrayWithObject:@"Got it"] hasInput:NO];
