@@ -188,10 +188,10 @@ static BOOL notificationsHalfHidden = NO;
     MBProgressHUD *progress = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [progress setLabelText:@"Loading Messages"];
     [progress setLabelFont:[StyleManager getFontStyleLightSizeXL]];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSLog(@"Hiding HUD inside dispatch after");
-        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-    });
+    //dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //NSLog(@"Hiding HUD inside dispatch after");
+        //[MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    //});
 }
 
 - (void)showNoConversationsView

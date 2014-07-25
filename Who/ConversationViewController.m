@@ -80,6 +80,8 @@
     [self.view bringSubviewToFront:_participantsView];
     [self.view bringSubviewToFront:_header];
     
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showParticipantsAlert)];
+    [_participantsView addGestureRecognizer:gesture];
 }
 
 -(void)setUpPullToLoad {
@@ -425,8 +427,6 @@
     }
 }
 
-
-
 - (NSString *)getParticipantString {
     NSArray *members = _chatMO.participants;
     NSMutableArray *list = [[NSMutableArray alloc] init];
@@ -474,6 +474,10 @@
         _messageToBlock = nil;
         [super alertView:alertView clickedButtonAtIndex:buttonIndex];
     }
+}
+
+- (void)showParticipantsAlert {
+    [[StyleManager createCustomAlertView:@"Group Participants" message:[_participantsLabel.text substringFromIndex:6] buttons:@[@"Got it"] hasInput:NO] show];
 }
 
 /*-(BOOL)shouldDisplayTimestampForRowAtIndexPath:(NSIndexPath *)indexPath {

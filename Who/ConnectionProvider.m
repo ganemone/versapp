@@ -22,6 +22,7 @@
 #import "IQPacketManager.h"
 #import "MUCCreationManager.h"
 #import "PhoneVerificationManager.h"
+#import "ChatDBManager.h"
 
 #import "Confession.h"
 #import "AppDelegate.h"
@@ -161,20 +162,23 @@ static ConnectionProvider *selfInstance;
         [self.xmppStream sendElement:[IQPacketManager createSetUserInfoPacketFromDefaults]];
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
-    } else if(_isFetchingFromNotification == YES) {
-        _isFetchingFromNotification = NO;
-        [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
-        [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
-        [self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];
+    //} else if(_isFetchingFromNotification == YES) {
+        //_isFetchingFromNotification = NO;
+        //[self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
+        //[self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
+        //[self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];
         //[self.xmppStream sendElement:[IQPacketManager createGetRosterPacket]];
-    } else {        
+    } else {
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]]; // MUST SEND AFTER PRESENCE PACKET
-        [self.xmppStream sendElement:[IQPacketManager createGetUserInfoPacket]];
-        [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];
-        [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
-        [self.xmppStream sendElement:[IQPacketManager createGetRosterPacket]];
+        [ChatDBManager joinAllChats];
         [self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
+            [self.xmppStream sendElement:[IQPacketManager createGetRosterPacket]];
+            [self.xmppStream sendElement:[IQPacketManager createGetUserInfoPacket]];
+            [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];
+        });
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_AUTHENTICATED object:nil];
     NSString *deviceID = [UserDefaultManager loadDeviceID];
@@ -194,6 +198,10 @@ static ConnectionProvider *selfInstance;
     //[delegate handleConnectionLost];
     NSLog(@"did disconnect with error: %@", error);
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];
+}
+
+-(void)xmppStreamWasToldToDisconnect:(XMPPStream *)sender {
+    NSLog(@"Disconnected Without Error");
 }
 
 // May want to set the self instance to nil and remove self as delegate

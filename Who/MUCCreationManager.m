@@ -15,6 +15,7 @@
 #import "ChatMO.h"
 #import "ChatDBManager.h"
 #import "Constants.h"
+#import "NSString+URLEncode.h"
 
 @implementation MUCCreationManager
 
@@ -23,6 +24,7 @@
     ConnectionProvider *cp = [ConnectionProvider getInstance];
     XMPPStream *conn = [cp getConnection];
     NSString *chatID = [ChatMO createGroupID];
+    roomName = [roomName urlEncode];
     [conn sendElement:[IQPacketManager createCreateMUCPacket:chatID roomName:roomName participants:participants]];
     [cp setPendingParticipantsChatID:chatID];
     // initialize, configure, and join room

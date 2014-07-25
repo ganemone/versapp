@@ -527,6 +527,7 @@
 		B355A4FF198233E100F1AAE5 /* XMPPMessage+XEP_0308.m in Sources */ = {isa = PBXBuildFile; fileRef = B355A4D0198233E100F1AAE5 /* XMPPMessage+XEP_0308.m */; };
 		B355A500198233E100F1AAE5 /* XMPPMessage+XEP_0333.m in Sources */ = {isa = PBXBuildFile; fileRef = B355A4D3198233E100F1AAE5 /* XMPPMessage+XEP_0333.m */; };
 		B355A501198233E100F1AAE5 /* NSXMLElement+XEP_0335.m in Sources */ = {isa = PBXBuildFile; fileRef = B355A4D6198233E100F1AAE5 /* NSXMLElement+XEP_0335.m */; };
+		B355A50419823C4F00F1AAE5 /* NSString+URLEncode.m in Sources */ = {isa = PBXBuildFile; fileRef = B355A50319823C4F00F1AAE5 /* NSString+URLEncode.m */; };
 		B38B3FF01957649300043B95 /* check-icon-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B38B3FEE1957649300043B95 /* check-icon-white@2x.png */; };
 		B38B3FF11957649300043B95 /* check-icon-white.png in Resources */ = {isa = PBXBuildFile; fileRef = B38B3FEF1957649300043B95 /* check-icon-white.png */; };
 		B39530EA197C9A610098A932 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B39530E8197C9A610098A932 /* WebViewController.m */; };
@@ -1584,6 +1585,8 @@
 		B355A4D3198233E100F1AAE5 /* XMPPMessage+XEP_0333.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XMPPMessage+XEP_0333.m"; sourceTree = "<group>"; };
 		B355A4D5198233E100F1AAE5 /* NSXMLElement+XEP_0335.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSXMLElement+XEP_0335.h"; sourceTree = "<group>"; };
 		B355A4D6198233E100F1AAE5 /* NSXMLElement+XEP_0335.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSXMLElement+XEP_0335.m"; sourceTree = "<group>"; };
+		B355A50219823C4F00F1AAE5 /* NSString+URLEncode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncode.h"; sourceTree = "<group>"; };
+		B355A50319823C4F00F1AAE5 /* NSString+URLEncode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEncode.m"; sourceTree = "<group>"; };
 		B38B3FEE1957649300043B95 /* check-icon-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon-white@2x.png"; sourceTree = "<group>"; };
 		B38B3FEF1957649300043B95 /* check-icon-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon-white.png"; sourceTree = "<group>"; };
 		B39530E7197C9A610098A932 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
@@ -1883,6 +1886,8 @@
 		3A25B63C1881E03700166623 /* Who */ = {
 			isa = PBXGroup;
 			children = (
+				B355A50219823C4F00F1AAE5 /* NSString+URLEncode.h */,
+				B355A50319823C4F00F1AAE5 /* NSString+URLEncode.m */,
 				B39530E7197C9A610098A932 /* WebViewController.h */,
 				B39530E8197C9A610098A932 /* WebViewController.m */,
 				B39530E9197C9A610098A932 /* WebViewController.xib */,
@@ -4428,6 +4433,7 @@
 				F744856418DB61C500460FBC /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				3AF691C31919581600ABA9C5 /* GPUImageTwoInputCrossTextureSamplingFilter.m in Sources */,
 				F751016318ABE101001F1E7F /* IASKSettingsStoreUserDefaults.m in Sources */,
+				B355A50419823C4F00F1AAE5 /* NSString+URLEncode.m in Sources */,
 				B355A4FD198233E100F1AAE5 /* XMPPMessageCarbons.m in Sources */,
 				3AF691C11919581600ABA9C5 /* GPUImageToonFilter.m in Sources */,
 				B355A4E5198233E100F1AAE5 /* XMPPCapabilitiesCoreDataStorage.m in Sources */,

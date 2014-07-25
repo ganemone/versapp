@@ -32,15 +32,24 @@
     _viewHasAppeared = NO;
     _connectionLostViewIsVisible = NO;
     _connectionLostView = [self getConnectionLostView];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConnectionLost) name:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConnectionLost) name:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReconnect) name:NOTIFICATION_AUTHENTICATED object:nil];
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConnecting) name:NOTIFICATION_CONNECTING object:nil];
     
+    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    [defaultCenter addObserver:self selector:@selector(handleApplicationCameInfoForeground) name:NOTIFICATION_DID_BECOME_ACTIVE object:nil];
+    [defaultCenter addObserver:self selector:@selector(handleApplicationWentIntoBackground) name:NOTIFICATION_DID_ENTER_BACKGROUND object:nil];
 }
 
--(void)viewWillDisappear:(BOOL)animated {
-    NSLog(@"View Will Disappear");
+-(void)handleApplicationWentIntoBackground {
+    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    [defaultCenter removeObserver:self name:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];
+    [defaultCenter removeObserver:self name:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
+    [defaultCenter removeObserver:self name:NOTIFICATION_AUTHENTICATED object:nil];
+}
+
+-(void)handleApplicationCameInfoForeground {
+    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    [defaultCenter addObserver:self selector:@selector(handleConnectionLost) name:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];
+    [defaultCenter addObserver:self selector:@selector(handleConnectionLost) name:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
+    [defaultCenter addObserver:self selector:@selector(didReconnect) name:NOTIFICATION_AUTHENTICATED object:nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -86,8 +95,6 @@
             if (_connectionLostViewIsVisible == NO) {
                 [self.view addSubview:_connectionLostView];
                 _connectionLostViewIsVisible = YES;
-            } else {
-                //[MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             }
         }
     });

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CustomIOS7AlertView.h"
 
-@interface FriendsViewController : UIViewController <UIAlertViewDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, CustomIOS7AlertViewDelegate>
+@interface FriendsViewController : UIViewController <UIAlertViewDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, CustomIOS7AlertViewDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *header;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

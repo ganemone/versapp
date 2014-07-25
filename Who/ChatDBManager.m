@@ -36,6 +36,7 @@ static int numUninvitedParticipants;
         chatEntry = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_CHATS inManagedObjectContext:moc];
         [chatEntry setValue:chatType forKey:CHATS_TABLE_COLUMN_NAME_CHAT_TYPE];
         [chatEntry setValue:@"YES" forKey:CHATS_TABLE_COLUMN_NAME_HAS_NEW_MESSAGE];
+        [self joinChatWithID:chatID];
     }
     [chatEntry setValue:chatID forKey:CHATS_TABLE_COLUMN_NAME_CHAT_ID];
     [chatEntry setValue:chatName forKey:CHATS_TABLE_COLUMN_NAME_CHAT_NAME];
@@ -52,6 +53,7 @@ static int numUninvitedParticipants;
     if (chatEntry == nil) {
         chatEntry = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_CHATS inManagedObjectContext:moc];
         [chatEntry setValue:@"YES" forKey:CHATS_TABLE_COLUMN_NAME_HAS_NEW_MESSAGE];
+        [self joinChatWithID:chatID];
     }
     [chatEntry setValue:chatType forKey:CHATS_TABLE_COLUMN_NAME_CHAT_TYPE];
     [chatEntry setValue:chatID forKey:CHATS_TABLE_COLUMN_NAME_CHAT_ID];
@@ -74,6 +76,7 @@ static int numUninvitedParticipants;
         chatEntry = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_CHATS inManagedObjectContext:moc];
         [chatEntry setValue:chatType forKey:CHATS_TABLE_COLUMN_NAME_CHAT_TYPE];
         [chatEntry setValue:@"YES" forKey:CHATS_TABLE_COLUMN_NAME_HAS_NEW_MESSAGE];
+        [self joinChatWithID:chatID];
     }
     [chatEntry setValue:chatID forKey:CHATS_TABLE_COLUMN_NAME_CHAT_ID];
     [chatEntry setValue:chatName forKey:CHATS_TABLE_COLUMN_NAME_CHAT_NAME];
@@ -129,6 +132,13 @@ static int numUninvitedParticipants;
     for (ChatMO *chat in chats) {
         [conn sendElement:[IQPacketManager createJoinMUCPacket:chat.chat_id lastTimeActive:time]];
     }
+}
+
++(void)joinChatWithID:(NSString *)chatId {
+    XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSString *time = [MessagesDBManager getTimeForHistory:[delegate managedObjectContext]];
+    [conn sendElement:[IQPacketManager createJoinMUCPacket:chatId lastTimeActive:time]];
 }
 
 +(NSArray*)makeFetchRequest:(NSString*)predicateString {

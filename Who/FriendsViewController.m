@@ -125,6 +125,7 @@
     [imageView setClipsToBounds:NO];
     [imageView setContentMode:UIViewContentModeScaleAspectFill];
     [imageView setImage:[UIImage imageNamed:@"friends-background-large.png"]];
+    
     [self.tableView setBackgroundView:imageView];
     
     
@@ -144,6 +145,25 @@
     
     [[self startConversationBtn] setHidden:YES];
     
+    for (UIView *subview in self.searchBar.subviews)
+    {
+        for (UIView *subSubview in subview.subviews)
+        {
+            if ([subSubview conformsToProtocol:@protocol(UITextInputTraits)])
+            {
+                UITextField *textField = (UITextField *)subSubview;
+                [textField setKeyboardAppearance: UIKeyboardAppearanceDark];
+                [textField setReturnKeyType:UIReturnKeyGo];
+                [textField setDelegate:self];
+                break;
+            }
+        }
+    }
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return NO;
 }
 
 - (IBAction)handleNoFriendsBtnClicked:(id)sender
