@@ -34,11 +34,8 @@
 @implementation ConversationViewController
 
 -(void)viewDidAppear:(BOOL)animated {
-    if ([UserDefaultManager hasCreatedGroup] == NO) {
-        [UserDefaultManager setCreatedGroupTrue];
-        [self discloseInfoButtonClicked:nil];
-    }
     [super viewDidAppear:animated];
+    [self discloseInfoButtonClicked:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -82,6 +79,7 @@
     _header.frame = CGRectMake(0, 0, self.view.bounds.size.width, 62.0f);
     [self.view bringSubviewToFront:_participantsView];
     [self.view bringSubviewToFront:_header];
+    
 }
 
 -(void)setUpPullToLoad {
@@ -359,12 +357,9 @@
 }
 
 - (IBAction)discloseInfoButtonClicked:(id)sender {
-    NSLog(@"Handling Participants");
     if (_participantsView.frame.origin.y < _header.frame.size.height) {
-        NSLog(@"Showing Participants");
         [self showParticipantsView];
     } else {
-        NSLog(@"Hiding Participants");
         [self hideParticipantsView];
     }
 }
@@ -429,6 +424,8 @@
         }
     }
 }
+
+
 
 - (NSString *)getParticipantString {
     NSArray *members = _chatMO.participants;

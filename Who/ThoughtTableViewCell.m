@@ -224,7 +224,7 @@
     NSString *message;
     NSMutableArray *buttonTitles = [[NSMutableArray alloc] init];
     if ([FriendsDBManager hasEnoughFriends] && _confession.degree.length < 3) {
-        message = @"Would you like to start a chat with the poster of this thought?";
+        message = @"Start a chat with the poster of this thought?";
         [buttonTitles addObjectsFromArray:[NSMutableArray arrayWithObjects:@"No", @"Yes", nil]];
     } else {
         message = @"Messaging is restricted to friends and friends of friends.";
