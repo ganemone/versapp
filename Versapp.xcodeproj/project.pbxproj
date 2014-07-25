@@ -191,8 +191,6 @@
 		3AD19AB818E26298001B3B88 /* AppIcon58.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD19AB518E26298001B3B88 /* AppIcon58.png */; };
 		3AD19AB918E26298001B3B88 /* AppIcon80.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD19AB618E26298001B3B88 /* AppIcon80.png */; };
 		3AD19ABA18E26298001B3B88 /* AppIcon120.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD19AB718E26298001B3B88 /* AppIcon120.png */; };
-		3AD19AC218E26356001B3B88 /* loading640x960.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD19AC018E26356001B3B88 /* loading640x960.png */; };
-		3AD19AC318E26356001B3B88 /* loading640x1136.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD19AC118E26356001B3B88 /* loading640x1136.png */; };
 		3AD19AC518E266F0001B3B88 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AD19AC418E266F0001B3B88 /* Default-568h@2x.png */; };
 		3AD8F47C18DC974B002C399C /* AppInitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD8F47B18DC974B002C399C /* AppInitViewController.m */; };
 		3AD8F48118DC9DD8002C399C /* UserRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD8F48018DC9DD8002C399C /* UserRegistrationViewController.m */; };
@@ -929,8 +927,6 @@
 		3AD19AB518E26298001B3B88 /* AppIcon58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon58.png; sourceTree = "<group>"; };
 		3AD19AB618E26298001B3B88 /* AppIcon80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon80.png; sourceTree = "<group>"; };
 		3AD19AB718E26298001B3B88 /* AppIcon120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon120.png; sourceTree = "<group>"; };
-		3AD19AC018E26356001B3B88 /* loading640x960.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading640x960.png; sourceTree = "<group>"; };
-		3AD19AC118E26356001B3B88 /* loading640x1136.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading640x1136.png; sourceTree = "<group>"; };
 		3AD19AC418E266F0001B3B88 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		3AD8F47A18DC974B002C399C /* AppInitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInitViewController.h; sourceTree = "<group>"; };
 		3AD8F47B18DC974B002C399C /* AppInitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppInitViewController.m; sourceTree = "<group>"; };
@@ -2559,11 +2555,9 @@
 				3A91F1F018EB4BE50006B9F8 /* loadingScreenSmall.png */,
 				3A91F1EB18EB4BD10006B9F8 /* friends-background-large.png */,
 				3A91F1EC18EB4BD10006B9F8 /* friends-background-small.png */,
-				3AD19AC018E26356001B3B88 /* loading640x960.png */,
 				3AD19AB518E26298001B3B88 /* AppIcon58.png */,
 				3AD19AB618E26298001B3B88 /* AppIcon80.png */,
 				3AD19AB718E26298001B3B88 /* AppIcon120.png */,
-				3AD19AC118E26356001B3B88 /* loading640x1136.png */,
 			);
 			name = "App Images";
 			sourceTree = "<group>";
@@ -4069,8 +4063,6 @@
 				3AF92582191BC21400795FC6 /* double-arrow-white.png in Resources */,
 				F7E7BB801947C204002FE587 /* facebook@2x.png in Resources */,
 				3ABD66DA18FB325900E72B09 /* Owl-Loading-Animation_0015.png in Resources */,
-				3AD19AC218E26356001B3B88 /* loading640x960.png in Resources */,
-				3AD19AC318E26356001B3B88 /* loading640x1136.png in Resources */,
 				3AF925A4191BDBA800795FC6 /* thoughts-white.png in Resources */,
 				F7F54A9F19510CAF007CEADF /* second-degree-orange.png in Resources */,
 				F7F54ABB19510E9D007CEADF /* global-orange@2x.png in Resources */,

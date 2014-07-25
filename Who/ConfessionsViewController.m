@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *thoughtSegmentedControl;
 @property ConfessionsManager *confessionsManager;
 @property (strong, nonatomic) UIView *noFriendsView;
+@property (strong, nonatomic) UIView *noPostsView;
 @property (strong, nonatomic) UIImage *favIcon;
 @property (strong, nonatomic) UIImage *favIconActive;
 @property (strong, nonatomic) UIImage *favIconSingle;
@@ -63,6 +64,7 @@
     if ([control selectedSegmentIndex] == 0)
     {
         _currentMethod = @"you";
+        [_noFriendsView removeFromSuperview];
     }
     else if ([control selectedSegmentIndex] == 1)
     {
@@ -70,6 +72,8 @@
         if ([FriendsDBManager hasEnoughFriends] == NO)
         {
             [self.view addSubview:_noFriendsView];
+            [self.view sendSubviewToBack:_noFriendsView];
+            [self.view sendSubviewToBack:_tableView];
         }
     }
     else
@@ -135,6 +139,10 @@
         _isGlobalFeed = YES;
         _currentMethod = @"global";
         [_thoughtSegmentedControl setSelectedSegmentIndex:2];
+        [self loadConfessions];
+        [self.tableView reloadData];
+        [_noPostsView removeFromSuperview];
+        [_noFriendsView removeFromSuperview];
     } else {
         _isGlobalFeed = NO;
         if (_currentMethod == nil)
@@ -186,6 +194,7 @@
     }];
     
     _noFriendsView = [self getNoFriendsView];
+    _noPostsView = [self getNoPostsView];
     
     _isFetchingOlderThoughts = NO;
 }
@@ -238,10 +247,75 @@
 }
 
 - (UIView *)getNoFriendsView {
-    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, self.header.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.header.frame.size.height)];
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, backgroundView.frame.size.width, backgroundView.frame.size.height)];
-    [imageView setImage:[UIImage imageNamed:@"messages-background-small.png"]];
+    UIView *backgroundView = [[UIView alloc] initWithFrame:self.view.frame];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    CGRect screen = [[UIScreen mainScreen] bounds];
+    UIImage *image = [[UIImage alloc] init];
+    if (screen.size.height < 500) {
+        image = [UIImage imageNamed:@"loadingScreenSmall.png"];
+    } else {
+        image = [UIImage imageNamed:@"loadingScreenLarge.png"];
+    }
+    [imageView setImage:image];
     [backgroundView addSubview:imageView];
+    
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, _header.frame.size.height + 15, self.view.frame.size.width - 40, 50)];
+    [titleLabel setFont:[StyleManager getFontStyleBoldSizeXL]];
+    [titleLabel setTextColor:[UIColor whiteColor]];
+    [titleLabel setBackgroundColor:[UIColor clearColor]];
+    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    NSUInteger numFriends = [[FriendsDBManager getAllWithStatusFriends] count];
+    NSString *alert;
+    if (numFriends == 0) {
+        alert = @"You don't have any friends :(";
+    } else if(numFriends == 1) {
+        alert = @"You only have one friend.";
+    } else {
+        alert = @"You only have two friends.";
+    }
+    [titleLabel setText:alert];
+    
+    UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height - 150, self.view.frame.size.width - 40, 150)];
+    [textView setFont:[StyleManager getFontStyleLightSizeLarge]];
+    [textView setText:@"To keep users identities safe, you can only view the thoughts feed if you have at least 3 friends. For now, check out the global feed, and share Versapp with your friends!"];
+    [textView setTextAlignment:NSTextAlignmentCenter];
+    [textView setTextColor:[UIColor whiteColor]];
+    [textView setBackgroundColor:[UIColor clearColor]];
+    
+    [backgroundView addSubview:titleLabel];
+    [backgroundView addSubview:textView];
+    return backgroundView;
+}
+
+- (UIView *)getNoPostsView {
+    UIView *backgroundView = [[UIView alloc] initWithFrame:self.view.frame];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    CGRect screen = [[UIScreen mainScreen] bounds];
+    UIImage *image = [[UIImage alloc] init];
+    if (screen.size.height < 500) {
+        image = [UIImage imageNamed:@"loadingScreenSmall.png"];
+    } else {
+        image = [UIImage imageNamed:@"loadingScreenLarge.png"];
+    }
+    [imageView setImage:image];
+    [backgroundView addSubview:imageView];
+    
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, _header.frame.size.height + 15, self.view.frame.size.width - 40, 50)];
+    [titleLabel setFont:[StyleManager getFontStyleBoldSizeXL]];
+    [titleLabel setTextColor:[UIColor whiteColor]];
+    [titleLabel setBackgroundColor:[UIColor clearColor]];
+    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [titleLabel setText:@"Whoops - there is nothing here."];
+    
+    UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height - 150, self.view.frame.size.width - 40, 150)];
+    [textView setFont:[StyleManager getFontStyleLightSizeLarge]];
+    [textView setText:@"Click the compose icon in the top right corner to share a thought anonymously. Or check out what your friends are posting!"];
+    [textView setTextAlignment:NSTextAlignmentCenter];
+    [textView setTextColor:[UIColor whiteColor]];
+    [textView setBackgroundColor:[UIColor clearColor]];
+    
+    [backgroundView addSubview:titleLabel];
+    [backgroundView addSubview:textView];
     return backgroundView;
 }
 
@@ -298,6 +372,16 @@
         _isFetchingOlderThoughts = NO;
     } else {
         [self.tableView didFinishPullToRefresh];
+    }
+    
+    if ([self.tableView numberOfRowsInSection:0] == 0) {
+        if (_noPostsView.superview != self.view) {
+            [self.view addSubview:_noPostsView];
+            [self.view sendSubviewToBack:_noPostsView];
+            [self.view sendSubviewToBack:_tableView];
+        }
+    } else {
+        [_noPostsView removeFromSuperview];
     }
 }
 
