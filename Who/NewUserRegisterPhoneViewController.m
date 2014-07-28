@@ -17,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 @property (weak, nonatomic) IBOutlet UIButton *actionBtn;
 @property (weak, nonatomic) IBOutlet UILabel *countryCodeLabel;
-@property (weak, nonatomic) IBOutlet UIPickerView *countryPicker;
+//@property (weak, nonatomic) IBOutlet UIPickerView *countryPicker;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 
 @end
@@ -36,7 +36,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [super setUp:_countryPicker countryCodeField:_countryCodeLabel];
+    //[super setUp:_countryPicker countryCodeField:_countryCodeLabel];
+    _countryCodeLabel.text = [self getSelectedCountryCode];
     [_phone setDelegate:self];
     
     [_headerLabel setFont:[StyleManager getFontStyleLightSizeHeader]];
@@ -59,11 +60,13 @@
 }
 
 -(NSString *)getSelectedCountry {
-    return [super getCountryAtIndex:[_countryPicker selectedRowInComponent:0]];
+    //return [super getCountryAtIndex:[_countryPicker selectedRowInComponent:0]];
+    return @"United States";
 }
 
 -(NSString *)getSelectedCountryCode {
-    return [super getCountryCodeAtIndex:[_countryPicker selectedRowInComponent:0]];
+    //return [super getCountryCodeAtIndex:[_countryPicker selectedRowInComponent:0]];
+    return @"1";
 }
 
 - (void)handleFinishedRegisteringPhone {
@@ -89,7 +92,7 @@
 }
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if ([_countryPicker selectedRowInComponent:0] == 218) {
+    if (YES/*[_countryPicker selectedRowInComponent:0] == 218*/) {
         NSString *originalString = [textField.text substringWithRange:range];
         return [self validatePhoneFieldChangeFromString:originalString toString:string textField:textField range:range];
     } else {

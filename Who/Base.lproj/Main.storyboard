@@ -115,10 +115,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <pickerView contentMode="scaleToFill" id="5OI-zw-ULP">
-                                <rect key="frame" x="0.0" y="214" width="320" height="162"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            </pickerView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Your phone number is used to help you find friends on Versapp. We will NEVER share this information with anyone. Ever." selectable="NO" id="jQ9-Of-7w5">
                                 <rect key="frame" x="20" y="72" width="280" height="104"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
@@ -145,7 +141,6 @@
                     <connections>
                         <outlet property="actionBtn" destination="jkS-L3-gNB" id="aK2-4a-gMH"/>
                         <outlet property="countryCodeLabel" destination="KIu-Lo-qHx" id="dih-rf-NgW"/>
-                        <outlet property="countryPicker" destination="5OI-zw-ULP" id="wBs-Z7-jhB"/>
                         <outlet property="descriptionTextView" destination="jQ9-Of-7w5" id="8g7-QH-Vfa"/>
                         <outlet property="headerLabel" destination="u6c-vB-YhE" id="iRn-bz-xIm"/>
                         <outlet property="phone" destination="R4y-cq-8Xo" id="HfD-Cf-NRy"/>
