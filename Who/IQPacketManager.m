@@ -721,7 +721,108 @@
 // ---------------------
 // Reporting
 // ---------------------
-+(DDXMLElement *)createReportOneToOneChatPacket:(NSString *)username chat_id:(NSString *)chat_id type:(NSString *)type metadata:(NSString *)metadata {
++(DDXMLElement *)createReportOneToOneChatPacket:(NSString *)chat_id type:(NSString *)type {
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    [iq addAttributeWithName:@"id" stringValue:PACKET_ID_REPORT_ONE_TO_ONE];
+    [iq addAttributeWithName:@"type" stringValue:@"set"];
+    [iq addAttributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]];
+    
+    DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
+    [query addAttributeWithName:@"xmlns" stringValue:@"who:iq:report"];
+    
+    ChatMO *chat = [ChatDBManager getChatWithID:chat_id];
+    
+    NSString *username;
+    for (NSString *jid in [chat getParticipantJIDS]) {
+        if (![jid isEqualToString:[ConnectionProvider getUser]]) {
+            username = jid;
+        }
+    }
+    
+    DDXMLElement *usernameElement = [DDXMLElement elementWithName:@"reported_username" stringValue:username];
+    DDXMLElement *typeElement = [DDXMLElement elementWithName:@"report_type" stringValue:type];
+    DDXMLElement *objectElement = [DDXMLElement elementWithName:@"report_object" stringValue:@"chat"];
+    
+    NSString *metadata = [NSString stringWithFormat:@"ChatID: %@, Last Message: %@", chat_id, [chat getLastMessage]];
+    DDXMLElement *metadataElement = [DDXMLElement elementWithName:@"report_metadata" stringValue:metadata];
+    
+    [query addChild:usernameElement];
+    [query addChild:typeElement];
+    [query addChild:objectElement];
+    [query addChild:metadataElement];
+    [iq addChild:query];
+    
+    NSLog(@"Report IQ: %@", iq);
+    
+    return iq;
+}
+
++(DDXMLElement *)createReportGroupChatPacket:(NSString *)chat_id type:(NSString *)type {
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    [iq addAttributeWithName:@"id" stringValue:PACKET_ID_REPORT_ONE_TO_ONE];
+    [iq addAttributeWithName:@"type" stringValue:@"set"];
+    [iq addAttributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]];
+    
+    DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
+    [query addAttributeWithName:@"xmlns" stringValue:@"who:iq:report"];
+    
+    ChatMO *chat = [ChatDBManager getChatWithID:chat_id];
+    
+    DDXMLElement *usernameElement = [DDXMLElement elementWithName:@"reported_username" stringValue:@""];
+    DDXMLElement *typeElement = [DDXMLElement elementWithName:@"report_type" stringValue:type];
+    DDXMLElement *objectElement = [DDXMLElement elementWithName:@"report_object" stringValue:@"groupchat"];
+    
+    NSString *metadata = [NSString stringWithFormat:@"ChatID: %@, Last Message: %@", chat_id, [chat getLastMessage]];
+    DDXMLElement *metadataElement = [DDXMLElement elementWithName:@"report_metadata" stringValue:metadata];
+    
+    [query addChild:usernameElement];
+    [query addChild:typeElement];
+    [query addChild:objectElement];
+    [query addChild:metadataElement];
+    [iq addChild:query];
+    
+    NSLog(@"Report IQ: %@", iq);
+    
+    return iq;
+}
+
++(DDXMLElement *)createReportMessageInGroupPacket:(NSString *)chat_id type:(NSString *)type message:(NSString *)message {
+    DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
+    [iq addAttributeWithName:@"id" stringValue:PACKET_ID_REPORT_ONE_TO_ONE];
+    [iq addAttributeWithName:@"type" stringValue:@"set"];
+    [iq addAttributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]];
+    
+    DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
+    [query addAttributeWithName:@"xmlns" stringValue:@"who:iq:report"];
+    
+    ChatMO *chat = [ChatDBManager getChatWithID:chat_id];
+    
+    NSString *username;
+    for (NSString *jid in [chat getParticipantJIDS]) {
+        if (![jid isEqualToString:[ConnectionProvider getUser]]) {
+            username = jid;
+        }
+    }
+    
+    DDXMLElement *usernameElement = [DDXMLElement elementWithName:@"reported_username" stringValue:username];
+    DDXMLElement *typeElement = [DDXMLElement elementWithName:@"report_type" stringValue:type];
+    DDXMLElement *objectElement = [DDXMLElement elementWithName:@"report_object" stringValue:@"groupchat_msg"];
+    
+    NSString *metadata = [NSString stringWithFormat:@"ChatID: %@, Reported Message: %@", chat_id, message];
+    DDXMLElement *metadataElement = [DDXMLElement elementWithName:@"report_metadata" stringValue:metadata];
+    
+    [query addChild:usernameElement];
+    [query addChild:typeElement];
+    [query addChild:objectElement];
+    [query addChild:metadataElement];
+    [iq addChild:query];
+    
+    NSLog(@"Report IQ: %@", iq);
+    
+    return iq;
+}
+
++(DDXMLElement *)createReportThoughtPacket:(NSString *)thought_id username:(NSString *)username type:(NSString *)type content:(NSString *)content imageURL:(NSString *)imageURL {
     DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
     [iq addAttributeWithName:@"id" stringValue:PACKET_ID_REPORT_ONE_TO_ONE];
     [iq addAttributeWithName:@"type" stringValue:@"set"];
@@ -732,7 +833,9 @@
     
     DDXMLElement *usernameElement = [DDXMLElement elementWithName:@"reported_username" stringValue:username];
     DDXMLElement *typeElement = [DDXMLElement elementWithName:@"report_type" stringValue:type];
-    DDXMLElement *objectElement = [DDXMLElement elementWithName:@"report_object" stringValue:@"chat"];
+    DDXMLElement *objectElement = [DDXMLElement elementWithName:@"report_object" stringValue:@"thought"];
+    
+    NSString *metadata = [NSString stringWithFormat:@"ThoughtID: %@, Thought: %@, Image: %@", thought_id, content, imageURL];
     DDXMLElement *metadataElement = [DDXMLElement elementWithName:@"report_metadata" stringValue:metadata];
     
     [query addChild:usernameElement];
@@ -740,6 +843,8 @@
     [query addChild:objectElement];
     [query addChild:metadataElement];
     [iq addChild:query];
+    
+    NSLog(@"Report IQ: %@", iq);
     
     return iq;
 }

@@ -194,7 +194,7 @@
     NSMutableArray *coachMarks = [[NSMutableArray alloc] initWithArray:@[
                                                                          @{
                                                                              @"rect": [NSValue valueWithCGRect:(CGRect){{_headerView.frame.origin.x,_headerView.frame.origin.y},{_headerView.frame.size.width, _headerView.frame.size.height}}],//(CGRect){{0,0},{self.view.frame.size.width,44}}],
-                                                                             @"caption": @"This page shows your friends in versapp."
+                                                                             @"caption": @"This page shows your friends in Versapp."
                                                                              },
                                                                          @{
                                                                              @"rect": [NSValue valueWithCGRect:(CGRect){{self.view.frame.size.width - 50, 20},{40,40}}],

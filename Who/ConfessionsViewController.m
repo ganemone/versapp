@@ -46,6 +46,8 @@
 @property BOOL didCreateChatInDB;
 @property NSString *prevSince;
 @property NSString *currentMethod;
+@property (strong, nonatomic) CustomIOS7AlertView *reportAlertView;
+@property (strong, nonatomic) Confession *reportConfession;
 
 @end
 
@@ -177,6 +179,13 @@
     [self.tableView setBackgroundView:_tableBackgroundView];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    lpgr.minimumPressDuration = 0.5;
+    lpgr.delegate = self;
+    [_tableView addGestureRecognizer:lpgr];
+    [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    _reportAlertView = [StyleManager createButtonOnlyAlertView:[NSArray arrayWithObjects:@"Bullying", @"Self Harm", @"Spam", @"Inappropriate", nil]];
+    
     NSMutableArray *drawingImages = [NSMutableArray array];
     NSMutableArray *loadingImages = [NSMutableArray array];
     for (int i = 0; i <= 15; i++) {
@@ -277,7 +286,7 @@
     
     UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height - 150, self.view.frame.size.width - 40, 150)];
     [textView setFont:[StyleManager getFontStyleLightSizeLarge]];
-    [textView setText:@"To keep users' identities safe, you can only view the friends feed if you have at least 3 friends. For now, check out the global feed, and share Versapp with your friends!"];
+    [textView setText:@"To keep users' identities safe, you can only view the friends feed if you have at least 3 friends. For now, check out the global feed and share Versapp with your friends!"];
     [textView setTextAlignment:NSTextAlignmentCenter];
     [textView setTextColor:[UIColor whiteColor]];
     [textView setBackgroundColor:[UIColor clearColor]];
@@ -455,7 +464,15 @@
 }
 
 - (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
+    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Report this Thought"]) {
+        [alertView close];
+        CustomIOS7AlertView *reportAlertView = [StyleManager createButtonOnlyAlertView:[NSArray arrayWithObjects:@"Bullying", @"Self Harm", @"Spam", @"Inappropriate", nil]];
+        [reportAlertView setDelegate:self];
+        [reportAlertView show];
+    } else if (alertView == _reportAlertView) {
+        [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createReportThoughtPacket:_reportConfession.confessionID username:_reportConfession.posterJID type:[alertView buttonTitleAtIndex:buttonIndex] content:_reportConfession.body imageURL:_reportConfession.imageURL]];
+        [alertView close];
+    } else {
         [alertView close];
     }
 }
@@ -555,5 +572,21 @@
     
 }
 
+-(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer {
+    CGPoint p = [gestureRecognizer locationInView:_tableView];
+    NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint:p];
+    if (indexPath != nil && gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        [self handleLongPressForRowAtIndexPath:indexPath];
+    }
+}
+
+-(void)handleLongPressForRowAtIndexPath:(NSIndexPath*)indexPath {
+    _reportConfession = [_confessionsManager getConfessionAtIndex:(int)indexPath.row];
+    if (![_reportConfession isPostedByConnectedUser]) {
+        CustomIOS7AlertView *alertView = [StyleManager createButtonOnlyAlertView:[NSArray arrayWithObject:@"Report this Thought"]];
+        [alertView setDelegate:self];
+        [alertView show];
+    }
+}
 
 @end
