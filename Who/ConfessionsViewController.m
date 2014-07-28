@@ -470,7 +470,7 @@
         [_reportAlertView show];
     } else if (alertView == _reportAlertView) {
         if (![[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]) {
-            [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createReportThoughtPacket:_reportConfession type:[alertView buttonTitleAtIndex:buttonIndex]]];
+            [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createReportThoughtPacket:_reportConfession type:[[[alertView buttonTitleAtIndex:buttonIndex] lowercaseString] stringByReplacingOccurrencesOfString:@" " withString:@"_"]]];
         }
         [alertView close];
     } else {
@@ -584,7 +584,7 @@
 -(void)handleLongPressForRowAtIndexPath:(NSIndexPath*)indexPath {
     _reportConfession = [_confessionsManager getConfessionAtIndex:(int)indexPath.row];
     if (![_reportConfession isPostedByConnectedUser]) {
-        CustomIOS7AlertView *alertView = [StyleManager createButtonOnlyAlertView:[NSArray arrayWithObject:@"Report this Thought"]];
+        CustomIOS7AlertView *alertView = [StyleManager createButtonOnlyAlertView:[NSArray arrayWithObjects:@"Report this Thought", @"Cancel", nil]];
         [alertView setDelegate:self];
         [alertView show];
     }

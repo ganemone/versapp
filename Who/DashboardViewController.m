@@ -859,9 +859,9 @@ static BOOL notificationsHalfHidden = NO;
     } else if (alertView == _reportAlertView) {
         if (![[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]) {
             if (_editingIndexPath.section == 0 && [_groupChats count] > _editingIndexPath.row) {
-                [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createReportGroupChatPacket:_editingChat.chat_id type:[alertView buttonTitleAtIndex:buttonIndex]]];
+                [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createReportGroupChatPacket:_editingChat.chat_id type:[[[alertView buttonTitleAtIndex:buttonIndex] lowercaseString] stringByReplacingOccurrencesOfString:@" " withString:@"_"]]];
             } else {
-                [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createReportOneToOneChatPacket:_editingChat.chat_id type:[alertView buttonTitleAtIndex:buttonIndex]]];
+                [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createReportOneToOneChatPacket:_editingChat.chat_id type:[[[alertView buttonTitleAtIndex:buttonIndex] lowercaseString] stringByReplacingOccurrencesOfString:@" " withString:@"_"]]];
             }
         }
     }

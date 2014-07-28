@@ -156,7 +156,7 @@
      reportAbuse.alertViewStyle = UIAlertViewStyleDefault;*/
     
     //CustomIOS7AlertView *reportAbuse = [StyleManager createCustomAlertView:@"Block" message:@"Do you want to block the sender?" buttons:[NSMutableArray arrayWithObjects:@"Cancel", REPORT_BLOCK, nil] hasInput:NO];
-    CustomIOS7AlertView *reportAbuse = [StyleManager createButtonOnlyAlertView:[NSArray arrayWithObjects:@"Block User", @"Report Message", nil]];
+    CustomIOS7AlertView *reportAbuse = [StyleManager createButtonOnlyAlertView:[NSArray arrayWithObjects:@"Block User", @"Report Message", @"Cancel", nil]];
     [reportAbuse setDelegate:self];
     [reportAbuse show];
     
@@ -409,7 +409,7 @@
 }
 
 - (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex {
-    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Got it"] || [[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Ok"]) {
+    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"] || [[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Got it"] || [[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Ok"]) {
         [alertView close];
     } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Add Friends"]) {
         [alertView close];
@@ -425,7 +425,7 @@
         [alertView close];
     } else if (alertView == _reportAlertView) {
         if (![[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]) {
-            [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createReportMessageInGroupPacket:_chatMO.chat_id type:[alertView buttonTitleAtIndex:buttonIndex] message:_messageToBlock]];
+            [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createReportMessageInGroupPacket:_chatMO.chat_id type:[[[alertView buttonTitleAtIndex:buttonIndex] lowercaseString] stringByReplacingOccurrencesOfString:@" " withString:@"_"] message:_messageToBlock]];
         }
         [alertView close];
     }

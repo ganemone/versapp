@@ -752,8 +752,6 @@
     [query addChild:metadataElement];
     [iq addChild:query];
     
-    NSLog(@"Report IQ: %@", iq);
-    
     return iq;
 }
 
@@ -781,8 +779,6 @@
     [query addChild:metadataElement];
     [iq addChild:query];
     
-    NSLog(@"Report IQ: %@", iq);
-    
     return iq;
 }
 
@@ -808,8 +804,6 @@
     [query addChild:metadataElement];
     [iq addChild:query];
     
-    NSLog(@"Report IQ: %@", iq);
-    
     return iq;
 }
 
@@ -834,8 +828,6 @@
     [query addChild:objectElement];
     [query addChild:metadataElement];
     [iq addChild:query];
-    
-    NSLog(@"Report IQ: %@", iq);
     
     return iq;
 }
