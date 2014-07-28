@@ -50,6 +50,7 @@
 @property (strong, nonatomic) ChatMO *editingChat;
 @property (strong, nonatomic) NSIndexPath *editingIndexPath;
 @property (nonatomic) CGFloat notificationHeight;
+@property (strong, nonatomic) CustomIOS7AlertView *reportAlertView;
 
 @property (weak, nonatomic) IBOutlet UIView *noConversationsDarkView;
 @property (weak, nonatomic) IBOutlet UIView *noConversationsView;
@@ -147,6 +148,9 @@ static BOOL notificationsHalfHidden = NO;
     [imageView setContentMode:UIViewContentModeScaleAspectFill];
     [imageView setImage:[UIImage imageNamed:@"messages-background-large.png"]];
     [self.tableView setBackgroundView:imageView];
+    
+    _reportAlertView = [StyleManager createButtonOnlyAlertView:[NSArray arrayWithObjects:@"Bullying", @"Self Harm", @"Spam", @"Inappropriate", @"Cancel", nil]];
+    [_reportAlertView setDelegate:self];
     
     self.notificationTableView = [[UITableView alloc] init];
     self.notificationTableView.hidden = YES;
@@ -783,7 +787,7 @@ static BOOL notificationsHalfHidden = NO;
 - (void)showGroupLongPressDialog {
     //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rename Chat", @"Leave Chat", nil];
     
-    CustomIOS7AlertView *alertView = [StyleManager createButtonOnlyAlertView:[NSArray arrayWithObjects:@"Rename Chat", @"Leave Chat", @"Cancel", nil]];
+    CustomIOS7AlertView *alertView = [StyleManager createButtonOnlyAlertView:[NSArray arrayWithObjects:@"Rename Chat", @"Leave Chat", @"Report Chat", @"Cancel", nil]];
     [alertView setDelegate:self];
     [alertView show];
 }
@@ -791,7 +795,7 @@ static BOOL notificationsHalfHidden = NO;
 - (void)showOneToOneLongPressDialog {
     //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rename Chat", @"Leave Chat", @"Block User", nil];
     
-    CustomIOS7AlertView *alertView = [StyleManager createButtonOnlyAlertView:[NSArray arrayWithObjects:@"Rename Chat", @"Leave Chat", @"Block User", @"Cancel", nil]];
+    CustomIOS7AlertView *alertView = [StyleManager createButtonOnlyAlertView:[NSArray arrayWithObjects:@"Rename Chat", @"Leave Chat", @"Block User", @"Report Chat", @"Cancel", nil]];
     [alertView setDelegate:self];
     [alertView show];
 }
@@ -847,8 +851,19 @@ static BOOL notificationsHalfHidden = NO;
         CustomIOS7AlertView *blockAlertView = [StyleManager createCustomAlertView:@"Are you sure?" message:@"Blocking this user will not allow them to send you one to one messages anymore." buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Block", nil] hasInput:NO];
         [blockAlertView setDelegate:self];
         [blockAlertView show];
+    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Report Chat"]) {
+        [_reportAlertView show];
     } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Block"]) {
         [self handleBlockOneToOneChat];
+    //Reporting
+    } else if (alertView == _reportAlertView) {
+        if (![[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]) {
+            if (_editingIndexPath.section == 0 && [_groupChats count] > _editingIndexPath.row) {
+                [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createReportGroupChatPacket:_editingChat.chat_id type:[alertView buttonTitleAtIndex:buttonIndex]]];
+            } else {
+                [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createReportOneToOneChatPacket:_editingChat.chat_id type:[alertView buttonTitleAtIndex:buttonIndex]]];
+            }
+        }
     }
     
     [alertView close];

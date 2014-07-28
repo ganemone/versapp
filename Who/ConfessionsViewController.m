@@ -184,7 +184,8 @@
     lpgr.delegate = self;
     [_tableView addGestureRecognizer:lpgr];
     [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-    _reportAlertView = [StyleManager createButtonOnlyAlertView:[NSArray arrayWithObjects:@"Bullying", @"Self Harm", @"Spam", @"Inappropriate", nil]];
+    _reportAlertView = [StyleManager createButtonOnlyAlertView:[NSArray arrayWithObjects:@"Bullying", @"Self Harm", @"Spam", @"Inappropriate", @"Cancel", nil]];
+    [_reportAlertView setDelegate:self];
     
     NSMutableArray *drawingImages = [NSMutableArray array];
     NSMutableArray *loadingImages = [NSMutableArray array];
@@ -466,11 +467,11 @@
 - (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex {
     if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Report this Thought"]) {
         [alertView close];
-        CustomIOS7AlertView *reportAlertView = [StyleManager createButtonOnlyAlertView:[NSArray arrayWithObjects:@"Bullying", @"Self Harm", @"Spam", @"Inappropriate", nil]];
-        [reportAlertView setDelegate:self];
-        [reportAlertView show];
+        [_reportAlertView show];
     } else if (alertView == _reportAlertView) {
-        [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createReportThoughtPacket:_reportConfession.confessionID username:_reportConfession.posterJID type:[alertView buttonTitleAtIndex:buttonIndex] content:_reportConfession.body imageURL:_reportConfession.imageURL]];
+        if (![[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]) {
+            [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createReportThoughtPacket:_reportConfession type:[alertView buttonTitleAtIndex:buttonIndex]]];
+        }
         [alertView close];
     } else {
         [alertView close];

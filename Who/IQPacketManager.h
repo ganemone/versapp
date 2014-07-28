@@ -54,10 +54,10 @@
 +(DDXMLElement *)createDestroyConfessionPacket:(NSString*)confessionID;
 +(DDXMLElement *)createUserSearchPacketWithSearchParam:(NSString *)searchParam;
 +(DDXMLElement *)createUserSearchPacketWithPhoneNumbers:(NSArray *)phoneNumbers emails:(NSArray*)emails personIDS:(NSArray *)personIDS;
-+(DDXMLElement *)createReportOneToOneChatPacket:(NSString *)chat_id username:(NSString *)username type:(NSString *)type;
++(DDXMLElement *)createReportOneToOneChatPacket:(NSString *)chat_id type:(NSString *)type;
 +(DDXMLElement *)createReportGroupChatPacket:(NSString *)chat_id type:(NSString *)type;
-+(DDXMLElement *)createReportMessageInGroupPacket:(NSString *)chat_id type:(NSString *)type message:(NSString *)message;
-+(DDXMLElement *)createReportThoughtPacket:(NSString *)thought_id username:(NSString *)username type:(NSString *)type content:(NSString *)content imageURL:(NSString *)imageURL;
++(DDXMLElement *)createReportMessageInGroupPacket:(NSString *)chat_id type:(NSString *)type message:(MessageMO *)message;
++(DDXMLElement *)createReportThoughtPacket:(Confession *)thought type:(NSString *)type;
 +(DDXMLElement *)createBlockImplicitUserPacket:(NSString *)username;
 +(DDXMLElement *)createBlockUserInGroupPacket:(NSString *)username chatID:(NSString *)chatID;
 +(DDXMLElement *)createUnblockImplicitUser:(NSString *)username;

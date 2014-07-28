@@ -786,7 +786,7 @@
     return iq;
 }
 
-+(DDXMLElement *)createReportMessageInGroupPacket:(NSString *)chat_id type:(NSString *)type message:(NSString *)message {
++(DDXMLElement *)createReportMessageInGroupPacket:(NSString *)chat_id type:(NSString *)type message:(MessageMO *)message {
     DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
     [iq addAttributeWithName:@"id" stringValue:PACKET_ID_REPORT_ONE_TO_ONE];
     [iq addAttributeWithName:@"type" stringValue:@"set"];
@@ -795,20 +795,11 @@
     DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
     [query addAttributeWithName:@"xmlns" stringValue:@"who:iq:report"];
     
-    ChatMO *chat = [ChatDBManager getChatWithID:chat_id];
-    
-    NSString *username;
-    for (NSString *jid in [chat getParticipantJIDS]) {
-        if (![jid isEqualToString:[ConnectionProvider getUser]]) {
-            username = jid;
-        }
-    }
-    
-    DDXMLElement *usernameElement = [DDXMLElement elementWithName:@"reported_username" stringValue:username];
+    DDXMLElement *usernameElement = [DDXMLElement elementWithName:@"reported_username" stringValue:message.sender_id];
     DDXMLElement *typeElement = [DDXMLElement elementWithName:@"report_type" stringValue:type];
     DDXMLElement *objectElement = [DDXMLElement elementWithName:@"report_object" stringValue:@"groupchat_msg"];
     
-    NSString *metadata = [NSString stringWithFormat:@"ChatID: %@, Reported Message: %@", chat_id, message];
+    NSString *metadata = [NSString stringWithFormat:@"ChatID: %@, Reported Message: %@", chat_id, message.message_body];
     DDXMLElement *metadataElement = [DDXMLElement elementWithName:@"report_metadata" stringValue:metadata];
     
     [query addChild:usernameElement];
@@ -822,7 +813,7 @@
     return iq;
 }
 
-+(DDXMLElement *)createReportThoughtPacket:(NSString *)thought_id username:(NSString *)username type:(NSString *)type content:(NSString *)content imageURL:(NSString *)imageURL {
++(DDXMLElement *)createReportThoughtPacket:(Confession *)thought type:(NSString *)type {
     DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
     [iq addAttributeWithName:@"id" stringValue:PACKET_ID_REPORT_ONE_TO_ONE];
     [iq addAttributeWithName:@"type" stringValue:@"set"];
@@ -831,11 +822,11 @@
     DDXMLElement *query = [DDXMLElement elementWithName:@"query"];
     [query addAttributeWithName:@"xmlns" stringValue:@"who:iq:report"];
     
-    DDXMLElement *usernameElement = [DDXMLElement elementWithName:@"reported_username" stringValue:username];
+    DDXMLElement *usernameElement = [DDXMLElement elementWithName:@"reported_username" stringValue:thought.posterJID];
     DDXMLElement *typeElement = [DDXMLElement elementWithName:@"report_type" stringValue:type];
     DDXMLElement *objectElement = [DDXMLElement elementWithName:@"report_object" stringValue:@"thought"];
     
-    NSString *metadata = [NSString stringWithFormat:@"ThoughtID: %@, Thought: %@, Image: %@", thought_id, content, imageURL];
+    NSString *metadata = [NSString stringWithFormat:@"ThoughtID: %@, Thought: %@, Image: %@", thought.confessionID, thought.body, thought.imageURL];
     DDXMLElement *metadataElement = [DDXMLElement elementWithName:@"report_metadata" stringValue:metadata];
     
     [query addChild:usernameElement];

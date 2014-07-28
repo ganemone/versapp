@@ -28,6 +28,7 @@
 @interface ConversationViewController ()
 
 @property (strong, nonatomic) ConnectionProvider *cp;
+@property (strong, nonatomic) CustomIOS7AlertView *reportAlertView;
 
 @end
 
@@ -64,6 +65,9 @@
     [self.headerLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     [self.participantsLabel setFont:[StyleManager getFontStyleLightSizeMed]];
     [self.participantsLabel setTextColor:[StyleManager getColorBlue]];
+    
+    _reportAlertView = [StyleManager createButtonOnlyAlertView:[NSArray arrayWithObjects:@"Bullying", @"Self Harm", @"Spam", @"Inappropriate", @"Cancel", nil]];
+    [_reportAlertView setDelegate:self];
     
     // Add a bottomBorder to the header view
     CALayer *headerBottomborder = [CALayer layer];
@@ -151,7 +155,8 @@
      
      reportAbuse.alertViewStyle = UIAlertViewStyleDefault;*/
     
-    CustomIOS7AlertView *reportAbuse = [StyleManager createCustomAlertView:@"Block" message:@"Do you want to block the sender?" buttons:[NSMutableArray arrayWithObjects:@"Cancel", REPORT_BLOCK, nil] hasInput:NO];
+    //CustomIOS7AlertView *reportAbuse = [StyleManager createCustomAlertView:@"Block" message:@"Do you want to block the sender?" buttons:[NSMutableArray arrayWithObjects:@"Cancel", REPORT_BLOCK, nil] hasInput:NO];
+    CustomIOS7AlertView *reportAbuse = [StyleManager createButtonOnlyAlertView:[NSArray arrayWithObjects:@"Block User", @"Report Message", nil]];
     [reportAbuse setDelegate:self];
     [reportAbuse show];
     
@@ -415,6 +420,14 @@
             [_messageToBlock setMessage_body:@"Message from blocked user"];
             [self.tableView reloadData];
         }
+    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Report Message"]) {
+        [_reportAlertView show];
+        [alertView close];
+    } else if (alertView == _reportAlertView) {
+        if (![[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]) {
+            [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createReportMessageInGroupPacket:_chatMO.chat_id type:[alertView buttonTitleAtIndex:buttonIndex] message:_messageToBlock]];
+        }
+        [alertView close];
     }
 }
 
