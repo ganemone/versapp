@@ -757,7 +757,7 @@
 
 +(DDXMLElement *)createReportGroupChatPacket:(NSString *)chat_id type:(NSString *)type {
     DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
-    [iq addAttributeWithName:@"id" stringValue:PACKET_ID_REPORT_ONE_TO_ONE];
+    [iq addAttributeWithName:@"id" stringValue:PACKET_ID_REPORT_GROUP];
     [iq addAttributeWithName:@"type" stringValue:@"set"];
     [iq addAttributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]];
     
@@ -784,7 +784,7 @@
 
 +(DDXMLElement *)createReportMessageInGroupPacket:(NSString *)chat_id type:(NSString *)type message:(MessageMO *)message {
     DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
-    [iq addAttributeWithName:@"id" stringValue:PACKET_ID_REPORT_ONE_TO_ONE];
+    [iq addAttributeWithName:@"id" stringValue:PACKET_ID_REPORT_MESSAGE_IN_GROUP];
     [iq addAttributeWithName:@"type" stringValue:@"set"];
     [iq addAttributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]];
     
@@ -809,7 +809,7 @@
 
 +(DDXMLElement *)createReportThoughtPacket:(Confession *)thought type:(NSString *)type {
     DDXMLElement *iq = [DDXMLElement elementWithName:@"iq"];
-    [iq addAttributeWithName:@"id" stringValue:PACKET_ID_REPORT_ONE_TO_ONE];
+    [iq addAttributeWithName:@"id" stringValue:PACKET_ID_REPORT_THOUGHT];
     [iq addAttributeWithName:@"type" stringValue:@"set"];
     [iq addAttributeWithName:@"to" stringValue:[ConnectionProvider getServerIPAddress]];
     

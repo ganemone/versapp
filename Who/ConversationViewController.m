@@ -150,6 +150,7 @@
     if ([[mesage sender_id] isEqualToString:[ConnectionProvider getUser]]) return;
     
     _messageToBlock = mesage;
+    _blockIndexPath = indexPath;
     
     /*UIAlertView *reportAbuse = [[UIAlertView alloc] initWithTitle:@"Block" message: @"Do you want to block the sender?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:REPORT_BLOCK, nil];
      
@@ -159,26 +160,23 @@
     CustomIOS7AlertView *reportAbuse = [StyleManager createButtonOnlyAlertView:[NSArray arrayWithObjects:@"Block User", @"Report Message", @"Cancel", nil]];
     [reportAbuse setDelegate:self];
     [reportAbuse show];
-    
+    [self.view endEditing:YES];
 }
 
 -(void)participantsUpdated:(NSNotification *)notification {
     self.chatMO = [ChatDBManager getChatWithID:self.chatMO.chat_id];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.chatMO getNumberOfMessages];
 }
 
@@ -425,7 +423,12 @@
         [alertView close];
     } else if (alertView == _reportAlertView) {
         if (![[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]) {
+            //Remove message bubble after message animations are fixed. Now the bubble shows (without text) until the chat is reopened.
+            //[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:_blockIndexPath] withRowAnimation:UITableViewRowAnimationNone];
             [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createReportMessageInGroupPacket:_chatMO.chat_id type:[[[alertView buttonTitleAtIndex:buttonIndex] lowercaseString] stringByReplacingOccurrencesOfString:@" " withString:@"_"] message:_messageToBlock]];
+            [MessagesDBManager deleteMessageFrom:_messageToBlock.sender_id body:_messageToBlock.message_body time:_messageToBlock.time];
+            _blockIndexPath = nil;
+            _messageToBlock = nil;
         }
         [alertView close];
     }

@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 @property (weak, nonatomic) IBOutlet UIView *header;
 @property (strong, nonatomic) MessageMO *messageToBlock;
+@property (strong, nonatomic) NSIndexPath *blockIndexPath;
 
 @property (weak, nonatomic) IBOutlet UIView *participantsView;
 @property (weak, nonatomic) IBOutlet UILabel *participantsLabel;

@@ -863,7 +863,10 @@ static BOOL notificationsHalfHidden = NO;
             } else {
                 [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createReportOneToOneChatPacket:_editingChat.chat_id type:[[[alertView buttonTitleAtIndex:buttonIndex] lowercaseString] stringByReplacingOccurrencesOfString:@" " withString:@"_"]]];
             }
-            [self handleLeaveChat];
+            
+            CustomIOS7AlertView *leaveAlertView = [StyleManager createCustomAlertView:@"Leave Chat?" message:@"Would you like to leave this conversation?" buttons:[NSMutableArray arrayWithObjects:@"No", @"Leave", nil] hasInput:NO];
+            [leaveAlertView setDelegate:self];
+            [leaveAlertView show];
         }
     }
     

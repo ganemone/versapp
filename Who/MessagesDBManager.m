@@ -99,8 +99,6 @@
     return [NSMutableArray arrayWithArray:[[fetchedItems reverseObjectEnumerator] allObjects]];
 }
 
-
-
 +(NSString*)getLastMessageForChatWithID:(NSString*)chatID {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate managedObjectContext];
@@ -172,6 +170,26 @@
     [fetchRequest setPredicate:predicate];
     [fetchRequest setSortDescriptors:@[sort]];
     NSError* error;
+    NSArray *fetchedItems = [moc executeFetchRequest:fetchRequest error:&error];
+    for (MessageMO *message in fetchedItems) {
+        NSLog(@"Deleting Message: %@", message);
+        [moc deleteObject:message];
+    }
+    [delegate saveContext];
+}
+
++(void)deleteMessageFrom:(NSString *)senderID body:(NSString *)body time:(NSString *)time {
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *moc = [delegate managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:CORE_DATA_TABLE_MESSAGES inManagedObjectContext:moc];
+    [fetchRequest setEntity:entity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%@ = \"%@\" && %@ = \"%@\" && %@ = \"%@\"", MESSAGE_PROPERTY_SENDER_ID, senderID, MESSAGE_PROPERTY_BODY, body, MESSAGE_PROPERTY_TIMESTAMP, time]];
+    [fetchRequest setPredicate:predicate];
+    [fetchRequest setFetchLimit:1];
+    
+    NSError *error;
     NSArray *fetchedItems = [moc executeFetchRequest:fetchRequest error:&error];
     for (MessageMO *message in fetchedItems) {
         NSLog(@"Deleting Message: %@", message);
