@@ -2042,18 +2042,18 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="BCc-dv-kG7"/>
-        <segue reference="tVn-SP-Hc9"/>
-        <segue reference="hVX-XL-lBE"/>
-        <segue reference="pHb-Kf-4qo"/>
-        <segue reference="z6h-qs-HbB"/>
-        <segue reference="Ve6-mS-bkp"/>
-        <segue reference="OKb-WW-kzU"/>
         <segue reference="WHz-1g-xNx"/>
         <segue reference="XeD-6M-yxq"/>
+        <segue reference="OKb-WW-kzU"/>
+        <segue reference="tVn-SP-Hc9"/>
+        <segue reference="pHb-Kf-4qo"/>
+        <segue reference="BCc-dv-kG7"/>
+        <segue reference="hVX-XL-lBE"/>
+        <segue reference="z6h-qs-HbB"/>
+        <segue reference="NHB-2h-sKi"/>
+        <segue reference="m95-nf-RcH"/>
+        <segue reference="Ve6-mS-bkp"/>
         <segue reference="AGt-Q0-zDh"/>
         <segue reference="YEX-bB-bO6"/>
-        <segue reference="m95-nf-RcH"/>
-        <segue reference="NHB-2h-sKi"/>
     </inferredMetricsTieBreakers>
 </document>

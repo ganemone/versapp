@@ -471,6 +471,7 @@
     } else if (alertView == _reportAlertView) {
         if (![[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]) {
             [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createReportThoughtPacket:_reportConfession type:[[[alertView buttonTitleAtIndex:buttonIndex] lowercaseString] stringByReplacingOccurrencesOfString:@" " withString:@"_"]]];
+            
         }
         [alertView close];
     } else {

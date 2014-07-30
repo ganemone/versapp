@@ -863,6 +863,7 @@ static BOOL notificationsHalfHidden = NO;
             } else {
                 [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createReportOneToOneChatPacket:_editingChat.chat_id type:[[[alertView buttonTitleAtIndex:buttonIndex] lowercaseString] stringByReplacingOccurrencesOfString:@" " withString:@"_"]]];
             }
+            [self handleLeaveChat];
         }
     }
     
