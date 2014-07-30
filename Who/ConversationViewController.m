@@ -427,6 +427,8 @@
             //[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:_blockIndexPath] withRowAnimation:UITableViewRowAnimationNone];
             [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createReportMessageInGroupPacket:_chatMO.chat_id type:[[[alertView buttonTitleAtIndex:buttonIndex] lowercaseString] stringByReplacingOccurrencesOfString:@" " withString:@"_"] message:_messageToBlock]];
             [MessagesDBManager deleteMessageFrom:_messageToBlock.sender_id body:_messageToBlock.message_body time:_messageToBlock.time];
+            [ChatDBManager setHasNewMessageNo:_chatMO.chat_id];
+            [self.tableView reloadData];
             _blockIndexPath = nil;
             _messageToBlock = nil;
         }
