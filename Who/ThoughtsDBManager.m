@@ -12,7 +12,7 @@
 
 @implementation ThoughtsDBManager
 
-+(ThoughtMO *)insertThoughtWithID:(NSString *)confessionID posterJID:(NSString *)posterJID body:(NSString *)body timestamp:(NSString *)timestamp degree:(NSString *)degree favorites:(NSNumber *)favorites imageURL:(NSString *)imageURL {
++(ThoughtMO *)insertThoughtWithID:(NSString *)confessionID posterJID:(NSString *)posterJID body:(NSString *)body timestamp:(NSString *)timestamp degree:(NSString *)degree favorites:(NSNumber *)favorites hasFavorited:(BOOL)hasFavorited imageURL:(NSString *)imageURL {
     NSLog(@"Inserting Thought With Degree: %@", degree);
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate managedObjectContext];
@@ -23,7 +23,11 @@
     [thought setValue:timestamp forKey:THOUGHTS_TABLE_COLUMN_NAME_TIMESTAMP];
     [thought setValue:degree forKey:THOUGHTS_TABLE_COLUMN_NAME_DEGREE];
     [thought setValue:favorites forKey:THOUGHTS_TABLE_COLUMN_NAME_FAVORITES];
-    //[thought setValue:hasFavorited forKey:THOUGHTS_TABLE_COLUMN_NAME_HAS_FAVORITED];
+    if (hasFavorited) {
+        [thought setValue:@"YES" forKey:THOUGHTS_TABLE_COLUMN_NAME_HAS_FAVORITED];
+    } else {
+        [thought setValue:@"NO" forKey:THOUGHTS_TABLE_COLUMN_NAME_HAS_FAVORITED];
+    }
     //[thought setValue:inConversation forKey:THOUGHTS_TABLE_COLUMN_NAME_IN_CONVERSATION];
     [thought setValue:imageURL forKey:THOUGHTS_TABLE_COLUMN_NAME_IMAGE_URL];
     [delegate saveContext];

@@ -12,7 +12,7 @@
 
 @interface ThoughtsDBManager : NSObject
 
-+(ThoughtMO *)insertThoughtWithID:(NSString *)confessionID posterJID:(NSString *)posterJID body:(NSString *)body timestamp:(NSString *)timestamp degree:(NSString *)degree favorites:(NSNumber *)favorites imageURL:(NSString *)imageURL;
++(ThoughtMO *)insertThoughtWithID:(NSString *)confessionID posterJID:(NSString *)posterJID body:(NSString *)body timestamp:(NSString *)timestamp degree:(NSString *)degree favorites:(NSNumber *)favorites hasFavorited:(BOOL)hasFavorited imageURL:(NSString *)imageURL;
 
 +(ThoughtMO *)getThoughtWithID:(NSString *)confessionID;
 +(ThoughtMO *)getThoughtWithBody:(NSString *)body;
