@@ -543,6 +543,8 @@
 		F744856418DB61C500460FBC /* SWUtilityButtonTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = F744854A18DB61C500460FBC /* SWUtilityButtonTapGestureRecognizer.m */; };
 		F744856518DB61C500460FBC /* SWUtilityButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = F744854C18DB61C500460FBC /* SWUtilityButtonView.m */; };
 		F7460CD618E100F000BD8F60 /* EnterConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7460CD518E100F000BD8F60 /* EnterConfirmationViewController.m */; };
+		F749F3C9198BE6D600F2AADC /* sad-owl-large.png in Resources */ = {isa = PBXBuildFile; fileRef = F749F3C7198BE6D600F2AADC /* sad-owl-large.png */; };
+		F749F3CA198BE6D600F2AADC /* sad-owl-small.png in Resources */ = {isa = PBXBuildFile; fileRef = F749F3C8198BE6D600F2AADC /* sad-owl-small.png */; };
 		F751015D18ABE101001F1E7F /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751013F18ABE100001F1E7F /* IASKAppSettingsViewController.m */; };
 		F751015E18ABE101001F1E7F /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751014118ABE100001F1E7F /* IASKAppSettingsWebViewController.m */; };
 		F751015F18ABE101001F1E7F /* IASKSpecifierValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751014318ABE100001F1E7F /* IASKSpecifierValuesViewController.m */; };
@@ -1612,6 +1614,8 @@
 		F744854C18DB61C500460FBC /* SWUtilityButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUtilityButtonView.m; sourceTree = "<group>"; };
 		F7460CD418E100F000BD8F60 /* EnterConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnterConfirmationViewController.h; sourceTree = "<group>"; };
 		F7460CD518E100F000BD8F60 /* EnterConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnterConfirmationViewController.m; sourceTree = "<group>"; };
+		F749F3C7198BE6D600F2AADC /* sad-owl-large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sad-owl-large.png"; path = "../../../Google Drive/!Who /Resources 7:31:14/sad-owl-large.png"; sourceTree = "<group>"; };
+		F749F3C8198BE6D600F2AADC /* sad-owl-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sad-owl-small.png"; path = "../../../Google Drive/!Who /Resources 7:31:14/sad-owl-small.png"; sourceTree = "<group>"; };
 		F751013E18ABE100001F1E7F /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsViewController.h; sourceTree = "<group>"; };
 		F751013F18ABE100001F1E7F /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsViewController.m; sourceTree = "<group>"; };
 		F751014018ABE100001F1E7F /* IASKAppSettingsWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsWebViewController.h; sourceTree = "<group>"; };
@@ -2553,6 +2557,8 @@
 				3A91F1F418EB4BF50006B9F8 /* messages-background-small.png */,
 				3A91F1EF18EB4BE50006B9F8 /* loadingScreenLarge.png */,
 				3A91F1F018EB4BE50006B9F8 /* loadingScreenSmall.png */,
+				F749F3C7198BE6D600F2AADC /* sad-owl-large.png */,
+				F749F3C8198BE6D600F2AADC /* sad-owl-small.png */,
 				3A91F1EB18EB4BD10006B9F8 /* friends-background-large.png */,
 				3A91F1EC18EB4BD10006B9F8 /* friends-background-small.png */,
 				3AD19AB518E26298001B3B88 /* AppIcon58.png */,
@@ -4064,6 +4070,7 @@
 				F7E7BB801947C204002FE587 /* facebook@2x.png in Resources */,
 				3ABD66DA18FB325900E72B09 /* Owl-Loading-Animation_0015.png in Resources */,
 				3AF925A4191BDBA800795FC6 /* thoughts-white.png in Resources */,
+				F749F3CA198BE6D600F2AADC /* sad-owl-small.png in Resources */,
 				F7F54A9F19510CAF007CEADF /* second-degree-orange.png in Resources */,
 				F7F54ABB19510E9D007CEADF /* global-orange@2x.png in Resources */,
 				F7F54AAE19510D42007CEADF /* group-white.png in Resources */,
@@ -4141,6 +4148,7 @@
 				F7F54A8619510AFD007CEADF /* camera-white.png in Resources */,
 				F7F54A9819510B80007CEADF /* second-degree-blue@2x.png in Resources */,
 				F7F54A9919510B80007CEADF /* second-degree-orange@2x.png in Resources */,
+				F749F3C9198BE6D600F2AADC /* sad-owl-large.png in Resources */,
 				3A3A0B0D18AB1126006FBAE4 /* send-button@2x.png in Resources */,
 				3AB8D18918C23DF00082B77C /* MavenProLight-200.ttf in Resources */,
 				3AAD02E918FE106400EE7879 /* bubble-square.png in Resources */,

@@ -262,9 +262,9 @@
     CGRect screen = [[UIScreen mainScreen] bounds];
     UIImage *image = [[UIImage alloc] init];
     if (screen.size.height < 500) {
-        image = [UIImage imageNamed:@"loadingScreenSmall.png"];
+        image = [UIImage imageNamed:@"sad-owl-small.png"];
     } else {
-        image = [UIImage imageNamed:@"loadingScreenLarge.png"];
+        image = [UIImage imageNamed:@"sad-owl-large.png"];
     }
     [imageView setImage:image];
     [backgroundView addSubview:imageView];
@@ -303,9 +303,9 @@
     CGRect screen = [[UIScreen mainScreen] bounds];
     UIImage *image = [[UIImage alloc] init];
     if (screen.size.height < 500) {
-        image = [UIImage imageNamed:@"loadingScreenSmall.png"];
+        image = [UIImage imageNamed:@"sad-owl-small.png"];
     } else {
-        image = [UIImage imageNamed:@"loadingScreenLarge.png"];
+        image = [UIImage imageNamed:@"sad-owl-large.png"];
     }
     [imageView setImage:image];
     [backgroundView addSubview:imageView];
