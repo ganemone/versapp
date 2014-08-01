@@ -296,6 +296,7 @@ static UIColor *colorBlue;
     thoughtView.chatBtn.hidden = YES;
     thoughtView.degreeBtn.hidden = YES;
     thoughtView.favLabel.hidden = YES;
+    thoughtView.favBtn.hidden = YES;
     
     [alertView setHasInput:NO];
     [alertView setButtonsOnly:NO];
