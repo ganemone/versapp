@@ -295,6 +295,7 @@ static UIColor *colorBlue;
     [thoughtView setUpWithConfession:confession];
     thoughtView.chatBtn.hidden = YES;
     thoughtView.degreeBtn.hidden = YES;
+    thoughtView.favLabel.hidden = YES;
     
     [alertView setHasInput:NO];
     [alertView setButtonsOnly:NO];

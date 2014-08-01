@@ -188,10 +188,13 @@
         if ([newMessage.sender_id isEqualToString:[ConnectionProvider getUser]]) {
             [self.chatMO updateMessage:newMessage];
         } else {
+            NSLog(@"Table Before: %d", [self.tableView numberOfRowsInSection:0]);
             [self.tableView reloadData];
             [self scrollToBottomAnimated:YES];
-            /*if([self.chatMO getNumberOfMessages] > 1) {
-             [self animateAddNewestMessage];
+            NSLog(@"Table After: %d", [self.tableView numberOfRowsInSection:0]);
+            /*NSLog(@"Previous In Table: %d", [self.tableView numberOfRowsInSection:0]);
+            if([self.chatMO getNumberOfMessages] > 1) {
+             [self animateAddNewestMessageAtRow:10];
              } else {
              [self.tableView reloadData];
              }*/
@@ -199,11 +202,26 @@
     }
 }
 
--(void)animateAddNewestMessage {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.chatMO getNumberOfMessages] - 1 inSection:0];
+-(void)animateAddNewestMessageAtRow:(int)row {
+    NSLog(@"Messages in Chat: %d", [_chatMO getNumberOfMessages]);
+    
+    for (MessageMO *message in _chatMO.messages) {
+        NSLog(@"=============== %@", message.message_body);
+    }
+    //NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.tableView numberOfRowsInSection:0] - 1 inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row-1 inSection:0];
     NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
-    NSLog(@"Index Path: %@", indexPath);
+    NSLog(@"Index Path Row: %d", indexPath.row);
+    
+    /*NSMutableArray *deleteArr = [[NSMutableArray alloc] init];
+    for (int i=0; i<([self.tableView numberOfRowsInSection:0] - 10); i++) {
+        NSIndexPath *deletePath = [NSIndexPath indexPathForRow:i inSection:0];
+        [deleteArr addObject:deletePath];
+        NSLog(@"To delete: %d", i);
+    }*/
+    
     [self.tableView beginUpdates];
+    //[self.tableView deleteRowsAtIndexPaths:deleteArr withRowAnimation:UITableViewRowAnimationNone];
     [self.tableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationLeft];
     [self.tableView endUpdates];
     [self scrollToBottomAnimated:YES];
@@ -326,7 +344,7 @@
     NSLog(@"Previous In Table: %d", [self.tableView numberOfRowsInSection:0]);
     [self resetCameraButtonImage];
     [self.chatMO sendMUCMessageWithBody:text imageLink:self.messageImageLink];
-    [self animateAddNewestMessage];
+    [self animateAddNewestMessageAtRow:[self.tableView numberOfRowsInSection:0]];
     [self finishSend];
 }
 
