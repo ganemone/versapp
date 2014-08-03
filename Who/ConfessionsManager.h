@@ -13,7 +13,13 @@
 
 @property (strong, nonatomic) NSMutableDictionary *confessions;
 @property (strong, nonatomic) NSMutableArray *confessionIDValues;
+
+@property (strong, nonatomic) NSMutableDictionary *globalConfessions;
+@property (strong, nonatomic) NSMutableArray *globalConfessionIDValues;
+
 @property (strong, nonatomic) Confession *pendingConfession;
+@property (strong, nonatomic) NSString *method;
+
 @property BOOL shouldClearConfessions;
 
 +(instancetype)getInstance;
