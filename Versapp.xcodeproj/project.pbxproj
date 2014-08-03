@@ -528,6 +528,7 @@
 		B355A50419823C4F00F1AAE5 /* NSString+URLEncode.m in Sources */ = {isa = PBXBuildFile; fileRef = B355A50319823C4F00F1AAE5 /* NSString+URLEncode.m */; };
 		B35D3E5D198EF14A00608766 /* sad-owl-large.png in Resources */ = {isa = PBXBuildFile; fileRef = B35D3E5B198EF14A00608766 /* sad-owl-large.png */; };
 		B35D3E5E198EF14A00608766 /* sad-owl-small.png in Resources */ = {isa = PBXBuildFile; fileRef = B35D3E5C198EF14A00608766 /* sad-owl-small.png */; };
+		B35D3E61198EF35E00608766 /* ThoughtsCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B35D3E60198EF35E00608766 /* ThoughtsCache.m */; };
 		B38B3FF01957649300043B95 /* check-icon-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B38B3FEE1957649300043B95 /* check-icon-white@2x.png */; };
 		B38B3FF11957649300043B95 /* check-icon-white.png in Resources */ = {isa = PBXBuildFile; fileRef = B38B3FEF1957649300043B95 /* check-icon-white.png */; };
 		B39530EA197C9A610098A932 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B39530E8197C9A610098A932 /* WebViewController.m */; };
@@ -1589,6 +1590,8 @@
 		B355A50319823C4F00F1AAE5 /* NSString+URLEncode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEncode.m"; sourceTree = "<group>"; };
 		B35D3E5B198EF14A00608766 /* sad-owl-large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sad-owl-large.png"; sourceTree = "<group>"; };
 		B35D3E5C198EF14A00608766 /* sad-owl-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sad-owl-small.png"; sourceTree = "<group>"; };
+		B35D3E5F198EF35E00608766 /* ThoughtsCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThoughtsCache.h; sourceTree = "<group>"; };
+		B35D3E60198EF35E00608766 /* ThoughtsCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThoughtsCache.m; sourceTree = "<group>"; };
 		B38B3FEE1957649300043B95 /* check-icon-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon-white@2x.png"; sourceTree = "<group>"; };
 		B38B3FEF1957649300043B95 /* check-icon-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-icon-white.png"; sourceTree = "<group>"; };
 		B39530E7197C9A610098A932 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
@@ -1833,8 +1836,6 @@
 		3A1EACE318D9E7A8006E4CA3 /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
-				3A1EACE018D9E7A0006E4CA3 /* ContactTableViewCell.h */,
-				3A1EACE118D9E7A0006E4CA3 /* ContactTableViewCell.m */,
 				3A25B6771881E85B00166623 /* ContactsViewController.h */,
 				3A25B6781881E85B00166623 /* ContactsViewController.m */,
 				3A5DC77C18E5D8D60090660B /* ContactSearchViewController.h */,
@@ -1888,45 +1889,21 @@
 		3A25B63C1881E03700166623 /* Who */ = {
 			isa = PBXGroup;
 			children = (
-				B355A50219823C4F00F1AAE5 /* NSString+URLEncode.h */,
-				B355A50319823C4F00F1AAE5 /* NSString+URLEncode.m */,
-				B39530E7197C9A610098A932 /* WebViewController.h */,
-				B39530E8197C9A610098A932 /* WebViewController.m */,
-				B39530E9197C9A610098A932 /* WebViewController.xib */,
-				3A4E7845192F8B79008F024C /* NSMutableArray+QueueAdditions.h */,
-				3A4E7846192F8B79008F024C /* NSMutableArray+QueueAdditions.m */,
-				3AA4952D191A6DC7003C9453 /* BlacklistManager.h */,
-				3AA4952E191A6DC7003C9453 /* BlacklistManager.m */,
-				3AE1E35D18E9A9AA00E2347F /* Validator.h */,
-				3AE1E35E18E9A9AA00E2347F /* Validator.m */,
-				3A7D577118D14E47004F90B8 /* ContactSearchManager.h */,
-				3A7D577218D14E47004F90B8 /* ContactSearchManager.m */,
-				3AB8D19318C2A42B0082B77C /* New User */,
-				F751016B18ABE8A2001F1E7F /* Settings.bundle */,
-				F751013C18ABE100001F1E7F /* InAppSettingsKit */,
-				F78485AD1958565E00E0288C /* CustomIOS7AlertView */,
+				B35D3E62198EF36700608766 /* Categories */,
+				B35D3E75198EF64400608766 /* Constants */,
 				3A47C841189F1A30003020D7 /* DB */,
 				3AF19ACE1881F86000F3E4D3 /* Dependencies */,
-				3A939630189B3543004B01CE /* Main */,
-				3A2A357F18AFC7AD006402E5 /* Image Handling */,
-				3A25B6451881E03700166623 /* AppDelegate.h */,
-				3A25B6461881E03700166623 /* AppDelegate.m */,
+				B35D3E74198EF5FA00608766 /* Delegates */,
+				B35D3E72198EF5AC00608766 /* Managers */,
+				B35D3E73198EF5B800608766 /* Objects */,
+				B35D3E65198EF3D600608766 /* Table View Cells */,
+				B35D3E63198EF37400608766 /* View Controllers */,
+				F751016B18ABE8A2001F1E7F /* Settings.bundle */,
 				3A25B6481881E03700166623 /* Main.storyboard */,
-				3A8BCF7618B5961F00D4B7CE /* Confessions */,
 				3A81F49B188DB2190006DD5D /* Connection */,
 				3A25B6511881E03700166623 /* Images.xcassets */,
 				3A25B63D1881E03700166623 /* Supporting Files */,
-				3AF5113B1885D79E002383D3 /* Constants.h */,
-				3AF5113C1885D79E002383D3 /* Constants.m */,
 				3A0FE1CC18A9B6DA003692EB /* Resources */,
-				3A67DB4A18E4AA4100DA6691 /* PhoneVerificationManager.h */,
-				3A67DB4B18E4AA4100DA6691 /* PhoneVerificationManager.m */,
-				3A67DB5018E4D64700DA6691 /* ConnectionLostViewController.h */,
-				3A67DB5118E4D64700DA6691 /* ConnectionLostViewController.m */,
-				3A67DB4D18E4D08200DA6691 /* ConnectionHandlingViewController.h */,
-				3A67DB4E18E4D08200DA6691 /* ConnectionHandlingViewController.m */,
-				3AE46EDA191697540058DCBA /* UIColor+Hex.h */,
-				3AE46EDB191697540058DCBA /* UIColor+Hex.m */,
 			);
 			path = Who;
 			sourceTree = "<group>";
@@ -1959,17 +1936,6 @@
 				3A25B6611881E03700166623 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		3A2A357F18AFC7AD006402E5 /* Image Handling */ = {
-			isa = PBXGroup;
-			children = (
-				3A2A357C18AFC79F006402E5 /* ImageCache.h */,
-				3A2A357D18AFC79F006402E5 /* ImageCache.m */,
-				3ABA80D818AE5F87002012C7 /* ImageManager.h */,
-				3ABA80D918AE5F87002012C7 /* ImageManager.m */,
-			);
-			name = "Image Handling";
 			sourceTree = "<group>";
 		};
 		3A3A0A8018AB1126006FBAE4 /* JSMessagesViewController */ = {
@@ -2340,24 +2306,6 @@
 			name = Connection;
 			sourceTree = "<group>";
 		};
-		3A8BCF7618B5961F00D4B7CE /* Confessions */ = {
-			isa = PBXGroup;
-			children = (
-				3A49E9EB18FF155500AFCB8E /* ThoughtTableViewCell.xib */,
-				3A49E9E818FF146C00AFCB8E /* ThoughtTableViewCell.h */,
-				3A49E9E918FF146C00AFCB8E /* ThoughtTableViewCell.m */,
-				3A00168018B82BB200C54059 /* ComposeConfessionViewController.h */,
-				3A00168118B82BB200C54059 /* ComposeConfessionViewController.m */,
-				3A8BCF7318B5960300D4B7CE /* ConfessionsViewController.h */,
-				3A8BCF7418B5960300D4B7CE /* ConfessionsViewController.m */,
-				3A8BCF7718B5964400D4B7CE /* ConfessionsManager.h */,
-				3A8BCF7818B5964400D4B7CE /* ConfessionsManager.m */,
-				3A8BCF7D18B59C5400D4B7CE /* Confession.h */,
-				3A8BCF7E18B59C5400D4B7CE /* Confession.m */,
-			);
-			name = Confessions;
-			sourceTree = "<group>";
-		};
 		3A91F1DD18EAFEF60006B9F8 /* MBProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
@@ -2402,84 +2350,6 @@
 			name = 960;
 			sourceTree = "<group>";
 		};
-		3A939630189B3543004B01CE /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				3AD8F47F18DC9DD8002C399C /* UserRegistrationViewController.h */,
-				3AD8F48018DC9DD8002C399C /* UserRegistrationViewController.m */,
-				F7460CD418E100F000BD8F60 /* EnterConfirmationViewController.h */,
-				F7460CD518E100F000BD8F60 /* EnterConfirmationViewController.m */,
-				3AB9E67C18A45573001EFDB8 /* LoadingDialogManager.h */,
-				3AB9E67D18A45573001EFDB8 /* LoadingDialogManager.m */,
-				3AC6D0D018C22A9500091539 /* StyleManager.h */,
-				3AC6D0D118C22A9500091539 /* StyleManager.m */,
-				3A25B6711881E83500166623 /* DashboardViewController.h */,
-				3A25B6721881E83500166623 /* DashboardViewController.m */,
-				3AAE9B181894A049003B4560 /* ConversationViewController.h */,
-				3AAE9B191894A049003B4560 /* ConversationViewController.m */,
-				3A7D69F11896F12100E18B45 /* OneToOneConversationViewController.h */,
-				3A7D69F21896F12100E18B45 /* OneToOneConversationViewController.m */,
-				3AEE80BF18D8FD620098F2D1 /* Friends */,
-				3A1EACE318D9E7A8006E4CA3 /* Contacts */,
-				3A59D5E918B2D4C800CE7B7B /* MainSwipeViewController.h */,
-				3A59D5EA18B2D4C800CE7B7B /* MainSwipeViewController.m */,
-				3AD8F47A18DC974B002C399C /* AppInitViewController.h */,
-				3AD8F47B18DC974B002C399C /* AppInitViewController.m */,
-				3A5DC77F18E5DB040090660B /* CountryPickerDelegate.h */,
-				3A5DC78018E5DB040090660B /* CountryPickerDelegate.m */,
-				3A0EC4F019263FE00036AB43 /* DashboardTableViewCell.h */,
-				3A0EC4F119263FE00036AB43 /* DashboardTableViewCell.m */,
-				3A0EC4F219263FE00036AB43 /* DashboardTableViewCell.xib */,
-			);
-			name = Main;
-			sourceTree = "<group>";
-		};
-		3AB8D19318C2A42B0082B77C /* New User */ = {
-			isa = PBXGroup;
-			children = (
-				3A5065F3191ED99D00EED804 /* SharingViewController.h */,
-				3A5065F4191ED99D00EED804 /* SharingViewController.m */,
-				3A3E2EFB191FD3A300210536 /* ConversationTypesViewController.h */,
-				3A3E2EFC191FD3A300210536 /* ConversationTypesViewController.m */,
-				3A3E2EFD191FD3A300210536 /* ConversationTypesViewController.xib */,
-				3AF92592191BD31A00795FC6 /* SecurityTutorialViewController.h */,
-				3AF92593191BD31A00795FC6 /* SecurityTutorialViewController.m */,
-				3AF92594191BD31A00795FC6 /* SecurityTutorialViewController.xib */,
-				3AF9257D191BBB8D00795FC6 /* WelcomeViewController.xib */,
-				3AF92583191BC2D400795FC6 /* WelcomeViewController.h */,
-				3AF92584191BC2D400795FC6 /* WelcomeViewController.m */,
-				3ACF496D1900181F00D982F4 /* SocialSharingManager.h */,
-				3ACF496E1900181F00D982F4 /* SocialSharingManager.m */,
-				3A2F7D2A18EF029400D443FC /* Encrypter.h */,
-				3A2F7D2B18EF029400D443FC /* Encrypter.m */,
-				3AEFB76618E8EE510039B5B0 /* NewUserViewController.h */,
-				3AEFB76718E8EE510039B5B0 /* NewUserViewController.m */,
-				3A6C3BB91884AD61003B162B /* LoginViewController.h */,
-				3A6C3BBA1884AD61003B162B /* LoginViewController.m */,
-				3A08D1F818BFD3BB002A7C8E /* UserDefaultManager.h */,
-				3A08D1F918BFD3BB002A7C8E /* UserDefaultManager.m */,
-				3AEFB76918E8EF890039B5B0 /* NewUserRegisterNameViewController.h */,
-				3AEFB76A18E8EF890039B5B0 /* NewUserRegisterNameViewController.m */,
-				3AEFB76C18E8EF980039B5B0 /* NewUserRegisterPhoneViewController.h */,
-				3AEFB76D18E8EF980039B5B0 /* NewUserRegisterPhoneViewController.m */,
-				3A91F1DE18EB189C0006B9F8 /* NewUserConfirmationCodeViewController.h */,
-				3A91F1DF18EB189C0006B9F8 /* NewUserConfirmationCodeViewController.m */,
-				3AEFB76F18E8EFA90039B5B0 /* NewUserRegisterUsernameViewController.h */,
-				3AEFB77018E8EFA90039B5B0 /* NewUserRegisterUsernameViewController.m */,
-				3A91F1E118EB27ED0006B9F8 /* TutorialViewController.h */,
-				3A91F1E218EB27ED0006B9F8 /* TutorialViewController.m */,
-				3A91F1E418EB28430006B9F8 /* TutorialSlideViewController.h */,
-				3A91F1E518EB28430006B9F8 /* TutorialSlideViewController.m */,
-				3AF9259E191BDADB00795FC6 /* ThoughtsTutorialViewController.h */,
-				3AF9259F191BDADB00795FC6 /* ThoughtsTutorialViewController.m */,
-				3AF925A0191BDADC00795FC6 /* ThoughtsTutorialViewController.xib */,
-				3AFED467191BF83900356363 /* GetStartedTutorialViewController.h */,
-				3AFED468191BF83900356363 /* GetStartedTutorialViewController.m */,
-				3AFED469191BF83900356363 /* GetStartedTutorialViewController.xib */,
-			);
-			name = "New User";
-			sourceTree = "<group>";
-		};
 		3ABD66BA18FB187D00E72B09 /* Image Effects */ = {
 			isa = PBXGroup;
 			children = (
@@ -2506,8 +2376,6 @@
 				F73713F118E4FADF008A9ED2 /* AddToGroupViewController.m */,
 				3A25B6741881E84800166623 /* FriendsViewController.h */,
 				3A25B6751881E84800166623 /* FriendsViewController.m */,
-				3AEE80BC18D8FD5B0098F2D1 /* FriendTableViewCell.h */,
-				3AEE80BD18D8FD5B0098F2D1 /* FriendTableViewCell.m */,
 			);
 			name = Friends;
 			sourceTree = "<group>";
@@ -2515,6 +2383,8 @@
 		3AF19ACE1881F86000F3E4D3 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				F78485AD1958565E00E0288C /* CustomIOS7AlertView */,
+				F751013C18ABE100001F1E7F /* InAppSettingsKit */,
 				B355A260198231FC00F1AAE5 /* XMPPFramework */,
 				3A71F9ED19350CF900D12DEF /* CoachMarks */,
 				3A0EC4DC192435FC0036AB43 /* RSA */,
@@ -3769,6 +3639,253 @@
 			path = "XEP-0335";
 			sourceTree = "<group>";
 		};
+		B35D3E62198EF36700608766 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				3AE46EDA191697540058DCBA /* UIColor+Hex.h */,
+				3AE46EDB191697540058DCBA /* UIColor+Hex.m */,
+				3A4E7845192F8B79008F024C /* NSMutableArray+QueueAdditions.h */,
+				3A4E7846192F8B79008F024C /* NSMutableArray+QueueAdditions.m */,
+				B355A50219823C4F00F1AAE5 /* NSString+URLEncode.h */,
+				B355A50319823C4F00F1AAE5 /* NSString+URLEncode.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		B35D3E63198EF37400608766 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B35D3E6A198EF49D00608766 /* Tutorial */,
+				B35D3E67198EF41E00608766 /* Chat */,
+				B35D3E66198EF40E00608766 /* Connection */,
+				3A1EACE318D9E7A8006E4CA3 /* Contacts */,
+				3AEE80BF18D8FD620098F2D1 /* Friends */,
+				B35D3E64198EF3BB00608766 /* Registration */,
+				B35D3E68198EF42D00608766 /* WebView */,
+				B35D3E69198EF44200608766 /* Main */,
+				3AD8F47A18DC974B002C399C /* AppInitViewController.h */,
+				3AD8F47B18DC974B002C399C /* AppInitViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		B35D3E64198EF3BB00608766 /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				3AEFB76618E8EE510039B5B0 /* NewUserViewController.h */,
+				3AEFB76718E8EE510039B5B0 /* NewUserViewController.m */,
+				3A6C3BB91884AD61003B162B /* LoginViewController.h */,
+				3A6C3BBA1884AD61003B162B /* LoginViewController.m */,
+				3AEFB76918E8EF890039B5B0 /* NewUserRegisterNameViewController.h */,
+				3AEFB76A18E8EF890039B5B0 /* NewUserRegisterNameViewController.m */,
+				3AEFB76C18E8EF980039B5B0 /* NewUserRegisterPhoneViewController.h */,
+				3AEFB76D18E8EF980039B5B0 /* NewUserRegisterPhoneViewController.m */,
+				3A91F1DE18EB189C0006B9F8 /* NewUserConfirmationCodeViewController.h */,
+				3A91F1DF18EB189C0006B9F8 /* NewUserConfirmationCodeViewController.m */,
+				3AEFB76F18E8EFA90039B5B0 /* NewUserRegisterUsernameViewController.h */,
+				3AEFB77018E8EFA90039B5B0 /* NewUserRegisterUsernameViewController.m */,
+				3AD8F47F18DC9DD8002C399C /* UserRegistrationViewController.h */,
+				3AD8F48018DC9DD8002C399C /* UserRegistrationViewController.m */,
+				F7460CD418E100F000BD8F60 /* EnterConfirmationViewController.h */,
+				F7460CD518E100F000BD8F60 /* EnterConfirmationViewController.m */,
+			);
+			name = Registration;
+			sourceTree = "<group>";
+		};
+		B35D3E65198EF3D600608766 /* Table View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				3A49E9EB18FF155500AFCB8E /* ThoughtTableViewCell.xib */,
+				3A49E9E818FF146C00AFCB8E /* ThoughtTableViewCell.h */,
+				3A49E9E918FF146C00AFCB8E /* ThoughtTableViewCell.m */,
+				3A0EC4F019263FE00036AB43 /* DashboardTableViewCell.h */,
+				3A0EC4F119263FE00036AB43 /* DashboardTableViewCell.m */,
+				3A0EC4F219263FE00036AB43 /* DashboardTableViewCell.xib */,
+				3A1EACE018D9E7A0006E4CA3 /* ContactTableViewCell.h */,
+				3A1EACE118D9E7A0006E4CA3 /* ContactTableViewCell.m */,
+				3AEE80BC18D8FD5B0098F2D1 /* FriendTableViewCell.h */,
+				3AEE80BD18D8FD5B0098F2D1 /* FriendTableViewCell.m */,
+			);
+			name = "Table View Cells";
+			sourceTree = "<group>";
+		};
+		B35D3E66198EF40E00608766 /* Connection */ = {
+			isa = PBXGroup;
+			children = (
+				3A67DB5018E4D64700DA6691 /* ConnectionLostViewController.h */,
+				3A67DB5118E4D64700DA6691 /* ConnectionLostViewController.m */,
+				3A67DB4D18E4D08200DA6691 /* ConnectionHandlingViewController.h */,
+				3A67DB4E18E4D08200DA6691 /* ConnectionHandlingViewController.m */,
+			);
+			name = Connection;
+			sourceTree = "<group>";
+		};
+		B35D3E67198EF41E00608766 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				3AAE9B181894A049003B4560 /* ConversationViewController.h */,
+				3AAE9B191894A049003B4560 /* ConversationViewController.m */,
+				3A7D69F11896F12100E18B45 /* OneToOneConversationViewController.h */,
+				3A7D69F21896F12100E18B45 /* OneToOneConversationViewController.m */,
+			);
+			name = Chat;
+			sourceTree = "<group>";
+		};
+		B35D3E68198EF42D00608766 /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				B39530E7197C9A610098A932 /* WebViewController.h */,
+				B39530E8197C9A610098A932 /* WebViewController.m */,
+				B39530E9197C9A610098A932 /* WebViewController.xib */,
+			);
+			name = WebView;
+			sourceTree = "<group>";
+		};
+		B35D3E69198EF44200608766 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				3A00168018B82BB200C54059 /* ComposeConfessionViewController.h */,
+				3A00168118B82BB200C54059 /* ComposeConfessionViewController.m */,
+				3A8BCF7318B5960300D4B7CE /* ConfessionsViewController.h */,
+				3A8BCF7418B5960300D4B7CE /* ConfessionsViewController.m */,
+				3A5065F3191ED99D00EED804 /* SharingViewController.h */,
+				3A5065F4191ED99D00EED804 /* SharingViewController.m */,
+				3A25B6711881E83500166623 /* DashboardViewController.h */,
+				3A25B6721881E83500166623 /* DashboardViewController.m */,
+				3A59D5E918B2D4C800CE7B7B /* MainSwipeViewController.h */,
+				3A59D5EA18B2D4C800CE7B7B /* MainSwipeViewController.m */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		B35D3E6A198EF49D00608766 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				3A91F1E118EB27ED0006B9F8 /* TutorialViewController.h */,
+				3A91F1E218EB27ED0006B9F8 /* TutorialViewController.m */,
+				3A91F1E418EB28430006B9F8 /* TutorialSlideViewController.h */,
+				3A91F1E518EB28430006B9F8 /* TutorialSlideViewController.m */,
+				B35D3E6B198EF4C900608766 /* Welcome */,
+				B35D3E6C198EF4D000608766 /* Conversation */,
+				B35D3E6D198EF4DE00608766 /* Security */,
+				B35D3E6E198EF4E500608766 /* Thoughts */,
+				B35D3E6F198EF4EC00608766 /* Get Started */,
+			);
+			name = Tutorial;
+			sourceTree = "<group>";
+		};
+		B35D3E6B198EF4C900608766 /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				3AF92583191BC2D400795FC6 /* WelcomeViewController.h */,
+				3AF92584191BC2D400795FC6 /* WelcomeViewController.m */,
+				3AF9257D191BBB8D00795FC6 /* WelcomeViewController.xib */,
+			);
+			name = Welcome;
+			sourceTree = "<group>";
+		};
+		B35D3E6C198EF4D000608766 /* Conversation */ = {
+			isa = PBXGroup;
+			children = (
+				3A3E2EFB191FD3A300210536 /* ConversationTypesViewController.h */,
+				3A3E2EFC191FD3A300210536 /* ConversationTypesViewController.m */,
+				3A3E2EFD191FD3A300210536 /* ConversationTypesViewController.xib */,
+			);
+			name = Conversation;
+			sourceTree = "<group>";
+		};
+		B35D3E6D198EF4DE00608766 /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				3AF92592191BD31A00795FC6 /* SecurityTutorialViewController.h */,
+				3AF92593191BD31A00795FC6 /* SecurityTutorialViewController.m */,
+				3AF92594191BD31A00795FC6 /* SecurityTutorialViewController.xib */,
+			);
+			name = Security;
+			sourceTree = "<group>";
+		};
+		B35D3E6E198EF4E500608766 /* Thoughts */ = {
+			isa = PBXGroup;
+			children = (
+				3AF9259E191BDADB00795FC6 /* ThoughtsTutorialViewController.h */,
+				3AF9259F191BDADB00795FC6 /* ThoughtsTutorialViewController.m */,
+				3AF925A0191BDADC00795FC6 /* ThoughtsTutorialViewController.xib */,
+			);
+			name = Thoughts;
+			sourceTree = "<group>";
+		};
+		B35D3E6F198EF4EC00608766 /* Get Started */ = {
+			isa = PBXGroup;
+			children = (
+				3AFED467191BF83900356363 /* GetStartedTutorialViewController.h */,
+				3AFED468191BF83900356363 /* GetStartedTutorialViewController.m */,
+				3AFED469191BF83900356363 /* GetStartedTutorialViewController.xib */,
+			);
+			name = "Get Started";
+			sourceTree = "<group>";
+		};
+		B35D3E72198EF5AC00608766 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				3ABA80D818AE5F87002012C7 /* ImageManager.h */,
+				3ABA80D918AE5F87002012C7 /* ImageManager.m */,
+				3A67DB4A18E4AA4100DA6691 /* PhoneVerificationManager.h */,
+				3A67DB4B18E4AA4100DA6691 /* PhoneVerificationManager.m */,
+				3A8BCF7718B5964400D4B7CE /* ConfessionsManager.h */,
+				3A8BCF7818B5964400D4B7CE /* ConfessionsManager.m */,
+				3AC6D0D018C22A9500091539 /* StyleManager.h */,
+				3AC6D0D118C22A9500091539 /* StyleManager.m */,
+				3AB9E67C18A45573001EFDB8 /* LoadingDialogManager.h */,
+				3AB9E67D18A45573001EFDB8 /* LoadingDialogManager.m */,
+				3A7D577118D14E47004F90B8 /* ContactSearchManager.h */,
+				3A7D577218D14E47004F90B8 /* ContactSearchManager.m */,
+				3AA4952D191A6DC7003C9453 /* BlacklistManager.h */,
+				3AA4952E191A6DC7003C9453 /* BlacklistManager.m */,
+				3A08D1F818BFD3BB002A7C8E /* UserDefaultManager.h */,
+				3A08D1F918BFD3BB002A7C8E /* UserDefaultManager.m */,
+				3ACF496D1900181F00D982F4 /* SocialSharingManager.h */,
+				3ACF496E1900181F00D982F4 /* SocialSharingManager.m */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+		B35D3E73198EF5B800608766 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				3A2A357C18AFC79F006402E5 /* ImageCache.h */,
+				3A2A357D18AFC79F006402E5 /* ImageCache.m */,
+				3A8BCF7D18B59C5400D4B7CE /* Confession.h */,
+				3A8BCF7E18B59C5400D4B7CE /* Confession.m */,
+				B35D3E5F198EF35E00608766 /* ThoughtsCache.h */,
+				B35D3E60198EF35E00608766 /* ThoughtsCache.m */,
+				3AE1E35D18E9A9AA00E2347F /* Validator.h */,
+				3AE1E35E18E9A9AA00E2347F /* Validator.m */,
+				3A2F7D2A18EF029400D443FC /* Encrypter.h */,
+				3A2F7D2B18EF029400D443FC /* Encrypter.m */,
+			);
+			name = Objects;
+			sourceTree = "<group>";
+		};
+		B35D3E74198EF5FA00608766 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				3A25B6451881E03700166623 /* AppDelegate.h */,
+				3A25B6461881E03700166623 /* AppDelegate.m */,
+				3A5DC77F18E5DB040090660B /* CountryPickerDelegate.h */,
+				3A5DC78018E5DB040090660B /* CountryPickerDelegate.m */,
+			);
+			name = Delegates;
+			sourceTree = "<group>";
+		};
+		B35D3E75198EF64400608766 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				3AF5113B1885D79E002383D3 /* Constants.h */,
+				3AF5113C1885D79E002383D3 /* Constants.m */,
+			);
+			name = Constants;
+			sourceTree = "<group>";
+		};
 		F744853F18DB61C500460FBC /* PodFiles */ = {
 			isa = PBXGroup;
 			children = (
@@ -4308,6 +4425,7 @@
 				3AF691971919581600ABA9C5 /* GPUImagePinchDistortionFilter.m in Sources */,
 				3AF691BF1919581600ABA9C5 /* GPUImageTiltShiftFilter.m in Sources */,
 				3AF6914F1919581600ABA9C5 /* GPUImageDarkenBlendFilter.m in Sources */,
+				B35D3E61198EF35E00608766 /* ThoughtsCache.m in Sources */,
 				3A91F1E318EB27ED0006B9F8 /* TutorialViewController.m in Sources */,
 				3A3A0ADF18AB1126006FBAE4 /* JSBubbleMessageCell.m in Sources */,
 				3AA4952F191A6DC7003C9453 /* BlacklistManager.m in Sources */,
