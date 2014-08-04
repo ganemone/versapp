@@ -23,8 +23,10 @@ static ConfessionsManager *selfInstance;
     @synchronized(self) {
         if(selfInstance == nil) {
             selfInstance = [[self alloc] init];
-            [selfInstance setConfessions:[[NSMutableDictionary alloc] initWithCapacity:100]];
-            [selfInstance setConfessionIDValues:[[NSMutableArray alloc] initWithCapacity:100]];
+            [selfInstance setConfessions:[[NSMutableDictionary alloc] initWithCapacity:50]];
+            [selfInstance setConfessionIDValues:[[NSMutableArray alloc] initWithCapacity:50]];
+            [selfInstance setGlobalConfessions:[[NSMutableDictionary alloc] initWithCapacity:50]];
+            [selfInstance setGlobalConfessionIDValues:[[NSMutableArray alloc] initWithCapacity:50]];
         }
     }
     return selfInstance;
