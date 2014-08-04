@@ -222,6 +222,10 @@ extern NSString *const ANONYMOUS_FRIEND;
 
 extern NSString *const BEGINNING_OF_TIME;
 
+extern NSString *const SETTING_DISPLAY_USERNAME;
+extern NSString *const SETTING_FORGOT_PASSWORD;
+extern NSString *const FORGOT_PASSWORD_SUBJECT;
+extern NSString *const FORGOT_PASSWORD_EMAIL;
 extern NSString *const SETTING_CHANGE_EMAIL;
 extern NSString *const SETTING_CHANGE_PASSWORD;
 extern NSString *const SETTING_LEAVE_GROUPS;
@@ -295,6 +299,7 @@ extern NSString *const THOUGHTS_URL;
 extern NSString *const SUPPORT_URL;
 extern NSString *const PRIVACY_URL;
 extern NSString *const TERMS_URL;
+extern NSString *const SUPPORT_EMAIL;
 
 extern NSString *const PARTICIPANT_STATUS;
 extern NSString *const PARTICIPANT_USERNAME;

@@ -222,6 +222,10 @@ NSString *const ANONYMOUS_FRIEND = @"Anonymous Friend";
 
 NSString *const BEGINNING_OF_TIME = @"1970-01-01T00:00:00Z";
 
+NSString *const SETTING_DISPLAY_USERNAME = @"username_display";
+NSString *const SETTING_FORGOT_PASSWORD = @"forgot_password";
+NSString *const FORGOT_PASSWORD_SUBJECT = @"Forgotten Password!";
+NSString *const FORGOT_PASSWORD_EMAIL = @"Hi Versapp -\n\nI have forgotten my password and need it reset.\n\nThanks!";
 NSString *const SETTING_CHANGE_EMAIL = @"change_email";
 NSString *const SETTING_CHANGE_PASSWORD = @"change_password";
 NSString *const SETTING_LEAVE_GROUPS = @"leave_groups";
@@ -291,6 +295,7 @@ NSString *const BLACKLIST_URL = @"https://versapp.co:5281/contacts/store";
 NSString *const VALIDATE_URL = @"https://versapp.co/validate.php";
 NSString *const VERIFY_URL = @"https://versapp.co/verify/";
 NSString *const THOUGHTS_URL = @"https://versapp.co/thoughts/index.php";
+NSString *const SUPPORT_EMAIL = @"support@versapp.co";
 
 // DEV
 /*

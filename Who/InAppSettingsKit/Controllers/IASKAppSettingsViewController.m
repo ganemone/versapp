@@ -589,6 +589,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 		cell.textLabel.text = specifier.title;
 	}
     
+    if ([[specifier key] isEqualToString:SETTING_DISPLAY_USERNAME]) {
+        cell.textLabel.text = [NSString stringWithFormat:@"Username: %@", [UserDefaultManager loadUsername]];
+    }
+    
 	cell.imageView.image = specifier.cellImage;
 	cell.imageView.highlightedImage = specifier.highlightedCellImage;
     
@@ -706,16 +710,21 @@ CGRect IASKCGRectSwap(CGRect rect);
             self.navigationController.navigationBar.titleTextAttributes;
             
             if ([specifier localizedObjectForKey:kIASKMailComposeSubject]) {
-                [mailViewController setSubject:[specifier localizedObjectForKey:kIASKMailComposeSubject]];
+                //[mailViewController setSubject:[specifier localizedObjectForKey:kIASKMailComposeSubject]];
+                [mailViewController setSubject:FORGOT_PASSWORD_SUBJECT];
             }
             if ([[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]) {
-                [mailViewController setToRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]];
+                //[mailViewController setToRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]];
+                [mailViewController setToRecipients:[NSArray arrayWithObject:SUPPORT_EMAIL]];
             }
             if ([[specifier specifierDict] objectForKey:kIASKMailComposeCcRecipents]) {
                 [mailViewController setCcRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeCcRecipents]];
             }
             if ([[specifier specifierDict] objectForKey:kIASKMailComposeBccRecipents]) {
                 [mailViewController setBccRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeBccRecipents]];
+            }
+            if ([specifier localizedObjectForKey:kIASKMailComposeToRecipents]) {
+                [mailViewController setToRecipients:[NSArray arrayWithObject:SUPPORT_EMAIL]];
             }
             if ([specifier localizedObjectForKey:kIASKMailComposeBody]) {
                 BOOL isHTML = NO;
@@ -728,7 +737,8 @@ CGRect IASKCGRectSwap(CGRect rect);
                                                                  mailComposeBodyForSpecifier:specifier] isHTML:isHTML];
                 }
                 else {
-                    [mailViewController setMessageBody:[specifier localizedObjectForKey:kIASKMailComposeBody] isHTML:isHTML];
+                    //[mailViewController setMessageBody:[specifier localizedObjectForKey:kIASKMailComposeBody] isHTML:isHTML];
+                    [mailViewController setMessageBody:[NSString stringWithFormat:@"%@\n%@", FORGOT_PASSWORD_EMAIL, [UserDefaultManager loadUsername]] isHTML:isHTML];
                 }
             }
             
