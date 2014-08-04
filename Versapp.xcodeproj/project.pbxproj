@@ -1898,12 +1898,12 @@
 				B35D3E73198EF5B800608766 /* Objects */,
 				B35D3E65198EF3D600608766 /* Table View Cells */,
 				B35D3E63198EF37400608766 /* View Controllers */,
-				F751016B18ABE8A2001F1E7F /* Settings.bundle */,
-				3A25B6481881E03700166623 /* Main.storyboard */,
 				3A81F49B188DB2190006DD5D /* Connection */,
-				3A25B6511881E03700166623 /* Images.xcassets */,
 				3A25B63D1881E03700166623 /* Supporting Files */,
 				3A0FE1CC18A9B6DA003692EB /* Resources */,
+				3A25B6481881E03700166623 /* Main.storyboard */,
+				3A25B6511881E03700166623 /* Images.xcassets */,
+				F751016B18ABE8A2001F1E7F /* Settings.bundle */,
 			);
 			path = Who;
 			sourceTree = "<group>";
