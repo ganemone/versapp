@@ -188,10 +188,8 @@
         if ([newMessage.sender_id isEqualToString:[ConnectionProvider getUser]]) {
             [self.chatMO updateMessage:newMessage];
         } else {
-            NSLog(@"Table Before: %d", [self.tableView numberOfRowsInSection:0]);
             [self.tableView reloadData];
             [self scrollToBottomAnimated:YES];
-            NSLog(@"Table After: %d", [self.tableView numberOfRowsInSection:0]);
             /*NSLog(@"Previous In Table: %d", [self.tableView numberOfRowsInSection:0]);
             if([self.chatMO getNumberOfMessages] > 1) {
              [self animateAddNewestMessageAtRow:10];
@@ -203,15 +201,9 @@
 }
 
 -(void)animateAddNewestMessageAtRow:(int)row {
-    NSLog(@"Messages in Chat: %d", [_chatMO getNumberOfMessages]);
-    
-    for (MessageMO *message in _chatMO.messages) {
-        NSLog(@"=============== %@", message.message_body);
-    }
     //NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.tableView numberOfRowsInSection:0] - 1 inSection:0];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row-1 inSection:0];
     NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
-    NSLog(@"Index Path Row: %d", indexPath.row);
     
     /*NSMutableArray *deleteArr = [[NSMutableArray alloc] init];
     for (int i=0; i<([self.tableView numberOfRowsInSection:0] - 10); i++) {
@@ -340,8 +332,6 @@
     if (self.messageImageLink == nil && (text == nil || [text isEqualToString:@""])) {
         return;
     }
-    NSLog(@"Previous Number of Messages: %d", [_chatMO getNumberOfMessages]);
-    NSLog(@"Previous In Table: %d", [self.tableView numberOfRowsInSection:0]);
     [self resetCameraButtonImage];
     [self.chatMO sendMUCMessageWithBody:text imageLink:self.messageImageLink];
     [self animateAddNewestMessageAtRow:[self.tableView numberOfRowsInSection:0]];

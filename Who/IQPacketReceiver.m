@@ -19,6 +19,7 @@
 #import "ContactSearchManager.h"
 #import "AFNetworking.h"
 #import "NSString+URLEncode.h"
+#import "ThoughtsCache.h"
 
 @implementation IQPacketReceiver
 
@@ -406,11 +407,13 @@
         [[[ContactSearchManager alloc] init] accessContacts];
         [UserDefaultManager setSentBlacklistTrue];
     }
+    ConfessionsManager *cm = [ConfessionsManager getInstance];
     if ([FriendsDBManager hasEnoughFriends]) {
-        [[ConfessionsManager getInstance] loadConfessionsWithMethod:@"friends"];
+        [cm setMethod:THOUGHTS_METHOD_FRIENDS];
     } else {
-        [[ConfessionsManager getInstance] loadConfessionsWithMethod:@"global"];
+        [cm setMethod:THOUGHTS_METHOD_GLOBAL];
     }
+    [cm loadConfessions];
 }
 
 +(void)handleToggleFavoriteConfessionPacket:(NSString *)iq {

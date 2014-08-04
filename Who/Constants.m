@@ -286,7 +286,7 @@ NSString *const KEY_FILE_PATH = @"../pkey.p12";
 NSString *const BUCKET_MESSAGES = @"msgpics";
 NSString *const BUCKET_THOUGHTS = @"msgpics";//@"thoughtpics";
 NSString *const BLACKLIST_AUTH_CODE = @"Authorization";
-
+/*
 NSString *const SERVER_IP_ADDRESS = @"versapp.co";
 NSString *const CONFERENCE_IP_ADDRESS = @"conference.versapp.co";
 NSString *const UPLOAD_URL = @"https://versapp.co/gcs/upload.php";
@@ -297,8 +297,8 @@ NSString *const VERIFY_URL = @"https://versapp.co/verify/";
 NSString *const THOUGHTS_URL = @"https://versapp.co/thoughts/index.php";
 NSString *const SUPPORT_EMAIL = @"support@versapp.co";
 
+*/
 // DEV
-/*
 NSString *const SERVER_IP_ADDRESS = @"harmon.dev.versapp.co";
 NSString *const CONFERENCE_IP_ADDRESS = @"harmon.dev.conference.versapp.co";
 NSString *const UPLOAD_URL = @"http://harmon.dev.versapp.co/gcs/upload.php";
@@ -307,12 +307,12 @@ NSString *const BLACKLIST_URL = @"http://harmon.dev.versapp.co:5281/contacts/sto
 NSString *const VALIDATE_URL = @"http://harmon.dev.versapp.co/validate.php";
 NSString *const VERIFY_URL = @"http://harmon.dev.versapp.co/verify/";
 NSString *const THOUGHTS_URL = @"http://harmon.dev.versapp.co/thoughts/index.php";
-*/
+
 
 NSString *const SUPPORT_URL = @"http://www.versapp.co/support.html";
 NSString *const PRIVACY_URL = @"http://www.versapp.co/privacy.html";
 NSString *const TERMS_URL = @"http://www.versapp.co/terms.html";
- 
+
 NSString *const PARTICIPANT_STATUS = @"participant_status";
 NSString *const PARTICIPANT_USERNAME = @"participant_username";
 NSString *const PARTICIPANT_INVITED_BY = @"participant_invited_by";

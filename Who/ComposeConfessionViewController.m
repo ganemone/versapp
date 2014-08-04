@@ -153,18 +153,15 @@
     //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [self.view setUserInteractionEnabled:NO];
     NSString *confessionText = [_composeTextView text];
-    if (confessionText.length > 0) {
-        if (_backgroundImage == nil) {
-            Confession *confession = [Confession create:confessionText imageURL:_backgroundColor];
-            [[ConfessionsManager getInstance] setPendingConfession:confession];
-            [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createPostConfessionPacket:confession]];
-        } else {
-            [[[ImageManager alloc] init] uploadImageToGCS:_imageView.image delegate:self bucket:BUCKET_THOUGHTS];
-        }
+    if ([confessionText isEqualToString:@"Share a thought..."]) {
+        confessionText = @"";
+    }
+    if (_backgroundImage == nil) {
+        Confession *confession = [Confession create:confessionText imageURL:_backgroundColor];
+        [[ConfessionsManager getInstance] setPendingConfession:confession];
+        [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createPostConfessionPacket:confession]];
     } else {
-        //[MBProgressHUD hideHUDForView:self.view animated:YES];
-        [self.view setUserInteractionEnabled:YES];
-        [[[UIAlertView alloc] initWithTitle:@"Whoops" message:@"You didn't write anything!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+        [[[ImageManager alloc] init] uploadImageToGCS:_imageView.image delegate:self bucket:BUCKET_THOUGHTS];
     }
     [self handleFinishedPostingConfession];
 }
@@ -240,7 +237,7 @@
         [self.view setBackgroundColor:[UIColor clearColor]];
         [self getFilteredImages];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-           [self showHelperWithString:@"Swipe for filters and brighness"];
+            [self showHelperWithString:@"Swipe for filters and brighness"];
         });
     }];
 }

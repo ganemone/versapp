@@ -99,7 +99,7 @@ NSString *const NSDEFAULT_KEY_VERIFICATION_CODE = @"nsdefault_key_verification_c
         NSError *error = NULL;
         [NSURLConnection sendSynchronousRequest:uploadRequest returningResponse:&response error:&error];
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"Response Status Code: %d", [response statusCode]);
+            NSLog(@"Response Status Code: %ld", (long)[response statusCode]);
             if ([response statusCode] == 200) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PHONE_AVAILABLE object:nil];
             } else {

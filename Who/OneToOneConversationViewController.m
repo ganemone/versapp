@@ -297,7 +297,7 @@
         return;
     }
     NSLog(@"Previous Number of Messages: %d", [_chatMO getNumberOfMessages]);
-    NSLog(@"Previous In Table: %d", [self.tableView numberOfRowsInSection:0]);
+    NSLog(@"Previous In Table: %ld", (long)[self.tableView numberOfRowsInSection:0]);
     [self resetCameraButtonImage];
     [self.chatMO sendOneToOneMessage:text imageLink:self.messageImageLink];
     [self animateAddNewestMessage];

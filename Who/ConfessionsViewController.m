@@ -21,6 +21,7 @@
 #import "MBProgressHUD.h"
 #import "FriendsDBManager.h"
 #import "WSCoachMarksView.h"
+#import "ThoughtsCache.h"
 
 @interface ConfessionsViewController ()
 
@@ -45,7 +46,7 @@
 @property BOOL didCreateChat;
 @property BOOL didCreateChatInDB;
 @property NSString *prevSince;
-@property NSString *currentMethod;
+@property enum thoughtMethodTypes currentMethod;
 @property (strong, nonatomic) CustomIOS7AlertView *reportAlertView;
 @property (strong, nonatomic) Confession *reportConfession;
 
@@ -65,12 +66,12 @@
     UISegmentedControl *control = (UISegmentedControl *)sender;
     if ([control selectedSegmentIndex] == 0)
     {
-        _currentMethod = @"you";
+        _currentMethod = THOUGHTS_METHOD_YOU;
         [_noFriendsView removeFromSuperview];
     }
     else if ([control selectedSegmentIndex] == 1)
     {
-        _currentMethod = @"friends";
+        _currentMethod = THOUGHTS_METHOD_FRIENDS;
         if ([FriendsDBManager hasEnoughFriends] == NO)
         {
             [self.view addSubview:_noFriendsView];
@@ -81,10 +82,17 @@
     else
     {
         [_noFriendsView removeFromSuperview];
-        _currentMethod = @"global";
+        _currentMethod = THOUGHTS_METHOD_GLOBAL;
     }
-    [MBProgressHUD showHUDAddedTo:_tableView animated:YES];
-    [_confessionsManager loadConfessionsWithMethod:_currentMethod since:@"0"];
+    
+    [_confessionsManager setMethod:_currentMethod];
+    if ([_confessionsManager hasCache]) {
+        [self.tableView reloadData];
+    }
+    else {
+        [MBProgressHUD showHUDAddedTo:_tableView animated:YES];
+        [_confessionsManager loadConfessions];
+    }
 }
 
 -(void)doTutorial {
@@ -139,7 +147,7 @@
 - (void)refreshSegmentControl {
     if (![FriendsDBManager hasEnoughFriends]) {
         _isGlobalFeed = YES;
-        _currentMethod = @"global";
+        _currentMethod = THOUGHTS_METHOD_GLOBAL;
         [_thoughtSegmentedControl setSelectedSegmentIndex:2];
         [self loadConfessions];
         [self.tableView reloadData];
@@ -147,9 +155,13 @@
         [_noFriendsView removeFromSuperview];
     } else {
         _isGlobalFeed = NO;
-        if (_currentMethod == nil)
-            _currentMethod = @"friends";
-        _currentMethod = [[_thoughtSegmentedControl titleForSegmentAtIndex:[_thoughtSegmentedControl selectedSegmentIndex]] lowercaseString];
+        if ([_thoughtSegmentedControl selectedSegmentIndex] == 0) {
+            _currentMethod = THOUGHTS_METHOD_YOU;
+        } else if ([_thoughtSegmentedControl selectedSegmentIndex] == 1) {
+            _currentMethod = THOUGHTS_METHOD_FRIENDS;
+        } else {
+            _currentMethod = THOUGHTS_METHOD_GLOBAL;
+        }
     }
 }
 
@@ -233,7 +245,8 @@
 }
 
 - (void)loadConfessions {
-    [_confessionsManager loadConfessionsWithMethod:_currentMethod];
+    [_confessionsManager setMethod:_currentMethod];
+    [_confessionsManager loadConfessions];
 }
 
 - (void)didReceiveMemoryWarning
@@ -250,7 +263,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if ([_currentMethod isEqualToString:@"friends"] && [FriendsDBManager hasEnoughFriends] == NO) {
+    if (_currentMethod == THOUGHTS_METHOD_FRIENDS && [FriendsDBManager hasEnoughFriends] == NO) {
         return 0;
     }
     return [_confessionsManager getNumberOfConfessions];
@@ -370,7 +383,8 @@
 }
 
 - (void)loadOlderThoughts {
-    [_confessionsManager loadConfessionsWithMethod:_currentMethod since:[_confessionsManager getSinceForThoughtRequest]];
+    [_confessionsManager setMethod:_currentMethod];
+    [_confessionsManager loadConfessionsSince:[_confessionsManager getSinceForThoughtRequest]];
 }
 
 - (void)refreshListView
@@ -445,11 +459,11 @@
 
 - (IBAction)handleDiscloseInfoBtnClicked:(id)sender {
     NSString *info;
-    if ([_currentMethod isEqualToString:@"friends"])
+    if (_currentMethod == THOUGHTS_METHOD_FRIENDS)
     {
         info = @"This is your friends thoughts feed. These anonymous thoughts are from your friends and friends of friends. Both chatting and favoriting are also anonymous!";
     }
-    else if([_currentMethod isEqualToString:@"global"])
+    else if(_currentMethod == THOUGHTS_METHOD_GLOBAL)
     {
         info = @"This is your global thoughts feed. These anonymous thoughts are from anyone other than your direct friends or friends of friends. You can't start a chat here, but you can anonymously favorite.";
     }
@@ -457,8 +471,6 @@
     {
         info = @"This is a feed of your thoughts.";
     }
-    //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Thoughts" message:info delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil];
-    
     CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:@"Thoughts" message:info buttons:[NSMutableArray arrayWithObject:@"Got it"] hasInput:NO];
     [alertView setDelegate:self];
     [alertView show];
