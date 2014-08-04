@@ -4867,7 +4867,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../FacebookSDK",
+					/users/rlundquist3/development/ios/FacebookSDK,
 					"$(PROJECT_DIR)/who",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -4887,7 +4887,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../FacebookSDK",
+					/users/rlundquist3/development/ios/FacebookSDK,
 					"$(PROJECT_DIR)/who",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
