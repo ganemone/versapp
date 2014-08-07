@@ -172,9 +172,9 @@ static ConnectionProvider *selfInstance;
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]]; // MUST SEND AFTER PRESENCE PACKET
         [ChatDBManager joinAllChats];
+        [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.xmppStream sendElement:[IQPacketManager createGetRosterPacket]];
             [self.xmppStream sendElement:[IQPacketManager createGetUserInfoPacket]];
             [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];

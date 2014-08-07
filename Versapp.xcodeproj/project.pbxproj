@@ -4785,7 +4785,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../FacebookSDK";
+				FRAMEWORK_SEARCH_PATHS = /Users/giancarlo/Documents/FacebookSDK;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -4811,7 +4811,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "5DCFB18F-966B-4176-AE6C-0C06666791C4";
+				PROVISIONING_PROFILE = "835D2AFD-76ED-4FCE-A256-53BA2B8E16C2";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = NO;
 			};
@@ -4837,7 +4837,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../FacebookSDK";
+				FRAMEWORK_SEARCH_PATHS = /Users/giancarlo/Documents/FacebookSDK;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -4855,7 +4855,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "5DCFB18F-966B-4176-AE6C-0C06666791C4";
+				PROVISIONING_PROFILE = "835D2AFD-76ED-4FCE-A256-53BA2B8E16C2";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -4866,17 +4866,14 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
-				FRAMEWORK_SEARCH_PATHS = (
-					/users/rlundquist3/development/ios/FacebookSDK,
-					"$(PROJECT_DIR)/who",
-				);
+				FRAMEWORK_SEARCH_PATHS = /Users/giancarlo/Documents/FacebookSDK;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/Versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/**";
 				PRODUCT_NAME = Versapp;
-				PROVISIONING_PROFILE = "F97314C3-8621-4890-930D-1F8F3F1966B5";
+				PROVISIONING_PROFILE = "835D2AFD-76ED-4FCE-A256-53BA2B8E16C2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -4886,17 +4883,14 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Giancarlo Anemone (5M27X5RDD6)";
-				FRAMEWORK_SEARCH_PATHS = (
-					/users/rlundquist3/development/ios/FacebookSDK,
-					"$(PROJECT_DIR)/who",
-				);
+				FRAMEWORK_SEARCH_PATHS = /Users/giancarlo/Documents/FacebookSDK;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/Versapp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/**";
 				PRODUCT_NAME = Versapp;
-				PROVISIONING_PROFILE = "F97314C3-8621-4890-930D-1F8F3F1966B5";
+				PROVISIONING_PROFILE = "835D2AFD-76ED-4FCE-A256-53BA2B8E16C2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

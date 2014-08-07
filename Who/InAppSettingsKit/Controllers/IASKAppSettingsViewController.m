@@ -26,12 +26,12 @@
 #import "IASKSpecifier.h"
 #import "IASKSpecifierValuesViewController.h"
 #import "IASKTextField.h"
-#import "Constants.h"
 #import "UserDefaultManager.h"
 #import "XMPPStream.h"
 #import "AppInitViewController.h"
 #import "ConnectionProvider.h"
 #import "WebViewController.h"
+#import "Constants.h"
 
 #if !__has_feature(objc_arc)
 #error "IASK needs ARC"
