@@ -113,8 +113,6 @@ NSString *const THOUGHTS_METHOD_YOU_STRING = @"you";
     NSDictionary *parameters = @{@"method" : [self getMethodString],
                                  @"since" : since};
     
-    NSLog(@"Loading Confessions With Parameters: %@", parameters);
-    
     NSError *error = NULL;
     NSMutableURLRequest *req = [[AFHTTPRequestSerializer serializer]
                                 requestWithMethod:@"POST"
@@ -123,13 +121,8 @@ NSString *const THOUGHTS_METHOD_YOU_STRING = @"you";
                                 error:&error];
     
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:req success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Loaded thoughts with request: %@", since);
-        NSLog(@"Loaded thoughts with response: %@", operation.responseString);
-        
         [self handleReceivedConfessionsRequest:operation.responseString];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Failed with response: %@", operation.responseString);
-        NSLog(@"Failed Thought request: %@", error);
     }];
     // Setting up authorization header
     NSString *authCode = [NSString stringWithFormat:@"%@:%@", [ConnectionProvider getUser], appDelegate.sessionID];
@@ -159,7 +152,6 @@ NSString *const THOUGHTS_METHOD_YOU_STRING = @"you";
         jid = [result substringWithRange:[match rangeAtIndex:2]];
         body = [result substringWithRange:[match rangeAtIndex:3]];
         if ([_thoughtIDValues containsObject:confessionID]) {
-            NSLog(@"Duplicate Found: %@", body);
             continue;
         }
         if ([match rangeAtIndex:4].length != 0) {

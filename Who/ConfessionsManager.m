@@ -91,12 +91,10 @@ static ConfessionsManager *selfInstance;
 }
 
 -(void)loadConfessions {
-    NSLog(@"Confessions Manager - Loading Confessions");
     [[self getCurrentCache] loadConfessions];
 }
 
 -(void)loadConfessionsSince:(NSString *)since {
-    NSLog(@"Confessions Manager - Loading Confessions Since: %@", since);
     [[self getCurrentCache] loadConfessionsSince:since];
 }
 

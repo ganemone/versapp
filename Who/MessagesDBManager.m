@@ -172,7 +172,6 @@
     NSError* error;
     NSArray *fetchedItems = [moc executeFetchRequest:fetchRequest error:&error];
     for (MessageMO *message in fetchedItems) {
-        NSLog(@"Deleting Message: %@", message);
         [moc deleteObject:message];
     }
     [delegate saveContext];
@@ -192,7 +191,6 @@
     NSError *error;
     NSArray *fetchedItems = [moc executeFetchRequest:fetchRequest error:&error];
     for (MessageMO *message in fetchedItems) {
-        NSLog(@"Deleting Message: %@", message);
         [moc deleteObject:message];
     }
     [delegate saveContext];

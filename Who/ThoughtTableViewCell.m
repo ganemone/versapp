@@ -130,10 +130,8 @@
 
 - (void)setUpBackgroundView {
     if ([[_confession.imageURL substringToIndex:1] isEqualToString:@"#"]) {
-        NSLog(@"Image Color: %@", _confession.imageURL);
         [MBProgressHUD hideHUDForView:self.contentView animated:YES];
         UIColor *color = [UIColor colorWithHexString:_confession.imageURL];
-        NSLog(@"Setting color to: %@", [color description]);
         [self setBackgroundColor:color];
     } else if(!([_confession.imageURL isEqualToString:@""] || _confession.imageURL == nil)) {
         ImageCache *cache = [ImageCache getInstance];
@@ -141,9 +139,7 @@
             [MBProgressHUD hideHUDForView:self.contentView animated:YES];
             _backgroundImage = [cache getImageWithIdentifier:_confession.confessionID];
             UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.contentView.frame];
-            NSLog(@"Pre Image Size: %f %f", _backgroundImage.size.width, _backgroundImage.size.height);
             _backgroundImage = [self imageWithImage:_backgroundImage scaledToMaxWidth:320 maxHeight:320];
-            NSLog(@"Post Image Size: %f %f", _backgroundImage.size.width, _backgroundImage.size.height);
             [imageView setImage:_backgroundImage];
             [self setBackgroundView:imageView];
         } else {
@@ -155,7 +151,6 @@
 }
 
 - (void)setUpBackgroundViewWithImage:(UIImage *)image {
-    NSLog(@"Setting up background view with image: %@", [image description]);
     _backgroundImage = [self imageWithImage:image scaledToMaxWidth:320 maxHeight:320];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.contentView.frame];
     imageView.alpha = 0;
@@ -286,12 +281,10 @@
 }
 
 -(void)didFailToDownloadImageWithIdentifier:(NSString *)identifier {
-    NSLog(@"Failed to download image...");
 }
 
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {}
 -(void)didFailToUploadImage:(UIImage *)image toURL:(NSString *)url withError:(NSError *)error {
-    NSLog(@"Failed to upload image...");
 }
 
 @end

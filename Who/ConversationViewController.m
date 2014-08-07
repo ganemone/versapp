@@ -40,7 +40,6 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    NSLog(@"View Will Appear");
     [super viewWillAppear:animated];
 }
 
@@ -344,21 +343,17 @@
 }
 
 -(void)didFinishDownloadingImage:(UIImage *)image withIdentifier:(NSString *)identifier {
-    NSLog(@"Finished downloading image: %@", identifier);
     [self.tableView reloadData];
     [self scrollToBottomAnimated:YES];
 }
 
 -(void)didFailToDownloadImageWithIdentifier:(NSString *)identifier {
-    NSLog(@"Failed to download image");
 }
 
 -(void)didFailToUploadImage:(UIImage *)image toURL:(NSString *)url withError:(NSError *)error {
-    NSLog(@"Failed to upload image");
 }
 
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {
-    NSLog(@"Finished uploading image");
     self.isUploadingImage = NO;
     self.messageImage = image;
     self.messageImageLink = url;
@@ -400,7 +395,6 @@
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          CGFloat shiftAmount = _participantsView.frame.size.height;
-                         NSLog(@"Shift Amount: %f", shiftAmount);
                          CGRect tbFrame = self.tableView.frame;
                          self.tableView.frame = CGRectMake(tbFrame.origin.x, tbFrame.origin.y - shiftAmount, tbFrame.size.width, tbFrame.size.height + shiftAmount);
                          _participantsView.frame = CGRectMake(0, _participantsView.frame.origin.y - shiftAmount, _participantsView.frame.size.width, _participantsView.frame.size.height);

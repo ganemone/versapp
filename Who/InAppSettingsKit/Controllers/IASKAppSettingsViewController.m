@@ -782,9 +782,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         [self performSegueWithIdentifier:SETTING_CHANGE_PASSWORD sender:self];
     } else if ([[specifier key] isEqualToString:SETTING_LEAVE_GROUPS]) {
         //To be implemented
-        NSLog(@"Leave Groups Pressed");
     } else if ([[specifier key] isEqualToString:SETTING_LOGOUT]) {
-        NSLog(@"Logout Pressed");
         [self logout];
     } else if ([[specifier key] isEqualToString:SETTING_SUPPORT]) {
         [self showWebViewWithURLString:SUPPORT_URL];

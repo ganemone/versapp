@@ -327,7 +327,6 @@ static int numUninvitedParticipants;
 }
 
 +(void)setChatIDPendingCreation:(NSString*)chatID {
-    NSLog(@"Setting Chat ID Pending Creation: %@", chatID);
     chatIDPendingCreation = chatID;
 }
 
@@ -347,10 +346,8 @@ static int numUninvitedParticipants;
 
 +(void)deleteChatsNotInArray:(NSArray *)chatIDS withStatus:(int)status {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(NOT (chat_id IN %@)) AND status = %@", chatIDS, [NSNumber numberWithInt:status]];
-    NSLog(@"Predicate: %@", predicate);
     NSArray *results = [self makeFetchRequestWithPredicate:predicate];
     for (ChatMO *chat in results) {
-        NSLog(@"Deleting Chat: %@", chat);
         [MessagesDBManager deleteMessagesFromChatWithID:chat.chat_id];
         [self deleteChat:chat];
     }

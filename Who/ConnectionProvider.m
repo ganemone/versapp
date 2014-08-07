@@ -91,7 +91,6 @@ static ConnectionProvider *selfInstance;
     
     NSError *error = nil;
     if(![self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error]) {
-        NSLog(@"Something went wrong here...: %@", error);
         //[[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FAILED_TO_AUTHENTICATE object:self];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CONNECTING object:self];
@@ -196,12 +195,10 @@ static ConnectionProvider *selfInstance;
 {
     //AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     //[delegate handleConnectionLost];
-    NSLog(@"did disconnect with error: %@", error);
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];
 }
 
 -(void)xmppStreamWasToldToDisconnect:(XMPPStream *)sender {
-    NSLog(@"Disconnected Without Error");
 }
 
 // May want to set the self instance to nil and remove self as delegate
@@ -211,43 +208,34 @@ static ConnectionProvider *selfInstance;
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveError:(DDXMLElement *)error {
-    NSLog(@"Did Receive Error: %@", error);
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveP2PFeatures:(DDXMLElement *)streamFeatures {
-    NSLog(@"Did receive p2p features: %@", streamFeatures.XMLString);
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
-    NSLog(@"Received Message: %@", message.XMLString);
     [MessagePacketReceiver handleMessagePacket:message];
 }
 
 -(void)xmppStream:(XMPPStream *)sender didSendMessage:(XMPPMessage *)message {
-    NSLog(@"Did Send Message: %@", [message description]);
 }
 
 -(void)xmppStream:(XMPPStream *)sender didSendPresence:(XMPPPresence *)presence {
-    NSLog(@"Did send presence: %@", presence.XMLString);
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
-    NSLog(@"Did receive presence: %@", presence.XMLString);
     [PresencePacketReceiver handlePresencePacket:presence];
 }
 
 -(void)xmppStream:(XMPPStream *)sender didFailToSendIQ:(XMPPIQ *)iq error:(NSError *)error {
-    NSLog(@"Failed to send IQ: %@", iq.XMLString);
 }
 
 -(BOOL)xmppStream:(XMPPStream *)sender didReceiveIQ:(XMPPIQ *)iq {
-    NSLog(@"Received IQ: %@", iq.XMLString);
     [IQPacketReceiver handleIQPacket:iq];
     return YES;
 }
 
 -(void)xmppStream:(XMPPStream *)sender didSendIQ:(XMPPIQ *)iq {
-    NSLog(@"Did Send IQ: %@", iq.XMLString);
 }
 
 +(NSString *)getServerIPAddress {

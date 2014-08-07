@@ -410,22 +410,18 @@
 }
 
 - (void)handleOneToOneChatCreationPacketReceived {
-    NSLog(@"Received Creation Packet");
     _didCreateChat = YES;
     [self handleOneToOneChatCreatedFromConfession];
 }
 
 - (void)handleOneToOneChatCreatedInLocalDB {
-    NSLog(@"Created in Local DB");
     _didCreateChatInDB = YES;
     [self handleOneToOneChatCreatedFromConfession];
 }
 
 - (void)handleOneToOneChatCreatedFromConfession {
-    NSLog(@"thought chat created");
     _createdChat = [ChatDBManager getChatWithID:[ChatDBManager getChatIDPendingCreation]];
     if (_createdChat != nil && _didCreateChat == YES && _didCreateChatInDB == YES) {
-        NSLog(@"not nil");
         _didCreateChat = NO;
         _didCreateChatInDB = NO;
         [ChatDBManager resetChatIDPendingCreation];
@@ -561,7 +557,6 @@
     for (int i = 0; i < numConfessions; i++) {
         confession = [_confessionsManager getConfessionAtIndex:i];
         if (![cache hasImageWithIdentifier:confession.confessionID] && ![[confession.imageURL substringToIndex:1] isEqualToString:@"#"]) {
-            NSLog(@"Downloading image...");
             [imageManager downloadImageForThought:confession delegate:self];
         }
     }
@@ -578,7 +573,6 @@
 }
 
 -(void)didFailToDownloadImageWithIdentifier:(NSString *)identifier {
-    NSLog(@"Failed to download image...");
 }
 
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {}

@@ -80,8 +80,6 @@
 
 - (void)viewDidLoad
 {
-    NSLog(@"One-to-One view loaded");
-    NSLog(@"Chat: %@", _chatMO);
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReceived:) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
     
@@ -274,7 +272,6 @@
 -(void)animateAddNewestMessage {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.chatMO getNumberOfMessages] - 1 inSection:0];
     NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
-    NSLog(@"Index Path: %@", indexPath);
     [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationLeft];
     [self.tableView endUpdates];
@@ -296,8 +293,6 @@
     if (self.messageImageLink == nil && (text == nil || [text isEqualToString:@""])) {
         return;
     }
-    NSLog(@"Previous Number of Messages: %d", [_chatMO getNumberOfMessages]);
-    NSLog(@"Previous In Table: %ld", (long)[self.tableView numberOfRowsInSection:0]);
     [self resetCameraButtonImage];
     [self.chatMO sendOneToOneMessage:text imageLink:self.messageImageLink];
     [self animateAddNewestMessage];
@@ -309,14 +304,12 @@
     ImageManager *imageManager = [[ImageManager alloc] init];
     
     if (![cache hasImageWithIdentifier:thought.confessionID] && ![[thought.imageURL substringToIndex:1] isEqualToString:@"#"]) {
-        NSLog(@"Downloading image...");
         [imageManager downloadImageForLocalThought:thought delegate:self];
     }
 }
 
 
 -(void)didSelectImage:(UIImage *)image {
-    NSLog(@"Beginning Image Upload...");
     MBProgressHUD *loadingScreen = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [loadingScreen setLabelText:@"Loading image..."];
     self.isUploadingImage = YES;
@@ -340,7 +333,6 @@
 }
 
 -(void)didFinishUploadingImage:(UIImage *)image toURL:(NSString *)url {
-    NSLog(@"Finished Image Upload...");
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     self.isUploadingImage = NO;
     self.messageImage = image;
