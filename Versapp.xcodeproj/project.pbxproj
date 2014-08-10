@@ -403,6 +403,7 @@
 		3AFF778418C415BD003277F9 /* ChatMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778318C415BD003277F9 /* ChatMO.m */; };
 		3AFF778718C415BE003277F9 /* FriendMO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF778618C415BE003277F9 /* FriendMO.m */; };
 		3AFFC93D18A06AE3009D7F13 /* db.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3AFFC93B18A06AE3009D7F13 /* db.xcdatamodeld */; };
+		B33A3FC919981C3300D0F6A4 /* XMPPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B33A3FC819981C3300D0F6A4 /* XMPPManager.m */; };
 		B355A27B1982324500F1AAE5 /* XMPPAnonymousAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = B355A2641982324500F1AAE5 /* XMPPAnonymousAuthentication.m */; };
 		B355A27C1982324500F1AAE5 /* XMPPDeprecatedDigestAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = B355A2671982324500F1AAE5 /* XMPPDeprecatedDigestAuthentication.m */; };
 		B355A27D1982324500F1AAE5 /* XMPPDeprecatedPlainAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = B355A26A1982324500F1AAE5 /* XMPPDeprecatedPlainAuthentication.m */; };
@@ -1333,6 +1334,8 @@
 		3AFF778618C415BE003277F9 /* FriendMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendMO.m; sourceTree = "<group>"; };
 		3AFFC93C18A06AE3009D7F13 /* db.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = db.xcdatamodel; sourceTree = "<group>"; };
 		B30853191968AFC900816A6F /* dbv2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = dbv2.xcdatamodel; sourceTree = "<group>"; };
+		B33A3FC719981C3300D0F6A4 /* XMPPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPManager.h; sourceTree = "<group>"; };
+		B33A3FC819981C3300D0F6A4 /* XMPPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPManager.m; sourceTree = "<group>"; };
 		B355A2631982324500F1AAE5 /* XMPPAnonymousAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPAnonymousAuthentication.h; sourceTree = "<group>"; };
 		B355A2641982324500F1AAE5 /* XMPPAnonymousAuthentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPAnonymousAuthentication.m; sourceTree = "<group>"; };
 		B355A2661982324500F1AAE5 /* XMPPDeprecatedDigestAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPDeprecatedDigestAuthentication.h; sourceTree = "<group>"; };
@@ -2297,6 +2300,8 @@
 			children = (
 				3AF19ACF1882075D00F3E4D3 /* ConnectionProvider.h */,
 				3AF19AD01882075D00F3E4D3 /* ConnectionProvider.m */,
+				B33A3FC719981C3300D0F6A4 /* XMPPManager.h */,
+				B33A3FC819981C3300D0F6A4 /* XMPPManager.m */,
 				3AF511381885B1EC002383D3 /* IQPacketManager.h */,
 				3AF511391885B1EC002383D3 /* IQPacketManager.m */,
 				3A720CBB18A28EDF00423959 /* Packet Receivers */,
@@ -4471,6 +4476,7 @@
 				3AF6914E1919581600ABA9C5 /* GPUImageCrosshatchFilter.m in Sources */,
 				B355A4F9198233E100F1AAE5 /* XEP_0223.m in Sources */,
 				B355A45D1982333400F1AAE5 /* XMPPUserCoreDataStorageObject.m in Sources */,
+				B33A3FC919981C3300D0F6A4 /* XMPPManager.m in Sources */,
 				B355A4FA198233E100F1AAE5 /* XMPPAttentionModule.m in Sources */,
 				3A5DC78118E5DB040090660B /* CountryPickerDelegate.m in Sources */,
 				3AF691C71919581600ABA9C5 /* GPUImageUIElement.m in Sources */,

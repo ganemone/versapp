@@ -50,8 +50,8 @@
         [self handleInviteUserToChatPacket:sanitizedXMLString];
     } else if([self isPacketWithID:PACKET_ID_CREATE_ONE_TO_ONE_CHAT packet:iq]) {
         [self handleCreateOneToOneChatPacket:sanitizedXMLString];
-    } else if([self isPacketWithID:PACKET_ID_GET_SESSION_ID packet:iq]) {
-        [self handleGetSessionIDPacket:sanitizedXMLString];
+    //} else if([self isPacketWithID:PACKET_ID_GET_SESSION_ID packet:iq]) {
+        //[self handleGetSessionIDPacket:sanitizedXMLString];
     } else if([self isPacketWithID:PACKET_ID_FAVORITE_CONFESSION packet:iq]) {
         [self handleToggleFavoriteConfessionPacket:sanitizedXMLString];
     } else if([self isPacketWithID:PACKET_ID_POST_CONFESSION packet:iq]) {

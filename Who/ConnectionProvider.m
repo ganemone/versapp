@@ -13,6 +13,8 @@
 #import "XMPPIQ.h"
 #import "XMPPPresence.h"
 #import "XMPPMessage.h"
+#import "XMPPIDTracker.h"
+#import "XMPPManager.h"
 // Packet Receivers
 #import "IQPacketReceiver.h"
 #import "PresencePacketReceiver.h"
@@ -61,12 +63,7 @@ static ConnectionProvider *selfInstance;
             selfInstance.SERVER_IP_ADDRESS = SERVER_IP_ADDRESS;
             selfInstance.CONFERENCE_IP_ADDRESS = CONFERENCE_IP_ADDRESS;
             selfInstance.tempVCardInfo = [[NSMutableDictionary alloc] initWithCapacity:5];
-            /*selfInstance.xmppReconnect = [[XMPPReconnect alloc] initWithDispatchQueue:dispatch_get_main_queue()];
-             [selfInstance.xmppReconnect addDelegate:self delegateQueue:dispatch_get_main_queue()];
-             selfInstance.xmppPing = [[XMPPAutoPing alloc] initWithDispatchQueue:dispatch_get_main_queue()];
-             selfInstance.xmppPing.pingInterval = 25.f; // default is 60
-             selfInstance.xmppPing.pingTimeout = 10.f; // default is 10
-             [selfInstance.xmppPing addDelegate:self delegateQueue:dispatch_get_main_queue()];*/
+            selfInstance.tracker = [[XMPPIDTracker alloc] initWithStream:selfInstance.xmppStream dispatchQueue:dispatch_get_main_queue()];
             [selfInstance addSelfStreamDelegate];
         }
     }
@@ -161,23 +158,25 @@ static ConnectionProvider *selfInstance;
         [self.xmppStream sendElement:[IQPacketManager createSetUserInfoPacketFromDefaults]];
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]];
-    //} else if(_isFetchingFromNotification == YES) {
-        //_isFetchingFromNotification = NO;
-        //[self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
-        //[self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
-        //[self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];
-        //[self.xmppStream sendElement:[IQPacketManager createGetRosterPacket]];
     } else {
         [self.xmppStream sendElement:[IQPacketManager createAvailabilityPresencePacket]];
-        [self.xmppStream sendElement:[IQPacketManager createGetSessionIDPacket]]; // MUST SEND AFTER PRESENCE PACKET
+        
+        
+        // MUST SEND AFTER PRESENCE PACKET
+        XMPPManager *manager = [XMPPManager getInstance];
+        [manager sendGetSessionIDPacket:^(XMPPElement *element) {
+            NSLog(@"Received Response: %@", [element XMLString]);
+        }];
+        
         [ChatDBManager joinAllChats];
         [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];
+        
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.xmppStream sendElement:[IQPacketManager createGetRosterPacket]];
             [self.xmppStream sendElement:[IQPacketManager createGetUserInfoPacket]];
             [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];
-        });
+       });
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_AUTHENTICATED object:nil];
     NSString *deviceID = [UserDefaultManager loadDeviceID];
@@ -185,6 +184,12 @@ static ConnectionProvider *selfInstance;
         [self.xmppStream sendElement:[IQPacketManager createSetDeviceTokenPacket:deviceID]];
     }
 }
+
+- (void)test
+{
+    NSLog(@"Reached Test");
+}
+
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"didNotAuthenticate" object:nil];
@@ -199,6 +204,7 @@ static ConnectionProvider *selfInstance;
 }
 
 -(void)xmppStreamWasToldToDisconnect:(XMPPStream *)sender {
+    NSLog(@"XMPPStream was told to disconnect: %@", [sender description]);
 }
 
 // May want to set the self instance to nil and remove self as delegate
@@ -208,34 +214,50 @@ static ConnectionProvider *selfInstance;
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveError:(DDXMLElement *)error {
+    NSLog(@"Did receive error: %@", error);
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveP2PFeatures:(DDXMLElement *)streamFeatures {
+    NSLog(@"Did receive P2P features: %@", [streamFeatures XMLString]);
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
+    UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+    localNotif.fireDate             = nil;
+    localNotif.hasAction            = YES;
+    localNotif.alertBody            = message.body;
+    localNotif.alertAction          = @"View";
+    localNotif.soundName            = UILocalNotificationDefaultSoundName;
+    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotif];
+    NSLog(@"Did receive message: %@", [message XMLString]);
     [MessagePacketReceiver handleMessagePacket:message];
 }
 
 -(void)xmppStream:(XMPPStream *)sender didSendMessage:(XMPPMessage *)message {
+    NSLog(@"Did send message: %@", [message XMLString]);
 }
 
 -(void)xmppStream:(XMPPStream *)sender didSendPresence:(XMPPPresence *)presence {
+    NSLog(@"Did send presence: %@", [presence XMLString]);
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
+    NSLog(@"Did receive presence: %@", [presence XMLString]);
     [PresencePacketReceiver handlePresencePacket:presence];
 }
 
 -(void)xmppStream:(XMPPStream *)sender didFailToSendIQ:(XMPPIQ *)iq error:(NSError *)error {
+    NSLog(@"Did fail to send IQ: %@ with error: %@", [iq XMLString], error);
 }
 
 -(BOOL)xmppStream:(XMPPStream *)sender didReceiveIQ:(XMPPIQ *)iq {
+    NSLog(@"Did receive IQ: %@", [iq XMLString]);
     [IQPacketReceiver handleIQPacket:iq];
-    return YES;
+    return [self.tracker invokeForID:[iq elementID] withObject:iq];
 }
 
 -(void)xmppStream:(XMPPStream *)sender didSendIQ:(XMPPIQ *)iq {
+    NSLog(@"Did send IQ: %@", [iq XMLString]);
 }
 
 +(NSString *)getServerIPAddress {

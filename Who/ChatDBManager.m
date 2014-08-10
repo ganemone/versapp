@@ -36,7 +36,9 @@ static int numUninvitedParticipants;
         chatEntry = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_CHATS inManagedObjectContext:moc];
         [chatEntry setValue:chatType forKey:CHATS_TABLE_COLUMN_NAME_CHAT_TYPE];
         [chatEntry setValue:@"YES" forKey:CHATS_TABLE_COLUMN_NAME_HAS_NEW_MESSAGE];
-        [self joinChatWithID:chatID];
+        if ([chatType isEqualToString:CHAT_TYPE_GROUP]) {
+            [self joinChatWithID:chatID];
+        }
     }
     [chatEntry setValue:chatID forKey:CHATS_TABLE_COLUMN_NAME_CHAT_ID];
     [chatEntry setValue:chatName forKey:CHATS_TABLE_COLUMN_NAME_CHAT_NAME];
