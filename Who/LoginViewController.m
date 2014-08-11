@@ -185,9 +185,11 @@
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
     [self dismissViewControllerAnimated:YES completion:nil];
     
-    CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:@"Hold Tight!" message:@"Your message has been sent. We'll help you as soon as we can." buttons:[NSArray arrayWithObject:@"Ok"] hasInput:NO];
-    [alertView setDelegate:self];
-    [alertView show];
+    if (result == MFMailComposeResultSent) {
+        CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:@"Hold Tight!" message:@"Your message has been sent. We'll help you as soon as we can." buttons:[NSArray arrayWithObject:@"Ok"] hasInput:NO];
+        [alertView setDelegate:self];
+        [alertView show];
+    }
 }
 
 -(void)customIOS7dialogButtonTouchUpInside:(id)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
