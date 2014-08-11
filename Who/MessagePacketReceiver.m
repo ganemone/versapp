@@ -67,6 +67,18 @@
 +(void)handleMessageInvitationReceived:(NSString*)chatID groupName:(NSString *)groupName invitedBy:(NSString *)invitedBy {
     [ChatDBManager insertChatWithID:chatID chatName:groupName chatType:CHAT_TYPE_GROUP participantString:nil status:STATUS_PENDING degree:@"1" ownerID:invitedBy];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_NOTIFICATIONS object:nil];
+    
+    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+    
+    localNotification.alertBody = [NSString stringWithFormat:@"%@: invited by %@", groupName, invitedBy];
+    //localNotification.alertAction = alertAction;
+    
+    UIApplication *application = [UIApplication sharedApplication];
+    application.applicationIconBadgeNumber++;
+    
+    localNotification.applicationIconBadgeNumber = application.applicationIconBadgeNumber;
+    
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 }
 
 +(void)handleChatMessageReceived:(XMPPMessage*)message {
@@ -138,6 +150,17 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
             [ChatDBManager setHasNewMessageYes:groupID];
             
+            UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+            
+            localNotification.alertBody = [NSString stringWithFormat:@"%@: %@", currentChat.getChatName, newMessage.message_body];
+            //localNotification.alertAction = alertAction;
+            
+            UIApplication *application = [UIApplication sharedApplication];
+            application.applicationIconBadgeNumber++;
+            
+            localNotification.applicationIconBadgeNumber = application.applicationIconBadgeNumber;
+            
+            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
         } else if([message.type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
             NSLog(@"Message type one to one");
             if (imageLink != nil) {
@@ -153,6 +176,20 @@
             }
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
             [ChatDBManager setHasNewMessageYes:message.thread];
+            
+            ChatMO *currentChat = [ChatDBManager getChatWithID:message.thread];
+            
+            UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+            
+            localNotification.alertBody = [NSString stringWithFormat:@"%@: %@", currentChat.getChatName, newMessage.message_body];
+            //localNotification.alertAction = alertAction;
+            
+            UIApplication *application = [UIApplication sharedApplication];
+            application.applicationIconBadgeNumber++;
+            
+            localNotification.applicationIconBadgeNumber = application.applicationIconBadgeNumber;
+            
+            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
         }
     }
 }

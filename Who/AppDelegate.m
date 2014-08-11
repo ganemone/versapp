@@ -19,6 +19,7 @@
 #import "MessageMO.h"
 #import "ChatDBManager.h"
 #import "Encrypter.h"
+#import "AGPushNote/AGPushNoteView.h"
 
 @implementation AppDelegate
 
@@ -218,6 +219,13 @@
     UIApplication *sharedApp = [UIApplication sharedApplication];
     [sharedApp setApplicationIconBadgeNumber:sharedApp.applicationIconBadgeNumber + 1];
     completionHandler(UIBackgroundFetchResultNewData);
+}
+
+-(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    if ([application applicationState] == UIApplicationStateActive) {
+        NSLog(@"Local notification received while in foreground");
+        [AGPushNoteView showWithNotificationMessage:notification.alertBody];
+    }
 }
 
 @end

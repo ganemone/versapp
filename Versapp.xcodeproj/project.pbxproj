@@ -536,6 +536,8 @@
 		B3B9358F1949693400C281FA /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B9358E1949693400C281FA /* FacebookSDK.framework */; };
 		F71CE7071962F0560030EBA9 /* ThoughtMO.m in Sources */ = {isa = PBXBuildFile; fileRef = F71CE7061962F0560030EBA9 /* ThoughtMO.m */; };
 		F71CE70A1962F0B80030EBA9 /* ThoughtsDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F71CE7091962F0B80030EBA9 /* ThoughtsDBManager.m */; };
+		F721DCB1199948AD00D1FBD2 /* AGPushNoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = F721DCAF199948AD00D1FBD2 /* AGPushNoteView.m */; };
+		F721DCB2199948AD00D1FBD2 /* AGPushNoteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F721DCB0199948AD00D1FBD2 /* AGPushNoteView.xib */; };
 		F7303EC718E862F30045F9AF /* arrow-up-icon-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303EC618E862F30045F9AF /* arrow-up-icon-green.png */; };
 		F7303EC918E8E3100045F9AF /* arrow-up-icon-square-green.png in Resources */ = {isa = PBXBuildFile; fileRef = F7303EC818E8E3100045F9AF /* arrow-up-icon-square-green.png */; };
 		F73713F218E4FADF008A9ED2 /* AddToGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F73713F118E4FADF008A9ED2 /* AddToGroupViewController.m */; };
@@ -1602,6 +1604,9 @@
 		F71CE7061962F0560030EBA9 /* ThoughtMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThoughtMO.m; sourceTree = "<group>"; };
 		F71CE7081962F0B80030EBA9 /* ThoughtsDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThoughtsDBManager.h; sourceTree = "<group>"; };
 		F71CE7091962F0B80030EBA9 /* ThoughtsDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThoughtsDBManager.m; sourceTree = "<group>"; };
+		F721DCAE199948AD00D1FBD2 /* AGPushNoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGPushNoteView.h; sourceTree = "<group>"; };
+		F721DCAF199948AD00D1FBD2 /* AGPushNoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGPushNoteView.m; sourceTree = "<group>"; };
+		F721DCB0199948AD00D1FBD2 /* AGPushNoteView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AGPushNoteView.xib; sourceTree = "<group>"; };
 		F7303EC618E862F30045F9AF /* arrow-up-icon-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-up-icon-green.png"; sourceTree = "<group>"; };
 		F7303EC818E8E3100045F9AF /* arrow-up-icon-square-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-up-icon-square-green.png"; sourceTree = "<group>"; };
 		F73713F018E4FADF008A9ED2 /* AddToGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddToGroupViewController.h; sourceTree = "<group>"; };
@@ -2383,6 +2388,7 @@
 		3AF19ACE1881F86000F3E4D3 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				F721DCAD199948AD00D1FBD2 /* AGPushNote */,
 				F78485AD1958565E00E0288C /* CustomIOS7AlertView */,
 				F751013C18ABE100001F1E7F /* InAppSettingsKit */,
 				B355A260198231FC00F1AAE5 /* XMPPFramework */,
@@ -3886,6 +3892,16 @@
 			name = Constants;
 			sourceTree = "<group>";
 		};
+		F721DCAD199948AD00D1FBD2 /* AGPushNote */ = {
+			isa = PBXGroup;
+			children = (
+				F721DCAE199948AD00D1FBD2 /* AGPushNoteView.h */,
+				F721DCAF199948AD00D1FBD2 /* AGPushNoteView.m */,
+				F721DCB0199948AD00D1FBD2 /* AGPushNoteView.xib */,
+			);
+			path = AGPushNote;
+			sourceTree = "<group>";
+		};
 		F744853F18DB61C500460FBC /* PodFiles */ = {
 			isa = PBXGroup;
 			children = (
@@ -4110,6 +4126,7 @@
 				3A91F20C18EB534F0006B9F8 /* notification5+-old.png in Resources */,
 				3A068ED418F24FC200EA260E /* Versapp-Tutorial-03.png in Resources */,
 				F7F54A77195109D9007CEADF /* notification5@2x.png in Resources */,
+				F721DCB2199948AD00D1FBD2 /* AGPushNoteView.xib in Resources */,
 				F7F54A8219510ACF007CEADF /* camera-blue@2x.png in Resources */,
 				3AF68FC619193A2700ABA9C5 /* PEPhotoCropEditor.bundle in Resources */,
 				3A91F1F618EB4BF50006B9F8 /* messages-background-small.png in Resources */,
@@ -4505,6 +4522,7 @@
 				3AF6917F1919581600ABA9C5 /* GPUImageLowPassFilter.m in Sources */,
 				3A793D25190FF6C200303457 /* AFHTTPRequestOperation.m in Sources */,
 				3AF691561919581600ABA9C5 /* GPUImageEmbossFilter.m in Sources */,
+				F721DCB1199948AD00D1FBD2 /* AGPushNoteView.m in Sources */,
 				3A793D47190FF6CA00303457 /* UIWebView+AFNetworking.m in Sources */,
 				3AF691351919581600ABA9C5 /* GPUImageAdaptiveThresholdFilter.m in Sources */,
 				F78485B0195856BC00E0288C /* CustomIOS7AlertView.m in Sources */,
