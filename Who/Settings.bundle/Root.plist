@@ -39,15 +39,7 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>IASKMailComposeSpecifier</string>
-			<key>Title</key>
-			<string>Forgot your password?</string>
-			<key>Key</key>
-			<string>forgot_password</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTitleValueSpecifier</string>
+			<string>kIASKMailComposeSpecifier</string>
 			<key>Title</key>
 			<string>Issues? Email support@versapp.co</string>
 			<key>Key</key>

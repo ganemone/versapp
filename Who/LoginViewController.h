@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "XMPPStream.h"
+#import <MessageUI/MessageUI.h>
+#import "CustomIOS7AlertView.h"
 
-@interface LoginViewController : UIViewController <XMPPStreamDelegate, UITextFieldDelegate>
+@interface LoginViewController : UIViewController <XMPPStreamDelegate, UITextFieldDelegate, MFMailComposeViewControllerDelegate, CustomIOS7AlertViewDelegate>
 
 -(void)authenticated;
 

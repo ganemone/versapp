@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (strong, nonatomic) IBOutlet UILabel *headerLabel;
 @property (weak, nonatomic) IBOutlet UIButton *registerBtn;
+@property (strong, nonatomic) IBOutlet UIButton *forgotPasswordButton;
 
 @property (strong, nonatomic) NSString *usernameText;
 @property (strong, nonatomic) NSString *passwordText;
@@ -70,9 +71,11 @@
     [_password setFont:[StyleManager getFontStyleLightSizeLarge]];
     [_loginButton.titleLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     [_registerBtn.titleLabel setFont:[StyleManager getFontStyleLightSizeXL]];
+    [_forgotPasswordButton.titleLabel setFont:[StyleManager getFontStyleLightSizeXL]];
     
     [_loginButton.layer setCornerRadius:5.0];
     [_registerBtn.layer setCornerRadius:5.0];
+    [_forgotPasswordButton.layer setCornerRadius:5.0];
 }
 
 -(void)authenticated
@@ -153,6 +156,44 @@
         [self login];
     }
     return NO; // We do not want UITextField to insert line-breaks.
+}
+
+- (IBAction)forgotPasswordClicked:(id)sender {
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+        [mailViewController setMailComposeDelegate:self];
+        mailViewController.navigationBar.barStyle = self.navigationController.navigationBar.barStyle;
+        mailViewController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
+        mailViewController.navigationBar.titleTextAttributes = self.navigationController.navigationBar.titleTextAttributes;
+        
+        [mailViewController setSubject:FORGOT_PASSWORD_SUBJECT];
+        [mailViewController setToRecipients:[NSArray arrayWithObject:SUPPORT_EMAIL]];
+        [mailViewController setMessageBody:[NSString stringWithFormat:@"%@", FORGOT_PASSWORD_EMAIL] isHTML:NO];
+        
+        [self presentViewController:mailViewController animated:YES completion:nil];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:NSLocalizedString(@"Mail not configured", @"InAppSettingsKit")
+                              message:NSLocalizedString(@"This device is not configured for sending Email. Please configure the Mail settings in the Settings app.", @"InAppSettingsKit")
+                              delegate: nil
+                              cancelButtonTitle:NSLocalizedString(@"OK", @"InAppSettingsKit")
+                              otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:@"Hold Tight!" message:@"Your message has been sent. We'll help you as soon as we can." buttons:[NSArray arrayWithObject:@"Ok"] hasInput:NO];
+    [alertView setDelegate:self];
+    [alertView show];
+}
+
+-(void)customIOS7dialogButtonTouchUpInside:(id)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Ok"]) {
+        [alertView close];
+    }
 }
 
 @end

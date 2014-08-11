@@ -706,12 +706,11 @@ CGRect IASKCGRectSwap(CGRect rect);
             MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
             mailViewController.navigationBar.barStyle = self.navigationController.navigationBar.barStyle;
             mailViewController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
-            mailViewController.navigationBar.titleTextAttributes =
-            self.navigationController.navigationBar.titleTextAttributes;
+            mailViewController.navigationBar.titleTextAttributes = self.navigationController.navigationBar.titleTextAttributes;
             
             if ([specifier localizedObjectForKey:kIASKMailComposeSubject]) {
-                //[mailViewController setSubject:[specifier localizedObjectForKey:kIASKMailComposeSubject]];
-                [mailViewController setSubject:FORGOT_PASSWORD_SUBJECT];
+                [mailViewController setSubject:[specifier localizedObjectForKey:kIASKMailComposeSubject]];
+                //[mailViewController setSubject:FORGOT_PASSWORD_SUBJECT];
             }
             if ([[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]) {
                 //[mailViewController setToRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]];
@@ -737,8 +736,8 @@ CGRect IASKCGRectSwap(CGRect rect);
                                                                  mailComposeBodyForSpecifier:specifier] isHTML:isHTML];
                 }
                 else {
-                    //[mailViewController setMessageBody:[specifier localizedObjectForKey:kIASKMailComposeBody] isHTML:isHTML];
-                    [mailViewController setMessageBody:[NSString stringWithFormat:@"%@\n%@", FORGOT_PASSWORD_EMAIL, [UserDefaultManager loadUsername]] isHTML:isHTML];
+                    [mailViewController setMessageBody:[specifier localizedObjectForKey:kIASKMailComposeBody] isHTML:isHTML];
+                    //[mailViewController setMessageBody:[NSString stringWithFormat:@"%@\n%@", FORGOT_PASSWORD_EMAIL, [UserDefaultManager loadUsername]] isHTML:isHTML];
                 }
             }
             
