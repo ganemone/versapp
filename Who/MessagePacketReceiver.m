@@ -153,7 +153,7 @@
             UILocalNotification *localNotification = [[UILocalNotification alloc] init];
             
             localNotification.alertBody = [NSString stringWithFormat:@"%@: %@", currentChat.getChatName, newMessage.message_body];
-            //localNotification.alertAction = alertAction;
+            localNotification.userInfo = [NSDictionary dictionaryWithObject:currentChat.chat_id forKey:@"chat_id"];
             
             UIApplication *application = [UIApplication sharedApplication];
             application.applicationIconBadgeNumber++;
@@ -182,7 +182,7 @@
             UILocalNotification *localNotification = [[UILocalNotification alloc] init];
             
             localNotification.alertBody = [NSString stringWithFormat:@"%@: %@", currentChat.getChatName, newMessage.message_body];
-            //localNotification.alertAction = alertAction;
+            localNotification.userInfo = [NSDictionary dictionaryWithObject:currentChat.chat_id forKey:@"chat_id"];
             
             UIApplication *application = [UIApplication sharedApplication];
             application.applicationIconBadgeNumber++;

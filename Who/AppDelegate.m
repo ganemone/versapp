@@ -234,7 +234,7 @@
         
         current = ((UINavigationController *) current).visibleViewController;
         
-        if (![current isKindOfClass:JSMessagesViewController.class] || ([current isKindOfClass:ConversationViewController.class] && ![notification.alertBody hasPrefix:((ConversationViewController *) current).chatMO.chat_name]) || ([current isKindOfClass:OneToOneConversationViewController.class] && ![notification.alertBody hasPrefix:((OneToOneConversationViewController *) current).chatMO.chat_name])) {
+        if (![current isKindOfClass:JSMessagesViewController.class] || ([current isKindOfClass:ConversationViewController.class] && ![[notification.userInfo objectForKey:@"chat_id"] isEqualToString:((ConversationViewController *) current).chatMO.chat_id]) || ([current isKindOfClass:OneToOneConversationViewController.class] && ![[notification.userInfo objectForKey:@"chat_id"] isEqualToString:((OneToOneConversationViewController *) current).chatMO.chat_id])) {
             NSLog(@"View: %@", current.class);
             [AGPushNoteView showWithNotificationMessage:notification.alertBody];
         }
