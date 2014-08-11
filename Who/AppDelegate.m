@@ -20,6 +20,9 @@
 #import "ChatDBManager.h"
 #import "Encrypter.h"
 #import "AGPushNote/AGPushNoteView.h"
+#import "ConversationViewController.h"
+#import "OneToOneConversationViewController.h"
+#import "JSMessagesViewController.h"
 
 @implementation AppDelegate
 
@@ -223,8 +226,18 @@
 
 -(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     if ([application applicationState] == UIApplicationStateActive) {
-        NSLog(@"Local notification received while in foreground");
-        [AGPushNoteView showWithNotificationMessage:notification.alertBody];
+        UIViewController *current = [UIApplication sharedApplication].keyWindow.rootViewController;
+        
+        while (current.presentedViewController) {
+            current = current.presentedViewController;
+        }
+        
+        current = ((UINavigationController *) current).visibleViewController;
+        
+        if (![current isKindOfClass:JSMessagesViewController.class] || ([current isKindOfClass:ConversationViewController.class] && ![notification.alertBody hasPrefix:((ConversationViewController *) current).chatMO.chat_name]) || ([current isKindOfClass:OneToOneConversationViewController.class] && ![notification.alertBody hasPrefix:((OneToOneConversationViewController *) current).chatMO.chat_name])) {
+            NSLog(@"View: %@", current.class);
+            [AGPushNoteView showWithNotificationMessage:notification.alertBody];
+        }
     }
 }
 
