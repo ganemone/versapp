@@ -65,7 +65,6 @@
 }
 
 - (BOOL)isPostedByConnectedUser {
-    NSLog(@"Checking poster: %@, %@", _posterJID, [ConnectionProvider getUser]);
     return ([_posterJID isEqualToString:[ConnectionProvider getUser]]);
 }
 
@@ -78,8 +77,6 @@
 }
 
 -(void)startChat {
-    NSLog(@"----- Starting Chat -----");
-    NSLog(@"Degree: %@", _degree);
     NSString *chatID = [NSString stringWithFormat:@"%@%ld", [ConnectionProvider getUser],(long)[[NSDate date] timeIntervalSince1970]];
     [self encodeBody];
     [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createCreateOneToOneChatFromConfessionPacket:self chatID:chatID]];

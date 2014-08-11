@@ -153,18 +153,15 @@
     //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [self.view setUserInteractionEnabled:NO];
     NSString *confessionText = [_composeTextView text];
-    if (confessionText.length > 0) {
-        if (_backgroundImage == nil) {
-            Confession *confession = [Confession create:confessionText imageURL:_backgroundColor];
-            [[ConfessionsManager getInstance] setPendingConfession:confession];
-            [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createPostConfessionPacket:confession]];
-        } else {
-            [[[ImageManager alloc] init] uploadImageToGCS:_imageView.image delegate:self bucket:BUCKET_THOUGHTS];
-        }
+    if ([confessionText isEqualToString:@"Share a thought..."]) {
+        confessionText = @"";
+    }
+    if (_backgroundImage == nil) {
+        Confession *confession = [Confession create:confessionText imageURL:_backgroundColor];
+        [[ConfessionsManager getInstance] setPendingConfession:confession];
+        [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createPostConfessionPacket:confession]];
     } else {
-        //[MBProgressHUD hideHUDForView:self.view animated:YES];
-        [self.view setUserInteractionEnabled:YES];
-        [[[UIAlertView alloc] initWithTitle:@"Whoops" message:@"You didn't write anything!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+        [[[ImageManager alloc] init] uploadImageToGCS:_imageView.image delegate:self bucket:BUCKET_THOUGHTS];
     }
     [self handleFinishedPostingConfession];
 }
@@ -240,7 +237,7 @@
         [self.view setBackgroundColor:[UIColor clearColor]];
         [self getFilteredImages];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-           [self showHelperWithString:@"Swipe for filters and brighness"];
+            [self showHelperWithString:@"Swipe for filters and brighness"];
         });
     }];
 }
@@ -261,7 +258,6 @@
         _e1 = [sepiaFilter imageFromCurrentFramebuffer];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"Finished e1");
             if (_shouldApplyFilter == 1) {
                 [self.imageView setImage:_e1];
                 _shouldApplyFilter = 0;
@@ -278,7 +274,6 @@
         [stillImageSource processImage];
         _e5 = [filter imageFromCurrentFramebuffer];
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"Finished e5");
             if (_shouldApplyFilter == 5) {
                 [self.imageView setImage:_e5];
                 _shouldApplyFilter = 0;
@@ -310,7 +305,6 @@
         [stillImageSource3 processImage];
         _e4 = [filter3 imageFromCurrentFramebuffer];
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"Finished others");
             if (_shouldApplyFilter == 2) {
                 [self.imageView setImage:_e2];
                 _shouldApplyFilter = 0;
@@ -507,7 +501,6 @@
 #pragma mark - GestureManagement
 
 - (void)handleDoubleTap {
-    NSLog(@"View double tapped");
 }
 
 - (void)handleSwipeRight:(UISwipeGestureRecognizer *)gestureRecognizer {
@@ -528,10 +521,8 @@
 
 - (void)handleSwipeWithColor:(UISwipeGestureRecognizerDirection)direction {
     if (direction == UISwipeGestureRecognizerDirectionRight) {
-        NSLog(@"Incrementing...");
         [self incrementColorIndex];
     } else {
-        NSLog(@"Decrementing...");
         [self decrementColorIndex];
     }
     [_composeTextView setBackgroundColor:[_colors objectAtIndex:_colorIndex]];
@@ -607,12 +598,10 @@
 
 - (void)decrementExposure {
     _exposure = MAX(-4, _exposure - 0.5);
-    NSLog(@"Decrementing Exposure: %f", _exposure);
 }
 
 - (void)incrementExposure {
     _exposure = MIN(1, _exposure + 0.5);
-    NSLog(@"Incrementing Exposure: %f", _exposure);
 }
 
 - (void)handleSwipeUp {

@@ -8,17 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import "Confession.h"
+#import "ThoughtsCache.h"
 
 @interface ConfessionsManager : NSObject
 
-@property (strong, nonatomic) NSMutableDictionary *confessions;
-@property (strong, nonatomic) NSMutableArray *confessionIDValues;
-
-@property (strong, nonatomic) NSMutableDictionary *globalConfessions;
-@property (strong, nonatomic) NSMutableArray *globalConfessionIDValues;
+@property (strong, nonatomic) ThoughtsCache * global;
+@property (strong, nonatomic) ThoughtsCache * friends;
+@property (strong, nonatomic) ThoughtsCache * you;
 
 @property (strong, nonatomic) Confession *pendingConfession;
-@property (strong, nonatomic) NSString *method;
+@property enum thoughtMethodTypes method;
 
 @property BOOL shouldClearConfessions;
 
@@ -31,10 +30,10 @@
 -(void)updateConfession:(Confession*)confession;
 -(void)updatePendingConfession:(NSString*)confessionID timestamp:(NSString*)timestamp;
 -(void)sortConfessions;
--(void)clearConfessions;
 -(void)deleteConfession:(NSString *)confessionID;
--(void)loadConfessionsWithMethod:(NSString *)method;
--(void)loadConfessionsWithMethod:(NSString *)method since:(NSString *)since;
+-(void)loadConfessions;
+-(void)loadConfessionsSince:(NSString *)since;
 -(NSString *)getSinceForThoughtRequest;
+-(BOOL)hasCache;
 
 @end

@@ -18,7 +18,7 @@
 // Extends from NSObject and implements the <XMPPStreamDelegate> interface to
 // allow for helpful callback methods.
 @interface ConnectionProvider : NSObject  <XMPPStreamDelegate, XMPPAutoPingDelegate, XMPPReconnectDelegate>
-
+@property(strong, nonatomic) XMPPIDTracker *tracker;
 @property(strong, nonatomic) NSString *pendingParticipantsChatID;
 @property(strong, nonatomic) NSMutableDictionary *tempVCardInfo;
 @property BOOL authenticated;

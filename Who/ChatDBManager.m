@@ -36,7 +36,9 @@ static int numUninvitedParticipants;
         chatEntry = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_CHATS inManagedObjectContext:moc];
         [chatEntry setValue:chatType forKey:CHATS_TABLE_COLUMN_NAME_CHAT_TYPE];
         [chatEntry setValue:@"YES" forKey:CHATS_TABLE_COLUMN_NAME_HAS_NEW_MESSAGE];
-        [self joinChatWithID:chatID];
+        if ([chatType isEqualToString:CHAT_TYPE_GROUP]) {
+            [self joinChatWithID:chatID];
+        }
     }
     [chatEntry setValue:chatID forKey:CHATS_TABLE_COLUMN_NAME_CHAT_ID];
     [chatEntry setValue:chatName forKey:CHATS_TABLE_COLUMN_NAME_CHAT_NAME];
@@ -327,7 +329,6 @@ static int numUninvitedParticipants;
 }
 
 +(void)setChatIDPendingCreation:(NSString*)chatID {
-    NSLog(@"Setting Chat ID Pending Creation: %@", chatID);
     chatIDPendingCreation = chatID;
 }
 
@@ -347,10 +348,8 @@ static int numUninvitedParticipants;
 
 +(void)deleteChatsNotInArray:(NSArray *)chatIDS withStatus:(int)status {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(NOT (chat_id IN %@)) AND status = %@", chatIDS, [NSNumber numberWithInt:status]];
-    NSLog(@"Predicate: %@", predicate);
     NSArray *results = [self makeFetchRequestWithPredicate:predicate];
     for (ChatMO *chat in results) {
-        NSLog(@"Deleting Chat: %@", chat);
         [MessagesDBManager deleteMessagesFromChatWithID:chat.chat_id];
         [self deleteChat:chat];
     }

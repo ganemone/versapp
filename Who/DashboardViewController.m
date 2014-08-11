@@ -63,7 +63,6 @@
 static BOOL notificationsHalfHidden = NO;
 
 -(void)viewDidAppear:(BOOL)animated {
-    NSLog(@"View Will Appear");
     if ([UserDefaultManager hasLoggedIn] == NO) {
         [UserDefaultManager setLoggedInTrue];
         [[[UIAlertView alloc] initWithTitle:@"Welcome to Versapp" message:@"We will guide you through all of Versapps features. This page is your message dashboard. All of your conversations will appear here. Swipe to checkout the other screens." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
@@ -120,7 +119,6 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 -(void)viewDidLoad {
-    NSLog(@"View did Load");
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     [defaultCenter addObserver:self selector:@selector(handleRefreshListView) name:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil];
     [defaultCenter addObserver:self selector:@selector(handleRefreshListView) name:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil];
@@ -188,7 +186,6 @@ static BOOL notificationsHalfHidden = NO;
 
 - (void)handleShowLoadingMessages
 {
-    NSLog(@"Going to show view");
     MBProgressHUD *progress = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [progress setLabelText:@"Loading Messages"];
     [progress setLabelFont:[StyleManager getFontStyleLightSizeXL]];
@@ -744,7 +741,6 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 -(void)handleRefreshListView {
-    NSLog(@"Hiding HUDS in Refresh List View");
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     _groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
     _oneToOneChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllOneToOneChats]];

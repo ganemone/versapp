@@ -162,9 +162,6 @@
         [friend setValue:uid forKey:FRIENDS_TABLE_COLUMN_NAME_UID];
     }
     BOOL returnValue = (ret || friend.name == nil);
-    NSLog(@"Ret: %d", ret);
-    NSLog(@"Return Value: %d", returnValue);
-    NSLog(@"Friend: %@", friend.name);
     return returnValue;
 }
 

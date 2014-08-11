@@ -27,12 +27,9 @@
 // Inserts message into db, adds message to chat history (either group chat or one to one chat),
 // and sends notification with dictionary containing ONLY the group id.
 +(void)handleMessagePacket:(XMPPMessage*)message {
-    NSLog(@"Received Message: %@", [message XMLString]);
-    
     NSError *error = NULL;
     NSRegularExpression *broadcastRegex = [NSRegularExpression regularExpressionWithPattern:@"^<message .*?><body>(.*?)<\\/body><broadcast.*?><type>new_user<\\/type><\\/broadcast><\\/message>$"options:NSRegularExpressionCaseInsensitive error:&error];
     if ([[broadcastRegex matchesInString:message.XMLString options:0 range:NSMakeRange(0, message.XMLString.length)] count] > 0) {
-        NSLog(@"Matches Blacklist");
         return;
     }
 
@@ -53,7 +50,6 @@
             chatName = tempValue;
         }
     }
-    NSLog(@"Chat ID: %@", chatID);
     if (chatID != nil) {
         invitedBy = [[message.fromStr componentsSeparatedByString:@"@"] firstObject];
         [self handleMessageInvitationReceived:chatID groupName:chatName invitedBy:invitedBy];
@@ -84,7 +80,6 @@
 +(void)handleChatMessageReceived:(XMPPMessage*)message {
     
     NSError *error = NULL;
-    NSLog(@"Handling Chat Message");
     NSRegularExpression *groupIDRegex = [NSRegularExpression regularExpressionWithPattern:@"(.*?)@" options:NSRegularExpressionCaseInsensitive error:&error];
     NSTextCheckingResult *groupIDMatch = [groupIDRegex firstMatchInString:message.fromStr options:0 range:NSMakeRange(0, message.fromStr.length)];
     NSString *groupID = [message.fromStr substringWithRange:[groupIDMatch rangeAtIndex:1]];
@@ -119,19 +114,11 @@
             break;
         }
     }
-    NSLog(@"Timestamp: %@", timestamp);
-    NSLog(@"Image Link: %@", imageLink);
-    NSLog(@"Name: %@", name);
-    NSLog(@"Receiver ID: %@", receiverID);
-    NSLog(@"Invite Flag: %@", inviteFlag);
     if ([senderID isEqualToString:[ConnectionProvider getUser]]) {
-        NSLog(@"Updating Message");
         [MessagesDBManager updateMessageWithGroupID:groupID time:timestamp];
     } else if (inviteFlag == nil) {
-        NSLog(@"Inserting new message");
         MessageMO *newMessage;
         if ([message.type isEqualToString:CHAT_TYPE_GROUP]) {
-            NSLog(@"Message type group");
             if (imageLink != nil) {
                 newMessage = [MessagesDBManager insert:message.body groupID:groupID time:timestamp senderID:senderID receiverID:receiverID imageLink:imageLink];
             } else {
@@ -162,7 +149,6 @@
             
             [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
         } else if([message.type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
-            NSLog(@"Message type one to one");
             if (imageLink != nil) {
                 newMessage = [MessagesDBManager insert:message.body groupID:message.thread time:timestamp senderID:senderID receiverID:receiverID imageLink:imageLink];
             } else {

@@ -19,6 +19,7 @@
 #import "ContactSearchManager.h"
 #import "AFNetworking.h"
 #import "NSString+URLEncode.h"
+#import "ThoughtsCache.h"
 
 @implementation IQPacketReceiver
 
@@ -49,8 +50,8 @@
         [self handleInviteUserToChatPacket:sanitizedXMLString];
     } else if([self isPacketWithID:PACKET_ID_CREATE_ONE_TO_ONE_CHAT packet:iq]) {
         [self handleCreateOneToOneChatPacket:sanitizedXMLString];
-    } else if([self isPacketWithID:PACKET_ID_GET_SESSION_ID packet:iq]) {
-        [self handleGetSessionIDPacket:sanitizedXMLString];
+    //} else if([self isPacketWithID:PACKET_ID_GET_SESSION_ID packet:iq]) {
+        //[self handleGetSessionIDPacket:sanitizedXMLString];
     } else if([self isPacketWithID:PACKET_ID_FAVORITE_CONFESSION packet:iq]) {
         [self handleToggleFavoriteConfessionPacket:sanitizedXMLString];
     } else if([self isPacketWithID:PACKET_ID_POST_CONFESSION packet:iq]) {
@@ -151,7 +152,6 @@
 }
 
 +(void)handleGetJoinedChatsPacket:(NSString *)xml {
-    NSLog(@"Handling Get Joined Chats Packet...");
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *moc = [delegate getManagedObjectContextForBackgroundThread];
     __block dispatch_queue_t mainQueue = dispatch_get_main_queue();
@@ -181,7 +181,6 @@
             participants = [participantString componentsSeparatedByString:@", "];
             for (NSString *participant in participants) {
                 if ([FriendsDBManager getUserWithJID:participant moc:moc] == nil) {
-                    NSLog(@"Adding Participant Without VCard: %@", participant);
                     [participantsWithoutVCards addObject:participant];
                 }
             }
@@ -207,11 +206,9 @@
                 }
             }
             [chatIDS addObject:chatId];
-            NSLog(@"Degree: %@", degree);
             [ChatDBManager insertChatWithID:chatId chatName:name chatType:type participantString:participantString status:STATUS_JOINED degree:degree withContext:moc];
         }
         
-        NSLog(@"Found Joined Chats: %@", chatIDS);
         [delegate saveContextForBackgroundThread];
         
         dispatch_sync(mainQueue, ^{
@@ -261,9 +258,7 @@
     }
     if ([username compare:[ConnectionProvider getUser]] != 0) {
         NSString *name = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
-        NSLog(@"Got VCard for User: %@", name);
         if ([FriendsDBManager hasUserWithJID:username]) {
-            NSLog(@"Inserting Friend: %@", name);
             [FriendsDBManager insert:username name:name email:nil status:nil searchedPhoneNumber:nil searchedEmail:nil uid:nil];
             [ChatDBManager updateOneToOneChatNames:name username:username];
         } else {
@@ -330,7 +325,6 @@
             NSRegularExpression *regexJid = [NSRegularExpression regularExpressionWithPattern:@"jid=\"(.*)@" options: 0 error:&error];
             NSTextCheckingResult *matchJid = [regexJid firstMatchInString:jid options:0 range:NSMakeRange(0,jid.length)];
             NSString *resultJid = [jid substringWithRange:[matchJid rangeAtIndex:1]];
-            NSLog(@"Found Roster User: %@", resultJid);
             if ([[resultJid lowercaseString] isEqualToString:[username lowercaseString]]) {
                 continue;
             }
@@ -394,7 +388,6 @@
 }
 
 +(void)handleGetSessionIDPacket:(NSString*)xml {
-    NSLog(@"Handling get session id packet");
     NSError *error = NULL;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<value>(.*?)<\\/value>" options:NSRegularExpressionCaseInsensitive error:&error];
     
@@ -406,11 +399,13 @@
         [[[ContactSearchManager alloc] init] accessContacts];
         [UserDefaultManager setSentBlacklistTrue];
     }
+    ConfessionsManager *cm = [ConfessionsManager getInstance];
     if ([FriendsDBManager hasEnoughFriends]) {
-        [[ConfessionsManager getInstance] loadConfessionsWithMethod:@"friends"];
+        [cm setMethod:THOUGHTS_METHOD_FRIENDS];
     } else {
-        [[ConfessionsManager getInstance] loadConfessionsWithMethod:@"global"];
+        [cm setMethod:THOUGHTS_METHOD_GLOBAL];
     }
+    [cm loadConfessions];
 }
 
 +(void)handleToggleFavoriteConfessionPacket:(NSString *)iq {

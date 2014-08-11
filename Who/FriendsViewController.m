@@ -8,6 +8,7 @@
 
 //App Delegate
 #import "AppDelegate.h"
+#import "XMPPIDTracker.h"
 
 // View Controllers
 #import "FriendsViewController.h"

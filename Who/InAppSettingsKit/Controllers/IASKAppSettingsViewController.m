@@ -26,12 +26,12 @@
 #import "IASKSpecifier.h"
 #import "IASKSpecifierValuesViewController.h"
 #import "IASKTextField.h"
-#import "Constants.h"
 #import "UserDefaultManager.h"
 #import "XMPPStream.h"
 #import "AppInitViewController.h"
 #import "ConnectionProvider.h"
 #import "WebViewController.h"
+#import "Constants.h"
 
 #if !__has_feature(objc_arc)
 #error "IASK needs ARC"
@@ -781,9 +781,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         [self performSegueWithIdentifier:SETTING_CHANGE_PASSWORD sender:self];
     } else if ([[specifier key] isEqualToString:SETTING_LEAVE_GROUPS]) {
         //To be implemented
-        NSLog(@"Leave Groups Pressed");
     } else if ([[specifier key] isEqualToString:SETTING_LOGOUT]) {
-        NSLog(@"Logout Pressed");
         [self logout];
     } else if ([[specifier key] isEqualToString:SETTING_SUPPORT]) {
         [self showWebViewWithURLString:SUPPORT_URL];

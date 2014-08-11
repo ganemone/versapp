@@ -64,7 +64,6 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:req success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [delegate didFinishUploadingImage:image toURL:imageName];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Failed with error: %@", error);
         [delegate didFailToUploadImage:image toURL:imageName withError:error];
     }];
     [operation setResponseSerializer:[AFJSONResponseSerializer serializer]];
@@ -81,9 +80,7 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
     
     [manager setResponseSerializer:[AFImageResponseSerializer serializer]];
     [manager POST:DOWNLOAD_URL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Response: %@", responseObject);
         if (responseObject == nil) {
-            NSLog(@"Nil Response with Request parameters: %@", [parameters description]);
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[ImageCache getInstance] setImage:responseObject withIdentifier:identifier];
@@ -91,7 +88,6 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
             });
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Failed download operation: %@", error);
         [delegate didFailToDownloadImageWithIdentifier:identifier];
     }];
 }

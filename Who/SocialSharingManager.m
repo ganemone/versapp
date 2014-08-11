@@ -50,10 +50,8 @@ NSString *const DESCRIPTION = @"Share and chat anonymously, with the people you 
                                           if(error) {
                                               // An error occurred, we need to handle the error
                                               // See: https://developers.facebook.com/docs/ios/errors
-                                              NSLog(@"Error publishing story: %@", error.description);
                                           } else {
                                               // Success
-                                              NSLog(@"result %@", results);
                                           }
                                       }];
         
@@ -76,19 +74,15 @@ NSString *const DESCRIPTION = @"Share and chat anonymously, with the people you 
                                                       if (error) {
                                                           // An error occurred, we need to handle the error
                                                           // See: https://developers.facebook.com/docs/ios/errors
-                                                          NSLog(@"Error publishing story: %@", error.description);
                                                       } else {
                                                           if (result == FBWebDialogResultDialogNotCompleted) {
-                                                              NSLog(@"User cancelled.");
                                                           } else {
                                                               // Handle the publish feed callback
                                                               NSDictionary *urlParams = [self parseURLParams:[resultURL query]];
                                                               if (![urlParams valueForKey:@"post_id"]) {
-                                                                  NSLog(@"User cancelled.");
                                                               } else {
                                                                   // User clicked the Share button
                                                                   NSString *result = [NSString stringWithFormat: @"Posted story, id: %@", [urlParams valueForKey:@"post_id"]];
-                                                                  NSLog(@"result %@", result);
                                                               }
                                                           }
                                                       }
@@ -132,7 +126,6 @@ NSString *const DESCRIPTION = @"Share and chat anonymously, with the people you 
     
     //  Add an URL to the Tweet.  You can add multiple URLs.
     if (![tweetSheet addURL:[NSURL URLWithString:@"https://versapp.co"]]){
-        NSLog(@"Unable to add the URL!");
     }
     
     return tweetSheet;

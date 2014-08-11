@@ -363,7 +363,6 @@ static const CGFloat kJSSubtitleLabelHeight = 15.0f;
 
 - (void)handleLongPressGesture:(UILongPressGestureRecognizer *)longPress
 {
-    NSLog(@"Handling Long PRESSSS");
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DID_LONG_PRESS_MESSAGE
                                                         object:nil
                                                       userInfo:[NSDictionary dictionaryWithObjectsAndKeys:longPress, NOTIFICATION_DID_LONG_PRESS_MESSAGE, nil]];

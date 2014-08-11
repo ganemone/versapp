@@ -13,5 +13,8 @@
 @interface IQPacketReceiver : NSObject<NSXMLParserDelegate>
 
 +(void)handleIQPacket:(XMPPIQ*)iq;
++(NSString *)sanitizePacket:(XMPPIQ *)iq;
+
++(void)handleGetSessionIDPacket:(NSString*)xml;
 
 @end
