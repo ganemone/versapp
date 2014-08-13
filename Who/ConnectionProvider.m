@@ -223,10 +223,15 @@ static ConnectionProvider *selfInstance;
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
     UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+    
     ChatMO *chat = [ChatDBManager getChatWithID:message.thread];
+    NSString *name;
+    if ((name = chat.chat_name) == nil)
+        name = @"New Chat";
+    
     localNotif.fireDate             = nil;
     localNotif.hasAction            = YES;
-    localNotif.alertBody            = [NSString stringWithFormat:@"%@: %@", chat.chat_name, message.body];
+    localNotif.alertBody            = [NSString stringWithFormat:@"%@: %@", name, message.body];
     localNotif.alertAction          = @"View";
     localNotif.soundName            = UILocalNotificationDefaultSoundName;
     localNotif.userInfo = [NSDictionary dictionaryWithObject:message.thread forKey:@"chat_id"];

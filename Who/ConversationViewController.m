@@ -199,20 +199,24 @@
     }
 }
 
--(void)animateAddNewestMessageAtRow:(int)row {
+/*-(void)animateAddNewestMessageAtRow:(int)row {
     //NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.tableView numberOfRowsInSection:0] - 1 inSection:0];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row-1 inSection:0];
     NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
-    
-    /*NSMutableArray *deleteArr = [[NSMutableArray alloc] init];
-    for (int i=0; i<([self.tableView numberOfRowsInSection:0] - 10); i++) {
-        NSIndexPath *deletePath = [NSIndexPath indexPathForRow:i inSection:0];
-        [deleteArr addObject:deletePath];
-        NSLog(@"To delete: %d", i);
-    }*/
-    
     [self.tableView beginUpdates];
     //[self.tableView deleteRowsAtIndexPaths:deleteArr withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationLeft];
+    [self.tableView endUpdates];
+    [self scrollToBottomAnimated:YES];
+    self.messageImage = nil;
+    self.messageImageLink = nil;
+}*/
+
+-(void)animateAddNewestMessage {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.chatMO getNumberOfMessages] - 1 inSection:0];
+    NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
+    NSLog(@"Index Path: %@", indexPath);
+    [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationLeft];
     [self.tableView endUpdates];
     [self scrollToBottomAnimated:YES];
@@ -333,7 +337,7 @@
     }
     [self resetCameraButtonImage];
     [self.chatMO sendMUCMessageWithBody:text imageLink:self.messageImageLink];
-    [self animateAddNewestMessageAtRow:[self.tableView numberOfRowsInSection:0]];
+    [self animateAddNewestMessage];
     [self finishSend];
 }
 
