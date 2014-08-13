@@ -18,9 +18,11 @@
 @property (strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (strong, nonatomic) NSString *sessionID;
 @property (strong, nonatomic) NSString *localNotificationMessage;
+@property (strong, nonatomic) NSMutableDictionary *notificationLog;
 
 @property BOOL didResumeFromBackground;
 @property BOOL shouldShowLoadingMessages;
+@property BOOL localNotificationsOn;
 
 - (NSManagedObjectContext *) managedObjectContext;
 - (NSManagedObjectModel *)managedObjectModel;

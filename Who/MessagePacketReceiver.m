@@ -65,15 +65,10 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_NOTIFICATIONS object:nil];
     
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-    
     localNotification.alertBody = [NSString stringWithFormat:@"%@: invited by %@", groupName, invitedBy];
-    //localNotification.alertAction = alertAction;
-    
     UIApplication *application = [UIApplication sharedApplication];
     application.applicationIconBadgeNumber++;
-    
     localNotification.applicationIconBadgeNumber = application.applicationIconBadgeNumber;
-    
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 }
 
@@ -137,17 +132,13 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MUC_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
             [ChatDBManager setHasNewMessageYes:groupID];
             
-            UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-            
+            /*UILocalNotification *localNotification = [[UILocalNotification alloc] init];
             localNotification.alertBody = [NSString stringWithFormat:@"%@: %@", currentChat.getChatName, newMessage.message_body];
             localNotification.userInfo = [NSDictionary dictionaryWithObject:currentChat.chat_id forKey:@"chat_id"];
-            
             UIApplication *application = [UIApplication sharedApplication];
             application.applicationIconBadgeNumber++;
-            
             localNotification.applicationIconBadgeNumber = application.applicationIconBadgeNumber;
-            
-            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];*/
         } else if([message.type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
             if (imageLink != nil) {
                 newMessage = [MessagesDBManager insert:message.body groupID:message.thread time:timestamp senderID:senderID receiverID:receiverID imageLink:imageLink];
@@ -163,19 +154,15 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ONE_TO_ONE_MESSAGE_RECEIVED object:nil userInfo:messageDictionary];
             [ChatDBManager setHasNewMessageYes:message.thread];
             
-            ChatMO *currentChat = [ChatDBManager getChatWithID:message.thread];
+            //ChatMO *currentChat = [ChatDBManager getChatWithID:message.thread];
             
-            UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-            
+            /*UILocalNotification *localNotification = [[UILocalNotification alloc] init];
             localNotification.alertBody = [NSString stringWithFormat:@"%@: %@", currentChat.getChatName, newMessage.message_body];
             localNotification.userInfo = [NSDictionary dictionaryWithObject:currentChat.chat_id forKey:@"chat_id"];
-            
             UIApplication *application = [UIApplication sharedApplication];
             application.applicationIconBadgeNumber++;
-            
             localNotification.applicationIconBadgeNumber = application.applicationIconBadgeNumber;
-            
-            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];*/
         }
     }
 }

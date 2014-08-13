@@ -175,7 +175,7 @@ static AGPushNoteView *_sharedPushView;
         NSString *messagePendingPush = [self.pendingPushArr lastObject]; //Maybe get pending push
         if (messagePendingPush) { //If got something - remove from arr, - than show it.
             [self.pendingPushArr removeObject:messagePendingPush];
-            [AGPushNoteView showWithNotificationMessage:messagePendingPush completion:completion];
+            //[AGPushNoteView showWithNotificationMessage:messagePendingPush completion:completion];
         } else {
             APP.window.windowLevel = UIWindowLevelNormal;
         }

@@ -135,12 +135,14 @@
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    _localNotificationsOn = NO;
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    _localNotificationsOn = NO;
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -148,6 +150,9 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     _didResumeFromBackground = YES;
     [self setup];
+    
+    NSLog(@"Creating timer");
+    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(acceptLocalNotifications) userInfo:nil repeats:NO];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -159,6 +164,9 @@
     if (!(_didResumeFromBackground == YES)) {
         [self setup];
     }
+    
+    NSLog(@"Creating timer");
+    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(acceptLocalNotifications) userInfo:nil repeats:NO];
 }
 
 - (void)setup {
@@ -204,35 +212,41 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     _didResumeFromBackground = NO;
+    _localNotificationsOn = NO;
     [self saveContext];
 }
 
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     UIApplication *sharedApp = [UIApplication sharedApplication];
     [sharedApp setApplicationIconBadgeNumber:sharedApp.applicationIconBadgeNumber + 1];
+    NSLog(@"Remote Notification Info: %@", userInfo);
 }
 // TODO remove content available from push notification
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     UIApplication *sharedApp = [UIApplication sharedApplication];
     [sharedApp setApplicationIconBadgeNumber:sharedApp.applicationIconBadgeNumber + 1];
     completionHandler(UIBackgroundFetchResultNewData);
+    NSLog(@"Remote Notification Info: %@", userInfo);
 }
 
 -(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    if ([application applicationState] == UIApplicationStateActive) {
+    if (_localNotificationsOn) {
         UIViewController *current = [UIApplication sharedApplication].keyWindow.rootViewController;
         
-        while (current.presentedViewController) {
+        //Check that new message's chat is not already open
+        while (current.presentedViewController)
             current = current.presentedViewController;
-        }
-        
         current = ((UINavigationController *) current).visibleViewController;
         
         if (![current isKindOfClass:JSMessagesViewController.class] || ([current isKindOfClass:ConversationViewController.class] && ![[notification.userInfo objectForKey:@"chat_id"] isEqualToString:((ConversationViewController *) current).chatMO.chat_id]) || ([current isKindOfClass:OneToOneConversationViewController.class] && ![[notification.userInfo objectForKey:@"chat_id"] isEqualToString:((OneToOneConversationViewController *) current).chatMO.chat_id])) {
-            NSLog(@"View: %@", current.class);
             [AGPushNoteView showWithNotificationMessage:notification.alertBody];
         }
     }
+}
+
+-(void)acceptLocalNotifications {
+    NSLog(@"Setting local notifications on");
+    _localNotificationsOn = YES;
 }
 
 @end
