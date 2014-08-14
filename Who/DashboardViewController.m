@@ -689,6 +689,7 @@ static BOOL notificationsHalfHidden = NO;
     
     [self.groupInvites removeObjectAtIndex:indexPath.row];
     [ChatDBManager setChatStatus:STATUS_JOINED chatID:groupInvite.chat_id];
+    [ChatDBManager joinChatWithID:groupInvite.chat_id];
     
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     [self setNotificationsIcon:YES];

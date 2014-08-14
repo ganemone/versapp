@@ -145,7 +145,6 @@ static ConnectionProvider *selfInstance;
         }
     }
     self.didConnect = YES;
-    
 }
 
 - (void)xmppStreamDidAuthenticate:(XMPPStream *)sender
@@ -234,7 +233,11 @@ static ConnectionProvider *selfInstance;
     localNotif.alertBody            = [NSString stringWithFormat:@"%@: %@", name, message.body];
     localNotif.alertAction          = @"View";
     localNotif.soundName            = UILocalNotificationDefaultSoundName;
-    localNotif.userInfo = [NSDictionary dictionaryWithObject:message.thread forKey:@"chat_id"];
+    if (message.thread != nil)
+        localNotif.userInfo = [NSDictionary dictionaryWithObject:message.thread forKey:@"chat_id"];
+    else
+        localNotif.userInfo = [NSDictionary dictionaryWithObject:@"" forKey:@"chat_id"];
+    
     [[UIApplication sharedApplication] presentLocalNotificationNow:localNotif];
     NSLog(@"Did receive message: %@", [message XMLString]);
     [MessagePacketReceiver handleMessagePacket:message];

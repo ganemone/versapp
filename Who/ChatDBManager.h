@@ -35,6 +35,7 @@
 
 +(void)updateOneToOneChatNames:(NSString *)name username:(NSString*)username;
 +(void)joinAllChats;
++(void)joinChatWithID:(NSString *)chatId;
 +(void)addChatParticipants:(NSMutableArray *)participants;
 +(void)setChatIDAddingParticipants:(NSString *)chatID;
 +(void)updateChatParticipants:(NSMutableArray*)participants;

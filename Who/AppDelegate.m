@@ -236,11 +236,13 @@
         //Check that new message's chat is not already open
         while (current.presentedViewController)
             current = current.presentedViewController;
-        current = ((UINavigationController *) current).visibleViewController;
+        if ([current isKindOfClass:UINavigationController.class]) {
+            current = ((UINavigationController *) current).visibleViewController;
+        }
         
         if (![current isKindOfClass:JSMessagesViewController.class] || ([current isKindOfClass:ConversationViewController.class] && ![[notification.userInfo objectForKey:@"chat_id"] isEqualToString:((ConversationViewController *) current).chatMO.chat_id]) || ([current isKindOfClass:OneToOneConversationViewController.class] && ![[notification.userInfo objectForKey:@"chat_id"] isEqualToString:((OneToOneConversationViewController *) current).chatMO.chat_id])) {
-            [AGPushNoteView showWithNotificationMessage:notification.alertBody];
-        }
+                [AGPushNoteView showWithNotificationMessage:notification.alertBody];
+            }
     }
 }
 
