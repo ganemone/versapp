@@ -4890,7 +4890,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = /Users/rlundquist3/development/ios/FacebookSDK;
+				FRAMEWORK_SEARCH_PATHS = /Users/giancarlo/Documents/FacebookSDK;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/Versapp-Info.plist";
@@ -4907,7 +4907,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = /Users/rlundquist3/development/ios/FacebookSDK;
+				FRAMEWORK_SEARCH_PATHS = /Users/giancarlo/Documents/FacebookSDK;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Who/Versapp-Prefix.pch";
 				INFOPLIST_FILE = "Who/Versapp-Info.plist";
