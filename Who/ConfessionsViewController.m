@@ -67,6 +67,7 @@
     if ([control selectedSegmentIndex] == 0)
     {
         _currentMethod = THOUGHTS_METHOD_YOU;
+        [self.view bringSubviewToFront:_tableView];
         [_noFriendsView removeFromSuperview];
     }
     else if ([control selectedSegmentIndex] == 1)
@@ -82,10 +83,12 @@
     else
     {
         [_noFriendsView removeFromSuperview];
+        [self.view bringSubviewToFront:_tableView];
         _currentMethod = THOUGHTS_METHOD_GLOBAL;
     }
     
     [_confessionsManager setMethod:_currentMethod];
+    
     if ([_confessionsManager hasCache]) {
         [self.tableView reloadData];
     }
