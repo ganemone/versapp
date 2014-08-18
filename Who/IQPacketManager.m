@@ -256,6 +256,7 @@
 }
 
 +(DDXMLElement *)createCreateOneToOneChatFromConfessionPacket:(Confession*)confession chatID:(NSString*)chatID {
+    [confession encodeBody];
     DDXMLElement *create = [DDXMLElement elementWithName:@"create"],
     *chatIDElement = [DDXMLElement elementWithName:@"id" stringValue:chatID],
     *name = [DDXMLElement elementWithName:@"name" stringValue:confession.body],
@@ -275,6 +276,7 @@
     [create addChild:participantsElement];
     
     DDXMLElement *iq = [self getWhoChatIQElementWithType:@"set" packetID:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION children:create];
+    [confession decodeBody];
     return iq;
 }
 

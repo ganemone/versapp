@@ -21,6 +21,7 @@
 #import "ChatDBManager.h"
 #import "AppDelegate.h"
 #import "FriendsDBManager.h"
+#import "NSString+URLEncode.h"
 
 @implementation MessagePacketReceiver
     
@@ -61,9 +62,9 @@
 }
 
 +(void)handleMessageInvitationReceived:(NSString*)chatID groupName:(NSString *)groupName invitedBy:(NSString *)invitedBy {
+    groupName = [groupName urlDecode];
     [ChatDBManager insertChatWithID:chatID chatName:groupName chatType:CHAT_TYPE_GROUP participantString:nil status:STATUS_PENDING degree:@"1" ownerID:invitedBy];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_NOTIFICATIONS object:nil];
-    
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
     localNotification.alertBody = [NSString stringWithFormat:@"%@: invited by %@", groupName, invitedBy];
     UIApplication *application = [UIApplication sharedApplication];

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ChatMO.h"
 
 @interface Confession : NSObject
 
@@ -27,7 +28,7 @@
 - (BOOL)isFavoritedByConnectedUser;
 - (BOOL)isPostedByConnectedUser;
 - (NSString*)getTimePosted;
-- (void)startChat;
+- (void)startChat:(void (^)(ChatMO *element))block;
 - (NSString *)getTextForLabel;
 - (NSUInteger)getNumForLabel;
 - (void)deleteConfession;

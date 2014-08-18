@@ -36,7 +36,6 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self discloseInfoButtonClicked:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -213,6 +212,7 @@
 }*/
 
 -(void)animateAddNewestMessage {
+    NSLog(@"Number of Messages :%d", [self.chatMO getNumberOfMessages]);
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.chatMO getNumberOfMessages] - 1 inSection:0];
     NSArray *indexPathArr = [[NSArray alloc] initWithObjects:indexPath, nil];
     NSLog(@"Index Path: %@", indexPath);

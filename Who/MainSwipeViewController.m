@@ -49,6 +49,11 @@
     return self;
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    ConversationViewController *vc = segue.destinationViewController;
+    [vc setChatMO:sender];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

@@ -15,6 +15,8 @@
 #import "ConfessionsManager.h"
 #import "ThoughtsDBManager.h"
 #import "NSString+URLEncode.h"
+#import "ChatMO.h"
+#import "XMPPManager.h"
 
 @implementation Confession
 
@@ -76,20 +78,19 @@
     return [formatter stringFromDate:date];
 }
 
--(void)startChat {
+-(void)startChat:(void (^)(ChatMO *element))block {
     NSString *chatID = [NSString stringWithFormat:@"%@%ld", [ConnectionProvider getUser],(long)[[NSDate date] timeIntervalSince1970]];
     [self encodeBody];
-    [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createCreateOneToOneChatFromConfessionPacket:self chatID:chatID]];
     NSString *invitedID = [[_posterJID componentsSeparatedByString:@"@"] firstObject];
     NSString *participants = [NSString stringWithFormat:@"%@, %@", [ConnectionProvider getUser], invitedID];
-    [ChatDBManager setChatIDPendingCreation:chatID];
     [self decodeBody];
-    [ChatDBManager insertChatWithID:chatID chatName:_body chatType:CHAT_TYPE_ONE_TO_ONE_CONFESSION participantString:participants status:STATUS_JOINED degree:_degree];
+    ChatMO *chat = [ChatDBManager insertChatWithID:chatID chatName:_body chatType:CHAT_TYPE_ONE_TO_ONE_CONFESSION participantString:participants status:STATUS_JOINED degree:_degree];
     [ThoughtsDBManager insertThoughtWithID:_confessionID posterJID:_posterJID body:_body timestamp:_createdTimestamp degree:_degree favorites:[NSNumber numberWithInt:_numFavorites] hasFavorited:_hasFavorited imageURL:_imageURL];
     [ThoughtsDBManager setInConversationYes:_confessionID];
-    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-    [defaultCenter postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
-    [defaultCenter postNotificationName:NOTIFICATION_CREATED_THOUGHT_CHAT object:nil];
+    XMPPManager *manager = [XMPPManager getInstance];
+    [manager sendCreateOneToOneChatFromConfessionPacket:self chatID:chatID responseBlock:^(XMPPElement *element) {
+        block(chat);
+    }];
 }
 
 -(NSString *)getTextForLabel {

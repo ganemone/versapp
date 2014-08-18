@@ -488,6 +488,10 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="xEY-92-p7p"/>
+                    <connections>
+                        <segue destination="LSk-rM-HTJ" kind="push" identifier="SegueIDMainToGroup" id="aHd-vk-YxK"/>
+                        <segue destination="iDZ-uG-Ep6" kind="push" identifier="SegueIDMainToOneToOne" id="ixc-Fi-sDS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iUp-KR-8dx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1132,7 +1136,7 @@
             <objects>
                 <viewController storyboardIdentifier="ConversationViewController" hidesBottomBarWhenPushed="YES" id="LSk-rM-HTJ" customClass="ConversationViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0UM-Gi-lHb">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="ns7-fL-HQ3">
@@ -1160,7 +1164,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="vsd-42-qBE">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HUc-cS-3Ub">
@@ -1546,11 +1550,11 @@
             <objects>
                 <viewController storyboardIdentifier="OneToOneConversationViewController" hidesBottomBarWhenPushed="YES" id="iDZ-uG-Ep6" customClass="OneToOneConversationViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IqH-NC-C3h">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="Cey-fd-2nt">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="l1b-JD-9CX">
@@ -2055,18 +2059,18 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="WHz-1g-xNx"/>
+        <segue reference="YEX-bB-bO6"/>
+        <segue reference="aHd-vk-YxK"/>
         <segue reference="XeD-6M-yxq"/>
+        <segue reference="WHz-1g-xNx"/>
         <segue reference="OKb-WW-kzU"/>
-        <segue reference="tVn-SP-Hc9"/>
-        <segue reference="pHb-Kf-4qo"/>
-        <segue reference="BCc-dv-kG7"/>
-        <segue reference="hVX-XL-lBE"/>
-        <segue reference="z6h-qs-HbB"/>
-        <segue reference="NHB-2h-sKi"/>
+        <segue reference="ixc-Fi-sDS"/>
         <segue reference="m95-nf-RcH"/>
         <segue reference="Ve6-mS-bkp"/>
-        <segue reference="AGt-Q0-zDh"/>
-        <segue reference="YEX-bB-bO6"/>
+        <segue reference="tVn-SP-Hc9"/>
+        <segue reference="pHb-Kf-4qo"/>
+        <segue reference="hVX-XL-lBE"/>
+        <segue reference="BCc-dv-kG7"/>
+        <segue reference="z6h-qs-HbB"/>
     </inferredMetricsTieBreakers>
 </document>

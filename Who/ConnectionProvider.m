@@ -171,7 +171,7 @@ static ConnectionProvider *selfInstance;
         [self.xmppStream sendElement:[IQPacketManager createGetJoinedChatsPacket]];
         [self.xmppStream sendElement:[IQPacketManager createGetPendingChatsPacket]];
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.xmppStream sendElement:[IQPacketManager createGetRosterPacket]];
             [self.xmppStream sendElement:[IQPacketManager createGetUserInfoPacket]];
             [self.xmppStream sendElement:[IQPacketManager createGetConnectedUserVCardPacket]];
@@ -182,11 +182,6 @@ static ConnectionProvider *selfInstance;
     if (deviceID != nil) {
         [self.xmppStream sendElement:[IQPacketManager createSetDeviceTokenPacket:deviceID]];
     }
-}
-
-- (void)test
-{
-    NSLog(@"Reached Test");
 }
 
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error
@@ -224,15 +219,16 @@ static ConnectionProvider *selfInstance;
     UILocalNotification *localNotif = [[UILocalNotification alloc] init];
     
     ChatMO *chat = [ChatDBManager getChatWithID:message.thread];
+    NSLog(@"Message Thread :%@", message.thread);
     NSString *name;
     if ((name = chat.chat_name) == nil)
         name = @"New Chat";
     
-    localNotif.fireDate             = nil;
-    localNotif.hasAction            = YES;
-    localNotif.alertBody            = [NSString stringWithFormat:@"%@: %@", name, message.body];
-    localNotif.alertAction          = @"View";
-    localNotif.soundName            = UILocalNotificationDefaultSoundName;
+    localNotif.fireDate = nil;
+    localNotif.hasAction = YES;
+    localNotif.alertBody = [NSString stringWithFormat:@"%@: %@", name, message.body];
+    localNotif.alertAction = @"View";
+    localNotif.soundName = UILocalNotificationDefaultSoundName;
     if (message.thread != nil)
         localNotif.userInfo = [NSDictionary dictionaryWithObject:message.thread forKey:@"chat_id"];
     else

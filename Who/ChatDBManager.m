@@ -31,12 +31,11 @@ static int numUninvitedParticipants;
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     
     ChatMO *chatEntry = [self getChatWithID:chatID];
-    
     if (chatEntry == nil) {
         chatEntry = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_CHATS inManagedObjectContext:moc];
         [chatEntry setValue:chatType forKey:CHATS_TABLE_COLUMN_NAME_CHAT_TYPE];
         [chatEntry setValue:@"YES" forKey:CHATS_TABLE_COLUMN_NAME_HAS_NEW_MESSAGE];
-        if ([chatType isEqualToString:CHAT_TYPE_GROUP]) {
+        if ([chatType isEqualToString:CHAT_TYPE_GROUP] && status == STATUS_JOINED) {
             [self joinChatWithID:chatID];
         }
     }
@@ -55,7 +54,9 @@ static int numUninvitedParticipants;
     if (chatEntry == nil) {
         chatEntry = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_CHATS inManagedObjectContext:moc];
         [chatEntry setValue:@"YES" forKey:CHATS_TABLE_COLUMN_NAME_HAS_NEW_MESSAGE];
-        [self joinChatWithID:chatID];
+        if ([chatType isEqualToString:CHAT_TYPE_GROUP] && status == STATUS_JOINED) {
+            [self joinChatWithID:chatID];
+        }
     }
     [chatEntry setValue:chatType forKey:CHATS_TABLE_COLUMN_NAME_CHAT_TYPE];
     [chatEntry setValue:chatID forKey:CHATS_TABLE_COLUMN_NAME_CHAT_ID];
@@ -78,7 +79,9 @@ static int numUninvitedParticipants;
         chatEntry = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_CHATS inManagedObjectContext:moc];
         [chatEntry setValue:chatType forKey:CHATS_TABLE_COLUMN_NAME_CHAT_TYPE];
         [chatEntry setValue:@"YES" forKey:CHATS_TABLE_COLUMN_NAME_HAS_NEW_MESSAGE];
-        [self joinChatWithID:chatID];
+        if ([chatType isEqualToString:CHAT_TYPE_GROUP] && status == STATUS_JOINED) {
+            [self joinChatWithID:chatID];
+        }
     }
     [chatEntry setValue:chatID forKey:CHATS_TABLE_COLUMN_NAME_CHAT_ID];
     [chatEntry setValue:chatName forKey:CHATS_TABLE_COLUMN_NAME_CHAT_NAME];
@@ -127,16 +130,19 @@ static int numUninvitedParticipants;
 }
 
 +(void)joinAllChats {
+    NSLog(@"Joining All Chats");
     NSArray *chats = [self getAllActiveGroupChats];
     XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSString *time = [MessagesDBManager getTimeForHistory:[delegate managedObjectContext]];
     for (ChatMO *chat in chats) {
+        NSLog(@"Chat :%@", [chat description]);
         [conn sendElement:[IQPacketManager createJoinMUCPacket:chat.chat_id lastTimeActive:time]];
     }
 }
 
 +(void)joinChatWithID:(NSString *)chatId {
+    NSLog(@"Joining Chat with ID: %@", chatId);
     XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     NSString *time = [MessagesDBManager getTimeForHistory:[delegate managedObjectContext]];

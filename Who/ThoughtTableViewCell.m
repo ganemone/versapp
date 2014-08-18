@@ -85,16 +85,6 @@
         [_favBtn setImage:[UIImage imageNamed:@"fav-icon.png"] forState:UIControlStateNormal];
     }
     
-    if ([_confession isPostedByConnectedUser]) {
-        [_chatBtn addTarget:self action:@selector(handleConfessionDeleted:) forControlEvents:UIControlEventTouchUpInside];
-        [_chatBtn setImage:[UIImage imageNamed:@"x-white.png"] forState:UIControlStateNormal];
-        [_chatBtn setContentEdgeInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
-    } else {
-        [_chatBtn setImage:[UIImage imageNamed:@"compose-white.png"] forState:UIControlStateNormal];
-        [_chatBtn addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
-        //[_chatBtn setContentEdgeInsets:UIEdgeInsetsZero];
-    }
-    
     [_degreeBtn setTitle:@"" forState:UIControlStateNormal];
     [_degreeBtn setImage:[_confession imageForDegree] forState:UIControlStateNormal];
     _degreeBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -207,56 +197,6 @@
     [_favLabel setText:[_confession getTextForLabel]];
     ConfessionsManager *confessionsManager = [ConfessionsManager getInstance];
     [confessionsManager updateConfession:_confession];
-}
-
--(void)handleConfessionChatStarted:(id)sender {
-    /*if ([FriendsDBManager hasEnoughFriends] && _confession.degree.length < 3) {
-        [[[UIAlertView alloc] initWithTitle:@"" message:@"Would you like to start a chat with the poster of this thought?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] show];
-    } else {
-        [[[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Messaging is restricted to friends." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
-    }*/
-    
-    NSString *message;
-    NSMutableArray *buttonTitles = [[NSMutableArray alloc] init];
-    if ([FriendsDBManager hasEnoughFriends] && _confession.degree.length < 3) {
-        message = @"Start a chat with the poster of this thought?";
-        [buttonTitles addObjectsFromArray:[NSMutableArray arrayWithObjects:@"No", @"Yes", nil]];
-    } else {
-        message = @"Messaging is restricted to friends and friends of friends.";
-        [buttonTitles addObjectsFromArray:[NSMutableArray arrayWithObject:@"Ok"]];
-    }
-    
-    CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:@"Conversation" message:message buttons:buttonTitles hasInput:NO];
-    [alertView setDelegate:self];
-    [alertView show];
-}
-
--(void)handleConfessionDeleted:(id)sender {
-    //[[[UIAlertView alloc] initWithTitle:@"Confirmation" message:@"Are you sure you want to delete this thought?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil] show];
-    
-    CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:@"Delete Thought" message:@"Are you sure you want to delete this thought?" buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Delete", nil] hasInput:NO];
-    [alertView setDelegate:self];
-    [alertView show];
-}
-
-/*-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Delete"]) {
-        [_confession deleteConfession];
-    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Yes"]) {
-        [_confession startChat];
-    }
-}*/
-
-- (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex {
-    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Got it"] || [[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"No"] || [[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Ok"] || [[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]) {
-        [alertView close];
-    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Yes"]) {
-        [alertView close];
-        [_confession startChat];
-    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Delete"]) {
-        [alertView close];
-        [_confession deleteConfession];
-    }
 }
 
 - (CGFloat)heightForConfession {

@@ -46,6 +46,7 @@
         XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
         FriendMO *friend = [FriendsDBManager getUserWithJID:username];
         if (friend == nil || friend.name == nil) {
+            NSLog(@"GETTING VCARD AFTER PRESENCE PACKET");
             [conn sendElement:[IQPacketManager createGetVCardPacket:username]];
         }
         // Packet represents a friend request

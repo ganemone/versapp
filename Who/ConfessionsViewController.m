@@ -22,6 +22,7 @@
 #import "FriendsDBManager.h"
 #import "WSCoachMarksView.h"
 #import "ThoughtsCache.h"
+#import "AppDelegate.h"
 
 @interface ConfessionsViewController ()
 
@@ -48,7 +49,7 @@
 @property NSString *prevSince;
 @property enum thoughtMethodTypes currentMethod;
 @property (strong, nonatomic) CustomIOS7AlertView *reportAlertView;
-@property (strong, nonatomic) Confession *reportConfession;
+@property (strong, nonatomic) Confession *actionConfession;
 
 @end
 
@@ -357,9 +358,52 @@
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"ThoughtTableViewCell" owner:self options:nil] firstObject];
         [cell setUpWithConfession:confession];
+        
+        if ([confession isPostedByConnectedUser]) {
+            [cell.chatBtn addTarget:self action:@selector(handleConfessionDeleted:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.chatBtn setImage:[UIImage imageNamed:@"x-white.png"] forState:UIControlStateNormal];
+            [cell.chatBtn setContentEdgeInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+        } else {
+            [cell.chatBtn setImage:[UIImage imageNamed:@"compose-white.png"] forState:UIControlStateNormal];
+            [cell.chatBtn addTarget:self action:@selector(handleConfessionChatStarted:) forControlEvents:UIControlEventTouchUpInside];
+        }
     }
     
     return cell;
+}
+
+-(void)handleConfessionDeleted:(id)sender {
+    //[[[UIAlertView alloc] initWithTitle:@"Confirmation" message:@"Are you sure you want to delete this thought?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil] show];
+    ThoughtTableViewCell *cell = (ThoughtTableViewCell *)[[[sender superview] superview] superview];
+    _actionConfession = cell.confession;
+    
+    CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:@"Delete Thought" message:@"Are you sure you want to delete this thought?" buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Delete", nil] hasInput:NO];
+    [alertView setDelegate:self];
+    [alertView show];
+}
+
+-(void)handleConfessionChatStarted:(id)sender {
+    /*if ([FriendsDBManager hasEnoughFriends] && _confession.degree.length < 3) {
+     [[[UIAlertView alloc] initWithTitle:@"" message:@"Would you like to start a chat with the poster of this thought?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] show];
+     } else {
+     [[[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Messaging is restricted to friends." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+     }*/
+    ThoughtTableViewCell *cell = (ThoughtTableViewCell *)[[[sender superview] superview] superview];
+    _actionConfession = cell.confession;
+    
+    NSString *message;
+    NSMutableArray *buttonTitles = [[NSMutableArray alloc] init];
+    if ([FriendsDBManager hasEnoughFriends]) {
+        message = @"Start a chat with the poster of this thought?";
+        [buttonTitles addObjectsFromArray:[NSMutableArray arrayWithObjects:@"No", @"Yes", nil]];
+    } else {
+        message = @"Messaging is restricted to friends and friends of friends.";
+        [buttonTitles addObjectsFromArray:[NSMutableArray arrayWithObject:@"Ok"]];
+    }
+    
+    CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:@"Conversation" message:message buttons:buttonTitles hasInput:NO];
+    [alertView setDelegate:self];
+    [alertView show];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -431,30 +475,6 @@
         [self performSegueWithIdentifier:@"SegueIDTest" sender:self];
     }
 }
-// WHAT IS THIS???
-/*-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
- NSLog(@"WAT IS THIS");
- [self performSegueWithIdentifier:SEGUE_ID_COMPOSE_CONFESSION sender:self];
- return NO;
- }*/
-
-/*- (IBAction)messageIconClicked:(id)sender {
- NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
- [NSNumber numberWithInt:UIPageViewControllerNavigationDirectionReverse], @"direction", nil];
- 
- [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_TO_MESSAGES
- object:nil
- userInfo:userInfo];
- }
- 
- - (IBAction)friendIconClicked:(id)sender {
- NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
- [NSNumber numberWithInt:UIPageViewControllerNavigationDirectionForward], @"direction", nil];
- 
- [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_TO_FRIENDS
- object:nil
- userInfo:userInfo];
- }*/
 
 - (IBAction)handleDiscloseInfoBtnClicked:(id)sender {
     NSString *info;
@@ -476,15 +496,30 @@
 }
 
 - (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex {
+    NSLog(@"Reached Delegate");
     if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Report this Thought"]) {
+        NSLog(@"Report this thought");
         [alertView close];
         [_reportAlertView show];
     } else if (alertView == _reportAlertView) {
+        NSLog(@"Report alert view");
         if (![[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]) {
-            [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createReportThoughtPacket:_reportConfession type:[[[alertView buttonTitleAtIndex:buttonIndex] lowercaseString] stringByReplacingOccurrencesOfString:@" " withString:@"_"]]];
+            [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createReportThoughtPacket:_actionConfession type:[[[alertView buttonTitleAtIndex:buttonIndex] lowercaseString] stringByReplacingOccurrencesOfString:@" " withString:@"_"]]];
             
         }
         [alertView close];
+    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Yes"]) {
+        NSLog(@"HERE");
+        [alertView close];
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [_actionConfession startChat:^(ChatMO *chat) {
+            NSLog(@"INSIDE BLOCK :%@", chat);
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            [[AppDelegate getCurrentViewController] performSegueWithIdentifier:SEGUE_ID_MAIN_TO_ONE_TO_ONE sender:chat];
+        }];
+    } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Delete"]) {
+        [alertView close];
+        [_actionConfession deleteConfession];
     } else {
         [alertView close];
     }
@@ -592,8 +627,8 @@
 }
 
 -(void)handleLongPressForRowAtIndexPath:(NSIndexPath*)indexPath {
-    _reportConfession = [_confessionsManager getConfessionAtIndex:(int)indexPath.row];
-    if (![_reportConfession isPostedByConnectedUser]) {
+    _actionConfession = [_confessionsManager getConfessionAtIndex:(int)indexPath.row];
+    if (![_actionConfession isPostedByConnectedUser]) {
         CustomIOS7AlertView *alertView = [StyleManager createButtonOnlyAlertView:[NSArray arrayWithObjects:@"Report this Thought", @"Cancel", nil]];
         [alertView setDelegate:self];
         [alertView show];

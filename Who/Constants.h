@@ -154,6 +154,8 @@ extern NSString *const SEGUE_ID_TUTORIAL;
 extern NSString *const SEGUE_ID_FINISHED_TUTORIAL;
 extern NSString *const SEGUE_ID_REGISTER_FROM_TUTORIAL;
 extern NSString *const SEGUE_ID_LOGIN_FROM_TUTORIAL;
+extern NSString *const SEGUE_ID_MAIN_TO_GROUP;
+extern NSString *const SEGUE_ID_MAIN_TO_ONE_TO_ONE;
 
 extern NSString *const CELL_ID_CONVERSATION_PROTOTYPE;
 extern NSString *const CELL_ID_FRIENDS_PROTOTYPE;

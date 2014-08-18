@@ -349,6 +349,7 @@
 }
 
 - (IBAction)onBackClicked:(id)sender {
+    [ChatDBManager setHasNewMessageNo:_chatMO.chat_id];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 

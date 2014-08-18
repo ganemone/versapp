@@ -23,6 +23,7 @@
 #import "ConversationViewController.h"
 #import "OneToOneConversationViewController.h"
 #import "JSMessagesViewController.h"
+#import "MainSwipeViewController.h"
 
 @implementation AppDelegate
 
@@ -231,19 +232,60 @@
 
 -(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     if (_localNotificationsOn) {
-        UIViewController *current = [UIApplication sharedApplication].keyWindow.rootViewController;
+        UIViewController *current = [AppDelegate getCurrentViewController];
         
-        //Check that new message's chat is not already open
-        while (current.presentedViewController)
-            current = current.presentedViewController;
-        if ([current isKindOfClass:UINavigationController.class]) {
-            current = ((UINavigationController *) current).visibleViewController;
+        NSString *chatID = [notification.userInfo objectForKey:@"chat_id"];
+        NSLog(@"CHAT ID: %@", chatID);
+        if (![current isKindOfClass:JSMessagesViewController.class] ||
+            ([current isKindOfClass:ConversationViewController.class] && ![chatID isEqualToString:((ConversationViewController *) current).chatMO.chat_id]) ||
+            ([current isKindOfClass:OneToOneConversationViewController.class] && ![chatID isEqualToString:((OneToOneConversationViewController *) current).chatMO.chat_id]))
+        {
+            [AGPushNoteView showWithNotificationMessage:notification.alertBody];
+            [AGPushNoteView setMessageAction:^(NSString *message) {
+                ChatMO *chat = [ChatDBManager getChatWithID:chatID];
+                if (chat != nil) {
+                    [AppDelegate handleLocalNotificationClickedWithChat:chat];
+                }
+            }];
         }
-        
-        if (![current isKindOfClass:JSMessagesViewController.class] || ([current isKindOfClass:ConversationViewController.class] && ![[notification.userInfo objectForKey:@"chat_id"] isEqualToString:((ConversationViewController *) current).chatMO.chat_id]) || ([current isKindOfClass:OneToOneConversationViewController.class] && ![[notification.userInfo objectForKey:@"chat_id"] isEqualToString:((OneToOneConversationViewController *) current).chatMO.chat_id])) {
-                [AGPushNoteView showWithNotificationMessage:notification.alertBody];
-            }
     }
+}
+
++ (void)handleLocalNotificationClickedWithChat:(ChatMO *)chat {
+    UIViewController *currentVC = [AppDelegate getCurrentViewController];
+    NSLog(@"CURRENT VC :%@", currentVC.class);
+    if ([currentVC isKindOfClass:MainSwipeViewController.class])
+    {
+        if ([chat.chat_type isEqualToString:CHAT_TYPE_GROUP])
+        {
+            [currentVC performSegueWithIdentifier:SEGUE_ID_MAIN_TO_GROUP sender:chat];
+        }
+        else
+        {
+            [currentVC performSegueWithIdentifier:SEGUE_ID_MAIN_TO_ONE_TO_ONE sender:chat];
+        }
+    }
+    else if([currentVC isKindOfClass:ConversationViewController.class])
+    {
+        [currentVC.navigationController popToRootViewControllerAnimated:NO];
+        [AppDelegate handleLocalNotificationClickedWithChat:chat];
+    }
+    else if([currentVC isKindOfClass:OneToOneConversationViewController.class])
+    {
+        [currentVC.navigationController popToRootViewControllerAnimated:NO];
+        [AppDelegate handleLocalNotificationClickedWithChat:chat];
+    }
+}
+
++ (UIViewController *)getCurrentViewController {
+    //Check that new message's chat is not axlready open
+    UIViewController *current = [UIApplication sharedApplication].keyWindow.rootViewController;
+    while (current.presentedViewController)
+        current = current.presentedViewController;
+    if ([current isKindOfClass:UINavigationController.class]) {
+        current = ((UINavigationController *) current).visibleViewController;
+    }
+    return current;
 }
 
 -(void)acceptLocalNotifications {

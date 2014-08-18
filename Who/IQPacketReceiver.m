@@ -98,7 +98,6 @@
         }
         XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
         [conn sendElement:[IQPacketManager createSubscribePacket:username]];
-        //[conn sendElement:[IQPacketManager createGetVCardPacket:username]];
         [FriendsDBManager updateEntry:username name:nil email:searchedEmail status:[NSNumber numberWithInt:STATUS_REQUESTED]];
     }
 }
@@ -163,7 +162,6 @@
         *participants;
         NSString *participantString, *chatId, *type, *owner, *name, *degree;
         NSMutableArray *chatIDS = [[NSMutableArray alloc] initWithCapacity:20];
-        NSMutableArray *participantsWithoutVCards = [NSMutableArray array];
         for (NSTextCheckingResult *match in matches) {
             participantString = [xml substringWithRange:[match rangeAtIndex:1]];
             chatId = [xml substringWithRange:[match rangeAtIndex:2]];
@@ -178,12 +176,7 @@
                 degree = @"1";
             }
             
-            participants = [participantString componentsSeparatedByString:@", "];
-            for (NSString *participant in participants) {
-                if ([FriendsDBManager getUserWithJID:participant moc:moc] == nil) {
-                    [participantsWithoutVCards addObject:participant];
-                }
-            }
+            participants = [participantString componentsSeparatedByString:@","];
             if ([type isEqualToString:CHAT_TYPE_ONE_TO_ONE]) {
                 ChatMO *chat = [ChatDBManager getChatWithID:chatId withMOC:moc];
                 if (chat != nil) {
@@ -193,7 +186,7 @@
                     if ([owner isEqualToString:[ConnectionProvider getUser]]) {
                         NSString *participant = ([[participants firstObject] isEqualToString:[ConnectionProvider getUser]]) ? [participants lastObject] : [participants firstObject];
                         type = CHAT_TYPE_ONE_TO_ONE_INVITER;
-                        name = [FriendsDBManager getUserWithJID:participant moc:moc].name;
+                        name = [FriendsDBManager getUserWithJID:participant].name;
                         if (name == nil) {
                             name = @"Loading...";
                         }
@@ -213,10 +206,6 @@
         
         dispatch_sync(mainQueue, ^{
             [ChatDBManager deleteChatsNotInArray:chatIDS withStatus:STATUS_JOINED];
-            XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
-            for (NSString *username in participantsWithoutVCards) {
-                [conn sendElement:[IQPacketManager createGetVCardPacket:username]];
-            }
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_CHAT_LIST object:nil];
         });
     }];
@@ -367,6 +356,8 @@
         dispatch_sync(mainQ, ^{
             ConnectionProvider *cp = [ConnectionProvider getInstance];
             XMPPStream *conn = [cp getConnection];
+            NSLog(@"ROSTER PACKET");
+            NSLog(@"Items without vcard :%@", itemsWithoutVCard);
             for (NSString *username in itemsWithoutVCard)
             {
                 [conn sendElement:[IQPacketManager createGetVCardPacket:username]];

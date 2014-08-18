@@ -155,6 +155,8 @@ NSString *const SEGUE_ID_TUTORIAL = @"SegueIDTutorial";
 NSString *const SEGUE_ID_FINISHED_TUTORIAL = @"SegueIDFinishedTutorial";
 NSString *const SEGUE_ID_REGISTER_FROM_TUTORIAL = @"SegueIDRegisterFromTutorial";
 NSString *const SEGUE_ID_LOGIN_FROM_TUTORIAL = @"SegueIDLoginFromTutorial";
+NSString *const SEGUE_ID_MAIN_TO_GROUP = @"SegueIDMainToGroup";
+NSString *const SEGUE_ID_MAIN_TO_ONE_TO_ONE = @"SegueIDMainToOneToOne";
 
 NSString *const CELL_ID_CONVERSATION_PROTOTYPE = @"ConversationCellPrototype";
 NSString *const CELL_ID_FRIENDS_PROTOTYPE = @"FriendsCellPrototype";
@@ -288,7 +290,7 @@ NSString *const BUCKET_THOUGHTS = @"msgpics";//@"thoughtpics";
 NSString *const BLACKLIST_AUTH_CODE = @"Authorization";
 NSString *const SUPPORT_EMAIL = @"support@versapp.co";
 
-/*
+
 NSString *const SERVER_IP_ADDRESS = @"versapp.co";
 NSString *const CONFERENCE_IP_ADDRESS = @"conference.versapp.co";
 NSString *const UPLOAD_URL = @"https://versapp.co/gcs/upload.php";
@@ -297,8 +299,9 @@ NSString *const BLACKLIST_URL = @"https://versapp.co:5281/contacts/store";
 NSString *const VALIDATE_URL = @"https://versapp.co/validate.php";
 NSString *const VERIFY_URL = @"https://versapp.co/verify/";
 NSString *const THOUGHTS_URL = @"https://versapp.co/thoughts/index.php";
-*/
+
 // DEV
+/*
 NSString *const SERVER_IP_ADDRESS = @"harmon.dev.versapp.co";
 NSString *const CONFERENCE_IP_ADDRESS = @"conference.harmon.dev.versapp.co";
 NSString *const UPLOAD_URL = @"http://harmon.dev.versapp.co/gcs/upload.php";
@@ -307,7 +310,7 @@ NSString *const BLACKLIST_URL = @"http://harmon.dev.versapp.co:5281/contacts/sto
 NSString *const VALIDATE_URL = @"http://harmon.dev.versapp.co/validate.php";
 NSString *const VERIFY_URL = @"http://harmon.dev.versapp.co/verify/";
 NSString *const THOUGHTS_URL = @"http://harmon.dev.versapp.co/thoughts/index.php";
-
+*/
 
 NSString *const SUPPORT_URL = @"http://www.versapp.co/support.html";
 NSString *const PRIVACY_URL = @"http://www.versapp.co/privacy.html";

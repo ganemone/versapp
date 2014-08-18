@@ -26,5 +26,4 @@
 @property (weak, nonatomic) IBOutlet UIButton *infoBtn;
 @property (strong, nonatomic) ThoughtTableViewCell *thoughtView;
 
-
 @end

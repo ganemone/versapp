@@ -27,5 +27,4 @@
 @property (weak, nonatomic) IBOutlet UIView *participantsView;
 @property (weak, nonatomic) IBOutlet UILabel *participantsLabel;
 
-
 @end

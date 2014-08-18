@@ -30,5 +30,6 @@
 - (NSManagedObjectContext *)getManagedObjectContextForBackgroundThread;
 - (void)saveContext;
 - (void)saveContextForBackgroundThread;
++ (UIViewController *)getCurrentViewController;
 
 @end

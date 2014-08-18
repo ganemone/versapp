@@ -292,7 +292,7 @@
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat: predicateString];
     [fetchRequest setPredicate:predicate];
-    
+    [fetchRequest setFetchLimit:2];
     NSError* error;
     NSArray *fetchedRecords = [moc executeFetchRequest:fetchRequest error:&error];
     

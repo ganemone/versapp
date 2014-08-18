@@ -80,9 +80,18 @@ static XMPPManager *selfInstance;
     } timeout:5000];
     [_conn sendElement:el];
 }
+
 - (void)sendPostConfessionPacket:(Confession *)confession responseBlock:(void (^)(XMPPElement *element))block {}
 - (void)sendToggleFavoriteConfessionPacket:(NSString*)confessionID responseBlock:(void (^)(XMPPElement *element))block {}
-- (void)sendCreateOneToOneChatFromConfessionPacket:(Confession*)confession chatID:(NSString *)chatID responseBlock:(void (^)(XMPPElement *element))block {}
+- (void)sendCreateOneToOneChatFromConfessionPacket:(Confession*)confession chatID:(NSString *)chatID responseBlock:(void (^)(XMPPElement *element))block {
+    DDXMLElement *el = [IQPacketManager createCreateOneToOneChatFromConfessionPacket:confession chatID:chatID];
+    NSString *elementID = [[el attributeForName:@"id"] stringValue];
+    [_tracker addID:elementID block:^(id obj, id<XMPPTrackingInfo> info) {
+        XMPPIQ *iq = obj;
+        block(iq);
+    } timeout:5000];
+    [_conn sendElement:el];
+}
 - (void)sendForceCreateRosterEntryPacket:(NSString *)jid responseBlock:(void (^)(XMPPElement *element))block {}
 - (void)sendLeaveChatPacket:(NSString *)chatId responseBlock:(void (^)(XMPPElement *element))block {}
 - (void)sendExitRoomPacket:(NSString *)chatId responseBlock:(void (^)(XMPPElement *element))block {}

@@ -302,7 +302,8 @@ static BOOL notificationsHalfHidden = NO;
 
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if([segue.identifier isEqualToString:SEGUE_ID_GROUP_CONVERSATION]) {
+    if([segue.identifier isEqualToString:SEGUE_ID_GROUP_CONVERSATION])
+    {
         ConversationViewController *dest = segue.destinationViewController;
         dest.chatMO = [[self groupChats] objectAtIndex:self.clickedCellIndexPath.row];
         _mostRecentMessageInPushedChat = [[dest.chatMO messages] lastObject];
@@ -689,10 +690,12 @@ static BOOL notificationsHalfHidden = NO;
     
     [self.groupInvites removeObjectAtIndex:indexPath.row];
     [ChatDBManager setChatStatus:STATUS_JOINED chatID:groupInvite.chat_id];
-    //[ChatDBManager joinChatWithID:groupInvite.chat_id];
-    
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     [self setNotificationsIcon:YES];
+    UIViewController *main = [AppDelegate getCurrentViewController];
+    if ([main isKindOfClass:MainSwipeViewController.class]) {
+        [main performSegueWithIdentifier:SEGUE_ID_MAIN_TO_GROUP sender:groupInvite];
+    }
 }
 
 - (IBAction)declineInvitation:(id)sender {
@@ -756,6 +759,7 @@ static BOOL notificationsHalfHidden = NO;
 
 -(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
 {
+    NSLog(@"HANDLING LONG PRESS");
     CGPoint p = [gestureRecognizer locationInView:_tableView];
     NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint:p];
     if (indexPath == nil) {
