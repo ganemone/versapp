@@ -36,4 +36,7 @@
 -(NSString *)getSinceForThoughtRequest;
 -(BOOL)hasCache;
 
+-(void)synchronizeThoughtWithID:(NSString *)cid withBlock:(void (^)(ThoughtMO *thought))block;
+-(void)loadConfessionByID:(NSString *)cid withBlock:(void (^)(Confession *confession))block;
+
 @end

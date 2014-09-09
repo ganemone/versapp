@@ -496,7 +496,8 @@
 
 -(void)handleUnfriend:(FriendMO*)friend {
     XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
-    [conn sendElement:[IQPacketManager createUnsubscribePacket:friend.username]];
+    //[conn sendElement:[IQPacketManager createUnsubscribePacket:friend.username]];
+    [conn sendElement:[IQPacketManager createUnsubscribedPacket:friend.username]];
     BOOL result = [FriendsDBManager updateUserSetStatusRejected:friend.username];
     NSLog(@"RESULT %d", result);
     _allAccepted = [FriendsDBManager getAllWithStatusFriends];

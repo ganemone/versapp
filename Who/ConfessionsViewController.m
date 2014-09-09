@@ -373,9 +373,11 @@
 }
 
 -(void)handleConfessionDeleted:(id)sender {
+
     //[[[UIAlertView alloc] initWithTitle:@"Confirmation" message:@"Are you sure you want to delete this thought?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil] show];
     ThoughtTableViewCell *cell = (ThoughtTableViewCell *)[[[sender superview] superview] superview];
     _actionConfession = cell.confession;
+
     
     CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:@"Delete Thought" message:@"Are you sure you want to delete this thought?" buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Delete", nil] hasInput:NO];
     [alertView setDelegate:self];

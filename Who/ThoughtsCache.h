@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ThoughtMO.h"
 #import "Confession.h"
 
 @interface ThoughtsCache : NSObject

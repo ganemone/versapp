@@ -102,4 +102,80 @@ static ConfessionsManager *selfInstance;
     return [[self getCurrentCache] hasCache];
 }
 
+-(void)loadConfessionByID:(NSString *)cid withBlock:(void (^)(Confession *confession))block {
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    NSDictionary *parameters = @{@"method": cid};
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSError *error = NULL;
+    NSMutableURLRequest *req = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST"
+                                                                             URLString:THOUGHTS_URL
+                                                                            parameters:parameters
+                                                                                 error:&error];
+    AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:req success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Succeeded with operation: %@", operation.responseString);
+        NSLog(@"Succeeded with response object: %@", responseObject);
+        Confession *result = [self handleReceivedConfessionsRequest:operation.responseString];
+        NSLog(@"Resulting Confession: %@", [result description]);
+        block(result);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Failed with error: %@", error);
+    }];
+    
+    // Setting up authorization header
+    NSString *authCode = [NSString stringWithFormat:@"%@:%@", [ConnectionProvider getUser], appDelegate.sessionID];
+    NSData *data = [authCode dataUsingEncoding:NSASCIIStringEncoding];
+    NSString *base64AuthCode = [Base64 encode:data];
+    NSString *authHttpHeaderValue = [NSString stringWithFormat:@"Basic %@", base64AuthCode];
+    [req addValue:authHttpHeaderValue forHTTPHeaderField:BLACKLIST_AUTH_CODE];
+    [operation setResponseSerializer:[AFXMLParserResponseSerializer serializer]];
+    [operation start];
+}
+
+-(Confession *)handleReceivedConfessionsRequest:(NSString *)result {
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<entry>\"(.*?)\",\"(.*?)\",\"(.*?)\",(?:\\[\\]|\"(.*?)\"),\"(.*?)\",(?:\\[\\]|\"(.*?)\"),\"(.*?)\",\"(.*?)\"</entry>"
+                                                                           options:NSRegularExpressionCaseInsensitive error:&error];
+    NSTextCheckingResult *match = [regex firstMatchInString:result options:0 range:NSMakeRange(0, result.length)];
+    NSString *confessionID, *jid, *body, *imageURL, *timestamp, *hasFavoritedString, *degree;
+    NSNumber *favoriteCount;
+    Confession *confession;
+    confessionID = [result substringWithRange:[match rangeAtIndex:1]];
+    jid = [result substringWithRange:[match rangeAtIndex:2]];
+    body = [result substringWithRange:[match rangeAtIndex:3]];
+    if ([match rangeAtIndex:4].length != 0) {
+        imageURL = [result substringWithRange:[match rangeAtIndex:4]];
+    }
+    timestamp = [result substringWithRange:[match rangeAtIndex:5]];
+    if ([match rangeAtIndex:6].length != 0) {
+        hasFavoritedString = [result substringWithRange:[match rangeAtIndex:6]];
+    }
+    if ([match rangeAtIndex:7].length != 0) {
+        favoriteCount = [NSNumber numberWithInteger:[[result substringWithRange:[match rangeAtIndex:7]] integerValue]];
+    }
+        
+    degree = [result substringWithRange:[match rangeAtIndex:8]];
+    BOOL hasFavorited = ([hasFavoritedString isEqualToString:@"YES"]) ? YES : NO;
+        
+    if (!(imageURL.length > 0) || [imageURL isEqualToString:@"null"]) {
+        imageURL = @"g1398792552";
+    }
+    body = [[body stringByReplacingOccurrencesOfString:@"+" withString:@" "] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    confession = [Confession create:body posterJID:jid imageURL:imageURL confessionID:confessionID createdTimestamp:timestamp degreeOfConnection:degree hasFavorited:hasFavorited numFavorites:[favoriteCount intValue]];
+    return  confession;
+}
+
+-(void)synchronizeThoughtWithID:(NSString *)cid withBlock:(void (^)(ThoughtMO *thought))block {
+    [self loadConfessionByID:cid withBlock:^(Confession *confession) {
+        ThoughtMO *thought = [ThoughtsDBManager getThoughtWithID:cid];
+        if (thought == nil) {
+            thought = [ThoughtsDBManager insertThoughtWithConfession:confession];
+        } else {
+            thought = [ThoughtsDBManager updateThought:thought withConfession:confession];
+        }
+        block(thought);
+    }];
+}
+
+
 @end

@@ -9,6 +9,7 @@
 #import "ThoughtsDBManager.h"
 #import "AppDelegate.h"
 #import "Constants.h"
+#import "Confession.h"
 
 @implementation ThoughtsDBManager
 
@@ -29,6 +30,46 @@
     }
     //[thought setValue:inConversation forKey:THOUGHTS_TABLE_COLUMN_NAME_IN_CONVERSATION];
     [thought setValue:imageURL forKey:THOUGHTS_TABLE_COLUMN_NAME_IMAGE_URL];
+    [delegate saveContext];
+    
+    return thought;
+}
+
++(ThoughtMO *)insertThoughtWithConfession:(Confession *)confession {
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *moc = [delegate managedObjectContext];
+    ThoughtMO *thought = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_THOUGHTS inManagedObjectContext:moc];
+    [thought setValue:confession.confessionID forKey:THOUGHTS_TABLE_COLUMN_NAME_CONFESSION_ID];
+    [thought setValue:confession.posterJID forKey:THOUGHTS_TABLE_COLUMN_NAME_POSTER_JID];
+    [thought setValue:confession.body forKey:THOUGHTS_TABLE_COLUMN_NAME_BODY];
+    [thought setValue:confession.createdTimestamp forKey:THOUGHTS_TABLE_COLUMN_NAME_TIMESTAMP];
+    [thought setValue:confession.degree forKey:THOUGHTS_TABLE_COLUMN_NAME_DEGREE];
+    [thought setValue:[NSNumber numberWithInt:confession.numFavorites] forKey:THOUGHTS_TABLE_COLUMN_NAME_FAVORITES];
+    if (confession.hasFavorited) {
+        [thought setValue:@"YES" forKey:THOUGHTS_TABLE_COLUMN_NAME_HAS_FAVORITED];
+    } else {
+        [thought setValue:@"NO" forKey:THOUGHTS_TABLE_COLUMN_NAME_HAS_FAVORITED];
+    }
+    [thought setValue:confession.imageURL forKey:THOUGHTS_TABLE_COLUMN_NAME_IMAGE_URL];
+    [delegate saveContext];
+    
+    return thought;
+}
+
++(ThoughtMO *)updateThought:(ThoughtMO *)thought withConfession:(Confession *)confession {
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [thought setValue:confession.confessionID forKey:THOUGHTS_TABLE_COLUMN_NAME_CONFESSION_ID];
+    [thought setValue:confession.posterJID forKey:THOUGHTS_TABLE_COLUMN_NAME_POSTER_JID];
+    [thought setValue:confession.body forKey:THOUGHTS_TABLE_COLUMN_NAME_BODY];
+    [thought setValue:confession.createdTimestamp forKey:THOUGHTS_TABLE_COLUMN_NAME_TIMESTAMP];
+    [thought setValue:confession.degree forKey:THOUGHTS_TABLE_COLUMN_NAME_DEGREE];
+    [thought setValue:[NSNumber numberWithInt:confession.numFavorites] forKey:THOUGHTS_TABLE_COLUMN_NAME_FAVORITES];
+    if (confession.hasFavorited) {
+        [thought setValue:@"YES" forKey:THOUGHTS_TABLE_COLUMN_NAME_HAS_FAVORITED];
+    } else {
+        [thought setValue:@"NO" forKey:THOUGHTS_TABLE_COLUMN_NAME_HAS_FAVORITED];
+    }
+    [thought setValue:confession.imageURL forKey:THOUGHTS_TABLE_COLUMN_NAME_IMAGE_URL];
     [delegate saveContext];
     
     return thought;

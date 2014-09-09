@@ -278,32 +278,38 @@ static UIColor *colorBlue;
 }
 
 +(CustomIOS7AlertView *)createThoughtAlertView:(ThoughtMO *)thought thoughtView:(ThoughtTableViewCell *)thoughtView {
-    
     CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
-    
-    thoughtView = [[[NSBundle mainBundle] loadNibNamed:@"ThoughtTableViewCell" owner:self options:nil] firstObject];
-    
-    BOOL hasFavorited;
-    if ([thought.hasFavorited isEqualToString:@"YES"]) {
-        hasFavorited = YES;
-    } else {
-        hasFavorited = NO;
-    }
-    
-    Confession *confession = [Confession create:thought.body posterJID:thought.posterJID imageURL:thought.imageURL confessionID:thought.confessionID createdTimestamp:thought.createdTimestamp degreeOfConnection:thought.degree hasFavorited:hasFavorited numFavorites:[thought.numFavorites intValue]];
-    
-    [thoughtView setUpWithConfession:confession];
-    thoughtView.chatBtn.hidden = YES;
-    thoughtView.degreeBtn.hidden = YES;
-    thoughtView.favLabel.hidden = YES;
-    thoughtView.favBtn.hidden = YES;
-    
+    thoughtView = [self createThoughtViewWithThoughtMO:thought];
     [alertView setHasInput:NO];
     [alertView setButtonsOnly:NO];
     [alertView setContainerView:thoughtView];
     [alertView setButtonTitles:[NSArray arrayWithObject:@"Got it"]];
-    
     return alertView;
+}
+
++(CustomIOS7AlertView *)createThoughtAlertViewWithThoughtMO:(ThoughtMO *)thought {
+    CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
+    ThoughtTableViewCell *thoughtView = [self createThoughtViewWithThoughtMO:thought];
+    [alertView setHasInput:NO];
+    [alertView setButtonsOnly:NO];
+    [alertView setContainerView:thoughtView];
+    [alertView setButtonTitles:[NSArray arrayWithObject:@"Got it"]];
+    return alertView;
+}
+
++(ThoughtTableViewCell *)createThoughtViewWithConfession:(Confession *)confession {
+    ThoughtTableViewCell *thoughtView = [[[NSBundle mainBundle] loadNibNamed:@"ThoughtTableViewCell" owner:self options:nil] firstObject];
+    [thoughtView setUpWithConfession:confession];
+    thoughtView.chatBtn.hidden = YES;
+    thoughtView.degreeBtn.hidden = YES;
+    //thoughtView.favLabel.hidden = YES;
+    //thoughtView.favBtn.hidden = YES;
+    return thoughtView;
+}
+
++(ThoughtTableViewCell *)createThoughtViewWithThoughtMO:(ThoughtMO *)thoughtMO {
+    Confession *confession = [Confession createWithThoughtMO:thoughtMO];
+    return [StyleManager createThoughtViewWithConfession:confession];
 }
 
 @end

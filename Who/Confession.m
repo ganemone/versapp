@@ -44,6 +44,15 @@
     return instance;
 }
 
++(instancetype)createWithThoughtMO:(ThoughtMO *)thought {
+    BOOL hasFavorited = ([thought.hasFavorited isEqualToString:@"YES"]);
+    return [Confession create:thought.body posterJID:thought.posterJID imageURL:thought.imageURL confessionID:thought.confessionID createdTimestamp:thought.createdTimestamp degreeOfConnection:thought.degree hasFavorited:hasFavorited numFavorites:[thought.numFavorites intValue]];
+}
+
+-(NSString *)description {
+    return [NSString stringWithFormat:@"Confession ID: %@ \n Body: %@ \n Poster JID: %@ \n Image URL: %@ \n Created Timestamp: %@ \n Has Favorited: %hhd \n Degree: %@ \n Num Favorites: %d", _confessionID, _body, _posterJID, _imageURL, _createdTimestamp, _hasFavorited, _degree, _numFavorites];
+}
+
 -(void)encodeBody {
     [self setBody: [_body urlEncode]];
 }

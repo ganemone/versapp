@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "StyleManager.h"
 #import "ConnectionProvider.h"
 #import "UserDefaultManager.h"
 #import "Constants.h"
@@ -24,6 +25,11 @@
 #import "OneToOneConversationViewController.h"
 #import "JSMessagesViewController.h"
 #import "MainSwipeViewController.h"
+#import "ThoughtsDBManager.h"
+#import "ThoughtViewController.h"
+#import "ConfessionsManager.h"
+#import "MBProgressHUD.h"
+#import "AppInitViewController.h"
 
 @implementation AppDelegate
 
@@ -107,11 +113,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //NSDictionary *pushDict = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    NSDictionary *pushDict = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     // Let the device know we want to receive push notifications
 	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:
      (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-    
+    if (pushDict) {
+        [self handleRemoveNotification:pushDict];
+    }
     return YES;
 }
 
@@ -122,11 +130,14 @@
                                     stringByReplacingOccurrencesOfString:@"<" withString:@""]
                                    stringByReplacingOccurrencesOfString:@">" withString:@""];
     
+    NSLog(@"Did register for remove notifications with device token: %@", deviceTokenString);
+    
     [UserDefaultManager saveDeviceID:deviceTokenString];
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
+    NSLog(@"Faild to register for remote notifications with error: %@", error);
 }
 
 
@@ -220,14 +231,33 @@
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     UIApplication *sharedApp = [UIApplication sharedApplication];
     [sharedApp setApplicationIconBadgeNumber:sharedApp.applicationIconBadgeNumber + 1];
-    NSLog(@"Remote Notification Info: %@", userInfo);
+    [self handleRemoveNotification:userInfo];
 }
-// TODO remove content available from push notification
--(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    UIApplication *sharedApp = [UIApplication sharedApplication];
-    [sharedApp setApplicationIconBadgeNumber:sharedApp.applicationIconBadgeNumber + 1];
-    completionHandler(UIBackgroundFetchResultNewData);
-    NSLog(@"Remote Notification Info: %@", userInfo);
+
+-(void)handleRemoveNotification:(NSDictionary *)userInfo {
+    NSString *cid = [userInfo objectForKey:@"cid"];
+    if (cid != nil) {
+        UIViewController *current = [AppDelegate getCurrentViewController];
+        if (current == nil || [current isKindOfClass:AppInitViewController.class] || current.class == nil) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self handleRemoveNotification:userInfo];
+            });
+        } else {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.50 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self showThoughtScreen:cid];
+            });
+        }
+    }
+}
+
+-(void)showThoughtScreen:(NSString *)cid {
+    ThoughtViewController *vc = [[ThoughtViewController alloc] initWithNibName:@"ThoughtViewController" bundle:nil];
+    [[AppDelegate getCurrentViewController] presentViewController:vc animated:YES completion:nil];
+    [MBProgressHUD showHUDAddedTo:vc.view animated:YES];
+    [[ConfessionsManager getInstance] loadConfessionByID:cid withBlock:^(Confession *confession) {
+        [vc setUpWithConfession:confession];
+        [MBProgressHUD hideAllHUDsForView:vc.view animated:YES];
+    }];
 }
 
 -(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
@@ -292,5 +322,8 @@
     NSLog(@"Setting local notifications on");
     _localNotificationsOn = YES;
 }
+
+
+
 
 @end

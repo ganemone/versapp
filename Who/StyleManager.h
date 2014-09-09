@@ -50,5 +50,8 @@
 +(CustomIOS7AlertView *)createCustomAlertView: (NSString *)title message:(NSString *)message buttons:(NSArray *)buttons hasInput:(BOOL)hasInput;
 +(CustomIOS7AlertView *)createButtonOnlyAlertView: (NSArray *)buttons;
 +(CustomIOS7AlertView *)createThoughtAlertView: (ThoughtMO *)thought thoughtView:(ThoughtTableViewCell *)thoughtView;
++(CustomIOS7AlertView *)createThoughtAlertViewWithThoughtMO:(ThoughtMO *)thought;
++(ThoughtTableViewCell *)createThoughtViewWithConfession:(Confession *)confession;
++(ThoughtTableViewCell *)createThoughtViewWithThoughtMO:(ThoughtMO *)thoughtMO;
 
 @end

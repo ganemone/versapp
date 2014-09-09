@@ -13,6 +13,7 @@
 #import "AFNetworking.h"
 #import "Confession.h"
 #import "Constants.h"
+#import "ThoughtsDBManager.h"
 
 @interface ThoughtsCache()
 
@@ -123,6 +124,7 @@ NSString *const THOUGHTS_METHOD_YOU_STRING = @"you";
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:req success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self handleReceivedConfessionsRequest:operation.responseString];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Failed to load thoughts with error: %@", error);
     }];
     // Setting up authorization header
     NSString *authCode = [NSString stringWithFormat:@"%@:%@", [ConnectionProvider getUser], appDelegate.sessionID];

@@ -9,10 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "ThoughtMO.h"
+#import "Confession.h"
 
 @interface ThoughtsDBManager : NSObject
 
 +(ThoughtMO *)insertThoughtWithID:(NSString *)confessionID posterJID:(NSString *)posterJID body:(NSString *)body timestamp:(NSString *)timestamp degree:(NSString *)degree favorites:(NSNumber *)favorites hasFavorited:(BOOL)hasFavorited imageURL:(NSString *)imageURL;
++(ThoughtMO *)insertThoughtWithConfession:(Confession *)confession;
++(ThoughtMO *)updateThought:(ThoughtMO *)thought withConfession:(Confession *)confession;
 
 +(ThoughtMO *)getThoughtWithID:(NSString *)confessionID;
 +(ThoughtMO *)getThoughtWithBody:(NSString *)body;

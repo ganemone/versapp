@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ChatMO.h"
+#import "ThoughtMO.h"
 
 @interface Confession : NSObject
 
@@ -22,6 +23,7 @@
 
 +(instancetype)create:(NSString*)body imageURL:(NSString*)imageURL;
 +(instancetype)create:(NSString*)body posterJID:(NSString*)posterJID imageURL:(NSString*)imageURL confessionID:(NSString*)confessionID createdTimestamp:(NSString*)createdTimestamp degreeOfConnection:(NSString *)degree hasFavorited:(BOOL)hasFavorited numFavorites:(int)numFavorites;
++(instancetype)createWithThoughtMO:(ThoughtMO *)thought;
 - (BOOL)toggleFavorite;
 - (void)encodeBody;
 - (void)decodeBody;

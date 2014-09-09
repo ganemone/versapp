@@ -232,8 +232,4 @@
     [self.view addSubview:_pageViewController.view];
 }
 
-
-
-
-
 @end
