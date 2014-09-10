@@ -54,7 +54,7 @@
             [FriendsDBManager insert:username
                                 name:nil
                                email:nil
-                              status:[NSNumber numberWithInt:STATUS_PENDING]
+                              status:@(STATUS_PENDING)
                  searchedPhoneNumber:nil
                        searchedEmail:nil
                                  uid:nil];
@@ -69,13 +69,9 @@
         }
         // Remove friend from roster...
         else if([presence.type compare:@"unsubscribed"] == 0) {
-            [FriendsDBManager updateUserSetStatusRejected:username];
+            [FriendsDBManager deleteUserWithUsername:username];
+            [conn sendElement:[IQPacketManager createRemoveFriendPacket:username]];
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_UPDATE_FRIENDS object:nil];
-        }
-        // Return unsubscribed packet + remove friend from roster
-        else if([presence.type compare:@"unsubscribe"] == 0) {
-            [conn sendElement:[IQPacketManager createUnsubscribedPacket:username]];
-            [FriendsDBManager updateUserSetStatusRejected:username];
         }
     }
 }

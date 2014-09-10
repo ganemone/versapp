@@ -201,9 +201,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    _allAccepted = [FriendsDBManager getAllWithStatusFriends];
-    _searchResults = _allAccepted;
-    [self.tableView reloadData];
+    [self reloadData];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -283,6 +281,7 @@
 
 -(void)reloadData {
     _allAccepted = [FriendsDBManager getAllWithStatusFriends];
+    _searchResults = _allAccepted;
     [self.tableView reloadData];
 }
 
@@ -441,8 +440,7 @@
     XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
     [conn sendElement:[IQPacketManager createRemoveFriendPacket:friend.username]];
     [FriendsDBManager deleteUser:friend];
-    _allAccepted = [FriendsDBManager getAllWithStatusFriends];
-    [self.tableView reloadData];
+    [self reloadData];
     _unfriendCheck = nil;
 }
 
