@@ -286,6 +286,7 @@ extern NSString *const BUCKET_MESSAGES;
 extern NSString *const BUCKET_THOUGHTS;
 extern NSString *const UPLOAD_URL;
 extern NSString *const DOWNLOAD_URL;
+extern NSString *const THOUGHTS_BY_ID_URL;
 
 extern NSString *const SERVER_IP_ADDRESS;
 extern NSString *const CONFERENCE_IP_ADDRESS;

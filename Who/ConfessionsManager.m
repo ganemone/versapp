@@ -102,22 +102,31 @@ static ConfessionsManager *selfInstance;
 
 -(void)loadConfessionByID:(NSString *)cid withBlock:(void (^)(Confession *confession))block {
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    NSDictionary *parameters = @{@"method": cid};
+    NSDictionary *parameters = @{@"confession_id": cid,
+                                 @"username": [ConnectionProvider getUser]};
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSError *error = NULL;
     NSMutableURLRequest *req = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST"
-                                                                             URLString:THOUGHTS_URL
+                                                                             URLString:THOUGHTS_BY_ID_URL
                                                                             parameters:parameters
                                                                                  error:&error];
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:req success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Succeeded with operation: %@", operation.responseString);
         NSLog(@"Succeeded with response object: %@", responseObject);
-        Confession *result = [self handleReceivedConfessionsRequest:operation.responseString];
-        NSLog(@"Resulting Confession: %@", [result description]);
-        block(result);
-        
+        NSDictionary *responseJSON = (NSDictionary *)responseObject;
+
+        Confession *confession = [Confession create:responseJSON[@"body"]
+                                          posterJID:[ConnectionProvider getUser] imageURL:responseJSON[@"image_url"]
+                                       confessionID:responseJSON[@"confession_id"]
+                                   createdTimestamp:responseJSON[@"created_timestamp"]
+                                 degreeOfConnection:@"1"
+                                       hasFavorited:([responseJSON[@"hasFavorited"] isEqualToString:@"YES"]) numFavorites:[responseJSON[@"num_favorites"] intValue]];
+        [confession decodeBody];
+        NSLog(@"Resulting Confession: %@", [confession description]);
+        block(confession);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failed with error: %@", error);
+        NSLog(@"Response String: %@", operation.responseString);
     }];
     
     // Setting up authorization header
@@ -126,7 +135,7 @@ static ConfessionsManager *selfInstance;
     NSString *base64AuthCode = [Base64 encode:data];
     NSString *authHttpHeaderValue = [NSString stringWithFormat:@"Basic %@", base64AuthCode];
     [req addValue:authHttpHeaderValue forHTTPHeaderField:BLACKLIST_AUTH_CODE];
-    [operation setResponseSerializer:[AFXMLParserResponseSerializer serializer]];
+    [operation setResponseSerializer:[AFJSONResponseSerializer serializer]];
     [operation start];
 }
 

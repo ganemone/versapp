@@ -364,17 +364,20 @@
 }
 
 +(void)handleGetSessionIDPacket:(NSString*)xml {
+    NSLog(@"Handling Session ID");
     NSError *error = NULL;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<value>(.*?)<\\/value>" options:NSRegularExpressionCaseInsensitive error:&error];
     
     NSTextCheckingResult *match = [regex firstMatchInString:xml options:0 range:NSMakeRange(0, xml.length)];
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [delegate setSessionID:[xml substringWithRange:[match rangeAtIndex:1]]];
+    NSLog(@"SET SESSION ID: %@", delegate.sessionID);
 
     if (![UserDefaultManager hasSentBlacklist]) {
         [[[ContactSearchManager alloc] init] accessContacts];
         [UserDefaultManager setSentBlacklistTrue];
     }
+    
     ConfessionsManager *cm = [ConfessionsManager getInstance];
     if ([FriendsDBManager hasEnoughFriends]) {
         [cm setMethod:THOUGHTS_METHOD_FRIENDS];

@@ -369,19 +369,22 @@
 }
 
 -(void)handleConfessionDeleted:(id)sender {
-
-    //[[[UIAlertView alloc] initWithTitle:@"Confirmation" message:@"Are you sure you want to delete this thought?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil] show];
+    
     ThoughtTableViewCell *cell = (ThoughtTableViewCell *)[[[sender superview] superview] superview];
     _actionConfession = cell.confession;
-
-    
-    CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:@"Delete Thought" message:@"Are you sure you want to delete this thought?" buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Delete", nil] hasInput:NO];
-    [alertView setDelegate:self];
-    [alertView show];
+    [_confessionsManager loadConfessionByID:_actionConfession.confessionID withBlock:^(Confession *confession) {
+        NSLog(@"Confession: %@", confession);
+    }];
+//
+//    
+//    CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:@"Delete Thought" message:@"Are you sure you want to delete this thought?" buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Delete", nil] hasInput:NO];
+//    [alertView setDelegate:self];
+//    [alertView show];
 }
 
 -(void)handleConfessionChatStarted:(id)sender {
-    /*if ([FriendsDBManager hasEnoughFriends] && _confession.degree.length < 3) {
+    /*if ([FriendsDBManager hasEnoughFriends] && 
+     _confession.degree.length < 3) {
      [[[UIAlertView alloc] initWithTitle:@"" message:@"Would you like to start a chat with the poster of this thought?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] show];
      } else {
      [[[UIAlertView alloc] initWithTitle:@"Whoops" message:@"Messaging is restricted to friends." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];

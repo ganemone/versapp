@@ -123,9 +123,13 @@ NSString *const THOUGHTS_METHOD_YOU_STRING = @"you";
         [self handleReceivedConfessionsRequest:operation.responseString];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failed to load thoughts with error: %@", error);
+        NSLog(@"Response String: %@", operation.responseString);
     }];
+    
     // Setting up authorization header
     NSString *authCode = [NSString stringWithFormat:@"%@:%@", [ConnectionProvider getUser], delegate.sessionID];
+    
+    NSLog(@"Auth Code: %@", authCode);
     NSData *data = [authCode dataUsingEncoding:NSASCIIStringEncoding];
     NSString *base64AuthCode = [Base64 encode:data];
     NSString *authHttpHeaderValue = [NSString stringWithFormat:@"Basic %@", base64AuthCode];
