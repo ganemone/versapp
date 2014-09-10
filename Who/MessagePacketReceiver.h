@@ -11,6 +11,6 @@
 
 @interface MessagePacketReceiver : NSObject
 
-+(void)handleMessagePacket:(XMPPMessage *)message;
++(NSDictionary *)handleMessagePacket:(XMPPMessage *)message;
 
 @end

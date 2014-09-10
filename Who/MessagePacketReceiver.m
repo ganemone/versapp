@@ -27,11 +27,28 @@
     
 // Inserts message into db, adds message to chat history (either group chat or one to one chat),
 // and sends notification with dictionary containing ONLY the group id.
-+(void)handleMessagePacket:(XMPPMessage*)message {
++(NSDictionary *)handleMessagePacket:(XMPPMessage*)message {
+    
+    // Check for New Friend Broadcast Message
     NSError *error = NULL;
     NSRegularExpression *broadcastRegex = [NSRegularExpression regularExpressionWithPattern:@"^<message .*?><body>(.*?)<\\/body><broadcast.*?><type>new_user<\\/type><\\/broadcast><\\/message>$"options:NSRegularExpressionCaseInsensitive error:&error];
     if ([[broadcastRegex matchesInString:message.XMLString options:0 range:NSMakeRange(0, message.XMLString.length)] count] > 0) {
-        return;
+        return @{@"type": @"new_user"};
+    }
+    
+    // Check for thought favorite broadcast message
+    if ([message.type isEqualToString:MESSAGE_TYPE_HEADLINE]) {
+        NSLog(@"Message Broadcast Type: %@", [[message attributeForName:@"type"] XMLString]);
+        DDXMLNode *broadCastNode = [message nextNode];
+        DDXMLNode *typeNode = [broadCastNode nextNode];
+        NSString *type = [typeNode stringValue];
+        
+        if ([type isEqualToString:@"confession_favorited"]) {
+            return @{@"type": type,
+                     @"cid": [[[typeNode nextSibling] nextNode] stringValue]};
+        } else {
+            return nil;
+        }
     }
 
     error = NULL;
@@ -54,10 +71,14 @@
     if (chatID != nil) {
         invitedBy = [[message.fromStr componentsSeparatedByString:@"@"] firstObject];
         [self handleMessageInvitationReceived:chatID groupName:chatName invitedBy:invitedBy];
-    } else if([message.type compare:MESSAGE_TYPE_HEADLINE] == 0) {
-        // Handle Confession Messages Here...
-    } else {
+        return @{@"type": @"invitation",
+                 @"chat_id": chatID};
+    } else if(message.thread != nil) {
         [self handleChatMessageReceived:message];
+        return @{@"type": @"message",
+                 @"chat_id": message.thread};
+    } else {
+        return nil;
     }
 }
 
@@ -126,7 +147,7 @@
                                                       PARTICIPANT_USERNAME : senderID,
                                                       PARTICIPANT_INVITED_BY : @""}];
                 [currentChat setValue:[[currentChat getParticipantJIDS] componentsJoinedByString:@", "] forKey:CHATS_TABLE_COLUMN_NAME_PARTICIPANT_STRING];
-                AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+                AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
                 [delegate saveContext];
             }
             NSDictionary *messageDictionary = [NSDictionary dictionaryWithObject:newMessage forKey:DICTIONARY_KEY_MESSAGE_OBJECT];

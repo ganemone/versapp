@@ -19,7 +19,6 @@
 #import "MainSwipeViewController.h"
 #import "MessageMO.h"
 #import "ChatDBManager.h"
-#import "Encrypter.h"
 #import "AGPushNote/AGPushNoteView.h"
 #import "ConversationViewController.h"
 #import "OneToOneConversationViewController.h"
@@ -229,9 +228,12 @@
 }
 
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    NSLog(@"Received Remote Notification: %@", userInfo);
     UIApplication *sharedApp = [UIApplication sharedApplication];
-    [sharedApp setApplicationIconBadgeNumber:sharedApp.applicationIconBadgeNumber + 1];
-    [self handleRemoveNotification:userInfo];
+    if (!(application.applicationState == UIApplicationStateActive)) {
+        [sharedApp setApplicationIconBadgeNumber:sharedApp.applicationIconBadgeNumber + 1];
+        [self handleRemoveNotification:userInfo];
+    }
 }
 
 -(void)handleRemoveNotification:(NSDictionary *)userInfo {
@@ -261,49 +263,71 @@
 }
 
 -(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    NSLog(@"Received Local Notification: %@", notification.userInfo);
     if (_localNotificationsOn) {
         UIViewController *current = [AppDelegate getCurrentViewController];
-        
         NSString *chatID = [notification.userInfo objectForKey:@"chat_id"];
-        NSLog(@"CHAT ID: %@", chatID);
+        BOOL isMessageInCurrentChat = NO;
+        
+        if (chatID != nil) {
+            if ([current isKindOfClass:ConversationViewController.class]) {
+                isMessageInCurrentChat = [((ConversationViewController *)current).chatMO.chat_id isEqualToString:chatID];
+            } else if ([current isKindOfClass:OneToOneConversationViewController.class]) {
+                isMessageInCurrentChat = [((OneToOneConversationViewController *)current).chatMO.chat_id isEqualToString:chatID];
+            }
+        }
+                                       
+        
         if (![current isKindOfClass:JSMessagesViewController.class] ||
-            ([current isKindOfClass:ConversationViewController.class] && ![chatID isEqualToString:((ConversationViewController *) current).chatMO.chat_id]) ||
-            ([current isKindOfClass:OneToOneConversationViewController.class] && ![chatID isEqualToString:((OneToOneConversationViewController *) current).chatMO.chat_id]))
+            !isMessageInCurrentChat)
         {
             [AGPushNoteView showWithNotificationMessage:notification.alertBody];
             [AGPushNoteView setMessageAction:^(NSString *message) {
-                ChatMO *chat = [ChatDBManager getChatWithID:chatID];
-                if (chat != nil) {
-                    [AppDelegate handleLocalNotificationClickedWithChat:chat];
-                }
+                [self handleLocalNotificationClickedWithUserInfo:notification.userInfo];
             }];
         }
     }
 }
 
-+ (void)handleLocalNotificationClickedWithChat:(ChatMO *)chat {
+-(void)handleLocalNotificationClickedWithUserInfo:(NSDictionary *)dictionary {
     UIViewController *currentVC = [AppDelegate getCurrentViewController];
     NSLog(@"CURRENT VC :%@", currentVC.class);
     if ([currentVC isKindOfClass:MainSwipeViewController.class])
     {
-        if ([chat.chat_type isEqualToString:CHAT_TYPE_GROUP])
-        {
-            [currentVC performSegueWithIdentifier:SEGUE_ID_MAIN_TO_GROUP sender:chat];
-        }
-        else
-        {
-            [currentVC performSegueWithIdentifier:SEGUE_ID_MAIN_TO_ONE_TO_ONE sender:chat];
+        NSLog(@"HERE");
+        NSLog(@"Dictionary: %@", dictionary);
+        NSString *type = [dictionary objectForKey:@"type"];
+        if ([type isEqualToString:@"message"]) {
+            [self handleLocalMessageNotification:dictionary fromVC:currentVC];
+        } else if ([type isEqualToString:@"confession_favorited"]) {
+            [self showThoughtScreen:[dictionary objectForKey:@"cid"]];
+        } else if ([type isEqualToString:@"new_friend"]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_TO_FRIENDS object:nil];
+        } else if ([type isEqualToString:@"invitation"]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_TO_MESSAGES object:nil];
         }
     }
     else if([currentVC isKindOfClass:ConversationViewController.class])
     {
         [currentVC.navigationController popToRootViewControllerAnimated:NO];
-        [AppDelegate handleLocalNotificationClickedWithChat:chat];
+        [self handleLocalNotificationClickedWithUserInfo:dictionary];
     }
     else if([currentVC isKindOfClass:OneToOneConversationViewController.class])
     {
         [currentVC.navigationController popToRootViewControllerAnimated:NO];
-        [AppDelegate handleLocalNotificationClickedWithChat:chat];
+        [self handleLocalNotificationClickedWithUserInfo:dictionary];
+    }
+}
+
+-(void)handleLocalMessageNotification:(NSDictionary *)userInfo fromVC:(UIViewController *)currentVC {
+    ChatMO *chat = [ChatDBManager getChatWithID:[userInfo objectForKey:@"chat_id"]];
+    if ([chat.chat_type isEqualToString:CHAT_TYPE_GROUP])
+    {
+        [currentVC performSegueWithIdentifier:SEGUE_ID_MAIN_TO_GROUP sender:chat];
+    }
+    else
+    {
+        [currentVC performSegueWithIdentifier:SEGUE_ID_MAIN_TO_ONE_TO_ONE sender:chat];
     }
 }
 
