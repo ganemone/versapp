@@ -78,7 +78,7 @@
         return @{@"type": @"message",
                  @"chat_id": message.thread};
     } else {
-        return nil;
+        return nil; 
     }
 }
 

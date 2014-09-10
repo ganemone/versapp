@@ -42,15 +42,27 @@
     self.navigationController.navigationBar.hidden = YES;
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    [defaultCenter addObserver:self selector:@selector(authenticated) name:@"authenticated" object:nil];
+    [defaultCenter addObserver:self selector:@selector(createdVCard:) name:PACKET_ID_CREATE_VCARD object:nil];
+    [defaultCenter addObserver:self selector:@selector(registeredUser:) name:PACKET_ID_REGISTER_USER object:nil];
+    [defaultCenter addObserver:self selector:@selector(streamDidDisconnect:) name:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];
+    [defaultCenter addObserver:self selector:@selector(didNotAuthenticate:) name:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    [defaultCenter removeObserver:self name:@"authenticated" object:nil];
+    [defaultCenter removeObserver:self name:PACKET_ID_CREATE_VCARD object:nil];
+    [defaultCenter removeObserver:self name:PACKET_ID_REGISTER_USER object:nil];
+    [defaultCenter removeObserver:self name:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];
+    [defaultCenter removeObserver:self name:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticated) name:@"authenticated" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createdVCard:) name:PACKET_ID_CREATE_VCARD object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registeredUser:) name:PACKET_ID_REGISTER_USER object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(streamDidDisconnect:) name:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didNotAuthenticate:) name:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
     
     self.createVCardWhenAuthenticated = NO;
     self.cp = [ConnectionProvider getInstance];

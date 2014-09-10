@@ -139,11 +139,6 @@ static ConnectionProvider *selfInstance;
         }
     }
     else {
-        //self.password = @"cf4d53d87d2053c1b35c8ab6486ea782";
-        NSLog(@"Authenticating with password: %@", self.password);
-        NSLog(@"Authenticating with username: %@", self.username);
-        NSLog(@"XMPP Stream JID: %@", [self.xmppStream myJID]);
-
         if (![[self xmppStream] authenticateWithPassword:self.password error:&error]) {
             NSLog(@"Failed with Error: %@", error);
             //[[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
@@ -154,6 +149,7 @@ static ConnectionProvider *selfInstance;
 
 - (void)xmppStreamDidAuthenticate:(XMPPStream *)sender
 {
+    NSLog(@"DID AUTHENTICATED");
     //[self.xmppReconnect activate:self.xmppStream];
     self.authenticated = YES;
     if (self.isCreatingAccount == YES) {
@@ -200,6 +196,7 @@ static ConnectionProvider *selfInstance;
 {
     //AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     //[delegate handleConnectionLost];
+    NSLog(@"Did disconnect with error: %@", error);
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];
 }
 
@@ -211,6 +208,10 @@ static ConnectionProvider *selfInstance;
 -(void)disconnect
 {
     [self.xmppStream disconnect];
+}
+
+-(void)xmppStreamWillConnect:(XMPPStream *)sender {
+    NSLog(@"XMPP STREAM WILL CONNECT");
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveError:(DDXMLElement *)error {
@@ -310,6 +311,7 @@ static ConnectionProvider *selfInstance;
  }*/
 
 -(void)xmppStreamDidRegister:(XMPPStream *)sender {
+    NSLog(@"DID REGISTER");
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DID_REGISTER_USER object:nil];
     
     self.username = [self.pendingAccountInfo objectForKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME];
