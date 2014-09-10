@@ -12,6 +12,7 @@
 
 @implementation Constants
 
+NSString *const PACKET_ID_REMOVE_FRIEND = @"packet_id_remove_friend";
 NSString *const PACKET_ID_GET_ROSTER = @"packet_id_get_roster";
 NSString *const PACKET_ID_GET_JOINED_CHATS = @"packet_id_get_joined_chats";
 NSString *const PACKET_ID_GET_PENDING_CHATS = @"packet_id_get_pending_chats";

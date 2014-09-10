@@ -10,6 +10,7 @@
 
 @interface Constants : NSObject
 
+extern NSString *const PACKET_ID_REMOVE_FRIEND;
 extern NSString *const PACKET_ID_GET_ROSTER;
 extern NSString *const PACKET_ID_GET_JOINED_CHATS;
 extern NSString *const PACKET_ID_GET_PENDING_CHATS;

@@ -42,20 +42,12 @@
         [self handleGetServerTimePacket:sanitizedXMLString];
     } else if([self isPacketWithID:PACKET_ID_GET_VCARD packet:iq]) {
         [self handleGetVCardPacket:iq];
-    } else if([self isPacketWithID:PACKET_ID_INVITE_USER_TO_CHAT packet:iq]) {
-        [self handleInviteUserToChatPacket:sanitizedXMLString];
     } else if([self isPacketWithID:PACKET_ID_CREATE_ONE_TO_ONE_CHAT packet:iq]) {
-        [self handleCreateOneToOneChatPacket:sanitizedXMLString];
-    //} else if([self isPacketWithID:PACKET_ID_GET_SESSION_ID packet:iq]) {
-        //[self handleGetSessionIDPacket:sanitizedXMLString];
-    } else if([self isPacketWithID:PACKET_ID_FAVORITE_CONFESSION packet:iq]) {
-        [self handleToggleFavoriteConfessionPacket:sanitizedXMLString];
+        [self handleCreateOneToOneChatPacket];
     } else if([self isPacketWithID:PACKET_ID_POST_CONFESSION packet:iq]) {
         [self handlePostConfessionPacket:sanitizedXMLString];
     } else if([self isPacketWithID:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION packet:iq]) {
-        [self handleCreateOneToOneChatFromConfessionPacket:sanitizedXMLString];
-    } else if([self isPacketWithID:PACKET_ID_CREATE_MUC packet:iq]) {
-        [self handleCreatedMUCPacket:sanitizedXMLString];
+        [self handleCreateOneToOneChatFromConfessionPacket];
     } else if([self isPacketWithID:PACKET_ID_GET_CHAT_PARTICIPANTS packet:iq]) {
         [self handleGetChatParticipantsPacket:sanitizedXMLString];
     } else if([self isPacketWithID:PACKET_ID_SEARCH_FOR_USERS packet:iq]) {
@@ -94,7 +86,7 @@
         }
         XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
         [conn sendElement:[IQPacketManager createSubscribePacket:username]];
-        [FriendsDBManager updateEntry:username name:nil email:searchedEmail status:[NSNumber numberWithInt:STATUS_REQUESTED]];
+        [FriendsDBManager updateEntry:username name:nil email:searchedEmail status:@(STATUS_REQUESTED)];
     }
 }
 
@@ -118,8 +110,8 @@
         } else {
             searchedEmail = @"";
         }
-        
-        [registeredContacts addObject:[[NSDictionary alloc] initWithObjectsAndKeys:username, FRIENDS_TABLE_COLUMN_NAME_USERNAME, searchedPhoneNumber, FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER, searchedEmail, FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL, uid, DICTIONARY_KEY_ID, nil]];
+
+        [registeredContacts addObject:@{FRIENDS_TABLE_COLUMN_NAME_USERNAME : username, FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER : searchedPhoneNumber, FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL : searchedEmail, DICTIONARY_KEY_ID : uid}];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_SEARCH_FOR_USERS object:nil];
     [[ContactSearchManager getInstance] updateContactListAfterUserSearch: registeredContacts];
@@ -213,7 +205,7 @@
     NSTextCheckingResult *match = [regex firstMatchInString:xml options:0 range:NSMakeRange(0, xml.length)];
     NSString *utcTime = [xml substringWithRange:[match rangeAtIndex:1]];
     
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:utcTime forKey:PACKET_ID_GET_SERVER_TIME];
+    NSDictionary *userInfo = @{PACKET_ID_GET_SERVER_TIME : utcTime};
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_SERVER_TIME object:nil userInfo:userInfo];
 }
 
@@ -221,21 +213,21 @@
     NSString *firstName, *lastName, *itemName;//, *nickname;
     NSString *username = [[[packet fromStr] componentsSeparatedByString:@"@"] firstObject];
     NSArray *children = [packet children];
-    for (int i = 0; i < children.count; i++) {
-        NSArray *grand = [[children objectAtIndex:i] children];
-        for (int j = 0; j < grand.count; j++) {
-            itemName = [[grand objectAtIndex:j] name];
+    for (NSUInteger i = 0; i < children.count; i++) {
+        NSArray *grand = [children[i] children];
+        for (NSUInteger j = 0; j < grand.count; j++) {
+            itemName = [grand[j] name];
             //if([itemName compare:VCARD_TAG_NICKNAME] == 0) {
                 //nickname = [[grand objectAtIndex:j] stringValue];
             //} else
             if([itemName compare:@"N"] == 0) {
-                NSArray *nameItems = [[grand objectAtIndex:j] children];
-                for(int k = 0; k < nameItems.count; k++) {
-                    itemName = [[nameItems objectAtIndex:k] name];
+                NSArray *nameItems = [grand[j] children];
+                for(NSUInteger k = 0; k < nameItems.count; k++) {
+                    itemName = [nameItems[k] name];
                     if ([itemName compare:VCARD_TAG_FIRST_NAME] == 0) {
-                        firstName = [[nameItems objectAtIndex:k] stringValue];
+                        firstName = [nameItems[k] stringValue];
                     } else if([itemName compare:VCARD_TAG_LAST_NAME] == 0) {
-                        lastName = [[nameItems objectAtIndex:k] stringValue];
+                        lastName = [nameItems[k] stringValue];
                     }
                 }
             }
@@ -301,7 +293,7 @@
         NSMutableArray *itemsToSendSubscribedPacket = [NSMutableArray array];
         NSMutableArray *allItems = [NSMutableArray array];
         int numContactsAddedThroughBlacklist = 0;
-        for (int i = 0; i < items.count; i++)
+        for (NSUInteger i = 0; i < items.count; i++)
         {
             item = items[i];
             NSString *subscription = [[item attributeForName:@"subscription"] XMLString];
@@ -319,7 +311,7 @@
                                            username:resultJid
                                                name:nil
                                               email:nil
-                                             status:[NSNumber numberWithInt:STATUS_REQUESTED]
+                                             status:@(STATUS_REQUESTED)
                                 searchedPhoneNumber:nil
                                       searchedEmail:nil
                                                 uid:nil])
@@ -337,7 +329,7 @@
                                            username:resultJid
                                                name:nil
                                               email:nil
-                                             status:[NSNumber numberWithInt:STATUS_FRIENDS]
+                                             status:@(STATUS_FRIENDS)
                                 searchedPhoneNumber:nil
                                       searchedEmail:nil
                                                 uid:nil])
@@ -354,11 +346,11 @@
             XMPPStream *conn = [cp getConnection];
             NSLog(@"ROSTER PACKET");
             NSLog(@"Items without vcard :%@", itemsWithoutVCard);
-            for (NSString *username in itemsWithoutVCard)
+            for (NSString *uname in itemsWithoutVCard)
             {
                 [conn sendElement:[IQPacketManager createGetVCardPacket:username]];
             }
-            for (NSString *username in itemsToSendSubscribedPacket)
+            for (NSString *uname in itemsToSendSubscribedPacket)
             {
                 [conn sendElement:[IQPacketManager createSubscribedPacket:username]];
             }
@@ -367,10 +359,7 @@
     }];
 }
 
-+(void)handleInviteUserToChatPacket:(NSString*)xml {
-}
-
-+(void)handleCreateOneToOneChatPacket:(NSString*)xml {
++ (void)handleCreateOneToOneChatPacket {
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_CREATE_ONE_TO_ONE_CHAT object:nil];
 }
 
@@ -382,7 +371,7 @@
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [delegate setSessionID:[xml substringWithRange:[match rangeAtIndex:1]]];
 
-    if ([UserDefaultManager hasSentBlacklist] == NO) {
+    if (![UserDefaultManager hasSentBlacklist]) {
         [[[ContactSearchManager alloc] init] accessContacts];
         [UserDefaultManager setSentBlacklistTrue];
     }
@@ -395,9 +384,6 @@
     [cm loadConfessions];
 }
 
-+(void)handleToggleFavoriteConfessionPacket:(NSString *)iq {
-}
-
 +(void)handlePostConfessionPacket:(NSString *)xml {
     NSError *error = NULL;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<value>(.*?),(.*?)<\\/value>" options:NSRegularExpressionCaseInsensitive error:&error];
@@ -408,11 +394,8 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_POST_CONFESSION object:nil];
 }
 
-+(void)handleCreateOneToOneChatFromConfessionPacket:(NSString *)xml {
++ (void)handleCreateOneToOneChatFromConfessionPacket {
     [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_CREATE_ONE_TO_ONE_CHAT_FROM_CONFESSION object:nil];
-}
-
-+(void)handleCreatedMUCPacket:(NSString *)xml {
 }
 
 @end

@@ -13,6 +13,7 @@
 
 @interface IQPacketManager : NSObject
 
++ (DDXMLElement *)createRemoveFriendPacket:(NSString *)username;
 +(DDXMLElement *)createUnsubscribedPacket:(NSString *)username;
 +(DDXMLElement *)createSubscribePacket:(NSString*)username;
 +(DDXMLElement *)createSubscribedPacket:(NSString*)username;
