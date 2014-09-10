@@ -217,9 +217,6 @@
         NSArray *grand = [children[i] children];
         for (NSUInteger j = 0; j < grand.count; j++) {
             itemName = [grand[j] name];
-            //if([itemName compare:VCARD_TAG_NICKNAME] == 0) {
-                //nickname = [[grand objectAtIndex:j] stringValue];
-            //} else
             if([itemName compare:@"N"] == 0) {
                 NSArray *nameItems = [grand[j] children];
                 for(NSUInteger k = 0; k < nameItems.count; k++) {
@@ -291,6 +288,7 @@
         DDXMLElement *item;
         NSMutableArray *itemsWithoutVCard = [NSMutableArray array];
         NSMutableArray *itemsToSendSubscribedPacket = [NSMutableArray array];
+        NSMutableArray *itemsToDelete = [NSMutableArray array];
         NSMutableArray *allItems = [NSMutableArray array];
         int numContactsAddedThroughBlacklist = 0;
         for (NSUInteger i = 0; i < items.count; i++)
@@ -301,32 +299,30 @@
             NSString *jid = [[item attributeForName:@"jid"] XMLString];
             NSRegularExpression *regexJid = [NSRegularExpression regularExpressionWithPattern:@"jid=\"(.*)@" options: 0 error:&error];
             NSTextCheckingResult *matchJid = [regexJid firstMatchInString:jid options:0 range:NSMakeRange(0,jid.length)];
-            NSString *resultJid = [jid substringWithRange:[matchJid rangeAtIndex:1]];
-            if ([[resultJid lowercaseString] isEqualToString:[username lowercaseString]]) {
+            NSString *itemUsername = [jid substringWithRange:[matchJid rangeAtIndex:1]];
+            if ([[itemUsername lowercaseString] isEqualToString:[username lowercaseString]]) {
                 continue;
             }
-            [allItems addObject:resultJid];
+            // I sent a friend request, but the user hasn't accepted it yet.
+            if([[item attributeForName:@"ask"] stringValue] != nil)
+            {
+                NSLog(@"ASK = SUBSCRIBE: %@", [item XMLString]);
+                continue;
+            }
+
+            [allItems addObject:itemUsername];
             if ([subscription rangeOfString:@"none"].location != NSNotFound){
-                if ([FriendsDBManager insertWithMOC:moc
-                                           username:resultJid
-                                               name:nil
-                                              email:nil
-                                             status:@(STATUS_REQUESTED)
-                                searchedPhoneNumber:nil
-                                      searchedEmail:nil
-                                                uid:nil])
-                {
-                    [itemsWithoutVCard addObject:resultJid];
-                }
+                [itemsToDelete addObject:itemUsername];
+                [FriendsDBManager deleteUserWithUsername:itemUsername];
             }
             else
             {
                 if([subscription rangeOfString:@"to"].location != NSNotFound)
                 {
-                    [itemsToSendSubscribedPacket addObject:resultJid];
+                    [itemsToSendSubscribedPacket addObject:itemUsername];
                 }
                 if ([FriendsDBManager insertWithMOC:moc
-                                           username:resultJid
+                                           username:itemUsername
                                                name:nil
                                               email:nil
                                              status:@(STATUS_FRIENDS)
@@ -335,7 +331,7 @@
                                                 uid:nil])
                 {
                     numContactsAddedThroughBlacklist++;
-                    [itemsWithoutVCard addObject:resultJid];
+                    [itemsWithoutVCard addObject:itemUsername];
                 }
                 
             }
@@ -346,13 +342,17 @@
             XMPPStream *conn = [cp getConnection];
             NSLog(@"ROSTER PACKET");
             NSLog(@"Items without vcard :%@", itemsWithoutVCard);
-            for (NSString *uname in itemsWithoutVCard)
+            NSString *uname;
+            for (uname in itemsWithoutVCard)
             {
-                [conn sendElement:[IQPacketManager createGetVCardPacket:username]];
+                [conn sendElement:[IQPacketManager createGetVCardPacket:uname]];
             }
-            for (NSString *uname in itemsToSendSubscribedPacket)
+            for (uname in itemsToSendSubscribedPacket)
             {
-                [conn sendElement:[IQPacketManager createSubscribedPacket:username]];
+                [conn sendElement:[IQPacketManager createSubscribedPacket:uname]];
+            }
+            for (uname in itemsToDelete) {
+                [conn sendElement:[IQPacketManager createRemoveFriendPacket:uname]];
             }
             [[NSNotificationCenter defaultCenter] postNotificationName:PACKET_ID_GET_ROSTER object:nil];
         });

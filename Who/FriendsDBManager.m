@@ -56,8 +56,8 @@
 }
 
 + (void)updateFriendAfterUserSearch:(NSDictionary *)friend withContext:(NSManagedObjectContext *)moc {
-    NSNumber *status = [friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];
-    if ([status isEqualToNumber:[NSNumber numberWithInt:STATUS_REGISTERED]]) {
+    NSNumber *status = friend[FRIENDS_TABLE_COLUMN_NAME_STATUS];
+    if ([status isEqualToNumber:@(STATUS_REGISTERED)]) {
         [self updateRegisteredFriendAfterUserSearch:friend withContext:moc];
     } else {
         [self updateUnregisteredFriendAfterUserSearch:friend withContext:moc];
@@ -65,33 +65,33 @@
 }
 
 + (void)updateRegisteredFriendAfterUserSearch:(NSDictionary *)friend withContext:(NSManagedObjectContext *)moc {
-    NSString *username = [friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_USERNAME];
-    NSString *fullName = [NSString stringWithFormat:@"%@ %@", [friend objectForKey:VCARD_TAG_FIRST_NAME], [friend objectForKey:VCARD_TAG_LAST_NAME]];
+    NSString *username = friend[FRIENDS_TABLE_COLUMN_NAME_USERNAME];
+    NSString *fullName = [NSString stringWithFormat:@"%@ %@", friend[VCARD_TAG_FIRST_NAME], friend[VCARD_TAG_LAST_NAME]];
     FriendMO *friendMO = [self getUserWithJID:username moc:moc];
     if (friendMO == nil) {
         [self insertWithMOC:moc
-                              username:username
-                                  name:fullName
-                                 email:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL]
-                                status:[NSNumber numberWithInt:STATUS_REGISTERED]
-                   searchedPhoneNumber:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER]
-                         searchedEmail:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL]
-                                   uid:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_UID]];
+                   username:username
+                       name:fullName
+                      email:friend[FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL]
+                     status:@(STATUS_REGISTERED)
+        searchedPhoneNumber:friend[FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER]
+              searchedEmail:friend[FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL]
+                        uid:friend[FRIENDS_TABLE_COLUMN_NAME_UID]];
     } else {
         [friendMO setValue:username forKeyPath:FRIENDS_TABLE_COLUMN_NAME_USERNAME];
         [friendMO setValue:fullName forKeyPath:FRIENDS_TABLE_COLUMN_NAME_NAME];
-        [friendMO setValue:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL];
-        if ([friendMO.status isEqualToNumber:[NSNumber numberWithInt:STATUS_UNREGISTERED]]) {
-            [friendMO setValue:[NSNumber numberWithInt:STATUS_REGISTERED] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_STATUS];
+        [friendMO setValue:friend[FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL];
+        if ([friendMO.status isEqualToNumber:@(STATUS_UNREGISTERED)]) {
+            [friendMO setValue:@(STATUS_REGISTERED) forKeyPath:FRIENDS_TABLE_COLUMN_NAME_STATUS];
         }
-        [friendMO setValue:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER];
+        [friendMO setValue:friend[FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER];
     }
 }
 
 + (void)updateUnregisteredFriendAfterUserSearch:(NSDictionary *)friend withContext:(NSManagedObjectContext *)moc {
-    NSString *searchedPhoneNumber = [[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER] firstObject];
-    NSString *searchedEmail = [[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL] firstObject];
-    NSString *fullName = [NSString stringWithFormat:@"%@ %@", [friend objectForKey:VCARD_TAG_FIRST_NAME], [friend objectForKey:VCARD_TAG_LAST_NAME]];
+    NSString *searchedPhoneNumber = [friend[FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER] firstObject];
+    NSString *searchedEmail = [friend[FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL] firstObject];
+    NSString *fullName = [NSString stringWithFormat:@"%@ %@", friend[VCARD_TAG_FIRST_NAME], friend[VCARD_TAG_LAST_NAME]];
     NSArray *friends;
     if (searchedPhoneNumber != nil && searchedPhoneNumber.length > 0) {
         friends = [self getUserWithSearchedPhoneNumber:searchedPhoneNumber withMOC:moc];
@@ -104,18 +104,18 @@
             [friendMO setValue:searchedEmail forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL];
             [friendMO setValue:searchedPhoneNumber forKeyPath:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_PHONE_NUMBER];
             if (friendMO.status == nil) {
-                [friendMO setValue:[NSNumber numberWithInt:STATUS_UNREGISTERED] forKeyPath:FRIENDS_TABLE_COLUMN_NAME_STATUS];
+                [friendMO setValue:@(STATUS_UNREGISTERED) forKeyPath:FRIENDS_TABLE_COLUMN_NAME_STATUS];
             }
         }
     } else {
         [self insertWithMOC:moc
                    username:nil
                        name:fullName
-                      email:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL]
-                     status:[NSNumber numberWithInt:STATUS_UNREGISTERED]
+                      email:friend[FRIENDS_TABLE_COLUMN_NAME_SEARCHED_EMAIL]
+                     status:@(STATUS_UNREGISTERED)
         searchedPhoneNumber:searchedPhoneNumber
               searchedEmail:searchedEmail
-                        uid:[friend objectForKey:FRIENDS_TABLE_COLUMN_NAME_UID]];
+                        uid:friend[FRIENDS_TABLE_COLUMN_NAME_UID]];
     }
 }
 
@@ -164,6 +164,7 @@
     return returnValue;
 }
 
+/*
 +(NSArray *)getAll {
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *moc = [delegate managedObjectContext];
@@ -176,6 +177,7 @@
     
     return fetchedRecords;
 }
+*/
 
 +(NSArray *)getAllWithStatus:(NSNumber *)status {
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -211,22 +213,7 @@
     return nil;
 }
 
-+(FriendMO *)getUserWithUID:(NSNumber *)uid {
-    NSArray *fetchedData = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", FRIENDS_TABLE_COLUMN_NAME_UID, uid]];
-    if(fetchedData.count > 0) {
-        return [fetchedData firstObject];
-    }
-    return nil;
-}
-
-+(FriendMO *)getUserWithUID:(NSNumber *)uid withMOC:(NSManagedObjectContext *)moc {
-    NSArray *fetchedData = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", FRIENDS_TABLE_COLUMN_NAME_UID, uid] moc:moc];
-    if(fetchedData.count > 0) {
-        return [fetchedData firstObject];
-    }
-    return nil;
-}
-
+/*
 +(FriendMO *)getUserWithEmail:(NSString *)email moc:(NSManagedObjectContext *)moc  {
     NSArray *fetchedData = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", FRIENDS_TABLE_COLUMN_NAME_EMAIL, email] moc:moc];
     if(fetchedData.count > 0) {
@@ -234,6 +221,7 @@
     }
     return nil;
 }
+*/
 
 +(FriendMO *)getUserWithJID:(NSString *)jid moc:(NSManagedObjectContext *)moc  {
     NSArray *fetchedData = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", FRIENDS_TABLE_COLUMN_NAME_USERNAME, jid] moc:moc];
@@ -259,9 +247,11 @@
     return nil;
 }
 
+/*
 +(BOOL)hasUserWithEmail:(NSString *)email {
     return ([self getUserWithEmail:email] != nil);
 }
+*/
 
 +(BOOL)hasUserWithJID:(NSString *)jid {
     return ([self getUserWithJID:jid] != nil);
@@ -332,43 +322,42 @@
 }
 
 +(BOOL)updateUserSetStatusFriends:(NSString *)username {
-    return [self updateUserStatus:username status:[NSNumber numberWithInt:STATUS_FRIENDS]];
-}
-
-+(BOOL)updateUserSetStatusPending:(NSString *)username {
-    return [self updateUserStatus:username status:[NSNumber numberWithInt:STATUS_PENDING]];
-}
-
-+(BOOL)updateUserSetStatusRegistered:(NSString *)username {
-    return [self updateUserStatus:username status:[NSNumber numberWithInt:STATUS_REGISTERED]];
+    return [self updateUserStatus:username status:@(STATUS_FRIENDS)];
 }
 
 +(BOOL)updateUserSetStatusRejected:(NSString *)username {
-    return [self updateUserStatus:username status:[NSNumber numberWithInt:STATUS_REJECTED]];
-}
-
-+(BOOL)updateUserSetStatusUnregistered:(NSString *)username {
-    return [self updateUserStatus:username status:[NSNumber numberWithInt:STATUS_UNREGISTERED]];
+    return [self updateUserStatus:username status:@(STATUS_REJECTED)];
 }
 
 +(BOOL)updateUserSetStatusRequested:(NSString *)username {
-    return [self updateUserStatus:username status:[NSNumber numberWithInt:STATUS_REQUESTED]];
+    return [self updateUserStatus:username status:@(STATUS_REQUESTED)];
 }
 
 +(BOOL)updateUserSetStatusInvited:(NSString *)username {
-    return [self updateUserStatus:username status:[NSNumber numberWithInt:STATUS_INVITED]];
+    return [self updateUserStatus:username status:@(STATUS_INVITED)];
 }
 
 +(NSArray*)getAllWithStatusFriends {
-    return [self getAllWithStatus:[NSNumber numberWithInt:STATUS_FRIENDS]];
+    return [self getAllWithStatus:@(STATUS_FRIENDS)];
 }
 
 +(NSArray*)getAllWithStatusPending {
-    return [self getAllWithStatus:[NSNumber numberWithInt:STATUS_PENDING]];
+    return [self getAllWithStatus:@(STATUS_PENDING)];
 }
 
+/*
 +(NSArray*)getAllWithStatusRegistered {
-    return [self getAllWithStatus:[NSNumber numberWithInt:STATUS_REGISTERED]];
+    return [self getAllWithStatus:@(STATUS_REGISTERED)];
+}
+*/
+
++(void)deleteUserWithUsername:(NSString *)username {
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    FriendMO *friend = [FriendsDBManager getUserWithJID:username];
+    if (friend != nil) {
+        [[delegate managedObjectContext] deleteObject:friend];
+        [delegate saveContext];
+    }
 }
 
 +(NSArray*)getAllWithStatusRegisteredOrRequested {
@@ -388,12 +377,8 @@
     return fetchedRecords;
 }
 
-+(NSArray*)getAllWithStatusRejected {
-    return [self getAllWithStatus:[NSNumber numberWithInt:STATUS_REJECTED]];
-}
-
 +(NSArray*)getAllWithStatusUnregistered {
-    return [self getAllWithStatus:[NSNumber numberWithInt:STATUS_UNREGISTERED]];
+    return [self getAllWithStatus:@(STATUS_UNREGISTERED)];
 }
 
 @end
