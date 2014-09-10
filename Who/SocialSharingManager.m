@@ -82,7 +82,7 @@ NSString *const DESCRIPTION = @"Share and chat anonymously, with the people you 
                                                               if (![urlParams valueForKey:@"post_id"]) {
                                                               } else {
                                                                   // User clicked the Share button
-                                                                  NSString *result = [NSString stringWithFormat: @"Posted story, id: %@", [urlParams valueForKey:@"post_id"]];
+                                                                  //NSString *result = [NSString stringWithFormat: @"Posted story, id: %@", [urlParams valueForKey:@"post_id"]];
                                                               }
                                                           }
                                                       }
