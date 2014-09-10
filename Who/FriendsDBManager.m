@@ -19,7 +19,7 @@
     //if (uid != nil) {
         //friend = [self getUserWithUID:uid];
     //} else {
-        friend = (email == nil) ? [self getUserWithJID:username] : [self getUserWithJID:username email:email];
+        friend = (email == nil) ? [self getUserWithUsername:username] : [self getUserWithUsername:username email:email];
     //}
     if (friend == nil) {
         friend = [NSEntityDescription insertNewObjectForEntityForName:CORE_DATA_TABLE_FRIENDS inManagedObjectContext:moc];
@@ -67,7 +67,7 @@
 + (void)updateRegisteredFriendAfterUserSearch:(NSDictionary *)friend withContext:(NSManagedObjectContext *)moc {
     NSString *username = friend[FRIENDS_TABLE_COLUMN_NAME_USERNAME];
     NSString *fullName = [NSString stringWithFormat:@"%@ %@", friend[VCARD_TAG_FIRST_NAME], friend[VCARD_TAG_LAST_NAME]];
-    FriendMO *friendMO = [self getUserWithJID:username moc:moc];
+    FriendMO *friendMO = [self getUserWithUsername:username moc:moc];
     if (friendMO == nil) {
         [self insertWithMOC:moc
                    username:username
@@ -133,7 +133,7 @@
     //if (uid != nil) {
         //friend = [self getUserWithUID:uid withMOC:moc];
     //} else {
-        friend = (email == nil) ? [self getUserWithJID:username moc:moc] : [self getUserWithJID:username email:email moc:moc];
+        friend = (email == nil) ? [self getUserWithUsername:username moc:moc] : [self getUserWithUsername:username email:email moc:moc];
     //}
     BOOL ret = (friend == nil);
     if (friend == nil) {
@@ -205,7 +205,7 @@
     return nil;
 }
 
-+(FriendMO *)getUserWithJID:(NSString *)jid {
++(FriendMO *)getUserWithUsername:(NSString *)jid {
     NSArray *fetchedData = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", FRIENDS_TABLE_COLUMN_NAME_USERNAME, jid]];
     if(fetchedData.count > 0) {
         return [fetchedData firstObject];
@@ -223,15 +223,15 @@
 }
 */
 
-+(FriendMO *)getUserWithJID:(NSString *)jid moc:(NSManagedObjectContext *)moc  {
-    NSArray *fetchedData = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", FRIENDS_TABLE_COLUMN_NAME_USERNAME, jid] moc:moc];
++(FriendMO *)getUserWithUsername:(NSString *)username moc:(NSManagedObjectContext *)moc  {
+    NSArray *fetchedData = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\"", FRIENDS_TABLE_COLUMN_NAME_USERNAME, username] moc:moc];
     if(fetchedData.count > 0) {
         return [fetchedData firstObject];
     }
     return nil;
 }
 
-+(FriendMO *)getUserWithJID:(NSString *)jid email:(NSString *)email {
++(FriendMO *)getUserWithUsername:(NSString *)jid email:(NSString *)email {
     NSArray *fetchedData = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\" OR %@ = \"%@\"", FRIENDS_TABLE_COLUMN_NAME_USERNAME, jid, FRIENDS_TABLE_COLUMN_NAME_EMAIL, email]];
     if(fetchedData.count > 0) {
         return [fetchedData firstObject];
@@ -239,7 +239,7 @@
     return nil;
 }
 
-+(FriendMO *)getUserWithJID:(NSString *)jid email:(NSString *)email moc:(NSManagedObjectContext *)moc {
++(FriendMO *)getUserWithUsername:(NSString *)jid email:(NSString *)email moc:(NSManagedObjectContext *)moc {
     NSArray *fetchedData = [self makeFetchRequest:[NSString stringWithFormat:@"%@ = \"%@\" OR %@ = \"%@\"", FRIENDS_TABLE_COLUMN_NAME_USERNAME, jid, FRIENDS_TABLE_COLUMN_NAME_EMAIL, email] moc:moc];
     if(fetchedData.count > 0) {
         return [fetchedData firstObject];
@@ -254,11 +254,11 @@
 */
 
 +(BOOL)hasUserWithJID:(NSString *)jid {
-    return ([self getUserWithJID:jid] != nil);
+    return ([self getUserWithUsername:jid] != nil);
 }
 
 +(BOOL)updateEntry:(NSString *)username name:(NSString *)name email:(NSString *)email status:(NSNumber *)status {
-    FriendMO *friend = [self getUserWithJID:username];
+    FriendMO *friend = [self getUserWithUsername:username];
     if (friend == nil) {
         return NO;
     }
@@ -311,7 +311,7 @@
 }
 
 +(BOOL)updateUserStatus:(NSString*) username status:(NSNumber*)status {
-    FriendMO *entry = [self getUserWithJID:username];
+    FriendMO *entry = [self getUserWithUsername:username];
     if (entry == nil) {
         return NO;
     }
@@ -352,8 +352,12 @@
 */
 
 +(void)deleteUserWithUsername:(NSString *)username {
+    FriendMO *friend = [FriendsDBManager getUserWithUsername:username];
+    [FriendsDBManager deleteUser:friend];
+}
+
++ (void)deleteUser:(FriendMO *)friend {
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    FriendMO *friend = [FriendsDBManager getUserWithJID:username];
     if (friend != nil) {
         [[delegate managedObjectContext] deleteObject:friend];
         [delegate saveContext];

@@ -28,7 +28,6 @@
 @interface DashboardViewController()
 
 @property (strong, nonatomic) ConnectionProvider* cp;
-@property (strong, nonatomic) NSString *timeLastActive;
 @property (strong, nonatomic) NSIndexPath *clickedCellIndexPath;
 @property (strong, nonatomic) NSMutableArray *groupChats;
 @property (strong, nonatomic) NSMutableArray *oneToOneChats;
@@ -43,7 +42,6 @@
 @property (strong, nonatomic) UITableView *notificationTableView;
 @property (strong, nonatomic) NSMutableArray *friendRequests;
 @property (strong, nonatomic) NSMutableArray *groupInvites;
-@property (strong, nonatomic) MessageMO *mostRecentMessageInPushedChat;
 @property (strong, nonatomic) UIView *greyOutView;
 @property (strong, nonatomic) ChatMO *editingChat;
 @property (strong, nonatomic) NSIndexPath *editingIndexPath;
@@ -58,10 +56,8 @@
 
 @implementation DashboardViewController
 
-static BOOL notificationsHalfHidden = NO;
-
 -(void)viewDidAppear:(BOOL)animated {
-    if ([UserDefaultManager hasLoggedIn] == NO) {
+    if (![UserDefaultManager hasLoggedIn]) {
         [UserDefaultManager setLoggedInTrue];
         [[[UIAlertView alloc] initWithTitle:@"Welcome to Versapp" message:@"We will guide you through all of Versapps features. This page is your message dashboard. All of your conversations will appear here. Swipe to checkout the other screens." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
     }
@@ -81,16 +77,12 @@ static BOOL notificationsHalfHidden = NO;
 
 -(void)doTutorial {
     CGFloat cellY;
-    NSString *chatType;
     if ([_groupChats count] > 0) {
         cellY = _headerView.frame.size.height + 22.0f;
-        chatType = @"group chat";
     } else if([_oneToOneChats count] > 0) {
         cellY = _headerView.frame.size.height + 44.0f;
-        chatType = @"one to one";
     } else {
         cellY = _headerView.frame.size.height + 66.0f;
-        chatType = @"thought chat";
     }
     
     CGRect cellFrame = CGRectMake(0, cellY, self.view.frame.size.width, 44.0f);
@@ -145,7 +137,7 @@ static BOOL notificationsHalfHidden = NO;
     [imageView setImage:[UIImage imageNamed:@"messages-background-large.png"]];
     [self.tableView setBackgroundView:imageView];
     
-    _reportAlertView = [StyleManager createButtonOnlyAlertView:[NSArray arrayWithObjects:@"Bullying", @"Self Harm", @"Spam", @"Inappropriate", @"Cancel", nil]];
+    _reportAlertView = [StyleManager createButtonOnlyAlertView:@[@"Bullying", @"Self Harm", @"Spam", @"Inappropriate", @"Cancel"]];
     [_reportAlertView setDelegate:self];
     
     self.notificationTableView = [[UITableView alloc] init];
@@ -227,10 +219,6 @@ static BOOL notificationsHalfHidden = NO;
     }
 }
 
-- (void)handleSwipeUpToHideNotifications:(UIGestureRecognizer *)gestureRecognizer {
-    [self hideNotifications];
-}
-
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     return YES;
 }
@@ -264,8 +252,7 @@ static BOOL notificationsHalfHidden = NO;
 
 
 - (IBAction)arrowClicked:(id)sender {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                              [NSNumber numberWithInt:UIPageViewControllerNavigationDirectionForward], @"direction", nil];
+    NSDictionary *userInfo = @{@"direction" : @(UIPageViewControllerNavigationDirectionForward)};
     
     [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_NAVIGATE_TO_FRIENDS
                                                         object:nil
@@ -303,16 +290,16 @@ static BOOL notificationsHalfHidden = NO;
     if([segue.identifier isEqualToString:SEGUE_ID_GROUP_CONVERSATION])
     {
         ConversationViewController *dest = segue.destinationViewController;
-        dest.chatMO = [[self groupChats] objectAtIndex:self.clickedCellIndexPath.row];
-        _mostRecentMessageInPushedChat = [[dest.chatMO messages] lastObject];
+        dest.chatMO = [self groupChats][self.clickedCellIndexPath.row];
+        [[dest.chatMO messages] lastObject];
     } else if([segue.identifier isEqualToString:SEGUE_ID_ONE_TO_ONE_CONVERSATION]) {
         OneToOneConversationViewController *dest = segue.destinationViewController;
         if (self.clickedCellIndexPath.section == 1) {
-            dest.chatMO = [self.oneToOneChats objectAtIndex:self.clickedCellIndexPath.row];
+            dest.chatMO = (self.oneToOneChats)[self.clickedCellIndexPath.row];
         } else {
-            dest.chatMO = [self.thoughtChats objectAtIndex:self.clickedCellIndexPath.row];
+            dest.chatMO = (self.thoughtChats)[self.clickedCellIndexPath.row];
         }
-        _mostRecentMessageInPushedChat = [[dest.chatMO messages] lastObject];
+        [[dest.chatMO messages] lastObject];
     }
 }
 
@@ -351,11 +338,11 @@ static BOOL notificationsHalfHidden = NO;
     if (tableView == self.tableView) {
         ChatMO *chatMo;
         if(indexPath.section == 0) {
-            chatMo = [self.groupChats objectAtIndex:indexPath.row];
+            chatMo = (self.groupChats)[indexPath.row];
         } else if(indexPath.section == 1) {
-            chatMo = [self.oneToOneChats objectAtIndex:indexPath.row];
+            chatMo = (self.oneToOneChats)[indexPath.row];
         } else {
-            chatMo = [self.thoughtChats objectAtIndex:indexPath.row];
+            chatMo = (self.thoughtChats)[indexPath.row];
         }
         
         DashboardTableViewCell *cell = (DashboardTableViewCell *)[tableView dequeueReusableCellWithIdentifier:chatMo.chat_id];
@@ -390,9 +377,9 @@ static BOOL notificationsHalfHidden = NO;
         [decline setImage:[UIImage imageNamed:@"x-green.png"] forState:UIControlStateNormal];
         
         if (indexPath.section == 0) {
-            ChatMO *groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
+            ChatMO *groupInvite = (self.groupInvites)[(NSUInteger) indexPath.row];
             //cell.textLabel.text = groupInvite.chat_name;
-            NSString *inviter = [FriendsDBManager getUserWithJID:groupInvite.owner_id].name;
+            NSString *inviter = [FriendsDBManager getUserWithUsername:groupInvite.owner_id].name;
             //cell.textLabel.text = [NSMutableString stringWithFormat:@"%@ - invited by %@", groupInvite.chat_name, inviter];
             cell.textLabel.text = groupInvite.chat_name;
             if (inviter != nil) {
@@ -401,7 +388,7 @@ static BOOL notificationsHalfHidden = NO;
             [accept addTarget:self action:@selector(acceptInvitation:) forControlEvents:UIControlEventTouchUpInside];
             [decline addTarget:self action:@selector(declineInvitation:) forControlEvents:UIControlEventTouchUpInside];
         } else {
-            FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
+            FriendMO *friendRequest = (self.friendRequests)[(NSUInteger) indexPath.row];
             cell.textLabel.text = friendRequest.name;
             [accept addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
             [decline addTarget:self action:@selector(declineFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
@@ -432,10 +419,7 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == _tableView && [_tableView isEditing]) {
-        return YES;
-    }
-    return NO;
+    return _tableView == tableView && [_tableView isEditing];
 }
 
 -(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -443,10 +427,7 @@ static BOOL notificationsHalfHidden = NO;
 }
 
 -(BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == _tableView) {
-        return YES;
-    }
-    return NO;
+    return tableView == _tableView;
 }
 
 /*-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -460,14 +441,14 @@ static BOOL notificationsHalfHidden = NO;
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         ChatMO *chat;
         if (indexPath.section == 0 && [_groupChats count] > indexPath.row) {
-            chat = [_groupChats objectAtIndex:indexPath.row];
-            [_groupChats removeObjectAtIndex:indexPath.row];
+            chat = _groupChats[(NSUInteger) indexPath.row];
+            [_groupChats removeObjectAtIndex:(NSUInteger) indexPath.row];
         } else if(indexPath.section == 1 && [_oneToOneChats count] > indexPath.row) {
-            chat = [_oneToOneChats objectAtIndex:indexPath.row];
-            [_oneToOneChats removeObjectAtIndex:indexPath.row];
+            chat = _oneToOneChats[(NSUInteger) indexPath.row];
+            [_oneToOneChats removeObjectAtIndex:(NSUInteger) indexPath.row];
         } else if(indexPath.section == 2 && [_thoughtChats count] > indexPath.row) {
-            chat = [_thoughtChats objectAtIndex:indexPath.row];
-            [_thoughtChats removeObjectAtIndex:indexPath.row];
+            chat = _thoughtChats[(NSUInteger) indexPath.row];
+            [_thoughtChats removeObjectAtIndex:(NSUInteger) indexPath.row];
         } else {
             return;
         }
@@ -536,9 +517,7 @@ static BOOL notificationsHalfHidden = NO;
         [_tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectZero]];
     }
     [self.tableView reloadData];
-    
-    notificationsHalfHidden = NO;
-    
+
     [UIView animateWithDuration:.5
                           delay:0.0
          usingSpringWithDamping:1.0
@@ -615,8 +594,8 @@ static BOOL notificationsHalfHidden = NO;
     [self.notificationsButtonGreen addTarget:self action:@selector(notificationsGreenClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     if ([self.friendRequests count] + [self.groupInvites count] == 0) {
-        self.notificationsHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.5 - footerSize)];
-        UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height*0.25, self.view.frame.size.width, 21)];
+        self.notificationsHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, (CGFloat) (self.view.frame.size.height*0.5 - footerSize))];
+        UILabel *notificationsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, (CGFloat) (self.view.frame.size.height*0.25), self.view.frame.size.width, 21)];
         [notificationsLabel setText:NO_NOTIFICATIONS];
         [notificationsLabel setTextAlignment:NSTextAlignmentCenter];
         [notificationsLabel setFont:[StyleManager getFontStyleLightSizeXL]];
@@ -667,8 +646,7 @@ static BOOL notificationsHalfHidden = NO;
     
     self.groupChats = [[NSMutableArray alloc] initWithArray:[ChatDBManager getAllActiveGroupChats]];
     [self.tableView reloadData];
-    
-    notificationsHalfHidden = NO;
+
 }
 
 - (void)updateNotifications {
@@ -682,11 +660,11 @@ static BOOL notificationsHalfHidden = NO;
     CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
     NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
     
-    ChatMO *groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
+    ChatMO *groupInvite = (self.groupInvites)[(NSUInteger) indexPath.row];
     [[self.cp getConnection] sendElement:[IQPacketManager createAcceptChatInvitePacket:groupInvite.chat_id]];
     [[self.cp getConnection] sendElement:[IQPacketManager createJoinMUCPacket:groupInvite.chat_id lastTimeActive:BEGINNING_OF_TIME]];
-    
-    [self.groupInvites removeObjectAtIndex:indexPath.row];
+
+    [self.groupInvites removeObjectAtIndex:(NSUInteger) indexPath.row];
     [ChatDBManager setChatStatus:STATUS_JOINED chatID:groupInvite.chat_id];
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     [self setNotificationsIcon:YES];
@@ -700,10 +678,10 @@ static BOOL notificationsHalfHidden = NO;
     CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
     NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
     
-    ChatMO *groupInvite = [self.groupInvites objectAtIndex:indexPath.row];
+    ChatMO *groupInvite = (self.groupInvites)[(NSUInteger) indexPath.row];
     [[self.cp getConnection] sendElement:[IQPacketManager createDenyChatInvitePacket:groupInvite.chat_id]];
-    
-    [self.groupInvites removeObjectAtIndex:indexPath.row];
+
+    [self.groupInvites removeObjectAtIndex:(NSUInteger) indexPath.row];
     [ChatDBManager setChatStatus:STATUS_REQUEST_REJECTED chatID:groupInvite.chat_id];
     
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
@@ -714,13 +692,13 @@ static BOOL notificationsHalfHidden = NO;
     CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
     NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
     
-    FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
+    FriendMO *friendRequest = (self.friendRequests)[(NSUInteger) indexPath.row];
     NSMutableString *address = [NSMutableString stringWithFormat:@"%@@%@", friendRequest.username, [ConnectionProvider getServerIPAddress]];
     [[self.cp getConnection] sendElement:[IQPacketManager createSubscribedPacket:friendRequest.username]];
     [[self.cp getConnection] sendElement:[IQPacketManager createForceCreateRosterEntryPacket:address]];
     [FriendsDBManager updateUserSetStatusFriends:friendRequest.username];
-    
-    [self.friendRequests removeObjectAtIndex:indexPath.row];
+
+    [self.friendRequests removeObjectAtIndex:(NSUInteger) indexPath.row];
     
     [self.notificationTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     [self setNotificationsIcon:YES];
@@ -730,9 +708,9 @@ static BOOL notificationsHalfHidden = NO;
     CGPoint click = [sender convertPoint:CGPointZero toView:self.notificationTableView];
     NSIndexPath *indexPath = [self.notificationTableView indexPathForRowAtPoint:click];
     
-    FriendMO *friendRequest = [self.friendRequests objectAtIndex:indexPath.row];
+    FriendMO *friendRequest = (self.friendRequests)[(NSUInteger) indexPath.row];
     [[self.cp getConnection] sendElement:[IQPacketManager createUnsubscribedPacket:friendRequest.username]];
-    [self.friendRequests removeObjectAtIndex:indexPath.row];
+    [self.friendRequests removeObjectAtIndex:(NSUInteger) indexPath.row];
     
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [[delegate managedObjectContext] deleteObject:friendRequest];
@@ -772,13 +750,13 @@ static BOOL notificationsHalfHidden = NO;
 -(void)handleLongPressForRowAtIndexPath:(NSIndexPath*)indexPath {
     _editingIndexPath = indexPath;
     if (indexPath.section == 0) {
-        _editingChat = [_groupChats objectAtIndex:indexPath.row];
+        _editingChat = _groupChats[(NSUInteger) indexPath.row];
         [self showGroupLongPressDialog];
     } else if(indexPath.section == 1) {
-        _editingChat = [_oneToOneChats objectAtIndex:indexPath.row];
+        _editingChat = _oneToOneChats[(NSUInteger) indexPath.row];
         [self showOneToOneLongPressDialog];
     } else {
-        _editingChat = [_thoughtChats objectAtIndex:indexPath.row];
+        _editingChat = _thoughtChats[(NSUInteger) indexPath.row];
         [self showOneToOneLongPressDialog];
     }
 }
@@ -786,7 +764,7 @@ static BOOL notificationsHalfHidden = NO;
 - (void)showGroupLongPressDialog {
     //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rename Chat", @"Leave Chat", nil];
     
-    CustomIOS7AlertView *alertView = [StyleManager createButtonOnlyAlertView:[NSArray arrayWithObjects:@"Rename Chat", @"Leave Chat", @"Report Chat", @"Cancel", nil]];
+    CustomIOS7AlertView *alertView = [StyleManager createButtonOnlyAlertView:@[@"Rename Chat", @"Leave Chat", @"Report Chat", @"Cancel"]];
     [alertView setDelegate:self];
     [alertView show];
 }
@@ -794,7 +772,7 @@ static BOOL notificationsHalfHidden = NO;
 - (void)showOneToOneLongPressDialog {
     //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rename Chat", @"Leave Chat", @"Block User", nil];
     
-    CustomIOS7AlertView *alertView = [StyleManager createButtonOnlyAlertView:[NSArray arrayWithObjects:@"Rename Chat", @"Leave Chat", @"Block User", @"Report Chat", @"Cancel", nil]];
+    CustomIOS7AlertView *alertView = [StyleManager createButtonOnlyAlertView:@[@"Rename Chat", @"Leave Chat", @"Block User", @"Report Chat", @"Cancel"]];
     [alertView setDelegate:self];
     [alertView show];
 }
@@ -803,7 +781,7 @@ static BOOL notificationsHalfHidden = NO;
     //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Rename Conversation" message:@"Enter a new name for this conversation." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rename", nil];
     //[alertView setAlertViewStyle:UIAlertViewStylePlainTextInput];
     
-    CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:@"Rename Conversation" message:@"Enter a new name for this conversation." buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Rename", nil] hasInput:YES];
+    CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:@"Rename Conversation" message:@"Enter a new name for this conversation." buttons:[@[@"Cancel", @"Rename"] mutableCopy] hasInput:YES];
     [alertView setDelegate:self];
     [alertView show];
 }
@@ -819,12 +797,12 @@ static BOOL notificationsHalfHidden = NO;
        }*/ else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Leave Chat"]) {
            //UIAlertView *leaveAlertView = [[UIAlertView alloc] initWithTitle:@"Leave Chat" message:@"Are you sure you want to leave this conversation?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Leave", nil];
            //[leaveAlertView setAlertViewStyle:UIAlertViewStyleDefault];
-           CustomIOS7AlertView *leaveAlertView = [StyleManager createCustomAlertView:@"Leave Chat" message:@"Are you sure you want to leave this conversation?" buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Leave", nil] hasInput:NO];
+           CustomIOS7AlertView *leaveAlertView = [StyleManager createCustomAlertView:@"Leave Chat" message:@"Are you sure you want to leave this conversation?" buttons:[@[@"Cancel", @"Leave"] mutableCopy] hasInput:NO];
            [leaveAlertView setDelegate:self];
            [leaveAlertView show];
        } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Block User"]) {
            //[[[UIAlertView alloc] initWithTitle:@"Are you sure?" message:@"Blocking this user will not allow them to send you one to one messages anymore." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Block", nil] show];
-           CustomIOS7AlertView *blockAlertView = [StyleManager createCustomAlertView:@"Are you sure?" message:@"Blocking this user will not allow them to send you one to one messages anymore." buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Block", nil] hasInput:NO];
+           CustomIOS7AlertView *blockAlertView = [StyleManager createCustomAlertView:@"Are you sure?" message:@"Blocking this user will not allow them to send you one to one messages anymore." buttons:[@[@"Cancel", @"Block"] mutableCopy] hasInput:NO];
            [blockAlertView setDelegate:self];
            [blockAlertView show];
        } /*else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Block"]) {
@@ -840,14 +818,14 @@ static BOOL notificationsHalfHidden = NO;
     } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Rename"]) {
         [self handleRenameChat:[alertView getInputText]];
     } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Leave Chat"]) {
-        CustomIOS7AlertView *leaveAlertView = [StyleManager createCustomAlertView:@"Leave Chat" message:@"Are you sure you want to leave this conversation?" buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Leave", nil] hasInput:NO];
+        CustomIOS7AlertView *leaveAlertView = [StyleManager createCustomAlertView:@"Leave Chat" message:@"Are you sure you want to leave this conversation?" buttons:[@[@"Cancel", @"Leave"] mutableCopy] hasInput:NO];
         [leaveAlertView setDelegate:self];
         [leaveAlertView show];
     } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Leave"]) {
         [self handleLeaveChat];
     } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Block User"]) {
         //[[[UIAlertView alloc] initWithTitle:@"Are you sure?" message:@"Blocking this user will not allow them to send you one to one messages anymore." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Block", nil] show];
-        CustomIOS7AlertView *blockAlertView = [StyleManager createCustomAlertView:@"Are you sure?" message:@"Blocking this user will not allow them to send you one to one messages anymore." buttons:[NSMutableArray arrayWithObjects:@"Cancel", @"Block", nil] hasInput:NO];
+        CustomIOS7AlertView *blockAlertView = [StyleManager createCustomAlertView:@"Are you sure?" message:@"Blocking this user will not allow them to send you one to one messages anymore." buttons:[@[@"Cancel", @"Block"] mutableCopy] hasInput:NO];
         [blockAlertView setDelegate:self];
         [blockAlertView show];
     } else if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Report Chat"]) {
@@ -863,7 +841,7 @@ static BOOL notificationsHalfHidden = NO;
                 [[[ConnectionProvider getInstance] getConnection] sendElement:[IQPacketManager createReportOneToOneChatPacket:_editingChat.chat_id type:[[[alertView buttonTitleAtIndex:buttonIndex] lowercaseString] stringByReplacingOccurrencesOfString:@" " withString:@"_"]]];
             }
             
-            CustomIOS7AlertView *leaveAlertView = [StyleManager createCustomAlertView:@"Leave Chat?" message:@"Would you like to leave this conversation?" buttons:[NSMutableArray arrayWithObjects:@"No", @"Leave", nil] hasInput:NO];
+            CustomIOS7AlertView *leaveAlertView = [StyleManager createCustomAlertView:@"Leave Chat?" message:@"Would you like to leave this conversation?" buttons:[@[@"No", @"Leave"] mutableCopy] hasInput:NO];
             [leaveAlertView setDelegate:self];
             [leaveAlertView show];
         }
@@ -874,11 +852,11 @@ static BOOL notificationsHalfHidden = NO;
 
 -(void)handleLeaveChat {
     if (_editingIndexPath.section == 0 && [_groupChats count] > _editingIndexPath.row) {
-        [_groupChats removeObjectAtIndex:_editingIndexPath.row];
+        [_groupChats removeObjectAtIndex:(NSUInteger) _editingIndexPath.row];
     } else if(_editingIndexPath.section == 1 && [_oneToOneChats count] > _editingIndexPath.row) {
-        [_oneToOneChats removeObjectAtIndex:_editingIndexPath.row];
+        [_oneToOneChats removeObjectAtIndex:(NSUInteger) _editingIndexPath.row];
     } else if(_editingIndexPath.section == 2 && [_thoughtChats count] > _editingIndexPath.row) {
-        [_thoughtChats removeObjectAtIndex:_editingIndexPath.row];
+        [_thoughtChats removeObjectAtIndex:(NSUInteger) _editingIndexPath.row];
     } else {
         return;
     }
@@ -903,11 +881,6 @@ static BOOL notificationsHalfHidden = NO;
     [(AppDelegate*)[UIApplication sharedApplication].delegate saveContext];
     [_tableView reloadData];
     
-}
-
-- (void)showConfirmBlockDiaglog {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:@"Blocking this user means they will no longer be able to create one to one chats with you." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Block", nil];
-    [alertView show];
 }
 
 - (void)handleBlockOneToOneChat {

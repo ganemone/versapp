@@ -44,7 +44,7 @@
         NSString *jid = [[[presence fromStr] componentsSeparatedByString:@"/"] firstObject];
         NSString *username = [[[presence fromStr] componentsSeparatedByString:@"@"] firstObject];
         XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
-        FriendMO *friend = [FriendsDBManager getUserWithJID:username];
+        FriendMO *friend = [FriendsDBManager getUserWithUsername:username];
         if (friend == nil || friend.name == nil) {
             NSLog(@"GETTING VCARD AFTER PRESENCE PACKET");
             [conn sendElement:[IQPacketManager createGetVCardPacket:username]];

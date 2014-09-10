@@ -11,6 +11,7 @@
 #import "ChatMO.h"
 #import "LoadingDialogManager.h"
 #import "StyleManager.h"
+#import "FriendMO.h"
 #import "FriendsDBManager.h"
 #import "Constants.h"
 #import "FriendTableViewCell.h"
@@ -27,8 +28,6 @@
 @property (strong, nonatomic) LoadingDialogManager *ldm;
 @property (strong, nonatomic) NSString *invitedUser;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
-
-@property BOOL isSearching;
 
 @end
 
@@ -184,11 +183,9 @@
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if (searchText.length > 0) {
-        self.isSearching = YES;
         NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"name contains[c] %@", searchText];
         self.searchResults = [_allAccepted filteredArrayUsingPredicate:resultPredicate];
     } else {
-        self.isSearching = NO;
         self.searchResults = _allAccepted;
     }
     [self.tableView reloadData];

@@ -28,11 +28,11 @@
 
 +(NSArray*)getAllWithStatus:(NSNumber*)status;
 
-+(FriendMO*)getUserWithJID:(NSString*)jid;
-
 +(FriendMO*)getUserWithEmail:(NSString*)email;
 
-+(FriendMO *)getUserWithJID:(NSString *)jid moc:(NSManagedObjectContext *)moc;
++ (FriendMO *)getUserWithUsername:(NSString *)jid;
+
++(FriendMO *)getUserWithUsername:(NSString *)username moc:(NSManagedObjectContext *)moc;
 
 //+(FriendMO*)getUserWithEmail:(NSString*)email moc:(NSManagedObjectContext *)moc;
 
@@ -53,6 +53,7 @@
 //+(NSArray*)getAllWithStatusRegistered;
 
 + (void)deleteUserWithUsername:(NSString *)username;
++ (void)deleteUser:(FriendMO *)friend;
 
 +(NSArray*)getAllWithStatusFriends;
 

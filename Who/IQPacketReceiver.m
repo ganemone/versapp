@@ -174,7 +174,7 @@
                     if ([owner isEqualToString:[ConnectionProvider getUser]]) {
                         NSString *participant = ([[participants firstObject] isEqualToString:[ConnectionProvider getUser]]) ? [participants lastObject] : [participants firstObject];
                         type = CHAT_TYPE_ONE_TO_ONE_INVITER;
-                        name = [FriendsDBManager getUserWithJID:participant].name;
+                        name = [FriendsDBManager getUserWithUsername:participant].name;
                         if (name == nil) {
                             name = @"Loading...";
                         }

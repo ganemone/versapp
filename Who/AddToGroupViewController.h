@@ -8,6 +8,8 @@
 
 #import "FriendsViewController.h"
 
+@class FriendMO;
+
 @protocol AddToGroupViewController
 
 @property (strong, nonatomic) NSString *chatID;

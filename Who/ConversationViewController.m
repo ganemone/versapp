@@ -455,9 +455,9 @@
         if ([memberUsername isEqualToString:[ConnectionProvider getUser]]) {
             continue;
         }
-        FriendMO *friend = [FriendsDBManager getUserWithJID:memberUsername];
+        FriendMO *friend = [FriendsDBManager getUserWithUsername:memberUsername];
         if (friend == nil) {
-            FriendMO *invitedByFriend = [FriendsDBManager getUserWithJID:invitedBy];
+            FriendMO *invitedByFriend = [FriendsDBManager getUserWithUsername:invitedBy];
             if (invitedByFriend == nil || invitedByFriend.name == nil) {
                 [list addObject:[NSString stringWithFormat:@"%@ (Friend of Friend)", memberUsername]];
             } else {
