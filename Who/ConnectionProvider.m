@@ -192,7 +192,7 @@ static ConnectionProvider *selfInstance;
 
 -(void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error
 {
-    //AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    //AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     //[delegate handleConnectionLost];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_STREAM_DID_DISCONNECT object:nil];
 }
@@ -216,27 +216,36 @@ static ConnectionProvider *selfInstance;
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
-    UILocalNotification *localNotif = [[UILocalNotification alloc] init];
-    
-    ChatMO *chat = [ChatDBManager getChatWithID:message.thread];
-    NSLog(@"Message Thread :%@", message.thread);
-    NSString *name;
-    if ((name = chat.chat_name) == nil)
-        name = @"New Chat";
-    
-    localNotif.fireDate = nil;
-    localNotif.hasAction = YES;
-    localNotif.alertBody = [NSString stringWithFormat:@"%@: %@", name, message.body];
-    localNotif.alertAction = @"View";
-    localNotif.soundName = UILocalNotificationDefaultSoundName;
-    if (message.thread != nil)
-        localNotif.userInfo = [NSDictionary dictionaryWithObject:message.thread forKey:@"chat_id"];
-    else
-        localNotif.userInfo = [NSDictionary dictionaryWithObject:@"" forKey:@"chat_id"];
-    
-    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotif];
     NSLog(@"Did receive message: %@", [message XMLString]);
-    [MessagePacketReceiver handleMessagePacket:message];
+    NSDictionary *userInfo = [MessagePacketReceiver handleMessagePacket:message];
+    if (userInfo != nil) {
+        UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+        localNotif.fireDate = nil;
+        localNotif.hasAction = YES;
+        localNotif.alertAction = @"View";
+        localNotif.soundName = UILocalNotificationDefaultSoundName;
+        localNotif.userInfo = userInfo;
+        NSString *type = [userInfo objectForKey:@"type"];
+        if ([type isEqualToString:@"message"]) {
+            NSString *chatID = [userInfo objectForKey:@"chat_id"];
+            ChatMO *chat = [ChatDBManager getChatWithID:chatID];
+            NSString *name;
+            if ((name = chat.chat_name) == nil)
+                name = @"New Chat";
+            
+            localNotif.alertBody = [NSString stringWithFormat:@"%@: %@", name, message.body];
+        } else if([type isEqualToString:@"invitation"]) {
+            localNotif.alertBody = @"You were invited to a group.";
+        } else if([type isEqualToString:@"new_friend"]) {
+            localNotif.alertBody = @"You have a new friend";
+        } else if([type isEqualToString:@"confession_favorited"]) {
+            localNotif.alertBody = @"Your thought was favorited";
+        }
+        
+        if (localNotif.alertBody != nil) {
+            [[UIApplication sharedApplication] presentLocalNotificationNow:localNotif];
+        }
+    }
 }
 
 -(void)xmppStream:(XMPPStream *)sender didSendMessage:(XMPPMessage *)message {

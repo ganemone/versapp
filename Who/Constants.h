@@ -78,6 +78,7 @@ extern NSString *const CHAT_TYPE_ONE_TO_ONE_INVITER;
 extern NSString *const CHAT_TYPE_ONE_TO_ONE_INVITED;
 extern NSString *const CHAT_TYPE_ONE_TO_ONE_CONFESSION;
 extern NSString *const MESSAGE_TYPE_HEADLINE;
+extern NSString *const MESSAGE_TYPE_BROADCAST;
 
 extern NSString *const MESSAGE_PROPERTY_BODY;
 extern NSString *const MESSAGE_PROPERTY_SENDER_ID;
