@@ -114,7 +114,6 @@
     //[[[UIAlertView alloc] initWithTitle:@"Thought" message:message delegate:self cancelButtonTitle:@"Got it" otherButtonTitles: nil] show];
     
     CustomIOS7AlertView *alertView = [StyleManager createCustomAlertView:title message:message buttons:[NSMutableArray arrayWithObject:@"Got it"] hasInput:NO];
-    [alertView setDelegate:self];
     [alertView show];
 }
 

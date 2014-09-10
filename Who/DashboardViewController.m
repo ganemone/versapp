@@ -736,7 +736,7 @@ static BOOL notificationsHalfHidden = NO;
     [[self.cp getConnection] sendElement:[IQPacketManager createUnsubscribedPacket:friendRequest.username]];
     [self.friendRequests removeObjectAtIndex:indexPath.row];
     
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [[delegate managedObjectContext] deleteObject:friendRequest];
     [delegate saveContext];
     

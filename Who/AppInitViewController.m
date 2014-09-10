@@ -11,7 +11,6 @@
 #import "UserDefaultManager.h"
 #import "Constants.h"
 #import "StyleManager.h"
-#import "Encrypter.h"
 #import "FriendsDBManager.h"
 #import "PhoneVerificationManager.h"
 #import "AFNetworking.h"
@@ -57,8 +56,6 @@
     
     self.viewDidShow = NO;
     self.shouldTransition = NO;
-    
-    
 }
 
 -(void)viewDidAppear:(BOOL)animated {

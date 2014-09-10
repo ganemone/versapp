@@ -52,7 +52,7 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
     NSString *encodedImageString = [Base64 encode:imageData];
     NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
     NSString *imageName = [NSString stringWithFormat:@"%@%d", [ConnectionProvider getUser], (int)timeStamp];
-    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *parameters = @{@"username" : [ConnectionProvider getUser],
                                  @"session" : appDelegate.sessionID,
@@ -71,7 +71,7 @@ NSString *const DICTIONARY_KEY_MESSAGE = @"dictionary_key_message";
 }
 
 -(void)downloadImageFromGCSWithName:(NSString *)name fromBucket:(NSString *)bucket delegate:(id<ImageManagerDelegate>)delegate identifier:(NSString *)identifier {
-    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *parameters = @{@"username" : [ConnectionProvider getUser],
                                  @"session" : appDelegate.sessionID,

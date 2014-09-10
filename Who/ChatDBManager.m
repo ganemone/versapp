@@ -27,7 +27,7 @@ static int numUninvitedParticipants;
 }
 
 +(ChatMO*)insertChatWithID:(NSString *)chatID chatName:(NSString *)chatName chatType:(NSString*)chatType participantString:(NSString*)participantString status:(int)status degree:(NSString *)degree {
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     
     ChatMO *chatEntry = [self getChatWithID:chatID];
@@ -70,7 +70,7 @@ static int numUninvitedParticipants;
 }
 
 +(ChatMO *)insertChatWithID:(NSString *)chatID chatName:(NSString *)chatName chatType:(NSString *)chatType participantString:(NSString *)participantString status:(int)status degree:(NSString *)degree ownerID:(NSString *)ownerID {
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     
     ChatMO *chatEntry = [self getChatWithID:chatID];
@@ -133,7 +133,7 @@ static int numUninvitedParticipants;
     NSLog(@"Joining All Chats");
     NSArray *chats = [self getAllActiveGroupChats];
     XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSString *time = [MessagesDBManager getTimeForHistory:[delegate managedObjectContext]];
     for (ChatMO *chat in chats) {
         NSLog(@"Chat :%@", [chat description]);
@@ -144,13 +144,13 @@ static int numUninvitedParticipants;
 +(void)joinChatWithID:(NSString *)chatId {
     NSLog(@"Joining Chat with ID: %@", chatId);
     XMPPStream *conn = [[ConnectionProvider getInstance] getConnection];
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSString *time = [MessagesDBManager getTimeForHistory:[delegate managedObjectContext]];
     [conn sendElement:[IQPacketManager createJoinMUCPacket:chatId lastTimeActive:time]];
 }
 
 +(NSArray*)makeFetchRequest:(NSString*)predicateString {
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     return [self makeFetchRequest:predicateString withMOC:moc];
 }
@@ -172,7 +172,7 @@ static int numUninvitedParticipants;
 
 +(NSArray *)makeFetchRequestWithPredicate:(NSPredicate *)predicate {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     NSEntityDescription *entity = [NSEntityDescription entityForName:CORE_DATA_TABLE_CHATS inManagedObjectContext:moc];
     [fetchRequest setEntity:entity];
@@ -297,7 +297,7 @@ static int numUninvitedParticipants;
             }
         }
         
-        AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+        AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         [delegate saveContext];
         chatIDUpdatingParticipants = nil;
     }
@@ -312,7 +312,7 @@ static int numUninvitedParticipants;
         ChatMO *chat = [self getChatWithID:chatIDUpdatingParticipants];
         [chat setParticipants:participants];
         [chat setParticipant_string:[[participants valueForKey:PARTICIPANT_USERNAME] componentsJoinedByString:@", "]];
-        AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+        AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         [delegate saveContext];
         chatIDUpdatingParticipants = nil;
     }
@@ -347,7 +347,7 @@ static int numUninvitedParticipants;
 }
 
 +(void)deleteChat:(ChatMO *)chat {
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [[delegate managedObjectContext] deleteObject:chat];
     [delegate saveContext];
 }

@@ -10,7 +10,6 @@
 #import "Constants.h"
 #import "StyleManager.h"
 #import "UserDefaultManager.h"
-#import "Encrypter.h"
 
 @interface ChangePasswordViewController ()
 @property (strong, nonatomic) IBOutlet UIButton *backButton;

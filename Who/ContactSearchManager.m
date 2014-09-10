@@ -132,7 +132,7 @@ static ContactSearchManager *selfInstance;
 }
 
 -(void)updateContactListAfterUserSearch:(NSArray *)contactsFound {
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *moc = [delegate getManagedObjectContextForBackgroundThread];
     __block dispatch_queue_t mainQ = dispatch_get_main_queue();
     [moc performBlock:^{

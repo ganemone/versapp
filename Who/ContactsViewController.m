@@ -222,7 +222,7 @@
             break;
     }
     [self dismissViewControllerAnimated:YES completion:NULL];
-    AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     for (NSString *email in _emailContacts) {
         FriendMO *friend = [FriendsDBManager getUserWithEmail:email];
         [friend setValue:[NSNumber numberWithInt:STATUS_INVITED] forKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];

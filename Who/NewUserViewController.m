@@ -18,7 +18,6 @@
 #import "PhoneVerificationManager.h"
 #import "MBProgressHUD.h"
 #import "StyleManager.h"
-#import "Encrypter.h"
 
 @interface NewUserViewController ()
 

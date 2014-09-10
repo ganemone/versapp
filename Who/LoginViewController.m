@@ -15,7 +15,6 @@
 #import "ChatDBManager.h"
 #import "StyleManager.h"
 #import "MBProgressHUD.h"
-#import "Encrypter.h"
 #import "SocialSharingManager.h"
 
 @interface LoginViewController()

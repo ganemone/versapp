@@ -11,7 +11,7 @@
 #import "ImageManager.h"
 #import "CustomIOS7AlertView.h"
 
-@interface ThoughtTableViewCell : UITableViewCell<ImageManagerDelegate, CustomIOS7AlertViewDelegate>
+@interface ThoughtTableViewCell : UITableViewCell<ImageManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *body;
 @property (weak, nonatomic) IBOutlet UIButton *chatBtn;

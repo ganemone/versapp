@@ -109,7 +109,7 @@ NSString *const THOUGHTS_METHOD_YOU_STRING = @"you";
 -(void)loadConfessionsSince:(NSString *)since {
     _shouldClearThoughts = ([since isEqualToString:@"0"]);
     
-    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *parameters = @{@"method" : [self getMethodString],
                                  @"since" : since};
@@ -127,7 +127,7 @@ NSString *const THOUGHTS_METHOD_YOU_STRING = @"you";
         NSLog(@"Failed to load thoughts with error: %@", error);
     }];
     // Setting up authorization header
-    NSString *authCode = [NSString stringWithFormat:@"%@:%@", [ConnectionProvider getUser], appDelegate.sessionID];
+    NSString *authCode = [NSString stringWithFormat:@"%@:%@", [ConnectionProvider getUser], delegate.sessionID];
     NSData *data = [authCode dataUsingEncoding:NSASCIIStringEncoding];
     NSString *base64AuthCode = [Base64 encode:data];
     NSString *authHttpHeaderValue = [NSString stringWithFormat:@"Basic %@", base64AuthCode];

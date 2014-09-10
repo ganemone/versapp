@@ -151,7 +151,7 @@
 }
 
 +(void)handleGetJoinedChatsPacket:(NSString *)xml {
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *moc = [delegate getManagedObjectContextForBackgroundThread];
     __block dispatch_queue_t mainQueue = dispatch_get_main_queue();
     [moc performBlock:^{
@@ -291,7 +291,7 @@
 }
 
 +(void)handleGetRosterPacket: (XMPPIQ *)iq {
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSString *username = [ConnectionProvider getUser];
     NSManagedObjectContext *moc = [delegate getManagedObjectContextForBackgroundThread];
     __block dispatch_queue_t mainQ = dispatch_get_main_queue();
@@ -383,7 +383,7 @@
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<value>(.*?)<\\/value>" options:NSRegularExpressionCaseInsensitive error:&error];
     
     NSTextCheckingResult *match = [regex firstMatchInString:xml options:0 range:NSMakeRange(0, xml.length)];
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [delegate setSessionID:[xml substringWithRange:[match rangeAtIndex:1]]];
 
     if ([UserDefaultManager hasSentBlacklist] == NO) {

@@ -103,7 +103,7 @@ static ConfessionsManager *selfInstance;
 }
 
 -(void)loadConfessionByID:(NSString *)cid withBlock:(void (^)(Confession *confession))block {
-    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSDictionary *parameters = @{@"method": cid};
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSError *error = NULL;
@@ -123,7 +123,7 @@ static ConfessionsManager *selfInstance;
     }];
     
     // Setting up authorization header
-    NSString *authCode = [NSString stringWithFormat:@"%@:%@", [ConnectionProvider getUser], appDelegate.sessionID];
+    NSString *authCode = [NSString stringWithFormat:@"%@:%@", [ConnectionProvider getUser], delegate.sessionID];
     NSData *data = [authCode dataUsingEncoding:NSASCIIStringEncoding];
     NSString *base64AuthCode = [Base64 encode:data];
     NSString *authHttpHeaderValue = [NSString stringWithFormat:@"Basic %@", base64AuthCode];

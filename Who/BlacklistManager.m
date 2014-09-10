@@ -7,7 +7,6 @@
 //
 
 #import "BlacklistManager.h"
-#import "Encrypter.h"
 #import "AFNetworking.h"
 #import "AppDelegate.h"
 #import "Base64.h"
@@ -19,11 +18,11 @@
 
 + (void)sendPostRequestWithPhoneNumbers:(NSArray *)phoneNumbers emails:(NSArray *)emails {
     
-    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     // Setting up authorization header
-    NSString *authCode = [NSString stringWithFormat:@"%@:%@", [ConnectionProvider getUser], appDelegate.sessionID];
+    NSString *authCode = [NSString stringWithFormat:@"%@:%@", [ConnectionProvider getUser], delegate.sessionID];
     NSData *data = [authCode dataUsingEncoding:NSASCIIStringEncoding];
     NSString *base64AuthCode = [Base64 encode:data];
     NSString *authHttpHeaderValue = [NSString stringWithFormat:@"Basic %@", base64AuthCode];
@@ -39,9 +38,12 @@
     [req setHTTPBody:[postBodyWithoutSpace dataUsingEncoding:NSASCIIStringEncoding]];
     
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:req success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Succeded With Operation: %@", operation);
+        NSLog(@"Succeded With Response: %@", operation.responseString);
         ConnectionProvider *conn = [ConnectionProvider getInstance];
         [[conn getConnection] sendElement:[IQPacketManager createGetRosterPacket]];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Failed Blacklist with error: %@", error);
     }];
     [operation setResponseSerializer:[AFHTTPResponseSerializer serializer]];
     [operation start];

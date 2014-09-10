@@ -14,7 +14,7 @@
 @implementation FriendsDBManager
 
 +(FriendMO *)insert:(NSString *)username name:(NSString *)name email:(NSString*)email status:(NSNumber *)status searchedPhoneNumber:(NSString*)searchedPhoneNumber searchedEmail:(NSString*)searchedEmail uid:(NSNumber *)uid {
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     FriendMO *friend;
     //if (uid != nil) {
@@ -166,7 +166,7 @@
 }
 
 +(NSArray *)getAll {
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:CORE_DATA_TABLE_FRIENDS inManagedObjectContext:moc];
@@ -179,7 +179,7 @@
 }
 
 +(NSArray *)getAllWithStatus:(NSNumber *)status {
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     
@@ -278,7 +278,7 @@
     [friend setValue:email forKey:FRIENDS_TABLE_COLUMN_NAME_EMAIL];
     [friend setValue:status forKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];
     
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [delegate saveContext];
     
     return YES;
@@ -300,14 +300,14 @@
 }
 
 +(NSArray*)makeFetchRequest:(NSString*)predicateString {
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     return [self makeFetchRequest:predicateString moc:moc];
 }
 
 +(NSArray*)makeFetchRequestWithPredicate:(NSPredicate*)predicate {
     
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     
@@ -327,7 +327,7 @@
         return NO;
     }
     [entry setValue:status forKey:FRIENDS_TABLE_COLUMN_NAME_STATUS];
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [delegate saveContext];
     return YES;
 }
@@ -373,7 +373,7 @@
 }
 
 +(NSArray*)getAllWithStatusRegisteredOrRequested {
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *moc = [delegate managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     
