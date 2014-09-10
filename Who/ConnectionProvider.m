@@ -7,7 +7,6 @@
 //
 
 #import "ConnectionProvider.h"
-#import "Encrypter.h"
 // XMPP Helper Classes
 #import "XMPPJID.h"
 #import "XMPPIQ.h"
@@ -83,7 +82,7 @@ static ConnectionProvider *selfInstance;
     
     [self.xmppStream setHostName:self.SERVER_IP_ADDRESS];
     self.username = username;
-    self.password = [Encrypter md5:password];
+    self.password = password;
     self.xmppStream.myJID = [XMPPJID jidWithString:[NSString stringWithFormat:@"%@@%@/%@", self.username, self.SERVER_IP_ADDRESS, APPLICATION_RESOURCE]];
     
     NSError *error = nil;
@@ -133,14 +132,20 @@ static ConnectionProvider *selfInstance;
     
     if (self.isCreatingAccount == YES) {
         NSString *password = [_pendingAccountInfo objectForKey:USER_DEFAULTS_PASSWORD];
-        BOOL success = [[self xmppStream] registerWithPassword:[Encrypter md5:password] error:&error];
+        BOOL success = [[self xmppStream] registerWithPassword:password error:&error];
         if (success) {
         } else {
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DID_FAIL_TO_REGISTER_USER object:nil];
         }
     }
     else {
+        //self.password = @"cf4d53d87d2053c1b35c8ab6486ea782";
+        NSLog(@"Authenticating with password: %@", self.password);
+        NSLog(@"Authenticating with username: %@", self.username);
+        NSLog(@"XMPP Stream JID: %@", [self.xmppStream myJID]);
+
         if (![[self xmppStream] authenticateWithPassword:self.password error:&error]) {
+            NSLog(@"Failed with Error: %@", error);
             //[[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
         }
     }
@@ -186,6 +191,7 @@ static ConnectionProvider *selfInstance;
 
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error
 {
+    NSLog(@"Did not authenticate: %@", [error XMLString]);
     [[NSNotificationCenter defaultCenter] postNotificationName:@"didNotAuthenticate" object:nil];
     [self.xmppStream disconnect];
 }
@@ -313,9 +319,12 @@ static ConnectionProvider *selfInstance;
     [UserDefaultManager savePassword:password];
     [UserDefaultManager saveEmail:[self.pendingAccountInfo objectForKey:FRIENDS_TABLE_COLUMN_NAME_EMAIL]];
     
-    self.password = [Encrypter md5:password];
+    self.password = password;
     
     NSError *error = nil;
+    NSLog(@"Authenticating with password: %@", self.password);
+    NSLog(@"Authenticating with username: %@", self.username);
+    NSLog(@"XMPP Stream JID: %@", [self.xmppStream myJID]);
     if (![[self xmppStream] authenticateWithPassword:self.password error:&error]) {
         //[[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_FAILED_TO_AUTHENTICATE object:nil];
     }
@@ -340,5 +349,6 @@ static ConnectionProvider *selfInstance;
 -(void)addName:(NSString *)name forUsername:(NSString *)username {
     [_tempVCardInfo setObject:name forKey:username];
 }
+
 
 @end

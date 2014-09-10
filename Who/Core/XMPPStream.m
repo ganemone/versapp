@@ -1944,7 +1944,7 @@ enum XMPPStreamConfig
 		
 		id <XMPPSASLAuthentication> someAuth = nil;
         
-		if ([self supportsSCRAMSHA1Authentication])
+		/*if ([self supportsSCRAMSHA1Authentication])
 		{
 			someAuth = [[XMPPSCRAMSHA1Authentication alloc] initWithStream:self password:password];
 			result = [self authenticate:someAuth error:&err];
@@ -1955,10 +1955,10 @@ enum XMPPStreamConfig
 			result = [self authenticate:someAuth error:&err];
 		}
 		else if ([self supportsPlainAuthentication])
-		{
-			someAuth = [[XMPPPlainAuthentication alloc] initWithStream:self password:password];
-			result = [self authenticate:someAuth error:&err];
-		}
+		{*/
+        someAuth = [[XMPPPlainAuthentication alloc] initWithStream:self password:password];
+        result = [self authenticate:someAuth error:&err];
+		/*}
 		else if ([self supportsDeprecatedDigestAuthentication])
 		{
 			someAuth = [[XMPPDeprecatedDigestAuthentication alloc] initWithStream:self password:password];
@@ -1977,7 +1977,7 @@ enum XMPPStreamConfig
 			err = [NSError errorWithDomain:XMPPStreamErrorDomain code:XMPPStreamUnsupportedAction userInfo:info];
 			
 			result = NO;
-		}
+		}*/
 	}};
 	
 	
