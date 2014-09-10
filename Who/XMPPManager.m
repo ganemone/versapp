@@ -8,12 +8,9 @@
 
 #import "XMPPManager.h"
 #import "XMPPIDTracker.h"
-#import "DDXMLElement.h"
 #import "IQPacketManager.h"
 #import "IQPacketReceiver.h"
-#import "MessagePacketReceiver.h"
 #import "ConnectionProvider.h"
-#import "PresencePacketReceiver.h"
 
 @interface XMPPManager ()
 

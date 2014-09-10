@@ -8,14 +8,10 @@
 
 #import "LoginViewController.h"
 #import "ConnectionProvider.h"
-#import "IQPacketManager.h"
 #import "Constants.h"
-#import "LoadingDialogManager.h"
 #import "UserDefaultManager.h"
-#import "ChatDBManager.h"
 #import "StyleManager.h"
 #import "MBProgressHUD.h"
-#import "SocialSharingManager.h"
 
 @interface LoginViewController()
 

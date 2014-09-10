@@ -7,11 +7,9 @@
 //
 
 #import "DashboardTableViewCell.h"
-#import "ChatMO.h"
 #import "ChatDBManager.h"
 #import "StyleManager.h"
 #import "Constants.h"
-#import "FriendsDBManager.h"
 
 
 @implementation DashboardTableViewCell

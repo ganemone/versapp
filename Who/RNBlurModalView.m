@@ -25,7 +25,6 @@
 
 #import "RNBlurModalView.h"
 #import <Accelerate/Accelerate.h>
-#import <QuartzCore/QuartzCore.h>
 
 /*
     This bit is important! In order to prevent capturing selected states of UIResponders I've implemented a delay. Please feel free to set this delay to *whatever* you deem apprpriate.

@@ -6,12 +6,9 @@
 //
 
 #import "ContactsViewController.h"
-#import "AddressBook/AddressBook.h"
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
 #import "Constants.h"
-#import "ConnectionProvider.h"
-#import "IQPacketManager.h"
 #import "ContactSearchManager.h"
 #import "FriendsDBManager.h"
 #import "StyleManager.h"

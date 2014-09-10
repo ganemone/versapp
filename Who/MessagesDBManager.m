@@ -8,7 +8,6 @@
 #import "AppDelegate.h"
 #import "MessagesDBManager.h"
 #import "Constants.h"
-#import "MessageMO.h"
 #import "ConnectionProvider.h"
 
 @implementation MessagesDBManager

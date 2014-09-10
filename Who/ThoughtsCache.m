@@ -11,9 +11,7 @@
 #import "ConnectionProvider.h"
 #import "Base64.h"
 #import "AFNetworking.h"
-#import "Confession.h"
 #import "Constants.h"
-#import "ThoughtsDBManager.h"
 
 @interface ThoughtsCache()
 

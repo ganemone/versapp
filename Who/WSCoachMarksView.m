@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Workshirt, Inc. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
 #import "WSCoachMarksView.h"
 
 static const CGFloat kAnimationDuration = 0.3f;

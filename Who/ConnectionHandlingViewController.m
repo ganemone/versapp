@@ -7,7 +7,6 @@
 //
 
 #import "ConnectionHandlingViewController.h"
-#import "ConnectionLostViewController.h"
 #import "Constants.h"
 #import "ConnectionProvider.h"
 #import "MBProgressHUD.h"

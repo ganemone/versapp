@@ -8,7 +8,6 @@
 
 #import "ContactTableViewCell.h"
 #import "StyleManager.h"
-#import "FriendMO.h"
 #import "Constants.h"
 
 @implementation ContactTableViewCell

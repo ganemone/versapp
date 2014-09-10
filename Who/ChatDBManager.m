@@ -5,12 +5,10 @@
 //  Created by Giancarlo Anemone on 2/28/14.
 //  Copyright (c) 2014 Giancarlo Anemone. All rights reserved.
 //
-#import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import "AppDelegate.h"
 #import "Constants.h"
 #import "ChatDBManager.h"
-#import "ChatMO.h"
 #import "MessageMO.h"
 #import "MessagesDBManager.h"
 #import "ConnectionProvider.h"

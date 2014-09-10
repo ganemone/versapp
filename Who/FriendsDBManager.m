@@ -9,7 +9,6 @@
 #import "FriendsDBManager.h"
 #import "Constants.h"
 #import "AppDelegate.h"
-#import "FriendMO.h"
 
 @implementation FriendsDBManager
 

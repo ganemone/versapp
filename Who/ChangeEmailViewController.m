@@ -8,7 +8,6 @@
 
 #import "ChangeEmailViewController.h"
 #import "ConnectionProvider.h"
-#import "IQPacketManager.h"
 #import "Constants.h"
 #import "StyleManager.h"
 #import "UserDefaultManager.h"

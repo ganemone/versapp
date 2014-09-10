@@ -7,7 +7,6 @@
 //
 
 #import "NewUserConfirmationCodeViewController.h"
-#import "UserDefaultManager.h"
 #import "PhoneVerificationManager.h"
 #import "Constants.h"
 #import "StyleManager.h"

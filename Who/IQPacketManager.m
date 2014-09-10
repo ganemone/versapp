@@ -11,7 +11,6 @@
 #import "XMPPPresence.h"
 #import "ConnectionProvider.h"
 #import "Constants.h"
-#import "MessageMO.h"
 #import "ChatDBManager.h"
 #import "UserDefaultManager.h"
 

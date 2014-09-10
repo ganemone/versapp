@@ -8,11 +8,9 @@
 
 #import "ContactSearchManager.h"
 #import "AddressBook/AddressBook.h"
-#import "ConnectionProvider.h"
 #import "IQPacketManager.h"
 #import "Constants.h"
 #import "FriendsDBManager.h"
-#import "FriendMO.h"
 #import "AppDelegate.h"
 #import "UserDefaultManager.h"
 #import "BlacklistManager.h"

@@ -8,7 +8,6 @@
 
 //App Delegate
 #import "AppDelegate.h"
-#import "XMPPIDTracker.h"
 
 // View Controllers
 #import "FriendsViewController.h"
@@ -18,19 +17,15 @@
 // Connection Related
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
-#import "IQPacketManager.h"
 
 // Constants
 #import "Constants.h"
 
 // Objects
 #import "MUCCreationManager.h"
-#import "LoadingDialogManager.h"
 #import "FriendTableViewCell.h"
 // DB
-#import "FriendMO.h"
 #import "FriendsDBManager.h"
-#import "ChatMO.h"
 #import "ChatDBManager.h"
 #import "StyleManager.h"
 

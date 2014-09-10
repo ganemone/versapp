@@ -7,21 +7,17 @@
 //
 #import "UserDefaultManager.h"
 #import "ConfessionsViewController.h"
-#import "Confession.h"
 #import "ConfessionsManager.h"
 #import "Constants.h"
 #import "OneToOneConversationViewController.h"
 #import "StyleManager.h"
 #import "ChatDBManager.h"
-#import "ChatMO.h"
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
 #import "UIScrollView+GifPullToRefresh.h"
-#import "ThoughtTableViewCell.h"
 #import "MBProgressHUD.h"
 #import "FriendsDBManager.h"
 #import "WSCoachMarksView.h"
-#import "ThoughtsCache.h"
 #import "AppDelegate.h"
 
 @interface ConfessionsViewController ()

@@ -11,11 +11,9 @@
 #import "IQPacketManager.h"
 #import "ChatDBManager.h"
 #import "Constants.h"
-#import "StyleManager.h"
 #import "ConfessionsManager.h"
 #import "ThoughtsDBManager.h"
 #import "NSString+URLEncode.h"
-#import "ChatMO.h"
 #import "XMPPManager.h"
 
 @implementation Confession

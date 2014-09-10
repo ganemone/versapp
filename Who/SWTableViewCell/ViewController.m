@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "SWTableViewCell.h"
 #import "UMTableViewCell.h"
 
 @interface ViewController () {

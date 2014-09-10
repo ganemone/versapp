@@ -7,12 +7,9 @@
 //
 
 #import "MUCCreationManager.h"
-#import "XMPPRoom.h"
-#import "XMPPMUC.h"
 #import "XMPPRoomMemoryStorage.h"
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
-#import "ChatMO.h"
 #import "ChatDBManager.h"
 #import "Constants.h"
 #import "NSString+URLEncode.h"

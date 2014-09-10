@@ -7,7 +7,6 @@
 //
 
 #import "MessagePacketReceiver.h"
-#import "XMPPMessage.h"
 // Chat Related Objects
 // DB
 #import "MessagesDBManager.h"
@@ -15,12 +14,8 @@
 // Other
 #import "Constants.h"
 #import "ConnectionProvider.h"
-#import "ChatMO.h"
-#import "MessageMO.h"
 #import "IQPacketManager.h"
-#import "ChatDBManager.h"
 #import "AppDelegate.h"
-#import "FriendsDBManager.h"
 #import "NSString+URLEncode.h"
 
 @implementation MessagePacketReceiver

@@ -57,7 +57,6 @@
     self.connectionProvider = [ConnectionProvider getInstance];
     [self setupNotificationListeners];
     [self setupPageViewController];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated

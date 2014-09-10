@@ -7,19 +7,15 @@
 //
 
 #import "ComposeConfessionViewController.h"
-#import "Confession.h"
 #import "ConfessionsManager.h"
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
 #import "Constants.h"
 #import "StyleManager.h"
 #import "MBProgressHUD.h"
-#import "ImageManager.h"
 #import "UIColor+Hex.h"
-#import "PECropViewController.h"
 #import "UserDefaultManager.h"
 #import "GPUImage.h"
-#import "ThoughtsDBManager.h"
 
 @interface ComposeConfessionViewController ()
 

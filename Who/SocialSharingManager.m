@@ -8,7 +8,6 @@
 
 #import "SocialSharingManager.h"
 #import <FacebookSDK/FacebookSDK.h>
-#import <Social/Social.h>
 
 @implementation SocialSharingManager
 

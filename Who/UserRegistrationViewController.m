@@ -8,10 +8,8 @@
 
 #import "UserRegistrationViewController.h"
 #import "ConnectionProvider.h"
-#import "IQPacketManager.h"
 #import "Constants.h"
 #import "UserDefaultManager.h"
-#import "LoginViewController.h"
 
 @interface UserRegistrationViewController ()
 

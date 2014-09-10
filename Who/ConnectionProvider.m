@@ -8,32 +8,18 @@
 
 #import "ConnectionProvider.h"
 // XMPP Helper Classes
-#import "XMPPJID.h"
-#import "XMPPIQ.h"
-#import "XMPPPresence.h"
-#import "XMPPMessage.h"
 #import "XMPPIDTracker.h"
 #import "XMPPManager.h"
 // Packet Receivers
-#import "IQPacketReceiver.h"
 #import "PresencePacketReceiver.h"
 #import "MessagePacketReceiver.h"
 // Packet Related Helper Classes
 #import "Constants.h"
 #import "IQPacketManager.h"
-#import "MUCCreationManager.h"
-#import "PhoneVerificationManager.h"
 #import "ChatDBManager.h"
 
-#import "Confession.h"
-#import "AppDelegate.h"
-#import "XMPPReconnect.h"
-#import "XMPPAutoPing.h"
-
-#import "MUCCreationManager.h"
 #import "UserDefaultManager.h"
 
-#import "ContactSearchManager.h"
 @interface ConnectionProvider ()
 
 //@property(strong, nonatomic) XMPPReconnect *xmppReconnect;

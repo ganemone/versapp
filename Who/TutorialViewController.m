@@ -7,9 +7,7 @@
 //
 
 #import "TutorialViewController.h"
-#import "UserDefaultManager.h"
 #import "TutorialSlideViewController.h"
-#import "ContactSearchManager.h"
 #import "Constants.h"
 #import "WelcomeViewController.h"
 #import "ThoughtsTutorialViewController.h"

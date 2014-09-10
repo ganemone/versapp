@@ -10,7 +10,6 @@
 #import "Constants.h"
 #import "UserDefaultManager.h"
 #import "StyleManager.h"
-#import "LoginViewController.h"
 #import "PhoneVerificationManager.h"
 
 @interface EnterConfirmationViewController ()

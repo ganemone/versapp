@@ -550,8 +550,6 @@
 		F744856418DB61C500460FBC /* SWUtilityButtonTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = F744854A18DB61C500460FBC /* SWUtilityButtonTapGestureRecognizer.m */; };
 		F744856518DB61C500460FBC /* SWUtilityButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = F744854C18DB61C500460FBC /* SWUtilityButtonView.m */; };
 		F7460CD618E100F000BD8F60 /* EnterConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7460CD518E100F000BD8F60 /* EnterConfirmationViewController.m */; };
-		F749F3C9198BE6D600F2AADC /* (null) in Resources */ = {isa = PBXBuildFile; };
-		F749F3CA198BE6D600F2AADC /* (null) in Resources */ = {isa = PBXBuildFile; };
 		F751015D18ABE101001F1E7F /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751013F18ABE100001F1E7F /* IASKAppSettingsViewController.m */; };
 		F751015E18ABE101001F1E7F /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751014118ABE100001F1E7F /* IASKAppSettingsWebViewController.m */; };
 		F751015F18ABE101001F1E7F /* IASKSpecifierValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F751014318ABE100001F1E7F /* IASKSpecifierValuesViewController.m */; };
@@ -4216,7 +4214,6 @@
 				F7E7BB801947C204002FE587 /* facebook@2x.png in Resources */,
 				3ABD66DA18FB325900E72B09 /* Owl-Loading-Animation_0015.png in Resources */,
 				3AF925A4191BDBA800795FC6 /* thoughts-white.png in Resources */,
-				F749F3CA198BE6D600F2AADC /* (null) in Resources */,
 				F7F54A9F19510CAF007CEADF /* second-degree-orange.png in Resources */,
 				F7F54ABB19510E9D007CEADF /* global-orange@2x.png in Resources */,
 				F7F54AAE19510D42007CEADF /* group-white.png in Resources */,
@@ -4295,7 +4292,6 @@
 				F7F54A8619510AFD007CEADF /* camera-white.png in Resources */,
 				F7F54A9819510B80007CEADF /* second-degree-blue@2x.png in Resources */,
 				F7F54A9919510B80007CEADF /* second-degree-orange@2x.png in Resources */,
-				F749F3C9198BE6D600F2AADC /* (null) in Resources */,
 				3A3A0B0D18AB1126006FBAE4 /* send-button@2x.png in Resources */,
 				3AB8D18918C23DF00082B77C /* MavenProLight-200.ttf in Resources */,
 				3AAD02E918FE106400EE7879 /* bubble-square.png in Resources */,

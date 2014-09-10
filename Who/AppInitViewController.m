@@ -7,13 +7,8 @@
 //
 
 #import "AppInitViewController.h"
-#import "ConnectionProvider.h"
-#import "UserDefaultManager.h"
 #import "Constants.h"
 #import "StyleManager.h"
-#import "FriendsDBManager.h"
-#import "PhoneVerificationManager.h"
-#import "AFNetworking.h"
 
 @interface AppInitViewController ()
 

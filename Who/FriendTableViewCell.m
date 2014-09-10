@@ -8,7 +8,6 @@
 
 #import "FriendTableViewCell.h"
 #import "StyleManager.h"
-#import "FriendMO.h"
 
 @implementation FriendTableViewCell
 

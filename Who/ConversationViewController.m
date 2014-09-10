@@ -9,20 +9,14 @@
 #import "ConversationViewController.h"
 #import "Constants.h"
 #import "MessagesDBManager.h"
-#import "MessageMO.h"
-#import <QuartzCore/QuartzCore.h>
 #import "JSMessage.h"
 #import "ConnectionProvider.h"
-#import "ImageManager.h"
 #import "RNBlurModalView.h"
 #import "ChatDBManager.h"
 #import "StyleManager.h"
 #import "FriendsDBManager.h"
-#import "FriendMO.h"
 #import "AddToGroupViewController.h"
 #import "IQPacketManager.h"
-#import "JSBubbleMessageCell.h"
-#import "UserDefaultManager.h"
 #import "UIScrollView+GifPullToRefresh.h"
 
 @interface ConversationViewController ()

@@ -10,7 +10,6 @@
 //
 
 #import "CustomIOS7AlertView.h"
-#import <QuartzCore/QuartzCore.h>
 #import "StyleManager.h"
 
 const static CGFloat kCustomIOS7AlertViewDefaultButtonHeight       = 45; //Default was 50--looked too big

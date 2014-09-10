@@ -9,7 +9,6 @@
 #import "ThoughtsDBManager.h"
 #import "AppDelegate.h"
 #import "Constants.h"
-#import "Confession.h"
 
 @implementation ThoughtsDBManager
 

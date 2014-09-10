@@ -12,9 +12,7 @@
 #import "ConnectionProvider.h"
 #import "Constants.h"
 #import "Base64.h"
-#import "FriendsDBManager.h"
 #import "ThoughtsDBManager.h"
-#import "ThoughtsCache.h"
 
 static ConfessionsManager *selfInstance;
 

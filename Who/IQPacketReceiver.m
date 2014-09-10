@@ -11,15 +11,11 @@
 #import "ConnectionProvider.h"
 #import "IQPacketManager.h"
 #import "FriendsDBManager.h"
-#import "MessagesDBManager.h"
 #import "AppDelegate.h"
 #import "ChatDBManager.h"
-#import "Confession.h"
 #import "ConfessionsManager.h"
 #import "ContactSearchManager.h"
-#import "AFNetworking.h"
 #import "NSString+URLEncode.h"
-#import "ThoughtsCache.h"
 
 @implementation IQPacketReceiver
 

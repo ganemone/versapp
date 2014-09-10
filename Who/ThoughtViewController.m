@@ -8,7 +8,6 @@
 
 #import "ThoughtViewController.h"
 #import "StyleManager.h"
-#import "ThoughtTableViewCell.h"
 
 @interface ThoughtViewController ()
 
